@@ -7,6 +7,10 @@ target 'ScriptStarter' do
 
   # Pods for ScriptStarter
   pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
+  pod 'FBSDKLoginKit'
+  pod 'FacebookLogin'
   
   target 'ScriptStarterTests' do
     inherit! :search_paths
