@@ -32,6 +32,14 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
         }
     }
     
+    // MARK: IBActions
+    
+    @IBAction func logoutButtonTapped(_ sender: Any) {
+        // TODO: Log person out of Firebase
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
     func enlargeNewScreenplay() {
         self.screenplayView.alpha = 1.0
         self.screenplayView.layer.borderColor = UIColor.blue.cgColor
@@ -57,14 +65,16 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
         return true
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+    self.navigationController?.navigationBar.topItem?.title = ""
     }
-    */
+
 
 }

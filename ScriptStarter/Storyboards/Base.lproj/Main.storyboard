@@ -220,7 +220,10 @@
                                 <rect key="frame" x="20" y="74" width="335" height="573"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Untitled" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eSK-hv-aPl">
-                                        <rect key="frame" x="10" y="252" width="315" height="21"/>
+                                        <rect key="frame" x="10" y="233" width="315" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="GQw-ex-7hH"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next"/>
@@ -232,27 +235,30 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QB0-cm-VTb">
-                                        <rect key="frame" x="10" y="301" width="315" height="21"/>
+                                        <rect key="frame" x="10" y="301" width="315" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="QxJ-Zy-jEE"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="done"/>
                                     </textField>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWD-ze-NnS">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWD-ze-NnS">
                                         <rect key="frame" x="266" y="465" width="49" height="108"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="80"/>
                                         <state key="normal" title="+">
                                             <color key="titleColor" red="0.75294117650000003" green="0.85490196080000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="VmF-yu-3M7" kind="show" id="8R7-xG-Tgp"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1T2-Jp-SjB">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1T2-Jp-SjB">
                                         <rect key="frame" x="249" y="465" width="66" height="108"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="80"/>
                                         <state key="normal" title="→">
                                             <color key="titleColor" red="0.75294117650000003" green="0.85490196080000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
-                                        <connections>
-                                            <segue destination="VmF-yu-3M7" kind="show" identifier="newScreenPlay" id="jQ2-9i-P9i"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -290,6 +296,9 @@
                     <navigationItem key="navigationItem" title="Scripts" id="Tuv-JO-Xdu">
                         <barButtonItem key="leftBarButtonItem" title="Log out" id="BdL-zr-FoL">
                             <color key="tintColor" red="0.75294117650000003" green="0.85490196080000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="logoutButtonTapped:" destination="KsK-ZO-Xqx" id="f7Z-zv-XeP"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -340,15 +349,15 @@
             </objects>
             <point key="canvasLocation" x="2319" y="134"/>
         </scene>
-        <!--Idea-->
+        <!--Outline-->
         <scene sceneID="Ypk-Wk-ocg">
             <objects>
-                <viewControllerPlaceholder storyboardName="Idea" id="Ixs-bj-Q3J" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Outline" id="Ixs-bj-Q3J" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="22b-nd-Oat"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t0e-I5-mgi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2922" y="30"/>
+            <point key="canvasLocation" x="2888" y="71"/>
         </scene>
         <!--Character-->
         <scene sceneID="QWO-WE-78H">
@@ -358,7 +367,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zvA-0e-bno" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2950" y="81"/>
+            <point key="canvasLocation" x="2902" y="108"/>
         </scene>
         <!--Storyboard-->
         <scene sceneID="40z-Ft-DFs">
@@ -368,7 +377,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3e-lE-Yro" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3106" y="336"/>
+            <point key="canvasLocation" x="2908" y="145"/>
         </scene>
     </scenes>
     <resources>

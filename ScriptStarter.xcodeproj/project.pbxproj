@@ -13,11 +13,12 @@
 		212DEA7E2012746500FE9C3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA7C2012746500FE9C3F /* LaunchScreen.storyboard */; };
 		212DEA892012746600FE9C3F /* ScriptStarterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212DEA882012746600FE9C3F /* ScriptStarterTests.swift */; };
 		212DEA942012746600FE9C3F /* ScriptStarterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212DEA932012746600FE9C3F /* ScriptStarterUITests.swift */; };
-		2135777C201292AE00C5EADC /* Idea.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2135777A201292AE00C5EADC /* Idea.storyboard */; };
+		2135777C201292AE00C5EADC /* Outline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2135777A201292AE00C5EADC /* Outline.storyboard */; };
 		2135777F201292E100C5EADC /* Character.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2135777D201292E100C5EADC /* Character.storyboard */; };
 		21A84F46201683D500CE4149 /* ScreenplayCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */; };
 		21A84F482016840300CE4149 /* Screenplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A84F472016840300CE4149 /* Screenplay.swift */; };
 		21A84F4A2016988600CE4149 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21A84F492016988600CE4149 /* Storyboard.storyboard */; };
+		21A84F4C2016A89900CE4149 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A84F4B2016A89900CE4149 /* OutlineViewController.swift */; };
 		21C903D82016528A0017D626 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C903D72016528A0017D626 /* LoginViewController.swift */; };
 		21F1EA1320165FE700E0D677 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21F1EA1220165FE700E0D677 /* GoogleService-Info.plist */; };
 		63AA0BC1A9D0948F916055BB /* Pods_ScriptStarterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7C3BBD8D640D2D2D12C438 /* Pods_ScriptStarterUITests.framework */; };
@@ -55,11 +56,12 @@
 		212DEA8F2012746600FE9C3F /* ScriptStarterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScriptStarterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		212DEA932012746600FE9C3F /* ScriptStarterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptStarterUITests.swift; sourceTree = "<group>"; };
 		212DEA952012746600FE9C3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2135777B201292AE00C5EADC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ScriptStarter/Base.lproj/Idea.storyboard; sourceTree = "<group>"; };
+		2135777B201292AE00C5EADC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ScriptStarter/Base.lproj/Outline.storyboard; sourceTree = "<group>"; };
 		2135777E201292E100C5EADC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ScriptStarter/Base.lproj/Character.storyboard; sourceTree = "<group>"; };
 		21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayCollectionViewController.swift; sourceTree = "<group>"; };
 		21A84F472016840300CE4149 /* Screenplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenplay.swift; sourceTree = "<group>"; };
 		21A84F492016988600CE4149 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
+		21A84F4B2016A89900CE4149 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
 		21C903D72016528A0017D626 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		21F1EA112016564000E0D677 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		21F1EA1220165FE700E0D677 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -165,16 +167,57 @@
 				212DEA772012746500FE9C3F /* Main.storyboard */,
 				21A84F492016988600CE4149 /* Storyboard.storyboard */,
 				2135777D201292E100C5EADC /* Character.storyboard */,
-				2135777A201292AE00C5EADC /* Idea.storyboard */,
+				2135777A201292AE00C5EADC /* Outline.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		21A84F4D2016A9BA00CE4149 /* Main VCs */ = {
+			isa = PBXGroup;
+			children = (
+				21C903D72016528A0017D626 /* LoginViewController.swift */,
+				21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */,
+			);
+			path = "Main VCs";
+			sourceTree = "<group>";
+		};
+		21A84F4E2016A9DA00CE4149 /* Character VCs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Character VCs";
+			sourceTree = "<group>";
+		};
+		21A84F4F2016A9E900CE4149 /* Outline VCs */ = {
+			isa = PBXGroup;
+			children = (
+				21A84F4B2016A89900CE4149 /* OutlineViewController.swift */,
+				21A84F512017AC2A00CE4149 /* TableViewCells */,
+			);
+			path = "Outline VCs";
+			sourceTree = "<group>";
+		};
+		21A84F502016A9F300CE4149 /* Storyboard VCs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Storyboard VCs";
+			sourceTree = "<group>";
+		};
+		21A84F512017AC2A00CE4149 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 		21C903D4201652520017D626 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				21C903D72016528A0017D626 /* LoginViewController.swift */,
-				21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */,
+				21A84F4D2016A9BA00CE4149 /* Main VCs */,
+				21A84F4F2016A9E900CE4149 /* Outline VCs */,
+				21A84F4E2016A9DA00CE4149 /* Character VCs */,
+				21A84F502016A9F300CE4149 /* Storyboard VCs */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -335,7 +378,7 @@
 			files = (
 				212DEA7E2012746500FE9C3F /* LaunchScreen.storyboard in Resources */,
 				2135777F201292E100C5EADC /* Character.storyboard in Resources */,
-				2135777C201292AE00C5EADC /* Idea.storyboard in Resources */,
+				2135777C201292AE00C5EADC /* Outline.storyboard in Resources */,
 				212DEA7B2012746500FE9C3F /* Assets.xcassets in Resources */,
 				212DEA792012746500FE9C3F /* Main.storyboard in Resources */,
 				21A84F4A2016988600CE4149 /* Storyboard.storyboard in Resources */,
@@ -536,6 +579,7 @@
 				21C903D82016528A0017D626 /* LoginViewController.swift in Sources */,
 				21A84F482016840300CE4149 /* Screenplay.swift in Sources */,
 				212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */,
+				21A84F4C2016A89900CE4149 /* OutlineViewController.swift in Sources */,
 				21A84F46201683D500CE4149 /* ScreenplayCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -588,12 +632,12 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		2135777A201292AE00C5EADC /* Idea.storyboard */ = {
+		2135777A201292AE00C5EADC /* Outline.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				2135777B201292AE00C5EADC /* Base */,
 			);
-			name = Idea.storyboard;
+			name = Outline.storyboard;
 			sourceTree = "<group>";
 		};
 		2135777D201292E100C5EADC /* Character.storyboard */ = {
