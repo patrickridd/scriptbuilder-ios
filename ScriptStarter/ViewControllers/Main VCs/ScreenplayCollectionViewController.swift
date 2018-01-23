@@ -7,20 +7,30 @@
 //
 
 import UIKit
+import Firebase
 
 class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate {
-
-    var screenplays = [Screenplay]()
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var screenplayView: UIView!
-    @IBOutlet weak var authorTextField: UITextField!
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    var screenplays = [Screenplay]()
+   
+    var user: User? {
+        return Auth.auth().currentUser
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         titleTextField.delegate = self
-        authorTextField.delegate = self
+        
+        
+        if let name = Auth.auth().currentUser?.displayName {
+             self.nameLabel.text = name
+        }
         
         // Remove Navigation bar shadow and borderline
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -37,10 +47,13 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
     // MARK: IBActions
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
-        // TODO: Log person out of Firebase
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            print(error)
+        }
         self.dismiss(animated: true, completion: nil)
     }
-    
     
     func enlargeNewScreenplay() {
         self.screenplayView.alpha = 1.0
@@ -57,26 +70,20 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
     // MARK: UITextFieldDelegate Methods
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch textField {
-        case titleTextField:
-            authorTextField.becomeFirstResponder()
-        default:
-            titleTextField.resignFirstResponder()
-            authorTextField.resignFirstResponder()
-        }
+        titleTextField.resignFirstResponder()
+        
         return true
     }
 
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         
         self.navigationController?.navigationBar.topItem?.title = ""
-        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.tintColor = UIColor.screenLightBlue
+        self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
+        self.navigationController?.navigationBar.barTintColor = .screenDark
     }
 
 

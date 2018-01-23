@@ -18,18 +18,20 @@ class OutlineTableViewController: UITableViewController {
         super.viewDidLoad()
         
         setupNavigationBar()
+        self.tabBarController?.tabBar.barTintColor = UIColor.screenDark
+        self.tabBarController?.tabBar.tintColor = UIColor.screenLightBlue
+        self.tableView.backgroundColor = UIColor.screenLightBlue
     }
     
     // MARK: UI Methods
     
     func setupNavigationBar() {
+        
         // Remove Navigation bar shadow and borderline
-        self.title = "Untitled"
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.title = "Untitled"
     }
-    
-    
     
     // MARK: UITableView DataSource
     
@@ -44,61 +46,32 @@ class OutlineTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1 // Log line TextView
-        default:
-            return 2 //
-        }
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let moreCell = UITableViewCell()
-        moreCell.textLabel?.text = "More"
-        moreCell.textLabel?.textAlignment = .center
+       
+        guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else {
+            return UITableViewCell() }
         
         switch indexPath.section {
         case 0: // Log line
-            guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else {
-                return UITableViewCell() }
             descriptionCell.descriptionTextView.placeholder = "About a robot lizard who..."
-            return descriptionCell
-            
+       
         case 1: // Act 1
-            switch indexPath.row {
-            
-            case 0: // Description Cell
-                guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else {
-                    return UITableViewCell() }
-                descriptionCell.descriptionTextView.placeholder = "Setup"
-                return descriptionCell
-            default:
-                return moreCell
-            }
-            
+            descriptionCell.descriptionTextView.placeholder = "Setup"
+        
         case 2: // Act 2
-            switch indexPath.row {
-            case 0: // Description Cell
-                guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else {
-                    return UITableViewCell() }
-                descriptionCell.descriptionTextView.placeholder = "Confrontation"
-                return descriptionCell
-            default:
-                return moreCell
-            }
+            descriptionCell.descriptionTextView.placeholder = "Confrontation"
+       
         case 3: // Act 3
-            switch indexPath.row {
-            case 0: // Description Cell
-                guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else {
-                    return UITableViewCell() }
-                descriptionCell.descriptionTextView.placeholder = "Resolution"
-                return descriptionCell
-            default:
-                return moreCell
-            }
+            descriptionCell.descriptionTextView.placeholder = "Resolution"
+        
         default:
-            return moreCell
+            break
         }
+    
+        return descriptionCell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -118,7 +91,7 @@ class OutlineTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection: Int) {
         if let headerTitle = view as? UITableViewHeaderFooterView {
-            headerTitle.textLabel?.textColor = UIColor.white
+            headerTitle.textLabel?.textColor = UIColor.screenDark
             let font = UIFont.systemFont(ofSize: 17, weight: .semibold)
             headerTitle.textLabel?.font = font
         }
