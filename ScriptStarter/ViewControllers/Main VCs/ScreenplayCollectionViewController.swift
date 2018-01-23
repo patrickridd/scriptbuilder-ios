@@ -26,6 +26,8 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
+        self.title = "Screenplays"
+        
         // Enlarge new screenplay if none exist
         if screenplays.count == 0 {
             enlargeNewScreenplay()
@@ -73,7 +75,8 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-    self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = .white
     }
 
 

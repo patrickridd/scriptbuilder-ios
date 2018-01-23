@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KMPlaceholderTextView
 
 class DescriptionTableViewCell: UITableViewCell {
 
