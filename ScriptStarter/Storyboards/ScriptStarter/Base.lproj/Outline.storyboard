@@ -36,14 +36,14 @@
                                 <rect key="frame" x="0.0" y="104" width="375" height="563"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="95" id="6Yl-JZ-UQ4">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="95" id="6Yl-JZ-UQ4" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Yl-JZ-UQ4" id="pIk-pI-vdS">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="94.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-BN-hxh">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-BN-hxh" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
                                                     <rect key="frame" x="10" y="0.0" width="355" height="94.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -57,6 +57,9 @@
                                                 <constraint firstAttribute="bottom" secondItem="Qyo-BN-hxh" secondAttribute="bottom" id="xUx-ue-cd5"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="descriptionTextView" destination="Qyo-BN-hxh" id="nP3-FY-Bm2"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="2nd-9h-lh6" style="IBUITableViewCellStyleDefault" id="hdn-DA-crL">
                                         <rect key="frame" x="0.0" y="123" width="375" height="44"/>
@@ -82,8 +85,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.75294117650000003" green="0.85490196080000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="uLS-WK-FBV" firstAttribute="top" secondItem="fKU-lE-Uxb" secondAttribute="bottom" id="5WF-7w-LrI"/>
                             <constraint firstItem="DgX-4g-XeI" firstAttribute="bottom" secondItem="uLS-WK-FBV" secondAttribute="bottom" id="Umi-Fs-tAc"/>
-                            <constraint firstItem="uLS-WK-FBV" firstAttribute="top" secondItem="fKU-lE-Uxb" secondAttribute="bottom" id="eEu-df-uAm"/>
                             <constraint firstItem="fKU-lE-Uxb" firstAttribute="top" secondItem="DgX-4g-XeI" secondAttribute="top" id="hPn-Kl-QSC"/>
                             <constraint firstItem="DgX-4g-XeI" firstAttribute="trailing" secondItem="uLS-WK-FBV" secondAttribute="trailing" id="iM9-P6-OXm"/>
                             <constraint firstItem="DgX-4g-XeI" firstAttribute="trailing" secondItem="fKU-lE-Uxb" secondAttribute="trailing" id="vj0-F9-R5v"/>

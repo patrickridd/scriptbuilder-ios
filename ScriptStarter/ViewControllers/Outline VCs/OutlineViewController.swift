@@ -46,12 +46,47 @@ class OutlineViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
+        
+        let moreCell = UITableViewCell()
+        moreCell.textLabel?.text = "More"
+        moreCell.textLabel?.textAlignment = .center
+        
+        switch indexPath.section {
+        case 0: // Log line
+            descriptionCell.descriptionTextView.text = "About a robot who..."
+            return descriptionCell
+            
+        case 1: // Act 1
+            switch indexPath.row {
+            case 0: // Description Cell
+                descriptionCell.descriptionTextView.text = "Setup"
+                return descriptionCell
+            default:
+                return moreCell
+            }
+            
+        case 2: // Act 2
+            switch indexPath.row {
+            case 0: // Description Cell
+                descriptionCell.descriptionTextView. = "Confrontation"
+                return descriptionCell
+            default:
+                return moreCell
+            }
+        case 3: // Act 3
+            switch indexPath.row {
+            case 0: // Description Cell
+                descriptionCell.descriptionTextView.text = "Resolution"
+                return descriptionCell
+            default:
+                return moreCell
+            }
+        default:
+            return moreCell
+        }
         
     }
-    
-    
-    
     
     
     /*

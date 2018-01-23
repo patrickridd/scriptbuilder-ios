@@ -47,7 +47,7 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
         let when = DispatchTime.now() + 1 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
             // Your code with delay
-            self.titleTextField.becomeFirstResponder()
+           // self.titleTextField.becomeFirstResponder()
         }
     }
     
