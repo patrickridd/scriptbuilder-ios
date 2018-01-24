@@ -20,7 +20,7 @@ class OutlineTableViewController: UITableViewController {
         setupNavigationBar()
         self.tabBarController?.tabBar.barTintColor = UIColor.screenDark
         self.tabBarController?.tabBar.tintColor = UIColor.screenLightBlue
-        self.tableView.backgroundColor = UIColor.screenLightBlue
+        self.tableView.backgroundColor = .screenLightBlue
     }
     
     // MARK: UI Methods
