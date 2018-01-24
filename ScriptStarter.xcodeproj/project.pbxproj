@@ -23,6 +23,8 @@
 		21E661BF2017C236006A14AF /* OutlineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661BE2017C236006A14AF /* OutlineTableViewController.swift */; };
 		21E661C12017DBAE006A14AF /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661C02017DBAE006A14AF /* FirebaseController.swift */; };
 		21E661C42017F979006A14AF /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661C32017F979006A14AF /* Extension+UIColor.swift */; };
+		21E661C620190E3E006A14AF /* UIAlertControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661C520190E3E006A14AF /* UIAlertControllers.swift */; };
+		21E661C820192E66006A14AF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661C720192E66006A14AF /* SignUpViewController.swift */; };
 		21F1EA1320165FE700E0D677 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21F1EA1220165FE700E0D677 /* GoogleService-Info.plist */; };
 		63AA0BC1A9D0948F916055BB /* Pods_ScriptStarterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7C3BBD8D640D2D2D12C438 /* Pods_ScriptStarterUITests.framework */; };
 		64E81E0F77F79B2E174E9206 /* Pods_ScriptStarterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E33E9FF2DBD1A43E7BAA94 /* Pods_ScriptStarterTests.framework */; };
@@ -69,6 +71,8 @@
 		21E661BE2017C236006A14AF /* OutlineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineTableViewController.swift; sourceTree = "<group>"; };
 		21E661C02017DBAE006A14AF /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		21E661C32017F979006A14AF /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
+		21E661C520190E3E006A14AF /* UIAlertControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllers.swift; sourceTree = "<group>"; };
+		21E661C720192E66006A14AF /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		21F1EA112016564000E0D677 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		21F1EA1220165FE700E0D677 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		530B6E37F1E8D830FD0921A0 /* Pods_ScriptStarter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScriptStarter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				21C903D72016528A0017D626 /* LoginViewController.swift */,
+				21E661C720192E66006A14AF /* SignUpViewController.swift */,
 				21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */,
 			);
 			path = "Main VCs";
@@ -250,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				21E661C32017F979006A14AF /* Extension+UIColor.swift */,
+				21E661C520190E3E006A14AF /* UIAlertControllers.swift */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -599,9 +605,11 @@
 				21E661C12017DBAE006A14AF /* FirebaseController.swift in Sources */,
 				21A84F482016840300CE4149 /* Screenplay.swift in Sources */,
 				21E661BF2017C236006A14AF /* OutlineTableViewController.swift in Sources */,
+				21E661C820192E66006A14AF /* SignUpViewController.swift in Sources */,
 				212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */,
 				21E661BD2017B1F6006A14AF /* DescriptionTableViewCell.swift in Sources */,
 				21A84F46201683D500CE4149 /* ScreenplayCollectionViewController.swift in Sources */,
+				21E661C620190E3E006A14AF /* UIAlertControllers.swift in Sources */,
 				21E661C42017F979006A14AF /* Extension+UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

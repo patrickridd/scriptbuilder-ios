@@ -28,7 +28,6 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
         
         titleTextField.delegate = self
         
-        
         if let name = Auth.auth().currentUser?.displayName {
              self.nameLabel.text = name
         }

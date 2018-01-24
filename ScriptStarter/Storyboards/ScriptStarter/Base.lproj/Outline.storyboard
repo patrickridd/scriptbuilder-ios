@@ -32,7 +32,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-BN-hxh" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="5" y="-0.5" width="365" height="94.5"/>
+                                            <rect key="frame" x="10" y="-0.5" width="355" height="94.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
@@ -41,11 +41,12 @@
                                             </userDefinedRuntimeAttributes>
                                         </textView>
                                     </subviews>
+                                    <color key="backgroundColor" red="0.41568627450000001" green="0.41568627450000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="Qyo-BN-hxh" secondAttribute="bottom" id="IMu-rQ-Nxd"/>
-                                        <constraint firstAttribute="trailing" secondItem="Qyo-BN-hxh" secondAttribute="trailing" constant="5" id="MJM-0c-DjC"/>
+                                        <constraint firstAttribute="trailing" secondItem="Qyo-BN-hxh" secondAttribute="trailing" constant="10" id="MJM-0c-DjC"/>
                                         <constraint firstItem="Qyo-BN-hxh" firstAttribute="top" secondItem="pIk-pI-vdS" secondAttribute="top" id="q37-ff-avv"/>
-                                        <constraint firstItem="Qyo-BN-hxh" firstAttribute="leading" secondItem="pIk-pI-vdS" secondAttribute="leading" constant="5" id="yut-ig-fTU"/>
+                                        <constraint firstItem="Qyo-BN-hxh" firstAttribute="leading" secondItem="pIk-pI-vdS" secondAttribute="leading" constant="10" id="yut-ig-fTU"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
