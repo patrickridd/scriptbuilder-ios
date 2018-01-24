@@ -18,9 +18,9 @@ class OutlineTableViewController: UITableViewController {
         super.viewDidLoad()
         
         setupNavigationBar()
-        self.tabBarController?.tabBar.barTintColor = UIColor.screenDark
+        self.tabBarController?.tabBar.barTintColor = UIColor.screenDarkMediumGray
         self.tabBarController?.tabBar.tintColor = UIColor.screenLightBlue
-        self.tableView.backgroundColor = .screenLightBlue
+        self.tableView.backgroundColor = UIColor.screenLightGreen
     }
     
     // MARK: UI Methods
@@ -71,7 +71,7 @@ class OutlineTableViewController: UITableViewController {
         default:
             break
         }
-    
+        descriptionCell.contentView.backgroundColor = .screenLightGreen
         return descriptionCell
     }
     
@@ -92,7 +92,7 @@ class OutlineTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection: Int) {
         if let headerTitle = view as? UITableViewHeaderFooterView {
-            headerTitle.textLabel?.textColor = UIColor.screenDark
+            headerTitle.textLabel?.textColor = UIColor.screenDarkMediumGray
             let font = UIFont.systemFont(ofSize: 17, weight: .semibold)
             headerTitle.textLabel?.font = font
         }

@@ -12,11 +12,6 @@ import FBSDKCoreKit
 import FacebookLogin
 import GoogleSignIn
 
-enum EmailAuthenticationMode {
-    case login
-    case signUp
-    case confirmName
-}
 
 class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, UITextFieldDelegate {
 
@@ -27,6 +22,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBOutlet weak var signInButton: UIButton!
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +50,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         // Setup Tap Gesture to dismiss keyboard
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
+        tapGesture.cancelsTouchesInView = false // This way the google button will work
     }
     
     // MARK: IBActions/Target methods

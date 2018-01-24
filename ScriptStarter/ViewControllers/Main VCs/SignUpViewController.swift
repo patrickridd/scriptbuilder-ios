@@ -22,6 +22,10 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,6 +46,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         // Setup Tap Gesture to dismiss keyboard
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
+        tapGesture.cancelsTouchesInView = false // This way the google button will work
     }
     
     

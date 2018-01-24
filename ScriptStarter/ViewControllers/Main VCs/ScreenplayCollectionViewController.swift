@@ -81,11 +81,8 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = UIColor.screenLightBlue
-        self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
+        self.navigationController?.navigationBar.backgroundColor = UIColor.screenDarkMediumGray
     }
-
-
 }
