@@ -11,7 +11,7 @@ import UIKit
 class OutlineTableViewController: UITableViewController {
     
     var screenplay: Screenplay?
-    
+   
     @IBOutlet weak var titleTextField: UITextField!
     
     override func viewDidLoad() {
@@ -28,9 +28,10 @@ class OutlineTableViewController: UITableViewController {
     func setupNavigationBar() {
         
         // Remove Navigation bar shadow and borderline
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.title = "Untitled"
+       // self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+       // self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.barStyle = .black
+
     }
     
     // MARK: UITableView DataSource

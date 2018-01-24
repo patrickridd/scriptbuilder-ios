@@ -10,11 +10,12 @@ import UIKit
 import FirebaseAuth
 import FBSDKCoreKit
 import FacebookLogin
+import FBSDKLoginKit
 import GoogleSignIn
 
-class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
+class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
 
-    @IBOutlet weak var facebookButton: UIButton!
+    @IBOutlet weak var facebookButton: FBSDKLoginButton!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
     
     override func viewDidLoad() {
@@ -25,42 +26,61 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             presentScreenPlayCollection()
         }
         
+        // Setup Facebook sign in buttons
+        facebookButton.delegate = self
         
-        // Setup sign in buttons
-        facebookButton.addTarget(self, action: #selector(facebookButtonTapped), for: .touchUpInside)
+        //facebookButton.addTarget(self, action: #selector(facebookButtonTapped), for: .touchUpInside)
         
         // Google Sign-in
         GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().signInSilently()
         GIDSignIn.sharedInstance().uiDelegate = self
-        googleSignInButton.style = .iconOnly
-        
-        
+        googleSignInButton.style = .standard
     }
     
     // MARK: IBActions/Target methods
     
-    @objc func facebookButtonTapped() {
-        let loginManager = LoginManager()
-        loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { loginResult in
-                switch loginResult {
-                case .failed(let error):
-                    #if DEBUG
-                        print(error)
-                    #endif
-                case .cancelled:
-                    #if DEBUG
-                        print("User cancelled login.")
-                    #endif
-                case .success( _, _, _):
-                    #if DEBUG
-                        print("Logged in!")
-                    #endif
-                    
-                    
-                }
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        if result.isCancelled { return }
+
+        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString )
+        Auth.auth().signIn(with: credential) { (user, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            self.presentScreenPlayCollection()
         }
     }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        
+    }
+    
+//    @objc func facebookButtonTapped() {
+//        let loginManager = LoginManager()
+//        loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { loginResult in
+//                switch loginResult {
+//                case .failed(let error):
+//                    #if DEBUG
+//                        print(error)
+//                    #endif
+//                case .cancelled:
+//                    #if DEBUG
+//                        print("User cancelled login.")
+//                    #endif
+//                case .success( _, _, _):
+//                    #if DEBUG
+//                        print("Logged in!")
+//                    #endif
+//
+//
+//                }
+//        }
+//    }
     
     // MARK:  GIDSignInDelegate Methods
     

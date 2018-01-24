@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FBSDKLoginKit
 
 class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate {
     
@@ -52,13 +53,15 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
         } catch let error {
             print(error)
         }
+        
+        FBSDKLoginManager().logOut()
         self.dismiss(animated: true, completion: nil)
     }
     
     func enlargeNewScreenplay() {
         self.screenplayView.alpha = 1.0
-        self.screenplayView.layer.borderColor = UIColor.blue.cgColor
-        self.screenplayView.layer.borderWidth = 1.0
+        self.screenplayView.layer.borderColor = UIColor.screenLightBlue.cgColor
+        self.screenplayView.layer.borderWidth = 2.0
         let when = DispatchTime.now() + 1 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
             // Your code with delay
@@ -83,7 +86,6 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = UIColor.screenLightBlue
         self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
-        self.navigationController?.navigationBar.barTintColor = .screenDark
     }
 
 

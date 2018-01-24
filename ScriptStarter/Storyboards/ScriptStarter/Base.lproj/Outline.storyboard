@@ -14,10 +14,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Untitled-->
+        <!--Outline Table View Controller-->
         <scene sceneID="FlJ-1M-wwQ">
             <objects>
-                <tableViewController id="h9D-Uq-43Z" customClass="OutlineTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="h9D-Uq-43Z" customClass="OutlineTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="MBV-AV-Cnd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -75,8 +75,8 @@
                             <outlet property="delegate" destination="h9D-Uq-43Z" id="6MH-oU-bs4"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Untitled" id="t6C-V5-3Kn"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="EGf-bN-nUU"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JVP-l1-oah" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
