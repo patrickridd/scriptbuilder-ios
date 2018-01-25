@@ -18,7 +18,7 @@ class OutlineTableViewController: UITableViewController {
         super.viewDidLoad()
         
         setupNavigationBar()
-        self.tabBarController?.tabBar.barTintColor = UIColor.screenDarkMediumGray
+        self.tabBarController?.tabBar.barTintColor = UIColor.screenDark
         self.tabBarController?.tabBar.tintColor = UIColor.screenLightBlue
         self.tableView.backgroundColor = UIColor.screenLightGreen
     }
@@ -30,6 +30,13 @@ class OutlineTableViewController: UITableViewController {
         // Remove Navigation bar shadow and borderline
        // self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
        // self.navigationController?.navigationBar.shadowImage = UIImage()
+        if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView {
+            statusBar.backgroundColor = UIColor.screenDark
+        }
+    
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenLightGreen]
+        self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.barStyle = .black
 
     }

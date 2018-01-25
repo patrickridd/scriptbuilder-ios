@@ -75,6 +75,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
                         print(error.localizedDescription)
                         return
                     }
+                    self.presentScreenPlayCollection()
                 }
             }
         }
