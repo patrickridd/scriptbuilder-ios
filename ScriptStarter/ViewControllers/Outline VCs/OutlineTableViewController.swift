@@ -8,19 +8,41 @@
 
 import UIKit
 
+let swipeLeftNotificationKey = "com.scriptstarter.swipedleftinabBar"
+
 class OutlineTableViewController: UITableViewController {
     
     var screenplay: Screenplay?
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
    
+    
     @IBOutlet weak var titleTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleLeftSwipe(sender:)))
+        leftSwipe.direction = .right
+        view.addGestureRecognizer(leftSwipe)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         setupNavigationBar()
-        self.tabBarController?.tabBar.barTintColor = UIColor.screenDark
-        self.tabBarController?.tabBar.tintColor = UIColor.screenLightBlue
-        self.tableView.backgroundColor = UIColor.screenLightGreen
+        setupTabBar()
+    }
+    
+    // MARK: IBActions/Target Methods
+    
+    
+    // MARK: Swipe gestures
+    
+    @objc func handleLeftSwipe(sender: UISwipeGestureRecognizer) {
+        let swipeNotificationName = Notification.Name(swipeLeftNotificationKey)
+        let swipeNotification = Notification(name: swipeNotificationName)
+        NotificationCenter.default.post(swipeNotification)
     }
     
     // MARK: UI Methods
@@ -29,16 +51,21 @@ class OutlineTableViewController: UITableViewController {
         
         // Remove Navigation bar shadow and borderline
        // self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-       // self.navigationController?.navigationBar.shadowImage = UIImage()
+      //  self.navigationController?.navigationBar.shadowImage = UIImage()
         if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView {
             statusBar.backgroundColor = UIColor.screenDark
         }
     
-        
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenLightGreen]
         self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.barStyle = .black
+        self.navigationController?.navigationBar.barTintColor = .screenDark
 
+    }
+    
+    func setupTabBar() {
+        self.tabBarController?.tabBar.barTintColor = UIColor.screenDark
+        self.tabBarController?.tabBar.tintColor = UIColor.screenLightBlue
+        self.tableView.backgroundColor = UIColor.screenLightGreen
     }
     
     // MARK: UITableView DataSource

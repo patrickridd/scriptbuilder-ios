@@ -10,11 +10,7 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 
-class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate {
-    
-    @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var screenplayView: UIView!
-    @IBOutlet weak var nameLabel: UILabel!
+class ScreenplayCollectionViewController: UIViewController {
     
     var screenplays = [Screenplay]()
    
@@ -26,12 +22,6 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleTextField.delegate = self
-        
-        if let name = Auth.auth().currentUser?.displayName {
-             self.nameLabel.text = name
-        }
-        
         // Remove Navigation bar shadow and borderline
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -40,7 +30,7 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
         
         // Enlarge new screenplay if none exist
         if screenplays.count == 0 {
-            enlargeNewScreenplay()
+            segueToNewScreenPlay()
         }
     }
     
@@ -57,24 +47,15 @@ class ScreenplayCollectionViewController: UIViewController, UITextFieldDelegate 
         self.dismiss(animated: true, completion: nil)
     }
     
-    func enlargeNewScreenplay() {
-        self.screenplayView.alpha = 1.0
-        self.screenplayView.layer.borderColor = UIColor.screenLightBlue.cgColor
-        self.screenplayView.layer.borderWidth = 2.0
+    func segueToNewScreenPlay() {
         let when = DispatchTime.now() + 1 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
             // Your code with delay
-           // self.titleTextField.becomeFirstResponder()
+            guard let screenplayPageVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else { return }
+            
+            // TODO: Set screenplay object if it exists
+            self.present(screenplayPageVC, animated: true, completion: nil)
         }
-    }
-    
-    
-    // MARK: UITextFieldDelegate Methods
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        titleTextField.resignFirstResponder()
-        
-        return true
     }
 
     // MARK: - Navigation
