@@ -12,7 +12,6 @@ import FBSDKCoreKit
 import FacebookLogin
 import GoogleSignIn
 
-
 class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var facebookButton: UIButton!

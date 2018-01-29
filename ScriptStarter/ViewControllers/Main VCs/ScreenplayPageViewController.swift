@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Hero
 class ScreenplayPageViewController: UIPageViewController, UIPageViewControllerDataSource {
 
     
@@ -22,7 +22,8 @@ class ScreenplayPageViewController: UIPageViewController, UIPageViewControllerDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+      
+        
         self.dataSource = self
         
         if let screenplayCover = orderedViewControllers.first {

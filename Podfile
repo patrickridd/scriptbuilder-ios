@@ -12,6 +12,7 @@ target 'ScriptStarter' do
   pod 'FBSDKLoginKit'
   pod 'FacebookLogin'
   pod 'KMPlaceholderTextView'
+  pod 'Hero'
   
   target 'ScriptStarterTests' do
     inherit! :search_paths

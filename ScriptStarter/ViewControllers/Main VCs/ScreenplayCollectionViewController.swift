@@ -9,15 +9,17 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
+import Hero
 
-class ScreenplayCollectionViewController: UIViewController {
+class ScreenplayCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var screenplays = [Screenplay]()
    
     var user: User? {
         return Auth.auth().currentUser
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,7 @@ class ScreenplayCollectionViewController: UIViewController {
         
         // Enlarge new screenplay if none exist
         if screenplays.count == 0 {
-            segueToNewScreenPlay()
+          //  segueToNewScreenPlay()
         }
     }
     
@@ -54,10 +56,36 @@ class ScreenplayCollectionViewController: UIViewController {
             guard let screenplayPageVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else { return }
             
             // TODO: Set screenplay object if it exists
-            self.present(screenplayPageVC, animated: true, completion: nil)
+            self.isHeroEnabled = true
+            self.heroModalAnimationType = .selectBy(presenting:.zoom, dismissing:.zoomOut)
+    
         }
     }
+    
+    // MARK - UICollectionViewDataSource
+    
 
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        switch indexPath.row {
+        case 0:
+            // Create the Add '+' screenplay cell
+            guard let addScreenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "addScreenplayCell", for: indexPath) as? AddScreenplayCollectionViewCell else { return UICollectionViewCell() }
+            return addScreenplayCell
+        default:
+            // Create a cell for an existing screenplay
+            return UICollectionViewCell()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //segueToNewScreenPlay()
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
