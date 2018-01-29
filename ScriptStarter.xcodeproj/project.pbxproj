@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */; };
+		21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099167201FD4CF00340124 /* SectionHeaderView.swift */; };
 		212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212DEA732012746500FE9C3F /* AppDelegate.swift */; };
 		212DEA792012746500FE9C3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA772012746500FE9C3F /* Main.storyboard */; };
 		212DEA7B2012746500FE9C3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA7A2012746500FE9C3F /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScreenplayCollectionViewCell.swift; sourceTree = "<group>"; };
+		21099167201FD4CF00340124 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		212DEA702012746500FE9C3F /* ScriptStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		212DEA732012746500FE9C3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		212DEA782012746500FE9C3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 			children = (
 				21E661C32017F979006A14AF /* Extension+UIColor.swift */,
 				21E661C520190E3E006A14AF /* UIAlertControllers.swift */,
+				21099167201FD4CF00340124 /* SectionHeaderView.swift */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -630,6 +633,7 @@
 				21E661BF2017C236006A14AF /* OutlineTableViewController.swift in Sources */,
 				21E661C820192E66006A14AF /* SignUpViewController.swift in Sources */,
 				212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */,
+				21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */,
 				21E661BD2017B1F6006A14AF /* DescriptionTableViewCell.swift in Sources */,
 				21B8FB88201AA656000A8721 /* ScreenplayTabBarController.swift in Sources */,
 				21B8FB84201A93D0000A8721 /* ScreenplayPageViewController.swift in Sources */,

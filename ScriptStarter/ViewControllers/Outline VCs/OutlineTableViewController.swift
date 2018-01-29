@@ -131,9 +131,26 @@ class OutlineTableViewController: UITableViewController {
         }
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let rect = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
+//        let sectionHeader = SectionHeaderView(frame: rect)
 //
-//    }
+//        var sectionName = String()
+//        switch section {
+//        case 0:
+//            sectionName = "Basic Idea - Log line"
+//        case 1:
+//            sectionName = " Act 1"
+//        case 2:
+//            sectionName = "Act 2"
+//        case 3:
+//            sectionName = "Act 3"
+//        default:
+//            break
+//        }
+//        sectionHeader.sectionLabel.text = sectionName
+//        return sectionHeader
+//   }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 85
