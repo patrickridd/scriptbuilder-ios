@@ -11,12 +11,12 @@ import Firebase
 import FBSDKLoginKit
 import Hero
 
-class ScreenplayCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ScreenplayCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, HeroViewControllerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     var screenplays = [Screenplay]()
-   
+    
     var user: User? {
         return Auth.auth().currentUser
     }
@@ -36,6 +36,14 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         }
     }
     
+    // MARK: UI Methods
+    
+    func setStatusBarColor() {
+        if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView {
+            statusBar.backgroundColor = UIColor.screenDark
+        }
+    }
+
     // MARK: IBActions
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
@@ -66,7 +74,7 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return screenplays.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -82,8 +90,11 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //segueToNewScreenPlay()
+    // MARK: - HeroViewControllerDelegate Methods
+    
+    func heroDidEndTransition() {
+         //   setStatusBarColor()
+        
     }
     
     // MARK: - Navigation

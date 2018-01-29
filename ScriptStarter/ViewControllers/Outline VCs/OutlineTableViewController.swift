@@ -14,12 +14,7 @@ let swipeRightNotificationKey = "com.scriptstarter.swipedRightinabBar"
 class OutlineTableViewController: UITableViewController {
     
     var screenplay: Screenplay?
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
    
-    
     @IBOutlet weak var titleTextField: UITextField!
     
     override func viewDidLoad() {
@@ -31,6 +26,8 @@ class OutlineTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.tableView.backgroundColor = UIColor.screenLightGray
+
         setupNavigationBar()
         setupTabBar()
     }
@@ -50,23 +47,24 @@ class OutlineTableViewController: UITableViewController {
     
     func setupNavigationBar() {
         
-        // Remove Navigation bar shadow and borderline
-       // self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-      //  self.navigationController?.navigationBar.shadowImage = UIImage()
+       // Remove Navigation bar shadow and borderline
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = false
         if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView {
-            statusBar.backgroundColor = UIColor.screenDark
+            statusBar.backgroundColor = UIColor.white
         }
-    
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenLightGreen]
-        self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.barTintColor = .screenDark
+        self.navigationController?.navigationBar.topItem?.title = "Untitled"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenLightBlue, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
+        self.navigationController?.navigationBar.tintColor = .screenLightBlue
+        self.navigationController?.navigationBar.barTintColor = .white
+        
+        
 
     }
     
     func setupTabBar() {
-        self.tabBarController?.tabBar.barTintColor = UIColor.screenDark
+        self.tabBarController?.tabBar.barTintColor = UIColor.white
         self.tabBarController?.tabBar.tintColor = UIColor.screenLightBlue
-        self.tableView.backgroundColor = UIColor.screenLightGreen
     }
     
     // MARK: UITableView DataSource
@@ -106,7 +104,7 @@ class OutlineTableViewController: UITableViewController {
         default:
             break
         }
-        descriptionCell.contentView.backgroundColor = .screenLightGreen
+        descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
         return descriptionCell
     }
     
@@ -127,7 +125,7 @@ class OutlineTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection: Int) {
         if let headerTitle = view as? UITableViewHeaderFooterView {
-            headerTitle.textLabel?.textColor = UIColor.screenDarkMediumGray
+            headerTitle.textLabel?.textColor = UIColor.screenDark
             let font = UIFont.systemFont(ofSize: 17, weight: .semibold)
             headerTitle.textLabel?.font = font
         }
@@ -138,18 +136,18 @@ class OutlineTableViewController: UITableViewController {
 //    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        switch indexPath.section {
-        case 0:
-            return 100
-        default:
-            switch indexPath.row {
-            case 0:
-                return 100
-            default:
-                return 40
-            }
-        }
+        return 85
+//        switch indexPath.section {
+//        case 0:
+//            return 100
+//        default:
+//            switch indexPath.row {
+//            case 0:
+//                return 100
+//            default:
+//                return 40
+//            }
+//        }
     }
    
     // MARK: - Navigation

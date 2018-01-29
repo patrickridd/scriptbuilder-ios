@@ -60,6 +60,7 @@ class ScreenplayPageViewController: UIPageViewController, UIPageViewControllerDa
         }
     }
 
+    
     // MARK: UIPageViewControllerDataSource
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -72,32 +73,13 @@ class ScreenplayPageViewController: UIPageViewController, UIPageViewControllerDa
         guard orderedViewControllersCount != nextIndex else { return nil }
         
         guard orderedViewControllersCount > nextIndex else { return nil }
-//        if let tabBarViewController = orderedViewControllers[nextIndex] as? ScreenplayTabBarController {
-//            tabBarViewController.swipeDelegate = self
-//            return tabBarViewController
-//        } else {
-//        }
-        return orderedViewControllers[nextIndex]
 
+        return orderedViewControllers[nextIndex]
     }
 
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         return nil
-//        let screenTabBarController = getScreenplayViewController(with: "screenplayTabController")
-//        if screenTabBarController.tabBarController?.selectedIndex == 0 {
-//            return nil
-//        }
-//
-//        guard let viewControllerIndex = orderedViewControllers.index(of:viewController) else { return nil }
-//
-//        let previousIndex = viewControllerIndex - 1
-//
-//        guard previousIndex >= 0 else { return nil }
-//
-//        guard orderedViewControllers.count > previousIndex else { return nil }
-//
-//        return orderedViewControllers[previousIndex]
     }
     
     

@@ -16,6 +16,8 @@ class DescriptionTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        descriptionTextView.textColor = UIColor.screenDarkMediumGray
+        descriptionTextView.placeholderColor = UIColor.flamenco
         
     }
 

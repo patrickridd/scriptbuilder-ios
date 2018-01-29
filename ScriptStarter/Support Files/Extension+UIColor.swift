@@ -23,7 +23,7 @@ extension UIColor {
     }
     
     static var screenLightBlue: UIColor {
-        return UIColor(red: 0.75, green: 0.85, blue: 0.91, alpha: 1.0)
+        return UIColor(red: 0.53, green: 0.72, blue: 0.85, alpha: 1.0)
     }
     
     static var screenLightGreen: UIColor {
@@ -32,5 +32,17 @@ extension UIColor {
     
     static var screenLightGray: UIColor {
         return UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0)
+    }
+    
+    static var flamingoRed: UIColor {
+        return UIColor(red: 0.87, green: 0.39, blue: 0.30, alpha: 1.0)
+    }
+    
+    static var screenYellow: UIColor {
+        return UIColor(red: 0.93, green: 0.77, blue: 0.32, alpha: 1.0)
+    }
+    
+    static var flamenco: UIColor {
+        return UIColor(red: 0.92, green: 0.50, blue: 0.31, alpha: 1.0)
     }
 }
