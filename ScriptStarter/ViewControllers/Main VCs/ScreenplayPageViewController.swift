@@ -33,13 +33,25 @@ class ScreenplayPageViewController: UIPageViewController, UIPageViewControllerDa
                                completion: nil)
         }
         
-        let swipeNotificationName = Notification.Name(swipeLeftNotificationKey)
-        NotificationCenter.default.addObserver(self, selector: #selector(swipedLeft), name: swipeNotificationName, object: nil)
+        let swipedRightNotification = Notification.Name(swipeRightNotificationKey)
+        NotificationCenter.default.addObserver(self, selector: #selector(swipedRight), name: swipedRightNotification, object: nil)
+        
+        let swipedLeftNotification = Notification.Name(swipeLeftNotificationKey)
+        NotificationCenter.default.addObserver(self, selector: #selector(swipedLeft), name: swipedLeftNotification, object: nil)
     }
     
     // Mark: SwipeLeftDelegate Methods
     
     @objc func swipedLeft() {
+        if let screenplayCover = orderedViewControllers.last {
+            setViewControllers([screenplayCover],
+                               direction: .forward,
+                               animated: true,
+                               completion: nil)
+        }
+    }
+    
+    @objc func swipedRight() {
         if let screenplayCover = orderedViewControllers.first {
             setViewControllers([screenplayCover],
                                direction: .reverse,

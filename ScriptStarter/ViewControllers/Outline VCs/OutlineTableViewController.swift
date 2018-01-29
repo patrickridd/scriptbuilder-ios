@@ -9,6 +9,7 @@
 import UIKit
 
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftinabBar"
+let swipeRightNotificationKey = "com.scriptstarter.swipedRightinabBar"
 
 class OutlineTableViewController: UITableViewController {
     
@@ -40,7 +41,7 @@ class OutlineTableViewController: UITableViewController {
     // MARK: Swipe gestures
     
     @objc func handleLeftSwipe(sender: UISwipeGestureRecognizer) {
-        let swipeNotificationName = Notification.Name(swipeLeftNotificationKey)
+        let swipeNotificationName = Notification.Name(swipeRightNotificationKey)
         let swipeNotification = Notification(name: swipeNotificationName)
         NotificationCenter.default.post(swipeNotification)
     }

@@ -41,7 +41,9 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func arrowButtonTapped(_ sender: Any) {
-        
+        let swipeNotificationName = Notification.Name(swipeLeftNotificationKey)
+        let swipeNotification = Notification(name: swipeNotificationName)
+        NotificationCenter.default.post(swipeNotification)
     }
     
     

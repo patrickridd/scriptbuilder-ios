@@ -311,7 +311,6 @@
                                 </state>
                                 <connections>
                                     <action selector="arrowButtonTapped:" destination="V0n-xO-FAg" eventType="touchUpInside" id="VW1-MS-KFX"/>
-                                    <action selector="doneButtonTapped:" destination="V0n-xO-FAg" eventType="touchUpInside" id="qLb-ZU-Cuk"/>
                                 </connections>
                             </button>
                         </subviews>
