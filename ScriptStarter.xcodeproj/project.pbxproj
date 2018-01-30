@@ -194,9 +194,9 @@
 			isa = PBXGroup;
 			children = (
 				212DEA772012746500FE9C3F /* Main.storyboard */,
-				21A84F492016988600CE4149 /* Storyboard.storyboard */,
-				2135777D201292E100C5EADC /* Character.storyboard */,
 				2135777A201292AE00C5EADC /* Outline.storyboard */,
+				2135777D201292E100C5EADC /* Character.storyboard */,
+				21A84F492016988600CE4149 /* Storyboard.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";

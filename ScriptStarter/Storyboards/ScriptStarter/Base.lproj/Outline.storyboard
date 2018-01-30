@@ -19,29 +19,52 @@
                         <color key="backgroundColor" red="0.41568627450000001" green="0.41568627450000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="95" id="6Yl-JZ-UQ4" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="95"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="120" id="6Yl-JZ-UQ4" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Yl-JZ-UQ4" id="pIk-pI-vdS">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="94.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-BN-hxh" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="10" y="0.0" width="355" height="94.5"/>
+                                            <rect key="frame" x="10" y="0.0" width="325" height="120"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="About a robot"/>
                                             </userDefinedRuntimeAttributes>
                                         </textView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ejy-l3-4Uu" userLabel="expandView">
+                                            <rect key="frame" x="335" y="0.0" width="30" height="120"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VCm-O2-NpU" userLabel="expandButton">
+                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="JPl-2t-fAQ"/>
+                                                        <constraint firstAttribute="width" constant="30" id="NTB-NJ-2zZ"/>
+                                                    </constraints>
+                                                    <state key="normal" image="expandButtonAsset 3"/>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="VCm-O2-NpU" secondAttribute="trailing" id="EVc-qT-aHc"/>
+                                                <constraint firstItem="VCm-O2-NpU" firstAttribute="top" secondItem="Ejy-l3-4Uu" secondAttribute="top" id="aSL-k8-Olh"/>
+                                                <constraint firstAttribute="width" constant="30" id="k8d-SL-kaD"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <constraints>
+                                        <constraint firstItem="Ejy-l3-4Uu" firstAttribute="bottom" secondItem="Qyo-BN-hxh" secondAttribute="bottom" id="8Wk-Sm-Vub"/>
                                         <constraint firstAttribute="bottom" secondItem="Qyo-BN-hxh" secondAttribute="bottom" id="IMu-rQ-Nxd"/>
-                                        <constraint firstAttribute="trailing" secondItem="Qyo-BN-hxh" secondAttribute="trailing" constant="10" id="MJM-0c-DjC"/>
-                                        <constraint firstItem="Qyo-BN-hxh" firstAttribute="top" secondItem="pIk-pI-vdS" secondAttribute="top" id="q37-ff-avv"/>
+                                        <constraint firstItem="Ejy-l3-4Uu" firstAttribute="leading" secondItem="Qyo-BN-hxh" secondAttribute="trailing" id="cXP-KV-Rjk"/>
+                                        <constraint firstItem="Ejy-l3-4Uu" firstAttribute="height" secondItem="Qyo-BN-hxh" secondAttribute="height" id="dvV-n2-CJE"/>
+                                        <constraint firstAttribute="trailing" secondItem="Ejy-l3-4Uu" secondAttribute="trailing" constant="10" id="vAx-DR-ywK"/>
                                         <constraint firstItem="Qyo-BN-hxh" firstAttribute="leading" secondItem="pIk-pI-vdS" secondAttribute="leading" constant="10" id="yut-ig-fTU"/>
+                                        <constraint firstItem="Ejy-l3-4Uu" firstAttribute="top" secondItem="Qyo-BN-hxh" secondAttribute="top" id="zHZ-6e-bd4"/>
+                                        <constraint firstItem="Qyo-BN-hxh" firstAttribute="top" secondItem="pIk-pI-vdS" secondAttribute="top" id="zRn-0B-tEK"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -60,7 +83,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JVP-l1-oah" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4166" y="-679"/>
+            <point key="canvasLocation" x="4165.6000000000004" y="-679.61019490254876"/>
         </scene>
         <!--outline-->
         <scene sceneID="QuI-Nw-bJH">
@@ -86,6 +109,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="expandButtonAsset 3" width="15" height="15"/>
         <image name="outlineTabIconAsset 1" width="22" height="17"/>
     </resources>
 </document>

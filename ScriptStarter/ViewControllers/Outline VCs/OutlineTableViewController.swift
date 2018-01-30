@@ -20,9 +20,9 @@ class OutlineTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleLeftSwipe(sender:)))
-        leftSwipe.direction = .right
-        view.addGestureRecognizer(leftSwipe)
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(sender:)))
+        rightSwipe.direction = .right
+        view.addGestureRecognizer(rightSwipe)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,7 +37,7 @@ class OutlineTableViewController: UITableViewController {
     
     // MARK: Swipe gestures
     
-    @objc func handleLeftSwipe(sender: UISwipeGestureRecognizer) {
+    @objc func handleRightSwipe(sender: UISwipeGestureRecognizer) {
         let swipeNotificationName = Notification.Name(swipeRightNotificationKey)
         let swipeNotification = Notification(name: swipeNotificationName)
         NotificationCenter.default.post(swipeNotification)
@@ -54,12 +54,12 @@ class OutlineTableViewController: UITableViewController {
             statusBar.backgroundColor = UIColor.white
         }
         self.navigationController?.navigationBar.topItem?.title = "Untitled"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenLightBlue, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
         
-        
-
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backButtonAsset"), style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
+        self.navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
     func setupTabBar() {
