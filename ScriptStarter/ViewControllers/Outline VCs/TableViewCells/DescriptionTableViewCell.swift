@@ -23,10 +23,9 @@ class DescriptionTableViewCell: UITableViewCell {
         self.imageView?.heroID = "descriptionId"
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func updateWith(text: String?) {
+        if let text = text {
+            self.descriptionTextView.text = text
+        }
     }
-
 }

@@ -12,7 +12,9 @@ import Hero
 class EnlargedDescriptionTableViewController: UITableViewController {
     
     var screenplay: Screenplay?
+    var text: String?
     var section: Int = 0
+    weak var delegate: DescriptionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,9 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     // MARK: - IBAction Methods
 
     @IBAction func reduceScreenButtonTapped(_ sender: Any) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell, let text = descriptionCell.descriptionTextView.text else { return }
+        delegate?.updatedText(text, in: self.section)
         hero_dismissViewController()
     }
     
@@ -56,6 +61,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell") as? DescriptionTableViewCell else { return UITableViewCell() }
         
         descriptionCell.backgroundColor = .screenLightGray
+        descriptionCell.updateWith(text:text)
         return descriptionCell
     }
     

@@ -11,7 +11,7 @@ import Firebase
 import FBSDKLoginKit
 import Hero
 
-class ScreenplayCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, HeroViewControllerDelegate {
+class ScreenplayCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, HeroViewControllerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -89,6 +89,15 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
             return UICollectionViewCell()
         }
     }
+    
+    // MARK: UICollectionViewDelegateFlowLayout Methods
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = self.view.frame.width * (2/5)
+        let height = width * (4/3)
+        return CGSize(width: width, height: height)
+    }
+   
     
     // MARK: - HeroViewControllerDelegate Methods
     

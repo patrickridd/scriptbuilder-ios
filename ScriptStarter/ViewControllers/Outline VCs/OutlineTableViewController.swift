@@ -12,7 +12,7 @@ import Hero
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftinabBar"
 let swipeRightNotificationKey = "com.scriptstarter.swipedRightinabBar"
 
-class OutlineTableViewController: UITableViewController {
+class OutlineTableViewController: UITableViewController, DescriptionDelegate {
     
     var screenplay: Screenplay?
    
@@ -37,13 +37,26 @@ class OutlineTableViewController: UITableViewController {
     // MARK: IBActions/Target Methods
     
     @objc func expandButtonTapped(sender: UIButton) {
-        guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.childViewControllers[0] as? EnlargedDescriptionTableViewController else { return }
+        let indexPath = IndexPath(row: 0, section: sender.tag)
+        guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.childViewControllers[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        
+        enlargedVC.text = descriptionCell.descriptionTextView.text
         enlargedVC.section = sender.tag
+        enlargedVC.delegate = self
+        
         self.isHeroEnabled = true
         self.heroModalAnimationType = .selectBy(presenting:.zoom, dismissing:.zoomOut)
         self.present(enlargedNavigationController, animated: true, completion: nil)
     }
     
+    
+    // MARK: DescriptionDelegate Methods
+    
+    func updatedText(_ text: String, in section: Int) {
+        let indexPath = IndexPath(row: 0, section: section)
+        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        descriptionCell.descriptionTextView.text = text
+    }
     // MARK: Swipe gestures
     
     @objc func handleRightSwipe(sender: UISwipeGestureRecognizer) {
@@ -186,4 +199,8 @@ class OutlineTableViewController: UITableViewController {
     }
     
 
+}
+
+protocol DescriptionDelegate: class {
+    func updatedText(_ text: String, in section: Int)
 }

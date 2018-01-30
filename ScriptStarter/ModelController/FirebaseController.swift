@@ -40,4 +40,8 @@ class FirebaseController {
         }
     }
     
+    func saveScreenPlay(screenplay: Screenplay, completion: ()-> Void) {
+    
+    }
+    
 }
