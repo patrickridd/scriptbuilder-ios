@@ -13,12 +13,14 @@ class DescriptionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
     
+    @IBOutlet weak var expandButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         descriptionTextView.textColor = UIColor.screenDarkMediumGray
         descriptionTextView.placeholderColor = UIColor.flamenco
-        
+        self.imageView?.heroID = "descriptionId"
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

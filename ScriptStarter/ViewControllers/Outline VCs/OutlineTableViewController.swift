@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hero
 
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftinabBar"
 let swipeRightNotificationKey = "com.scriptstarter.swipedRightinabBar"
@@ -23,6 +24,7 @@ class OutlineTableViewController: UITableViewController {
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +36,13 @@ class OutlineTableViewController: UITableViewController {
     
     // MARK: IBActions/Target Methods
     
+    @objc func expandButtonTapped(sender: UIButton) {
+        guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.childViewControllers[0] as? EnlargedDescriptionTableViewController else { return }
+        enlargedVC.section = sender.tag
+        self.isHeroEnabled = true
+        self.heroModalAnimationType = .selectBy(presenting:.zoom, dismissing:.zoomOut)
+        self.present(enlargedNavigationController, animated: true, completion: nil)
+    }
     
     // MARK: Swipe gestures
     
@@ -50,9 +59,6 @@ class OutlineTableViewController: UITableViewController {
        // Remove Navigation bar shadow and borderline
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
-        if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView {
-            statusBar.backgroundColor = UIColor.white
-        }
         self.navigationController?.navigationBar.topItem?.title = "Untitled"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
@@ -105,6 +111,10 @@ class OutlineTableViewController: UITableViewController {
             break
         }
         descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
+        descriptionCell.descriptionTextView.heroID = "descriptionTextView"
+        descriptionCell.expandButton.tag = indexPath.section
+        descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
+        
         return descriptionCell
     }
     

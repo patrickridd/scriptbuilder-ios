@@ -175,7 +175,7 @@
                                         </constraints>
                                         <size key="customSize" width="140" height="180"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="addScreenplayCell"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="screenplayCover"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="YES"/>
                                         </userDefinedRuntimeAttributes>
@@ -329,6 +329,9 @@
                             <constraint firstItem="iGQ-js-Qji" firstAttribute="centerX" secondItem="tVJ-SE-YRF" secondAttribute="centerX" id="ndi-NT-OEJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Ij-MY-r1m"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="screenplayCover"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="nameLabel" destination="iGQ-js-Qji" id="np6-KS-UUY"/>

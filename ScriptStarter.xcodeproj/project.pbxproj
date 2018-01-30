@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */; };
 		21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099167201FD4CF00340124 /* SectionHeaderView.swift */; };
+		2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */; };
 		212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212DEA732012746500FE9C3F /* AppDelegate.swift */; };
 		212DEA792012746500FE9C3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA772012746500FE9C3F /* Main.storyboard */; };
 		212DEA7B2012746500FE9C3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA7A2012746500FE9C3F /* Assets.xcassets */; };
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScreenplayCollectionViewCell.swift; sourceTree = "<group>"; };
 		21099167201FD4CF00340124 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargedDescriptionTableViewController.swift; sourceTree = "<group>"; };
 		212DEA702012746500FE9C3F /* ScriptStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		212DEA732012746500FE9C3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		212DEA782012746500FE9C3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				21E661BE2017C236006A14AF /* OutlineTableViewController.swift */,
+				2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */,
 				21A84F512017AC2A00CE4149 /* TableViewCells */,
 			);
 			path = "Outline VCs";
@@ -630,6 +633,7 @@
 				21E661C12017DBAE006A14AF /* FirebaseController.swift in Sources */,
 				21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */,
 				21A84F482016840300CE4149 /* Screenplay.swift in Sources */,
+				2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */,
 				21E661BF2017C236006A14AF /* OutlineTableViewController.swift in Sources */,
 				21E661C820192E66006A14AF /* SignUpViewController.swift in Sources */,
 				212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */,

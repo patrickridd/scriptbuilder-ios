@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,6 +27,36 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ejy-l3-4Uu" userLabel="expandView">
+                                            <rect key="frame" x="10" y="-0.5" width="355" height="120"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoG-mU-OaH" userLabel="expandButton">
+                                                    <rect key="frame" x="325" y="0.0" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="hhp-G1-KDy"/>
+                                                        <constraint firstAttribute="height" constant="30" id="wK3-uA-C0A"/>
+                                                    </constraints>
+                                                    <state key="normal" image="expandButtonAsset 3"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VCm-O2-NpU" userLabel="expandButton">
+                                                    <rect key="frame" x="0.0" y="0.0" width="355" height="120"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="descriptionView"/>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="VCm-O2-NpU" secondAttribute="trailing" id="EVc-qT-aHc"/>
+                                                <constraint firstAttribute="trailing" secondItem="OoG-mU-OaH" secondAttribute="trailing" id="Pbl-EP-Eo8"/>
+                                                <constraint firstItem="VCm-O2-NpU" firstAttribute="leading" secondItem="Ejy-l3-4Uu" secondAttribute="leading" id="Wk1-93-emb"/>
+                                                <constraint firstItem="VCm-O2-NpU" firstAttribute="top" secondItem="Ejy-l3-4Uu" secondAttribute="top" id="aSL-k8-Olh"/>
+                                                <constraint firstItem="OoG-mU-OaH" firstAttribute="top" secondItem="Ejy-l3-4Uu" secondAttribute="top" id="cAX-wo-j00"/>
+                                                <constraint firstAttribute="bottom" secondItem="VCm-O2-NpU" secondAttribute="bottom" id="tGG-Ra-DfU"/>
+                                            </constraints>
+                                        </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-BN-hxh" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
                                             <rect key="frame" x="10" y="0.0" width="325" height="120"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -33,34 +64,19 @@
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="About a robot"/>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="descriptionTextView"/>
                                             </userDefinedRuntimeAttributes>
                                         </textView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ejy-l3-4Uu" userLabel="expandView">
-                                            <rect key="frame" x="335" y="0.0" width="30" height="120"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VCm-O2-NpU" userLabel="expandButton">
-                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="JPl-2t-fAQ"/>
-                                                        <constraint firstAttribute="width" constant="30" id="NTB-NJ-2zZ"/>
-                                                    </constraints>
-                                                    <state key="normal" image="expandButtonAsset 3"/>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="VCm-O2-NpU" secondAttribute="trailing" id="EVc-qT-aHc"/>
-                                                <constraint firstItem="VCm-O2-NpU" firstAttribute="top" secondItem="Ejy-l3-4Uu" secondAttribute="top" id="aSL-k8-Olh"/>
-                                                <constraint firstAttribute="width" constant="30" id="k8d-SL-kaD"/>
-                                            </constraints>
-                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <constraints>
                                         <constraint firstItem="Ejy-l3-4Uu" firstAttribute="bottom" secondItem="Qyo-BN-hxh" secondAttribute="bottom" id="8Wk-Sm-Vub"/>
                                         <constraint firstAttribute="bottom" secondItem="Qyo-BN-hxh" secondAttribute="bottom" id="IMu-rQ-Nxd"/>
-                                        <constraint firstItem="Ejy-l3-4Uu" firstAttribute="leading" secondItem="Qyo-BN-hxh" secondAttribute="trailing" id="cXP-KV-Rjk"/>
+                                        <constraint firstItem="Ejy-l3-4Uu" firstAttribute="leading" secondItem="Qyo-BN-hxh" secondAttribute="leading" id="Rlb-kz-7pN"/>
                                         <constraint firstItem="Ejy-l3-4Uu" firstAttribute="height" secondItem="Qyo-BN-hxh" secondAttribute="height" id="dvV-n2-CJE"/>
+                                        <constraint firstItem="Ejy-l3-4Uu" firstAttribute="trailing" secondItem="Qyo-BN-hxh" secondAttribute="trailing" constant="30" id="qNI-gy-Ld5"/>
                                         <constraint firstAttribute="trailing" secondItem="Ejy-l3-4Uu" secondAttribute="trailing" constant="10" id="vAx-DR-ywK"/>
                                         <constraint firstItem="Qyo-BN-hxh" firstAttribute="leading" secondItem="pIk-pI-vdS" secondAttribute="leading" constant="10" id="yut-ig-fTU"/>
                                         <constraint firstItem="Ejy-l3-4Uu" firstAttribute="top" secondItem="Qyo-BN-hxh" secondAttribute="top" id="zHZ-6e-bd4"/>
@@ -68,7 +84,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="descriptionTextView" destination="Qyo-BN-hxh" id="nP3-FY-Bm2"/>
+                                    <outlet property="descriptionTextView" destination="Qyo-BN-hxh" id="pmb-UE-iRP"/>
+                                    <outlet property="expandButton" destination="VCm-O2-NpU" id="g9C-rb-CDe"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -80,10 +97,74 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="EGf-bN-nUU"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JVP-l1-oah" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4165.6000000000004" y="-679.61019490254876"/>
+        </scene>
+        <!--Enlarged Description Table View Controller-->
+        <scene sceneID="hNO-DE-81Y">
+            <objects>
+                <tableViewController storyboardIdentifier="enlargedDescriptionVC" id="qVa-mf-xMm" customClass="EnlargedDescriptionTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Vm9-H1-ggp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="278" id="aW5-cS-srd" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="278"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aW5-cS-srd" id="JDa-CN-2TZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="277.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h3H-0R-P6u" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
+                                            <rect key="frame" x="16" y="11" width="343" height="256"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="About a robot"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="descriptionTextView"/>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </textView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="h3H-0R-P6u" firstAttribute="leading" secondItem="JDa-CN-2TZ" secondAttribute="leadingMargin" id="7uS-aj-xsv"/>
+                                        <constraint firstItem="h3H-0R-P6u" firstAttribute="top" secondItem="JDa-CN-2TZ" secondAttribute="topMargin" id="IuV-9G-BV7"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="h3H-0R-P6u" secondAttribute="bottom" id="r13-dJ-qOQ"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="h3H-0R-P6u" secondAttribute="trailing" id="y2E-4Z-hxJ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descriptionTextView" destination="h3H-0R-P6u" id="d63-dA-yda"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="qVa-mf-xMm" id="wot-Kt-IdZ"/>
+                            <outlet property="delegate" destination="qVa-mf-xMm" id="Aap-hO-F8b"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="cYk-Od-Ps5">
+                        <barButtonItem key="rightBarButtonItem" image="reduceScreenButtonAsset" id="hzo-dU-xjm">
+                            <connections>
+                                <action selector="reduceScreenButtonTapped:" destination="qVa-mf-xMm" id="aGS-2Y-rV4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ApB-qt-Jd0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5578" y="-679"/>
         </scene>
         <!--outline-->
         <scene sceneID="QuI-Nw-bJH">
@@ -107,9 +188,31 @@
             </objects>
             <point key="canvasLocation" x="3398" y="-678"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tUO-wP-9Xn">
+            <objects>
+                <navigationController storyboardIdentifier="enlargedNavigation" automaticallyAdjustsScrollViewInsets="NO" id="8Nb-Kf-eN5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9rK-HN-84F">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="qVa-mf-xMm" kind="relationship" relationship="rootViewController" id="XNZ-qP-8b9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yoi-1O-XMI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4897" y="-679"/>
+        </scene>
     </scenes>
     <resources>
         <image name="expandButtonAsset 3" width="15" height="15"/>
         <image name="outlineTabIconAsset 1" width="22" height="17"/>
+        <image name="reduceScreenButtonAsset" width="15" height="15"/>
     </resources>
 </document>
