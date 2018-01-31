@@ -1,4 +1,4 @@
-//
+r//
 //  DescriptionTableViewCell.swift
 //  ScriptStarter
 //
@@ -9,11 +9,13 @@
 import UIKit
 import KMPlaceholderTextView
 
-class DescriptionTableViewCell: UITableViewCell {
+class DescriptionTableViewCell: UITableViewCell, UITextViewDelegate {
 
     @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
-    
     @IBOutlet weak var expandButton: UIButton!
+    
+    var screenplay: Screenplay?
+    var section: Int = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,11 +23,46 @@ class DescriptionTableViewCell: UITableViewCell {
         descriptionTextView.textColor = UIColor.screenDarkMediumGray
         descriptionTextView.placeholderColor = UIColor.flamenco
         self.imageView?.heroID = "descriptionId"
+        descriptionTextView.delegate = self
     }
 
-    func updateWith(text: String?) {
-        if let text = text {
-            self.descriptionTextView.text = text
+    func updateWith(section: Int, screenplay: Screenplay?) {
+        self.screenplay = screenplay
+        self.section = section
+        switch section {
+        case 0: // Log line
+            self.descriptionTextView.placeholder = "About a robot lizard who..."
+            self.descriptionTextView.text = screenplay?.logLine
+        case 1: // Act 1
+            self.descriptionTextView.placeholder = "Setup"
+            self.descriptionTextView.text = screenplay?.actOne
+
+        case 2: // Act 2
+            self.descriptionTextView.placeholder = "Confrontation"
+            self.descriptionTextView.text = screenplay?.actTwo
+
+        case 3: // Act 3
+            self.descriptionTextView.placeholder = "Resolution"
+            self.descriptionTextView.text = screenplay?.actThree
+
+        default:
+            break
         }
     }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        switch section {
+        case 0:
+            screenplay?.logLine = textView.text
+        case 1:
+            screenplay?.actOne = textView.text
+        case 2:
+            screenplay?.actTwo = textView.text
+        case 3:
+            screenplay?.actThree = textView.text
+        default:
+            break
+        }
+    }
+    
 }

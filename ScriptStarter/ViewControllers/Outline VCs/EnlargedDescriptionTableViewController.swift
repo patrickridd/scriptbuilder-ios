@@ -60,8 +60,9 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell") as? DescriptionTableViewCell else { return UITableViewCell() }
         
+    
+        descriptionCell.updateWith(section: section, screenplay: screenplay)
         descriptionCell.backgroundColor = .screenLightGray
-        descriptionCell.updateWith(text:text)
         return descriptionCell
     }
     

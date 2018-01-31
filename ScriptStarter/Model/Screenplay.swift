@@ -29,7 +29,7 @@ class Screenplay {
     }
     
     var firDictionary: [String:Any] {
-        return [title:[logLineKey:logLine ?? "", actOneKey: actOne ?? "", actTwoKey: actTwo ?? "", actThreeKey: actThree ?? ""]]
+        return [logLineKey:logLine ?? "", actOneKey: actOne ?? "", actTwoKey: actTwo ?? "", actThreeKey: actThree ?? ""]
     }
     
 }

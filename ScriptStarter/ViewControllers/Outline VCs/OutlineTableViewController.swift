@@ -20,7 +20,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        screenplay = Screenplay(title: "New Screenplay")
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
@@ -40,6 +40,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
         let indexPath = IndexPath(row: 0, section: sender.tag)
         guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.childViewControllers[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
         
+        enlargedVC.screenplay = self.screenplay
         enlargedVC.text = descriptionCell.descriptionTextView.text
         enlargedVC.section = sender.tag
         enlargedVC.delegate = self
@@ -50,9 +51,8 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        let screenplay = Screenplay(title: "Your Mom")
-        FirebaseController.shared.saveScreenPlay(screenplay: screenplay) {
-            
+        if let screenplay = screenplay {
+            FirebaseController.shared.saveScreenPlay(screenplay: screenplay)
         }
     }
     
@@ -115,22 +115,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
         guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else {
             return UITableViewCell() }
         
-        switch indexPath.section {
-        case 0: // Log line
-            descriptionCell.descriptionTextView.placeholder = "About a robot lizard who..."
-       
-        case 1: // Act 1
-            descriptionCell.descriptionTextView.placeholder = "Setup"
-        
-        case 2: // Act 2
-            descriptionCell.descriptionTextView.placeholder = "Confrontation"
-       
-        case 3: // Act 3
-            descriptionCell.descriptionTextView.placeholder = "Resolution"
-        
-        default:
-            break
-        }
+        descriptionCell.updateWith(section: indexPath.section, screenplay: screenplay)
         descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
         descriptionCell.descriptionTextView.heroID = "descriptionTextView"
         descriptionCell.expandButton.tag = indexPath.section
