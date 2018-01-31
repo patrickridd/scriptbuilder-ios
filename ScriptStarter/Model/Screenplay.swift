@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 class Screenplay {
     
@@ -16,6 +17,7 @@ class Screenplay {
     var actTwoKey = "actTwo"
     var actThreeKey = "actThree"
     var titleKey = "title"
+    var uuidKey = "uuid"
     
     var title: String
     var uuid: String
@@ -28,6 +30,23 @@ class Screenplay {
     init(title: String) {
         self.title = title
         self.uuid = UUID().uuidString
+    }
+    
+    init?(uuid: String, screenplayDictionary: [String:Any]) {
+        guard let title = screenplayDictionary[titleKey] as? String,
+        let actOne = screenplayDictionary[actOneKey] as? String,
+        let actTwo = screenplayDictionary[actTwoKey] as? String,
+        let actThree = screenplayDictionary[actThreeKey] as? String,
+        let logLine = screenplayDictionary[logLineKey] as? String else
+        { return nil }
+        
+        self.uuid = uuid
+        self.uuid = uuid
+        self.title = title
+        self.logLine = logLine
+        self.actOne = actOne
+        self.actTwo = actTwo
+        self.actThree = actThree
     }
     
     var firDictionary: [String:Any] {

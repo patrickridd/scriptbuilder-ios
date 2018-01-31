@@ -15,7 +15,11 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var screenplays = [Screenplay]()
+    var screenplays: [Screenplay] = [] {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
     
     var user: User? {
         return Auth.auth().currentUser
@@ -29,6 +33,8 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         self.title = "Screenplays"
+        
+        getScreenplays()
         
         // Enlarge new screenplay if none exist
         if screenplays.count == 0 {
@@ -70,9 +76,17 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         }
     }
     
+    func getScreenplays() {
+        FirebaseController.shared.getScreenplays { (screenplays) in
+            DispatchQueue.main.async {
+                self.screenplays = screenplays
+            }
+        }
+    }
+    
     // MARK - UICollectionViewDataSource
     
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return screenplays.count + 1
     }
@@ -85,8 +99,9 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
             guard let addScreenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "addScreenplayCell", for: indexPath) as? AddScreenplayCollectionViewCell else { return UICollectionViewCell() }
             return addScreenplayCell
         default:
-            // Create a cell for an existing screenplay
-            return UICollectionViewCell()
+            // TODO: Create a cell for an existing screenplay
+            guard let addScreenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "addScreenplayCell", for: indexPath) as? AddScreenplayCollectionViewCell else { return UICollectionViewCell() }
+            return addScreenplayCell
         }
     }
     
@@ -116,7 +131,7 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         
         if screenplays.count == 0 { return } // No screenplays to retrieve
         
-        guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
+        guard let indexPath = collectionView.indexPathsForSelectedItems?.first, indexPath.row != 0 else { return }
         
         let screenplay = screenplays[indexPath.row-1]
         ScreenplayController.shared.set(currentScreenplay: screenplay)

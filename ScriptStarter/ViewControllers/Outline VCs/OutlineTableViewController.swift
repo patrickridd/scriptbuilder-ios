@@ -51,7 +51,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         if let screenplay = screenplay {
-            FirebaseController.shared.saveScreenPlay(screenplay: screenplay)
+            FirebaseController.shared.save(screenplay: screenplay)
         }
     }
     

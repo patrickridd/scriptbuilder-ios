@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ScreenplayController {
     
@@ -14,13 +15,12 @@ class ScreenplayController {
     
     var currentScreenplay: Screenplay?
     
-    
     func set(currentScreenplay: Screenplay) {
         self.currentScreenplay = currentScreenplay
     }
     
     func saveCurrentScreenplay() {
         guard let screenplay = currentScreenplay else { return }
-        FirebaseController.shared.saveScreenPlay(screenplay: screenplay)
+        FirebaseController.shared.save(screenplay: screenplay)
     }
 }

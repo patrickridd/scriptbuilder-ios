@@ -50,10 +50,33 @@ class FirebaseController {
         }
     }
     
-    func saveScreenPlay(screenplay: Screenplay) {
+    func save(screenplay: Screenplay) {
         guard let user = user else { return }
         let screenplayRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid)
         screenplayRef.setValue(screenplay.firDictionary)
     }
     
+    func getScreenplays(completion: @escaping ([Screenplay])->Void) {
+        guard let user = user else {
+            completion([])
+            return
+        }
+        self.ref.child("users").child(user.uid).child("screenplays").observe(.value) { (snapshot) in
+            guard let screenplayDictionaryArray = snapshot.value as? [String:Any] else {
+                completion([])
+                return
+            }
+            
+            var screenplays: [Screenplay] = []
+            for screenplayKeyValuePair in screenplayDictionaryArray {
+                let uuid = screenplayKeyValuePair.key
+                guard let screenplayDictionary = screenplayKeyValuePair.value as? [String:Any],
+                let screenplay = Screenplay(uuid: uuid, screenplayDictionary: screenplayDictionary)
+                    else { continue }
+                
+                screenplays.append(screenplay)
+            }
+            completion(screenplays)
+        }
+    }
 }
