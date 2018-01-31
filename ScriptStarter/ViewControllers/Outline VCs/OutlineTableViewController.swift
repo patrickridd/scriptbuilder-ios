@@ -15,7 +15,7 @@ let swipeRightNotificationKey = "com.scriptstarter.swipedRightinabBar"
 class OutlineTableViewController: UITableViewController, DescriptionDelegate {
     
     var screenplay: Screenplay?
-   
+    
     @IBOutlet weak var titleTextField: UITextField!
     
     override func viewDidLoad() {
@@ -48,6 +48,14 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
         self.heroModalAnimationType = .selectBy(presenting:.zoom, dismissing:.zoomOut)
         self.present(enlargedNavigationController, animated: true, completion: nil)
     }
+    
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        let screenplay = Screenplay(title: "Your Mom")
+        FirebaseController.shared.saveScreenPlay(screenplay: screenplay) {
+            
+        }
+    }
+    
     
     
     // MARK: DescriptionDelegate Methods

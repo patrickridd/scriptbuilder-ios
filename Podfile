@@ -8,6 +8,7 @@ target 'ScriptStarter' do
   # Pods for ScriptStarter
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Database'
   pod 'GoogleSignIn'
   pod 'FBSDKLoginKit'
   pod 'FacebookLogin'

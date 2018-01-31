@@ -8,11 +8,21 @@
 
 import Foundation
 import Firebase
+import FirebaseDatabase
 
 class FirebaseController {
     
+    
     static let shared = FirebaseController()
-
+    
+    var ref: DatabaseReference {
+        return Database.database().reference()
+    }
+    
+    var user: User? {
+        return Auth.auth().currentUser
+    }
+    
     func signIn(with email: String, password: String, completion: @escaping (_ error: Error?, _ user: User?) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             completion(error, user)
@@ -41,7 +51,9 @@ class FirebaseController {
     }
     
     func saveScreenPlay(screenplay: Screenplay, completion: ()-> Void) {
-    
+        guard let user = user else { return }
+        let screenplayRef = self.ref.child("users").child(user.uid).child("screenplays")
+        screenplayRef.setValue(screenplay.firDictionary)
     }
     
 }

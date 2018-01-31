@@ -10,11 +10,26 @@ import Foundation
 
 class Screenplay {
     
-    var title: String
-    var author: String
+    // keys
+    var logLineKey = "logLineKey"
+    var actOneKey = "actOne"
+    var actTwoKey = "actTwo"
+    var actThreeKey = "actThree"
+    var titleKey = "titleKey"
     
-    init(title: String, author: String) {
+    var title: String
+    var logLine: String?
+    var actOne: String?
+    var actTwo: String?
+    var actThree: String?
+    
+    
+    init(title: String) {
         self.title = title
-        self.author = author
     }
+    
+    var firDictionary: [String:Any] {
+        return [title:[logLineKey:logLine ?? "", actOneKey: actOne ?? "", actTwoKey: actTwo ?? "", actThreeKey: actThree ?? ""]]
+    }
+    
 }
