@@ -52,7 +52,7 @@ class FirebaseController {
     
     func saveScreenPlay(screenplay: Screenplay) {
         guard let user = user else { return }
-        let screenplayRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.title)
+        let screenplayRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid)
         screenplayRef.setValue(screenplay.firDictionary)
     }
     

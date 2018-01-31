@@ -1,4 +1,4 @@
-r//
+//
 //  DescriptionTableViewCell.swift
 //  ScriptStarter
 //
@@ -14,7 +14,10 @@ class DescriptionTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
     @IBOutlet weak var expandButton: UIButton!
     
-    var screenplay: Screenplay?
+    var screenplay: Screenplay? {
+        return ScreenplayController.shared.currentScreenplay
+    }
+    
     var section: Int = 0
     
     override func awakeFromNib() {
@@ -26,8 +29,8 @@ class DescriptionTableViewCell: UITableViewCell, UITextViewDelegate {
         descriptionTextView.delegate = self
     }
 
-    func updateWith(section: Int, screenplay: Screenplay?) {
-        self.screenplay = screenplay
+    func update(section: Int) {
+        
         self.section = section
         switch section {
         case 0: // Log line

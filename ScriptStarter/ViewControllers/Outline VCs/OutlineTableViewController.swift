@@ -14,17 +14,17 @@ let swipeRightNotificationKey = "com.scriptstarter.swipedRightinabBar"
 
 class OutlineTableViewController: UITableViewController, DescriptionDelegate {
     
-    var screenplay: Screenplay?
+    var screenplay: Screenplay? {
+        return ScreenplayController.shared.currentScreenplay
+    }
     
     @IBOutlet weak var titleTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        screenplay = Screenplay(title: "New Screenplay")
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,7 +40,6 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
         let indexPath = IndexPath(row: 0, section: sender.tag)
         guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.childViewControllers[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
         
-        enlargedVC.screenplay = self.screenplay
         enlargedVC.text = descriptionCell.descriptionTextView.text
         enlargedVC.section = sender.tag
         enlargedVC.delegate = self
@@ -80,7 +79,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
        // Remove Navigation bar shadow and borderline
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.topItem?.title = "Untitled"
+        self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
@@ -115,7 +114,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
         guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else {
             return UITableViewCell() }
         
-        descriptionCell.updateWith(section: indexPath.section, screenplay: screenplay)
+        descriptionCell.update(section: indexPath.section)
         descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
         descriptionCell.descriptionTextView.heroID = "descriptionTextView"
         descriptionCell.expandButton.tag = indexPath.section

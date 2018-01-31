@@ -113,5 +113,12 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = UIColor.screenLightBlue
         self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
+        
+        if screenplays.count == 0 { return } // No screenplays to retrieve
+        
+        guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
+        
+        let screenplay = screenplays[indexPath.row-1]
+        ScreenplayController.shared.set(currentScreenplay: screenplay)
     }
 }

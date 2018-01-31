@@ -10,16 +10,29 @@ import UIKit
 import Firebase
 import Hero
 
-class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, HeroViewControllerDelegate {
+class SceenplayCoverViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var nameLabel: UILabel!
+    
+    var screenplay: Screenplay? {
+        return ScreenplayController.shared.currentScreenplay
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.heroID = "screenplay"
         titleTextField.delegate = self
+        
+        if let screenplay = screenplay {
+            // Set title of existing screenplay
+            self.titleTextField.text = screenplay.title
+        } else {
+            // Create new screenplay
+            let newScreenplay = Screenplay(title: "Untitled")
+            ScreenplayController.shared.set(currentScreenplay: newScreenplay)
+        }
         
         if let name = Auth.auth().currentUser?.displayName {
             self.nameLabel.text = name
@@ -37,6 +50,7 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, HeroV
         let swipeNotificationName = Notification.Name(swipeLeftNotificationKey)
         let swipeNotification = Notification(name: swipeNotificationName)
         NotificationCenter.default.post(swipeNotification)
+        
     }
     
 
@@ -46,12 +60,9 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, HeroV
         titleTextField.resignFirstResponder()
         return true
     }
-    
-    
-    // MARK: HeroViewControllerDelegate Methods
-    
-    func heroDidEndTransition() {
-        
-    }
 
+    @IBAction func titleTextFieldDidChange(_ sender: Any) {
+        guard let title = titleTextField.text, title != "" else { return }
+        screenplay?.title = title
+    }
 }

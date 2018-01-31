@@ -15,9 +15,10 @@ class Screenplay {
     var actOneKey = "actOne"
     var actTwoKey = "actTwo"
     var actThreeKey = "actThree"
-    var titleKey = "titleKey"
+    var titleKey = "title"
     
     var title: String
+    var uuid: String
     var logLine: String?
     var actOne: String?
     var actTwo: String?
@@ -26,10 +27,11 @@ class Screenplay {
     
     init(title: String) {
         self.title = title
+        self.uuid = UUID().uuidString
     }
     
     var firDictionary: [String:Any] {
-        return [logLineKey:logLine ?? "", actOneKey: actOne ?? "", actTwoKey: actTwo ?? "", actThreeKey: actThree ?? ""]
+        return [titleKey: title, logLineKey:logLine ?? "", actOneKey: actOne ?? "", actTwoKey: actTwo ?? "", actThreeKey: actThree ?? ""]
     }
     
 }

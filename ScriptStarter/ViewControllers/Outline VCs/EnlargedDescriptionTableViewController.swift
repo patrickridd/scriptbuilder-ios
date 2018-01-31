@@ -11,7 +11,10 @@ import Hero
 
 class EnlargedDescriptionTableViewController: UITableViewController {
     
-    var screenplay: Screenplay?
+    var screenplay: Screenplay? {
+        return ScreenplayController.shared.currentScreenplay
+    }
+    
     var text: String?
     var section: Int = 0
     weak var delegate: DescriptionDelegate?
@@ -61,7 +64,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell") as? DescriptionTableViewCell else { return UITableViewCell() }
         
     
-        descriptionCell.updateWith(section: section, screenplay: screenplay)
+        descriptionCell.update(section: section)
         descriptionCell.backgroundColor = .screenLightGray
         return descriptionCell
     }
