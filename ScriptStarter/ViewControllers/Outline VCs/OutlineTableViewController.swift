@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Hero
 import GoogleMobileAds
 
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftInTabBar"
@@ -55,8 +54,6 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         enlargedVC.section = sender.tag
         enlargedVC.delegate = self
         
-        self.isHeroEnabled = true
-        self.heroModalAnimationType = .selectBy(presenting:.zoom, dismissing:.zoomOut)
         self.present(enlargedNavigationController, animated: true, completion: nil)
     }
     

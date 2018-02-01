@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Hero
 import GoogleMobileAds
 
 class EnlargedDescriptionTableViewController: UITableViewController, GADBannerViewDelegate {
@@ -46,7 +45,7 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         let indexPath = IndexPath(row: 0, section: 0)
         guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell, let text = descriptionCell.descriptionTextView.text else { return }
         delegate?.updatedText(text, in: self.section)
-        hero_dismissViewController()
+        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - UI Methods
@@ -117,7 +116,7 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         return self.view.frame.height * (4/5)
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -125,6 +124,6 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
 }

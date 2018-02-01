@@ -38,23 +38,11 @@
                                                     </constraints>
                                                     <state key="normal" image="expandButtonAsset 3"/>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VCm-O2-NpU" userLabel="expandButton">
-                                                    <rect key="frame" x="0.0" y="0.0" width="355" height="120"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="descriptionView"/>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="YES"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="VCm-O2-NpU" secondAttribute="trailing" id="EVc-qT-aHc"/>
                                                 <constraint firstAttribute="trailing" secondItem="OoG-mU-OaH" secondAttribute="trailing" id="Pbl-EP-Eo8"/>
-                                                <constraint firstItem="VCm-O2-NpU" firstAttribute="leading" secondItem="Ejy-l3-4Uu" secondAttribute="leading" id="Wk1-93-emb"/>
-                                                <constraint firstItem="VCm-O2-NpU" firstAttribute="top" secondItem="Ejy-l3-4Uu" secondAttribute="top" id="aSL-k8-Olh"/>
                                                 <constraint firstItem="OoG-mU-OaH" firstAttribute="top" secondItem="Ejy-l3-4Uu" secondAttribute="top" id="cAX-wo-j00"/>
-                                                <constraint firstAttribute="bottom" secondItem="VCm-O2-NpU" secondAttribute="bottom" id="tGG-Ra-DfU"/>
                                             </constraints>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-BN-hxh" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
@@ -64,9 +52,8 @@
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="About a robot"/>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="YES"/>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="descriptionTextView"/>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="NO"/>
                                             </userDefinedRuntimeAttributes>
                                         </textView>
                                     </subviews>
@@ -85,7 +72,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="descriptionTextView" destination="Qyo-BN-hxh" id="pmb-UE-iRP"/>
-                                    <outlet property="expandButton" destination="VCm-O2-NpU" id="g9C-rb-CDe"/>
+                                    <outlet property="expandButton" destination="OoG-mU-OaH" id="kXS-iI-fAY"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -105,7 +92,7 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JVP-l1-oah" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -135,9 +122,8 @@
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="About a robot"/>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="descriptionTextView"/>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="NO"/>
                                             </userDefinedRuntimeAttributes>
                                         </textView>
                                     </subviews>
@@ -166,7 +152,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ApB-qt-Jd0" userLabel="First Responder" sceneMemberID="firstResponder"/>

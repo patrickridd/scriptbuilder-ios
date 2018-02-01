@@ -9,11 +9,14 @@
 import UIKit
 import Firebase
 import Hero
+import GoogleMobileAds
 
-class SceenplayCoverViewController: UIViewController, UITextFieldDelegate {
+class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADInterstitialDelegate {
 
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var nameLabel: UILabel!
+    
+    var interstitial: GADInterstitial?
     
     var screenplay: Screenplay? {
         return ScreenplayController.shared.currentScreenplay
@@ -23,6 +26,9 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         titleTextField.delegate = self
+        
+        // Create Interstitial Ad
+        interstitial = createAndLoadInterstitial()
         
         if let screenplay = screenplay {
             // Set title of existing screenplay
@@ -55,6 +61,34 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         ScreenplayController.shared.saveCurrentScreenplay()
+    }
+    
+    
+    // MARK: GADInterstitialDelegate Methods
+    
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        print("Interstitial loaded successfully")
+        ad.present(fromRootViewController: self)
+    }
+    
+    func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
+        print("Fail to receive interstitial")
+    }
+    
+    private func createAndLoadInterstitial() -> GADInterstitial? {
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-8501671653071605/2568258533")
+        
+        guard let interstitial = interstitial else {
+            return nil
+        }
+        
+        let request = GADRequest()
+        // Remove the following line before you upload the app
+        request.testDevices = [ kGADSimulatorID ]
+        interstitial.load(request)
+        interstitial.delegate = self
+        
+        return interstitial
     }
     
     // MARK: UITextFieldDelegate Methods
