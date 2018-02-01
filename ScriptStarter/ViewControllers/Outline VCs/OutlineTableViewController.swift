@@ -73,6 +73,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
         descriptionCell.descriptionTextView.text = text
     }
+    
     // MARK: Swipe gestures
     
     @objc func handleRightSwipe(sender: UISwipeGestureRecognizer) {

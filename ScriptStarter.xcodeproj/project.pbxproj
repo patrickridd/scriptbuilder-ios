@@ -20,6 +20,9 @@
 		2135777C201292AE00C5EADC /* Outline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2135777A201292AE00C5EADC /* Outline.storyboard */; };
 		2135777F201292E100C5EADC /* Character.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2135777D201292E100C5EADC /* Character.storyboard */; };
 		2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151FC5F202260F200CE4823 /* ScreenplayController.swift */; };
+		21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF482023B00000D97394 /* CharacterTableViewController.swift */; };
+		21A7CF4B2023B02D00D97394 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF4A2023B02D00D97394 /* Character.swift */; };
+		21A7CF4E2023B4D200D97394 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF4D2023B4D200D97394 /* CharacterTableViewCell.swift */; };
 		21A84F46201683D500CE4149 /* ScreenplayCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */; };
 		21A84F482016840300CE4149 /* Screenplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A84F472016840300CE4149 /* Screenplay.swift */; };
 		21A84F4A2016988600CE4149 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21A84F492016988600CE4149 /* Storyboard.storyboard */; };
@@ -76,6 +79,9 @@
 		2135777B201292AE00C5EADC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ScriptStarter/Base.lproj/Outline.storyboard; sourceTree = "<group>"; };
 		2135777E201292E100C5EADC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ScriptStarter/Base.lproj/Character.storyboard; sourceTree = "<group>"; };
 		2151FC5F202260F200CE4823 /* ScreenplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayController.swift; sourceTree = "<group>"; };
+		21A7CF482023B00000D97394 /* CharacterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewController.swift; sourceTree = "<group>"; };
+		21A7CF4A2023B02D00D97394 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		21A7CF4D2023B4D200D97394 /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
 		21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayCollectionViewController.swift; sourceTree = "<group>"; };
 		21A84F472016840300CE4149 /* Screenplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenplay.swift; sourceTree = "<group>"; };
 		21A84F492016988600CE4149 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
@@ -208,6 +214,14 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		21A7CF4C2023B4B800D97394 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				21A7CF4D2023B4D200D97394 /* CharacterTableViewCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
 		21A84F4D2016A9BA00CE4149 /* Main VCs */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +239,8 @@
 		21A84F4E2016A9DA00CE4149 /* Character VCs */ = {
 			isa = PBXGroup;
 			children = (
+				21A7CF482023B00000D97394 /* CharacterTableViewController.swift */,
+				21A7CF4C2023B4B800D97394 /* TableViewCells */,
 			);
 			path = "Character VCs";
 			sourceTree = "<group>";
@@ -269,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				21A84F472016840300CE4149 /* Screenplay.swift */,
+				21A7CF4A2023B02D00D97394 /* Character.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -642,7 +659,10 @@
 				2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */,
 				21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */,
 				21A84F482016840300CE4149 /* Screenplay.swift in Sources */,
+				21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */,
 				2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */,
+				21A7CF4B2023B02D00D97394 /* Character.swift in Sources */,
+				21A7CF4E2023B4D200D97394 /* CharacterTableViewCell.swift in Sources */,
 				21E661BF2017C236006A14AF /* OutlineTableViewController.swift in Sources */,
 				21E661C820192E66006A14AF /* SignUpViewController.swift in Sources */,
 				211800DA20238A1200F33924 /* ScreenplayCollectionViewCell.swift in Sources */,
