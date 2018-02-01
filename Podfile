@@ -14,6 +14,7 @@ target 'ScriptStarter' do
   pod 'FacebookLogin'
   pod 'KMPlaceholderTextView'
   pod 'Hero'
+  pod 'Google-Mobile-Ads-SDK'
   
   target 'ScriptStarterTests' do
     inherit! :search_paths

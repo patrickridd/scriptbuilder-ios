@@ -8,16 +8,26 @@
 
 import UIKit
 import Hero
+import GoogleMobileAds
 
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftInTabBar"
 let swipeRightNotificationKey = "com.scriptstarter.swipedRightInTabBar"
 
-class OutlineTableViewController: UITableViewController, DescriptionDelegate {
+class OutlineTableViewController: UITableViewController, DescriptionDelegate, GADBannerViewDelegate {
     
     var screenplay: Screenplay? {
         return ScreenplayController.shared.currentScreenplay
     }
     
+    lazy var adBannerView: GADBannerView = {
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
+
     @IBOutlet weak var titleTextField: UITextField!
     
     override func viewDidLoad() {
@@ -32,6 +42,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
         self.tableView.backgroundColor = UIColor.screenLightGray
         setupNavigationBar()
         setupTabBar()
+        adBannerView.load(GADRequest())
     }
     
     // MARK: IBActions/Target Methods
@@ -89,6 +100,20 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
     func setupTabBar() {
         self.tabBarController?.tabBar.barTintColor = UIColor.white
         self.tabBarController?.tabBar.tintColor = UIColor.screenLightBlue
+    }
+    
+    
+    // MARK: GADBannerViewDelegate Methods
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Banner loaded successfully")
+        tableView.tableFooterView?.frame = bannerView.frame
+        tableView.tableFooterView = bannerView
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Fail to receive ads")
+        print(error)
     }
     
     // MARK: UITableView DataSource
@@ -164,9 +189,12 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
 //        sectionHeader.sectionLabel.text = sectionName
 //        return sectionHeader
 //   }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 85
+        return self.view.frame.height * (1/8)
 //        switch indexPath.section {
 //        case 0:
 //            return 100

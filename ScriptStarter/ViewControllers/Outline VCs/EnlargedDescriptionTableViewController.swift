@@ -8,12 +8,22 @@
 
 import UIKit
 import Hero
+import GoogleMobileAds
 
-class EnlargedDescriptionTableViewController: UITableViewController {
+class EnlargedDescriptionTableViewController: UITableViewController, GADBannerViewDelegate {
     
     var screenplay: Screenplay? {
         return ScreenplayController.shared.currentScreenplay
     }
+    
+    lazy var adBannerView: GADBannerView = {
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
     
     var text: String?
     var section: Int = 0
@@ -23,6 +33,11 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         super.viewDidLoad()
         self.tableView.backgroundColor = .screenLightGray
         setupNavigationBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        adBannerView.load(GADRequest())
     }
 
     // MARK: - IBAction Methods
@@ -45,6 +60,22 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
+    }
+    
+    // MARK: GADBannerViewDelegate Methods
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Banner loaded successfully")
+        let height = bannerView.frame.height + 10
+        let width = bannerView.frame.width
+        let rect = CGRect(x: bannerView.frame.origin.x, y: bannerView.frame.origin.y, width: width, height: height)
+        tableView.tableFooterView?.frame = rect
+        tableView.tableFooterView = bannerView
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Fail to receive ads")
+        print(error)
     }
     
     // MARK: - Table view data source
@@ -86,7 +117,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.height * (3/4)
+        return self.view.frame.height * (4/5)
     }
 
     /*

@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FBSDKCoreKit
 import GoogleSignIn
-
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,7 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // Initialize Google sign-in            
             GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+            
+            // Initialize GoogleMobileAds
+            GADMobileAds.configure(withApplicationID: "ca-app-pub-1297096402264538~9994351234")
 
+            
             return true
     }
     
