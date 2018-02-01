@@ -9,8 +9,8 @@
 import UIKit
 import Hero
 
-let swipeLeftNotificationKey = "com.scriptstarter.swipedleftinabBar"
-let swipeRightNotificationKey = "com.scriptstarter.swipedRightinabBar"
+let swipeLeftNotificationKey = "com.scriptstarter.swipedleftInTabBar"
+let swipeRightNotificationKey = "com.scriptstarter.swipedRightInTabBar"
 
 class OutlineTableViewController: UITableViewController, DescriptionDelegate {
     
@@ -28,8 +28,8 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.tableView.backgroundColor = UIColor.screenLightGray
-
         setupNavigationBar()
         setupTabBar()
     }
@@ -54,8 +54,6 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate {
             FirebaseController.shared.save(screenplay: screenplay)
         }
     }
-    
-    
     
     // MARK: DescriptionDelegate Methods
     

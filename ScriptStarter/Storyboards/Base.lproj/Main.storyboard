@@ -286,7 +286,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Untitled" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4MR-wb-F71">
-                                <rect key="frame" x="151" y="294" width="73" height="24"/>
+                                <rect key="frame" x="151.5" y="294" width="73" height="24"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardAppearance="alert"/>
@@ -314,12 +314,22 @@
                                     <constraint firstAttribute="width" constant="50" id="CeH-vT-mwY"/>
                                     <constraint firstAttribute="height" constant="50" id="rNQ-fD-YCN"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="→">
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Save">
                                     <color key="titleColor" red="0.58896142240000005" green="0.71160560849999999" blue="0.84707981349999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
-                                    <action selector="arrowButtonTapped:" destination="V0n-xO-FAg" eventType="touchUpInside" id="VW1-MS-KFX"/>
+                                    <action selector="saveButtonTapped:" destination="V0n-xO-FAg" eventType="touchUpInside" id="YsZ-r5-sU5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bN9-GH-ear">
+                                <rect key="frame" x="325" y="309.5" width="30" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="→">
+                                    <color key="titleColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="arrowButtonTapped:" destination="V0n-xO-FAg" eventType="touchUpInside" id="sev-Pe-Eoy"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -331,8 +341,10 @@
                             <constraint firstItem="4MR-wb-F71" firstAttribute="centerX" secondItem="tVJ-SE-YRF" secondAttribute="centerX" id="C3S-vN-9r7"/>
                             <constraint firstItem="Vag-Lh-c30" firstAttribute="top" secondItem="4MR-wb-F71" secondAttribute="bottom" constant="5" id="F79-bV-tJo"/>
                             <constraint firstItem="iGQ-js-Qji" firstAttribute="top" secondItem="Vag-Lh-c30" secondAttribute="bottom" constant="5" id="RVi-tF-Z31"/>
+                            <constraint firstItem="bN9-GH-ear" firstAttribute="centerY" secondItem="tVJ-SE-YRF" secondAttribute="centerY" id="XvK-2L-WK4"/>
                             <constraint firstItem="9Ij-MY-r1m" firstAttribute="trailing" secondItem="flj-yl-qjQ" secondAttribute="trailing" constant="20" id="Z9M-8F-gC5"/>
                             <constraint firstItem="Vag-Lh-c30" firstAttribute="centerX" secondItem="tVJ-SE-YRF" secondAttribute="centerX" id="cbP-be-kju"/>
+                            <constraint firstItem="9Ij-MY-r1m" firstAttribute="trailing" secondItem="bN9-GH-ear" secondAttribute="trailing" constant="20" id="gzD-vq-XWs"/>
                             <constraint firstItem="flj-yl-qjQ" firstAttribute="centerY" secondItem="RlF-25-Daw" secondAttribute="centerY" id="jbZ-vx-i2h"/>
                             <constraint firstItem="RlF-25-Daw" firstAttribute="leading" secondItem="9Ij-MY-r1m" secondAttribute="leading" constant="20" id="jzM-E9-kV0"/>
                             <constraint firstItem="iGQ-js-Qji" firstAttribute="centerX" secondItem="tVJ-SE-YRF" secondAttribute="centerX" id="ndi-NT-OEJ"/>

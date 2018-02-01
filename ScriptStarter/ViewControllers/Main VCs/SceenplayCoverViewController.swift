@@ -53,7 +53,10 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        ScreenplayController.shared.saveCurrentScreenplay()
+    }
+    
     // MARK: UITextFieldDelegate Methods
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

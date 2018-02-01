@@ -42,6 +42,11 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.collectionView.reloadData()
+    }
+    
     // MARK: UI Methods
     
     func setStatusBarColor() {
