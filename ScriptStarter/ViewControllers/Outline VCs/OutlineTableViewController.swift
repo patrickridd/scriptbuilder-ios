@@ -194,29 +194,12 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.height * (1/8)
-//        switch indexPath.section {
-//        case 0:
-//            return 100
-//        default:
-//            switch indexPath.row {
-//            case 0:
-//                return 100
-//            default:
-//                return 40
-//            }
-//        }
+        if self.view.frame.height >= 670 {
+            return self.view.frame.height * (1/8)
+        } else {
+            return self.view.frame.height * (1/9)
+        }
     }
-   
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    
-
 }
 
 protocol DescriptionDelegate: class {
