@@ -12,6 +12,10 @@ import Hero
 class AddScreenplayCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
-        self.contentView.heroID = "screenplay"
+        
+    }
+    
+    func update(heroId: String) {
+        self.contentView.heroID = heroId
     }
 }

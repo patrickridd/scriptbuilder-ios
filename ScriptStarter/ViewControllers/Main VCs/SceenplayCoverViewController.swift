@@ -22,7 +22,6 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.heroID = "screenplay"
         titleTextField.delegate = self
         
         if let screenplay = screenplay {
@@ -43,6 +42,7 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate {
     // MARK: IBActions
     
     @IBAction func doneButtonTapped(_ sender: Any) {
+        ScreenplayController.shared.resetCurrentScreenplay()
         hero_dismissViewController()
     }
     

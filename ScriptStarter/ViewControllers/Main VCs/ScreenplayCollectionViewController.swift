@@ -97,11 +97,14 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         case 0:
             // Create the Add '+' screenplay cell
             guard let addScreenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "addScreenplayCell", for: indexPath) as? AddScreenplayCollectionViewCell else { return UICollectionViewCell() }
+            addScreenplayCell.update(heroId: "\(indexPath.row)")
             return addScreenplayCell
         default:
             // TODO: Create a cell for an existing screenplay
-            guard let addScreenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "addScreenplayCell", for: indexPath) as? AddScreenplayCollectionViewCell else { return UICollectionViewCell() }
-            return addScreenplayCell
+            guard let screenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "screenplayCell", for: indexPath) as? ScreenplayCollectionViewCell else { return UICollectionViewCell() }
+            let screenplay = self.screenplays[indexPath.row-1]
+            screenplayCell.update(title: screenplay.title, heroId: "\(indexPath.row)")
+            return screenplayCell
         }
     }
     
@@ -129,9 +132,11 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         self.navigationController?.navigationBar.tintColor = UIColor.screenLightBlue
         self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
         
-        if screenplays.count == 0 { return } // No screenplays to retrieve
+        guard let indexPath = collectionView.indexPathsForSelectedItems?.first, let screenplayCoverVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayCover") as? SceenplayCoverViewController else { return }
         
-        guard let indexPath = collectionView.indexPathsForSelectedItems?.first, indexPath.row != 0 else { return }
+        screenplayCoverVC.view.heroID = "\(indexPath.row)"
+        
+        if indexPath.row == 0 { return } // Users tapped on "+" screenplay so return
         
         let screenplay = screenplays[indexPath.row-1]
         ScreenplayController.shared.set(currentScreenplay: screenplay)
