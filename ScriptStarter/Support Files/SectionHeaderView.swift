@@ -13,6 +13,7 @@ class SectionHeaderView: UITableViewHeaderFooterView {
     var sectionLabel = UILabel()
     var expandButton = UIButton()
     var moreButton = UIButton()
+    var navigationButton = UIButton()
     
     /*
     // Only override draw() if you perform custom drawing.
@@ -32,14 +33,15 @@ class SectionHeaderView: UITableViewHeaderFooterView {
     }
     
     func setupViews() {
-        self.backgroundColor = UIColor.screenLightGray
+       // self.backgroundColor = UIColor.screenLightGray
         setupSectionLabel()
         setupMoreButton()
+        setupNavigationButton()
     }
     
     func setupSectionLabel() {
         self.addSubview(sectionLabel)
-        let font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        let font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         sectionLabel.translatesAutoresizingMaskIntoConstraints = false
         sectionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         sectionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
@@ -50,15 +52,32 @@ class SectionHeaderView: UITableViewHeaderFooterView {
     func setupMoreButton() {
         // moreButton
         contentView.addSubview(moreButton)
-        moreButton.setTitle("→", for: .normal)
-        moreButton.titleLabel?.textColor = UIColor.screenLightBlue
+        
         moreButton.translatesAutoresizingMaskIntoConstraints = false
-        moreButton.trailingAnchor.constraint(equalTo: sectionLabel.leadingAnchor, constant: -25).isActive = true
+        moreButton.leadingAnchor.constraint(equalTo: self.sectionLabel.trailingAnchor, constant: 0).isActive = true
         moreButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         moreButton.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
         moreButton.contentMode = .scaleAspectFill
-        moreButton.heightAnchor.constraint(equalToConstant: 5).isActive = true
-        moreButton.widthAnchor.constraint(equalToConstant: 5).isActive = true
+        moreButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        moreButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        moreButton.setImage(#imageLiteral(resourceName: "rightArrowButtonAsset 1"), for: .normal)
+    }
+    
+    func setupNavigationButton() {
+        // navigationButton
+        contentView.addSubview(navigationButton)
+        
+        navigationButton.translatesAutoresizingMaskIntoConstraints = false
+        navigationButton.leadingAnchor.constraint(equalTo: self.sectionLabel.leadingAnchor, constant: 0).isActive = true
+         navigationButton.topAnchor.constraint(equalTo: self.moreButton.topAnchor, constant: 0).isActive = true
+         navigationButton.bottomAnchor.constraint(equalTo: self.moreButton.bottomAnchor, constant: 0).isActive = true
+         navigationButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
+        navigationButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        navigationButton.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
+        navigationButton.contentMode = .scaleAspectFill
+        //navigationButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+       // navigationButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        moreButton.setImage(#imageLiteral(resourceName: "rightArrowButtonAsset 1"), for: .normal)
     }
 
 }

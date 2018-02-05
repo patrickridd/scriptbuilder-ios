@@ -1,5 +1,5 @@
 //
-//  Extension+UITextViewDelegate.swift
+//  Extension+UITableViewCell.swift
 //  ScriptStarter
 //
 //  Created by Patrick Ridd (patrick.ridd@stgconsulting.com) on 2/5/18.

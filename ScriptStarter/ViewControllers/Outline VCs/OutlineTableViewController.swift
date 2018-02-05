@@ -34,12 +34,14 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.backgroundColor = UIColor.screenLightGray
+        self.tableView.separatorColor = self.tableView.backgroundColor
+
         setupNavigationBar()
         setupTabBar()
         adBannerView.load(GADRequest())
@@ -178,26 +180,46 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
             sectionHeader.moreButton.isHidden = true
         case 1:
             sectionName = " Act 1"
+            sectionHeader.moreButton.isHidden = false
         case 2:
             sectionName = "Act 2"
+            sectionHeader.moreButton.isHidden = false
         case 3:
             sectionName = "Act 3"
+            sectionHeader.moreButton.isHidden = false
         default:
             break
         }
+        sectionHeader.navigationButton.tag = section
+        sectionHeader.navigationButton.addTarget(self, action: #selector(pushToDetailView(sender:)), for: .touchUpInside)
+        sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
         sectionHeader.sectionLabel.text = sectionName
         return sectionHeader
    }
     
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 45
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "footer")
+        sectionHeader.contentView.backgroundColor = UIColor.athensGray
+        sectionHeader.moreButton.isHidden = true
+        sectionHeader.sectionLabel.isHidden = true
+        return sectionHeader
+    }
+
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if self.view.frame.height >= 670 {
-            return self.view.frame.height * (1/9)
+            return self.view.frame.height * (1/7)
         } else {
-            return self.view.frame.height * (1/9)
+            return self.view.frame.height * (1/7.5)
         }
     }
     
@@ -206,6 +228,25 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         arg.sizeToFit()
         arg.isScrollEnabled = false
     }
+    
+    
+    // MARK: Navigation
+    
+    @objc func pushToDetailView(sender: UIButton) {
+        
+        // Switch on the Act to segue to based on button tag
+        switch sender.tag {
+        case 1:
+            break
+        case 2:
+            break
+        case 3:
+            break
+        default:
+            break
+        }
+    }
+    
 }
 
 

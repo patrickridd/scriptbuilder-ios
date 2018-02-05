@@ -26,7 +26,7 @@
 		21A7CF502025039800D97394 /* CharacterDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF4F2025039800D97394 /* CharacterDetailTableViewController.swift */; };
 		21A7CF522028E45300D97394 /* CollapsibleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF512028E45300D97394 /* CollapsibleHeaderView.swift */; };
 		21A7CF542028E60D00D97394 /* ActDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF532028E60D00D97394 /* ActDetailTableViewController.swift */; };
-		21A7CF582028EC8400D97394 /* Extension+UITextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF572028EC8400D97394 /* Extension+UITextViewDelegate.swift */; };
+		21A7CF582028EC8400D97394 /* Extension+UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF572028EC8400D97394 /* Extension+UITableViewCell.swift */; };
 		21A84F46201683D500CE4149 /* ScreenplayCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */; };
 		21A84F482016840300CE4149 /* Screenplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A84F472016840300CE4149 /* Screenplay.swift */; };
 		21A84F4A2016988600CE4149 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21A84F492016988600CE4149 /* Storyboard.storyboard */; };
@@ -89,7 +89,7 @@
 		21A7CF4F2025039800D97394 /* CharacterDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailTableViewController.swift; sourceTree = "<group>"; };
 		21A7CF512028E45300D97394 /* CollapsibleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleHeaderView.swift; sourceTree = "<group>"; };
 		21A7CF532028E60D00D97394 /* ActDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActDetailTableViewController.swift; sourceTree = "<group>"; };
-		21A7CF572028EC8400D97394 /* Extension+UITextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITextViewDelegate.swift"; sourceTree = "<group>"; };
+		21A7CF572028EC8400D97394 /* Extension+UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITableViewCell.swift"; sourceTree = "<group>"; };
 		21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayCollectionViewController.swift; sourceTree = "<group>"; };
 		21A84F472016840300CE4149 /* Screenplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenplay.swift; sourceTree = "<group>"; };
 		21A84F492016988600CE4149 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
@@ -314,7 +314,7 @@
 			children = (
 				21E661C32017F979006A14AF /* Extension+UIColor.swift */,
 				21E661C520190E3E006A14AF /* UIAlertControllers.swift */,
-				21A7CF572028EC8400D97394 /* Extension+UITextViewDelegate.swift */,
+				21A7CF572028EC8400D97394 /* Extension+UITableViewCell.swift */,
 				21099167201FD4CF00340124 /* SectionHeaderView.swift */,
 				21A7CF512028E45300D97394 /* CollapsibleHeaderView.swift */,
 			);
@@ -673,7 +673,7 @@
 				21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */,
 				21A7CF502025039800D97394 /* CharacterDetailTableViewController.swift in Sources */,
 				21A84F482016840300CE4149 /* Screenplay.swift in Sources */,
-				21A7CF582028EC8400D97394 /* Extension+UITextViewDelegate.swift in Sources */,
+				21A7CF582028EC8400D97394 /* Extension+UITableViewCell.swift in Sources */,
 				21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */,
 				2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */,
 				21A7CF4B2023B02D00D97394 /* Character.swift in Sources */,

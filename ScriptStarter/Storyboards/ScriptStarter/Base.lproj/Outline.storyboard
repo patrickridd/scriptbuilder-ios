@@ -20,15 +20,15 @@
                         <color key="backgroundColor" red="0.41568627450000001" green="0.41568627450000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="120" id="6Yl-JZ-UQ4" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="120"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="179" id="6Yl-JZ-UQ4" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="179"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Yl-JZ-UQ4" id="pIk-pI-vdS">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="178.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ejy-l3-4Uu" userLabel="expandView">
-                                            <rect key="frame" x="10" y="9.5" width="355" height="100"/>
+                                            <rect key="frame" x="10" y="9.5" width="355" height="159"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoG-mU-OaH" userLabel="expandButton">
                                                     <rect key="frame" x="325" y="0.0" width="30" height="30"/>
@@ -46,7 +46,7 @@
                                             </constraints>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-BN-hxh" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="10" y="10" width="325" height="99.5"/>
+                                            <rect key="frame" x="10" y="10" width="325" height="158.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>

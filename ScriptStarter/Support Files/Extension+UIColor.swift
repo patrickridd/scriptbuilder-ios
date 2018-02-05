@@ -29,6 +29,10 @@ extension UIColor {
         return UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
     }
     
+    static var athensGray: UIColor {
+        return UIColor(red: 0.87, green: 0.87, blue: 0.88, alpha: 1.0)
+    }
+    
     static var screenLightBlue: UIColor {
         return UIColor(red: 0.53, green: 0.72, blue: 0.85, alpha: 1.0)
     }
