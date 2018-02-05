@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SectionHeaderView: UIView {
+class SectionHeaderView: UITableViewHeaderFooterView {
 
     var sectionLabel = UILabel()
     var expandButton = UIButton()
@@ -22,31 +22,43 @@ class SectionHeaderView: UIView {
     }
      
     */
-    
-//    override init(reuseIdentifier: String?) {
-//        super.init(reuseIdentifier: reuseIdentifier)
-//        setupViews()
-//    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         setupViews()
     }
     
     func setupViews() {
         self.backgroundColor = UIColor.screenLightGray
         setupSectionLabel()
+        setupMoreButton()
     }
     
     func setupSectionLabel() {
         self.addSubview(sectionLabel)
+        let font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         sectionLabel.translatesAutoresizingMaskIntoConstraints = false
         sectionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         sectionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
+        sectionLabel.textColor = UIColor.screenDark
+        sectionLabel.font = font
+    }
+    
+    func setupMoreButton() {
+        // moreButton
+        contentView.addSubview(moreButton)
+        moreButton.setTitle("→", for: .normal)
+        moreButton.titleLabel?.textColor = UIColor.screenLightBlue
+        moreButton.translatesAutoresizingMaskIntoConstraints = false
+        moreButton.trailingAnchor.constraint(equalTo: sectionLabel.leadingAnchor, constant: -25).isActive = true
+        moreButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        moreButton.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
+        moreButton.contentMode = .scaleAspectFill
+        moreButton.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        moreButton.widthAnchor.constraint(equalToConstant: 5).isActive = true
     }
 
 }

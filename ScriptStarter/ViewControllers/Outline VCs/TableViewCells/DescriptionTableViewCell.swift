@@ -9,7 +9,7 @@
 import UIKit
 import KMPlaceholderTextView
 
-class DescriptionTableViewCell: UITableViewCell, UITextViewDelegate {
+class DescriptionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
     @IBOutlet weak var expandButton: UIButton!
@@ -27,6 +27,7 @@ class DescriptionTableViewCell: UITableViewCell, UITextViewDelegate {
         descriptionTextView.placeholderColor = UIColor.flamenco
         self.imageView?.heroID = "descriptionId"
         descriptionTextView.delegate = self
+        addToolBar(textView: descriptionTextView)
     }
 
     func update(section: Int) {

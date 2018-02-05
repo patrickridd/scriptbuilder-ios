@@ -34,6 +34,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -144,56 +145,57 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         return descriptionCell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "  Basic Idea (Log Line)"
-        case 1:
-            return "  Act 1"
-        case 2:
-            return "  Act 2"
-        case 3:
-            return "  Act 3"
-        default:
-            return ""
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection: Int) {
-        if let headerTitle = view as? UITableViewHeaderFooterView {
-            headerTitle.textLabel?.textColor = UIColor.screenDark
-            let font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-            headerTitle.textLabel?.font = font
-        }
-    }
-    
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let rect = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
-//        let sectionHeader = SectionHeaderView(frame: rect)
-//
-//        var sectionName = String()
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 //        switch section {
 //        case 0:
-//            sectionName = "Basic Idea - Log line"
+//            return "  Basic Idea (Log Line)"
 //        case 1:
-//            sectionName = " Act 1"
+//            return "  Act 1"
 //        case 2:
-//            sectionName = "Act 2"
+//            return "  Act 2"
 //        case 3:
-//            sectionName = "Act 3"
+//            return "  Act 3"
 //        default:
-//            break
+//            return ""
 //        }
-//        sectionHeader.sectionLabel.text = sectionName
-//        return sectionHeader
-//   }
+//    }
+//
+//    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection: Int) {
+//        if let headerTitle = view as? UITableViewHeaderFooterView {
+//            headerTitle.textLabel?.textColor = UIColor.screenDark
+//            let font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+//            headerTitle.textLabel?.font = font
+//        }
+//    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
+        
+        var sectionName = String()
+        switch section {
+        case 0:
+            sectionName = "Basic Idea - Log line"
+            sectionHeader.moreButton.isHidden = true
+        case 1:
+            sectionName = " Act 1"
+        case 2:
+            sectionName = "Act 2"
+        case 3:
+            sectionName = "Act 3"
+        default:
+            break
+        }
+        sectionHeader.sectionLabel.text = sectionName
+        return sectionHeader
+   }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 50
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if self.view.frame.height >= 670 {
-            return self.view.frame.height * (1/8)
+            return self.view.frame.height * (1/9)
         } else {
             return self.view.frame.height * (1/9)
         }
