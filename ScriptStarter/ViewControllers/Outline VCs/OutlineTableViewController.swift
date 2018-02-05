@@ -198,7 +198,15 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
             return self.view.frame.height * (1/9)
         }
     }
+    
+    func adjustUITextViewHeight(arg : UITextView) {
+        arg.translatesAutoresizingMaskIntoConstraints = true
+        arg.sizeToFit()
+        arg.isScrollEnabled = false
+    }
 }
+
+
 
 protocol DescriptionDelegate: class {
     func updatedText(_ text: String, in section: Int)

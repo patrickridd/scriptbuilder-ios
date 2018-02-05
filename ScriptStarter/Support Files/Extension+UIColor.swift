@@ -37,8 +37,6 @@ extension UIColor {
         return UIColor(red: 0.83, green: 0.89, blue: 0.88, alpha: 1.0)
     }
     
-  
-    
     static var flamingoRed: UIColor {
         return UIColor(red: 0.87, green: 0.39, blue: 0.30, alpha: 1.0)
     }

@@ -28,7 +28,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ejy-l3-4Uu" userLabel="expandView">
-                                            <rect key="frame" x="10" y="-0.5" width="355" height="120"/>
+                                            <rect key="frame" x="10" y="9.5" width="355" height="100"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoG-mU-OaH" userLabel="expandButton">
                                                     <rect key="frame" x="325" y="0.0" width="30" height="30"/>
@@ -46,7 +46,7 @@
                                             </constraints>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-BN-hxh" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="10" y="0.0" width="325" height="120"/>
+                                            <rect key="frame" x="10" y="10" width="325" height="99.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
@@ -60,14 +60,13 @@
                                     <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <constraints>
                                         <constraint firstItem="Ejy-l3-4Uu" firstAttribute="bottom" secondItem="Qyo-BN-hxh" secondAttribute="bottom" id="8Wk-Sm-Vub"/>
-                                        <constraint firstAttribute="bottom" secondItem="Qyo-BN-hxh" secondAttribute="bottom" id="IMu-rQ-Nxd"/>
+                                        <constraint firstAttribute="bottom" secondItem="Qyo-BN-hxh" secondAttribute="bottom" constant="10" id="IMu-rQ-Nxd"/>
                                         <constraint firstItem="Ejy-l3-4Uu" firstAttribute="leading" secondItem="Qyo-BN-hxh" secondAttribute="leading" id="Rlb-kz-7pN"/>
-                                        <constraint firstItem="Ejy-l3-4Uu" firstAttribute="height" secondItem="Qyo-BN-hxh" secondAttribute="height" id="dvV-n2-CJE"/>
                                         <constraint firstItem="Ejy-l3-4Uu" firstAttribute="trailing" secondItem="Qyo-BN-hxh" secondAttribute="trailing" constant="30" id="qNI-gy-Ld5"/>
                                         <constraint firstAttribute="trailing" secondItem="Ejy-l3-4Uu" secondAttribute="trailing" constant="10" id="vAx-DR-ywK"/>
                                         <constraint firstItem="Qyo-BN-hxh" firstAttribute="leading" secondItem="pIk-pI-vdS" secondAttribute="leading" constant="10" id="yut-ig-fTU"/>
                                         <constraint firstItem="Ejy-l3-4Uu" firstAttribute="top" secondItem="Qyo-BN-hxh" secondAttribute="top" id="zHZ-6e-bd4"/>
-                                        <constraint firstItem="Qyo-BN-hxh" firstAttribute="top" secondItem="pIk-pI-vdS" secondAttribute="top" id="zRn-0B-tEK"/>
+                                        <constraint firstItem="Qyo-BN-hxh" firstAttribute="top" secondItem="pIk-pI-vdS" secondAttribute="top" constant="10" id="zRn-0B-tEK"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

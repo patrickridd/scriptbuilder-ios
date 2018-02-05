@@ -28,7 +28,7 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
         titleTextField.delegate = self
         
         // Create Interstitial Ad
-        interstitial = createAndLoadInterstitial()
+       // interstitial = createAndLoadInterstitial()
         
         if let screenplay = screenplay {
             // Set title of existing screenplay
@@ -56,7 +56,6 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
         let swipeNotificationName = Notification.Name(swipeLeftNotificationKey)
         let swipeNotification = Notification(name: swipeNotificationName)
         NotificationCenter.default.post(swipeNotification)
-        
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
@@ -76,14 +75,14 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
     }
     
     private func createAndLoadInterstitial() -> GADInterstitial? {
-        interstitial = GADInterstitial(adUnitID: "ca-app-pub-8501671653071605/2568258533")
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-1297096402264538/6489865275")
         
         guard let interstitial = interstitial else {
             return nil
         }
         
         let request = GADRequest()
-        // Remove the following line before you upload the app
+        // TODO: Remove the following line before you upload the app
         request.testDevices = [ kGADSimulatorID ]
         interstitial.load(request)
         interstitial.delegate = self

@@ -15,6 +15,8 @@ class Character {
     
     // Character Arc
     var intention: String?
+    var whyIntention: String?
+    var physicalGoal: String?
     var obstacles: String?
     var flaws: String?
     var howIsCharacterChanged: String?
