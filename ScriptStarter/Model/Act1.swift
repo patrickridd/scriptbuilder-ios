@@ -27,6 +27,8 @@ class Act1 {
     var reasonToAdventure: String = "" // 6
     var enemyAtTheGates: String = "" // 7
     
+    init() {}
+    
     init?(actOneDict: [String:Any]) {
         guard let oldWorldDescription = actOneDict[oldWorldDescriptionKey] as? String,
         let incitingIncident = actOneDict[incitingIncidentKey] as? String,
@@ -47,5 +49,12 @@ class Act1 {
         self.enemyAtTheGates = enemyAtTheGates
     }
     
-    
+    var firActOneDictionary: [String:Any] {
+        return [self.oldWorldDescriptionKey:self.oldWorldDescription,       self.incitingIncidentKey:self.incitingIncident,
+            self.callToAdventureKey:callToAdventure,
+            self.themeKey:theme,
+            self.refusalKey:refusal,
+            self.reasonToAdventureKey:reasonToAdventure,
+            self.enemyAtTheGatesKey:enemyAtTheGates]
+    }
 }

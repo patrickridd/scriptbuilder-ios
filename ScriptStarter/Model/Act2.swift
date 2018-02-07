@@ -29,6 +29,8 @@ class Act2 {
     var badGuysStrikeBack: String = ""
     var allIsLost: String = ""
     
+    init() {}
+    
     init?(actTwoDict: [String:Any]) {
         guard let newWorldDescription = actTwoDict[newWorldDescriptionKey] as? String,
         let enemiesFriends = actTwoDict[enemiesFriendsKey] as? String,
@@ -49,5 +51,15 @@ class Act2 {
         self.stormGathers = stormGathers
         self.badGuysStrikeBack = badGuysStrikeBack
         self.allIsLost = allIsLost
+    }
+    
+    var firActTwoDictionary: [String:Any] {
+        return [self.newWorldDescriptionKey:self.newWorldDescription,       self.enemiesFriendsKey:self.enemiesFriends,
+                self.obstaclesKey:obstaclesKey,
+                self.theDeadlyEncounterKey:theDeadlyEncounter,
+                self.celebrateKey:celebrate,
+                self.stormGathersKey:stormGathers,
+                self.badGuysStrikeBackKey:badGuysStrikeBackKey,
+                self.allIsLostKey:allIsLost]
     }
 }

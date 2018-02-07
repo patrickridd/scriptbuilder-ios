@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import Hero
 import GoogleMobileAds
+import MBProgressHUD
 
 class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADInterstitialDelegate {
 
@@ -59,7 +60,25 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        ScreenplayController.shared.saveCurrentScreenplay()
+        let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
+        loadingNotification.mode = MBProgressHUDMode.annularDeterminate
+        loadingNotification.animationType = .fade
+        loadingNotification.label.text = "saving"
+        
+        if let screenplay = screenplay {
+            FirebaseController.shared.save(screenplay: screenplay, completion: { (success) in
+                loadingNotification.mode = .customView
+                if success {
+                    loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
+                    loadingNotification.label.text = "success"
+                    loadingNotification.hide(animated: true, afterDelay: 1)
+                    return
+                }
+                loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
+                loadingNotification.label.text = "failed"
+                loadingNotification.hide(animated: true, afterDelay: 1)
+            })
+        }
     }
     
     

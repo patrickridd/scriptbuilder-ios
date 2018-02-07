@@ -14,6 +14,7 @@ target 'ScriptStarter' do
   pod 'FacebookLogin'
   pod 'KMPlaceholderTextView'
   pod 'Hero'
+  pod 'MBProgressHUD', '~> 1.1.0'
   pod 'Google-Mobile-Ads-SDK'
   
   target 'ScriptStarterTests' do

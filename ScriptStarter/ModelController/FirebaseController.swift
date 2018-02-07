@@ -50,10 +50,20 @@ class FirebaseController {
         }
     }
     
-    func save(screenplay: Screenplay) {
-        guard let user = user else { return }
+    func save(screenplay: Screenplay, completion: @escaping (_ success:Bool) -> Void) {
+        guard let user = user else {
+            completion(false)
+            return
+        }
         let screenplayRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid)
-        screenplayRef.setValue(screenplay.firDictionary)
+        
+        screenplayRef.setValue(screenplay.firDictionary) { (error, reference) in
+            if let _ = error {
+                completion(false)
+                return
+            }
+            completion(true)
+        }
     }
     
     func getScreenplays(completion: @escaping ([Screenplay])->Void) {

@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
+import MBProgressHUD
 
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftInTabBar"
 let swipeRightNotificationKey = "com.scriptstarter.swipedRightInTabBar"
@@ -75,8 +76,24 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     
     
     @IBAction func saveButtonTapped(_ sender: Any) {
+        let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
+        loadingNotification.mode = MBProgressHUDMode.annularDeterminate
+        loadingNotification.animationType = .fade
+        loadingNotification.label.text = "saving"
+        
         if let screenplay = screenplay {
-            FirebaseController.shared.save(screenplay: screenplay)
+            FirebaseController.shared.save(screenplay: screenplay, completion: { (success) in
+                loadingNotification.mode = .customView
+                if success {
+                    loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
+                    loadingNotification.label.text = "success"
+                    loadingNotification.hide(animated: true, afterDelay: 1)
+                    return
+                }
+                loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
+                loadingNotification.label.text = "failed"
+                loadingNotification.hide(animated: true, afterDelay: 1)
+            })
         }
     }
     

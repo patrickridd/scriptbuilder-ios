@@ -25,7 +25,7 @@ class ScreenplayController {
     
     func saveCurrentScreenplay() {
         guard let screenplay = currentScreenplay else { return }
-        FirebaseController.shared.save(screenplay: screenplay)
+       // FirebaseController.shared.save(screenplay: screenplay)
     }
     
     

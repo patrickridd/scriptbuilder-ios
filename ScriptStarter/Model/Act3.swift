@@ -19,8 +19,10 @@ class Act3 {
     var rewards: String = ""
     var untangleStory: String = ""
     
+    init() {}
+    
     init?(actThreeDict: [String:Any]) {
-        guard let theUltimateAnswer = actThreeDict[theUltimateAnswer] as? String,
+        guard let theUltimateAnswer = actThreeDict[theUltimateAnswerKey] as? String,
         let rewards = actThreeDict[rewardsKey] as? String,
         let untangleStory = actThreeDict[untangleStoryKey] as? String else {
                 return nil
@@ -28,5 +30,11 @@ class Act3 {
         self.theUltimateAnswer = theUltimateAnswer
         self.rewards = rewards
         self.untangleStory = untangleStory
+    }
+    
+    var firActThreeDictionary: [String:Any] {
+        return [self.theUltimateAnswerKey:self.theUltimateAnswer,
+                self.rewardsKey:self.rewards,
+                self.untangleStoryKey:self.untangleStory]
     }
 }

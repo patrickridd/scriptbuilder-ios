@@ -31,7 +31,6 @@ class DescriptionTableViewCell: UITableViewCell {
     }
 
     func update(section: Int) {
-        
         self.section = section
         switch section {
         case 0: // Log line
@@ -40,17 +39,17 @@ class DescriptionTableViewCell: UITableViewCell {
             self.imageView?.heroID = "About a robot lizard who..."
         case 1: // Act 1
             self.descriptionTextView.placeholder = "Setup"
-            self.descriptionTextView.text = screenplay?.actOne
+            self.descriptionTextView.text = screenplay?.actOneDescription
             self.imageView?.heroID = "Setup"
 
         case 2: // Act 2
             self.descriptionTextView.placeholder = "Confrontation"
-            self.descriptionTextView.text = screenplay?.actTwo
+            self.descriptionTextView.text = screenplay?.actTwoDescription
             self.imageView?.heroID = "Confrontation"
 
         case 3: // Act 3
             self.descriptionTextView.placeholder = "Resolution"
-            self.descriptionTextView.text = screenplay?.actThree
+            self.descriptionTextView.text = screenplay?.actThreeDescription
             self.imageView?.heroID = "Resolution"
 
         default:
@@ -63,11 +62,11 @@ class DescriptionTableViewCell: UITableViewCell {
         case 0:
             screenplay?.logLine = textView.text
         case 1:
-            screenplay?.actOne = textView.text
+            screenplay?.actOneDescription = textView.text
         case 2:
-            screenplay?.actTwo = textView.text
+            screenplay?.actTwoDescription = textView.text
         case 3:
-            screenplay?.actThree = textView.text
+            screenplay?.actThreeDescription = textView.text
         default:
             break
         }
