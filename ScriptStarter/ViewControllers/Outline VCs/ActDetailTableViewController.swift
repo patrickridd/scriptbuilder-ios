@@ -9,79 +9,141 @@
 import UIKit
 
 class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate {
-
+    
+    var screenplay: Screenplay? {
+        return ScreenplayController.shared.currentScreenplay
+    }
+    var expandableSections: [ExpandableTableViewSection] = []
+    var act: Act = .one
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupExpandableSections()
+        self.title = act.title
+        
+        self.tableView.backgroundColor = UIColor.screenLightGray
+        self.tableView.separatorColor = self.tableView.backgroundColor
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func setupExpandableSections() {
+        
+        let sectionTitles = act.sectionsTitles
+        for title in sectionTitles {
+            let section = ExpandableTableViewSection(sectionTitle: title)
+            expandableSections.append(section)
+        }
+        
     }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+
+//      1.  Old World - What is life like before the story begins?
+//      2.  Inciting incident - What event, person, or thing creates disharmony in the old world?
+//      3.  Call to Adventure - What must your hero or world do to bring harmony?
+//      4.  Theme - Are there any premises, beliefs, or ideas that can be tested in the adventure?
+//      5. I don't want to go - Does your hero(s) have doubts about the adventure ahead?
+//      6. I must go - What convinces your hero(s) to go on their adventure?
+//      7.  Enemy at the gates - Are there any obstacles or enemies in getting the adventure started?
+        
+        return act.sectionsTitles.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return expandableSections[section].collapsed ? 0 : 1
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
 
         // Configure the cell...
-
-        return cell
+        descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
+        
+        switch act {
+        case .one:
+            switch indexPath.row {
+            case 0: descriptionCell.descriptionTextView.text = screenplay?.act1.oldWorldDescription
+            case 1: descriptionCell.descriptionTextView.text = screenplay?.act1.incitingIncident
+            case 2: descriptionCell.descriptionTextView.text = screenplay?.act1.callToAdventure
+            case 3: descriptionCell.descriptionTextView.text = screenplay?.act1.theme
+            case 4: descriptionCell.descriptionTextView.text = screenplay?.act1.refusal
+            case 5: descriptionCell.descriptionTextView.text = screenplay?.act1.reasonToAdventure
+            case 6: descriptionCell.descriptionTextView.text = screenplay?.act1.enemyAtTheGates
+            default:
+                break
+            }
+        case .two:
+            switch indexPath.row {
+            case 0: descriptionCell.descriptionTextView.text = screenplay?.act2.newWorldDescription
+            case 1: descriptionCell.descriptionTextView.text = screenplay?.act2.enemiesFriends
+            case 2: descriptionCell.descriptionTextView.text = screenplay?.act2.obstacles
+            case 3: descriptionCell.descriptionTextView.text = screenplay?.act2.theDeadlyEncounter
+            case 4: descriptionCell.descriptionTextView.text = screenplay?.act2.celebrate
+            case 5: descriptionCell.descriptionTextView.text = screenplay?.act2.stormGathers
+            case 6: descriptionCell.descriptionTextView.text = screenplay?.act2.badGuysStrikeBack
+            case 7: descriptionCell.descriptionTextView.text = screenplay?.act2.allIsLost
+            default:
+                break
+            }
+        case .three:
+            switch indexPath.row {
+            case 0: descriptionCell.descriptionTextView.text = screenplay?.act3.theUltimateAnswer
+            case 1: descriptionCell.descriptionTextView.text = screenplay?.act3.rewards
+            case 2: descriptionCell.descriptionTextView.text = screenplay?.act3.untangleStory
+            default:
+                break
+            }
+        }
+        
+        return descriptionCell
     }
-    */
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
-    */
-
     
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//
-//        if section == 0 { return nil }
-//        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
-//        header.contentView.backgroundColor = companyReviewSections[section-1].collapsed ? .white : UIColor.defaultTableViewSectionColor
-//        header.titleLabel.text = companyReviewSections[section - 1].companyName
-//        header.arrowImageView.image = #imageLiteral(resourceName: "collapsedTriangle")
-//
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
+       
+        header.contentView.backgroundColor = expandableSections[section].collapsed ? .white : UIColor.screenLightGray
+        header.titleLabel.text = act.sectionsTitles[section]
+        
+
 //        let attributedReviewNumberText = NSAttributedString(string: "(\(companyReviewSections[section-1].reviews.count))", attributes: [NSForegroundColorAttributeName:UIColor.lightGray])
 //
 //        let subtitleFont = UIFont.systemFont(ofSize: 12)
 //        let attributedCompanyCityText = NSAttributedString(string: companyReviewSections[section-1].companyCity ?? "City Unavailable", attributes: [NSForegroundColorAttributeName:UIColor.lightGray, NSFontAttributeName:subtitleFont])
-//
-//        header.subtitleLabel.attributedText = attributedCompanyCityText
-//        header.numberOfReviewsLabel.attributedText = attributedReviewNumberText
-//        header.setCollapsed(companyReviewSections[section-1].collapsed)
-//
-//        header.section = section
-//        header.delegate = self
-//        return header
-//    }
+
+       // header.subtitleLabel.attributedText = attributedCompanyCityText
+      //  header.numberOfReviewsLabel.attributedText = attributedReviewNumberText
+        header.setCollapsed(expandableSections[section].collapsed)
+
+        header.section = section
+        header.delegate = self
+        return header
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
     
     // MARK: CollapsibleHeaderDelegate
     
     func toggleSection(_ header: CollapsibleHeader, section: Int) {
-        
+        DispatchQueue.main.async {
+            let collapsed = !self.expandableSections[section].collapsed
+            // Toggle collapse
+            self.expandableSections[section].collapsed = collapsed
+            header.setCollapsed(collapsed)
+           
+            // Reload section tapped
+            let indexSet = IndexSet(integer: section)
+            self.tableView.beginUpdates()
+            self.tableView.reloadSections(indexSet, with: .automatic)
+            self.tableView.endUpdates()
+        }
     }
     /*
     // Override to support editing the table view.

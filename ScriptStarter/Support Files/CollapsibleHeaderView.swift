@@ -20,15 +20,14 @@ class CollapsibleHeader: UITableViewHeaderFooterView {
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
     let arrowImageView = UIImageView()
-    let numberOfReviewsLabel = UILabel()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        setupNumberOfReviewsLabel()
+       // setupNumberOfReviewsLabel()
         setuparrowImage()
         setupTitleLabel()
-        setupSubtitleLabel()
+       // setupSubtitleLabel()
         
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CollapsibleHeader.tapHeader(_:))))
     }
@@ -62,22 +61,22 @@ class CollapsibleHeader: UITableViewHeaderFooterView {
         // Arrow label
         contentView.addSubview(arrowImageView)
         arrowImageView.translatesAutoresizingMaskIntoConstraints = false
-        arrowImageView.trailingAnchor.constraint(equalTo: numberOfReviewsLabel.leadingAnchor, constant: -25).isActive = true
+        arrowImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 10).isActive = true
         arrowImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         arrowImageView.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
         arrowImageView.contentMode = .scaleAspectFill
         arrowImageView.heightAnchor.constraint(equalToConstant: 5).isActive = true
         arrowImageView.widthAnchor.constraint(equalToConstant: 5).isActive = true
     }
-    
-    func setupNumberOfReviewsLabel() {
-        // NumberOfReviews label
-        contentView.addSubview(numberOfReviewsLabel)
-        numberOfReviewsLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
-        numberOfReviewsLabel.translatesAutoresizingMaskIntoConstraints = false
-        numberOfReviewsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15).isActive = true
-        numberOfReviewsLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-    }
+//
+//    func setupNumberOfReviewsLabel() {
+//        // NumberOfReviews label
+//        contentView.addSubview(numberOfReviewsLabel)
+//        numberOfReviewsLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
+//        numberOfReviewsLabel.translatesAutoresizingMaskIntoConstraints = false
+//        numberOfReviewsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15).isActive = true
+//        numberOfReviewsLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+//    }
     
     @objc func tapHeader(_ gestureRecognizer: UITapGestureRecognizer) {
         guard let cell = gestureRecognizer.view as? CollapsibleHeader else {
@@ -87,6 +86,6 @@ class CollapsibleHeader: UITableViewHeaderFooterView {
     }
     
     func setCollapsed(_ collapsed: Bool) {
-        arrowImageView.image = collapsed ? #imageLiteral(resourceName: "collapsedTriangle") : #imageLiteral(resourceName: "expandedTriangle")
+       // arrowImageView.image = collapsed ? #imageLiteral(resourceName: "collapsedTriangle") : #imageLiteral(resourceName: "expandedTriangle")
     }
 }

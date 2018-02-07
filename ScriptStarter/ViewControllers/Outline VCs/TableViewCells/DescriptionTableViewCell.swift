@@ -23,9 +23,9 @@ class DescriptionTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        descriptionTextView.textColor = UIColor.screenDarkMediumGray
+        descriptionTextView.textColor = UIColor.screenDarkGray
         descriptionTextView.placeholderColor = UIColor.flamenco
-        self.imageView?.heroID = "descriptionId"
+       
         descriptionTextView.delegate = self
         addToolBar(textView: descriptionTextView)
     }
@@ -37,17 +37,21 @@ class DescriptionTableViewCell: UITableViewCell {
         case 0: // Log line
             self.descriptionTextView.placeholder = "About a robot lizard who..."
             self.descriptionTextView.text = screenplay?.logLine
+            self.imageView?.heroID = "About a robot lizard who..."
         case 1: // Act 1
             self.descriptionTextView.placeholder = "Setup"
             self.descriptionTextView.text = screenplay?.actOne
+            self.imageView?.heroID = "Setup"
 
         case 2: // Act 2
             self.descriptionTextView.placeholder = "Confrontation"
             self.descriptionTextView.text = screenplay?.actTwo
+            self.imageView?.heroID = "Confrontation"
 
         case 3: // Act 3
             self.descriptionTextView.placeholder = "Resolution"
             self.descriptionTextView.text = screenplay?.actThree
+            self.imageView?.heroID = "Resolution"
 
         default:
             break

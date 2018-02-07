@@ -52,6 +52,18 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     @objc func expandButtonTapped(sender: UIButton) {
         let indexPath = IndexPath(row: 0, section: sender.tag)
         guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.childViewControllers[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        switch sender.tag {
+        case 0:
+            enlargedVC.view.heroID = "About a robot lizard who..."
+        case 1:
+            enlargedVC.view.heroID = "Setup"
+        case 2:
+            enlargedVC.view.heroID = "Confrontation"
+        case 3:
+            enlargedVC.view.heroID = "Resolution"
+        default:
+            break
+        }
         
         enlargedVC.text = descriptionCell.descriptionTextView.text
         enlargedVC.section = sender.tag
@@ -59,6 +71,8 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         
         self.present(enlargedNavigationController, animated: true, completion: nil)
     }
+    
+    
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         if let screenplay = screenplay {
@@ -190,6 +204,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         default:
             break
         }
+        
         sectionHeader.navigationButton.tag = section
         sectionHeader.navigationButton.addTarget(self, action: #selector(pushToDetailView(sender:)), for: .touchUpInside)
         sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
@@ -234,17 +249,20 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     
     @objc func pushToDetailView(sender: UIButton) {
         
+        guard let actDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "actDetailVC") as? ActDetailTableViewController else { return }
+        
         // Switch on the Act to segue to based on button tag
         switch sender.tag {
         case 1:
-            break
+            actDetailVC.act = .one
         case 2:
-            break
+            actDetailVC.act = .two
         case 3:
-            break
+            actDetailVC.act = .three
         default:
             break
         }
+        self.navigationController?.pushViewController(actDetailVC, animated: true)
     }
     
 }

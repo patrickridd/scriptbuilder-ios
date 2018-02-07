@@ -26,6 +26,9 @@ class Screenplay {
     var actTwo: String?
     var actThree: String?
     var characters: [Character] = []
+    var act1 = Act1()
+    var act2 = Act2()
+    var act3 = Act3()
     
     init(title: String) {
         self.title = title
