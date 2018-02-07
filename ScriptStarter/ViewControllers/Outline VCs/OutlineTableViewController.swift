@@ -83,16 +83,18 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         
         if let screenplay = screenplay {
             FirebaseController.shared.save(screenplay: screenplay, completion: { (success) in
-                loadingNotification.mode = .customView
-                if success {
-                    loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
-                    loadingNotification.label.text = "success"
+                DispatchQueue.main.async {
+                    loadingNotification.mode = .customView
+                    if success {
+                        loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
+                        loadingNotification.label.text = "success"
+                        loadingNotification.hide(animated: true, afterDelay: 1)
+                        return
+                    }
+                    loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
+                    loadingNotification.label.text = "failed"
                     loadingNotification.hide(animated: true, afterDelay: 1)
-                    return
                 }
-                loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
-                loadingNotification.label.text = "failed"
-                loadingNotification.hide(animated: true, afterDelay: 1)
             })
         }
     }
@@ -209,15 +211,19 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         case 0:
             sectionName = "Basic Idea - Log line"
             sectionHeader.moreButton.isHidden = true
+            sectionHeader.navigationButton.isEnabled = false
         case 1:
             sectionName = " Act 1"
             sectionHeader.moreButton.isHidden = false
+            sectionHeader.navigationButton.isEnabled = true
         case 2:
             sectionName = "Act 2"
             sectionHeader.moreButton.isHidden = false
+            sectionHeader.navigationButton.isEnabled = true
         case 3:
             sectionName = "Act 3"
             sectionHeader.moreButton.isHidden = false
+            sectionHeader.navigationButton.isEnabled = true
         default:
             break
         }

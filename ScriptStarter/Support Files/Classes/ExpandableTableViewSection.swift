@@ -8,12 +8,14 @@
 
 import Foundation
 
-struct ExpandableTableViewSection {
+class ExpandableTableViewSection {
     var sectionTitle: String
+    var sectionSubtitle: String
     var collapsed: Bool
     
-    init(sectionTitle: String, collapsed: Bool = true) {
+    init(sectionTitle: String, sectionSubtitle: String, collapsed: Bool = true) {
         self.sectionTitle = sectionTitle
+        self.sectionSubtitle = sectionSubtitle
         self.collapsed = collapsed
     }
 }

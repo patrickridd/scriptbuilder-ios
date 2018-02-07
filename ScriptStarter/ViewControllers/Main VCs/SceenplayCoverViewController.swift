@@ -67,16 +67,18 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
         
         if let screenplay = screenplay {
             FirebaseController.shared.save(screenplay: screenplay, completion: { (success) in
-                loadingNotification.mode = .customView
-                if success {
-                    loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
-                    loadingNotification.label.text = "success"
+                DispatchQueue.main.async {
+                    loadingNotification.mode = .customView
+                    if success {
+                        loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
+                        loadingNotification.label.text = "success"
+                        loadingNotification.hide(animated: true, afterDelay: 1)
+                        return
+                    }
+                    loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
+                    loadingNotification.label.text = "failed"
                     loadingNotification.hide(animated: true, afterDelay: 1)
-                    return
                 }
-                loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
-                loadingNotification.label.text = "failed"
-                loadingNotification.hide(animated: true, afterDelay: 1)
             })
         }
     }
@@ -85,7 +87,6 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
     // MARK: GADInterstitialDelegate Methods
     
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        print("Interstitial loaded successfully")
         ad.present(fromRootViewController: self)
     }
     
@@ -102,7 +103,7 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
         
         let request = GADRequest()
         // TODO: Remove the following line before you upload the app
-        request.testDevices = [ kGADSimulatorID ]
+        request.testDevices = [kGADSimulatorID]
         interstitial.load(request)
         interstitial.delegate = self
         

@@ -163,6 +163,34 @@
 			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
+		210C7611202B83BC003EEC16 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				21A7CF572028EC8400D97394 /* Extension+UITableViewCell.swift */,
+				21E661C32017F979006A14AF /* Extension+UIColor.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		210C7612202B83D3003EEC16 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				21E661C520190E3E006A14AF /* UIAlertControllers.swift */,
+				21A7CF512028E45300D97394 /* CollapsibleHeaderView.swift */,
+				21A7CF59202A622000D97394 /* ExpandableTableViewSection.swift */,
+				21099167201FD4CF00340124 /* SectionHeaderView.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		210C7613202B83FF003EEC16 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				21A7CF69202A6D3A00D97394 /* Act.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		212DEA672012746500FE9C3F = {
 			isa = PBXGroup;
 			children = (
@@ -325,13 +353,9 @@
 		21E661C22017F955006A14AF /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				21E661C32017F979006A14AF /* Extension+UIColor.swift */,
-				21E661C520190E3E006A14AF /* UIAlertControllers.swift */,
-				21A7CF572028EC8400D97394 /* Extension+UITableViewCell.swift */,
-				21A7CF69202A6D3A00D97394 /* Act.swift */,
-				21A7CF59202A622000D97394 /* ExpandableTableViewSection.swift */,
-				21099167201FD4CF00340124 /* SectionHeaderView.swift */,
-				21A7CF512028E45300D97394 /* CollapsibleHeaderView.swift */,
+				210C7612202B83D3003EEC16 /* Classes */,
+				210C7613202B83FF003EEC16 /* Enums */,
+				210C7611202B83BC003EEC16 /* Extensions */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";

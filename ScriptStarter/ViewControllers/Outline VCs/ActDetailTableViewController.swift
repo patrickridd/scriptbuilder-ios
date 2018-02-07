@@ -28,11 +28,12 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     func setupExpandableSections() {
         
         let sectionTitles = act.sectionsTitles
-        for title in sectionTitles {
-            let section = ExpandableTableViewSection(sectionTitle: title)
+        for index in 0...sectionTitles.count-1 {
+            let title = act.sectionsTitles[index]
+            let subtitle = act.sectionSubTitles[index]
+            let section = ExpandableTableViewSection(sectionTitle: title, sectionSubtitle: subtitle)
             expandableSections.append(section)
         }
-        
     }
     // MARK: - Table view data source
 
@@ -109,6 +110,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
        
         header.contentView.backgroundColor = expandableSections[section].collapsed ? .white : UIColor.screenLightGray
         header.titleLabel.text = act.sectionsTitles[section]
+        header.subtitleLabel.text = act.sectionSubTitles[section]
         
 
 //        let attributedReviewNumberText = NSAttributedString(string: "(\(companyReviewSections[section-1].reviews.count))", attributes: [NSForegroundColorAttributeName:UIColor.lightGray])
