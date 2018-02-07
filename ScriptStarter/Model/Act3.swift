@@ -9,7 +9,24 @@
 import Foundation
 
 class Act3 {
+    
+    // Keys
+    let theUltimateAnswerKey = "theUltimateAnswer"
+    let rewardsKey = "rewards"
+    let untangleStoryKey = "untangleStory"
+    
     var theUltimateAnswer: String = ""
     var rewards: String = ""
     var untangleStory: String = ""
+    
+    init?(actThreeDict: [String:Any]) {
+        guard let theUltimateAnswer = actThreeDict[theUltimateAnswer] as? String,
+        let rewards = actThreeDict[rewardsKey] as? String,
+        let untangleStory = actThreeDict[untangleStoryKey] as? String else {
+                return nil
+        }
+        self.theUltimateAnswer = theUltimateAnswer
+        self.rewards = rewards
+        self.untangleStory = untangleStory
+    }
 }

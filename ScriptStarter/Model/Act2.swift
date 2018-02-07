@@ -9,6 +9,17 @@
 import Foundation
 
 class Act2 {
+    
+    // Keys
+    let newWorldDescriptionKey = "newWorldDescription"
+    let enemiesFriendsKey = "enemiesFriends"
+    let obstaclesKey = "obstacles"
+    let theDeadlyEncounterKey = "theDeadlyEncounter"
+    let celebrateKey = "celebrate"
+    let stormGathersKey = "stormGathers"
+    let badGuysStrikeBackKey = "badGuysStrikeBack"
+    let allIsLostKey = "allIsLost"
+    
     var newWorldDescription: String = ""
     var enemiesFriends: String = ""
     var obstacles: String = ""
@@ -17,4 +28,26 @@ class Act2 {
     var stormGathers: String = ""
     var badGuysStrikeBack: String = ""
     var allIsLost: String = ""
+    
+    init?(actTwoDict: [String:Any]) {
+        guard let newWorldDescription = actTwoDict[newWorldDescriptionKey] as? String,
+        let enemiesFriends = actTwoDict[enemiesFriendsKey] as? String,
+        let obstacles = actTwoDict[obstaclesKey] as? String,
+        let theDeadlyEncounter = actTwoDict[theDeadlyEncounterKey] as? String,
+        let celebrate = actTwoDict[celebrateKey] as? String,
+        let stormGathers = actTwoDict[stormGathersKey] as? String,
+        let badGuysStrikeBack = actTwoDict[badGuysStrikeBackKey] as? String,
+        let allIsLost = actTwoDict[allIsLostKey] as? String else {
+            return nil
+        }
+        
+        self.newWorldDescription = newWorldDescription
+        self.enemiesFriends = enemiesFriends
+        self.obstacles = obstacles
+        self.theDeadlyEncounter = theDeadlyEncounter
+        self.celebrate = celebrate
+        self.stormGathers = stormGathers
+        self.badGuysStrikeBack = badGuysStrikeBack
+        self.allIsLost = allIsLost
+    }
 }
