@@ -27,22 +27,27 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
         super.viewDidLoad()
         
         titleTextField.delegate = self
-        
-        // Create Interstitial Ad
-       // interstitial = createAndLoadInterstitial()
-        
+
+        if let name = Auth.auth().currentUser?.displayName {
+            self.nameLabel.text = name
+        }
+
         if let screenplay = screenplay {
             // Set title of existing screenplay
             self.titleTextField.text = screenplay.title
         } else {
             // Create new screenplay
-            let newScreenplay = Screenplay(title: "Untitled")
+            let newScreenplay = Screenplay(title: "")
             ScreenplayController.shared.set(currentScreenplay: newScreenplay)
+            self.titleTextField.becomeFirstResponder()
         }
         
-        if let name = Auth.auth().currentUser?.displayName {
-            self.nameLabel.text = name
-        }
+        // Setup Tap Gesture to dismiss keyboard
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+       
+        // Create Interstitial Ad
+       // interstitial = createAndLoadInterstitial()
     }
 
     
@@ -83,7 +88,12 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
         }
     }
     
+    // MARK: Tap Gesture Recognizer
     
+    @objc func dismissKeyboard() {
+        titleTextField.resignFirstResponder()
+    }
+
     // MARK: GADInterstitialDelegate Methods
     
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {

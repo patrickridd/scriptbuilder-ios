@@ -108,7 +108,7 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
             // TODO: Create a cell for an existing screenplay
             guard let screenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "screenplayCell", for: indexPath) as? ScreenplayCollectionViewCell else { return UICollectionViewCell() }
             let screenplay = self.screenplays[indexPath.row-1]
-            screenplayCell.update(title: screenplay.title, heroId: "\(indexPath.row)")
+            screenplayCell.update(title: screenplay.title, name: self.user?.displayName ?? "Name", heroId: "\(indexPath.row)")
             return screenplayCell
         }
     }

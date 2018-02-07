@@ -238,7 +238,6 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 45
-        
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

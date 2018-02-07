@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -196,14 +197,14 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Untitled" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ho6-1A-xJQ">
-                                                    <rect key="frame" x="40" y="57" width="60.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Untitled" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="ho6-1A-xJQ">
+                                                    <rect key="frame" x="8" y="57" width="124" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZ6-7H-ahU">
-                                                    <rect key="frame" x="48" y="103" width="45" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="wZ6-7H-ahU">
+                                                    <rect key="frame" x="8" y="103" width="124" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -216,7 +217,11 @@
                                             <constraint firstItem="NOP-aH-Q5V" firstAttribute="centerX" secondItem="ZBL-Z5-wgF" secondAttribute="centerX" id="1Ey-6c-3Yh"/>
                                             <constraint firstItem="wZ6-7H-ahU" firstAttribute="centerX" secondItem="ZBL-Z5-wgF" secondAttribute="centerX" id="8Tf-Hc-EhE"/>
                                             <constraint firstItem="ho6-1A-xJQ" firstAttribute="centerX" secondItem="ZBL-Z5-wgF" secondAttribute="centerX" id="ETg-od-Dcz"/>
+                                            <constraint firstItem="ho6-1A-xJQ" firstAttribute="leading" secondItem="ZBL-Z5-wgF" secondAttribute="leadingMargin" id="N4K-c2-qBX"/>
                                             <constraint firstItem="NOP-aH-Q5V" firstAttribute="top" secondItem="ho6-1A-xJQ" secondAttribute="bottom" constant="2" id="O34-V7-eRa"/>
+                                            <constraint firstItem="wZ6-7H-ahU" firstAttribute="leading" secondItem="ZBL-Z5-wgF" secondAttribute="leadingMargin" id="UFA-cF-Me2"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="wZ6-7H-ahU" secondAttribute="trailing" id="aoc-uo-Vz3"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="ho6-1A-xJQ" secondAttribute="trailing" id="d7S-Us-ljH"/>
                                             <constraint firstItem="NOP-aH-Q5V" firstAttribute="centerY" secondItem="ZBL-Z5-wgF" secondAttribute="centerY" id="fvx-uO-sa0"/>
                                         </constraints>
                                         <size key="customSize" width="140" height="180"/>
@@ -226,6 +231,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="screenplayCover"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="nameLabel" destination="wZ6-7H-ahU" id="3cn-c4-0v5"/>
                                             <outlet property="titleLabel" destination="ho6-1A-xJQ" id="deC-Ju-Uzy"/>
                                             <segue destination="3mL-up-QOC" kind="presentation" id="1JM-p9-a5Z"/>
                                         </connections>

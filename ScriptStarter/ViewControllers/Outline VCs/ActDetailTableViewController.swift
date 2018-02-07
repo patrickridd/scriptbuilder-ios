@@ -38,21 +38,16 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-
-//      1.  Old World - What is life like before the story begins?
-//      2.  Inciting incident - What event, person, or thing creates disharmony in the old world?
-//      3.  Call to Adventure - What must your hero or world do to bring harmony?
-//      4.  Theme - Are there any premises, beliefs, or ideas that can be tested in the adventure?
-//      5. I don't want to go - Does your hero(s) have doubts about the adventure ahead?
-//      6. I must go - What convinces your hero(s) to go on their adventure?
-//      7.  Enemy at the gates - Are there any obstacles or enemies in getting the adventure started?
-        
-        return act.sectionsTitles.count
+        return act.sectionsTitles.count + 1 // + 1 for the overall act description section
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return expandableSections[section].collapsed ? 0 : 1
+        switch section {
+        case 0:
+            return 1 // Overall Act Description
+        default:
+            return expandableSections[section-1].collapsed ? 0 : 1
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -63,35 +58,38 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         
         switch act {
         case .one:
-            switch indexPath.row {
-            case 0: descriptionCell.descriptionTextView.text = screenplay?.act1.oldWorldDescription
-            case 1: descriptionCell.descriptionTextView.text = screenplay?.act1.incitingIncident
-            case 2: descriptionCell.descriptionTextView.text = screenplay?.act1.callToAdventure
-            case 3: descriptionCell.descriptionTextView.text = screenplay?.act1.theme
-            case 4: descriptionCell.descriptionTextView.text = screenplay?.act1.refusal
-            case 5: descriptionCell.descriptionTextView.text = screenplay?.act1.reasonToAdventure
-            case 6: descriptionCell.descriptionTextView.text = screenplay?.act1.enemyAtTheGates
+            switch indexPath.section {
+            case 0: descriptionCell.descriptionTextView.text = screenplay?.actOneDescription
+            case 1: descriptionCell.descriptionTextView.text = screenplay?.act1.oldWorldDescription
+            case 2: descriptionCell.descriptionTextView.text = screenplay?.act1.incitingIncident
+            case 3: descriptionCell.descriptionTextView.text = screenplay?.act1.callToAdventure
+            case 4: descriptionCell.descriptionTextView.text = screenplay?.act1.theme
+            case 5: descriptionCell.descriptionTextView.text = screenplay?.act1.refusal
+            case 6: descriptionCell.descriptionTextView.text = screenplay?.act1.reasonToAdventure
+            case 7: descriptionCell.descriptionTextView.text = screenplay?.act1.enemyAtTheGates
             default:
                 break
             }
         case .two:
-            switch indexPath.row {
-            case 0: descriptionCell.descriptionTextView.text = screenplay?.act2.newWorldDescription
-            case 1: descriptionCell.descriptionTextView.text = screenplay?.act2.enemiesFriends
-            case 2: descriptionCell.descriptionTextView.text = screenplay?.act2.obstacles
-            case 3: descriptionCell.descriptionTextView.text = screenplay?.act2.theDeadlyEncounter
-            case 4: descriptionCell.descriptionTextView.text = screenplay?.act2.celebrate
-            case 5: descriptionCell.descriptionTextView.text = screenplay?.act2.stormGathers
-            case 6: descriptionCell.descriptionTextView.text = screenplay?.act2.badGuysStrikeBack
-            case 7: descriptionCell.descriptionTextView.text = screenplay?.act2.allIsLost
+            switch indexPath.section {
+            case 0: descriptionCell.descriptionTextView.text = screenplay?.actTwoDescription
+            case 1: descriptionCell.descriptionTextView.text = screenplay?.act2.newWorldDescription
+            case 2: descriptionCell.descriptionTextView.text = screenplay?.act2.enemiesFriends
+            case 3: descriptionCell.descriptionTextView.text = screenplay?.act2.obstacles
+            case 4: descriptionCell.descriptionTextView.text = screenplay?.act2.theDeadlyEncounter
+            case 5: descriptionCell.descriptionTextView.text = screenplay?.act2.celebrate
+            case 6: descriptionCell.descriptionTextView.text = screenplay?.act2.stormGathers
+            case 7: descriptionCell.descriptionTextView.text = screenplay?.act2.badGuysStrikeBack
+            case 8: descriptionCell.descriptionTextView.text = screenplay?.act2.allIsLost
             default:
                 break
             }
         case .three:
-            switch indexPath.row {
-            case 0: descriptionCell.descriptionTextView.text = screenplay?.act3.theUltimateAnswer
-            case 1: descriptionCell.descriptionTextView.text = screenplay?.act3.rewards
-            case 2: descriptionCell.descriptionTextView.text = screenplay?.act3.untangleStory
+            switch indexPath.section {
+            case 0: descriptionCell.descriptionTextView.text = screenplay?.actThreeDescription
+            case 1: descriptionCell.descriptionTextView.text = screenplay?.act3.theUltimateAnswer
+            case 2: descriptionCell.descriptionTextView.text = screenplay?.act3.rewards
+            case 3: descriptionCell.descriptionTextView.text = screenplay?.act3.untangleStory
             default:
                 break
             }
@@ -106,38 +104,46 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
-       
-        header.contentView.backgroundColor = expandableSections[section].collapsed ? .white : UIColor.screenLightGray
-        header.titleLabel.text = act.sectionsTitles[section]
-        header.subtitleLabel.text = act.sectionSubTitles[section]
-        
-
-//        let attributedReviewNumberText = NSAttributedString(string: "(\(companyReviewSections[section-1].reviews.count))", attributes: [NSForegroundColorAttributeName:UIColor.lightGray])
-//
-//        let subtitleFont = UIFont.systemFont(ofSize: 12)
-//        let attributedCompanyCityText = NSAttributedString(string: companyReviewSections[section-1].companyCity ?? "City Unavailable", attributes: [NSForegroundColorAttributeName:UIColor.lightGray, NSFontAttributeName:subtitleFont])
-
-       // header.subtitleLabel.attributedText = attributedCompanyCityText
-      //  header.numberOfReviewsLabel.attributedText = attributedReviewNumberText
-        header.setCollapsed(expandableSections[section].collapsed)
-
-        header.section = section
-        header.delegate = self
-        return header
+        switch section {
+        case 0:
+            let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
+            sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
+            sectionHeader.moreButton.isHidden = true
+            sectionHeader.navigationButton.isEnabled = false
+            let font = UIFont.systemFont(ofSize: 16, weight: .regular)
+            sectionHeader.sectionLabel.font = font
+            sectionHeader.sectionLabel.text = "Overall act description"
+            return sectionHeader
+            
+        default:
+            // Create Collapsible Header for Act Beats
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
+            header.contentView.backgroundColor = expandableSections[section-1].collapsed ? .white : UIColor.screenLightGray
+            header.titleLabel.text = act.sectionsTitles[section-1]
+            header.subtitleLabel.text = act.sectionSubTitles[section-1]
+            header.setCollapsed(expandableSections[section-1].collapsed)
+            header.section = section
+            header.delegate = self
+            return header
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+        switch section {
+        case 0:
+            return 45
+        default:
+            return 60
+        }
     }
     
     // MARK: CollapsibleHeaderDelegate
     
     func toggleSection(_ header: CollapsibleHeader, section: Int) {
         DispatchQueue.main.async {
-            let collapsed = !self.expandableSections[section].collapsed
+            let collapsed = !self.expandableSections[section-1].collapsed
             // Toggle collapse
-            self.expandableSections[section].collapsed = collapsed
+            self.expandableSections[section-1].collapsed = collapsed
             header.setCollapsed(collapsed)
            
             // Reload section tapped

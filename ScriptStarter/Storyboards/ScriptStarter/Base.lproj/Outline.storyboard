@@ -108,7 +108,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JVP-l1-oah" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3839" y="-679"/>
+            <point key="canvasLocation" x="3697" y="-715"/>
         </scene>
         <!--Enlarged Description Table View Controller-->
         <scene sceneID="hNO-DE-81Y">
@@ -168,7 +168,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ApB-qt-Jd0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4732" y="-681"/>
+            <point key="canvasLocation" x="5031" y="-695"/>
         </scene>
         <!--outline-->
         <scene sceneID="QuI-Nw-bJH">
@@ -190,7 +190,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ujm-ts-fcZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3398" y="-678"/>
+            <point key="canvasLocation" x="2988" y="-714"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tUO-wP-9Xn">
@@ -222,14 +222,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.41568627450000001" green="0.41568627450000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="OdE-Ec-1Vw">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="29"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.94901067018508911" green="0.94901353120803833" blue="0.94901996850967407" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="179" id="34E-BM-Gnm" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="84.5" width="375" height="179"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="179"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="34E-BM-Gnm" id="8cz-VY-lR0">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="178.5"/>

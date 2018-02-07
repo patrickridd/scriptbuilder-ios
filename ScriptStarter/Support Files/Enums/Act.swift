@@ -31,7 +31,7 @@ enum Act {
             sectionTitles = ["Old World",
                              "Inciting Incident",
                              "Call to Adventure",
-                             "Themes",
+                             "Themes Introduced",
                              "I don't want to go",
                              "I must go",
                              "Enemy at the gates"]

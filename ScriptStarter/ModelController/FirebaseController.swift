@@ -55,8 +55,10 @@ class FirebaseController {
             completion(false)
             return
         }
-        let screenplayRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid)
         
+        if screenplay.title == "" { screenplay.title = "Untitled" }
+        
+        let screenplayRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid)
         screenplayRef.setValue(screenplay.firDictionary) { (error, reference) in
             if let _ = error {
                 completion(false)
