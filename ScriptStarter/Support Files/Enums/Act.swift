@@ -78,4 +78,22 @@ enum Act {
                     "Are there any unanswered questions that need to be untangled?"]
         }
     }
+    
+    var placeholders: [String] {
+        switch self {
+        case .one:
+            return ["The setup",
+                    "e.g. Bruce Wayne's parents have died and Gotham City is riddled with crime...",
+                    "e.g. Princess Leia is captured by Darth Vader...",
+                "e.g. Indian Jones is asked by the government to find the Arc of the Covenant before the Nazis",
+                "e.g. Better to be with friends and family even if they annoy you sometimes...",
+                "e.g. Luke Skywalker doesn't want help save Princess Leia, because he needs to help his aunt and uncle with the farm",
+                "e.g. After Luke Skywalker's aunt and uncle are killed by stormtroopers he's realizes he must go help save princess Leia",
+                "e.g. Obi Wan and Luke get past the storm troopers on Tatooine. \"These aren't the droids you're looking for\""]
+        case .two:
+            return ["The conflict",]
+        case .three:
+            return [""]
+        }
+    }
 }

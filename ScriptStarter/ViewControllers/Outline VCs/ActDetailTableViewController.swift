@@ -57,46 +57,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
 
         // Configure the cell...
         descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
-        
-        switch act {
-        case .one:
-            switch indexPath.section {
-            case 0: descriptionCell.descriptionTextView.text = screenplay?.actOneDescription
-            case 2: descriptionCell.descriptionTextView.text = screenplay?.act1.oldWorldDescription
-            case 3: descriptionCell.descriptionTextView.text = screenplay?.act1.incitingIncident
-            case 4: descriptionCell.descriptionTextView.text = screenplay?.act1.callToAdventure
-            case 5: descriptionCell.descriptionTextView.text = screenplay?.act1.theme
-            case 6: descriptionCell.descriptionTextView.text = screenplay?.act1.refusal
-            case 7: descriptionCell.descriptionTextView.text = screenplay?.act1.reasonToAdventure
-            case 8: descriptionCell.descriptionTextView.text = screenplay?.act1.enemyAtTheGates
-            default:
-                break
-            }
-        case .two:
-            switch indexPath.section {
-            case 0: descriptionCell.descriptionTextView.text = screenplay?.actTwoDescription
-            case 2: descriptionCell.descriptionTextView.text = screenplay?.act2.newWorldDescription
-            case 3: descriptionCell.descriptionTextView.text = screenplay?.act2.enemiesFriends
-            case 4: descriptionCell.descriptionTextView.text = screenplay?.act2.obstacles
-            case 5: descriptionCell.descriptionTextView.text = screenplay?.act2.theDeadlyEncounter
-            case 6: descriptionCell.descriptionTextView.text = screenplay?.act2.celebrate
-            case 7: descriptionCell.descriptionTextView.text = screenplay?.act2.stormGathers
-            case 8: descriptionCell.descriptionTextView.text = screenplay?.act2.badGuysStrikeBack
-            case 9: descriptionCell.descriptionTextView.text = screenplay?.act2.allIsLost
-            default:
-                break
-            }
-        case .three:
-            switch indexPath.section {
-            case 0: descriptionCell.descriptionTextView.text = screenplay?.actThreeDescription
-            case 2: descriptionCell.descriptionTextView.text = screenplay?.act3.theUltimateAnswer
-            case 3: descriptionCell.descriptionTextView.text = screenplay?.act3.rewards
-            case 4: descriptionCell.descriptionTextView.text = screenplay?.act3.untangleStory
-            default:
-                break
-            }
-        }
-        
+         descriptionCell.update(viewController: .actDetail, section: indexPath.section, act: self.act)
         return descriptionCell
     }
 

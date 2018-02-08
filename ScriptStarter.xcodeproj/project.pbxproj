@@ -40,6 +40,7 @@
 		21B8FB88201AA656000A8721 /* ScreenplayTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB87201AA656000A8721 /* ScreenplayTabBarController.swift */; };
 		21C903D82016528A0017D626 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C903D72016528A0017D626 /* LoginViewController.swift */; };
 		21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727ED202CE17700861C2D /* ActBeatSectionHeader.swift */; };
+		21D727F0202CEB8500861C2D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727EF202CEB8500861C2D /* ViewController.swift */; };
 		21E661BD2017B1F6006A14AF /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661BC2017B1F6006A14AF /* DescriptionTableViewCell.swift */; };
 		21E661BF2017C236006A14AF /* OutlineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661BE2017C236006A14AF /* OutlineTableViewController.swift */; };
 		21E661C12017DBAE006A14AF /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661C02017DBAE006A14AF /* FirebaseController.swift */; };
@@ -109,6 +110,7 @@
 		21B8FB87201AA656000A8721 /* ScreenplayTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayTabBarController.swift; sourceTree = "<group>"; };
 		21C903D72016528A0017D626 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		21D727ED202CE17700861C2D /* ActBeatSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActBeatSectionHeader.swift; sourceTree = "<group>"; };
+		21D727EF202CEB8500861C2D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		21E661BC2017B1F6006A14AF /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		21E661BE2017C236006A14AF /* OutlineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineTableViewController.swift; sourceTree = "<group>"; };
 		21E661C02017DBAE006A14AF /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				21A7CF69202A6D3A00D97394 /* Act.swift */,
+				21D727EF202CEB8500861C2D /* ViewController.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -724,6 +727,7 @@
 				2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */,
 				21A7CF4B2023B02D00D97394 /* Character.swift in Sources */,
 				21A7CF4E2023B4D200D97394 /* CharacterTableViewCell.swift in Sources */,
+				21D727F0202CEB8500861C2D /* ViewController.swift in Sources */,
 				21A7CF68202A683800D97394 /* Act3.swift in Sources */,
 				21A7CF64202A672100D97394 /* Act1.swift in Sources */,
 				21E661BF2017C236006A14AF /* OutlineTableViewController.swift in Sources */,

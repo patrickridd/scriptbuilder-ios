@@ -44,6 +44,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         self.tableView.separatorColor = self.tableView.backgroundColor
 
         setupNavigationBar()
+        self.tableView.reloadData()
         setupTabBar()
         adBannerView.load(GADRequest())
     }
@@ -171,9 +172,8 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else {
             return UITableViewCell() }
         
-        descriptionCell.update(section: indexPath.section)
+        descriptionCell.update(viewController: .outline, section: indexPath.section, act: nil)
         descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
-        descriptionCell.descriptionTextView.heroID = "descriptionTextView"
         descriptionCell.expandButton.tag = indexPath.section
         descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
         

@@ -15,6 +15,10 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         return ScreenplayController.shared.currentScreenplay
     }
     
+    var viewController: ViewController = .outline
+    var section: Int = 0
+    var act: Act?
+
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
@@ -25,7 +29,7 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
     }()
     
     var text: String?
-    var section: Int = 0
+    
     weak var delegate: DescriptionDelegate?
     
     override func viewDidLoad() {
@@ -90,8 +94,7 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell") as? DescriptionTableViewCell else { return UITableViewCell() }
         
-    
-        descriptionCell.update(section: section)
+        descriptionCell.update(viewController: self.viewController, section: section, act: self.act )
         descriptionCell.backgroundColor = .screenLightGray
         return descriptionCell
     }
