@@ -32,8 +32,7 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        self.title = "Screenplays"
-        
+        self.title = "Script Plan"
         getScreenplays()
         
         // Enlarge new screenplay if none exist

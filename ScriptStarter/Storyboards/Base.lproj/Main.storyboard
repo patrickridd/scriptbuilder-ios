@@ -338,18 +338,31 @@
                                     <action selector="arrowButtonTapped:" destination="V0n-xO-FAg" eventType="touchUpInside" id="sev-Pe-Eoy"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fiz-pH-YgK">
+                                <rect key="frame" x="20" y="607" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5oK-cG-G2n"/>
+                                    <constraint firstAttribute="width" constant="50" id="sGb-A7-2rz"/>
+                                </constraints>
+                                <state key="normal" image="blueTrashCanAsset 1"/>
+                                <connections>
+                                    <action selector="deleteButtonTapped:" destination="V0n-xO-FAg" eventType="touchUpInside" id="dP2-e5-faq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="RlF-25-Daw" firstAttribute="top" secondItem="9Ij-MY-r1m" secondAttribute="top" id="2HP-fO-npl"/>
                             <constraint firstItem="Vag-Lh-c30" firstAttribute="centerY" secondItem="tVJ-SE-YRF" secondAttribute="centerY" id="8qU-cw-bmH"/>
+                            <constraint firstItem="Fiz-pH-YgK" firstAttribute="leading" secondItem="9Ij-MY-r1m" secondAttribute="leading" constant="20" id="BCO-8M-XX2"/>
                             <constraint firstItem="4MR-wb-F71" firstAttribute="centerX" secondItem="tVJ-SE-YRF" secondAttribute="centerX" id="C3S-vN-9r7"/>
                             <constraint firstItem="Vag-Lh-c30" firstAttribute="top" secondItem="4MR-wb-F71" secondAttribute="bottom" constant="5" id="F79-bV-tJo"/>
                             <constraint firstItem="iGQ-js-Qji" firstAttribute="top" secondItem="Vag-Lh-c30" secondAttribute="bottom" constant="5" id="RVi-tF-Z31"/>
                             <constraint firstItem="bN9-GH-ear" firstAttribute="centerY" secondItem="tVJ-SE-YRF" secondAttribute="centerY" id="XvK-2L-WK4"/>
                             <constraint firstItem="9Ij-MY-r1m" firstAttribute="trailing" secondItem="flj-yl-qjQ" secondAttribute="trailing" constant="20" id="Z9M-8F-gC5"/>
                             <constraint firstItem="Vag-Lh-c30" firstAttribute="centerX" secondItem="tVJ-SE-YRF" secondAttribute="centerX" id="cbP-be-kju"/>
+                            <constraint firstItem="9Ij-MY-r1m" firstAttribute="bottom" secondItem="Fiz-pH-YgK" secondAttribute="bottom" constant="10" id="fYh-Ki-swB"/>
                             <constraint firstItem="9Ij-MY-r1m" firstAttribute="trailing" secondItem="bN9-GH-ear" secondAttribute="trailing" constant="20" id="gzD-vq-XWs"/>
                             <constraint firstItem="flj-yl-qjQ" firstAttribute="centerY" secondItem="RlF-25-Daw" secondAttribute="centerY" id="jbZ-vx-i2h"/>
                             <constraint firstItem="RlF-25-Daw" firstAttribute="leading" secondItem="9Ij-MY-r1m" secondAttribute="leading" constant="20" id="jzM-E9-kV0"/>
@@ -591,6 +604,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="blueTrashCanAsset 1" width="21" height="27"/>
         <image name="facebookButtonIcon" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>

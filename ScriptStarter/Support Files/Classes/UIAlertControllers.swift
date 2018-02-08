@@ -18,6 +18,18 @@ class UIAlertControllers {
         return alert
     }
     
-    
+    static func deleteScreenplayAlert() -> UIAlertController {
+        let screenplayTitle = ScreenplayController.shared.currentScreenplay?.title ?? "this screenplay"
+        
+        let alert = UIAlertController(title: "Delete Screenplay", message: "Are you sure you want to delete \(screenplayTitle)", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+            // Delete currentScreenplay
+            
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        return alert
+    }
     
 }

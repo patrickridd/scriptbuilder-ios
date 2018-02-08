@@ -88,6 +88,11 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
         }
     }
     
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        self.present(UIAlertControllers.deleteScreenplayAlert(), animated: true)
+    }
+    
+    
     // MARK: Tap Gesture Recognizer
     
     @objc func dismissKeyboard() {
