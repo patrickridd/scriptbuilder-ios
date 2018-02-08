@@ -19,10 +19,6 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
     
     var interstitial: GADInterstitial?
     
-    var screenplay: Screenplay? {
-        return ScreenplayController.shared.currentScreenplay
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +28,7 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
             self.nameLabel.text = name
         }
 
-        if let screenplay = screenplay {
+        if let screenplay = self.screenplay {
             // Set title of existing screenplay
             self.titleTextField.text = screenplay.title
         } else {

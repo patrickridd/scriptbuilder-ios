@@ -10,9 +10,6 @@ import UIKit
 
 class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate {
     
-    var screenplay: Screenplay? {
-        return ScreenplayController.shared.currentScreenplay
-    }
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
     
@@ -23,8 +20,13 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
-
     }
+    
+    
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        self.saveScreenplay()
+    }
+    
     func setupExpandableSections() {
         
         let sectionTitles = act.sectionsTitles

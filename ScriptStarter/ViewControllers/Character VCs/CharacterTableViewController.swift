@@ -11,10 +11,6 @@ import GoogleMobileAds
 
 class CharacterTableViewController: UITableViewController, GADBannerViewDelegate {
     
-    var screenplay: Screenplay? {
-        return ScreenplayController.shared.currentScreenplay
-    }
-    
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"

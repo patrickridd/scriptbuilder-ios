@@ -24,7 +24,12 @@ class UIAlertControllers {
         let alert = UIAlertController(title: "Delete Screenplay", message: "Are you sure you want to delete \(screenplayTitle)", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
-            // Delete currentScreenplay
+            if let screenplay = ScreenplayController.shared.currentScreenplay {
+                // Delete currentScreenplay
+
+            } else {
+                // Just Dismiss ViewController
+            }
             
         }
         alert.addAction(cancelAction)

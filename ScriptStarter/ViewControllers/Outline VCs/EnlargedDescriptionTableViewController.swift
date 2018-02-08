@@ -11,10 +11,6 @@ import GoogleMobileAds
 
 class EnlargedDescriptionTableViewController: UITableViewController, GADBannerViewDelegate {
     
-    var screenplay: Screenplay? {
-        return ScreenplayController.shared.currentScreenplay
-    }
-    
     var viewController: ViewController = .outline
     var section: Int = 0
     var act: Act?
@@ -51,6 +47,11 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         delegate?.updatedText(text, in: self.section)
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        self.saveScreenplay()
+    }
+    
     
     // MARK: - UI Methods
     

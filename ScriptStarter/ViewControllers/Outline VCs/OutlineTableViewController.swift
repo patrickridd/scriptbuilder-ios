@@ -15,10 +15,6 @@ let swipeRightNotificationKey = "com.scriptstarter.swipedRightInTabBar"
 
 class OutlineTableViewController: UITableViewController, DescriptionDelegate, GADBannerViewDelegate {
     
-    var screenplay: Screenplay? {
-        return ScreenplayController.shared.currentScreenplay
-    }
-    
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
@@ -77,27 +73,29 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
-        loadingNotification.mode = MBProgressHUDMode.annularDeterminate
-        loadingNotification.animationType = .fade
-        loadingNotification.label.text = "saving"
-        
-        if let screenplay = screenplay {
-            FirebaseController.shared.save(screenplay: screenplay, completion: { (success) in
-                DispatchQueue.main.async {
-                    loadingNotification.mode = .customView
-                    if success {
-                        loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
-                        loadingNotification.label.text = "success"
-                        loadingNotification.hide(animated: true, afterDelay: 1)
-                        return
-                    }
-                    loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
-                    loadingNotification.label.text = "failed"
-                    loadingNotification.hide(animated: true, afterDelay: 1)
-                }
-            })
-        }
+        self.saveScreenplay()
+//        return
+//        let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
+//        loadingNotification.mode = MBProgressHUDMode.annularDeterminate
+//        loadingNotification.animationType = .fade
+//        loadingNotification.label.text = "saving"
+//
+//        if let screenplay = screenplay {
+//            FirebaseController.shared.save(screenplay: screenplay, completion: { (success) in
+//                DispatchQueue.main.async {
+//                    loadingNotification.mode = .customView
+//                    if success {
+//                        loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
+//                        loadingNotification.label.text = "success"
+//                        loadxingNotification.hide(animated: true, afterDelay: 1)
+//                        return
+//                    }
+//                    loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
+//                    loadingNotification.label.text = "failed"
+//                    loadingNotification.hide(animated: true, afterDelay: 1)
+//                }
+//            })
+//        }
     }
     
     // MARK: DescriptionDelegate Methods
