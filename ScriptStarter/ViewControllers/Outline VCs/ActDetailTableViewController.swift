@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMobileAds
 
-class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate, GADBannerViewDelegate, DescriptionDelegate {
+class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate, GADBannerViewDelegate, DescriptionDelegate, UIPopoverPresentationControllerDelegate {
     
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
@@ -33,7 +33,6 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         adBannerView.load(GADRequest())
     }
     
-    
     @IBAction func saveButtonTapped(_ sender: Any) {
         self.saveScreenplay()
     }
@@ -50,7 +49,22 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         
         self.present(enlargedNavigationController, animated: true, completion: nil)
     }
-
+    
+    @objc func informationButtonTapped(sender: UIButton) {
+        guard let informationPopTVC = self.storyboard?.instantiateViewController(withIdentifier: "informationPopTVC") as? InformationPopTableViewController else { return }
+        informationPopTVC.modalPresentationStyle = .popover
+        let popController = informationPopTVC.popoverPresentationController
+        popController?.delegate = self
+        popController?.backgroundColor = .white // Makes the arrow white
+        popController?.permittedArrowDirections = [.up,.down] // allow arrow to go both .up and .down
+        popController?.sourceView = sender
+        popController?.sourceRect = sender.bounds
+        let contentHeightSize = 225
+        informationPopTVC.preferredContentSize = CGSize(width: self.view.bounds.width, height: CGFloat(contentHeightSize))
+        informationPopTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
+        self.present(informationPopTVC, animated: true, completion: nil)
+    }
+    
     // MARK: DescriptionDelegate Methods
     
     func updatedText(_ text: String, in section: Int) {
@@ -70,6 +84,13 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             expandableSections.append(section)
         }
     }
+    
+    // MARK: UIPopoverPresentationControllerDelegate Methods
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -94,7 +115,6 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
          descriptionCell.update(viewController: .actDetail, section: indexPath.section, act: self.act)
         descriptionCell.expandButton.tag = indexPath.section
-
         descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
         
         return descriptionCell
@@ -119,6 +139,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         case 1:
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ActBeatSectionHeader ?? ActBeatSectionHeader(reuseIdentifier: "header")
             header.titleLabel.text = "Act Beats"
+            header.infoButton.addTarget(self, action: #selector(informationButtonTapped), for: .touchUpInside)
             return header
         default:
             // Create Collapsible Header for Act Beats
@@ -143,6 +164,15 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             return 60
         }
     }
+
+//    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        switch indexPath.section {
+//        case 0,1:
+//            break
+//        default:
+//           self.view.endEditing(true)
+//        }
+//    }
     
     // MARK: GADBannerViewDelegate Methods
     
@@ -165,7 +195,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             // Toggle collapse
             self.expandableSections[section-2].collapsed = collapsed
             header.setCollapsed(collapsed)
-           
+            
             // Reload section tapped
             let indexSet = IndexSet(integer: section)
             self.tableView.beginUpdates()

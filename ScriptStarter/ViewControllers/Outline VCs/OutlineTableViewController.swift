@@ -121,7 +121,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
         if self.screenplay?.title == "" {
-            screenplay?.title = "U"
+            screenplay?.title = "Untitled"
         }
         self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
