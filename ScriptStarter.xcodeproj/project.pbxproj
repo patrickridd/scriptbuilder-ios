@@ -42,6 +42,7 @@
 		21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727ED202CE17700861C2D /* ActBeatSectionHeader.swift */; };
 		21D727F0202CEB8500861C2D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727EF202CEB8500861C2D /* ViewController.swift */; };
 		21D727F2202CFD2400861C2D /* Extension+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727F1202CFD2400861C2D /* Extension+ViewController.swift */; };
+		21D727F4202E0D1A00861C2D /* SectionHeaderSubtitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727F3202E0D1A00861C2D /* SectionHeaderSubtitle.swift */; };
 		21E661BD2017B1F6006A14AF /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661BC2017B1F6006A14AF /* DescriptionTableViewCell.swift */; };
 		21E661BF2017C236006A14AF /* OutlineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661BE2017C236006A14AF /* OutlineTableViewController.swift */; };
 		21E661C12017DBAE006A14AF /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661C02017DBAE006A14AF /* FirebaseController.swift */; };
@@ -113,6 +114,7 @@
 		21D727ED202CE17700861C2D /* ActBeatSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActBeatSectionHeader.swift; sourceTree = "<group>"; };
 		21D727EF202CEB8500861C2D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		21D727F1202CFD2400861C2D /* Extension+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+ViewController.swift"; sourceTree = "<group>"; };
+		21D727F3202E0D1A00861C2D /* SectionHeaderSubtitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderSubtitle.swift; sourceTree = "<group>"; };
 		21E661BC2017B1F6006A14AF /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		21E661BE2017C236006A14AF /* OutlineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineTableViewController.swift; sourceTree = "<group>"; };
 		21E661C02017DBAE006A14AF /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				21A7CF59202A622000D97394 /* ExpandableTableViewSection.swift */,
 				21D727ED202CE17700861C2D /* ActBeatSectionHeader.swift */,
 				21099167201FD4CF00340124 /* SectionHeaderView.swift */,
+				21D727F3202E0D1A00861C2D /* SectionHeaderSubtitle.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -736,6 +739,7 @@
 				21A7CF64202A672100D97394 /* Act1.swift in Sources */,
 				21E661BF2017C236006A14AF /* OutlineTableViewController.swift in Sources */,
 				21A7CF66202A67D600D97394 /* Act2.swift in Sources */,
+				21D727F4202E0D1A00861C2D /* SectionHeaderSubtitle.swift in Sources */,
 				21E661C820192E66006A14AF /* SignUpViewController.swift in Sources */,
 				21A7CF6A202A6D3A00D97394 /* Act.swift in Sources */,
 				211800DA20238A1200F33924 /* ScreenplayCollectionViewCell.swift in Sources */,

@@ -55,6 +55,16 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         enlargedVC.text = descriptionCell.descriptionTextView.text
         enlargedVC.section = sender.tag
         enlargedVC.delegate = self
+        switch sender.tag {
+        case 1:
+            enlargedVC.act = .one
+        case 2:
+            enlargedVC.act = .two
+        case 3:
+            enlargedVC.act = .three
+        default:
+            enlargedVC.act = nil
+        }
         
         self.present(enlargedNavigationController, animated: true, completion: nil)
     }

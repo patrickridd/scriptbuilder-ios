@@ -39,6 +39,7 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         adBannerView.load(GADRequest())
     }
 
+    
     // MARK: - IBAction Methods
 
     @IBAction func reduceScreenButtonTapped(_ sender: Any) {
@@ -66,6 +67,7 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         self.navigationController?.navigationBar.barTintColor = .white
     }
     
+    
     // MARK: GADBannerViewDelegate Methods
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
@@ -82,12 +84,10 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 1
     }
 
@@ -101,25 +101,16 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
-        sectionHeader.navigationButton.isEnabled = false
-        sectionHeader.moreButton.isHidden = true
+        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderSubtitle ?? SectionHeaderSubtitle(reuseIdentifier: "header")
         
         switch viewController {
         case .outline:
             sectionHeader.subtitleLabel.text = "Overall description"
-
             switch self.section {
             case 0: // "Basic Idea (Log Line)"
                 sectionHeader.sectionLabel.text = "Basic Idea (Log Line)"
-            case 1: // "Act 1"
-                sectionHeader.sectionLabel.text = "Act 1"
-            case 2: // "Act 2"
-                sectionHeader.sectionLabel.text = "Act 2"
-            case 3: // "Act 3"
-                sectionHeader.sectionLabel.text = "Act 3"
-            default:
-                break
+            default: // "Acts"
+                sectionHeader.sectionLabel.text = act?.title
             }
             
         case .actDetail:
@@ -136,21 +127,11 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 90
+        return 60
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.frame.height * (4/5)
     }
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    
 
 }
