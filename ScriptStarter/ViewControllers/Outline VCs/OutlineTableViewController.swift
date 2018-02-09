@@ -13,7 +13,7 @@ import MBProgressHUD
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftInTabBar"
 let swipeRightNotificationKey = "com.scriptstarter.swipedRightInTabBar"
 
-class OutlineTableViewController: UITableViewController, DescriptionDelegate, GADBannerViewDelegate {
+class OutlineTableViewController: UITableViewController, DescriptionDelegate, GADBannerViewDelegate, UIPopoverPresentationControllerDelegate {
     
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -73,29 +73,8 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         self.saveScreenplay()
-//        return
-//        let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
-//        loadingNotification.mode = MBProgressHUDMode.annularDeterminate
-//        loadingNotification.animationType = .fade
-//        loadingNotification.label.text = "saving"
-//
-//        if let screenplay = screenplay {
-//            FirebaseController.shared.save(screenplay: screenplay, completion: { (success) in
-//                DispatchQueue.main.async {
-//                    loadingNotification.mode = .customView
-//                    if success {
-//                        loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
-//                        loadingNotification.label.text = "success"
-//                        loadxingNotification.hide(animated: true, afterDelay: 1)
-//                        return
-//                    }
-//                    loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
-//                    loadingNotification.label.text = "failed"
-//                    loadingNotification.hide(animated: true, afterDelay: 1)
-//                }
-//            })
-//        }
     }
+    
     
     // MARK: DescriptionDelegate Methods
     
@@ -111,6 +90,28 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         let swipeNotificationName = Notification.Name(swipeRightNotificationKey)
         let swipeNotification = Notification(name: swipeNotificationName)
         NotificationCenter.default.post(swipeNotification)
+    }
+    
+    @objc func informationButtonTapped(sender: UIButton) {
+        guard let informationPopTVC = self.storyboard?.instantiateViewController(withIdentifier: "informationPopTVC") as? InformationPopTableViewController else { return }
+        informationPopTVC.modalPresentationStyle = .popover
+        let popController = informationPopTVC.popoverPresentationController
+        popController?.delegate = self
+        popController?.backgroundColor = .white // Makes the arrow white
+        popController?.permittedArrowDirections = [.up,.down] // allow arrow to go both .up and .down
+        popController?.sourceView = sender
+        popController?.sourceRect = sender.bounds
+        let contentHeightSize = InformationNote.logline.contentHeight
+        informationPopTVC.informationNote = .logline
+        informationPopTVC.preferredContentSize = CGSize(width: self.view.bounds.width, height: CGFloat(contentHeightSize))
+        informationPopTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
+        self.present(informationPopTVC, animated: true, completion: nil)
+    }
+    
+    // MARK: UIPopoverPresentationControllerDelegate Methods
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
     // MARK: UI Methods
@@ -180,38 +181,17 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         return descriptionCell
     }
     
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        switch section {
-//        case 0:
-//            return "  Basic Idea (Log Line)"
-//        case 1:
-//            return "  Act 1"
-//        case 2:
-//            return "  Act 2"
-//        case 3:
-//            return "  Act 3"
-//        default:
-//            return ""
-//        }
-//    }
-//
-//    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection: Int) {
-//        if let headerTitle = view as? UITableViewHeaderFooterView {
-//            headerTitle.textLabel?.textColor = UIColor.screenDark
-//            let font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-//            headerTitle.textLabel?.font = font
-//        }
-//    }
-    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
         
         var sectionName = String()
         switch section {
         case 0:
-            sectionName = "Basic Idea - Log line"
-            sectionHeader.moreButton.isHidden = true
-            sectionHeader.navigationButton.isEnabled = false
+             let loglineSection = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ActBeatSectionHeader ?? ActBeatSectionHeader(reuseIdentifier: "header")
+            loglineSection.titleLabel.text = "Log line"
+             loglineSection.titleLabel.centerYAnchor.constraint(equalTo: loglineSection.centerYAnchor, constant: 0).isActive = true
+             loglineSection.infoButton.addTarget(self, action: #selector(informationButtonTapped(sender:)), for: .touchUpInside)
+            return loglineSection
         case 1:
             sectionName = " Act 1"
             sectionHeader.moreButton.isHidden = false

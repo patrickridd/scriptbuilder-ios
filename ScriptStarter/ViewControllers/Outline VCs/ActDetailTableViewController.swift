@@ -59,7 +59,8 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         popController?.permittedArrowDirections = [.up,.down] // allow arrow to go both .up and .down
         popController?.sourceView = sender
         popController?.sourceRect = sender.bounds
-        let contentHeightSize = 225
+        let contentHeightSize = InformationNote.actBeats.contentHeight
+        informationPopTVC.informationNote = .actBeats
         informationPopTVC.preferredContentSize = CGSize(width: self.view.bounds.width, height: CGFloat(contentHeightSize))
         informationPopTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
         self.present(informationPopTVC, animated: true, completion: nil)

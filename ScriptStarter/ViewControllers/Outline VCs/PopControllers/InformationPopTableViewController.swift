@@ -10,6 +10,8 @@ import UIKit
 
 class InformationPopTableViewController: UITableViewController {
 
+    var informationNote: InformationNote = .actBeats
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -37,12 +39,13 @@ class InformationPopTableViewController: UITableViewController {
         { return UITableViewCell() }
 
         // Configure the cell...
+        informationCell.update(with: self.informationNote)
         informationCell.gotItButton.addTarget(self, action: #selector(gotItButtonTapped), for: .touchUpInside)
         
         return informationCell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 225
+        return CGFloat(informationNote.contentHeight)
     }
 }

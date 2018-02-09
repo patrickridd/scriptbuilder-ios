@@ -17,19 +17,14 @@ class InformationPopTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        setupView()
-    }
-    
-    func setupView() {
-        
-//        informationView.layer.borderWidth = 1.0
-//        informationView.layer.borderColor = UIColor.screenDarkGray.cgColor
-//        learnMoreButton.layer.borderWidth = 1.0
-//        learnMoreButton.layer.borderColor = UIColor.screenDarkGray.cgColor
-//        gotItButton.layer.borderWidth = 1.0
-//        gotItButton.layer.borderColor = UIColor.screenDarkGray.cgColor
         
     }
     
+    func update(with infoNote: InformationNote) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        let font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        paragraphStyle.lineHeightMultiple = 1.25
+        let informationAttributedText = NSAttributedString(string: infoNote.description, attributes: [NSAttributedStringKey.foregroundColor:UIColor.flamenco, NSAttributedStringKey.paragraphStyle:paragraphStyle, NSAttributedStringKey.font: font])
+        informationLabel.attributedText = informationAttributedText
+    }
 }
