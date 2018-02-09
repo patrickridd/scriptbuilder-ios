@@ -100,20 +100,43 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         return descriptionCell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
+        sectionHeader.navigationButton.isEnabled = false
+        sectionHeader.moreButton.isHidden = true
         
-        switch self.section {
-        case 0:
-            return "  Basic Idea (Log Line)"
-        case 1:
-            return "  Act 1"
-        case 2:
-            return "  Act 2"
-        case 3:
-            return "  Act 3"
-        default:
-            return ""
+        switch viewController {
+        case .outline:
+            sectionHeader.subtitleLabel.text = "Overall description"
+
+            switch self.section {
+            case 0: // "Basic Idea (Log Line)"
+                sectionHeader.sectionLabel.text = "Basic Idea (Log Line)"
+            case 1: // "Act 1"
+                sectionHeader.sectionLabel.text = "Act 1"
+            case 2: // "Act 2"
+                sectionHeader.sectionLabel.text = "Act 2"
+            case 3: // "Act 3"
+                sectionHeader.sectionLabel.text = "Act 3"
+            default:
+                break
+            }
+            
+        case .actDetail:
+            guard let act = act else { break }
+            if self.section == 0 {
+                sectionHeader.sectionLabel.text = act.title
+                sectionHeader.subtitleLabel.text = "Overall description"
+            } else {
+                sectionHeader.sectionLabel.text = act.sectionsTitles[self.section-2]
+                sectionHeader.subtitleLabel.text = act.sectionSubTitles[self.section-2]
+            }
         }
+        return sectionHeader
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 90
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

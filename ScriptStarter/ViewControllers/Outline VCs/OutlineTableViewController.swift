@@ -50,19 +50,8 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     @objc func expandButtonTapped(sender: UIButton) {
         let indexPath = IndexPath(row: 0, section: sender.tag)
         guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.childViewControllers[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
-        switch sender.tag {
-        case 0:
-            enlargedVC.view.heroID = "About a robot lizard who..."
-        case 1:
-            enlargedVC.view.heroID = "Setup"
-        case 2:
-            enlargedVC.view.heroID = "Confrontation"
-        case 3:
-            enlargedVC.view.heroID = "Resolution"
-        default:
-            break
-        }
         
+        enlargedVC.viewController = .outline
         enlargedVC.text = descriptionCell.descriptionTextView.text
         enlargedVC.section = sender.tag
         enlargedVC.delegate = self
@@ -121,6 +110,9 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
        // Remove Navigation bar shadow and borderline
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
+        if self.screenplay?.title == "" {
+            screenplay?.title = "U"
+        }
         self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
         self.navigationController?.navigationBar.tintColor = .screenLightBlue

@@ -12,7 +12,6 @@ import FirebaseDatabase
 
 class FirebaseController {
     
-    
     static let shared = FirebaseController()
     
     var ref: DatabaseReference {
@@ -50,6 +49,7 @@ class FirebaseController {
         }
     }
     
+    
     func save(screenplay: Screenplay, completion: @escaping (_ success:Bool) -> Void) {
         guard let user = user else {
             completion(false)
@@ -65,6 +65,19 @@ class FirebaseController {
                 return
             }
             completion(true)
+        }
+    }
+    
+    func delete(screenplay: Screenplay, completion: @escaping () -> Void) {
+        guard let user = user else {
+            completion()
+            return
+        }
+        let screenplayRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid)
+        
+        screenplayRef.removeValue { (_, _) in
+            ScreenplayController.shared.resetCurrentScreenplay()
+            completion()
         }
     }
     
@@ -91,4 +104,5 @@ class FirebaseController {
             completion(screenplays)
         }
     }
+    
 }

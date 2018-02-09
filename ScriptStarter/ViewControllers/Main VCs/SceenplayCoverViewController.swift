@@ -85,9 +85,30 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
     }
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
-        self.present(UIAlertControllers.deleteScreenplayAlert(), animated: true)
+        self.present(deleteScreenplayAlert(), animated: true) 
     }
     
+    
+    // MARK: Helper Methods
+    
+    func deleteScreenplayAlert() -> UIAlertController {
+        let screenplayTitle = ScreenplayController.shared.currentScreenplay?.title ?? "this screenplay"
+        
+        let alert = UIAlertController(title: "Delete Screenplay", message: "Are you sure you want to delete \(screenplayTitle)", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+            if let screenplay = self.screenplay {
+                // Delete currentScreenplay
+                FirebaseController.shared.delete(screenplay: screenplay, completion: {
+                    self.dismiss(animated: true, completion: nil)
+                })
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        return alert
+    }
     
     // MARK: Tap Gesture Recognizer
     
@@ -129,7 +150,10 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
     }
 
     @IBAction func titleTextFieldDidChange(_ sender: Any) {
-        guard let title = titleTextField.text, title != "" else { return }
+        guard let title = titleTextField.text, title != "" else {
+            screenplay?.title = "Untitled"
+            return
+        }
         screenplay?.title = title
     }
 }

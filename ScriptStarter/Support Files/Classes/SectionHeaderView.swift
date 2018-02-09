@@ -11,6 +11,7 @@ import UIKit
 class SectionHeaderView: UITableViewHeaderFooterView {
 
     var sectionLabel = UILabel()
+    var subtitleLabel = UILabel()
     var expandButton = UIButton()
     var moreButton = UIButton()
     var navigationButton = UIButton()
@@ -37,6 +38,7 @@ class SectionHeaderView: UITableViewHeaderFooterView {
         setupSectionLabel()
         setupMoreButton()
         setupNavigationButton()
+        setupSubtitleLabel()
     }
     
     func setupSectionLabel() {
@@ -47,6 +49,17 @@ class SectionHeaderView: UITableViewHeaderFooterView {
         sectionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
         sectionLabel.textColor = UIColor.screenDark
         sectionLabel.font = font
+    }
+    
+    func setupSubtitleLabel() {
+        contentView.addSubview(subtitleLabel)
+        let font = UIFont.systemFont(ofSize: 12, weight: .light)
+        subtitleLabel.font = font
+        subtitleLabel.numberOfLines = 0
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subtitleLabel.leadingAnchor.constraint(equalTo: self.sectionLabel.leadingAnchor).isActive = true
+        subtitleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5).isActive = true
+        subtitleLabel.topAnchor.constraint(equalTo: self.sectionLabel.bottomAnchor, constant: 0).isActive = true
     }
     
     func setupMoreButton() {

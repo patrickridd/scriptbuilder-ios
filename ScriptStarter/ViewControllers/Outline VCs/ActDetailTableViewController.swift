@@ -7,11 +7,21 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
-class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate {
+class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate, GADBannerViewDelegate, DescriptionDelegate {
     
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
+    
+    lazy var adBannerView: GADBannerView = {
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,11 +30,34 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
+        adBannerView.load(GADRequest())
     }
     
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         self.saveScreenplay()
+    }
+    
+    @objc func expandButtonTapped(sender: UIButton) {
+        let indexPath = IndexPath(row: 0, section: sender.tag)
+        guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.childViewControllers[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        
+        enlargedVC.viewController = .actDetail
+        enlargedVC.act = self.act
+        enlargedVC.text = descriptionCell.descriptionTextView.text
+        enlargedVC.section = sender.tag
+        enlargedVC.delegate = self
+        
+        self.present(enlargedNavigationController, animated: true, completion: nil)
+    }
+
+    // MARK: DescriptionDelegate Methods
+    
+    func updatedText(_ text: String, in section: Int) {
+        let indexPath = IndexPath(row: 0, section: section)
+        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        
+        descriptionCell.descriptionTextView.text = text
     }
     
     func setupExpandableSections() {
@@ -60,6 +93,10 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         // Configure the cell...
         descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
          descriptionCell.update(viewController: .actDetail, section: indexPath.section, act: self.act)
+        descriptionCell.expandButton.tag = indexPath.section
+
+        descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
+        
         return descriptionCell
     }
 
@@ -107,6 +144,19 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         }
     }
     
+    // MARK: GADBannerViewDelegate Methods
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Banner loaded successfully")
+        tableView.tableFooterView?.frame = bannerView.frame
+        tableView.tableFooterView = bannerView
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Fail to receive ads")
+        print(error)
+    }
+    
     // MARK: CollapsibleHeaderDelegate
     
     func toggleSection(_ header: CollapsibleHeader, section: Int) {
@@ -123,4 +173,6 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             self.tableView.endUpdates()
         }
     }
+    
+    
 }
