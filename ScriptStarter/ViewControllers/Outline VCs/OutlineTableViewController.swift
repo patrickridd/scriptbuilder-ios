@@ -173,6 +173,8 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else {
             return UITableViewCell() }
         
+        descriptionCell.delegate = self
+        descriptionCell.defaultHeight = self.getDefaultHeightOfCell()
         descriptionCell.update(viewController: .outline, section: indexPath.section, act: nil)
         descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
         descriptionCell.expandButton.tag = indexPath.section
@@ -233,11 +235,20 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.view.frame.height >= 670 {
-            return self.view.frame.height * (1/7)
-        } else {
-            return self.view.frame.height * (1/7.5)
+        var text: String
+        switch indexPath.section {
+        case 0: // Basic Info
+            text = self.screenplay?.logLine ?? ""
+        case 1: // Act 1
+            text = self.screenplay?.actOneDescription ?? ""
+        case 2: // Act 2
+            text = self.screenplay?.actTwoDescription ?? ""
+        case 3: // Act 3
+            text = self.screenplay?.actThreeDescription ?? ""
+        default:
+            return self.getDefaultHeightOfCell()
         }
+        return self.getDescriptionCellHeight(with:text)
     }
     
     func adjustUITextViewHeight(arg : UITextView) {

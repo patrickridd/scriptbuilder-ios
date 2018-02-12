@@ -16,18 +16,18 @@ enum InformationNote {
     var description: String {
         switch self {
         case .logline:
-            return "A logline is a one to two sentence description of your script. Think about how you pitch movies you want to see to your friends/family. There are plenty of resources to help you build a perfect logline."
+            return "A logline is a one to two sentence description of your screenplay. Think about how you pitch movies you want to see to your friends/family."
         case .actBeats:
-            return "These act beats are common plot points found in screenplays and stories. A lot of these beats are based upon, The Hero With a Thousand Faces (Campbell, 1949)."
+            return "These act beats are common plot points found in screenplays and stories. A lot of these beats are based on, The Hero With a Thousand Faces (Campbell, 1949). These are by no means rules in a screenplay, but something to help get ideas from."
         }
     }
     
     var contentHeight: Int {
         switch self {
         case .logline:
-            return 200
+            return 160
         case .actBeats:
-            return 175
+            return 225
         }
     }
 }

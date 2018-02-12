@@ -8,15 +8,27 @@
 
 import UIKit
 
-class CharacterDetailTableViewController: UITableViewController {
+class CharacterDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate {
     
+    var expandableSections: [ExpandableTableViewSection] = []
+
     var character: Character?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.tableView.backgroundColor = UIColor.screenLightGray
-
+        self.setupExpandableSections()
+    }
+    
+    func setupExpandableSections() {
+        let sectionTitles = CharacterSection.sectionTitles
+        for index in 0...sectionTitles.count-1 {
+            let title = CharacterSection.sectionTitles[index]
+            let subtitle = CharacterSection.sectionSubtitles[index]
+            let section = ExpandableTableViewSection(sectionTitle: title, sectionSubtitle: subtitle)
+            expandableSections.append(section)
+        }
     }
 
     // MARK: - Table view data source
@@ -30,12 +42,19 @@ class CharacterDetailTableViewController: UITableViewController {
         // 4. What obstacles are in [character]'s way?
         // 5. What flaws does [character] have?
         // 6. Does acheiving the intention fix any
-        return 6
+        // 7. What the character needs
+        return CharacterSection.sectionTitles.count + 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
+
+        switch section {
+        case 0:
+            return 0 // Basic Character description
+        default:
+            return expandableSections[section-1].collapsed ? 0 : 1
+        }
+        
     }
 
     
@@ -47,35 +66,67 @@ class CharacterDetailTableViewController: UITableViewController {
         return descriptionCell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        // 1. Intention - What does [Character] want?
-        // 2. Why does [Character] want this
-        // 3. What does [Character] need to do to get this?
-        // 4. What obstacles are in [character]'s way?
-        // 5. What flaws does [character] have?
-        // 6. Does acheiving the intention fix any
-        let name = self.character?.name ?? "Character"
-        
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
-            return "  Intention - What does \(name) want?"
-        case 1:
-            return "  Why does \(name) want this"
-        case 2:
-            return "  What does \(name) need to do to get this?"
-        case 3:
-            return "  What obstacles are in [character]'s way"
-        case 4:
-            return "  What flaws does \(name) have?"
-        case 5:
-            return "  Does acheiving the intention fix any flaws"
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
+            header.contentView.backgroundColor = UIColor.screenLightGray
+            header.moreButton.isHidden = true
+            header.sectionLabel.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: 5).isActive = true
+            header.navigationButton.isEnabled = false
+            let font = UIFont.systemFont(ofSize: 16, weight: .bold)
+            header.sectionLabel.font = font
+            header.sectionLabel.text = "Character Arc"
+            //header.subtitleLabel.text = "Character Arc"
+            
+            return header
         default:
-            return ""
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
+            header.contentView.backgroundColor = expandableSections[section-1].collapsed ? .white : UIColor.screenLightGray
+            header.titleLabel.text = CharacterSection.sectionTitles[section-1]
+            header.subtitleLabel.text = CharacterSection.sectionSubtitles[section-1]
+            header.setCollapsed(expandableSections[section-1].collapsed)
+            header.section = section
+            header.delegate = self
+            
+            return header
         }
     }
     
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        // 1. Intention - What does [Character] want?
+//        // 2. Why does [Character] want this
+//        // 3. What does [Character] need to do to get this?
+//        // 4. What obstacles are in [character]'s way?
+//        // 5. What flaws does [character] have?
+//        // 6. Does acheiving the intention fix any
+//        let name = self.character?.name ?? "Character"
+//
+//        switch section {
+//        case 0:
+//            return "  Intention - What does \(name) want?"
+//        case 1:
+//            return "  Why does \(name) want this"
+//        case 2:
+//            return "  What does \(name) need to do to get this?"
+//        case 3:
+//            return "  What obstacles are in [character]'s way"
+//        case 4:
+//            return "  What flaws does \(name) have?"
+//        case 5:
+//            return "  Does acheiving the intention fix any flaws"
+//        default:
+//            return ""
+//        }
+//    }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        switch section {
+        case 0:
+            return 30
+        default:
+            return 60
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -86,14 +137,30 @@ class CharacterDetailTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection: Int) {
-        if let headerTitle = view as? UITableViewHeaderFooterView {
-            headerTitle.textLabel?.textColor = UIColor.screenDark
-            let font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-            headerTitle.textLabel?.font = font
+//    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection: Int) {
+//        if let headerTitle = view as? UITableViewHeaderFooterView {
+//            headerTitle.textLabel?.textColor = UIColor.screenDark
+//            let font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+//            headerTitle.textLabel?.font = font
+//        }
+//    }
+
+    // MARK: CollapsibleHeaderDelegate
+    
+    func toggleSection(_ header: CollapsibleHeader, section: Int) {
+        DispatchQueue.main.async {
+            let collapsed = !self.expandableSections[section-1].collapsed
+            // Toggle collapse
+            self.expandableSections[section-1].collapsed = collapsed
+            header.setCollapsed(collapsed)
+            
+            // Reload section tapped
+            let indexSet = IndexSet(integer: section)
+            self.tableView.beginUpdates()
+            self.tableView.reloadSections(indexSet, with: .automatic)
+            self.tableView.endUpdates()
         }
     }
-
     
     /*
     // MARK: - Navigation

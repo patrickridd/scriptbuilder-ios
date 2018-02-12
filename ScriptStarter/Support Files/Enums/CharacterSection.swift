@@ -1,0 +1,43 @@
+//
+//  CharacterSection.swift
+//  ScriptStarter
+//
+//  Created by Patrick Ridd (patrick.ridd@stgconsulting.com) on 2/9/18.
+//  Copyright © 2018 patrickridd. All rights reserved.
+//
+
+import Foundation
+
+enum CharacterSection {
+    
+    case intention
+    case why
+    case what
+    case how
+    case obstacles
+    case flawsFears
+    case fix
+    case need
+    
+    static var sectionSubtitles: [String] {
+        return ["Intention - What does your character want?",
+                "Why does your character want this?",
+                "What does your character need to do to get what they want?",
+                "How does your character get what they want?",
+                "What obstacles are in your characters's way?",
+                "What flaws or fears does your character have?",
+                "Does acheiving their intention fix their solve their problem?",
+                "Is there something the character \"really\" needs to do to fix their problem?"]
+    }
+    
+    static var sectionTitles: [String] {
+            return ["Intention",
+                    "Why",
+                    "What",
+                    "How",
+                    "Obstacles",
+                    "Flaws",
+                    "Problem Solved?",
+                    "Need"]
+    }
+}

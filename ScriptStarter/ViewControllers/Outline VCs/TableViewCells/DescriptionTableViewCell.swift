@@ -11,6 +11,10 @@ import KMPlaceholderTextView
 
 class DescriptionTableViewCell: UITableViewCell {
 
+    weak var delegate: ResizeCellProtocol?
+    var isResizing: Bool = false
+    var defaultHeight: CGFloat = 0
+    
     @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
     @IBOutlet weak var expandButton: UIButton!
     
@@ -46,7 +50,7 @@ class DescriptionTableViewCell: UITableViewCell {
         case .outline:
             switch section {
             case 0: // Log line
-                self.descriptionTextView.placeholder = "e.g. About a girl/guy who wants _ but can't because of _"
+                self.descriptionTextView.placeholder = "••••"
                 self.descriptionTextView.text = screenplay?.logLine
             case 1: // Act 1
                 self.descriptionTextView.placeholder = "Setup"
@@ -136,6 +140,8 @@ class DescriptionTableViewCell: UITableViewCell {
     
     func textViewDidChange(_ textView: UITextView) {
         
+      // checkForResize(textView: textView)
+        
         switch viewController {
         case .outline:
             switch section {
@@ -213,8 +219,26 @@ class DescriptionTableViewCell: UITableViewCell {
                 }
             }
         }
-        
-       
     }
     
+    func checkForResize(textView:UITextView) {
+        // Get descriptionTextView size that fits in view
+        let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
+      delegate?.resizeCell(in: self.section)
+//        // Dynamically set descriptionTextView Height to that that fits in cell
+//        if size.height > self.contentView.frame.height ||
+//            size.height+50 < self.contentView.frame.height, size.height > defaultHeight {
+//            delegate?.resizeCell(in: self.section)
+//        } else {
+//
+//        }
+    }
+
+//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+//        if isResizing {
+//            return false
+//        } else {
+//            return true
+//        }
+//    }
 }

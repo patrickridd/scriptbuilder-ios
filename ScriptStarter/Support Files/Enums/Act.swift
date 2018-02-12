@@ -36,7 +36,7 @@ enum Act {
                              "I must go",
                              "Enemy at the gates"]
         case .two:
-            sectionTitles = ["New World",
+            sectionTitles = ["Strange New World",
                              "Enemies/Friends",
                              "Obstacles",
                              "Deadly encounter",
@@ -65,7 +65,7 @@ enum Act {
             "Are there any obstacles or enemies in getting the adventure started?"]
         case .two:
             return ["What makes the life and world the adventure is in different or more dangerous than the old world?",
-                "Are there any friends or enemies that your hero(s) encounters?",
+                "Are there any friends or enemies that your hero(s) meet?",
                 "What tests and obstacles does your hero(s) find along their adventure?",
                 "What is your hero(s)'s most deadly obstacle?",
                 "How do your hero(s) celebrate in victory?",
@@ -85,13 +85,16 @@ enum Act {
             return ["The setup",
                     "e.g. Bruce Wayne's parents have died and Gotham City is riddled with crime...",
                     "e.g. Princess Leia is captured by Darth Vader...",
-                "e.g. Indian Jones is asked by the government to find the Arc of the Covenant before the Nazis",
+                "e.g. Indian Jones is asked by the government to find the Arc of the Covenant before the Nazis do",
                 "e.g. Better to be with friends and family even if they annoy you sometimes...",
-                "e.g. Luke Skywalker doesn't want help save Princess Leia, because he needs to help his aunt and uncle with the farm",
+                "e.g. Luke Skywalker refuses the call to help save Princess Leia, because he needs to help his aunt and uncle with the farm",
                 "e.g. After Luke Skywalker's aunt and uncle are killed by stormtroopers he's realizes he must go help save princess Leia",
                 "e.g. Obi Wan and Luke get past the storm troopers on Tatooine. \"These aren't the droids you're looking for\""]
         case .two:
-            return ["The conflict",]
+            return ["The conflict",
+                    "e.g. In the Last Samurai, the hero's new world is of the Samurai who capture him.",
+                    "e.g. In the Lion King, Simba makes friends with Timon and Pumba",
+                    "e.g. "]
         case .three:
             return [""]
         }
