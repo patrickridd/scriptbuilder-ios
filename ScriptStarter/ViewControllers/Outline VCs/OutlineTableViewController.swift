@@ -189,11 +189,13 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         var sectionName = String()
         switch section {
         case 0:
-             let loglineSection = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ActBeatSectionHeader ?? ActBeatSectionHeader(reuseIdentifier: "header")
-            loglineSection.titleLabel.text = "Log line"
-             loglineSection.titleLabel.centerYAnchor.constraint(equalTo: loglineSection.centerYAnchor, constant: 0).isActive = true
-             loglineSection.infoButton.addTarget(self, action: #selector(informationButtonTapped(sender:)), for: .touchUpInside)
-            return loglineSection
+            
+            sectionName = "Idea"
+//             let loglineSection = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ActBeatSectionHeader ?? ActBeatSectionHeader(reuseIdentifier: "header")
+//            loglineSection.titleLabel.text = "Log line"
+//             loglineSection.titleLabel.centerYAnchor.constraint(equalTo: loglineSection.centerYAnchor, constant: 0).isActive = true
+//             loglineSection.infoButton.addTarget(self, action: #selector(informationButtonTapped(sender:)), for: .touchUpInside)
+//            return loglineSection
         case 1:
             sectionName = " Act 1"
             sectionHeader.moreButton.isHidden = false

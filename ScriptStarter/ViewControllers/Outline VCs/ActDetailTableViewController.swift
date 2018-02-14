@@ -12,7 +12,7 @@ import GoogleMobileAds
 class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate, GADBannerViewDelegate, DescriptionDelegate, UIPopoverPresentationControllerDelegate {
     
     var expandableSections: [ExpandableTableViewSection] = []
-    var act: Act = .one
+    var act: Act = .idea
     
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)

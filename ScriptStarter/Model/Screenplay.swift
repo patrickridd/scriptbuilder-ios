@@ -12,22 +12,30 @@ import Firebase
 class Screenplay {
     
     // keys
-    var logLineKey = "logLineKey"
-    var actOneDescriptionKey = "actOneDescription"
-    var actTwoDescriptionKey = "actTwoDescription"
-    var actThreeDescriptionKey = "actThreeDescription"
-    var actOneKey = "actOne"
-    var actTwoKey = "actTwo"
-    var actThreeKey = "actThree"
-    var titleKey = "title"
-    var uuidKey = "uuid"
+    let logLineKey = "logLineKey"
+    let actOneDescriptionKey = "actOneDescription"
+    let actTwoDescriptionKey = "actTwoDescription"
+    let actThreeDescriptionKey = "actThreeDescription"
+    let actOneKey = "actOne"
+    let actTwoKey = "actTwo"
+    let actThreeKey = "actThree"
+    let titleKey = "title"
+    let uuidKey = "uuid"
+    let ideaKey = "idea"
+    let notesKey = "notes"
+    let themeKey = "theme"
     
     var title: String
     var uuid: String
-    var logLine: String?
-    var actOneDescription: String?
-    var actTwoDescription: String?
-    var actThreeDescription: String?
+    
+    var idea: String = ""
+    var logLine: String = ""
+    var notes: String = ""
+    var theme: String = ""
+
+    var actOneDescription: String = ""
+    var actTwoDescription: String = ""
+    var actThreeDescription: String = ""
     var characters: [Character] = []
     var act1 = Act1()
     var act2 = Act2()
@@ -49,13 +57,16 @@ class Screenplay {
         let act1 = Act1(actOneDict: actOneDict),
         let act2 = Act2(actTwoDict: actTwoDict),
         let act3 = Act3(actThreeDict: actThreeDict),
-        let logLine = screenplayDictionary[logLineKey] as? String else
+        let idea = screenplayDictionary[ideaKey] as? String else
         { return nil }
         
+        self.notes = screenplayDictionary[notesKey] as? String ?? ""
+        self.theme =  screenplayDictionary[themeKey] as? String ?? ""
         self.uuid = uuid
         self.uuid = uuid
         self.title = title
-        self.logLine = logLine
+        self.logLine = screenplayDictionary[logLineKey] as? String ?? ""
+        self.idea = idea
         self.actOneDescription = actOneDescription
         self.actTwoDescription = actTwoDescription
         self.actThreeDescription = actThreeDescription
@@ -65,11 +76,11 @@ class Screenplay {
     }
     
     var firDictionary: [String:Any] {
-        return [titleKey: title,
-                logLineKey:logLine ?? "",
-                actOneDescriptionKey: actOneDescription ?? "",
-                actTwoDescriptionKey: actTwoDescription ?? "",
-                actThreeDescriptionKey: actThreeDescription ?? "",
+        return [titleKey: self.title,
+                logLineKey:self.logLine,
+                actOneDescriptionKey: self.actOneDescription,
+                actTwoDescriptionKey: self.actTwoDescription,
+                actThreeDescriptionKey: self.actThreeDescription,
                 actOneKey:self.act1.firActOneDictionary,
                 actTwoKey:self.act2.firActTwoDictionary,
                 actThreeKey:self.act3.firActThreeDictionary]

@@ -23,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Configure Firebase
             FirebaseApp.configure()
             
+            // Enable offline persistence
+            Database.database().isPersistenceEnabled = true
+            
             // Initialize Facebook sign-in
             FBSDKApplicationDelegate.sharedInstance().application(application)
             
@@ -32,7 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Initialize GoogleMobileAds
             GADMobileAds.configure(withApplicationID: "ca-app-pub-1297096402264538~9994351234")
 
-            
             return true
     }
     

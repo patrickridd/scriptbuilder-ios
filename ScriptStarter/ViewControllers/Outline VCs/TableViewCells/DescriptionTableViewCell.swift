@@ -71,6 +71,19 @@ class DescriptionTableViewCell: UITableViewCell {
         case .actDetail:
             guard let act = act else { break }
             switch act {
+            case .idea:
+                switch section {
+                case 0:
+                    descriptionTextView.text = screenplay?.idea
+                case 1:
+                    descriptionTextView.text = screenplay?.logLine
+                case 2:
+                    descriptionTextView.text = screenplay?.theme
+                case 3:
+                     descriptionTextView.text = screenplay?.notes
+                default:
+                    break
+                }
             case .one:
                 switch section {
                 case 0:
@@ -159,6 +172,19 @@ class DescriptionTableViewCell: UITableViewCell {
         case .actDetail:
             guard let act = self.act else { break }
             switch act {
+            case .idea:
+                switch section {
+                case 0:
+                    screenplay?.idea = textView.text
+                case 1:
+                    screenplay?.logLine = textView.text
+                case 2:
+                    screenplay?.theme = textView.text
+                case 3:
+                    screenplay?.notes = textView.text
+                default:
+                    break
+                }
             case .one:
                 switch section {
                 case 0:

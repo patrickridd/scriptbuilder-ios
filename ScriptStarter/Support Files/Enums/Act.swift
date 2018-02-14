@@ -9,12 +9,15 @@
 import Foundation
 
 enum Act {
+    case idea
     case one
     case two
     case three
     
     var title: String {
         switch self {
+        case .idea:
+            return "Idea"
         case .one:
             return "Act 1"
         case .two:
@@ -27,6 +30,10 @@ enum Act {
     var sectionsTitles: [String] {
         var sectionTitles: [String] = []
         switch self {
+        case .idea:
+            sectionTitles = ["Log line",
+                            "Themes",
+                            "Notes"]
         case .one:
             sectionTitles = ["Old World",
                              "Inciting Incident",
@@ -55,6 +62,10 @@ enum Act {
     
     var sectionSubTitles: [String] {
         switch self {
+        case .idea:
+            return ["One to two sentence description of your movie.",
+                    "Any beliefs or premises you want to test",
+                    "Details you don't want to forget"]
         case .one:
             return ["What is life like before the story begins?",
             "What event, person, or thing creates disharmony in the old world?",
@@ -81,6 +92,8 @@ enum Act {
     
     var placeholders: [String] {
         switch self {
+        case .idea:
+            return []
         case .one:
             return ["The setup",
                     "e.g. Bruce Wayne's parents have died and Gotham City is riddled with crime...",
