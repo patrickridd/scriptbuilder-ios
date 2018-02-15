@@ -32,6 +32,8 @@ enum Act {
         switch self {
         case .idea:
             sectionTitles = ["Log line",
+                             "Intention",
+                             "Obstacle",
                             "Themes",
                             "Notes"]
         case .one:
@@ -64,7 +66,9 @@ enum Act {
         switch self {
         case .idea:
             return ["One to two sentence description of your movie.",
-                    "Any beliefs or premises you want to test",
+                    "Central goal your hero(s) are trying to accomplish",
+                    "Main obstacle preventing your hero(s) from getting what they want",
+                    "Any beliefs or premises you want to test in your story",
                     "Details you don't want to forget"]
         case .one:
             return ["What is life like before the story begins?",

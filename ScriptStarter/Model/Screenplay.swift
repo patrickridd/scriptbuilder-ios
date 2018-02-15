@@ -24,6 +24,8 @@ class Screenplay {
     let ideaKey = "idea"
     let notesKey = "notes"
     let themeKey = "theme"
+    let centralIntentionKey = "centralIntention"
+    let mainObstacleKey = "mainObstacle"
     
     var title: String
     var uuid: String
@@ -32,7 +34,9 @@ class Screenplay {
     var logLine: String = ""
     var notes: String = ""
     var theme: String = ""
-
+    var centralIntention: String = ""
+    var mainObstacle: String = ""
+    
     var actOneDescription: String = ""
     var actTwoDescription: String = ""
     var actThreeDescription: String = ""
@@ -62,6 +66,8 @@ class Screenplay {
         
         self.notes = screenplayDictionary[notesKey] as? String ?? ""
         self.theme =  screenplayDictionary[themeKey] as? String ?? ""
+        self.centralIntention = screenplayDictionary[centralIntentionKey] as? String ?? ""
+        self.mainObstacle = screenplayDictionary[mainObstacleKey] as? String ?? ""
         self.uuid = uuid
         self.uuid = uuid
         self.title = title
@@ -78,6 +84,11 @@ class Screenplay {
     var firDictionary: [String:Any] {
         return [titleKey: self.title,
                 logLineKey:self.logLine,
+                ideaKey:self.idea,
+                themeKey:self.theme,
+                notesKey:self.notes,
+                centralIntentionKey:self.centralIntention,
+                mainObstacleKey: self.mainObstacleKey,
                 actOneDescriptionKey: self.actOneDescription,
                 actTwoDescriptionKey: self.actTwoDescription,
                 actThreeDescriptionKey: self.actThreeDescription,

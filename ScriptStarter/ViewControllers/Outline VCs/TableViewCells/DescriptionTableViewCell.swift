@@ -78,9 +78,13 @@ class DescriptionTableViewCell: UITableViewCell {
                 case 1:
                     descriptionTextView.text = screenplay?.logLine
                 case 2:
-                    descriptionTextView.text = screenplay?.theme
+                    descriptionTextView.text = screenplay?.centralIntention
                 case 3:
-                     descriptionTextView.text = screenplay?.notes
+                     descriptionTextView.text = screenplay?.mainObstacle
+                case 4:
+                     descriptionTextView.text = screenplay?.theme
+                case 5:
+                    descriptionTextView.text = screenplay?.notes
                 default:
                     break
                 }
@@ -179,8 +183,12 @@ class DescriptionTableViewCell: UITableViewCell {
                 case 1:
                     screenplay?.logLine = textView.text
                 case 2:
-                    screenplay?.theme = textView.text
+                    screenplay?.centralIntention = textView.text
                 case 3:
+                    screenplay?.mainObstacle = textView.text
+                case 4:
+                    screenplay?.theme = textView.text
+                case 5:
                     screenplay?.notes = textView.text
                 default:
                     break
