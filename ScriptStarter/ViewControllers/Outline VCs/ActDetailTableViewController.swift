@@ -139,9 +139,17 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             return sectionHeader
         case 1:
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ActBeatSectionHeader ?? ActBeatSectionHeader(reuseIdentifier: "header")
+
+            switch act {
+            case .idea:
+                header.titleLabel.text = ""
+                header.infoButton.isHidden = true
+            default:
             header.titleLabel.text = "Act Beats"
             header.infoButton.addTarget(self, action: #selector(informationButtonTapped), for: .touchUpInside)
+            }
             return header
+
         default:
             // Create Collapsible Header for Act Beats
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")

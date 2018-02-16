@@ -152,6 +152,13 @@ class DescriptionTableViewCell: UITableViewCell {
                     break
                 }
             }
+        case .characterDetail:
+            switch section {
+            case 0:
+                break
+            default:
+                break
+            }
         }
     }
     
@@ -251,6 +258,14 @@ class DescriptionTableViewCell: UITableViewCell {
                 default:
                     break
                 }
+            }
+        case .characterDetail:
+            switch section {
+            case 0:
+                
+                break
+            default:
+                break
             }
         }
     }

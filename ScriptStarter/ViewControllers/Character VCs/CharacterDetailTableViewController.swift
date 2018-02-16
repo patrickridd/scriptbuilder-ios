@@ -50,7 +50,7 @@ class CharacterDetailTableViewController: UITableViewController, CollapsibleHead
 
         switch section {
         case 0:
-            return 0 // Basic Character description
+            return 1 // Basic Character description
         default:
             return expandableSections[section-1].collapsed ? 0 : 1
         }
@@ -59,16 +59,26 @@ class CharacterDetailTableViewController: UITableViewController, CollapsibleHead
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath)
+        
 
         // Configure the cell...
-        descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
-        return descriptionCell
+        switch indexPath.section {
+        case 0:
+           guard let basicCharacterCell = tableView.dequeueReusableCell(withIdentifier: "basicInfoCharacterCell", for: indexPath) as? BasicInfoCharacterTableViewCell else { return UITableViewCell() }
+           
+           
+           return basicCharacterCell
+        default:
+            guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
+            descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
+            return descriptionCell
+        }
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
-        case 0:
+        case 0,1:
+            
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
             header.contentView.backgroundColor = UIColor.screenLightGray
             header.moreButton.isHidden = true
@@ -76,7 +86,7 @@ class CharacterDetailTableViewController: UITableViewController, CollapsibleHead
             header.navigationButton.isEnabled = false
             let font = UIFont.systemFont(ofSize: 16, weight: .bold)
             header.sectionLabel.font = font
-            header.sectionLabel.text = "Character Arc"
+            header.sectionLabel.text = (section == 1) ? "Character Arc" : "Basic Info"
             //header.subtitleLabel.text = "Character Arc"
             
             return header
@@ -122,7 +132,7 @@ class CharacterDetailTableViewController: UITableViewController, CollapsibleHead
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case 0:
+        case 1:
             return 30
         default:
             return 60
@@ -130,10 +140,16 @@ class CharacterDetailTableViewController: UITableViewController, CollapsibleHead
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.view.frame.height >= 670 {
-            return self.view.frame.height * (1/8)
-        } else {
-            return self.view.frame.height * (1/9)
+        
+        switch indexPath.section {
+        case 0:
+            return 90
+        default:
+            if self.view.frame.height >= 670 {
+                return self.view.frame.height * (1/8)
+            } else {
+                return self.view.frame.height * (1/9)
+            }
         }
     }
     

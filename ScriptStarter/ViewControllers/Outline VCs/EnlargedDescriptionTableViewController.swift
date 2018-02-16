@@ -122,6 +122,9 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
                 sectionHeader.sectionLabel.text = act.sectionsTitles[self.section-2]
                 sectionHeader.subtitleLabel.text = act.sectionSubTitles[self.section-2]
             }
+        case .characterDetail:
+            sectionHeader.sectionLabel.text = CharacterSection.sectionTitles[self.section-1]
+            sectionHeader.subtitleLabel.text = CharacterSection.sectionSubtitles[self.section-1]
         }
         return sectionHeader
     }
