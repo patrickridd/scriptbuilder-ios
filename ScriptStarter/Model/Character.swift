@@ -10,6 +10,21 @@ import UIKit
 
 class Character {
     
+    // Keys
+    let nameKey = "name"
+    let roleKey = "role"
+    let intentionKey = "intention"
+    let whyIntentionKey = "whyTheyWantThis"
+    let whatToDoKey = "physicalGoal"
+    let obstaclesKey = "obstacles"
+    let flawsKey = "flaws"
+    let howCharacterChangedKey = "howCharacterChanged"
+    let notesKey = "notes"
+    let howDoesCharacterDoItKey = "howDoesCharacterDoIt"
+    let needKey = "need"
+    
+    // Basic
+    var uuid: String
     var name: String
     var role: String?
     
@@ -22,36 +37,41 @@ class Character {
     var flaws: String = ""
     var intentionFix: String = ""
     var need: String = ""
-    var howIsCharacterChanged: String = ""
+    var howCharacterChanged: String = ""
     var notes: String = ""
     
     init(name:String) {
         self.name = name
+        self.uuid = UUID().uuidString
     }
     
-    init?(characterDictionary: [String:Any]) {
-        guard let name = characterDictionary["name"] as? String,
-            let role = characterDictionary["role"] as? String,
-            let intention = characterDictionary["intention"] as? String,
-            let whyIntention = characterDictionary["whyTheyWantThis"] as? String,
-            let physicalGoal = characterDictionary["physicalGoal"] as? String,
-            let obstacles = characterDictionary["obstacles"] as? String,
-            let flaws = characterDictionary["flaws"] as? String,
-            let howIsCharacterChanged = characterDictionary["howCharacterChanged"] as? String,
-            let notes = characterDictionary["notes"] as? String else {
-                return nil
-        }
-        
-        self.name = name
-        self.role = role
-        self.intention = intention
-        self.whyIntention = whyIntention
-        self.whatToDo = physicalGoal
-        self.obstacles = obstacles
-        self.flaws = flaws
-        self.howIsCharacterChanged = howIsCharacterChanged
-        self.notes = notes
-        
+    init?(uuid: String, characterDictionary: [String:Any]) {
+        self.uuid = uuid
+        self.name = characterDictionary[nameKey] as? String ?? ""
+        self.role = characterDictionary[roleKey] as? String ?? ""
+        self.intention = characterDictionary[intentionKey] as? String ?? ""
+        self.whyIntention = characterDictionary[whyIntentionKey] as? String ?? ""
+        self.whatToDo = characterDictionary[whatToDoKey] as? String ?? ""
+        self.howDoesCharacterDoIt = characterDictionary[howDoesCharacterDoItKey] as? String ?? ""
+        self.obstacles = characterDictionary[obstaclesKey] as? String ?? ""
+        self.flaws = characterDictionary[flawsKey] as? String ?? ""
+        self.need = characterDictionary[needKey] as? String ?? ""
+        self.howCharacterChanged = characterDictionary[howCharacterChangedKey] as? String ?? ""
+        self.notes = characterDictionary[notesKey] as? String ?? ""
     }
     
+    
+    var characterDictionary: [String:Any] {
+        return [self.uuid:[self.nameKey:name,
+                self.roleKey:role,
+                self.intentionKey:intention,
+                self.whyIntentionKey:whyIntention,
+                self.whatToDoKey:whatToDo,
+                self.howDoesCharacterDoItKey:howDoesCharacterDoIt,
+                self.obstaclesKey:obstacles,
+                self.flawsKey:flaws,
+                self.needKey:need,
+                self.howCharacterChangedKey:howCharacterChanged,
+                self.notesKey:notes]]
+    }
 }

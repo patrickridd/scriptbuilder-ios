@@ -26,6 +26,8 @@ class Screenplay {
     let themeKey = "theme"
     let centralIntentionKey = "centralIntention"
     let mainObstacleKey = "mainObstacle"
+    let charactersKey = "characters"
+    
     
     var title: String
     var uuid: String
@@ -72,6 +74,17 @@ class Screenplay {
         self.act1 = Act1(actOneDict: actOneDict) ?? Act1()
         self.act2 = Act2(actTwoDict: actTwoDict) ?? Act2()
         self.act3 = Act3(actThreeDict: actThreeDict) ?? Act3()
+        
+        if let charactersDictionaryArray = screenplayDictionary[charactersKey] as? [String:Any] {
+            for characterKeyValuePair in charactersDictionaryArray {
+//                let uuid = characterKeyValuePair.key
+//                guard let characterDictionary = characterKeyValuePair.value as? [String:Any],
+//                    let screenplay = Character(uuid: uuid, characterDictionary: characterDictionary)
+//                    else { continue }
+//
+//                characters.append(screenplay)
+            }
+        }
     }
     
     var firDictionary: [String:Any] {
@@ -87,7 +100,15 @@ class Screenplay {
                 actThreeDescriptionKey: self.actThreeDescription,
                 actOneKey:self.act1.firActOneDictionary,
                 actTwoKey:self.act2.firActTwoDictionary,
-                actThreeKey:self.act3.firActThreeDictionary]
+                actThreeKey:self.act3.firActThreeDictionary,
+                charactersKey:self.characterDictionaryArray]
     }
     
+    var characterDictionaryArray: [[String:Any]] {
+        var characterDictionaryArray: [[String:Any]] = [[:]]
+        for character in characters {
+            characterDictionaryArray.append(character.characterDictionary)
+        }
+        return characterDictionaryArray
+    }
 }

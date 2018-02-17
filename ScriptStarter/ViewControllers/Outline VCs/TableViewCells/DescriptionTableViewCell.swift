@@ -177,7 +177,7 @@ class DescriptionTableViewCell: UITableViewCell {
             case 9:
                 descriptionTextView.text = character?.need
             case 10:
-                descriptionTextView.text = character?.howIsCharacterChanged
+                descriptionTextView.text = character?.howCharacterChanged
             case 11:
                 descriptionTextView.text = character?.notes
             default:
@@ -302,7 +302,7 @@ class DescriptionTableViewCell: UITableViewCell {
             case 9:
                 character?.need = descriptionTextView.text
             case 10:
-                character?.howIsCharacterChanged = descriptionTextView.text
+                character?.howCharacterChanged = descriptionTextView.text
             case 11:
                 character?.notes = descriptionTextView.text
             default:

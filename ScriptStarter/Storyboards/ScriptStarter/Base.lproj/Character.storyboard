@@ -89,7 +89,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="z05-wF-IJX">
                             <color key="tintColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="40X-hD-gqv" kind="show" id="OMY-8M-hf5"/>
+                                <segue destination="40X-hD-gqv" kind="show" identifier="newCharacterSegue" id="OMY-8M-hf5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -250,7 +250,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="hC2-HR-5fx">
                             <color key="tintColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="saveButtonTapped:" destination="40X-hD-gqv" id="Kcv-n9-O8d"/>
+                                <action selector="saveButtonTapped:" destination="40X-hD-gqv" id="UCq-nr-plf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

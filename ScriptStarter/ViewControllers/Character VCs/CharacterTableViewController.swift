@@ -106,6 +106,13 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "newCharacterSegue" {
+            guard let characterDetailVC = segue.destination as? CharacterDetailTableViewController else { return }
+            let newCharacter = Character(name: "Unnamed")
+            characterDetailVC.character = newCharacter
+            self.screenplay?.characters.append(newCharacter)
+        }
+        
     }
     
 

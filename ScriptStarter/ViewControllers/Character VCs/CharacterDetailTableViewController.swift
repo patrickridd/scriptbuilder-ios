@@ -16,7 +16,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = character?.name
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.setupExpandableSections()
     }
@@ -40,6 +40,10 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         self.present(enlargedNavigationController, animated: true, completion: nil)
     }
    
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        self.saveScreenplay()
+    }
+    
 
     // MARK: - Table view data source
 
