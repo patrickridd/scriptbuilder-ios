@@ -16,9 +16,12 @@ class Character {
     // Character Arc
     var intention: String = ""
     var whyIntention: String = ""
-    var physicalGoal: String = ""
+    var whatToDo: String = ""
+    var howDoesCharacterDoIt: String = ""
     var obstacles: String = ""
     var flaws: String = ""
+    var intentionFix: String = ""
+    var need: String = ""
     var howIsCharacterChanged: String = ""
     var notes: String = ""
     
@@ -43,7 +46,7 @@ class Character {
         self.role = role
         self.intention = intention
         self.whyIntention = whyIntention
-        self.physicalGoal = physicalGoal
+        self.whatToDo = physicalGoal
         self.obstacles = obstacles
         self.flaws = flaws
         self.howIsCharacterChanged = howIsCharacterChanged

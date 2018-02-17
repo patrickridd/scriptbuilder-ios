@@ -14,6 +14,7 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
     var viewController: ViewController = .outline
     var section: Int = 0
     var act: Act?
+    var character: Character?
 
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -123,8 +124,8 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
                 sectionHeader.subtitleLabel.text = act.sectionSubTitles[self.section-2]
             }
         case .characterDetail:
-            sectionHeader.sectionLabel.text = CharacterSection.sectionTitles[self.section-1]
-            sectionHeader.subtitleLabel.text = CharacterSection.sectionSubtitles[self.section-1]
+            sectionHeader.sectionLabel.text = CharacterSection.sectionTitles[self.section-2]
+            sectionHeader.subtitleLabel.text = CharacterSection.sectionSubtitles[self.section-2]
         }
         return sectionHeader
     }

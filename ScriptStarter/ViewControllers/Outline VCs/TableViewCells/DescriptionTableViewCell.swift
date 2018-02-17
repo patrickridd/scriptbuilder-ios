@@ -25,6 +25,7 @@ class DescriptionTableViewCell: UITableViewCell {
     var section: Int = 0
     var viewController: ViewController = .outline
     var act: Act?
+    var character: Character?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,13 +38,18 @@ class DescriptionTableViewCell: UITableViewCell {
         addToolBar(textView: descriptionTextView)
     }
 
-    func update(viewController: ViewController, section: Int, act: Act?) {
+    func update(viewController: ViewController, section: Int, act: Act?, character: Character? = nil) {
         self.section = section
         self.viewController = viewController
         
         // Set act for textViewDidChange
         if let act = act {
             self.act = act
+        }
+        
+        // Set character
+        if let character = character {
+            self.character = character
         }
         
         switch viewController {
@@ -154,8 +160,26 @@ class DescriptionTableViewCell: UITableViewCell {
             }
         case .characterDetail:
             switch section {
-            case 0:
-                break
+            case 2:
+                descriptionTextView.text = character?.intention
+            case 3:
+                descriptionTextView.text = character?.whyIntention
+            case 4:
+                    descriptionTextView.text = character?.whatToDo
+            case 5:
+                descriptionTextView.text = character?.howDoesCharacterDoIt
+            case 6:
+                descriptionTextView.text = character?.obstacles
+            case 7:
+                descriptionTextView.text = character?.flaws
+            case 8:
+                descriptionTextView.text = character?.intentionFix
+            case 9:
+                descriptionTextView.text = character?.need
+            case 10:
+                descriptionTextView.text = character?.howIsCharacterChanged
+            case 11:
+                descriptionTextView.text = character?.notes
             default:
                 break
             }
@@ -261,9 +285,26 @@ class DescriptionTableViewCell: UITableViewCell {
             }
         case .characterDetail:
             switch section {
-            case 0:
-                
-                break
+            case 2:
+                character?.intention = descriptionTextView.text
+            case 3:
+                character?.whyIntention = descriptionTextView.text
+            case 4:
+                character?.whatToDo = descriptionTextView.text
+            case 5:
+                character?.howDoesCharacterDoIt = descriptionTextView.text
+            case 6:
+                character?.obstacles = descriptionTextView.text
+            case 7:
+                character?.flaws = descriptionTextView.text
+            case 8:
+                character?.intentionFix = descriptionTextView.text
+            case 9:
+                character?.need = descriptionTextView.text
+            case 10:
+                character?.howIsCharacterChanged = descriptionTextView.text
+            case 11:
+                character?.notes = descriptionTextView.text
             default:
                 break
             }

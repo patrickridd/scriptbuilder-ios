@@ -18,6 +18,8 @@ enum CharacterSection {
     case flawsFears
     case fix
     case need
+    case characterChanged
+    case notes
     
     static var sectionSubtitles: [String] {
         return ["Intention - What does your character want?",
@@ -26,8 +28,10 @@ enum CharacterSection {
                 "How does your character get what they want?",
                 "What obstacles are in your characters's way?",
                 "What flaws or fears does your character have?",
-                "Does acheiving their intention fix their solve their problem?",
-                "Is there something the character \"really\" needs to do to fix their problem?"]
+                "Does acheiving their intention solve their problem?",
+                "Is there something the character \"really\" needs to do to fix their problem?",
+                "How is the character changed through the story?",
+                "Any pertinent details about the character?"]
     }
     
     static var sectionTitles: [String] {
@@ -38,6 +42,8 @@ enum CharacterSection {
                     "Obstacles",
                     "Flaws",
                     "Problem Solved?",
-                    "Need"]
+                    "Need",
+                    "Changed",
+                    "Notes"]
     }
 }

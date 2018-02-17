@@ -147,9 +147,6 @@
                                                         <constraint firstAttribute="width" constant="30" id="lX6-GF-zGM"/>
                                                     </constraints>
                                                     <state key="normal" image="expandButtonAsset 3"/>
-                                                    <connections>
-                                                        <segue destination="8vG-J8-eQJ" kind="presentation" id="ugm-ez-Sat"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -186,6 +183,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="descriptionTextView" destination="Qii-AX-xyI" id="j1X-4g-DVk"/>
+                                    <outlet property="expandButton" destination="Tsp-5U-iMz" id="3Mq-hD-Vk4"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicInfoCharacterCell" rowHeight="140" id="b89-Rk-iAk" customClass="BasicInfoCharacterTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
