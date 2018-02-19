@@ -10,9 +10,10 @@ import UIKit
 
 class RolePopoverTableViewController: UITableViewController {
 
+    weak var delegate: RoleCellSelected?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     // MARK: - Table view data source
@@ -39,7 +40,8 @@ class RolePopoverTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        delegate?.updateRoleTextField(with: indexPath.row)
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

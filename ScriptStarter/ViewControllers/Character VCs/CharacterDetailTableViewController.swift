@@ -8,11 +8,13 @@
 
 import UIKit
 
-class CharacterDetailTableViewController: UITableViewController, DescriptionDelegate, CollapsibleHeaderDelegate, UIPopoverPresentationControllerDelegate {
+class CharacterDetailTableViewController: UITableViewController, DescriptionDelegate, CollapsibleHeaderDelegate, UIPopoverPresentationControllerDelegate, RoleCellSelected {
     
     var expandableSections: [ExpandableTableViewSection] = []
 
     var character: Character?
+    
+    var customSelected: Bool = false // RoleCellSelected
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +59,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         popController?.sourceView = sender
         popController?.sourceRect = sender.bounds
 
-       // rolePopTVC.delegate = self // Set ReviewOptionsDelegate so we can reload the ReviewTableViewCell to reflect "Hide" or "Flag" in -
+        rolePopTVC.delegate = self // RoleCellSelected protocol
 
         // change size of view controller to the size of my three cells.
         let contentHeightSize = (Role.count+1) * 40
@@ -113,7 +115,13 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         switch indexPath.section {
         case 0:
            guard let basicCharacterCell = tableView.dequeueReusableCell(withIdentifier: "basicInfoCharacterCell", for: indexPath) as? BasicInfoCharacterTableViewCell else { return UITableViewCell() }
-           basicCharacterCell.character = self.character
+           
+           basicCharacterCell.character = character
+           basicCharacterCell.updateCharacterInfo()
+
+           if customSelected {
+                basicCharacterCell.customRoleSelected()
+           }
            basicCharacterCell.roleButton.addTarget(self, action: #selector(roleButtonTapped(_:)), for: .touchUpInside)
            
            return basicCharacterCell
@@ -211,6 +219,21 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         
         descriptionCell.descriptionTextView.text = text
     }
+    
+    // MARK: RoleCellSelected Methods
+
+    func updateRoleTextField(with row: Int) {
+        let indexSet = IndexSet(integer: 0)
+//        guard let basicInfoCell = self.tableView.dequeueReusableCell(withIdentifier: "basicInfoCharacterCell") as? BasicInfoCharacterTableViewCell else { return }
+        
+        if let role = Role(rawValue: row) {
+            self.character?.role = role.title
+            customSelected = false
+        } else {
+            customSelected = true
+        }
+        self.tableView.reloadSections(indexSet, with: .automatic)
+    }
 
     /*
     // MARK: - Navigation
@@ -222,4 +245,9 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
     }
     */
 
+}
+
+protocol RoleCellSelected: class {
+    var customSelected: Bool { get set}
+    func updateRoleTextField(with row: Int)
 }

@@ -18,12 +18,27 @@ class BasicInfoCharacterTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
         nameTextField.delegate = self
         roleTextField.delegate = self
         
-        addToolBar(textField: self.nameTextField)
-        addToolBar(textField: self.roleTextField)
+        self.nameTextField.textColor = UIColor.screenLightBlue
+        self.roleTextField.textColor = UIColor.flamenco
+        
+        self.addToolBar(textField: self.nameTextField)
+        self.addToolBar(textField: self.roleTextField)
+    }
+    
+    func updateCharacterInfo() {
+        self.nameTextField.text = self.character?.name ?? ""
+        self.roleTextField.text = self.character?.role ?? ""
+    }
+    
+    func customRoleSelected() {
+        DispatchQueue.main.async {
+            self.nameTextField.resignFirstResponder()
+            self.roleTextField.becomeFirstResponder()
+        }
     }
 
     @IBAction func nameTextFieldChanged(_ sender: Any) {
