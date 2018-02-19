@@ -44,6 +44,10 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         self.saveScreenplay()
     }
     
+    @objc func archTypeButtonTapped() {
+        
+    }
+    
 
     // MARK: - Table view data source
 
@@ -92,7 +96,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         switch indexPath.section {
         case 0:
            guard let basicCharacterCell = tableView.dequeueReusableCell(withIdentifier: "basicInfoCharacterCell", for: indexPath) as? BasicInfoCharacterTableViewCell else { return UITableViewCell() }
-           
+           basicCharacterCell.character = self.character
            
            return basicCharacterCell
         default:
@@ -101,6 +105,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
             descriptionCell.expandButton.tag = indexPath.section
             descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
             descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
+           
             return descriptionCell
         }
     }

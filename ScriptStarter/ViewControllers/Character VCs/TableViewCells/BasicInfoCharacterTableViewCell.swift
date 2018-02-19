@@ -8,21 +8,68 @@
 
 import UIKit
 
+
+enum Role {
+    case protagonist
+    case antagonist
+    case mentor
+    case lover
+    case friend
+    case jester
+    case enemy
+    case ally
+    case mysterious
+    
+    var title: String {
+        switch self {
+        case .protagonist:
+            return "Protagonist"
+        case .antagonist:
+            return "Antagonist"
+        case .mentor:
+            return "Mentor"
+        case .lover:
+            return "Lover"
+        case .friend:
+            return "Friend"
+        case .jester:
+            return "Jester"
+        case .enemy:
+            return "Enemy"
+        case .ally:
+            return "Ally"
+        case .mysterious:
+            return "Mysterious"
+        }
+    }
+    
+}
+
 class BasicInfoCharacterTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameTextField: UITextField!
-    
     @IBOutlet weak var roleTextField: UITextField!
+    @IBOutlet weak var roleButton: UIButton!
+    
+    var character: Character?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        nameTextField.delegate = self
+        roleTextField.delegate = self
+        
+        addToolBar(textField: self.nameTextField)
+        addToolBar(textField: self.roleTextField)
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    @IBAction func nameTextFieldChanged(_ sender: Any) {
+        guard let name = nameTextField.text else { return }
+        self.character?.name = name
     }
-
+    
+    @IBAction func roleTextFieldChanged(_ sender: Any) {
+        guard let role = roleTextField.text else { return }
+        self.character?.role = role
+    }
 }
