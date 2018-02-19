@@ -10,6 +10,9 @@
 		21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */; };
 		21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099167201FD4CF00340124 /* SectionHeaderView.swift */; };
 		211215C5203652520039D6E8 /* BasicInfoCharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215C4203652510039D6E8 /* BasicInfoCharacterTableViewCell.swift */; };
+		211215D4203B5D200039D6E8 /* RolePopoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215D3203B5D200039D6E8 /* RolePopoverTableViewController.swift */; };
+		211215D6203B5DC30039D6E8 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215D5203B5DC30039D6E8 /* Role.swift */; };
+		211215D8203B5E680039D6E8 /* RoleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215D7203B5E680039D6E8 /* RoleTableViewCell.swift */; };
 		211800DA20238A1200F33924 /* ScreenplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211800D920238A1200F33924 /* ScreenplayCollectionViewCell.swift */; };
 		2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */; };
 		212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212DEA732012746500FE9C3F /* AppDelegate.swift */; };
@@ -82,6 +85,9 @@
 		21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScreenplayCollectionViewCell.swift; sourceTree = "<group>"; };
 		21099167201FD4CF00340124 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		211215C4203652510039D6E8 /* BasicInfoCharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoCharacterTableViewCell.swift; sourceTree = "<group>"; };
+		211215D3203B5D200039D6E8 /* RolePopoverTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePopoverTableViewController.swift; sourceTree = "<group>"; };
+		211215D5203B5DC30039D6E8 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
+		211215D7203B5E680039D6E8 /* RoleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleTableViewCell.swift; sourceTree = "<group>"; };
 		211800D920238A1200F33924 /* ScreenplayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayCollectionViewCell.swift; sourceTree = "<group>"; };
 		2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargedDescriptionTableViewController.swift; sourceTree = "<group>"; };
 		212DEA702012746500FE9C3F /* ScriptStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,8 +220,17 @@
 				21D727EF202CEB8500861C2D /* ViewController.swift */,
 				21D727FE202E41DD00861C2D /* InformationNotes.swift */,
 				21D72800202E6A6C00861C2D /* CharacterSection.swift */,
+				211215D5203B5DC30039D6E8 /* Role.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		211215D2203B5CE80039D6E8 /* Popovers */ = {
+			isa = PBXGroup;
+			children = (
+				211215D3203B5D200039D6E8 /* RolePopoverTableViewController.swift */,
+			);
+			path = Popovers;
 			sourceTree = "<group>";
 		};
 		212DEA672012746500FE9C3F = {
@@ -292,6 +307,7 @@
 			children = (
 				21A7CF4D2023B4D200D97394 /* CharacterTableViewCell.swift */,
 				211215C4203652510039D6E8 /* BasicInfoCharacterTableViewCell.swift */,
+				211215D7203B5E680039D6E8 /* RoleTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -315,6 +331,7 @@
 			children = (
 				21A7CF482023B00000D97394 /* CharacterTableViewController.swift */,
 				21A7CF4F2025039800D97394 /* CharacterDetailTableViewController.swift */,
+				211215D2203B5CE80039D6E8 /* Popovers */,
 				21A7CF4C2023B4B800D97394 /* TableViewCells */,
 			);
 			path = "Character VCs";
@@ -745,12 +762,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				211215D4203B5D200039D6E8 /* RolePopoverTableViewController.swift in Sources */,
 				21A7CF5A202A622000D97394 /* ExpandableTableViewSection.swift in Sources */,
 				21D72801202E6A6C00861C2D /* CharacterSection.swift in Sources */,
 				21C903D82016528A0017D626 /* LoginViewController.swift in Sources */,
 				21E661C12017DBAE006A14AF /* FirebaseController.swift in Sources */,
 				2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */,
 				21D727F2202CFD2400861C2D /* Extension+ViewController.swift in Sources */,
+				211215D8203B5E680039D6E8 /* RoleTableViewCell.swift in Sources */,
 				21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */,
 				21A7CF542028E60D00D97394 /* ActDetailTableViewController.swift in Sources */,
 				21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */,
@@ -773,6 +792,7 @@
 				21E661C820192E66006A14AF /* SignUpViewController.swift in Sources */,
 				21D727FB202E32D500861C2D /* InformationPopTableViewController.swift in Sources */,
 				21A7CF6A202A6D3A00D97394 /* Act.swift in Sources */,
+				211215D6203B5DC30039D6E8 /* Role.swift in Sources */,
 				211800DA20238A1200F33924 /* ScreenplayCollectionViewCell.swift in Sources */,
 				212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */,
 				21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */,

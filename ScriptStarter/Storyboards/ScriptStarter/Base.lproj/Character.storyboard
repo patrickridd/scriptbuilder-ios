@@ -294,6 +294,50 @@
             </objects>
             <point key="canvasLocation" x="4429.6000000000004" y="149.77511244377811"/>
         </scene>
+        <!--Role Popover Table View Controller-->
+        <scene sceneID="fIB-Dz-F66">
+            <objects>
+                <tableViewController storyboardIdentifier="rolePopoverTVC" id="e0c-Ts-X1P" customClass="RolePopoverTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xkT-c1-nf2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="roleTableViewCell" rowHeight="84" id="otB-ro-4IX" customClass="RoleTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="84"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="otB-ro-4IX" id="0gb-9A-TAG">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protagonist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y19-ze-94C">
+                                            <rect key="frame" x="16" y="31" width="87" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                            <color key="textColor" red="0.91764705882352937" green="0.50196078431372548" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="y19-ze-94C" firstAttribute="centerY" secondItem="0gb-9A-TAG" secondAttribute="centerY" id="NiW-4w-7Vd"/>
+                                        <constraint firstItem="y19-ze-94C" firstAttribute="leading" secondItem="0gb-9A-TAG" secondAttribute="leadingMargin" id="c5Y-RH-86W"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="roleLabel" destination="y19-ze-94C" id="CM0-s7-gaK"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="e0c-Ts-X1P" id="bRM-wZ-thp"/>
+                            <outlet property="delegate" destination="e0c-Ts-X1P" id="REY-Ue-Hyg"/>
+                        </connections>
+                    </tableView>
+                    <size key="freeformSize" width="375" height="150"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g35-fl-2Iv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4294" y="648"/>
+        </scene>
         <!--Enlarged Description Table View Controller-->
         <scene sceneID="BjC-zr-BJn">
             <objects>

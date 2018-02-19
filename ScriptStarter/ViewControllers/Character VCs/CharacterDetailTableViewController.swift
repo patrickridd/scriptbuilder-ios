@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CharacterDetailTableViewController: UITableViewController, DescriptionDelegate, CollapsibleHeaderDelegate {
+class CharacterDetailTableViewController: UITableViewController, DescriptionDelegate, CollapsibleHeaderDelegate, UIPopoverPresentationControllerDelegate {
     
     var expandableSections: [ExpandableTableViewSection] = []
 
@@ -44,8 +44,26 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         self.saveScreenplay()
     }
     
-    @objc func archTypeButtonTapped() {
-        
+    @objc func roleButtonTapped(_ sender: UIButton) {
+        guard let rolePopTVC = self.storyboard?.instantiateViewController(withIdentifier: "rolePopoverTVC") as? RolePopoverTableViewController else { return }
+        rolePopTVC.modalPresentationStyle = .popover // So it knows to present it as a popover
+
+        // Access the popController instance and configure its settings
+        let popController = rolePopTVC.popoverPresentationController
+        popController?.permittedArrowDirections = [.up,.down] // allow arrow to go both .up and .down
+        popController?.delegate = self
+        popController?.backgroundColor = .white // Makes the arrow white
+        rolePopTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
+        popController?.sourceView = sender
+        popController?.sourceRect = sender.bounds
+
+       // rolePopTVC.delegate = self // Set ReviewOptionsDelegate so we can reload the ReviewTableViewCell to reflect "Hide" or "Flag" in -
+
+        // change size of view controller to the size of my three cells.
+        let contentHeightSize = (Role.count+1) * 40
+        rolePopTVC.preferredContentSize = CGSize(width: self.view.bounds.width, height: CGFloat(contentHeightSize))
+
+        self.present(rolePopTVC, animated: true, completion: nil)
     }
     
 
@@ -89,7 +107,6 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Configure the cell...
@@ -97,6 +114,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         case 0:
            guard let basicCharacterCell = tableView.dequeueReusableCell(withIdentifier: "basicInfoCharacterCell", for: indexPath) as? BasicInfoCharacterTableViewCell else { return UITableViewCell() }
            basicCharacterCell.character = self.character
+           basicCharacterCell.roleButton.addTarget(self, action: #selector(roleButtonTapped(_:)), for: .touchUpInside)
            
            return basicCharacterCell
         default:
@@ -177,6 +195,12 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
             self.tableView.reloadSections(indexSet, with: .automatic)
             self.tableView.endUpdates()
         }
+    }
+    
+    // MARK: UIPopoverPresentationControllerDelegate Methods
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+            return .none
     }
     
     // MARK: DescriptionDelegate Methods

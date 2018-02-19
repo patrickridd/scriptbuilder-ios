@@ -8,43 +8,6 @@
 
 import UIKit
 
-
-enum Role {
-    case protagonist
-    case antagonist
-    case mentor
-    case lover
-    case friend
-    case jester
-    case enemy
-    case ally
-    case mysterious
-    
-    var title: String {
-        switch self {
-        case .protagonist:
-            return "Protagonist"
-        case .antagonist:
-            return "Antagonist"
-        case .mentor:
-            return "Mentor"
-        case .lover:
-            return "Lover"
-        case .friend:
-            return "Friend"
-        case .jester:
-            return "Jester"
-        case .enemy:
-            return "Enemy"
-        case .ally:
-            return "Ally"
-        case .mysterious:
-            return "Mysterious"
-        }
-    }
-    
-}
-
 class BasicInfoCharacterTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameTextField: UITextField!
