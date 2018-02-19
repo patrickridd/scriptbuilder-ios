@@ -10,7 +10,7 @@ import UIKit
 
 class CharacterTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var nameLabel: UIStackView!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var roleLabel: UILabel!
     @IBOutlet weak var intentionLabel: UILabel!
     
@@ -18,5 +18,10 @@ class CharacterTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
+    func updateCell(with character: Character) {
+        self.intentionLabel.text = character.intention
+        self.roleLabel.text = character.role ?? ""
+        self.nameLabel.text = character.name
+    }
 }

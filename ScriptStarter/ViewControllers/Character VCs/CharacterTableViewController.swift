@@ -29,6 +29,7 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         super.viewWillAppear(animated)
         self.tableView.backgroundColor = UIColor.screenLightGray
         
+        self.tableView.reloadData()
         setupNavigationBar()
         adBannerView.load(GADRequest())
     }
@@ -79,16 +80,18 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-       // return self.screenplay?.characters.count ?? 0
+        return self.screenplay?.characters.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
         guard let characterCell = tableView.dequeueReusableCell(withIdentifier: "characterCell", for: indexPath) as? CharacterTableViewCell else { return UITableViewCell() }
-
+        
         // Configure the cell...
-
+        if let character = screenplay?.characters[indexPath.row] {
+            characterCell.updateCell(with: character)
+        }
+        
         return characterCell
     }
 
@@ -106,13 +109,18 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+         guard let characterDetailVC = segue.destination as? CharacterDetailTableViewController else { return }
         if segue.identifier == "newCharacterSegue" {
-            guard let characterDetailVC = segue.destination as? CharacterDetailTableViewController else { return }
             let newCharacter = Character(name: "Unnamed")
             characterDetailVC.character = newCharacter
             self.screenplay?.characters.append(newCharacter)
+        } else if segue.identifier == "characterSegue" {
+            guard let indexPath = self.tableView.indexPathForSelectedRow,
+                let character = self.screenplay?.characters[indexPath.row] else {
+                return
+            }
+            characterDetailVC.character = character
         }
-        
     }
     
 

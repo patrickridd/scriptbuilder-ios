@@ -74,9 +74,9 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="intentionLabel" destination="2wJ-LW-8hM" id="8uL-U4-gKI"/>
-                                    <outlet property="nameLabel" destination="Klz-20-wAo" id="Pus-Sr-um3"/>
+                                    <outlet property="nameLabel" destination="BLI-K9-35X" id="l64-do-qx0"/>
                                     <outlet property="roleLabel" destination="w1G-dk-cTa" id="92z-qx-QfF"/>
-                                    <segue destination="40X-hD-gqv" kind="show" id="TcK-3r-DYL"/>
+                                    <segue destination="40X-hD-gqv" kind="show" identifier="characterSegue" id="TcK-3r-DYL"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -464,6 +464,6 @@
         <image name="reduceScreenButtonAsset" width="15" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OMY-8M-hf5"/>
+        <segue reference="TcK-3r-DYL"/>
     </inferredMetricsTieBreakers>
 </document>
