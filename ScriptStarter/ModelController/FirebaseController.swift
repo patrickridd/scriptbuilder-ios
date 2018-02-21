@@ -57,7 +57,6 @@ class FirebaseController {
         }
         
         if screenplay.title == "" { screenplay.title = "Untitled" }
-        
         let screenplayRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid)
         screenplayRef.setValue(screenplay.firDictionary) { (error, reference) in
             if let _ = error {
@@ -65,6 +64,14 @@ class FirebaseController {
                 return
             }
             completion(true)
+        }
+        
+        // Update characters
+        let characterRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid).child("characters")
+        for character in screenplay.characters {
+            characterRef.updateChildValues([character.uuid:character.characterDictionary]) { (error, reference) in
+                completion(true)
+            }
         }
     }
     

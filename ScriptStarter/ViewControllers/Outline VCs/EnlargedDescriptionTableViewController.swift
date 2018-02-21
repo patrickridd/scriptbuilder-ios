@@ -62,7 +62,7 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         // Remove Navigation bar shadow and borderline
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.topItem?.title = "Untitled"
+        self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
@@ -135,7 +135,7 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.height * (4/5)
+        return self.view.frame.height * (1/3)
     }
 
 }

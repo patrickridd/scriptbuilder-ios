@@ -62,8 +62,8 @@ class Character {
     
     
     var characterDictionary: [String:Any] {
-        return [self.uuid:[self.nameKey:name,
-                self.roleKey:role,
+        return [self.nameKey:name,
+                self.roleKey:role ?? "",
                 self.intentionKey:intention,
                 self.whyIntentionKey:whyIntention,
                 self.whatToDoKey:whatToDo,
@@ -72,6 +72,6 @@ class Character {
                 self.flawsKey:flaws,
                 self.needKey:need,
                 self.howCharacterChangedKey:howCharacterChanged,
-                self.notesKey:notes]]
+                self.notesKey:notes]
     }
 }

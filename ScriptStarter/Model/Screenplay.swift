@@ -75,17 +75,18 @@ class Screenplay {
         self.act2 = Act2(actTwoDict: actTwoDict) ?? Act2()
         self.act3 = Act3(actThreeDict: actThreeDict) ?? Act3()
         
-        if let charactersDictionaryArray = screenplayDictionary[charactersKey] as? [String:Any] {
-            for characterKeyValuePair in charactersDictionaryArray {
-//                let uuid = characterKeyValuePair.key
-//                guard let characterDictionary = characterKeyValuePair.value as? [String:Any],
-//                    let screenplay = Character(uuid: uuid, characterDictionary: characterDictionary)
-//                    else { continue }
-//
-//                characters.append(screenplay)
+        guard let charactersDictionaryArray = screenplayDictionary[charactersKey] as? [String:Any] else {
+            return
+        }
+        for characterKeyPair in charactersDictionaryArray {
+            guard let characterDictionary = characterKeyPair.value as? [String:Any],
+             let character = Character(uuid: characterKeyPair.key, characterDictionary:characterDictionary) else {
+                continue
             }
+            self.characters.append(character)
         }
     }
+    
     
     var firDictionary: [String:Any] {
         return [titleKey: self.title,
@@ -100,8 +101,7 @@ class Screenplay {
                 actThreeDescriptionKey: self.actThreeDescription,
                 actOneKey:self.act1.firActOneDictionary,
                 actTwoKey:self.act2.firActTwoDictionary,
-                actThreeKey:self.act3.firActThreeDictionary,
-                charactersKey:self.characterDictionaryArray]
+                actThreeKey:self.act3.firActThreeDictionary]
     }
     
     var characterDictionaryArray: [[String:Any]] {
@@ -109,6 +109,7 @@ class Screenplay {
         for character in characters {
             characterDictionaryArray.append(character.characterDictionary)
         }
+        
         return characterDictionaryArray
     }
 }
