@@ -55,9 +55,9 @@ class DescriptionTableViewCell: UITableViewCell {
         switch viewController {
         case .outline:
             switch section {
-            case 0: // Log line
-                self.descriptionTextView.placeholder = "••••"
-                self.descriptionTextView.text = screenplay?.logLine
+            case 0: // Idea
+                self.descriptionTextView.placeholder = "about a ..."
+                self.descriptionTextView.text = screenplay?.idea
             case 1: // Act 1
                 self.descriptionTextView.placeholder = "Setup"
                 self.descriptionTextView.text = screenplay?.actOneDescription
@@ -81,15 +81,16 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     descriptionTextView.text = screenplay?.idea
-                case 1:
-                    descriptionTextView.text = screenplay?.logLine
+                    descriptionTextView.placeholder = "about a ..."
                 case 2:
-                    descriptionTextView.text = screenplay?.centralIntention
+                    descriptionTextView.text = screenplay?.logLine
                 case 3:
-                     descriptionTextView.text = screenplay?.mainObstacle
+                    descriptionTextView.text = screenplay?.centralIntention
                 case 4:
-                     descriptionTextView.text = screenplay?.theme
+                     descriptionTextView.text = screenplay?.mainObstacle
                 case 5:
+                     descriptionTextView.text = screenplay?.theme
+                case 6:
                     descriptionTextView.text = screenplay?.notes
                 default:
                     break
@@ -118,7 +119,7 @@ class DescriptionTableViewCell: UITableViewCell {
                 if section == 0 {
                     descriptionTextView.placeholder = act.placeholders[section]
                 }  else {
-                    descriptionTextView.placeholder = act.placeholders[section-1]
+                    descriptionTextView.placeholder = ""
                 }
 
             case .two:
@@ -144,6 +145,11 @@ class DescriptionTableViewCell: UITableViewCell {
                 default:
                     break
                 }
+                if section == 0 {
+                    descriptionTextView.placeholder = act.placeholders[section]
+                }  else {
+                    descriptionTextView.placeholder = ""
+                }
             case .three:
                 switch section {
                 case 0:
@@ -156,6 +162,11 @@ class DescriptionTableViewCell: UITableViewCell {
                     descriptionTextView.text = screenplay?.act3.untangleStory
                 default:
                     break
+                }
+                if section == 0 {
+                    descriptionTextView.placeholder = act.placeholders[section]
+                }  else {
+                    descriptionTextView.placeholder = ""
                 }
             }
         case .characterDetail:

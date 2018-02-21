@@ -15,6 +15,7 @@ class BasicInfoCharacterTableViewCell: UITableViewCell {
     @IBOutlet weak var roleButton: UIButton!
     
     var character: Character?
+    weak var delegate: NameChangedDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,10 +45,12 @@ class BasicInfoCharacterTableViewCell: UITableViewCell {
     @IBAction func nameTextFieldChanged(_ sender: Any) {
         guard let name = nameTextField.text else { return }
         self.character?.name = name
+        delegate?.nameChanged(name: name)
     }
     
     @IBAction func roleTextFieldChanged(_ sender: Any) {
         guard let role = roleTextField.text else { return }
         self.character?.role = role
     }
+    
 }

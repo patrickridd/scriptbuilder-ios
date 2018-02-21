@@ -32,7 +32,6 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        self.title = "Script Plan"
         getScreenplays()
         
         // Enlarge new screenplay if none exist
@@ -43,6 +42,8 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.title = "Script Builder"
+
         self.collectionView.reloadData()
     }
     

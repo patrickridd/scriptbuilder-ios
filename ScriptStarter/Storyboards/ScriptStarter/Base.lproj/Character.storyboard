@@ -161,7 +161,6 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="..."/>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="YES"/>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="descriptionTextView"/>
@@ -205,18 +204,18 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardAppearance="alert"/>
                                                     <connections>
-                                                        <action selector="nameTextFieldChanged:" destination="b89-Rk-iAk" eventType="editingChanged" id="MkD-B1-iAp"/>
+                                                        <action selector="nameTextFieldChanged:" destination="b89-Rk-iAk" eventType="editingChanged" id="v4i-OD-hKS"/>
                                                     </connections>
                                                 </textField>
                                                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vA8-hP-wVR">
-                                                    <rect key="frame" x="0.0" y="35" width="335" height="66"/>
+                                                    <rect key="frame" x="0.0" y="35" width="335" height="65.5"/>
                                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="0.5" id="yYn-gd-Uwv"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BnV-lC-5WV" userLabel="roleContainer">
-                                                    <rect key="frame" x="0.0" y="106" width="335" height="38"/>
+                                                    <rect key="frame" x="0.0" y="105.5" width="335" height="38.5"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="role" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Vg-o2-u3g">
                                                             <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
@@ -231,7 +230,7 @@
                                                             </connections>
                                                         </textField>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YF-DI-8EN" userLabel="roleButton">
-                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="38.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="39"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </button>
                                                     </subviews>

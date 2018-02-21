@@ -8,7 +8,11 @@
 
 import UIKit
 
-class CharacterDetailTableViewController: UITableViewController, DescriptionDelegate, CollapsibleHeaderDelegate, UIPopoverPresentationControllerDelegate, RoleCellSelected {
+protocol NameChangedDelegate: class {
+    func nameChanged(name: String)
+}
+
+class CharacterDetailTableViewController: UITableViewController, DescriptionDelegate, CollapsibleHeaderDelegate, UIPopoverPresentationControllerDelegate, RoleCellSelected, NameChangedDelegate {
     
     var expandableSections: [ExpandableTableViewSection] = []
 
@@ -125,7 +129,8 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
            
            basicCharacterCell.character = character
            basicCharacterCell.updateCharacterInfo()
-
+           basicCharacterCell.delegate = self
+           
            if customSelected {
                 basicCharacterCell.customRoleSelected()
            }
@@ -231,8 +236,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
 
     func updateRoleTextField(with row: Int) {
         let indexSet = IndexSet(integer: 0)
-//        guard let basicInfoCell = self.tableView.dequeueReusableCell(withIdentifier: "basicInfoCharacterCell") as? BasicInfoCharacterTableViewCell else { return }
-        
+
         if let role = Role(rawValue: row) {
             self.character?.role = role.title
             customSelected = false
@@ -240,6 +244,12 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
             customSelected = true
         }
         self.tableView.reloadSections(indexSet, with: .automatic)
+    }
+    
+    // MARK: NameChangedDelegate
+    
+    func nameChanged(name: String) {
+        self.title = name
     }
 
     /*
