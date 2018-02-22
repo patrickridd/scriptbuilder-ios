@@ -12,6 +12,7 @@ import KMPlaceholderTextView
 class DescriptionTableViewCell: UITableViewCell {
 
     weak var delegate: ResizeCellProtocol?
+    
     var isResizing: Bool = false
     var defaultHeight: CGFloat = 0
     
@@ -176,7 +177,7 @@ class DescriptionTableViewCell: UITableViewCell {
             case 3:
                 descriptionTextView.text = character?.whyIntention
             case 4:
-                    descriptionTextView.text = character?.whatToDo
+                descriptionTextView.text = character?.whatToDo
             case 5:
                 descriptionTextView.text = character?.howDoesCharacterDoIt
             case 6:
@@ -319,6 +320,7 @@ class DescriptionTableViewCell: UITableViewCell {
             default:
                 break
             }
+            
         }
     }
     

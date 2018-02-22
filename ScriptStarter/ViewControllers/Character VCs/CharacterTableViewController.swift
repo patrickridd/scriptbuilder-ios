@@ -80,11 +80,21 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.screenplay?.characters.count ?? 0
+        if screenplay?.characters.count == 0 {
+            return 1
+        } else {
+            return self.screenplay?.characters.count ?? 0
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
+        if screenplay?.characters.count == 0 {
+            guard let noCharacterCell = tableView.dequeueReusableCell(withIdentifier: "noCharacterCell", for: indexPath) as? NoCharacterTableViewCell else {
+                return UITableViewCell()
+            }
+            return noCharacterCell
+        }
+        
         guard let characterCell = tableView.dequeueReusableCell(withIdentifier: "characterCell", for: indexPath) as? CharacterTableViewCell else { return UITableViewCell() }
         
         // Configure the cell...
@@ -99,8 +109,23 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         return 80
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Characters"
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
+        header.contentView.backgroundColor = UIColor.screenLightGray
+        header.moreButton.isHidden = true
+        header.sectionLabel.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: 5).isActive = true
+        header.navigationButton.isEnabled = false
+        let font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        header.sectionLabel.font = font
+        header.sectionLabel.text = "Characters"
+        //header.subtitleLabel.text = "Character Arc"
+        
+        return header
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
     }
     
     // MARK: - Navigation
@@ -111,9 +136,7 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         // Pass the selected object to the new view controller.
          guard let characterDetailVC = segue.destination as? CharacterDetailTableViewController else { return }
         if segue.identifier == "newCharacterSegue" {
-            let newCharacter = Character(name: "Unnamed")
-            characterDetailVC.character = newCharacter
-            self.screenplay?.characters.append(newCharacter)
+           
         } else if segue.identifier == "characterSegue" {
             guard let indexPath = self.tableView.indexPathForSelectedRow,
                 let character = self.screenplay?.characters[indexPath.row] else {

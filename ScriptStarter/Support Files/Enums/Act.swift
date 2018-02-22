@@ -113,7 +113,7 @@ enum Act {
                     "e.g. In the Lion King, Simba makes friends with Timon and Pumba",
                     "e.g. "]
         case .three:
-            return [""]
+            return ["The resolution"]
         }
     }
 }

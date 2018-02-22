@@ -30,6 +30,11 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       
         adBannerView.load(GADRequest())
     }
     

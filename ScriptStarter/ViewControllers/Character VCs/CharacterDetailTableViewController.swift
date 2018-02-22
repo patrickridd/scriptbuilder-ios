@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 protocol NameChangedDelegate: class {
     func nameChanged(name: String)
 }
 
-class CharacterDetailTableViewController: UITableViewController, DescriptionDelegate, CollapsibleHeaderDelegate, UIPopoverPresentationControllerDelegate, RoleCellSelected, NameChangedDelegate {
+class CharacterDetailTableViewController: UITableViewController, DescriptionDelegate, CollapsibleHeaderDelegate, UIPopoverPresentationControllerDelegate, RoleCellSelected, NameChangedDelegate, GADBannerViewDelegate {
     
     var expandableSections: [ExpandableTableViewSection] = []
 
@@ -20,13 +21,37 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
     
     var customSelected: Bool = false // RoleCellSelected
     
+    lazy var adBannerView: GADBannerView = {
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = character?.name
+        let font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.light)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font:font]
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.setupExpandableSections()
+      
+        self.title = self.character?.name ?? "New Character"
+      
+        self.tableView.backgroundColor = UIColor.screenLightGray
+        self.tableView.separatorColor = self.tableView.backgroundColor
+       
+        guard let _ = self.character else {
+            self.character = Character(name: "")
+            return
+        }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        adBannerView.load(GADRequest())
+    }
     
     // MARK: IBActions
     
@@ -77,6 +102,19 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         rolePopTVC.preferredContentSize = CGSize(width: self.view.bounds.width, height: CGFloat(contentHeightSize))
 
         self.present(rolePopTVC, animated: true, completion: nil)
+    }
+    
+    // MARK: GADBannerViewDelegate Methods
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Banner loaded successfully")
+        tableView.tableFooterView?.frame = bannerView.frame
+        tableView.tableFooterView = bannerView
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Fail to receive ads")
+        print(error)
     }
     
 
@@ -184,6 +222,20 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         default:
             return 60
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 0 {
+            return self.adBannerView
+        }
+        return nil
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return self.adBannerView.frame.height
+        }
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

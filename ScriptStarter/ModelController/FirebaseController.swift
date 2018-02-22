@@ -69,6 +69,9 @@ class FirebaseController {
         // Update characters
         let characterRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid).child("characters")
         for character in screenplay.characters {
+            if character.name == "" {
+                character.name = "Unnamed"
+            }
             characterRef.updateChildValues([character.uuid:character.characterDictionary]) { (error, reference) in
                 completion(true)
             }

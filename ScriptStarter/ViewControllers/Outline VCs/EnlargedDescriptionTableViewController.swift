@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMobileAds
 
+
 class EnlargedDescriptionTableViewController: UITableViewController, GADBannerViewDelegate {
     
     var viewController: ViewController = .outline
@@ -40,7 +41,6 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         adBannerView.load(GADRequest())
     }
 
-    
     // MARK: - IBAction Methods
 
     @IBAction func reduceScreenButtonTapped(_ sender: Any) {
@@ -58,12 +58,23 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
     // MARK: - UI Methods
     
     func setupNavigationBar() {
-        
+        var title: String = screenplay?.title ?? ""
+        var font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        switch viewController {
+        case .actDetail:
+            title = act?.title ?? title
+            font = UIFont.systemFont(ofSize: 20, weight: .light)
+        case .characterDetail:
+            title = character?.name ?? title
+            font = UIFont.systemFont(ofSize: 20, weight: .light)
+        case .outline:
+            break
+        }
         // Remove Navigation bar shadow and borderline
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
+        self.navigationController?.navigationBar.topItem?.title = title
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: font]
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
     }
@@ -92,7 +103,6 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         return 1
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell") as? DescriptionTableViewCell else { return UITableViewCell() }
         
