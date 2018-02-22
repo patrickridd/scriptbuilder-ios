@@ -83,15 +83,15 @@ class DescriptionTableViewCell: UITableViewCell {
                 case 0:
                     descriptionTextView.text = screenplay?.idea
                     descriptionTextView.placeholder = "about a ..."
-                case 2:
-                    descriptionTextView.text = screenplay?.logLine
                 case 3:
-                    descriptionTextView.text = screenplay?.centralIntention
+                    descriptionTextView.text = screenplay?.logLine
                 case 4:
-                     descriptionTextView.text = screenplay?.mainObstacle
+                    descriptionTextView.text = screenplay?.centralIntention
                 case 5:
-                     descriptionTextView.text = screenplay?.theme
+                     descriptionTextView.text = screenplay?.mainObstacle
                 case 6:
+                     descriptionTextView.text = screenplay?.theme
+                case 7:
                     descriptionTextView.text = screenplay?.notes
                 default:
                     break
@@ -100,19 +100,19 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     descriptionTextView.text = screenplay?.actOneDescription
-                case 2:
-                    descriptionTextView.text = screenplay?.act1.oldWorldDescription
                 case 3:
-                    descriptionTextView.text = screenplay?.act1.incitingIncident
+                    descriptionTextView.text = screenplay?.act1.oldWorldDescription
                 case 4:
-                    descriptionTextView.text = screenplay?.act1.callToAdventure
+                    descriptionTextView.text = screenplay?.act1.incitingIncident
                 case 5:
-                    descriptionTextView.text = screenplay?.act1.theme
+                    descriptionTextView.text = screenplay?.act1.callToAdventure
                 case 6:
-                    descriptionTextView.text = screenplay?.act1.refusal
+                    descriptionTextView.text = screenplay?.act1.theme
                 case 7:
-                    descriptionTextView.text = screenplay?.act1.reasonToAdventure
+                    descriptionTextView.text = screenplay?.act1.refusal
                 case 8:
+                    descriptionTextView.text = screenplay?.act1.reasonToAdventure
+                case 9:
                     descriptionTextView.text = screenplay?.act1.enemyAtTheGates
                 default:
                     break
@@ -127,21 +127,21 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     descriptionTextView.text = screenplay?.actTwoDescription
-                case 2:
-                    descriptionTextView.text = screenplay?.act2.newWorldDescription
                 case 3:
-                    descriptionTextView.text = screenplay?.act2.enemiesFriends
+                    descriptionTextView.text = screenplay?.act2.newWorldDescription
                 case 4:
-                    descriptionTextView.text = screenplay?.act2.obstacles
+                    descriptionTextView.text = screenplay?.act2.enemiesFriends
                 case 5:
-                    descriptionTextView.text = screenplay?.act2.theDeadlyEncounter
+                    descriptionTextView.text = screenplay?.act2.obstacles
                 case 6:
-                    descriptionTextView.text = screenplay?.act2.celebrate
+                    descriptionTextView.text = screenplay?.act2.theDeadlyEncounter
                 case 7:
-                    descriptionTextView.text = screenplay?.act2.stormGathers
+                    descriptionTextView.text = screenplay?.act2.celebrate
                 case 8:
-                    descriptionTextView.text = screenplay?.act2.badGuysStrikeBack
+                    descriptionTextView.text = screenplay?.act2.stormGathers
                 case 9:
+                    descriptionTextView.text = screenplay?.act2.badGuysStrikeBack
+                case 10:
                     descriptionTextView.text = screenplay?.act2.allIsLost
                 default:
                     break
@@ -155,11 +155,11 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     descriptionTextView.text = screenplay?.actThreeDescription
-                case 2:
-                    descriptionTextView.text = screenplay?.act3.theUltimateAnswer
                 case 3:
-                    descriptionTextView.text = screenplay?.act3.rewards
+                    descriptionTextView.text = screenplay?.act3.theUltimateAnswer
                 case 4:
+                    descriptionTextView.text = screenplay?.act3.rewards
+                case 5:
                     descriptionTextView.text = screenplay?.act3.untangleStory
                 default:
                     break
@@ -223,15 +223,15 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     screenplay?.idea = textView.text
-                case 1:
-                    screenplay?.logLine = textView.text
-                case 2:
-                    screenplay?.centralIntention = textView.text
                 case 3:
-                    screenplay?.mainObstacle = textView.text
+                    screenplay?.logLine = textView.text
                 case 4:
-                    screenplay?.theme = textView.text
+                    screenplay?.centralIntention = textView.text
                 case 5:
+                    screenplay?.mainObstacle = textView.text
+                case 6:
+                    screenplay?.theme = textView.text
+                case 7:
                     screenplay?.notes = textView.text
                 default:
                     break
@@ -240,19 +240,19 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     screenplay?.actOneDescription = textView.text
-                case 2:
-                    screenplay?.act1.oldWorldDescription = textView.text
                 case 3:
-                    screenplay?.act1.incitingIncident = textView.text
+                    screenplay?.act1.oldWorldDescription = textView.text
                 case 4:
-                    screenplay?.act1.callToAdventure = textView.text
+                    screenplay?.act1.incitingIncident = textView.text
                 case 5:
-                    screenplay?.act1.theme = textView.text
+                    screenplay?.act1.callToAdventure = textView.text
                 case 6:
-                    screenplay?.act1.refusal = textView.text
+                    screenplay?.act1.theme = textView.text
                 case 7:
-                    screenplay?.act1.reasonToAdventure = textView.text
+                    screenplay?.act1.refusal = textView.text
                 case 8:
+                    screenplay?.act1.reasonToAdventure = textView.text
+                case 9:
                     screenplay?.act1.enemyAtTheGates = textView.text
                 default:
                     break
@@ -262,21 +262,21 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     screenplay?.actTwoDescription = textView.text
-                case 2:
-                    screenplay?.act2.newWorldDescription = textView.text
                 case 3:
-                    screenplay?.act2.enemiesFriends = textView.text
+                    screenplay?.act2.newWorldDescription = textView.text
                 case 4:
-                    screenplay?.act2.obstacles = textView.text
+                    screenplay?.act2.enemiesFriends = textView.text
                 case 5:
-                    screenplay?.act2.theDeadlyEncounter = textView.text
+                    screenplay?.act2.obstacles = textView.text
                 case 6:
-                    screenplay?.act2.celebrate = textView.text
+                    screenplay?.act2.theDeadlyEncounter = textView.text
                 case 7:
-                    screenplay?.act2.stormGathers = textView.text
+                    screenplay?.act2.celebrate = textView.text
                 case 8:
-                    screenplay?.act2.badGuysStrikeBack = textView.text
+                    screenplay?.act2.stormGathers = textView.text
                 case 9:
+                    screenplay?.act2.badGuysStrikeBack = textView.text
+                case 10:
                     screenplay?.act2.allIsLost = textView.text
                 default:
                     break
@@ -285,11 +285,11 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     screenplay?.actThreeDescription = textView.text
-                case 2:
-                    screenplay?.act3.theUltimateAnswer = textView.text
                 case 3:
-                    screenplay?.act3.rewards = textView.text
+                    screenplay?.act3.theUltimateAnswer = textView.text
                 case 4:
+                    screenplay?.act3.rewards = textView.text
+                case 5:
                     screenplay?.act3.untangleStory = textView.text
                 default:
                     break

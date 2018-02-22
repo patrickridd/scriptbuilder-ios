@@ -46,6 +46,7 @@ class Screenplay {
     var act1 = Act1()
     var act2 = Act2()
     var act3 = Act3()
+    var scenes: [Scene] = []
     
     init(title: String) {
         self.title = title

@@ -13,6 +13,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .idea
+    var sectionBesidesBeats: Int = 3
     
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -100,30 +101,43 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return act.sectionsTitles.count + 2 // + 2 for the "Overall description" + "Act Beats" section
+        return act.sectionsTitles.count + 3 // + 3 for the "Overall description" + "Scenes" + "Act Beats" section
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         switch section {
         case 0:
             return 1 // Overall Act Description
-        case 1:
-            return 0 // Act Beats section
-        default:
-            return expandableSections[section-2].collapsed ? 0 : 1
+            
+        case 1:      // Scenes
+            if self.act == .idea { return 0 }
+            guard let scenesCount = self.screenplay?.scenes.count else { return 0 }
+            return (scenesCount == 0) ? 1 : scenesCount
+        case 2:
+            return 0 // Act Beats Section Header
+            
+        default:     // Act Beats
+            return expandableSections[section-self.sectionBesidesBeats].collapsed ? 0 : 1
         }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
-
-        // Configure the cell...
-        descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
-         descriptionCell.update(viewController: .actDetail, section: indexPath.section, act: self.act)
-        descriptionCell.expandButton.tag = indexPath.section
-        descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
         
-        return descriptionCell
+        switch indexPath.section {
+        case 1:
+            return UITableViewCell()
+        default:
+            guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
+            
+            // Configure the cell...
+            descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
+            descriptionCell.update(viewController: .actDetail, section: indexPath.section, act: self.act)
+            descriptionCell.expandButton.tag = indexPath.section
+            descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
+            
+            return descriptionCell
+        }
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -134,6 +148,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
 
         switch section {
         case 0:
+            // Overall Description
             let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
             sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
             sectionHeader.moreButton.isHidden = true
@@ -142,13 +157,21 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             sectionHeader.sectionLabel.font = font
             sectionHeader.sectionLabel.text = "Overall description"
             return sectionHeader
+       
         case 1:
+            if self.act == .idea { return nil }
+            // Scenes Header
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ActBeatSectionHeader ?? ActBeatSectionHeader(reuseIdentifier: "header")
-
+            header.titleLabel.text = ""
+            header.infoButton.isHidden = true
+            header.titleLabel.text = "Scenes"
+            return header
+        case 2:
+            // Act Beats i section
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ActBeatSectionHeader ?? ActBeatSectionHeader(reuseIdentifier: "header")
             switch act {
             case .idea:
-                header.titleLabel.text = ""
-                header.infoButton.isHidden = true
+                return adBannerView
             default:
             header.titleLabel.text = "Act Beats"
             header.infoButton.addTarget(self, action: #selector(informationButtonTapped), for: .touchUpInside)
@@ -158,10 +181,10 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         default:
             // Create Collapsible Header for Act Beats
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
-            header.contentView.backgroundColor = expandableSections[section-2].collapsed ? .white : UIColor.screenLightGray
-            header.titleLabel.text = act.sectionsTitles[section-2]
-            header.subtitleLabel.text = act.sectionSubTitles[section-2]
-            header.setCollapsed(expandableSections[section-2].collapsed)
+            header.contentView.backgroundColor = expandableSections[section-self.sectionBesidesBeats].collapsed ? .white : UIColor.screenLightGray
+            header.titleLabel.text = act.sectionsTitles[section-self.sectionBesidesBeats]
+            header.subtitleLabel.text = act.sectionSubTitles[section-self.sectionBesidesBeats]
+            header.setCollapsed(expandableSections[section-self.sectionBesidesBeats].collapsed)
             header.section = section
             header.delegate = self
             return header
@@ -169,10 +192,15 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
         switch section {
         case 0:
             return 45
         case 1:
+            if self.act == .idea { return 0}
+            return 25
+        case 2:
+            if self.act == .idea { return adBannerView.frame.height }
             return 25
         default:
             return 60
@@ -205,9 +233,9 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     
     func toggleSection(_ header: CollapsibleHeader, section: Int) {
         DispatchQueue.main.async {
-            let collapsed = !self.expandableSections[section-2].collapsed
+            let collapsed = !self.expandableSections[section-self.sectionBesidesBeats].collapsed
             // Toggle collapse
-            self.expandableSections[section-2].collapsed = collapsed
+            self.expandableSections[section-self.sectionBesidesBeats].collapsed = collapsed
             header.setCollapsed(collapsed)
             
             // Reload section tapped
