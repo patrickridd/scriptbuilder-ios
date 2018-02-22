@@ -26,6 +26,7 @@
 		2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151FC5F202260F200CE4823 /* ScreenplayController.swift */; };
 		218E8460203E3D9500D0D652 /* NoCharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */; };
 		218E8462203F379000D0D652 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8461203F379000D0D652 /* Scene.swift */; };
+		218E8464203F841400D0D652 /* SceneHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8463203F841400D0D652 /* SceneHeader.swift */; };
 		21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF482023B00000D97394 /* CharacterTableViewController.swift */; };
 		21A7CF4B2023B02D00D97394 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF4A2023B02D00D97394 /* Character.swift */; };
 		21A7CF4E2023B4D200D97394 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF4D2023B4D200D97394 /* CharacterTableViewCell.swift */; };
@@ -109,6 +110,7 @@
 		2151FC5F202260F200CE4823 /* ScreenplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayController.swift; sourceTree = "<group>"; };
 		218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCharacterTableViewCell.swift; sourceTree = "<group>"; };
 		218E8461203F379000D0D652 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		218E8463203F841400D0D652 /* SceneHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneHeader.swift; sourceTree = "<group>"; };
 		21A7CF482023B00000D97394 /* CharacterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewController.swift; sourceTree = "<group>"; };
 		21A7CF4A2023B02D00D97394 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		21A7CF4D2023B4D200D97394 /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				21A7CF512028E45300D97394 /* CollapsibleHeaderView.swift */,
 				21A7CF59202A622000D97394 /* ExpandableTableViewSection.swift */,
 				21D727ED202CE17700861C2D /* ActBeatSectionHeader.swift */,
+				218E8463203F841400D0D652 /* SceneHeader.swift */,
 				21099167201FD4CF00340124 /* SectionHeaderView.swift */,
 				21D727F3202E0D1A00861C2D /* SectionHeaderSubtitle.swift */,
 			);
@@ -803,6 +806,7 @@
 				211215D6203B5DC30039D6E8 /* Role.swift in Sources */,
 				211800DA20238A1200F33924 /* ScreenplayCollectionViewCell.swift in Sources */,
 				212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */,
+				218E8464203F841400D0D652 /* SceneHeader.swift in Sources */,
 				21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */,
 				21E661BD2017B1F6006A14AF /* DescriptionTableViewCell.swift in Sources */,
 				21B8FB88201AA656000A8721 /* ScreenplayTabBarController.swift in Sources */,

@@ -34,6 +34,9 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         super.viewDidLoad()
         self.tableView.backgroundColor = .screenLightGray
         setupNavigationBar()
+        
+        self.tableView.backgroundColor = UIColor.screenLightGray
+        self.tableView.separatorColor = self.tableView.backgroundColor
     }
     
     override func viewWillAppear(_ animated: Bool) {

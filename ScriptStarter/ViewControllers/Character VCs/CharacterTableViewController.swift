@@ -51,6 +51,12 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
     }
     
     
+    // MARK: IBActions
+    
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        self.saveScreenplay()
+    }
+    
     // MARK: Swipe gestures
     
     @objc func handleRightSwipe(sender: UISwipeGestureRecognizer) {

@@ -141,7 +141,13 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        switch indexPath.section {
+        case 1:
+            return 60
+        default:
+            return 80
+        }
+   
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -161,17 +167,17 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         case 1:
             if self.act == .idea { return nil }
             // Scenes Header
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ActBeatSectionHeader ?? ActBeatSectionHeader(reuseIdentifier: "header")
-            header.titleLabel.text = ""
-            header.infoButton.isHidden = true
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SceneHeader ?? SceneHeader(reuseIdentifier: "header")
             header.titleLabel.text = "Scenes"
+            
             return header
         case 2:
+            if self.act == .idea { return nil }
             // Act Beats i section
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ActBeatSectionHeader ?? ActBeatSectionHeader(reuseIdentifier: "header")
             switch act {
             case .idea:
-                return adBannerView
+                return nil
             default:
             header.titleLabel.text = "Act Beats"
             header.infoButton.addTarget(self, action: #selector(informationButtonTapped), for: .touchUpInside)
@@ -195,14 +201,18 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         
         switch section {
         case 0:
+            // Overall description header
             return 45
         case 1:
-            if self.act == .idea { return 0}
+            // Scenes Header
+            if self.act == .idea { return 0.0001 }
             return 25
         case 2:
-            if self.act == .idea { return adBannerView.frame.height }
+            // Act Beats Header
+            if self.act == .idea { return 0.0001 }
             return 25
         default:
+            // Act Beat Expandable sections
             return 60
         }
     }

@@ -268,6 +268,8 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         
         // Switch on the Act to segue to based on button tag
         switch sender.tag {
+        case 0:
+            actDetailVC.act = .idea
         case 1:
             actDetailVC.act = .one
         case 2:
