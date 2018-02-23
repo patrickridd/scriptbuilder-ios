@@ -43,7 +43,9 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         self.tableView.separatorColor = self.tableView.backgroundColor
        
         guard let _ = self.character else {
-            self.character = Character(name: "")
+            let character = Character(name: "")
+            self.character = character
+            ScreenplayController.shared.add(character: character)
             return
         }
     }
@@ -51,6 +53,13 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         adBannerView.load(GADRequest())
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if character?.name == "" {
+            character?.name = "Unnamed"
+        }
     }
     
     // MARK: IBActions
@@ -287,15 +296,17 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
     // MARK: RoleCellSelected Methods
 
     func updateRoleTextField(with row: Int) {
-        let indexSet = IndexSet(integer: 0)
-
-        if let role = Role(rawValue: row) {
-            self.character?.role = role.title
-            customSelected = false
-        } else {
-            customSelected = true
+        DispatchQueue.main.async {
+            let indexSet = IndexSet(integer: 0)
+            
+            if let role = Role(rawValue: row) {
+                self.character?.role = role.title
+                self.customSelected = false
+            } else {
+                self.customSelected = true
+            }
+            self.tableView.reloadData()
         }
-        self.tableView.reloadSections(indexSet, with: .automatic)
     }
     
     // MARK: NameChangedDelegate
