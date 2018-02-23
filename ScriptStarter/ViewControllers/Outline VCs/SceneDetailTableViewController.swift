@@ -12,10 +12,31 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
 
     var scene: Scene?
     var expandableSections: [ExpandableTableViewSection] = []
-
+    var act: Act = .one
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupExpandableSections()
+        
+        
+        
+        self.tableView.backgroundColor = UIColor.screenLightGray
+        self.tableView.separatorColor = self.tableView.backgroundColor
+        guard let _ = self.scene else {
+            let scene = Scene()
+            self.scene = scene
+            switch act  {
+            case .one:
+                self.screenplay?.act1.scenes.append(scene)
+            case .two:
+                self.screenplay?.act2.scenes.append(scene)
+            case .three:
+                self.screenplay?.act2.scenes.append(scene)
+            default:
+                break
+            }
+            return
+        }
     }
     
 
@@ -57,12 +78,18 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         switch indexPath.section {
         case 0:
             guard let sceneHeadingCell = tableView.dequeueReusableCell(withIdentifier: "sceneHeadingCell", for: indexPath) as? SceneHeaderTableViewCell, let scene = self.scene else { return UITableViewCell() }
+            sceneHeadingCell.backgroundColor = UIColor.screenLightGray
             sceneHeadingCell.update(with: scene)
             return sceneHeadingCell
         default:
             guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
+            descriptionCell.contentView.backgroundColor = .screenLightGray
             return descriptionCell
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

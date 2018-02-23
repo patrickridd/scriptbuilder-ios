@@ -35,7 +35,8 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
+        
+        reloadSceneSection()
         adBannerView.load(GADRequest())
     }
     
@@ -74,6 +75,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     
     @objc func navigateToNewScene() {
         guard let sceneDetail = self.storyboard?.instantiateViewController(withIdentifier: "sceneDetailVC") as? SceneDetailTableViewController else { return }
+        sceneDetail.act = self.act
         self.navigationController?.pushViewController(sceneDetail, animated: true)
     }
     
@@ -116,9 +118,20 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             return 1 // Overall Act Description
             
         case 1:      // Scenes
-            if self.act == .idea { return 0 }
-            guard let scenesCount = self.screenplay?.scenes.count else { return 0 }
-            return (scenesCount == 0) ? 1 : scenesCount
+            switch self.act {
+            case .idea:
+                return 0
+            case .one:
+                 guard let scenesCount = self.screenplay?.act1.scenes.count else { return 0 }
+                 return (scenesCount == 0) ? 1 : scenesCount
+            case .two:
+                guard let scenesCount = self.screenplay?.act2.scenes.count else { return 0 }
+                return (scenesCount == 0) ? 1 : scenesCount
+            case .three:
+                guard let scenesCount = self.screenplay?.act3.scenes.count else { return 0 }
+                return (scenesCount == 0) ? 1 : scenesCount
+            }
+            
         case 2:
             return 0 // Act Beats Section Header
             
@@ -131,9 +144,21 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         
         switch indexPath.section {
         case 1:
-            let sceneCount = self.screenplay?.scenes.count ?? 0
+            var sceneCount = 0
+            switch act {
+            case .one:
+                sceneCount = self.screenplay?.act1.scenes.count ?? 0
+            case .two:
+                sceneCount = self.screenplay?.act2.scenes.count ?? 0
+            case .three:
+                sceneCount = self.screenplay?.act3.scenes.count ?? 0
+            default:
+                break
+            }
             if sceneCount == 0 {
-                 guard let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as? NoCharacterTableViewCell else { return UITableViewCell() }
+                 guard let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as?
+                        NoCharacterTableViewCell else { return UITableViewCell() }
+                
                 return noSceneCell
             } else {
                  guard let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell", for: indexPath) as? SceneTableViewCell else { return UITableViewCell() }
@@ -229,6 +254,10 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         }
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print("Hi")
+    }
 //    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 //        switch indexPath.section {
 //        case 0,1:
@@ -268,5 +297,42 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         }
     }
     
+    func reloadSceneSection() {
+        // Reload section tapped
+        let indexSet = IndexSet(integer: 1)
+        self.tableView.beginUpdates()
+        self.tableView.reloadSections(indexSet, with: .automatic)
+        self.tableView.endUpdates()
+    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       
+        guard let sceneDetailTVC = self.storyboard?.instantiateViewController(withIdentifier: "sceneDetailVC") as? SceneDetailTableViewController else {
+            return
+        }
+        
+        if segue.identifier == "sceneSegue" {
+            guard let indexPath = self.tableView.indexPathForSelectedRow else {
+                return
+            }
+    
+            var scene: Scene?
+            switch act {
+            case .one:
+                scene = self.screenplay?.act1.scenes[indexPath.row]
+            case .two:
+                scene = self.screenplay?.act2.scenes[indexPath.row]
+            case .three:
+                scene = self.screenplay?.act3.scenes[indexPath.row]
+            default:
+                break
+            }
+            sceneDetailTVC.scene = scene
+            sceneDetailTVC.act = self.act
+       
+        } else if segue.identifier == "newSceneSegue" {
+            
+            sceneDetailTVC.act = self.act
+        }
+    }
 }

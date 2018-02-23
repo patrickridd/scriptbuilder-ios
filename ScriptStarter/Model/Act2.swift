@@ -20,6 +20,7 @@ class Act2 {
     let badGuysStrikeBackKey = "badGuysStrikeBack"
     let allIsLostKey = "allIsLost"
     
+    var scenes: [Scene] = []
     var newWorldDescription: String = ""
     var enemiesFriends: String = ""
     var obstacles: String = ""

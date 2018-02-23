@@ -351,10 +351,10 @@
                                 <connections>
                                     <outlet property="sceneHeaderLabel" destination="olp-Cx-7lE" id="cMQ-11-uvT"/>
                                     <outlet property="sceneNumberLabel" destination="e5T-ZR-k02" id="zN7-9d-7kA"/>
-                                    <segue destination="B6r-SP-AIY" kind="show" identifier="sceneSegue" id="pDq-Zh-J4j"/>
+                                    <segue destination="B6r-SP-AIY" kind="show" identifier="sceneCell" id="nLD-97-rS5"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="noSceneIdentifier" rowHeight="60" id="fkj-50-YbR" customClass="NoCharacterTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="noSceneIdentifier" rowHeight="60" id="fkj-50-YbR" userLabel="newSceneCell" customClass="NoCharacterTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="294.5" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fkj-50-YbR" id="5XL-1k-5xK">
@@ -397,7 +397,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="noCharacterLabel" destination="elc-NE-zwp" id="Irm-at-uzC"/>
-                                    <segue destination="B6r-SP-AIY" kind="show" id="L5G-wx-7J8"/>
+                                    <segue destination="B6r-SP-AIY" kind="show" id="5wh-2X-uTI"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -871,46 +871,84 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PC1-0w-fGW">
-                                            <rect key="frame" x="15" y="16" width="345" height="51"/>
+                                            <rect key="frame" x="15" y="16" width="345" height="62"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ahE-gg-jdX">
-                                                    <rect key="frame" x="0.0" y="0.0" width="52" height="51"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ahE-gg-jdX">
+                                                    <rect key="frame" x="0.0" y="0.0" width="52" height="62"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scene #" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="PDy-BT-gGi">
-                                                            <rect key="frame" x="0.0" y="0.0" width="52" height="19"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rCc-cc-69A">
-                                                            <rect key="frame" x="0.0" y="21" width="52" height="30"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j44-bg-pDv" userLabel="sceneNumberContainer">
+                                                            <rect key="frame" x="0.0" y="32" width="52" height="30"/>
+                                                            <subviews>
+                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rCc-cc-69A">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="30" id="BGd-pJ-79w"/>
+                                                                    </constraints>
+                                                                    <nil key="textColor"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                    <textInputTraits key="textInputTraits"/>
+                                                                </textField>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="BGd-pJ-79w"/>
+                                                                <constraint firstItem="rCc-cc-69A" firstAttribute="top" secondItem="j44-bg-pDv" secondAttribute="top" id="kQZ-yk-dZ4"/>
+                                                                <constraint firstAttribute="trailing" secondItem="rCc-cc-69A" secondAttribute="trailing" id="ldO-WG-lIb"/>
+                                                                <constraint firstAttribute="bottom" secondItem="rCc-cc-69A" secondAttribute="bottom" id="o3K-Xl-vky"/>
+                                                                <constraint firstAttribute="height" constant="30" id="roe-as-r9g"/>
+                                                                <constraint firstItem="rCc-cc-69A" firstAttribute="leading" secondItem="j44-bg-pDv" secondAttribute="leading" id="zlj-Xt-pTv"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="4"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
                                                     </subviews>
                                                 </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="VHB-gf-taR">
-                                                    <rect key="frame" x="64" y="0.0" width="281" height="51"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="VHB-gf-taR">
+                                                    <rect key="frame" x="64" y="0.0" width="281" height="62"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heading" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UW9-Un-8be">
-                                                            <rect key="frame" x="0.0" y="0.0" width="281" height="19"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="281" height="30"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="EXT. PARK - DAY" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="19L-QB-ELT">
-                                                            <rect key="frame" x="0.0" y="21" width="281" height="30"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IfZ-5Z-90t" userLabel="headerTextFieldContainer">
+                                                            <rect key="frame" x="0.0" y="32" width="281" height="30"/>
+                                                            <subviews>
+                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EXT. APARTMENT - NIGHT" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="19L-QB-ELT">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="281" height="30"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="30" id="I2F-gx-jGa"/>
+                                                                    </constraints>
+                                                                    <nil key="textColor"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <textInputTraits key="textInputTraits"/>
+                                                                </textField>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="I2F-gx-jGa"/>
+                                                                <constraint firstAttribute="trailing" secondItem="19L-QB-ELT" secondAttribute="trailing" id="1U8-Hg-e3F"/>
+                                                                <constraint firstAttribute="bottom" secondItem="19L-QB-ELT" secondAttribute="bottom" id="bGz-id-zdT"/>
+                                                                <constraint firstItem="19L-QB-ELT" firstAttribute="top" secondItem="IfZ-5Z-90t" secondAttribute="top" id="gya-sP-Kko"/>
+                                                                <constraint firstAttribute="height" constant="30" id="iHf-hD-oyb"/>
+                                                                <constraint firstItem="19L-QB-ELT" firstAttribute="leading" secondItem="IfZ-5Z-90t" secondAttribute="leading" id="nQr-PC-qJC"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="4"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
@@ -924,8 +962,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="headerTextFieldContainer" destination="IfZ-5Z-90t" id="Rya-lO-rXx"/>
                                     <outlet property="sceneHeadingTextField" destination="19L-QB-ELT" id="rVN-QL-806"/>
                                     <outlet property="sceneNumberTextField" destination="rCc-cc-69A" id="NCi-oU-fBw"/>
+                                    <outlet property="sceneNumberTextFieldContainer" destination="j44-bg-pDv" id="kK7-It-bSD"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="179" id="cxy-hW-KDO" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
@@ -1025,6 +1065,6 @@
         <image name="rightArrowButtonAsset 1" width="11" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L5G-wx-7J8"/>
+        <segue reference="nLD-97-rS5"/>
     </inferredMetricsTieBreakers>
 </document>

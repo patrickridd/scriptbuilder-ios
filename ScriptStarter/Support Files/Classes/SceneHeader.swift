@@ -36,7 +36,7 @@ class SceneHeader: UITableViewHeaderFooterView {
         let font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant:0).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 5).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 0).isActive = true
         titleLabel.textColor = UIColor.screenDark
         titleLabel.font = font
     }
@@ -61,10 +61,10 @@ class SceneHeader: UITableViewHeaderFooterView {
         contentView.addSubview(plusButtonCover)
         
         plusButtonCover.translatesAutoresizingMaskIntoConstraints = false
-        plusButtonCover.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor, constant:0 ).isActive = true
-        plusButtonCover.topAnchor.constraint(equalTo: self.titleLabel.topAnchor, constant:0 ).isActive = true
-        plusButtonCover.bottomAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant:0 ).isActive = true
-        plusButtonCover.trailingAnchor.constraint(equalTo: self.plusButton.trailingAnchor, constant:0 ).isActive = true
+        plusButtonCover.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant:0 ).isActive = true
+        plusButtonCover.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant:0 ).isActive = true
+        plusButtonCover.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant:0 ).isActive = true
+        plusButtonCover.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant:0 ).isActive = true
     plusButtonCover.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
         
     }

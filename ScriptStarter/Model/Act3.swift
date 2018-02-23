@@ -15,6 +15,7 @@ class Act3 {
     let rewardsKey = "rewards"
     let untangleStoryKey = "untangleStory"
     
+    var scenes: [Scene] = []
     var theUltimateAnswer: String = ""
     var rewards: String = ""
     var untangleStory: String = ""

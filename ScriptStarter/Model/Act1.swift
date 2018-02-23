@@ -19,6 +19,7 @@ class Act1 {
     let reasonToAdventureKey = "reasonToAdventure"
     let enemyAtTheGatesKey = "enemyAtTheGates"
     
+    var scenes: [Scene] = []
     var oldWorldDescription: String = "" // 1
     var incitingIncident: String = "" // 2
     var callToAdventure: String = "" // 3
