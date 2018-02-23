@@ -10,7 +10,8 @@ import Foundation
 
 class Scene {
     
-    var heading: String = ""
+    var header: String = ""
+    var sceneNumber: Int = 1
     var characters: [Character]?
     var dialogue: String = ""
     var action: String = ""

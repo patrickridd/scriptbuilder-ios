@@ -126,7 +126,14 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         
         switch indexPath.section {
         case 1:
-            return UITableViewCell()
+            let sceneCount = self.screenplay?.scenes.count ?? 0
+            if sceneCount == 0 {
+                 guard let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as? NoCharacterTableViewCell else { return UITableViewCell() }
+                return noSceneCell
+            } else {
+                 guard let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell", for: indexPath) as? SceneTableViewCell else { return UITableViewCell() }
+                return sceneCell
+            }
         default:
             guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
             
