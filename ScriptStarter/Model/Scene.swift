@@ -11,9 +11,21 @@ import Foundation
 class Scene {
     
     var header: String = ""
-    var sceneNumber: Int = 1
-    var characters: [Character]?
+    var sceneNumber: String = "1"
+    
+    var sceneDescription: String = ""
     var dialogue: String = ""
     var action: String = ""
+    var characters: String = ""
+    var howPushesStory: String = ""
     var notes: String = ""
+    
+    static var sceneTitles: [String] {
+        return ["Scene Description",
+                "Dialogue",
+                "Action",
+                "Characters",
+                "How does the scene move the story forward?",
+                "Notes"]
+    }
 }

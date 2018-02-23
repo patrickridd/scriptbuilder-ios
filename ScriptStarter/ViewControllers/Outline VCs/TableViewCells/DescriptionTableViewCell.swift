@@ -27,6 +27,7 @@ class DescriptionTableViewCell: UITableViewCell {
     var viewController: ViewController = .outline
     var act: Act?
     var character: Character?
+    var scene: Scene?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,7 +40,7 @@ class DescriptionTableViewCell: UITableViewCell {
         addToolBar(textView: descriptionTextView)
     }
 
-    func update(viewController: ViewController, section: Int, act: Act?, character: Character? = nil) {
+    func update(viewController: ViewController, section: Int, act: Act?, character: Character? = nil, scene: Scene? = nil) {
         self.section = section
         self.viewController = viewController
         
@@ -51,6 +52,11 @@ class DescriptionTableViewCell: UITableViewCell {
         // Set character
         if let character = character {
             self.character = character
+        }
+        
+        // Set scene
+        if let scene = scene {
+            self.scene = scene
         }
         
         switch viewController {
@@ -195,6 +201,23 @@ class DescriptionTableViewCell: UITableViewCell {
             default:
                 break
             }
+        case .sceneDetail:
+            switch section {
+            case 1:
+                descriptionTextView.text = scene?.sceneDescription
+            case 2:
+                descriptionTextView.text = scene?.dialogue
+            case 3:
+                descriptionTextView.text = scene?.action
+            case 4:
+                descriptionTextView.text = scene?.characters
+            case 5:
+                descriptionTextView.text = scene?.howPushesStory
+            case 6:
+                descriptionTextView.text = scene?.notes
+            default:
+                break
+            }
         }
     }
     
@@ -320,7 +343,23 @@ class DescriptionTableViewCell: UITableViewCell {
             default:
                 break
             }
-            
+        case .sceneDetail:
+            switch section {
+            case 1:
+                scene?.sceneDescription =  descriptionTextView.text
+            case 2:
+                scene?.dialogue = descriptionTextView.text
+            case 3:
+                scene?.action = descriptionTextView.text
+            case 4:
+                scene?.characters = descriptionTextView.text
+            case 5:
+                scene?.howPushesStory = descriptionTextView.text
+            case 6:
+                scene?.notes = descriptionTextView.text
+            default:
+                break
+            }
         }
     }
     

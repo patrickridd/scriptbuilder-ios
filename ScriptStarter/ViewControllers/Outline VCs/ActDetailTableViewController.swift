@@ -72,6 +72,11 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         self.present(informationPopTVC, animated: true, completion: nil)
     }
     
+    @objc func navigateToNewScene() {
+        guard let sceneDetail = self.storyboard?.instantiateViewController(withIdentifier: "sceneDetailVC") as? SceneDetailTableViewController else { return }
+        self.navigationController?.pushViewController(sceneDetail, animated: true)
+    }
+    
     // MARK: DescriptionDelegate Methods
     
     func updatedText(_ text: String, in section: Int) {
@@ -176,7 +181,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             // Scenes Header
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SceneHeader ?? SceneHeader(reuseIdentifier: "header")
             header.titleLabel.text = "Scenes"
-            
+            header.plusButtonCover.addTarget(self, action: #selector(navigateToNewScene), for: .touchUpInside)
             return header
         case 2:
             if self.act == .idea { return nil }

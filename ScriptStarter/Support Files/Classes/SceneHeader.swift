@@ -64,7 +64,7 @@ class SceneHeader: UITableViewHeaderFooterView {
         plusButtonCover.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor, constant:0 ).isActive = true
         plusButtonCover.topAnchor.constraint(equalTo: self.titleLabel.topAnchor, constant:0 ).isActive = true
         plusButtonCover.bottomAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant:0 ).isActive = true
-        plusButtonCover.trailingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor, constant:0 ).isActive = true
+        plusButtonCover.trailingAnchor.constraint(equalTo: self.plusButton.trailingAnchor, constant:0 ).isActive = true
     plusButtonCover.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
         
     }

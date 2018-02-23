@@ -12,4 +12,5 @@ enum ViewController {
     case outline
     case actDetail
     case characterDetail
+    case sceneDetail
 }

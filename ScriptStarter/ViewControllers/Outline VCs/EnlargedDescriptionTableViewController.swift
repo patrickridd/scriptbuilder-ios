@@ -70,7 +70,7 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         case .characterDetail:
             title = character?.name ?? title
             font = UIFont.systemFont(ofSize: 20, weight: .light)
-        case .outline:
+        case .outline, .sceneDetail:
             break
         }
         // Remove Navigation bar shadow and borderline
@@ -139,6 +139,8 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         case .characterDetail:
             sectionHeader.sectionLabel.text = CharacterSection.sectionTitles[self.section-2]
             sectionHeader.subtitleLabel.text = CharacterSection.sectionSubtitles[self.section-2]
+        case .sceneDetail:
+            sectionHeader.sectionLabel.text = Scene.sceneTitles[self.section-1]
         }
         return sectionHeader
     }

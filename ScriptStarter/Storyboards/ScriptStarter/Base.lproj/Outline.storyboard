@@ -351,6 +351,7 @@
                                 <connections>
                                     <outlet property="sceneHeaderLabel" destination="olp-Cx-7lE" id="cMQ-11-uvT"/>
                                     <outlet property="sceneNumberLabel" destination="e5T-ZR-k02" id="zN7-9d-7kA"/>
+                                    <segue destination="B6r-SP-AIY" kind="show" identifier="sceneSegue" id="pDq-Zh-J4j"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="noSceneIdentifier" rowHeight="60" id="fkj-50-YbR" customClass="NoCharacterTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
@@ -396,6 +397,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="noCharacterLabel" destination="elc-NE-zwp" id="Irm-at-uzC"/>
+                                    <segue destination="B6r-SP-AIY" kind="show" id="L5G-wx-7J8"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -420,7 +422,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hiy-Cp-czP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3818" y="-48"/>
+            <point key="canvasLocation" x="3764" y="4"/>
         </scene>
         <!--Information Pop Table View Controller-->
         <scene sceneID="eb1-dP-ySp">
@@ -553,7 +555,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fa7-aL-uNw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4976.8000000000002" y="-101.64917541229386"/>
+            <point key="canvasLocation" x="5434" y="-114"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="zVL-re-LA4">
@@ -851,17 +853,17 @@
             </objects>
             <point key="canvasLocation" x="6983" y="-645"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Scene Detail Table View Controller-->
         <scene sceneID="s1c-X4-GUV">
             <objects>
-                <tableViewController storyboardIdentifier="sceneDetailVC" extendedLayoutIncludesOpaqueBars="YES" id="B6r-SP-AIY" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="sceneDetailVC" extendedLayoutIncludesOpaqueBars="YES" id="B6r-SP-AIY" customClass="SceneDetailTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="TTg-F0-dn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.41568627450000001" green="0.41568627450000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="79" id="4Rs-as-pu6">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sceneHeadingCell" rowHeight="79" id="4Rs-as-pu6" customClass="SceneHeaderTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="79"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4Rs-as-pu6" id="TVw-14-m7a">
@@ -921,6 +923,10 @@
                                         <constraint firstItem="PC1-0w-fGW" firstAttribute="top" secondItem="TVw-14-m7a" secondAttribute="topMargin" constant="5" id="y1L-Bx-d5z"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="sceneHeadingTextField" destination="19L-QB-ELT" id="rVN-QL-806"/>
+                                    <outlet property="sceneNumberTextField" destination="rCc-cc-69A" id="NCi-oU-fBw"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="179" id="cxy-hW-KDO" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="134.5" width="375" height="179"/>
@@ -1009,7 +1015,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc7-cD-AIV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5769" y="-696"/>
+            <point key="canvasLocation" x="4601" y="3"/>
         </scene>
     </scenes>
     <resources>
@@ -1018,4 +1024,7 @@
         <image name="reduceScreenButtonAsset" width="15" height="15"/>
         <image name="rightArrowButtonAsset 1" width="11" height="18"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="L5G-wx-7J8"/>
+    </inferredMetricsTieBreakers>
 </document>
