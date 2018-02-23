@@ -10,6 +10,7 @@ import UIKit
 
 class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate {
 
+    
     var scene: Scene?
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
@@ -18,11 +19,9 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         super.viewDidLoad()
         setupExpandableSections()
         
-        
-        
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
-        guard let _ = self.scene else {
+        guard let scene = self.scene else {
             let scene = Scene()
             self.scene = scene
             switch act  {
@@ -35,11 +34,19 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
             default:
                 break
             }
+            self.title = "New Scene"
             return
         }
+        
+        self.title = scene.title
     }
     
-
+    
+    @IBAction func sceneTitleTextFieldChanged(_ sender: UITextField) {
+        self.title = sender.text
+        self.scene?.title = sender.text ?? "New Scene"
+    }
+    
     func setupExpandableSections() {
         let sectionTitles = Scene.sceneTitles
         for index in 0...sectionTitles.count-1 {
@@ -89,6 +96,7 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+      
         return 80
     }
     

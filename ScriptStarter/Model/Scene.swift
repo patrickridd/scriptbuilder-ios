@@ -13,6 +13,7 @@ class Scene {
     var header: String = ""
     var sceneNumber: String = "1"
     
+    var title: String = ""
     var sceneDescription: String = ""
     var dialogue: String = ""
     var action: String = ""

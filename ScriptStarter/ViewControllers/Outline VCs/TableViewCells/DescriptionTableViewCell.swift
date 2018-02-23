@@ -63,7 +63,7 @@ class DescriptionTableViewCell: UITableViewCell {
         case .outline:
             switch section {
             case 0: // Idea
-                self.descriptionTextView.placeholder = "about a ..."
+                self.descriptionTextView.placeholder = "About a ..."
                 self.descriptionTextView.text = screenplay?.idea
             case 1: // Act 1
                 self.descriptionTextView.placeholder = "Setup"
@@ -88,7 +88,7 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     descriptionTextView.text = screenplay?.idea
-                    descriptionTextView.placeholder = "about a ..."
+                    descriptionTextView.placeholder = "About a ..."
                 case 3:
                     descriptionTextView.text = screenplay?.logLine
                 case 4:
