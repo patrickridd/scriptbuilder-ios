@@ -16,6 +16,8 @@ target 'ScriptStarter' do
   pod 'Hero'
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'Google-Mobile-Ads-SDK'
+  pod 'GoogleAnalytics'
+  pod 'Google/Analytics'
   
   target 'ScriptStarterTests' do
     inherit! :search_paths
