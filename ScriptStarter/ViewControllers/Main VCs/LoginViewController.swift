@@ -128,6 +128,67 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         }
     }
     
+    func setupDynamicLink() {
+        // general link params
+//        guard let linkString = dictionary[.link]?.text else {
+//            print("Link can not be empty!")
+//            return
+//        }
+//
+//        guard let link = URL(string: linkString) else { return }
+//        let components = DynamicLinkComponents(link: link, domain: ViewController.DYNAMIC_LINK_DOMAIN)
+//
+//        // analytics params
+//        let analyticsParams = DynamicLinkGoogleAnalyticsParameters(
+//            source: dictionary[.source]?.text ?? "", medium: dictionary[.medium]?.text ?? "",
+//            campaign: dictionary[.campaign]?.text ?? "")
+//        analyticsParams.term = dictionary[.term]?.text
+//        analyticsParams.content = dictionary[.content]?.text
+//        components.analyticsParameters = analyticsParams
+//
+//        if let bundleID = dictionary[.bundleID]?.text {
+//            // iOS params
+//            let iOSParams = DynamicLinkIOSParameters(bundleID: bundleID)
+//            iOSParams.fallbackURL = dictionary[.fallbackURL]?.text.flatMap(URL.init)
+//            iOSParams.minimumAppVersion = dictionary[.minimumAppVersion]?.text
+//            iOSParams.customScheme = dictionary[.customScheme]?.text
+//            iOSParams.iPadBundleID = dictionary[.iPadBundleID]?.text
+//            iOSParams.iPadFallbackURL = dictionary[.iPadFallbackURL]?.text.flatMap(URL.init)
+//            iOSParams.appStoreID = dictionary[.appStoreID]?.text
+//            components.iOSParameters = iOSParams
+//
+//            // iTunesConnect params
+//            let appStoreParams = DynamicLinkItunesConnectAnalyticsParameters()
+//            appStoreParams.affiliateToken = dictionary[.affiliateToken]?.text
+//            appStoreParams.campaignToken = dictionary[.campaignToken]?.text
+//            appStoreParams.providerToken = dictionary[.providerToken]?.text
+//            components.iTunesConnectParameters = appStoreParams
+//        }
+//
+//        if let packageName = dictionary[.packageName]?.text {
+//            // Android params
+//            let androidParams = DynamicLinkAndroidParameters(packageName: packageName)
+//            androidParams.fallbackURL = dictionary[.androidFallbackURL]?.text.flatMap(URL.init)
+//            androidParams.minimumVersion = dictionary[.minimumVersion]?.text.flatMap {Int($0)} ?? 0
+//            components.androidParameters = androidParams
+//        }
+//
+//        // social tag params
+//        let socialParams = DynamicLinkSocialMetaTagParameters()
+//        socialParams.title = dictionary[.title]?.text
+//        socialParams.descriptionText = dictionary[.descriptionText]?.text
+//        socialParams.imageURL = dictionary[.imageURL]?.text.flatMap(URL.init)
+//        components.socialMetaTagParameters = socialParams
+//
+//        // OtherPlatform params
+//        let otherPlatformParams = DynamicLinkOtherPlatformParameters()
+//        otherPlatformParams.fallbackUrl = dictionary[.otherFallbackURL]?.text.flatMap(URL.init)
+//        components.otherPlatformParameters = otherPlatformParams
+//
+//        longLink = components.url
+//        print(longLink?.absoluteString ?? "")
+    }
+    
     // MARK: Tap Gesture Recognizer
     
     @objc func dismissKeyboard() {

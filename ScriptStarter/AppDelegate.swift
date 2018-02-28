@@ -51,9 +51,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-    
+       // Check for dynamic link first
+        if let dynamicLink = DynamicLinks.dynamicLinks()?.dynamicLink(fromCustomSchemeURL: url) {
+            print("I am handling a dynamic link")
+            self.handleIncoming(dynamicLink: dynamicLink)
+            return true
+        }
         // Handles both Facebook and Google
       let handled = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) ||   GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
+        
         
         return handled
     }
@@ -66,6 +72,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                      annotation: [:])
     }
     
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        if let incomingUrl = userActivity.webpageURL {
+            DynamicLinks.dynamicLinks()?.handleUniversalLink(incomingUrl, completion: { [weak self] (link, error) in
+                guard let strongSelf = self else { return }
+                if let dynamicLink = link {
+                    strongSelf.handleIncoming(dynamicLink: dynamicLink)
+                } // else check and handle error
+            })
+            return true
+        }
+        return false
+    }
+    
+    func handleIncoming(dynamicLink: DynamicLink) {
+        guard let pathComponents = dynamicLink.url?.pathComponents else { return }
+        for component in pathComponents {
+            // Parse components
+        }
+        print("Your incoming link parameter is \(dynamicLink.url)")
+    }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

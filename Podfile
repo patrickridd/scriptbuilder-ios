@@ -18,6 +18,7 @@ target 'ScriptStarter' do
   pod 'Google-Mobile-Ads-SDK'
   pod 'GoogleAnalytics'
   pod 'Google/Analytics'
+  pod 'Firebase/DynamicLinks'
   
   target 'ScriptStarterTests' do
     inherit! :search_paths

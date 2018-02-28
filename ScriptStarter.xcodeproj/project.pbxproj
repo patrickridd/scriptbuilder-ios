@@ -137,6 +137,7 @@
 		21A84F472016840300CE4149 /* Screenplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenplay.swift; sourceTree = "<group>"; };
 		21A84F492016988600CE4149 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
 		21B2E6112047233A009E4788 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		21B6A30920473D0800E8B0F9 /* ScriptStarter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScriptStarter.entitlements; sourceTree = "<group>"; };
 		21B8FB81201A922D000A8721 /* SceenplayCoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceenplayCoverViewController.swift; sourceTree = "<group>"; };
 		21B8FB83201A93D0000A8721 /* ScreenplayPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayPageViewController.swift; sourceTree = "<group>"; };
 		21B8FB87201AA656000A8721 /* ScreenplayTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayTabBarController.swift; sourceTree = "<group>"; };
@@ -277,6 +278,7 @@
 		212DEA722012746500FE9C3F /* ScriptStarter */ = {
 			isa = PBXGroup;
 			children = (
+				21B6A30920473D0800E8B0F9 /* ScriptStarter.entitlements */,
 				212DEA732012746500FE9C3F /* AppDelegate.swift */,
 				21E661C22017F955006A14AF /* Support Files */,
 				21C903D6201652660017D626 /* ModelController */,
@@ -543,6 +545,11 @@
 					212DEA6F2012746500FE9C3F = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 					212DEA832012746600FE9C3F = {
 						CreatedOnToolsVersion = 9.2;
@@ -1021,6 +1028,7 @@
 			baseConfigurationReference = A18AAE33F2BAD99A58524441 /* Pods-ScriptStarter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ScriptStarter/ScriptStarter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CVQEUYD92N;
 				INFOPLIST_FILE = ScriptStarter/Info.plist;
@@ -1038,6 +1046,7 @@
 			baseConfigurationReference = A5A4BB2443C7B5E7110F73AD /* Pods-ScriptStarter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ScriptStarter/ScriptStarter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CVQEUYD92N;
 				INFOPLIST_FILE = ScriptStarter/Info.plist;

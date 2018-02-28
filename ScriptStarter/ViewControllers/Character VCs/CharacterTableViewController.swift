@@ -23,7 +23,7 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      //  tableView.tableFooterView = UIView(frame: .zero)
+        //  tableView.tableFooterView = UIView(frame: .zero)
         
         // Set Google Analytics Screen Name
         Analytics.setScreenName("CharacterTableView", screenClass: "CharacterTableViewController")

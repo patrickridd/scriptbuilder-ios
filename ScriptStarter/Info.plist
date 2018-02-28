@@ -34,6 +34,16 @@
 				<string>com.googleusercontent.apps.737554005422-4gbiql6q5q4orj379dig0q46ffsbg8ml</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Bundle ID</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.patrickridd.ScriptStarter</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
