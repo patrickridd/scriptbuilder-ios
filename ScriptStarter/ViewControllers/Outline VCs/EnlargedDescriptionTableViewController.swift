@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
+import Firebase
 
 class EnlargedDescriptionTableViewController: UITableViewController, GADBannerViewDelegate {
     
@@ -34,6 +35,9 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         super.viewDidLoad()
         self.tableView.backgroundColor = .screenLightGray
         setupNavigationBar()
+        
+        // Set Google Analytics Screen Name
+        Analytics.setScreenName("EnlargedDescription", screenClass: "EnlargedDescriptionTableViewController")
         
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor

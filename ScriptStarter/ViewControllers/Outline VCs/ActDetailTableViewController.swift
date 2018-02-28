@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
+import Firebase
 
 class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate, GADBannerViewDelegate, DescriptionDelegate, UIPopoverPresentationControllerDelegate {
     
@@ -28,6 +29,8 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         super.viewDidLoad()
         setupExpandableSections()
         self.title = act.title
+        
+        Analytics.setScreenName("ActDetail", screenClass: "ActDetailTableViewController")
         
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor

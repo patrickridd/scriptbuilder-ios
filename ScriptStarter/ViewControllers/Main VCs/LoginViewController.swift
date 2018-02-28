@@ -11,6 +11,7 @@ import FirebaseAuth
 import FBSDKCoreKit
 import FacebookLogin
 import GoogleSignIn
+import Firebase
 
 class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, UITextFieldDelegate {
 
@@ -50,6 +51,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         tapGesture.cancelsTouchesInView = false // This way the google button will work
+        
+        // Set Google Analytics Screen Name
+        Analytics.setScreenName("Login", screenClass: "LoginViewController")
+        
     }
     
     // MARK: IBActions/Target methods

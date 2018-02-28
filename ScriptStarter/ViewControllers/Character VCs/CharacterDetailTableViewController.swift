@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
+import Firebase
 
 protocol NameChangedDelegate: class {
     func nameChanged(name: String)
@@ -42,6 +43,9 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
        
+        // Set Google Analytics Screen Name
+        Analytics.setScreenName("CharacterDetail", screenClass: "CharacterDetailTableViewController")
+        
         guard let _ = self.character else {
             let character = Character(name: "")
             self.character = character

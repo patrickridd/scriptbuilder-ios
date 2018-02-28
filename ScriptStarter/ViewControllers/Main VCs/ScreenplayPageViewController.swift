@@ -8,6 +8,7 @@
 
 import UIKit
 import Hero
+
 class ScreenplayPageViewController: UIPageViewController, UIPageViewControllerDataSource {
 
     
@@ -38,6 +39,8 @@ class ScreenplayPageViewController: UIPageViewController, UIPageViewControllerDa
         
         let swipedLeftNotification = Notification.Name(swipeLeftNotificationKey)
         NotificationCenter.default.addObserver(self, selector: #selector(swipedLeft), name: swipedLeftNotification, object: nil)
+        
+       
     }
     
     // Mark: SwipeLeftDelegate Methods

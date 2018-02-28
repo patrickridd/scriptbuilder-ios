@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMobileAds
 import MBProgressHUD
+import Firebase
 
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftInTabBar"
 let swipeRightNotificationKey = "com.scriptstarter.swipedRightInTabBar"
@@ -31,7 +32,8 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
-
+        
+        Analytics.setScreenName("Outline", screenClass: "OutlineTableViewController")
     }
     
     override func viewWillAppear(_ animated: Bool) {

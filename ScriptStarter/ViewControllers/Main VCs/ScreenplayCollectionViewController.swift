@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 import Hero
+import Firebase
 
 class ScreenplayCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, HeroViewControllerDelegate {
     
@@ -33,6 +34,9 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         getScreenplays()
+        
+        // Set Google Analytics Screen Name
+        Analytics.setScreenName("ScreenCollectionView", screenClass: "ScreenplayCollectionViewController")
         
         // Enlarge new screenplay if none exist
         if screenplays.count == 0 {

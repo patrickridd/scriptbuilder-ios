@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate {
 
@@ -19,6 +20,8 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         super.viewDidLoad()
         setupExpandableSections()
         
+        // Set Google Analytics Screen Name
+        Analytics.setScreenName("SceneDetail", screenClass: "SceneDetailTableViewController")
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
         guard let scene = self.scene else {

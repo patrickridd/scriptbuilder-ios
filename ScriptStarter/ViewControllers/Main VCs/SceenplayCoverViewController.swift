@@ -11,6 +11,7 @@ import Firebase
 import Hero
 import GoogleMobileAds
 import MBProgressHUD
+import Firebase
 
 class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADInterstitialDelegate {
 
@@ -41,6 +42,9 @@ class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADIn
         // Setup Tap Gesture to dismiss keyboard
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
+        
+        // Set Google Analytics Screen Name
+        Analytics.setScreenName("ScreenplayCover", screenClass: "ScreenplayPageViewController")
        
         // Create Interstitial Ad
        // interstitial = createAndLoadInterstitial()

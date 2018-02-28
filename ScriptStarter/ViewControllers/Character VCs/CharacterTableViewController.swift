@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
+import Firebase
 
 class CharacterTableViewController: UITableViewController, GADBannerViewDelegate {
     
@@ -23,6 +24,9 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
       //  tableView.tableFooterView = UIView(frame: .zero)
+        
+        // Set Google Analytics Screen Name
+        Analytics.setScreenName("CharacterTableView", screenClass: "CharacterTableViewController")
     }
     
     override func viewWillAppear(_ animated: Bool) {
