@@ -27,6 +27,7 @@
 		2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151FC5F202260F200CE4823 /* ScreenplayController.swift */; };
 		21526C9D20409EE100B14402 /* SceneDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */; };
 		21526C9F2040B23200B14402 /* SceneHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21526C9E2040B23200B14402 /* SceneHeaderTableViewCell.swift */; };
+		218992C32046215F00EF87F3 /* AnalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218992C22046215F00EF87F3 /* AnalyticsController.swift */; };
 		218E8460203E3D9500D0D652 /* NoCharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */; };
 		218E8462203F379000D0D652 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8461203F379000D0D652 /* Scene.swift */; };
 		218E8464203F841400D0D652 /* SceneHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8463203F841400D0D652 /* SceneHeader.swift */; };
@@ -114,6 +115,7 @@
 		2151FC5F202260F200CE4823 /* ScreenplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayController.swift; sourceTree = "<group>"; };
 		21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDetailTableViewController.swift; sourceTree = "<group>"; };
 		21526C9E2040B23200B14402 /* SceneHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		218992C22046215F00EF87F3 /* AnalyticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsController.swift; sourceTree = "<group>"; };
 		218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCharacterTableViewCell.swift; sourceTree = "<group>"; };
 		218E8461203F379000D0D652 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		218E8463203F841400D0D652 /* SceneHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneHeader.swift; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 			children = (
 				21E661C02017DBAE006A14AF /* FirebaseController.swift */,
 				2151FC5F202260F200CE4823 /* ScreenplayController.swift */,
+				218992C22046215F00EF87F3 /* AnalyticsController.swift */,
 			);
 			path = ModelController;
 			sourceTree = "<group>";
@@ -822,6 +825,7 @@
 				218E8464203F841400D0D652 /* SceneHeader.swift in Sources */,
 				21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */,
 				21E661BD2017B1F6006A14AF /* DescriptionTableViewCell.swift in Sources */,
+				218992C32046215F00EF87F3 /* AnalyticsController.swift in Sources */,
 				21526C9D20409EE100B14402 /* SceneDetailTableViewController.swift in Sources */,
 				21B8FB88201AA656000A8721 /* ScreenplayTabBarController.swift in Sources */,
 				21B8FB84201A93D0000A8721 /* ScreenplayPageViewController.swift in Sources */,

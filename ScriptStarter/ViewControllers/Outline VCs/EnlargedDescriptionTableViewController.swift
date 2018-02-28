@@ -9,9 +9,9 @@
 import UIKit
 import GoogleMobileAds
 
-
 class EnlargedDescriptionTableViewController: UITableViewController, GADBannerViewDelegate {
     
+    let name = "EnlargedDescriptionTableViewController"
     var viewController: ViewController = .outline
     var section: Int = 0
     var act: Act?
@@ -42,6 +42,13 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         adBannerView.load(GADRequest())
+        
+        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
+        tracker.set(kGAIScreenName, value: self.name)
+        
+        
+        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
+        tracker.send(builder.build() as [NSObject : AnyObject])
     }
 
     // MARK: - IBAction Methods
