@@ -12,7 +12,7 @@ class SceneTableViewCell: UITableViewCell {
 
     
     @IBOutlet weak var sceneNumberLabel: UILabel!
-    @IBOutlet weak var sceneHeaderLabel: UILabel!
+    @IBOutlet weak var sceneTitleLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,7 +20,7 @@ class SceneTableViewCell: UITableViewCell {
     }
     
     func update(with scene: Scene) {
-        sceneHeaderLabel.text = scene.header
+        sceneTitleLabel.text = scene.title
         sceneNumberLabel.text = "\(scene.sceneNumber)."
     }
 

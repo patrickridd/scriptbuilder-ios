@@ -26,7 +26,16 @@ class Scene {
                 "Dialogue",
                 "Action",
                 "Characters",
-                "How does the scene move the story forward?",
+                "Story Progression",
                 "Notes"]
+    }
+    
+    static var sceneSubtitles: [String] {
+        return ["Overall idea of what happens and feeling the scene bring",
+            "What snappy dialogue and/or information is said?",
+            "What are your characters doing?",
+            "Which characters are in the scene?",
+            "How does the scene move the story forward?",
+            "Details you don't want to forget"]
     }
 }

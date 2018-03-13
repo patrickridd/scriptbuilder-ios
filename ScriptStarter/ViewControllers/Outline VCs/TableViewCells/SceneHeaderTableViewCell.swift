@@ -15,6 +15,8 @@ class SceneHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var sceneNumberTextFieldContainer: UIView!
     @IBOutlet weak var headerTextFieldContainer: UIView!
     
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

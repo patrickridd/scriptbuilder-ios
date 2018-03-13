@@ -113,6 +113,7 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
             header.contentView.backgroundColor = expandableSections[section-1].collapsed ? .white : UIColor.screenLightGray
             header.titleLabel.text = Scene.sceneTitles[section-1]
+            header.subtitleLabel.text = Scene.sceneSubtitles[section-1]
            // header.subtitleLabel.text = act.sectionSubTitles[section-self.sectionBesidesBeats]
             header.setCollapsed(expandableSections[section-1].collapsed)
             header.section = section
