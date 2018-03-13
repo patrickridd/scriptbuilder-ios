@@ -11,6 +11,7 @@ import Firebase
 
 class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate {
 
+    @IBOutlet weak var sceneTitleTextField: UITextField!
     
     var scene: Scene?
     var expandableSections: [ExpandableTableViewSection] = []
@@ -24,24 +25,8 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         Analytics.setScreenName("SceneDetail", screenClass: "SceneDetailTableViewController")
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
-        guard let scene = self.scene else {
-            let scene = Scene()
-            self.scene = scene
-            switch act  {
-            case .one:
-                self.screenplay?.act1.scenes.append(scene)
-            case .two:
-                self.screenplay?.act2.scenes.append(scene)
-            case .three:
-                self.screenplay?.act2.scenes.append(scene)
-            default:
-                break
-            }
-            self.title = "New Scene"
-            return
-        }
-        
-        self.title = scene.title
+        self.title = self.scene?.title
+        self.addToolBar(textField: self.sceneTitleTextField)
     }
     
     
@@ -49,6 +34,15 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         self.title = sender.text
         self.scene?.title = sender.text ?? "New Scene"
     }
+
+    
+    @IBAction func sceneNumberTextFieldChanged(_ sender: UITextField) {
+        guard let sceneNumberText = sender.text,
+            let sceneNumber = Int(sceneNumberText) else { return }
+        
+        self.scene?.sceneNumber = sceneNumber
+    }
+    
     
     func setupExpandableSections() {
         let sectionTitles = Scene.sceneTitles

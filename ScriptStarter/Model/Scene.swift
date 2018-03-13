@@ -11,15 +11,20 @@ import Foundation
 class Scene {
     
     var header: String = ""
-    var sceneNumber: String = "1"
+    var title: String
+    var sceneNumber: Int
     
-    var title: String = ""
     var sceneDescription: String = ""
     var dialogue: String = ""
     var action: String = ""
     var characters: String = ""
     var howPushesStory: String = ""
     var notes: String = ""
+    
+    init(title: String, sceneNumber: Int) {
+        self.title = title
+        self.sceneNumber = sceneNumber
+    }
     
     static var sceneTitles: [String] {
         return ["Scene Description",

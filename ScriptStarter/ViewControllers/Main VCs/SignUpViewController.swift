@@ -13,7 +13,7 @@ import FacebookLogin
 import GoogleSignIn
 import Firebase
 
-class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, UITextFieldDelegate {
+class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
 
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!

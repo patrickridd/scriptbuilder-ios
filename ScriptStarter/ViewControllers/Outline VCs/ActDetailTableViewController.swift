@@ -77,9 +77,10 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     }
     
     @objc func navigateToNewScene() {
-        guard let sceneDetail = self.storyboard?.instantiateViewController(withIdentifier: "sceneDetailVC") as? SceneDetailTableViewController else { return }
-        sceneDetail.act = self.act
-        self.navigationController?.pushViewController(sceneDetail, animated: true)
+        self.performSegue(withIdentifier: "newSceneSegue", sender: nil)
+//        guard let sceneDetail = self.storyboard?.instantiateViewController(withIdentifier: "sceneDetailVC") as? SceneDetailTableViewController else { return }
+//        sceneDetail.act = self.act
+//        self.navigationController?.pushViewController(sceneDetail, animated: true)
     }
     
     // MARK: DescriptionDelegate Methods
@@ -165,6 +166,25 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
                 return noSceneCell
             } else {
                  guard let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell", for: indexPath) as? SceneTableViewCell else { return UITableViewCell() }
+                
+                var scene: Scene
+                switch act {
+                case .one:
+                    guard let act1Scenes = self.screenplay?.act1.scenes else { break }
+                    scene = act1Scenes[indexPath.row]
+                    sceneCell.update(with: scene)
+                case .two:
+                    guard let act2Scenes = self.screenplay?.act2.scenes else { break }
+                    scene = act2Scenes[indexPath.row]
+                    sceneCell.update(with: scene)
+                case .three:
+                    guard let act3Scenes = self.screenplay?.act3.scenes else { break }
+                    scene = act3Scenes[indexPath.row]
+                    sceneCell.update(with: scene)
+                default:
+                    break
+                }
+                
                 return sceneCell
             }
         default:
@@ -334,6 +354,28 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             sceneDetailTVC.act = self.act
        
         } else if segue.identifier == "newSceneSegue" {
+     
+            switch act  {
+            case .one:
+                guard let sceneCount = self.screenplay?.act1.scenes.count else { break }
+                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
+                self.screenplay?.act1.scenes.append(scene)
+                sceneDetailTVC.scene = scene
+
+            case .two:
+                guard let sceneCount = self.screenplay?.act2.scenes.count else { break }
+                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
+                self.screenplay?.act2.scenes.append(scene)
+                sceneDetailTVC.scene = scene
+
+            case .three:
+                guard let sceneCount = self.screenplay?.act3.scenes.count else { break }
+                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
+                self.screenplay?.act3.scenes.append(scene)
+                sceneDetailTVC.scene = scene
+            default:
+                break
+            }
             
             sceneDetailTVC.act = self.act
         }

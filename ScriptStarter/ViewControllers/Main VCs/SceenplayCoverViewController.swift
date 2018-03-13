@@ -13,7 +13,7 @@ import GoogleMobileAds
 import MBProgressHUD
 import Firebase
 
-class SceenplayCoverViewController: UIViewController, UITextFieldDelegate, GADInterstitialDelegate {
+class SceenplayCoverViewController: UIViewController, GADInterstitialDelegate {
 
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var nameLabel: UILabel!

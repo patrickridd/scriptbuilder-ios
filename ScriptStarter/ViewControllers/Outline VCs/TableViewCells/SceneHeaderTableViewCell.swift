@@ -16,7 +16,6 @@ class SceneHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var headerTextFieldContainer: UIView!
     
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,10 +25,12 @@ class SceneHeaderTableViewCell: UITableViewCell {
         sceneNumberTextFieldContainer.layer.borderColor = UIColor.screenMediumGray.cgColor
         sceneNumberTextFieldContainer.layer.borderWidth = 0.5
         
+        addToolBar(textField: self.sceneNumberTextField)
+        addToolBar(textField: self.sceneHeadingTextField)
     }
     
     func update(with scene: Scene) {
-        self.sceneNumberTextField.text = scene.sceneNumber
+        self.sceneNumberTextField.text = "\(scene.sceneNumber)"
         self.sceneHeadingTextField.text = scene.header
     }
     
