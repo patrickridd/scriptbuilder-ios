@@ -28,6 +28,9 @@
 		21526C9D20409EE100B14402 /* SceneDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */; };
 		21526C9F2040B23200B14402 /* SceneHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21526C9E2040B23200B14402 /* SceneHeaderTableViewCell.swift */; };
 		218992C32046215F00EF87F3 /* AnalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218992C22046215F00EF87F3 /* AnalyticsController.swift */; };
+		2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2189FC8D2057187400A69DC1 /* StoreKit.framework */; };
+		2189FC902057199300A69DC1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189FC8F2057199300A69DC1 /* IAPHelper.swift */; };
+		2189FC92205719F900A69DC1 /* InAppPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189FC91205719F900A69DC1 /* InAppPurchase.swift */; };
 		218E8460203E3D9500D0D652 /* NoCharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */; };
 		218E8462203F379000D0D652 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8461203F379000D0D652 /* Scene.swift */; };
 		218E8464203F841400D0D652 /* SceneHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8463203F841400D0D652 /* SceneHeader.swift */; };
@@ -117,6 +120,9 @@
 		21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDetailTableViewController.swift; sourceTree = "<group>"; };
 		21526C9E2040B23200B14402 /* SceneHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		218992C22046215F00EF87F3 /* AnalyticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsController.swift; sourceTree = "<group>"; };
+		2189FC8D2057187400A69DC1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		2189FC8F2057199300A69DC1 /* IAPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
+		2189FC91205719F900A69DC1 /* InAppPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchase.swift; sourceTree = "<group>"; };
 		218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCharacterTableViewCell.swift; sourceTree = "<group>"; };
 		218E8461203F379000D0D652 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		218E8463203F841400D0D652 /* SceneHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneHeader.swift; sourceTree = "<group>"; };
@@ -175,6 +181,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */,
 				21B2E6122047233A009E4788 /* AdSupport.framework in Frameworks */,
 				958EF1E42C0ACAD87C4A70A4 /* Pods_ScriptStarter.framework in Frameworks */,
 			);
@@ -229,6 +236,7 @@
 				218E8463203F841400D0D652 /* SceneHeader.swift */,
 				21099167201FD4CF00340124 /* SectionHeaderView.swift */,
 				21D727F3202E0D1A00861C2D /* SectionHeaderSubtitle.swift */,
+				2189FC91205719F900A69DC1 /* InAppPurchase.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -420,6 +428,7 @@
 			children = (
 				21E661C02017DBAE006A14AF /* FirebaseController.swift */,
 				2151FC5F202260F200CE4823 /* ScreenplayController.swift */,
+				2189FC8F2057199300A69DC1 /* IAPHelper.swift */,
 				218992C22046215F00EF87F3 /* AnalyticsController.swift */,
 			);
 			path = ModelController;
@@ -446,6 +455,7 @@
 		378CF65633F81B2638728212 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2189FC8D2057187400A69DC1 /* StoreKit.framework */,
 				21B2E6112047233A009E4788 /* AdSupport.framework */,
 				530B6E37F1E8D830FD0921A0 /* Pods_ScriptStarter.framework */,
 				E1E33E9FF2DBD1A43E7BAA94 /* Pods_ScriptStarterTests.framework */,
@@ -546,6 +556,9 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
@@ -803,6 +816,7 @@
 				21E661C12017DBAE006A14AF /* FirebaseController.swift in Sources */,
 				2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */,
 				21D727F2202CFD2400861C2D /* Extension+ViewController.swift in Sources */,
+				2189FC902057199300A69DC1 /* IAPHelper.swift in Sources */,
 				211215D8203B5E680039D6E8 /* RoleTableViewCell.swift in Sources */,
 				21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */,
 				21A7CF542028E60D00D97394 /* ActDetailTableViewController.swift in Sources */,
@@ -832,6 +846,7 @@
 				21A7CF6A202A6D3A00D97394 /* Act.swift in Sources */,
 				211215D6203B5DC30039D6E8 /* Role.swift in Sources */,
 				211800DA20238A1200F33924 /* ScreenplayCollectionViewCell.swift in Sources */,
+				2189FC92205719F900A69DC1 /* InAppPurchase.swift in Sources */,
 				212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */,
 				218E8464203F841400D0D652 /* SceneHeader.swift in Sources */,
 				21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */,
