@@ -14,11 +14,13 @@ class Act3 {
     let theUltimateAnswerKey = "theUltimateAnswer"
     let rewardsKey = "rewards"
     let untangleStoryKey = "untangleStory"
+    let brandNewWorldKey = "brandNewWorld"
     
     var scenes: [Scene] = []
     var theUltimateAnswer: String = ""
     var rewards: String = ""
     var untangleStory: String = ""
+    var brandNewWorld: String = ""
     
     init() {}
     
@@ -28,6 +30,7 @@ class Act3 {
         let untangleStory = actThreeDict[untangleStoryKey] as? String else {
                 return nil
         }
+        self.brandNewWorld = actThreeDict[brandNewWorldKey] as? String ?? ""
         self.theUltimateAnswer = theUltimateAnswer
         self.rewards = rewards
         self.untangleStory = untangleStory
@@ -36,6 +39,7 @@ class Act3 {
     var firActThreeDictionary: [String:Any] {
         return [self.theUltimateAnswerKey:self.theUltimateAnswer,
                 self.rewardsKey:self.rewards,
-                self.untangleStoryKey:self.untangleStory]
+                self.untangleStoryKey:self.untangleStory,
+            self.brandNewWorldKey:self.brandNewWorld]
     }
 }

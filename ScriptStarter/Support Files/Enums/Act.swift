@@ -41,22 +41,24 @@ enum Act {
                              "Inciting Incident",
                              "Call to Adventure",
                              "Themes Introduced",
-                             "I don't want to go",
-                             "I must go",
-                             "Enemy at the gates"]
+                             "Analysis Paralysis",
+                             "Character Defining Decision",
+                             "Enemy At The Gates"]
         case .two:
             sectionTitles = ["Strange New World",
-                             "Enemies/Friends",
-                             "Obstacles",
-                             "Deadly encounter",
-                             "Celebrate",
-                             "Storm gathers",
-                             "Bad Guys Strike back",
-                             "Ultimate fears realized"]
+                             "Friends / Foes / Frenemies",
+                             "Test Resolve",
+                             "Sharpening the Sword",
+                             "Burn the Boats",
+                             "Supreme Sacrifice",
+                             "Celebrate Good Times",
+                             "Empire Strikes Back",
+                             "The Darkness Before the Dawn"]
         case .three:
-            sectionTitles = ["The ultimate answer",
-                             "Reward",
-                             "Untangle"]
+            sectionTitles = ["The Ultimate Answer",
+                             "Trophy",
+                             "Put a Bow On It",
+                             "Brand New World"]
             
         }
         return sectionTitles
@@ -76,21 +78,33 @@ enum Act {
             "What must your hero or world do to bring harmony?",
             "Are there premises, beliefs, or ideas that can be tested in the adventure?",
             "Does your hero(s) have doubts about the adventure ahead?",
-            "What convinces your hero(s) to go on their adventure?",
-            "Are there any obstacles or enemies in getting the adventure started?"]
+            "What convinces your hero(s) to make the decision go on the adventure?",
+            "Are there any obstacles/enemies/friends trying to prevent the adventure from being started?"]
         case .two:
-            return ["What makes the life and world the adventure is in different or more dangerous than the old world?",
-                "Are there any friends or enemies that your hero(s) meet?",
-                "What tests and obstacles does your hero(s) find along their adventure?",
-                "What is your hero(s)'s most deadly obstacle?",
-                "How do your hero(s) celebrate in victory?",
-                "How do the bad guys regather strength?",
-                "How do the villains defeat your hero(s) temporarily?",
-                "What major fears and hopes are dashed by your hero(s)?"]
+            return [
+              // Strange New World
+                "Your hero(s) started the adventure, is the new world different, dangerous, and/or difficult?",
+                // Friends/Foes/Frenemies
+                "Are there any friends, enemies, and/or mysterious characters that your hero(s) meet?",
+                // Test Resolve
+                "What obstacles/opponents test your hero's resolve to attain their goal?",
+                // Sharpening the sword
+                "What skills/knowledge does your hero(s) acquire?",
+                // Burn the Boats
+                "Are there events that prevent your hero(s) from turning back?",
+                // Supreme Sacrifice
+                "Does your hero(s) risk their life for the cause?",
+                // Celebrate Good Times
+                "What temporary wins and successes does your hero(s) experience?",
+                // Empire Strikes Back
+                "How do the antagonists defeat your hero(s) temporarily?",
+                // Darkness Before the Dawn
+                "All is lost moment. What major fears are realized and what hopes are dashed?"]
         case .three:
             return ["What is your hero(s) ultimate answer(s) in making things right?",
-                    " What type of reward does your hero(s) gain through the journey (wisdom, money, love)?",
-                    "Are there any unanswered questions that need to be untangled?"]
+                    "What type of reward does your hero(s) gain through the journey (wisdom, wealth, love)?",
+                    "Are there any unanswered questions that need to be untangled?",
+                    "Because of the adventure, how is life and the characters in it different from the old world?"]
         }
     }
     

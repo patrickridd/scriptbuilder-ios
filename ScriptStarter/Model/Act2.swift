@@ -19,16 +19,21 @@ class Act2 {
     let stormGathersKey = "stormGathers"
     let badGuysStrikeBackKey = "badGuysStrikeBack"
     let allIsLostKey = "allIsLost"
+    let burnTheBoatsKey = "burnTheBoats"
+    let sharpeningTheSwordKey = "sharpeningTheSword"
     
     var scenes: [Scene] = []
     var newWorldDescription: String = ""
     var enemiesFriends: String = ""
     var obstacles: String = ""
+    var sharpeningTheSword: String = ""
+    var burnTheBoats: String = ""
     var theDeadlyEncounter: String = ""
     var celebrate: String = ""
     var stormGathers: String = ""
     var badGuysStrikeBack: String = ""
     var allIsLost: String = ""
+    
     
     init() {}
     
@@ -44,6 +49,11 @@ class Act2 {
             return nil
         }
         
+        if let burnTheBoats = actTwoDict[burnTheBoatsKey] as? String {
+            self.burnTheBoats = burnTheBoats
+        }
+        self.sharpeningTheSword = actTwoDict[sharpeningTheSwordKey] as? String ?? ""
+        
         self.newWorldDescription = newWorldDescription
         self.enemiesFriends = enemiesFriends
         self.obstacles = obstacles
@@ -58,6 +68,8 @@ class Act2 {
         return [self.newWorldDescriptionKey:self.newWorldDescription,       self.enemiesFriendsKey:self.enemiesFriends,
                 self.obstaclesKey:obstaclesKey,
                 self.theDeadlyEncounterKey:theDeadlyEncounter,
+                self.sharpeningTheSwordKey:self.sharpeningTheSword,
+                self.burnTheBoatsKey:self.burnTheBoats,
                 self.celebrateKey:celebrate,
                 self.stormGathersKey:stormGathers,
                 self.badGuysStrikeBackKey:badGuysStrikeBackKey,

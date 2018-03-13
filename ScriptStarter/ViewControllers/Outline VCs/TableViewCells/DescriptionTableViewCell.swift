@@ -76,7 +76,6 @@ class DescriptionTableViewCell: UITableViewCell {
             case 3: // Act 3
                 self.descriptionTextView.placeholder = "Resolution"
                 self.descriptionTextView.text = screenplay?.actThreeDescription
-
             default:
                 break
             }
@@ -132,22 +131,34 @@ class DescriptionTableViewCell: UITableViewCell {
             case .two:
                 switch section {
                 case 0:
+                    // General description
                     descriptionTextView.text = screenplay?.actTwoDescription
                 case 3:
+                     // Strange New World
                     descriptionTextView.text = screenplay?.act2.newWorldDescription
                 case 4:
+                    // Friends/Foes/Frenemies
                     descriptionTextView.text = screenplay?.act2.enemiesFriends
                 case 5:
+                    // Test Resolve
                     descriptionTextView.text = screenplay?.act2.obstacles
                 case 6:
-                    descriptionTextView.text = screenplay?.act2.theDeadlyEncounter
+                    // Sharpening the sword
+                    descriptionTextView.text = screenplay?.act2.sharpeningTheSword
                 case 7:
-                    descriptionTextView.text = screenplay?.act2.celebrate
+                    // Burn the Boats
+                    descriptionTextView.text =  screenplay?.act2.burnTheBoats
                 case 8:
-                    descriptionTextView.text = screenplay?.act2.stormGathers
+                    // Supreme Sacrifice
+                    descriptionTextView.text = screenplay?.act2.theDeadlyEncounter
                 case 9:
-                    descriptionTextView.text = screenplay?.act2.badGuysStrikeBack
+                      // Celebrate Good Times
+                    descriptionTextView.text = screenplay?.act2.celebrate
                 case 10:
+                       // Bad Guys Strike back
+                    descriptionTextView.text = screenplay?.act2.badGuysStrikeBack
+                case 11:
+                     // Darkness Before the Dawn
                     descriptionTextView.text = screenplay?.act2.allIsLost
                 default:
                     break
@@ -167,6 +178,9 @@ class DescriptionTableViewCell: UITableViewCell {
                     descriptionTextView.text = screenplay?.act3.rewards
                 case 5:
                     descriptionTextView.text = screenplay?.act3.untangleStory
+                case 6:
+                    descriptionTextView.text =
+                    screenplay?.act3.brandNewWorld
                 default:
                     break
                 }
@@ -283,27 +297,39 @@ class DescriptionTableViewCell: UITableViewCell {
                 
             case .two:
                 switch section {
-                case 0:
-                    screenplay?.actTwoDescription = textView.text
-                case 3:
-                    screenplay?.act2.newWorldDescription = textView.text
-                case 4:
-                    screenplay?.act2.enemiesFriends = textView.text
-                case 5:
-                    screenplay?.act2.obstacles = textView.text
-                case 6:
-                    screenplay?.act2.theDeadlyEncounter = textView.text
-                case 7:
-                    screenplay?.act2.celebrate = textView.text
-                case 8:
-                    screenplay?.act2.stormGathers = textView.text
-                case 9:
-                    screenplay?.act2.badGuysStrikeBack = textView.text
-                case 10:
-                    screenplay?.act2.allIsLost = textView.text
-                default:
-                    break
-                }
+                    case 0:
+                    // General description
+                     screenplay?.actTwoDescription = descriptionTextView.text
+                    case 3:
+                    // Strange New World
+                     screenplay?.act2.newWorldDescription = descriptionTextView.text
+                    case 4:
+                    // Friends/Foes/Frenemies
+                     screenplay?.act2.enemiesFriends = descriptionTextView.text
+                    case 5:
+                    // Test Resolve
+                     screenplay?.act2.obstacles = descriptionTextView.text
+                    case 6:
+                    // Sharpening the sword
+                    screenplay?.act2.sharpeningTheSword = descriptionTextView.text
+                    case 7:
+                    // Burn the Boats
+                    screenplay?.act2.burnTheBoats = descriptionTextView.text
+                    case 8:
+                    // Supreme Sacrifice
+                    screenplay?.act2.theDeadlyEncounter = descriptionTextView.text
+                    case 9:
+                    // Celebrate Good Times
+                     screenplay?.act2.celebrate = descriptionTextView.text
+                    case 10:
+                    // Bad Guys Strike back
+                     screenplay?.act2.badGuysStrikeBack = descriptionTextView.text
+                    case 11:
+                    // Darkness Before the Dawn
+                    screenplay?.act2.allIsLost = descriptionTextView.text
+                    default:
+                        break
+                    }
             case .three:
                 switch section {
                 case 0:
@@ -314,6 +340,8 @@ class DescriptionTableViewCell: UITableViewCell {
                     screenplay?.act3.rewards = textView.text
                 case 5:
                     screenplay?.act3.untangleStory = textView.text
+                case 6:
+                    screenplay?.act3.brandNewWorld = textView.text
                 default:
                     break
                 }
