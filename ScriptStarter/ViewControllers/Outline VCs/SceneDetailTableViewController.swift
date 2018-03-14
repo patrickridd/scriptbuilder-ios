@@ -44,6 +44,10 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         self.scene?.sceneNumber = sceneNumber
     }
     
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        self.saveScreenplay()
+    }
+    
     
     func setupExpandableSections() {
         let sectionTitles = Scene.sceneTitles
