@@ -154,6 +154,14 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         
     }
     
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if indexPath.row == 0 && screenplay?.characters.count == 0 {
+            return .none
+        } else {
+            return .delete
+        }
+    }
+    
     func reloadTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
