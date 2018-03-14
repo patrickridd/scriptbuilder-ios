@@ -58,11 +58,21 @@
                                             <color key="textColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqU-aH-sP4">
+                                            <rect key="frame" x="335" y="29.5" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="PKp-c4-EAO"/>
+                                                <constraint firstAttribute="height" constant="40" id="agm-s2-fxO"/>
+                                            </constraints>
+                                            <state key="normal" image="rightArrowButtonAsset 1"/>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="2wJ-LW-8hM" firstAttribute="top" secondItem="Klz-20-wAo" secondAttribute="bottom" constant="5" id="6iP-hN-hot"/>
+                                        <constraint firstAttribute="trailing" secondItem="fqU-aH-sP4" secondAttribute="trailing" id="AzE-HC-837"/>
                                         <constraint firstItem="Klz-20-wAo" firstAttribute="leading" secondItem="Ts9-l5-VDL" secondAttribute="leadingMargin" id="VXt-Km-VTH"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="2wJ-LW-8hM" secondAttribute="trailing" id="Zvn-Zu-lYe"/>
+                                        <constraint firstItem="fqU-aH-sP4" firstAttribute="centerY" secondItem="Ts9-l5-VDL" secondAttribute="centerY" id="csl-Kg-VKB"/>
                                         <constraint firstItem="2wJ-LW-8hM" firstAttribute="leading" secondItem="Ts9-l5-VDL" secondAttribute="leadingMargin" id="jlc-Y3-2jN"/>
                                         <constraint firstItem="Klz-20-wAo" firstAttribute="top" secondItem="Ts9-l5-VDL" secondAttribute="topMargin" id="yhx-xK-hl1"/>
                                     </constraints>
@@ -487,6 +497,7 @@
         <image name="charactersTabAsset" width="38" height="20"/>
         <image name="expandButtonAsset 3" width="15" height="15"/>
         <image name="reduceScreenButtonAsset" width="15" height="15"/>
+        <image name="rightArrowButtonAsset 1" width="11" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Pbs-hF-h3M"/>

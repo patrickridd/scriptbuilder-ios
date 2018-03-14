@@ -892,21 +892,18 @@
                                             </constraints>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="SBo-W3-6qw" firstAttribute="leading" secondItem="wd7-83-ujc" secondAttribute="leading" constant="10" id="0xJ-6C-6M8"/>
                                         <constraint firstAttribute="trailing" secondItem="SBo-W3-6qw" secondAttribute="trailing" id="A4A-uQ-Y6A"/>
                                         <constraint firstAttribute="bottom" secondItem="SBo-W3-6qw" secondAttribute="bottom" id="C4g-HZ-i4z"/>
                                         <constraint firstAttribute="bottom" secondItem="Bsl-q6-RgN" secondAttribute="bottom" id="JWs-1F-KMy"/>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="LMg-tl-VTQ"/>
                                         <constraint firstItem="Bsl-q6-RgN" firstAttribute="centerX" secondItem="wd7-83-ujc" secondAttribute="centerX" id="cfK-Fb-Qu0"/>
                                         <constraint firstItem="Bsl-q6-RgN" firstAttribute="width" secondItem="SBo-W3-6qw" secondAttribute="width" id="e7Z-ne-MWX"/>
-                                        <constraint firstAttribute="height" constant="30" id="hAB-DV-NgK"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="hAB-DV-NgK"/>
                                         <constraint firstItem="SBo-W3-6qw" firstAttribute="top" secondItem="wd7-83-ujc" secondAttribute="top" id="w0B-jp-cuv"/>
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="wd7-83-ujc" secondAttribute="trailing" constant="20" id="IHO-s2-Q1d"/>
                                 <constraint firstAttribute="bottom" secondItem="wd7-83-ujc" secondAttribute="bottom" id="TEn-ah-NAE"/>
@@ -1096,6 +1093,14 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="YiA-7z-7h3">
+                        <nil key="title"/>
+                        <textField key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Scene Title" textAlignment="natural" minimumFontSize="17" id="Jwt-Cy-xGB">
+                            <rect key="frame" x="140.5" y="7" width="94" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Tbu-Om-U2p">
                             <color key="tintColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>

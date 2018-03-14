@@ -146,7 +146,7 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         
         if let character = self.screenplay?.characters[indexPath.row],
             let screenplay = self.screenplay, editingStyle == .delete {
-            FirebaseController.shared.delete(character: character, screenplay: screenplay)
+            FirebaseController.shared.delete(character: character, withScreenplay: screenplay)
             
             self.screenplay?.characters.remove(at: indexPath.row)
             reloadTableView()
