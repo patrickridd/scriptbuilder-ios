@@ -76,6 +76,31 @@ class FirebaseController {
                 completion(true)
             }
         }
+        
+        // Update Act One Scenes
+        let actOneScenesRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid).child("actOne").child("scenes")
+        for scene in screenplay.act1.scenes {
+            actOneScenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
+                completion(true)
+        }
+        
+            // Update Act Two Scenes
+            let actTwoScenesRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid).child("actTwo").child("scenes")
+            
+            for scene in screenplay.act2.scenes {
+                actTwoScenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
+                    completion(true)
+                }
+            }
+            
+            // Update Act Three Scenes
+            let actThreeScenesRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid).child("actThree").child("scenes")
+            for scene in screenplay.act3.scenes {
+                actThreeScenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
+                    completion(true)
+                }
+            }
+        }
     }
     
     func delete(screenplay: Screenplay, completion: @escaping () -> Void) {

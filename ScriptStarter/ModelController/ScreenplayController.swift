@@ -23,11 +23,6 @@ class ScreenplayController {
         self.currentScreenplay = nil
     }
     
-    func saveCurrentScreenplay() {
-        guard let screenplay = currentScreenplay else { return }
-       // FirebaseController.shared.save(screenplay: screenplay)
-    }
-    
     func add(character: Character) {
         if let screenplay = self.currentScreenplay {
             screenplay.characters.append(character)
