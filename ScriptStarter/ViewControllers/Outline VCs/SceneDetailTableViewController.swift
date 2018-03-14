@@ -26,7 +26,8 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
         self.title = self.scene?.title
-        self.addToolBar(textField: self.sceneTitleTextField)
+        
+        self.sceneTitleTextField.delegate = self
     }
     
     
@@ -143,6 +144,12 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         }
     }
 
+    
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

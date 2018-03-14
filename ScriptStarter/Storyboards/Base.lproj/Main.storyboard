@@ -454,7 +454,9 @@
                         <viewLayoutGuide key="safeArea" id="h26-XB-M8C"/>
                     </view>
                     <navigationItem key="navigationItem" id="aVj-El-MZm">
-                        <barButtonItem key="leftBarButtonItem" image="downArrowButtonAsset 1" id="agP-XL-Ngy"/>
+                        <barButtonItem key="leftBarButtonItem" image="downArrowButtonAsset 1" id="agP-XL-Ngy">
+                            <color key="tintColor" red="0.75294117650000003" green="0.85490196080000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8ay-cJ-X5R" userLabel="First Responder" sceneMemberID="firstResponder"/>
