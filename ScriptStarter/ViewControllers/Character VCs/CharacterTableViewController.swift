@@ -49,8 +49,8 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
-        
-        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backButtonAsset"), style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
+        let backButton = UIBarButtonItem(title: "Home", style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
+       // let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backButtonAsset"), style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
@@ -116,7 +116,11 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        if self.screenplay?.characters.count == 0 {
+            return 80
+        } else {
+            return 100
+        }
     }
     
     
@@ -136,6 +140,24 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if let character = self.screenplay?.characters[indexPath.row],
+            let screenplay = self.screenplay, editingStyle == .delete {
+            FirebaseController.shared.delete(character: character, screenplay: screenplay)
+            
+            self.screenplay?.characters.remove(at: indexPath.row)
+            reloadTableView()
+        }
+        
+    }
+    
+    func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: - Navigation

@@ -49,7 +49,6 @@ class FirebaseController {
         }
     }
     
-    
     func save(screenplay: Screenplay, completion: @escaping (_ success:Bool) -> Void) {
         guard let user = user else {
             completion(false)
@@ -114,6 +113,14 @@ class FirebaseController {
             ScreenplayController.shared.resetCurrentScreenplay()
             completion()
         }
+    }
+    
+    func delete(character: Character, withScreenplay: Screenplay) {
+        guard let user = user else { return }
+        // Update characters
+        let characterRef = self.ref.child("users").child(user.uid).child("screenplays").child(withScreenplay.uuid).child("characters").child(character.uuid)
+        
+        characterRef.removeValue()
     }
     
     func getScreenplays(completion: @escaping ([Screenplay])->Void) {

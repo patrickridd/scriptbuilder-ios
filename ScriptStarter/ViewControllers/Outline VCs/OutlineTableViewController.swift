@@ -47,6 +47,11 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         adBannerView.load(GADRequest())
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.view.endEditing(true)
+    }
+    
     // MARK: IBActions/Target Methods
     
     @objc func expandButtonTapped(sender: UIButton) {
@@ -132,6 +137,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         self.navigationController?.navigationBar.barTintColor = .white
         
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backButtonAsset"), style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
+      // let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
