@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/patrickridd/Documents/Xcode Projects/ScriptStarter/ScriptStarter/Storyboards/Scenes.storyboard">
+   </FileRef>
+   <FileRef
       location = "group:ScriptStarter.xcodeproj">
    </FileRef>
    <FileRef

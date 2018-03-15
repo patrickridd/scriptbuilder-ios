@@ -12,9 +12,11 @@ class SceneHeaderTableViewCell: UITableViewCell {
 
     @IBOutlet weak var sceneNumberTextField: UITextField!
     @IBOutlet weak var sceneHeadingTextField: UITextField!
+    @IBOutlet var actTextField: UITextField!
+    
     @IBOutlet weak var sceneNumberTextFieldContainer: UIView!
     @IBOutlet weak var headerTextFieldContainer: UIView!
-    
+    @IBOutlet var sceneActTextFieldContainer: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +34,13 @@ class SceneHeaderTableViewCell: UITableViewCell {
     func update(with scene: Scene) {
         self.sceneNumberTextField.text = "\(scene.sceneNumber)"
         self.sceneHeadingTextField.text = scene.header
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
     }
     
 }

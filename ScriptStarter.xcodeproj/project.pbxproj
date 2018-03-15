@@ -27,6 +27,7 @@
 		2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151FC5F202260F200CE4823 /* ScreenplayController.swift */; };
 		21526C9D20409EE100B14402 /* SceneDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */; };
 		21526C9F2040B23200B14402 /* SceneHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21526C9E2040B23200B14402 /* SceneHeaderTableViewCell.swift */; };
+		21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21843CAC205AE3E900FAAE16 /* Scenes.storyboard */; };
 		218992C32046215F00EF87F3 /* AnalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218992C22046215F00EF87F3 /* AnalyticsController.swift */; };
 		2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2189FC8D2057187400A69DC1 /* StoreKit.framework */; };
 		2189FC902057199300A69DC1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189FC8F2057199300A69DC1 /* IAPHelper.swift */; };
@@ -49,6 +50,7 @@
 		21A84F46201683D500CE4149 /* ScreenplayCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */; };
 		21A84F482016840300CE4149 /* Screenplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A84F472016840300CE4149 /* Screenplay.swift */; };
 		21A84F4A2016988600CE4149 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21A84F492016988600CE4149 /* Storyboard.storyboard */; };
+		21AE274F205ADA5300C44A52 /* ScenesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AE274E205ADA5300C44A52 /* ScenesTableViewController.swift */; };
 		21B2E6122047233A009E4788 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B2E6112047233A009E4788 /* AdSupport.framework */; };
 		21B8FB82201A922D000A8721 /* SceenplayCoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB81201A922D000A8721 /* SceenplayCoverViewController.swift */; };
 		21B8FB84201A93D0000A8721 /* ScreenplayPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB83201A93D0000A8721 /* ScreenplayPageViewController.swift */; };
@@ -119,6 +121,7 @@
 		2151FC5F202260F200CE4823 /* ScreenplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayController.swift; sourceTree = "<group>"; };
 		21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDetailTableViewController.swift; sourceTree = "<group>"; };
 		21526C9E2040B23200B14402 /* SceneHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		21843CAB205AE3E900FAAE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Scenes.storyboard; sourceTree = "<group>"; };
 		218992C22046215F00EF87F3 /* AnalyticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsController.swift; sourceTree = "<group>"; };
 		2189FC8D2057187400A69DC1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2189FC8F2057199300A69DC1 /* IAPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
@@ -142,6 +145,7 @@
 		21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayCollectionViewController.swift; sourceTree = "<group>"; };
 		21A84F472016840300CE4149 /* Screenplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenplay.swift; sourceTree = "<group>"; };
 		21A84F492016988600CE4149 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
+		21AE274E205ADA5300C44A52 /* ScenesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenesTableViewController.swift; sourceTree = "<group>"; };
 		21B2E6112047233A009E4788 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		21B6A30920473D0800E8B0F9 /* ScriptStarter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScriptStarter.entitlements; sourceTree = "<group>"; };
 		21B8FB81201A922D000A8721 /* SceenplayCoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceenplayCoverViewController.swift; sourceTree = "<group>"; };
@@ -327,6 +331,7 @@
 				212DEA772012746500FE9C3F /* Main.storyboard */,
 				2135777A201292AE00C5EADC /* Outline.storyboard */,
 				2135777D201292E100C5EADC /* Character.storyboard */,
+				21843CAC205AE3E900FAAE16 /* Scenes.storyboard */,
 				21A84F492016988600CE4149 /* Storyboard.storyboard */,
 			);
 			path = Storyboards;
@@ -373,7 +378,6 @@
 			children = (
 				21E661BE2017C236006A14AF /* OutlineTableViewController.swift */,
 				21A7CF532028E60D00D97394 /* ActDetailTableViewController.swift */,
-				21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */,
 				2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */,
 				21D727F9202E329E00861C2D /* PopControllers */,
 				21A84F512017AC2A00CE4149 /* TableViewCells */,
@@ -393,6 +397,23 @@
 			children = (
 				21E661BC2017B1F6006A14AF /* DescriptionTableViewCell.swift */,
 				21D727FC202E332300861C2D /* InformationPopTableViewCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		21AE274C205AD9F500C44A52 /* Scenes VCs */ = {
+			isa = PBXGroup;
+			children = (
+				21AE274E205ADA5300C44A52 /* ScenesTableViewController.swift */,
+				21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */,
+				21AE274D205ADA2000C44A52 /* TableViewCells */,
+			);
+			path = "Scenes VCs";
+			sourceTree = "<group>";
+		};
+		21AE274D205ADA2000C44A52 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
 				2146E3DD203F906B00FBD225 /* SceneTableViewCell.swift */,
 				21526C9E2040B23200B14402 /* SceneHeaderTableViewCell.swift */,
 			);
@@ -405,6 +426,7 @@
 				21A84F4D2016A9BA00CE4149 /* Main VCs */,
 				21A84F4F2016A9E900CE4149 /* Outline VCs */,
 				21A84F4E2016A9DA00CE4149 /* Character VCs */,
+				21AE274C205AD9F500C44A52 /* Scenes VCs */,
 				21A84F502016A9F300CE4149 /* Storyboard VCs */,
 			);
 			path = ViewControllers;
@@ -602,6 +624,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				212DEA7E2012746500FE9C3F /* LaunchScreen.storyboard in Resources */,
+				21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */,
 				2135777F201292E100C5EADC /* Character.storyboard in Resources */,
 				2135777C201292AE00C5EADC /* Outline.storyboard in Resources */,
 				212DEA7B2012746500FE9C3F /* Assets.xcassets in Resources */,
@@ -854,6 +877,7 @@
 				218992C32046215F00EF87F3 /* AnalyticsController.swift in Sources */,
 				21526C9D20409EE100B14402 /* SceneDetailTableViewController.swift in Sources */,
 				21B8FB88201AA656000A8721 /* ScreenplayTabBarController.swift in Sources */,
+				21AE274F205ADA5300C44A52 /* ScenesTableViewController.swift in Sources */,
 				21B8FB84201A93D0000A8721 /* ScreenplayPageViewController.swift in Sources */,
 				21A84F46201683D500CE4149 /* ScreenplayCollectionViewController.swift in Sources */,
 				21E661C620190E3E006A14AF /* UIAlertControllers.swift in Sources */,
@@ -926,6 +950,14 @@
 				2135777E201292E100C5EADC /* Base */,
 			);
 			name = Character.storyboard;
+			sourceTree = "<group>";
+		};
+		21843CAC205AE3E900FAAE16 /* Scenes.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				21843CAB205AE3E900FAAE16 /* Base */,
+			);
+			name = Scenes.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
