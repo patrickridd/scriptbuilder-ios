@@ -36,7 +36,7 @@ class SceneHeader: UITableViewHeaderFooterView {
         let font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant:0).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 0).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: marginGuide.centerYAnchor, constant: 0).isActive = true
         titleLabel.textColor = UIColor.screenDark
         titleLabel.font = font
     }

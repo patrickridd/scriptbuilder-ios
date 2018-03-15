@@ -12,19 +12,51 @@ class ScenesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        setupNavigationBar()
+        self.tableView.backgroundColor = UIColor.screenLightGray
+        self.tableView.separatorColor = self.tableView.backgroundColor
     }
     
-    // MARK: - IBActions
+    // MARK: - UI Methods
+    
+    func setupNavigationBar() {
+        
+        // Remove Navigation bar shadow and borderline
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = false
+        if self.screenplay?.title == "" {
+            screenplay?.title = "Untitled"
+        }
+        self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
+        self.navigationController?.navigationBar.tintColor = .screenLightBlue
+        self.navigationController?.navigationBar.barTintColor = .white
+        
+      //  let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backButtonAsset"), style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
+         let backButton = UIBarButtonItem(title: "Home", style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
+        self.navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
+    }
+    
+    // MARK: - IBActions and Target Methods
     
     @IBAction func saveButtonTapped(sender: AnyObject) {
         self.saveScreenplay()
     }
     
+    @objc func handleRightSwipe(sender: UISwipeGestureRecognizer) {
+        let swipeNotificationName = Notification.Name(swipeRightNotificationKey)
+        let swipeNotification = Notification(name: swipeNotificationName)
+        NotificationCenter.default.post(swipeNotification)
+    }
+    
+    @objc func navigateToNewScene() {
+        self.performSegue(withIdentifier: "newSceneSegue", sender: nil)
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         // Acts 1,2,3
         return 3
     }
@@ -64,11 +96,6 @@ class ScenesTableViewController: UITableViewController {
             return UITableViewCell()
         }
         
-         guard let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell", for: indexPath) as? SceneTableViewCell else { return UITableViewCell() }
-        
-        guard let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as?
-            NoCharacterTableViewCell else { return UITableViewCell() }
-        
         // Find sceneCell or noSceneCell for each Act section
         switch indexPath.section {
         case 0: // Act 1
@@ -76,53 +103,108 @@ class ScenesTableViewController: UITableViewController {
            
             // If no scenes in this act return the noSceneCell
             if scenesCount == 0 {
+                guard let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as?
+                    NoCharacterTableViewCell else { return UITableViewCell() }
+                
                 return noSceneCell
             }
-            
+            guard let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell", for: indexPath) as? SceneTableViewCell else { return UITableViewCell() }
            // Find scene for this act and update sceneCell
             let scene = screenplay.act1.scenes[indexPath.row]
             sceneCell.update(with: scene)
-            
+            return sceneCell
+        
         case 1: // Act 2
             let scenesCount = screenplay.act2.scenes.count
             
             // If no scenes in this act return the noSceneCell
             if scenesCount == 0 {
+                guard let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as?
+                    NoCharacterTableViewCell else { return UITableViewCell() }
+                
                 return noSceneCell
             }
-            
+            guard let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell", for: indexPath) as? SceneTableViewCell else { return UITableViewCell() }
             // Find scene for this act and update sceneCell
             let scene = screenplay.act2.scenes[indexPath.row]
             sceneCell.update(with: scene)
-            
+            return sceneCell
         case 2: // Act 3
             let scenesCount = screenplay.act3.scenes.count
             
             // If no scenes in this act return the noSceneCell
             if scenesCount == 0 {
+                guard let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as?
+                    NoCharacterTableViewCell else { return UITableViewCell() }
+                
                 return noSceneCell
             }
             
+            guard let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell", for: indexPath) as? SceneTableViewCell else { return UITableViewCell() }
             // Find scene for this act and update sceneCell
             let scene = screenplay.act3.scenes[indexPath.row]
             sceneCell.update(with: scene)
-            
+            return sceneCell
         default:
             return UITableViewCell()
         }
-        
-        return sceneCell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 
-
-    /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+       
+        // We don't want cells with "Tap + to create a new Scene!" to be editable
+        switch indexPath.section {
+        case 0:
+            if screenplay?.act1.scenes.count == 0 {
+                return false
+            }
+        case 1:
+            if screenplay?.act2.scenes.count == 0 {
+                return false
+            }
+        case 2:
+            if screenplay?.act3.scenes.count == 0 {
+                return false
+            }
+        default:
+            break
+        }
         return true
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        // Act Header
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SceneHeader ?? SceneHeader(reuseIdentifier: "header")
+        
+        header.plusButtonCover.addTarget(self, action: #selector(navigateToNewScene), for: .touchUpInside)
 
+        switch section {
+        case 0: // Act 1
+            header.titleLabel.text = "Act 1"
+        case 1: // Act 2
+            header.titleLabel.text = "Act 2"
+        case 2: // Act 3
+            header.titleLabel.text = "Act 3"
+        default:
+            break
+        }
+     
+        return header
+    }
+
+   override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
+    
+   override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 000.1
+    }
     /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
