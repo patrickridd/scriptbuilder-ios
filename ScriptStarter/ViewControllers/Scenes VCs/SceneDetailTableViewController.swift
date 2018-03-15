@@ -25,8 +25,6 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         Analytics.setScreenName("SceneDetail", screenClass: "SceneDetailTableViewController")
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
-        self.title = self.scene?.title
-        
         self.sceneTitleTextField.delegate = self
     }
     

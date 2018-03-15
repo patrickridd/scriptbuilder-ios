@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum Act {
-    case idea
-    case one
-    case two
-    case three
+enum Act: Int {
+    case idea = 4
+    case one = 0
+    case two = 1
+    case three = 2
     
     var title: String {
         switch self {

@@ -44,14 +44,28 @@ class ScenesTableViewController: UITableViewController {
         self.saveScreenplay()
     }
     
+  
+    @IBAction func plusButtonTapped(_ sender: UIButton) {
+        if let act = Act(rawValue: sender.tag) {
+            self.pushToSceneDetailView(act: act, scene: nil)
+        } else {
+            self.pushToSceneDetailView(act: .one, scene: nil)
+        }
+    }
+    
     @objc func handleRightSwipe(sender: UISwipeGestureRecognizer) {
         let swipeNotificationName = Notification.Name(swipeRightNotificationKey)
         let swipeNotification = Notification(name: swipeNotificationName)
         NotificationCenter.default.post(swipeNotification)
     }
     
-    @objc func navigateToNewScene() {
-        self.performSegue(withIdentifier: "newSceneSegue", sender: nil)
+    func pushToSceneDetailView(act: Act, scene: Scene?) {
+        
+        guard let sceneDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "sceneDetailVC") as? SceneDetailTableViewController else { return }
+        
+        sceneDetailVC.scene = scene
+        sceneDetailVC.act = act
+        self.navigationController?.pushViewController(sceneDetailVC, animated: true)
     }
     
     // MARK: - Table view data source
@@ -151,7 +165,7 @@ class ScenesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 70
     }
 
     // Override to support conditional editing of the table view.
@@ -181,8 +195,8 @@ class ScenesTableViewController: UITableViewController {
         
         // Act Header
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SceneHeader ?? SceneHeader(reuseIdentifier: "header")
-        
-        header.plusButtonCover.addTarget(self, action: #selector(navigateToNewScene), for: .touchUpInside)
+        header.plusButtonCover.tag = section // Used to get Act enum case
+        header.plusButtonCover.addTarget(self, action: #selector(plusButtonTapped(_:)), for: .touchUpInside)
 
         switch section {
         case 0: // Act 1
@@ -204,6 +218,40 @@ class ScenesTableViewController: UITableViewController {
     
    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 000.1
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        var scene: Scene?
+        switch indexPath.section {
+        case 0:
+            guard let scenes = self.screenplay?.act1.scenes, scenes.count != 0 else {
+                self.pushToSceneDetailView(act: .one, scene: nil)
+                return
+            }
+            scene = self.screenplay?.act1.scenes[indexPath.row]
+            self.pushToSceneDetailView(act: .one, scene: scene)
+        case 1:
+            guard let scenes = self.screenplay?.act2.scenes, scenes.count != 0 else {
+                self.pushToSceneDetailView(act: .two, scene: nil)
+                return
+            }
+            
+            scene = self.screenplay?.act2.scenes[indexPath.row]
+            self.pushToSceneDetailView(act: .two, scene: scene)
+            
+        case 2:
+            guard let scenes = self.screenplay?.act3.scenes, scenes.count != 0 else {
+                self.pushToSceneDetailView(act: .three, scene: nil)
+                return
+            }
+            
+            scene = self.screenplay?.act3.scenes[indexPath.row]
+            self.pushToSceneDetailView(act: .three, scene: scene)
+        default:
+            break
+        }
+        
     }
     /*
     // Override to support editing the table view.
@@ -232,14 +280,60 @@ class ScenesTableViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        guard let navigationController = segue.destination as? UINavigationController, let sceneDetailTVC = navigationController.viewControllers[0] as? SceneDetailTableViewController,
+        let indexPath = self.tableView.indexPathForSelectedRow else {
+            return
+        }
+        
+        if segue.identifier == "sceneSegue" {
+            guard let indexPath = self.tableView.indexPathForSelectedRow else {
+                return
+            }
+            
+            var scene: Scene?
+            switch indexPath.section {
+            case 0:
+                scene = self.screenplay?.act1.scenes[indexPath.row]
+            case 1:
+                scene = self.screenplay?.act2.scenes[indexPath.row]
+            case 2:
+                scene = self.screenplay?.act3.scenes[indexPath.row]
+            default:
+                break
+            }
+            sceneDetailTVC.scene = scene
+            
+        } else if segue.identifier == "newSceneSegue" {
+            
+            switch indexPath.section  {
+            case 0:
+                guard let sceneCount = self.screenplay?.act1.scenes.count else { break }
+                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
+                self.screenplay?.act1.scenes.append(scene)
+                sceneDetailTVC.act = .one
+                sceneDetailTVC.scene = scene
+            case 1:
+                guard let sceneCount = self.screenplay?.act2.scenes.count else { break }
+                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
+                self.screenplay?.act2.scenes.append(scene)
+                sceneDetailTVC.act = .two
+                sceneDetailTVC.scene = scene
+            case 2:
+                guard let sceneCount = self.screenplay?.act3.scenes.count else { break }
+                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
+                self.screenplay?.act3.scenes.append(scene)
+                sceneDetailTVC.act = .three
+                sceneDetailTVC.scene = scene
+            default:
+                break
+            }
+        }
     }
-    */
+    
 
 }

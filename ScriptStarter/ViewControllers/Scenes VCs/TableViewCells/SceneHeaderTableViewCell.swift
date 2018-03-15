@@ -21,12 +21,12 @@ class SceneHeaderTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        headerTextFieldContainer.layer.borderWidth = 0.5
-        headerTextFieldContainer.layer.borderColor = UIColor.screenMediumGray.cgColor
-        
-        sceneNumberTextFieldContainer.layer.borderColor = UIColor.screenMediumGray.cgColor
-        sceneNumberTextFieldContainer.layer.borderWidth = 0.5
-        
+//        headerTextFieldContainer.layer.borderWidth = 0.5
+//        headerTextFieldContainer.layer.borderColor = UIColor.screenMediumGray.cgColor
+//
+//        sceneNumberTextFieldContainer.layer.borderColor = UIColor.screenMediumGray.cgColor
+//        sceneNumberTextFieldContainer.layer.borderWidth = 0.5
+        addToolBar(textField: self.actTextField)
         addToolBar(textField: self.sceneNumberTextField)
         addToolBar(textField: self.sceneHeadingTextField)
     }

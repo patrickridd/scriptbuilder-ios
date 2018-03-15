@@ -52,7 +52,7 @@ class Scene {
         return ["Overall idea of what happens and feeling the scene bring",
             "What snappy dialogue and/or information is said?",
             "What are your characters doing?",
-            "Which characters are in the scene?",
+            "What are the characters feeling and what do they want?",
             "How does the scene move the story forward?",
             "Details you don't want to forget"]
     }
