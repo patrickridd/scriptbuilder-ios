@@ -66,23 +66,43 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         switch self.act {
             
         case .one:
-           let scenesCount = screenplay.act1.scenes.count
-           let scene = Scene(title: "New Scene", sceneNumber: scenesCount+1)
-           self.scene = scene
-            self.screenplay?.act1.sceneSet.insert(scene)
+            if let highestSceneNumber = screenplay.act1.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
+                let scene = Scene(title: "New Scene", sceneNumber: highestSceneNumber+1)
+                self.scene = scene
+                self.screenplay?.act1.sceneSet.insert(scene)
+            } else {
+                let scene = Scene(title: "New Scene", sceneNumber: 1)
+                self.scene = scene
+                self.screenplay?.act1.sceneSet.insert(scene)
+            }
         case .two:
-            let scenesCount = screenplay.act2.scenes.count
-            let scene = Scene(title: "New Scene", sceneNumber: scenesCount+1)
-            self.scene = scene
-            self.screenplay?.act2.sceneSet.insert(scene)
+            if let highestSceneNumber = screenplay.act2.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
+                let scene = Scene(title: "New Scene", sceneNumber: highestSceneNumber+1)
+                self.scene = scene
+                self.screenplay?.act2.sceneSet.insert(scene)
+            } else {
+                let scene = Scene(title: "New Scene", sceneNumber: 1)
+                self.scene = scene
+                self.screenplay?.act2.sceneSet.insert(scene)
+            }
         case .three:
-            let scenesCount = screenplay.act3.scenes.count
-            let scene = Scene(title: "New Scene", sceneNumber: scenesCount+1)
-            self.scene = scene
-            self.screenplay?.act3.sceneSet.insert(scene)
+            if let highestSceneNumber = screenplay.act3.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
+                let scene = Scene(title: "New Scene", sceneNumber: highestSceneNumber+1)
+                self.scene = scene
+                self.screenplay?.act3.sceneSet.insert(scene)
+            } else {
+                let scene = Scene(title: "New Scene", sceneNumber: 1)
+                self.scene = scene
+                self.screenplay?.act3.sceneSet.insert(scene)
+            }
         default:
             break
         }
+        if let scene = self.scene {
+            self.sceneNumberTextField.text = "\(scene.sceneNumber)"
+            self.sceneActNumberTextField.text = "\(self.act.rawValue+1)"
+        }
+       
     }
 
     @IBAction func sceneTitleTextFieldChanged(_ sender: UITextField) {
@@ -94,6 +114,20 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
             let sceneNumber = Int(sceneNumberText) else { return }
         
         self.scene?.sceneNumber = sceneNumber
+        
+        if let scene = self.scene {
+            self.adjustSceneNumbers(for: scene, in: self.act)
+            switch self.act {
+            case .one:
+                self.screenplay?.act1.scenes.sort(by: {$0.sceneNumber < $1.sceneNumber })
+            case .two:
+                self.screenplay?.act2.scenes.sort(by: {$0.sceneNumber < $1.sceneNumber })
+            case .three:
+                self.screenplay?.act3.scenes.sort(by: {$0.sceneNumber < $1.sceneNumber })
+            default:
+                break
+            }
+        }
     }
     
     @IBAction func sceneHeadingTextFieldChanged(_ sender: UITextField) {
@@ -217,7 +251,7 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     // MARK: - SceneActSelected Methods
     
     func selected(newAct: Act) {
-        guard let scene = self.scene else { return }
+        guard let scene = self.scene, newAct != self.act else { return }
         
         // Remove scene from old act
         switch self.act {
@@ -231,14 +265,36 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
             break
         }
         
-        // Add scene into newAct
+        // Add scene into newAct and make scene number last in newAct
         switch newAct {
         case .one:
-            self.screenplay?.act1.sceneSet.insert(scene)
+            if let highestSceneNumber = self.screenplay?.act1.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
+                scene.sceneNumber = highestSceneNumber+1
+                self.screenplay?.act1.sceneSet.insert(scene)
+            } else {
+                // If no scenes are in act just insert and make sceneNumber = 1
+                scene.sceneNumber = 1
+                self.screenplay?.act1.sceneSet.insert(scene)
+            }
+            
         case .two:
-            self.screenplay?.act2.sceneSet.insert(scene)
+            if let highestSceneNumber = self.screenplay?.act2.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
+                scene.sceneNumber = highestSceneNumber+1
+                self.screenplay?.act2.sceneSet.insert(scene)
+            } else {
+                // If no scenes are in act just insert and make sceneNumber = 1
+                scene.sceneNumber = 1
+                self.screenplay?.act2.sceneSet.insert(scene)
+            }
         case .three:
-            self.screenplay?.act3.sceneSet.insert(scene)
+            if let highestSceneNumber = self.screenplay?.act3.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
+                scene.sceneNumber = highestSceneNumber+1
+                self.screenplay?.act3.sceneSet.insert(scene)
+            } else {
+                // If no scenes are in act just insert and make sceneNumber = 1
+                scene.sceneNumber = 1
+                self.screenplay?.act3.sceneSet.insert(scene)
+            }
         default:
             break
         }
@@ -248,6 +304,43 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         
         // Set Act number in textField to reflect the user's selection
         self.sceneActNumberTextField.text = "\(act.rawValue+1)"
+        
+        // Set Scene # in case it changed during the act change
+        self.sceneNumberTextField.text = "\(scene.sceneNumber)"
+    }
+    
+    // MARK: Helper Methods
+    
+    func adjustSceneNumbers(for scene: Scene, in act: Act) {
+        guard let screenplay = self.screenplay else { return }
+        switch act {
+        case .one:
+            for otherScene in screenplay.act1.scenes {
+                if scene.uuid == otherScene.uuid { continue }
+                if otherScene.sceneNumber == scene.sceneNumber {
+                    otherScene.sceneNumber = scene.sceneNumber+1
+                    adjustSceneNumbers(for: otherScene, in: .one)
+                }
+            }
+        case .two:
+            for otherScene in screenplay.act2.scenes {
+                if scene.uuid == otherScene.uuid { continue }
+                if otherScene.sceneNumber == scene.sceneNumber {
+                    otherScene.sceneNumber = scene.sceneNumber+1
+                    adjustSceneNumbers(for: otherScene, in: .two)
+                }
+            }
+        case .three:
+            for otherScene in screenplay.act3.scenes {
+                if scene.uuid == otherScene.uuid { continue }
+                if otherScene.sceneNumber == scene.sceneNumber {
+                    otherScene.sceneNumber = scene.sceneNumber+1
+                    adjustSceneNumbers(for: otherScene, in: .three)
+                }
+            }
+        default:
+            break
+        }
     }
     
     

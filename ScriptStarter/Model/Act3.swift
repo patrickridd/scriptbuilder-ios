@@ -21,15 +21,11 @@ class Act3 {
         didSet {
             self.scenes = []
             self.scenes.append(contentsOf: sceneSet)
-        }
-    }
-    
-    // Sorts scenes by sceneNumber whenever it changes
-    var scenes: [Scene] = [] {
-        didSet {
             self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
         }
     }
+    
+    var scenes: [Scene] = []
     
     var theUltimateAnswer: String = ""
     var rewards: String = ""

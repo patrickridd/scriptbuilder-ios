@@ -24,14 +24,11 @@ class Act1 {
         didSet {
             self.scenes = []
             self.scenes.append(contentsOf: sceneSet)
-        }
-    }
-    
-    var scenes: [Scene] = [] {
-        didSet {
             self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
         }
     }
+    
+    var scenes: [Scene] = []
     
     var oldWorldDescription: String = "" // 1
     var incitingIncident: String = "" // 2
