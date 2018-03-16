@@ -53,7 +53,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="w2v-6U-MQk" secondAttribute="trailing" id="os9-FI-Ds2"/>
                                             </constraints>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="klx-bd-MYK">
+                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="klx-bd-MYK">
                                             <rect key="frame" x="335" y="10" width="40" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="40" id="9Xj-SP-cg0"/>
@@ -63,9 +63,11 @@
                                         </button>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="klx-bd-MYK" secondAttribute="trailing" id="0w2-Tl-5w7"/>
                                         <constraint firstItem="klx-bd-MYK" firstAttribute="leading" secondItem="DeC-iF-lMQ" secondAttribute="trailing" constant="5" id="7F8-C5-zHG"/>
                                         <constraint firstItem="DeC-iF-lMQ" firstAttribute="centerY" secondItem="1Em-Nd-3ew" secondAttribute="centerY" id="7Fx-T5-0bk"/>
                                         <constraint firstAttribute="trailing" secondItem="klx-bd-MYK" secondAttribute="trailing" id="AWm-uc-kpO"/>
+                                        <constraint firstItem="klx-bd-MYK" firstAttribute="centerY" secondItem="1Em-Nd-3ew" secondAttribute="centerY" id="MzI-pu-J9d"/>
                                         <constraint firstItem="DeC-iF-lMQ" firstAttribute="leading" secondItem="1Em-Nd-3ew" secondAttribute="leadingMargin" id="uNN-ZF-lTl"/>
                                         <constraint firstItem="klx-bd-MYK" firstAttribute="centerY" secondItem="1Em-Nd-3ew" secondAttribute="centerY" id="wc0-ix-pfi"/>
                                     </constraints>
@@ -145,7 +147,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdV-Uq-Fdl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5031" y="537"/>
+            <point key="canvasLocation" x="5029.6000000000004" y="536.58170914542734"/>
         </scene>
         <!--scenes-->
         <scene sceneID="Eay-4h-nw0">
