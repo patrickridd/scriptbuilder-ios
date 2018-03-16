@@ -43,6 +43,7 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         }
     }
     
+    
     // MARK: UI Methods
     
     func updateView(with scene:Scene) {
@@ -74,12 +75,10 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         }
     }
 
-    
     @IBAction func sceneTitleTextFieldChanged(_ sender: UITextField) {
         self.scene?.title = sender.text ?? "New Scene"
     }
 
-    
     @IBAction func sceneNumberTextFieldChanged(_ sender: UITextField) {
         guard let sceneNumberText = sender.text,
             let sceneNumber = Int(sceneNumberText) else { return }
@@ -90,7 +89,6 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     @IBAction func saveButtonTapped(_ sender: Any) {
         self.saveScreenplay()
     }
-    
     
     func setupExpandableSections() {
         let sectionTitles = Scene.sceneTitles
@@ -105,39 +103,25 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // 0. Scene # and Scene Header
         // 1. Scene Description
         // 2. Dialogue
         // 3. Action
         // 4. Characters
         // 5. How scene moves story forward
         // 6. Notes
-        return 7
+        return 6
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        switch section {
-        case 0:
-            return 1
-        default:
-            return expandableSections[section-1].collapsed ? 0 : 1
-        }
+            return expandableSections[section].collapsed ? 0 : 1
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            guard let sceneHeadingCell = tableView.dequeueReusableCell(withIdentifier: "sceneHeadingCell", for: indexPath) as? SceneHeaderTableViewCell, let scene = self.scene else { return UITableViewCell() }
-            sceneHeadingCell.backgroundColor = UIColor.screenLightGray
-            sceneHeadingCell.update(with: scene)
-            return sceneHeadingCell
-        default:
             guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
             descriptionCell.contentView.backgroundColor = .screenLightGray
+            descriptionCell.update(viewController: .sceneDetail, section: indexPath.section, act: self.act, character: nil, scene: self.scene)
             return descriptionCell
-        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -152,11 +136,11 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
             return nil
         default:
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
-            header.contentView.backgroundColor = expandableSections[section-1].collapsed ? .white : UIColor.screenLightGray
-            header.titleLabel.text = Scene.sceneTitles[section-1]
-            header.subtitleLabel.text = Scene.sceneSubtitles[section-1]
+            header.contentView.backgroundColor = expandableSections[section].collapsed ? .white : UIColor.screenLightGray
+            header.titleLabel.text = Scene.sceneTitles[section]
+            header.subtitleLabel.text = Scene.sceneSubtitles[section]
            // header.subtitleLabel.text = act.sectionSubTitles[section-self.sectionBesidesBeats]
-            header.setCollapsed(expandableSections[section-1].collapsed)
+            header.setCollapsed(expandableSections[section].collapsed)
             header.section = section
             header.delegate = self
             return header
@@ -177,9 +161,9 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     
     func toggleSection(_ header: CollapsibleHeader, section: Int) {
         DispatchQueue.main.async {
-            let collapsed = !self.expandableSections[section-1].collapsed
+            let collapsed = !self.expandableSections[section].collapsed
             // Toggle collapse
-            self.expandableSections[section-1].collapsed = collapsed
+            self.expandableSections[section].collapsed = collapsed
             header.setCollapsed(collapsed)
             
             // Reload section tapped
