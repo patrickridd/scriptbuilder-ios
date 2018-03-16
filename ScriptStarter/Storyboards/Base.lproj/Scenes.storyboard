@@ -203,7 +203,7 @@
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="76d-1J-2M3"/>
                                                             </constraints>
                                                             <nil key="textColor"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert"/>
                                                             <connections>
                                                                 <action selector="sceneNumberTextField:" destination="I2G-hi-Ukd" eventType="editingDidEnd" id="roK-XL-KdR"/>
@@ -212,7 +212,7 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2F7-4I-AXp">
                                                             <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
                                                             <connections>
-                                                                <action selector="sceneNumberButtonTapped:" destination="SYB-4i-W3C" eventType="touchUpInside" id="j0t-6g-OEK"/>
+                                                                <action selector="sceneActNumberButtonTapped:" destination="SYB-4i-W3C" eventType="touchUpInside" id="fQZ-Bj-Jzz"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -438,6 +438,50 @@
                 <exit id="I2G-hi-Ukd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5733.6000000000004" y="536.58170914542734"/>
+        </scene>
+        <!--Scene Act Number Pop Table View Controller-->
+        <scene sceneID="ssD-aW-BJm">
+            <objects>
+                <tableViewController storyboardIdentifier="sceneActNumberTVC" id="iER-wh-aae" customClass="SceneActNumberPopTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Izo-oo-JsU">
+                        <rect key="frame" x="0.0" y="0.0" width="60" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="actNumberCell" id="hfJ-qt-lfN" customClass="ActNumberPopTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="60" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hfJ-qt-lfN" id="8Su-4e-2qd">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OWa-ir-dQT">
+                                            <rect key="frame" x="26" y="12" width="8" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.75294117650000003" green="0.85490196080000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="OWa-ir-dQT" firstAttribute="centerX" secondItem="8Su-4e-2qd" secondAttribute="centerX" id="UWC-cI-74c"/>
+                                        <constraint firstItem="OWa-ir-dQT" firstAttribute="centerY" secondItem="8Su-4e-2qd" secondAttribute="centerY" id="ilS-fU-3iv"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="actNumberLabel" destination="OWa-ir-dQT" id="2Rc-Ef-qI5"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="iER-wh-aae" id="pYn-ha-KrZ"/>
+                            <outlet property="delegate" destination="iER-wh-aae" id="IFp-IC-Iql"/>
+                        </connections>
+                    </tableView>
+                    <size key="freeformSize" width="60" height="300"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4fg-Bd-V0G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5481" y="1031"/>
         </scene>
     </scenes>
     <resources>

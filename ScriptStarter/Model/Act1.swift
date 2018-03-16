@@ -22,6 +22,7 @@ class Act1 {
     
     var sceneSet: Set<Scene> = [] {
         didSet {
+            self.scenes = []
             self.scenes.append(contentsOf: sceneSet)
         }
     }

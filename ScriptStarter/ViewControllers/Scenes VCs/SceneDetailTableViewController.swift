@@ -32,7 +32,12 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         self.tableView.separatorColor = self.tableView.backgroundColor
       
         self.sceneTitleTextField.delegate = self
+        self.sceneHeaderTextField.delegate = self
+        
         addToolBar(textField: self.sceneTitleTextField)
+        addToolBar(textField: self.sceneNumberTextField)
+        addToolBar(textField: self.sceneHeaderTextField)
+        
         if let scene = self.scene {
             self.updateView(with: scene)
         }
@@ -52,7 +57,8 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     
     func updateView(with scene:Scene) {
         self.sceneTitleTextField.text = scene.title
-        // TODO: update act and scene number
+        self.sceneActNumberTextField.text = "\(self.act.rawValue+1)"
+        self.sceneNumberTextField.text = "\(scene.sceneNumber)"
     }
     
     func createNewScene() {
@@ -96,27 +102,26 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         }
     }
     
-    @IBAction func sceneNumberButtonTapped(_ sender: UIButton) {
+    @IBAction func sceneActNumberButtonTapped(_ sender: UIButton) {
         
-        guard let sceneNumberTVC = self.storyboard?.instantiateViewController(withIdentifier: "rolePopoverTVC") as? SceneNumberPopTableViewController else { return }
-        sceneNumberTVC.modalPresentationStyle = .popover // So it knows to present it as a popover
+        guard let sceneActNumberTVC = self.storyboard?.instantiateViewController(withIdentifier: "sceneActNumberTVC") as? SceneActNumberPopTableViewController else { return }
+        sceneActNumberTVC.modalPresentationStyle = .popover // So it knows to present it as a popover
         
         // Access the popController instance and configure its settings
-        let popController = sceneNumberTVC.popoverPresentationController
+        let popController = sceneActNumberTVC.popoverPresentationController
         popController?.permittedArrowDirections = [.up,.down] // allow arrow to go both .up and .down
         popController?.delegate = self
         popController?.backgroundColor = .white // Makes the arrow white
-        sceneNumberTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
+        sceneActNumberTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
+        
+        let centerRect = CGRect(x: sender.bounds.width/2, y: 0, width: 0, height: sender.bounds.height)
         popController?.sourceView = sender
-        popController?.sourceRect = sender.bounds
+        popController?.sourceRect = centerRect
         
-        sceneNumberTVC.delegate = self // SceneActSelected protocol
+        sceneActNumberTVC.delegate = self // SceneActSelected protocol
+        sceneActNumberTVC.preferredContentSize = CGSize(width: self.sceneActNumberTextField.bounds.width, height: CGFloat(90))
         
-        // change size of view controller to the size of my three cells.
-        let contentHeightSize = (Role.count+1) * 40
-        sceneNumberTVC.preferredContentSize = CGSize(width: self.view.bounds.width, height: CGFloat(contentHeightSize))
-        
-        self.present(sceneNumberTVC, animated: true, completion: nil)
+        self.present(sceneActNumberTVC, animated: true, completion: nil)
     }
     
     
@@ -241,7 +246,8 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         // Set selected newAct
         self.act = newAct
         
-        self.sceneActNumberTextField.text = act.rawValue+1
+        // Set Act number in textField to reflect the user's selection
+        self.sceneActNumberTextField.text = "\(act.rawValue+1)"
     }
     
     

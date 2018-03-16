@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2104ADD1205C2A9A0086CC9F /* SceneNumberPopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD0205C2A9A0086CC9F /* SceneNumberPopTableViewController.swift */; };
+		2104ADD5205C60080086CC9F /* SceneActNumberPopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD4205C60080086CC9F /* SceneActNumberPopTableViewController.swift */; };
+		2104ADD7205C60CB0086CC9F /* ActNumberPopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD6205C60CB0086CC9F /* ActNumberPopTableViewCell.swift */; };
 		21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */; };
 		21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099167201FD4CF00340124 /* SectionHeaderView.swift */; };
 		211215C5203652520039D6E8 /* BasicInfoCharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215C4203652510039D6E8 /* BasicInfoCharacterTableViewCell.swift */; };
@@ -95,7 +96,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2104ADD0205C2A9A0086CC9F /* SceneNumberPopTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneNumberPopTableViewController.swift; sourceTree = "<group>"; };
+		2104ADD4205C60080086CC9F /* SceneActNumberPopTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneActNumberPopTableViewController.swift; sourceTree = "<group>"; };
+		2104ADD6205C60CB0086CC9F /* ActNumberPopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActNumberPopTableViewCell.swift; sourceTree = "<group>"; };
 		21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScreenplayCollectionViewCell.swift; sourceTree = "<group>"; };
 		21099167201FD4CF00340124 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		211215C4203652510039D6E8 /* BasicInfoCharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoCharacterTableViewCell.swift; sourceTree = "<group>"; };
@@ -213,7 +215,7 @@
 		2104ADCF205C2A6F0086CC9F /* Popovers */ = {
 			isa = PBXGroup;
 			children = (
-				2104ADD0205C2A9A0086CC9F /* SceneNumberPopTableViewController.swift */,
+				2104ADD4205C60080086CC9F /* SceneActNumberPopTableViewController.swift */,
 			);
 			path = Popovers;
 			sourceTree = "<group>";
@@ -424,6 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				2146E3DD203F906B00FBD225 /* SceneTableViewCell.swift */,
+				2104ADD6205C60CB0086CC9F /* ActNumberPopTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -840,6 +843,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2104ADD5205C60080086CC9F /* SceneActNumberPopTableViewController.swift in Sources */,
 				211215D4203B5D200039D6E8 /* RolePopoverTableViewController.swift in Sources */,
 				21A7CF5A202A622000D97394 /* ExpandableTableViewSection.swift in Sources */,
 				21D72801202E6A6C00861C2D /* CharacterSection.swift in Sources */,
@@ -859,7 +863,6 @@
 				21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */,
 				21D727FD202E332300861C2D /* InformationPopTableViewCell.swift in Sources */,
 				2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */,
-				2104ADD1205C2A9A0086CC9F /* SceneNumberPopTableViewController.swift in Sources */,
 				218E8462203F379000D0D652 /* Scene.swift in Sources */,
 				21A7CF4B2023B02D00D97394 /* Character.swift in Sources */,
 				218E8460203E3D9500D0D652 /* NoCharacterTableViewCell.swift in Sources */,
@@ -889,6 +892,7 @@
 				21B8FB84201A93D0000A8721 /* ScreenplayPageViewController.swift in Sources */,
 				21A84F46201683D500CE4149 /* ScreenplayCollectionViewController.swift in Sources */,
 				21E661C620190E3E006A14AF /* UIAlertControllers.swift in Sources */,
+				2104ADD7205C60CB0086CC9F /* ActNumberPopTableViewCell.swift in Sources */,
 				21E661C42017F979006A14AF /* Extension+UIColor.swift in Sources */,
 				21A7CF522028E45300D97394 /* CollapsibleHeaderView.swift in Sources */,
 				21D727FF202E41DD00861C2D /* InformationNotes.swift in Sources */,
