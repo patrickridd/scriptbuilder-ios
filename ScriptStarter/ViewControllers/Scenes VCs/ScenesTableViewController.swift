@@ -18,6 +18,11 @@ class ScenesTableViewController: UITableViewController {
         self.tableView.separatorColor = self.tableView.backgroundColor
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.reloadTableView()
+    }
+    
     // MARK: - UI Methods
     
     func setupNavigationBar() {
@@ -315,56 +320,56 @@ class ScenesTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let navigationController = segue.destination as? UINavigationController, let sceneDetailTVC = navigationController.viewControllers[0] as? SceneDetailTableViewController,
-        let indexPath = self.tableView.indexPathForSelectedRow else {
-            return
-        }
-        
-        if segue.identifier == "sceneSegue" {
-            guard let indexPath = self.tableView.indexPathForSelectedRow else {
-                return
-            }
-            
-            var scene: Scene?
-            switch indexPath.section {
-            case 0:
-                scene = self.screenplay?.act1.scenes[indexPath.row]
-            case 1:
-                scene = self.screenplay?.act2.scenes[indexPath.row]
-            case 2:
-                scene = self.screenplay?.act3.scenes[indexPath.row]
-            default:
-                break
-            }
-            sceneDetailTVC.scene = scene
-            
-        } else if segue.identifier == "newSceneSegue" {
-            
-            switch indexPath.section  {
-            case 0:
-                guard let sceneCount = self.screenplay?.act1.scenes.count else { break }
-                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
-                self.screenplay?.act1.scenes.append(scene)
-                sceneDetailTVC.act = .one
-                sceneDetailTVC.scene = scene
-            case 1:
-                guard let sceneCount = self.screenplay?.act2.scenes.count else { break }
-                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
-                self.screenplay?.act2.scenes.append(scene)
-                sceneDetailTVC.act = .two
-                sceneDetailTVC.scene = scene
-            case 2:
-                guard let sceneCount = self.screenplay?.act3.scenes.count else { break }
-                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
-                self.screenplay?.act3.scenes.append(scene)
-                sceneDetailTVC.act = .three
-                sceneDetailTVC.scene = scene
-            default:
-                break
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        guard let navigationController = segue.destination as? UINavigationController, let sceneDetailTVC = navigationController.viewControllers[0] as? SceneDetailTableViewController,
+//        let indexPath = self.tableView.indexPathForSelectedRow else {
+//            return
+//        }
+//        
+//        if segue.identifier == "sceneSegue" {
+//            guard let indexPath = self.tableView.indexPathForSelectedRow else {
+//                return
+//            }
+//
+//            var scene: Scene?
+//            switch indexPath.section {
+//            case 0:
+//                scene = self.screenplay?.act1.scenes[indexPath.row]
+//            case 1:
+//                scene = self.screenplay?.act2.scenes[indexPath.row]
+//            case 2:
+//                scene = self.screenplay?.act3.scenes[indexPath.row]
+//            default:
+//                break
+//            }
+//            sceneDetailTVC.scene = scene
+//
+//        } else if segue.identifier == "newSceneSegue" {
+//
+//            switch indexPath.section  {
+//            case 0:
+//                guard let sceneCount = self.screenplay?.act1.scenes.count else { break }
+//                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
+//                self.screenplay?.act1.scenes.append(scene)
+//                sceneDetailTVC.act = .one
+//                sceneDetailTVC.scene = scene
+//            case 1:
+//                guard let sceneCount = self.screenplay?.act2.scenes.count else { break }
+//                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
+//                self.screenplay?.act2.scenes.append(scene)
+//                sceneDetailTVC.act = .two
+//                sceneDetailTVC.scene = scene
+//            case 2:
+//                guard let sceneCount = self.screenplay?.act3.scenes.count else { break }
+//                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
+//                self.screenplay?.act3.scenes.append(scene)
+//                sceneDetailTVC.act = .three
+//                sceneDetailTVC.scene = scene
+//            default:
+//                break
+//            }
+//        }
+//    }
     
 
 }

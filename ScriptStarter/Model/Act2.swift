@@ -21,7 +21,8 @@ class Act2 {
     let allIsLostKey = "allIsLost"
     let burnTheBoatsKey = "burnTheBoats"
     let sharpeningTheSwordKey = "sharpeningTheSword"
-    
+    let scenesKey = "scenes"
+
     var scenes: [Scene] = []
     var newWorldDescription: String = ""
     var enemiesFriends: String = ""
@@ -62,6 +63,22 @@ class Act2 {
         self.stormGathers = stormGathers
         self.badGuysStrikeBack = badGuysStrikeBack
         self.allIsLost = allIsLost
+        
+        guard let sceneDictionaryArray = actTwoDict[self.scenesKey] as? [String:Any] else {
+            return
+        }
+        
+        for sceneKeyPair in sceneDictionaryArray {
+            guard let sceneDictionary = sceneKeyPair.value as? [String:Any],
+                let scene = Scene(uuid: sceneKeyPair.key, sceneDictionary:sceneDictionary) else {
+                    continue
+            }
+            self.scenes.append(scene)
+        }
+        
+        self.scenes.sort { (scene1, scene2) -> Bool in
+            return scene1.sceneNumber < scene2.sceneNumber
+        }
     }
     
     var firActTwoDictionary: [String:Any] {

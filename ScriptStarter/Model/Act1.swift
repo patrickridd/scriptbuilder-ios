@@ -18,6 +18,7 @@ class Act1 {
     let refusalKey = "refusal"
     let reasonToAdventureKey = "reasonToAdventure"
     let enemyAtTheGatesKey = "enemyAtTheGates"
+    let scenesKey = "scenes"
     
     var scenes: [Scene] = []
     var oldWorldDescription: String = "" // 1
@@ -48,6 +49,22 @@ class Act1 {
         self.refusal = refusal
         self.reasonToAdventure = reasonToAdventure
         self.enemyAtTheGates = enemyAtTheGates
+        
+        guard let sceneDictionaryArray = actOneDict[self.scenesKey] as? [String:Any] else {
+            return
+        }
+        
+        for sceneKeyPair in sceneDictionaryArray {
+            guard let sceneDictionary = sceneKeyPair.value as? [String:Any],
+                let scene = Scene(uuid: sceneKeyPair.key, sceneDictionary:sceneDictionary) else {
+                    continue
+            }
+            self.scenes.append(scene)
+        }
+        
+        self.scenes.sort { (scene1, scene2) -> Bool in
+            return scene1.sceneNumber < scene2.sceneNumber
+        }
     }
     
     var firActOneDictionary: [String:Any] {

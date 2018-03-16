@@ -39,6 +39,19 @@ class Scene {
         self.uuid = UUID().uuidString
     }
     
+    init?(uuid: String, sceneDictionary: [String:Any]) {
+        self.uuid = uuid
+        self.title = sceneDictionary[self.titleKey] as? String ?? ""
+         self.header = sceneDictionary[self.headerKey] as? String ?? ""
+         self.sceneNumber = sceneDictionary[self.sceneNumberKey] as? Int ?? 0
+        self.sceneDescription = sceneDictionary[self.sceneDescriptionKey] as? String ?? ""
+        self.dialogue = sceneDictionary[self.dialogueKey] as? String ?? ""
+        self.action = sceneDictionary[self.actionKey] as? String ?? ""
+        self.characters = sceneDictionary[self.charactersKey] as? String ?? ""
+        self.howPushesStory = sceneDictionary[self.howPushesStoryKey] as? String ?? ""
+        self.notes = sceneDictionary[self.notesKey] as? String ?? ""
+    }
+    
     static var sceneTitles: [String] {
         return ["Scene Description",
                 "Dialogue",

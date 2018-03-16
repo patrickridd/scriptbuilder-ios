@@ -88,6 +88,7 @@ extension UIViewController: UITextFieldDelegate {
     
     @objc func donePressed() {
         self.view.endEditing(true)
+        self.navigationController?.view.endEditing(true)
     }
     
     @objc func cancelPressed() {

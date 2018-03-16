@@ -15,7 +15,8 @@ class Act3 {
     let rewardsKey = "rewards"
     let untangleStoryKey = "untangleStory"
     let brandNewWorldKey = "brandNewWorld"
-    
+    let scenesKey = "scenes"
+
     var scenes: [Scene] = []
     var theUltimateAnswer: String = ""
     var rewards: String = ""
@@ -34,6 +35,22 @@ class Act3 {
         self.theUltimateAnswer = theUltimateAnswer
         self.rewards = rewards
         self.untangleStory = untangleStory
+        
+        guard let sceneDictionaryArray = actThreeDict[self.scenesKey] as? [String:Any] else {
+            return
+        }
+        
+        for sceneKeyPair in sceneDictionaryArray {
+            guard let sceneDictionary = sceneKeyPair.value as? [String:Any],
+                let scene = Scene(uuid: sceneKeyPair.key, sceneDictionary:sceneDictionary) else {
+                    continue
+            }
+            self.scenes.append(scene)
+        }
+        
+        self.scenes.sort { (scene1, scene2) -> Bool in
+            return scene1.sceneNumber < scene2.sceneNumber
+        }
     }
     
     var firActThreeDictionary: [String:Any] {

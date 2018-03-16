@@ -14,6 +14,7 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     @IBOutlet weak var sceneTitleTextField: UITextField!
     
     var scene: Scene?
+    
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
     
@@ -25,12 +26,56 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         Analytics.setScreenName("SceneDetail", screenClass: "SceneDetailTableViewController")
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
+      
         self.sceneTitleTextField.delegate = self
+        addToolBar(textField: self.sceneTitleTextField)
+        if let scene = self.scene {
+            self.updateView(with: scene)
+        }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let _ = self.scene else {
+            createNewScene()
+            self.sceneTitleTextField.becomeFirstResponder()
+            return
+        }
+    }
+    
+    // MARK: UI Methods
+    
+    func updateView(with scene:Scene) {
+        self.sceneTitleTextField.text = scene.title
+        // TODO: update act and scene number
+    }
+    
+    func createNewScene() {
+        guard let screenplay = self.screenplay else { return }
+        switch self.act {
+            
+        case .one:
+           let scenesCount = screenplay.act1.scenes.count
+           let scene = Scene(title: "New Scene", sceneNumber: scenesCount+1)
+           self.scene = scene
+            self.screenplay?.act1.scenes.append(scene)
+        case .two:
+            let scenesCount = screenplay.act2.scenes.count
+            let scene = Scene(title: "New Scene", sceneNumber: scenesCount+1)
+            self.scene = scene
+            self.screenplay?.act2.scenes.append(scene)
+        case .three:
+            let scenesCount = screenplay.act3.scenes.count
+            let scene = Scene(title: "New Scene", sceneNumber: scenesCount+1)
+            self.scene = scene
+            self.screenplay?.act3.scenes.append(scene)
+        default:
+            break
+        }
+    }
+
     
     @IBAction func sceneTitleTextFieldChanged(_ sender: UITextField) {
-        self.title = sender.text
         self.scene?.title = sender.text ?? "New Scene"
     }
 
@@ -96,7 +141,6 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      
         return 80
     }
     
