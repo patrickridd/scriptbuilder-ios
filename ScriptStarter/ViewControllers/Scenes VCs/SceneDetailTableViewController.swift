@@ -116,7 +116,7 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         self.scene?.sceneNumber = sceneNumber
         
         if let scene = self.scene {
-            self.adjustSceneNumbers(for: scene, in: self.act)
+            SceneController.shared.adjustSceneNumbers(for: scene, in: self.act, with: self.screenplay)
             switch self.act {
             case .one:
                 self.screenplay?.act1.scenes.sort(by: {$0.sceneNumber < $1.sceneNumber })
@@ -309,40 +309,6 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         self.sceneNumberTextField.text = "\(scene.sceneNumber)"
     }
     
-    // MARK: Helper Methods
-    
-    func adjustSceneNumbers(for scene: Scene, in act: Act) {
-        guard let screenplay = self.screenplay else { return }
-        switch act {
-        case .one:
-            for otherScene in screenplay.act1.scenes {
-                if scene.uuid == otherScene.uuid { continue }
-                if otherScene.sceneNumber == scene.sceneNumber {
-                    otherScene.sceneNumber = scene.sceneNumber+1
-                    adjustSceneNumbers(for: otherScene, in: .one)
-                }
-            }
-        case .two:
-            for otherScene in screenplay.act2.scenes {
-                if scene.uuid == otherScene.uuid { continue }
-                if otherScene.sceneNumber == scene.sceneNumber {
-                    otherScene.sceneNumber = scene.sceneNumber+1
-                    adjustSceneNumbers(for: otherScene, in: .two)
-                }
-            }
-        case .three:
-            for otherScene in screenplay.act3.scenes {
-                if scene.uuid == otherScene.uuid { continue }
-                if otherScene.sceneNumber == scene.sceneNumber {
-                    otherScene.sceneNumber = scene.sceneNumber+1
-                    adjustSceneNumbers(for: otherScene, in: .three)
-                }
-            }
-        default:
-            break
-        }
-    }
-    
     
     // MARK: - UITextFieldDelegate
     
@@ -356,16 +322,6 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
