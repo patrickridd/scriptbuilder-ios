@@ -276,19 +276,6 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             return 60
         }
     }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        print("Hi")
-    }
-//    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        switch indexPath.section {
-//        case 0,1:
-//            break
-//        default:
-//           self.view.endEditing(true)
-//        }
-//    }
     
     // MARK: GADBannerViewDelegate Methods
     

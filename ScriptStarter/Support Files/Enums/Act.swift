@@ -27,6 +27,19 @@ enum Act: Int {
         }
     }
     
+    var firebaseTitle: String {
+        switch self {
+        case .idea:
+            return "idea"
+        case .one:
+            return "actOne"
+        case .two:
+            return "actTwo"
+        case .three:
+            return "actThree"
+        }
+    }
+    
     var sectionsTitles: [String] {
         var sectionTitles: [String] = []
         switch self {

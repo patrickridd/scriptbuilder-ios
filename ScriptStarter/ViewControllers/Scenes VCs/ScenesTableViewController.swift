@@ -167,29 +167,6 @@ class ScenesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
-
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-       
-        // We don't want cells with "Tap + to create a new Scene!" to be editable
-        switch indexPath.section {
-        case 0:
-            if screenplay?.act1.scenes.count == 0 {
-                return false
-            }
-        case 1:
-            if screenplay?.act2.scenes.count == 0 {
-                return false
-            }
-        case 2:
-            if screenplay?.act3.scenes.count == 0 {
-                return false
-            }
-        default:
-            break
-        }
-        return true
-    }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -253,18 +230,72 @@ class ScenesTableViewController: UITableViewController {
         }
         
     }
-    /*
+   
+    func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+
+    
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        
+        switch indexPath.section {
+        case 0: // Act 1
+            if let scene = self.screenplay?.act1.scenes[indexPath.row],
+                let screenplay = self.screenplay, editingStyle == .delete {
+               FirebaseController.shared.delete(scene: scene,withScreenplay: screenplay, inAct: .one)
+                self.screenplay?.act1.scenes.remove(at: indexPath.row)
+                
+                self.reloadTableView()
+            }
+        case 1: // Act 2
+            if let scene = self.screenplay?.act2.scenes[indexPath.row],
+                let screenplay = self.screenplay, editingStyle == .delete {
+                FirebaseController.shared.delete(scene: scene,withScreenplay: screenplay, inAct: .two)
+                
+                self.screenplay?.act2.scenes.remove(at: indexPath.row)
+                
+                self.reloadTableView()
+            }
+        case 2: // Act 3
+            if let scene = self.screenplay?.act3.scenes[indexPath.row],
+                let screenplay = self.screenplay, editingStyle == .delete {
+                  FirebaseController.shared.delete(scene: scene,withScreenplay: screenplay, inAct: .three)
+                
+                self.screenplay?.act3.scenes.remove(at: indexPath.row)
+                
+                self.reloadTableView()
+            }
+        default:
+            break
+        }
     }
-    */
 
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        // We don't want cells with "Tap + to create a new Scene!" to be editable
+        switch indexPath.section {
+        case 0:
+            if screenplay?.act1.scenes.count == 0 {
+                return false
+            }
+        case 1:
+            if screenplay?.act2.scenes.count == 0 {
+                return false
+            }
+        case 2:
+            if screenplay?.act3.scenes.count == 0 {
+                return false
+            }
+        default:
+            break
+        }
+        return true
+    }
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {

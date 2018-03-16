@@ -123,6 +123,14 @@ class FirebaseController {
         characterRef.removeValue()
     }
     
+    func delete(scene: Scene, withScreenplay: Screenplay, inAct: Act) {
+        guard let user = user else { return }
+        
+       let sceneRef = self.ref.child("users").child(user.uid).child("screenplays").child(withScreenplay.uuid).child(inAct.firebaseTitle).child("scenes").child(scene.uuid)
+        
+        sceneRef.removeValue()
+    }
+    
     func getScreenplays(completion: @escaping ([Screenplay])->Void) {
         guard let user = user else {
             completion([])
