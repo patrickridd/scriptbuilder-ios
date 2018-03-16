@@ -315,56 +315,6 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         self.tableView.endUpdates()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
        
-        guard let sceneDetailTVC = self.storyboard?.instantiateViewController(withIdentifier: "sceneDetailVC") as? SceneDetailTableViewController else {
-            return
-        }
-        
-        if segue.identifier == "sceneSegue" {
-            guard let indexPath = self.tableView.indexPathForSelectedRow else {
-                return
-            }
-    
-            var scene: Scene?
-            switch act {
-            case .one:
-                scene = self.screenplay?.act1.scenes[indexPath.row]
-            case .two:
-                scene = self.screenplay?.act2.scenes[indexPath.row]
-            case .three:
-                scene = self.screenplay?.act3.scenes[indexPath.row]
-            default:
-                break
-            }
-            sceneDetailTVC.scene = scene
-            sceneDetailTVC.act = self.act
-       
-        } else if segue.identifier == "newSceneSegue" {
-     
-            switch act  {
-            case .one:
-                guard let sceneCount = self.screenplay?.act1.scenes.count else { break }
-                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
-                self.screenplay?.act1.scenes.append(scene)
-                sceneDetailTVC.scene = scene
 
-            case .two:
-                guard let sceneCount = self.screenplay?.act2.scenes.count else { break }
-                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
-                self.screenplay?.act2.scenes.append(scene)
-                sceneDetailTVC.scene = scene
-
-            case .three:
-                guard let sceneCount = self.screenplay?.act3.scenes.count else { break }
-                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
-                self.screenplay?.act3.scenes.append(scene)
-                sceneDetailTVC.scene = scene
-            default:
-                break
-            }
-            
-            sceneDetailTVC.act = self.act
-        }
-    }
 }

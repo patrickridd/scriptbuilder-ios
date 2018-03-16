@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2104ADD1205C2A9A0086CC9F /* SceneNumberPopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD0205C2A9A0086CC9F /* SceneNumberPopTableViewController.swift */; };
 		21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */; };
 		21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099167201FD4CF00340124 /* SectionHeaderView.swift */; };
 		211215C5203652520039D6E8 /* BasicInfoCharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215C4203652510039D6E8 /* BasicInfoCharacterTableViewCell.swift */; };
@@ -94,6 +95,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2104ADD0205C2A9A0086CC9F /* SceneNumberPopTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneNumberPopTableViewController.swift; sourceTree = "<group>"; };
 		21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScreenplayCollectionViewCell.swift; sourceTree = "<group>"; };
 		21099167201FD4CF00340124 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		211215C4203652510039D6E8 /* BasicInfoCharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoCharacterTableViewCell.swift; sourceTree = "<group>"; };
@@ -208,6 +210,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2104ADCF205C2A6F0086CC9F /* Popovers */ = {
+			isa = PBXGroup;
+			children = (
+				2104ADD0205C2A9A0086CC9F /* SceneNumberPopTableViewController.swift */,
+			);
+			path = Popovers;
+			sourceTree = "<group>";
+		};
 		21099164201F8DFD00340124 /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,6 +414,7 @@
 			children = (
 				21AE274E205ADA5300C44A52 /* ScenesTableViewController.swift */,
 				21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */,
+				2104ADCF205C2A6F0086CC9F /* Popovers */,
 				21AE274D205ADA2000C44A52 /* TableViewCells */,
 			);
 			path = "Scenes VCs";
@@ -848,6 +859,7 @@
 				21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */,
 				21D727FD202E332300861C2D /* InformationPopTableViewCell.swift in Sources */,
 				2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */,
+				2104ADD1205C2A9A0086CC9F /* SceneNumberPopTableViewController.swift in Sources */,
 				218E8462203F379000D0D652 /* Scene.swift in Sources */,
 				21A7CF4B2023B02D00D97394 /* Character.swift in Sources */,
 				218E8460203E3D9500D0D652 /* NoCharacterTableViewCell.swift in Sources */,

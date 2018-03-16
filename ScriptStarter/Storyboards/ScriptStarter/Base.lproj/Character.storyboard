@@ -255,9 +255,9 @@
                                                     <rect key="frame" x="0.0" y="105.5" width="335" height="38.5"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="role" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5Vg-o2-u3g">
-                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="38.5"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="Bzi-0D-vod"/>
+                                                                <constraint firstAttribute="height" priority="750" constant="30" id="Bzi-0D-vod"/>
                                                             </constraints>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>

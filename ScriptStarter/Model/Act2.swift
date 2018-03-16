@@ -22,8 +22,19 @@ class Act2 {
     let burnTheBoatsKey = "burnTheBoats"
     let sharpeningTheSwordKey = "sharpeningTheSword"
     let scenesKey = "scenes"
-
-    var scenes: [Scene] = []
+    
+    var sceneSet: Set<Scene> = [] {
+        didSet {
+            self.scenes.append(contentsOf: sceneSet)
+        }
+    }
+    
+    var scenes: [Scene] = [] {
+        didSet {
+            self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
+        }
+    }
+    
     var newWorldDescription: String = ""
     var enemiesFriends: String = ""
     var obstacles: String = ""
@@ -73,12 +84,10 @@ class Act2 {
                 let scene = Scene(uuid: sceneKeyPair.key, sceneDictionary:sceneDictionary) else {
                     continue
             }
-            self.scenes.append(scene)
+            self.sceneSet.insert(scene)
         }
-        
-        self.scenes.sort { (scene1, scene2) -> Bool in
-            return scene1.sceneNumber < scene2.sceneNumber
-        }
+        self.scenes.append(contentsOf: sceneSet)
+        self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
     }
     
     var firActTwoDictionary: [String:Any] {

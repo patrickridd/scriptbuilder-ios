@@ -207,17 +207,26 @@
                                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert"/>
                                                             <connections>
                                                                 <action selector="sceneNumberTextField:" destination="I2G-hi-Ukd" eventType="editingDidEnd" id="roK-XL-KdR"/>
-                                                                <action selector="sceneNumberTextFieldChanged:" destination="SYB-4i-W3C" eventType="editingDidEnd" id="PLX-TP-sy2"/>
                                                             </connections>
                                                         </textField>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2F7-4I-AXp">
+                                                            <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
+                                                            <connections>
+                                                                <action selector="sceneNumberButtonTapped:" destination="SYB-4i-W3C" eventType="touchUpInside" id="j0t-6g-OEK"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="C4Z-ew-bdb" firstAttribute="leading" secondItem="3cf-o3-bmN" secondAttribute="leading" id="8TL-i2-Zei"/>
+                                                        <constraint firstItem="2F7-4I-AXp" firstAttribute="leading" secondItem="C4Z-ew-bdb" secondAttribute="leading" id="FF4-rF-yrn"/>
                                                         <constraint firstAttribute="height" constant="30" id="co8-nv-D21"/>
                                                         <constraint firstItem="C4Z-ew-bdb" firstAttribute="top" secondItem="3cf-o3-bmN" secondAttribute="top" id="eqK-V6-H6u"/>
+                                                        <constraint firstItem="2F7-4I-AXp" firstAttribute="top" secondItem="C4Z-ew-bdb" secondAttribute="top" id="fqx-dE-MFS"/>
                                                         <constraint firstAttribute="trailing" secondItem="C4Z-ew-bdb" secondAttribute="trailing" id="gbb-yc-zG1"/>
                                                         <constraint firstAttribute="bottom" secondItem="C4Z-ew-bdb" secondAttribute="bottom" id="leo-yR-ulZ"/>
+                                                        <constraint firstItem="2F7-4I-AXp" firstAttribute="trailing" secondItem="C4Z-ew-bdb" secondAttribute="trailing" id="thD-5C-uZJ"/>
+                                                        <constraint firstItem="2F7-4I-AXp" firstAttribute="bottom" secondItem="C4Z-ew-bdb" secondAttribute="bottom" id="yPp-qk-fBQ"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -282,7 +291,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VpM-Kn-McN" userLabel="headerTextFieldContainer">
                                                     <rect key="frame" x="0.0" y="32" width="196" height="30"/>
                                                     <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EXT. APARTMENT - NIGHT" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c4A-qY-A83">
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EXT. APARTMENT - NIGHT" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="c4A-qY-A83">
                                                             <rect key="frame" x="0.0" y="0.0" width="196" height="30"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -290,7 +299,10 @@
                                                             </constraints>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardAppearance="alert"/>
+                                                            <connections>
+                                                                <action selector="sceneHeadingTextFieldChanged:" destination="SYB-4i-W3C" eventType="editingDidEnd" id="i65-8i-d95"/>
+                                                            </connections>
                                                         </textField>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -394,7 +406,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="RYq-2B-Ae4">
                         <nil key="title"/>
-                        <textField key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Scene Title" textAlignment="center" minimumFontSize="17" id="3To-7T-LVO">
+                        <textField key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Scene Title" textAlignment="center" minimumFontSize="12" id="3To-7T-LVO">
                             <rect key="frame" x="140.5" y="7" width="100" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
@@ -416,6 +428,9 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="sceneActNumberTextField" destination="C4Z-ew-bdb" id="nPQ-3h-okt"/>
+                        <outlet property="sceneHeaderTextField" destination="c4A-qY-A83" id="SQj-oV-i8i"/>
+                        <outlet property="sceneNumberTextField" destination="e6O-QO-QeF" id="4sy-1c-aen"/>
                         <outlet property="sceneTitleTextField" destination="3To-7T-LVO" id="Qlf-4A-a11"/>
                     </connections>
                 </tableViewController>

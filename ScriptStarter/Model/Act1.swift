@@ -20,7 +20,18 @@ class Act1 {
     let enemyAtTheGatesKey = "enemyAtTheGates"
     let scenesKey = "scenes"
     
-    var scenes: [Scene] = []
+    var sceneSet: Set<Scene> = [] {
+        didSet {
+            self.scenes.append(contentsOf: sceneSet)
+        }
+    }
+    
+    var scenes: [Scene] = [] {
+        didSet {
+            self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
+        }
+    }
+    
     var oldWorldDescription: String = "" // 1
     var incitingIncident: String = "" // 2
     var callToAdventure: String = "" // 3
@@ -29,7 +40,9 @@ class Act1 {
     var reasonToAdventure: String = "" // 6
     var enemyAtTheGates: String = "" // 7
     
-    init() {}
+    init() {
+        self.sceneSet = []
+    }
     
     init?(actOneDict: [String:Any]) {
         guard let oldWorldDescription = actOneDict[oldWorldDescriptionKey] as? String,
@@ -59,12 +72,10 @@ class Act1 {
                 let scene = Scene(uuid: sceneKeyPair.key, sceneDictionary:sceneDictionary) else {
                     continue
             }
-            self.scenes.append(scene)
+            self.sceneSet.insert(scene)
         }
-        
-        self.scenes.sort { (scene1, scene2) -> Bool in
-            return scene1.sceneNumber < scene2.sceneNumber
-        }
+        self.scenes.append(contentsOf: sceneSet)
+        self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
     }
     
     var firActOneDictionary: [String:Any] {

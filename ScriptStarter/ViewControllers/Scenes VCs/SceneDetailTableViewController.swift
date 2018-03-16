@@ -9,9 +9,13 @@
 import UIKit
 import Firebase
 
-class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate {
+class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate, UIPopoverPresentationControllerDelegate, SceneActSelected {
 
     @IBOutlet weak var sceneTitleTextField: UITextField!
+    @IBOutlet weak var sceneNumberTextField: UITextField!
+    @IBOutlet weak var sceneHeaderTextField: UITextField!
+    
+    @IBOutlet weak var sceneActNumberTextField: UITextField!
     
     var scene: Scene?
     
@@ -59,17 +63,17 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
            let scenesCount = screenplay.act1.scenes.count
            let scene = Scene(title: "New Scene", sceneNumber: scenesCount+1)
            self.scene = scene
-            self.screenplay?.act1.scenes.append(scene)
+            self.screenplay?.act1.sceneSet.insert(scene)
         case .two:
             let scenesCount = screenplay.act2.scenes.count
             let scene = Scene(title: "New Scene", sceneNumber: scenesCount+1)
             self.scene = scene
-            self.screenplay?.act2.scenes.append(scene)
+            self.screenplay?.act2.sceneSet.insert(scene)
         case .three:
             let scenesCount = screenplay.act3.scenes.count
             let scene = Scene(title: "New Scene", sceneNumber: scenesCount+1)
             self.scene = scene
-            self.screenplay?.act3.scenes.append(scene)
+            self.screenplay?.act3.sceneSet.insert(scene)
         default:
             break
         }
@@ -85,6 +89,36 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         
         self.scene?.sceneNumber = sceneNumber
     }
+    
+    @IBAction func sceneHeadingTextFieldChanged(_ sender: UITextField) {
+        if let newHeaderText = sender.text {
+            self.scene?.header = newHeaderText
+        }
+    }
+    
+    @IBAction func sceneNumberButtonTapped(_ sender: UIButton) {
+        
+        guard let sceneNumberTVC = self.storyboard?.instantiateViewController(withIdentifier: "rolePopoverTVC") as? SceneNumberPopTableViewController else { return }
+        sceneNumberTVC.modalPresentationStyle = .popover // So it knows to present it as a popover
+        
+        // Access the popController instance and configure its settings
+        let popController = sceneNumberTVC.popoverPresentationController
+        popController?.permittedArrowDirections = [.up,.down] // allow arrow to go both .up and .down
+        popController?.delegate = self
+        popController?.backgroundColor = .white // Makes the arrow white
+        sceneNumberTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
+        popController?.sourceView = sender
+        popController?.sourceRect = sender.bounds
+        
+        sceneNumberTVC.delegate = self // SceneActSelected protocol
+        
+        // change size of view controller to the size of my three cells.
+        let contentHeightSize = (Role.count+1) * 40
+        sceneNumberTVC.preferredContentSize = CGSize(width: self.view.bounds.width, height: CGFloat(contentHeightSize))
+        
+        self.present(sceneNumberTVC, animated: true, completion: nil)
+    }
+    
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         self.saveScreenplay()
@@ -173,47 +207,56 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
             self.tableView.endUpdates()
         }
     }
+    
 
+    // MARK: - SceneActSelected Methods
+    
+    func selected(newAct: Act) {
+        guard let scene = self.scene else { return }
+        
+        // Remove scene from old act
+        switch self.act {
+        case .one:
+            self.screenplay?.act1.sceneSet.remove(scene)
+        case .two:
+            self.screenplay?.act2.sceneSet.remove(scene)
+        case .three:
+            self.screenplay?.act3.sceneSet.remove(scene)
+        default:
+            break
+        }
+        
+        // Add scene into newAct
+        switch newAct {
+        case .one:
+            self.screenplay?.act1.sceneSet.insert(scene)
+        case .two:
+            self.screenplay?.act2.sceneSet.insert(scene)
+        case .three:
+            self.screenplay?.act3.sceneSet.insert(scene)
+        default:
+            break
+        }
+        
+        // Set selected newAct
+        self.act = newAct
+        
+        self.sceneActNumberTextField.text = act.rawValue+1
+    }
+    
     
     // MARK: - UITextFieldDelegate
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    // MARK: UIPopoverPresentationControllerDelegate Methods
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation
@@ -225,4 +268,8 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     }
     */
 
+}
+
+protocol SceneActSelected: class {
+    func selected(newAct:Act)
 }

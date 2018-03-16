@@ -17,7 +17,19 @@ class Act3 {
     let brandNewWorldKey = "brandNewWorld"
     let scenesKey = "scenes"
 
-    var scenes: [Scene] = []
+    var sceneSet: Set<Scene> = [] {
+        didSet {
+            self.scenes.append(contentsOf: sceneSet)
+        }
+    }
+    
+    // Sorts scenes by sceneNumber whenever it changes
+    var scenes: [Scene] = [] {
+        didSet {
+            self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
+        }
+    }
+    
     var theUltimateAnswer: String = ""
     var rewards: String = ""
     var untangleStory: String = ""
@@ -39,18 +51,16 @@ class Act3 {
         guard let sceneDictionaryArray = actThreeDict[self.scenesKey] as? [String:Any] else {
             return
         }
-        
+
         for sceneKeyPair in sceneDictionaryArray {
             guard let sceneDictionary = sceneKeyPair.value as? [String:Any],
                 let scene = Scene(uuid: sceneKeyPair.key, sceneDictionary:sceneDictionary) else {
                     continue
             }
-            self.scenes.append(scene)
+            self.sceneSet.insert(scene)
         }
-        
-        self.scenes.sort { (scene1, scene2) -> Bool in
-            return scene1.sceneNumber < scene2.sceneNumber
-        }
+        self.scenes.append(contentsOf: sceneSet)
+        self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
     }
     
     var firActThreeDictionary: [String:Any] {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Scene {
+class Scene: Hashable, Equatable {
     
     let uuidKey = "uuid"
     let headerKey = "header"
@@ -32,6 +32,14 @@ class Scene {
     var characters: String = ""
     var howPushesStory: String = ""
     var notes: String = ""
+    
+    var hashValue: Int {
+        return self.uuid.hashValue
+    }
+    
+    static func ==(lhs: Scene, rhs: Scene) -> Bool {
+        return lhs.uuid == rhs.uuid
+    }
     
     init(title: String, sceneNumber: Int) {
         self.title = title

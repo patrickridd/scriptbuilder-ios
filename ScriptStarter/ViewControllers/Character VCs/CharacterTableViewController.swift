@@ -151,7 +151,6 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
             self.screenplay?.characters.remove(at: indexPath.row)
             reloadTableView()
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
