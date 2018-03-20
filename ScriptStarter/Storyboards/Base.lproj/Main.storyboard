@@ -146,9 +146,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cork_closeup.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="iQR-W5-PGv">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Poz-sJ-et2">
                                 <rect key="frame" x="20" y="94" width="335" height="573"/>
-                                <color key="backgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uHu-ae-2aW">
                                     <size key="itemSize" width="70" height="90"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -245,9 +248,13 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="iQR-W5-PGv" firstAttribute="leading" secondItem="wYn-3u-p0b" secondAttribute="leading" id="8Vg-n7-Imz"/>
+                            <constraint firstItem="wYn-3u-p0b" firstAttribute="bottom" secondItem="iQR-W5-PGv" secondAttribute="bottom" id="F1O-zb-lsc"/>
+                            <constraint firstItem="wYn-3u-p0b" firstAttribute="trailing" secondItem="iQR-W5-PGv" secondAttribute="trailing" id="Iab-Xr-Slv"/>
                             <constraint firstItem="Poz-sJ-et2" firstAttribute="top" secondItem="wYn-3u-p0b" secondAttribute="top" constant="30" id="MWT-7k-gyJ"/>
+                            <constraint firstItem="iQR-W5-PGv" firstAttribute="top" secondItem="wYn-3u-p0b" secondAttribute="top" id="RYy-Fs-lyJ"/>
                             <constraint firstItem="Poz-sJ-et2" firstAttribute="leading" secondItem="wYn-3u-p0b" secondAttribute="leading" constant="20" id="aHG-VH-PXv"/>
                             <constraint firstItem="wYn-3u-p0b" firstAttribute="trailing" secondItem="Poz-sJ-et2" secondAttribute="trailing" constant="20" id="dwZ-l5-t0S"/>
                             <constraint firstItem="wYn-3u-p0b" firstAttribute="bottom" secondItem="Poz-sJ-et2" secondAttribute="bottom" id="qyd-b8-0y7"/>
@@ -814,6 +821,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Cork_closeup.jpg" width="5184" height="3456"/>
         <image name="blueTrashCanAsset 1" width="21" height="27"/>
         <image name="downArrowButtonAsset 1" width="20" height="12"/>
         <image name="facebookButtonIcon" width="100" height="100"/>

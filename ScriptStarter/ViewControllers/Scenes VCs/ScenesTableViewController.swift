@@ -16,11 +16,116 @@ class ScenesTableViewController: UITableViewController {
         setupNavigationBar()
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
+        
+//        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(gestureRecognizer:)))
+//        tableView.addGestureRecognizer(longpress)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reloadTableView()
+    }
+    
+    @objc func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+        guard let longPress = gestureRecognizer as? UILongPressGestureRecognizer else { return }
+        
+        let state = longPress.state
+        let locationInView = longPress.location(in: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: locationInView), let screenplay = self.screenplay else { return }
+        
+        struct My {
+            static var cellSnapshot : UIView? = nil
+        }
+        struct Path {
+            static var initialIndexPath : IndexPath? = nil
+        }
+        
+        switch state {
+        case UIGestureRecognizerState.began:
+            Path.initialIndexPath = indexPath
+            guard let cell = tableView.cellForRow(at: indexPath) else { return }
+            My.cellSnapshot  = snapshopOfCell(inputView: cell)
+            var center = cell.center
+            My.cellSnapshot?.center = center
+            My.cellSnapshot?.alpha = 0.0
+            if let cellSnapShot = My.cellSnapshot {
+                self.tableView.addSubview(cellSnapShot)
+            }
+            
+            UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                center.y = locationInView.y
+                My.cellSnapshot?.center = center
+                My.cellSnapshot?.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                My.cellSnapshot?.alpha = 0.98
+                cell.alpha = 0.0
+                
+            }, completion: { (finished) -> Void in
+                if finished {
+                    cell.isHidden = true
+                }
+            })
+        case UIGestureRecognizerState.changed:
+            var center = My.cellSnapshot?.center
+            center?.y = locationInView.y
+            if let center = center {
+                My.cellSnapshot?.center = center
+            }
+            guard let initialIndexPath = Path.initialIndexPath else { return }
+            switch indexPath.section {
+            case 0: // Act 1
+                if (indexPath != initialIndexPath) {
+                    swap(&screenplay.act1.scenes[indexPath.row], &screenplay.act1.scenes[initialIndexPath.row])
+                    tableView.moveRow(at: initialIndexPath, to: indexPath)
+                    Path.initialIndexPath = indexPath
+                }
+            case 1: // Act 2
+                if (indexPath != initialIndexPath) {
+                    swap(&screenplay.act2.scenes[indexPath.row], &screenplay.act2.scenes[initialIndexPath.row])
+                    tableView.moveRow(at: initialIndexPath, to: indexPath)
+                    Path.initialIndexPath = indexPath
+                }
+            case 2: // Act 3
+                if (indexPath != initialIndexPath) {
+                    swap(&screenplay.act3.scenes[indexPath.row], &screenplay.act3.scenes[initialIndexPath.row])
+                    tableView.moveRow(at: initialIndexPath, to: indexPath)
+                    Path.initialIndexPath = indexPath
+                }
+                
+            default:
+                guard let initialIndexPath = Path.initialIndexPath, let cell = tableView.cellForRow(at: initialIndexPath) else { return }
+                cell.isHidden = false
+                cell.alpha = 0.0
+                UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                    My.cellSnapshot?.center = cell.center
+                    My.cellSnapshot?.transform = CGAffineTransform.identity
+                    My.cellSnapshot?.alpha = 0.0
+                    cell.alpha = 1.0
+                }, completion: { (finished) -> Void in
+                    if finished {
+                        Path.initialIndexPath = nil
+                        My.cellSnapshot?.removeFromSuperview()
+                        My.cellSnapshot = nil
+                    }
+                })
+            }
+        default:
+            break
+        }
+    }
+    
+    
+    func snapshopOfCell(inputView: UIView) -> UIView {
+        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0.0)
+        inputView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        let cellSnapshot : UIView = UIImageView(image: image)
+        cellSnapshot.layer.masksToBounds = false
+        cellSnapshot.layer.cornerRadius = 0.0
+        cellSnapshot.layer.shadowOffset = CGSize.init(width:-5.0,height:0.0)
+        cellSnapshot.layer.shadowRadius = 5.0
+        cellSnapshot.layer.shadowOpacity = 0.4
+        return cellSnapshot
     }
     
     // MARK: - UI Methods

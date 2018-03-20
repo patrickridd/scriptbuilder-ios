@@ -30,9 +30,12 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         super.viewDidLoad()
         
         // Remove Navigation bar shadow and borderline
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        
+        //self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+       // self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.backgroundColor = UIColor.screenMediumGray
+       // self.view.backgroundColor = UIColor.screenDark
+       // self.collectionView.backgroundColor = UIColor.screenDark
         getScreenplays()
         
         // Set Google Analytics Screen Name
@@ -47,7 +50,6 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "Script Builder"
-
         self.collectionView.reloadData()
     }
     
@@ -81,7 +83,6 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
             // TODO: Set screenplay object if it exists
             self.isHeroEnabled = true
             self.heroModalAnimationType = .selectBy(presenting:.zoom, dismissing:.zoomOut)
-    
         }
     }
     
