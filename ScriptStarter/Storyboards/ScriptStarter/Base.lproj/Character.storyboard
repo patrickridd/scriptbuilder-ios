@@ -13,7 +13,6 @@
     </dependencies>
     <customFonts key="customFonts">
         <array key="Avenir.ttc">
-            <string>Avenir-Book</string>
             <string>Avenir-Light</string>
             <string>Avenir-Medium</string>
         </array>
@@ -28,38 +27,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="characterCell" rowHeight="100" id="w7u-E9-g5a" customClass="CharacterTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="100"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="characterCell" rowHeight="80" id="w7u-E9-g5a" customClass="CharacterTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w7u-E9-g5a" id="Ts9-l5-VDL">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Klz-20-wAo">
-                                            <rect key="frame" x="16" y="11" width="84" height="57"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4JR-Ua-JBr">
+                                            <rect key="frame" x="15" y="16.5" width="99" height="47"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BLI-K9-35X">
-                                                    <rect key="frame" x="0.0" y="0.0" width="84" height="23.5"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
-                                                    <color key="textColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="nameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BLI-K9-35X">
+                                                    <rect key="frame" x="0.0" y="0.0" width="99" height="27.5"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
+                                                    <color key="textColor" red="0.30201110240000001" green="0.3016212881" blue="0.32549369340000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="roleLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1G-dk-cTa">
-                                                    <rect key="frame" x="0.0" y="33.5" width="84" height="23.5"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                                                    <color key="textColor" red="0.91683381799999997" green="0.50432455539999999" blue="0.3097268641" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="intentionLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wJ-LW-8hM">
+                                                    <rect key="frame" x="0.0" y="27.5" width="99" height="19.5"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="14"/>
+                                                    <color key="textColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="intentionLabel" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wJ-LW-8hM">
-                                            <rect key="frame" x="16" y="73" width="343" height="23.5"/>
-                                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
-                                            <color key="textColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqU-aH-sP4">
-                                            <rect key="frame" x="335" y="29.5" width="40" height="40"/>
+                                            <rect key="frame" x="335" y="20" width="40" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="40" id="PKp-c4-EAO"/>
                                                 <constraint firstAttribute="height" constant="40" id="agm-s2-fxO"/>
@@ -68,24 +61,20 @@
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="2wJ-LW-8hM" firstAttribute="top" secondItem="Klz-20-wAo" secondAttribute="bottom" constant="5" id="6iP-hN-hot"/>
+                                        <constraint firstItem="4JR-Ua-JBr" firstAttribute="centerY" secondItem="Ts9-l5-VDL" secondAttribute="centerY" id="AE0-v2-nyr"/>
                                         <constraint firstAttribute="trailing" secondItem="fqU-aH-sP4" secondAttribute="trailing" id="AzE-HC-837"/>
-                                        <constraint firstItem="Klz-20-wAo" firstAttribute="leading" secondItem="Ts9-l5-VDL" secondAttribute="leadingMargin" id="VXt-Km-VTH"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="2wJ-LW-8hM" secondAttribute="trailing" id="Zvn-Zu-lYe"/>
                                         <constraint firstItem="fqU-aH-sP4" firstAttribute="centerY" secondItem="Ts9-l5-VDL" secondAttribute="centerY" id="csl-Kg-VKB"/>
-                                        <constraint firstItem="2wJ-LW-8hM" firstAttribute="leading" secondItem="Ts9-l5-VDL" secondAttribute="leadingMargin" id="jlc-Y3-2jN"/>
-                                        <constraint firstItem="Klz-20-wAo" firstAttribute="top" secondItem="Ts9-l5-VDL" secondAttribute="topMargin" id="yhx-xK-hl1"/>
+                                        <constraint firstItem="4JR-Ua-JBr" firstAttribute="leading" secondItem="Ts9-l5-VDL" secondAttribute="leading" constant="15" id="xTQ-JV-Klp"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="intentionLabel" destination="2wJ-LW-8hM" id="8uL-U4-gKI"/>
                                     <outlet property="nameLabel" destination="BLI-K9-35X" id="l64-do-qx0"/>
-                                    <outlet property="roleLabel" destination="w1G-dk-cTa" id="92z-qx-QfF"/>
                                     <segue destination="40X-hD-gqv" kind="show" identifier="characterSegue" id="TcK-3r-DYL"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="noCharacterCell" rowHeight="90" id="NvM-6O-qjl" customClass="NoCharacterTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="155.5" width="375" height="90"/>
+                                <rect key="frame" x="0.0" y="135.5" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NvM-6O-qjl" id="0CQ-KN-Twm">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>

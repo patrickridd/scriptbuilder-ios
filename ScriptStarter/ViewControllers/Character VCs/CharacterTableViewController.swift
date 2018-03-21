@@ -116,11 +116,12 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.screenplay?.characters.count == 0 {
-            return 80
-        } else {
-            return 100
-        }
+        return 80
+//        if self.screenplay?.characters.count == 0 {
+//            return 80
+//        } else {
+//            return 100
+//        }
     }
     
     
