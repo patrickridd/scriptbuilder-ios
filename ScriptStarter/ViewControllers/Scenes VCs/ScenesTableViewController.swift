@@ -13,6 +13,10 @@ class ScenesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(sender:)))
+        rightSwipe.direction = .right
+        view.addGestureRecognizer(rightSwipe)
+
         setupNavigationBar()
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor

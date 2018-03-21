@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2101F34E20619442003A90A4 /* Cork_closeup.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2101F34D20619442003A90A4 /* Cork_closeup.jpg */; };
+		2101F3532061E944003A90A4 /* CharacterTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2101F3522061E944003A90A4 /* CharacterTableViewSection.swift */; };
 		2104ADD5205C60080086CC9F /* SceneActNumberPopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD4205C60080086CC9F /* SceneActNumberPopTableViewController.swift */; };
 		2104ADD7205C60CB0086CC9F /* ActNumberPopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD6205C60CB0086CC9F /* ActNumberPopTableViewCell.swift */; };
 		2104ADD9205C7F270086CC9F /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD8205C7F270086CC9F /* SceneController.swift */; };
@@ -99,6 +100,7 @@
 
 /* Begin PBXFileReference section */
 		2101F34D20619442003A90A4 /* Cork_closeup.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Cork_closeup.jpg; sourceTree = "<group>"; };
+		2101F3522061E944003A90A4 /* CharacterTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewSection.swift; sourceTree = "<group>"; };
 		2104ADD4205C60080086CC9F /* SceneActNumberPopTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneActNumberPopTableViewController.swift; sourceTree = "<group>"; };
 		2104ADD6205C60CB0086CC9F /* ActNumberPopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActNumberPopTableViewCell.swift; sourceTree = "<group>"; };
 		2104ADD8205C7F270086CC9F /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
@@ -216,6 +218,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2101F34F2061E6A2003A90A4 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				2101F3522061E944003A90A4 /* CharacterTableViewSection.swift */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
 		2104ADCF205C2A6F0086CC9F /* Popovers */ = {
 			isa = PBXGroup;
 			children = (
@@ -484,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				2101F34D20619442003A90A4 /* Cork_closeup.jpg */,
+				2101F34F2061E6A2003A90A4 /* Structs */,
 				210C7612202B83D3003EEC16 /* Classes */,
 				210C7613202B83FF003EEC16 /* Enums */,
 				210C7611202B83BC003EEC16 /* Extensions */,
@@ -881,6 +892,7 @@
 				21A7CF64202A672100D97394 /* Act1.swift in Sources */,
 				21E661BF2017C236006A14AF /* OutlineTableViewController.swift in Sources */,
 				21A7CF66202A67D600D97394 /* Act2.swift in Sources */,
+				2101F3532061E944003A90A4 /* CharacterTableViewSection.swift in Sources */,
 				21D727F4202E0D1A00861C2D /* SectionHeaderSubtitle.swift in Sources */,
 				21E661C820192E66006A14AF /* SignUpViewController.swift in Sources */,
 				21D727FB202E32D500861C2D /* InformationPopTableViewController.swift in Sources */,

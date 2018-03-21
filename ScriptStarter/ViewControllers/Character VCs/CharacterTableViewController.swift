@@ -21,10 +21,19 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         return adBannerView
     }()
     
+    var roleCharacterSections: [CharacterTableViewSection] = [] {
+        didSet {
+            self.reloadTableView()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //  tableView.tableFooterView = UIView(frame: .zero)
         
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(sender:)))
+        rightSwipe.direction = .right
+        view.addGestureRecognizer(rightSwipe)
+
         // Set Google Analytics Screen Name
         Analytics.setScreenName("CharacterTableView", screenClass: "CharacterTableViewController")
     }
@@ -36,6 +45,7 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         self.tableView.reloadData()
         setupNavigationBar()
         adBannerView.load(GADRequest())
+        setupRoleSections()
     }
     
     // MARK: UI Methods
@@ -83,36 +93,70 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         print(error)
     }
 
+    // MARK: - Data Source helper methods
+    
+    func setupRoleSections() {
+        guard let screenplay = screenplay else { return }
+        
+        var characterTableViewSections: Set<CharacterTableViewSection> = []
+        
+        // Avoid duplicate role titles
+        for character in screenplay.characters {
+            if let role = character.role {
+                let roleCharacters = self.screenplay?.characters.filter({$0.role == role})
+                let characterSection = CharacterTableViewSection(roleTitle: role, characters: roleCharacters ?? [])
+                characterTableViewSections.insert(characterSection)
+            } else {
+                let noRoleCharacters = screenplay.characters.filter({ $0.role == nil })
+                let noRoleCharacterSection = CharacterTableViewSection(roleTitle: "Character", characters: noRoleCharacters)
+                characterTableViewSections.insert(noRoleCharacterSection)
+            }
+        }
+        
+        var orderedCharacterSections: [CharacterTableViewSection] = []
+        orderedCharacterSections.append(contentsOf: characterTableViewSections)
+        orderedCharacterSections.sort(by: {$0.roleTitle < $1.roleTitle})
+        
+        self.roleCharacterSections = orderedCharacterSections
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if roleCharacterSections.count == 0 {
+            return 1
+        } else {
+              return self.roleCharacterSections.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if screenplay?.characters.count == 0 {
+        
+        if roleCharacterSections.count == 0 {
             return 1
         } else {
-            return self.screenplay?.characters.count ?? 0
+            
+        let roleCharacterSection = self.roleCharacterSections[section]
+            return roleCharacterSection.characters.count
         }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if screenplay?.characters.count == 0 {
+      
+        if roleCharacterSections.count == 0 {
             guard let noCharacterCell = tableView.dequeueReusableCell(withIdentifier: "noCharacterCell", for: indexPath) as? NoCharacterTableViewCell else {
                 return UITableViewCell()
             }
             return noCharacterCell
-        }
-        
-        guard let characterCell = tableView.dequeueReusableCell(withIdentifier: "characterCell", for: indexPath) as? CharacterTableViewCell else { return UITableViewCell() }
-        
-        // Configure the cell...
-        if let character = screenplay?.characters[indexPath.row] {
+        } else {
+            guard let characterCell = tableView.dequeueReusableCell(withIdentifier: "characterCell", for: indexPath) as? CharacterTableViewCell else { return UITableViewCell() }
+            
+            // Configure the cell...
+            let character = self.roleCharacterSections[indexPath.section].characters[indexPath.row]
             characterCell.updateCell(with: character)
+            
+            return characterCell
         }
-        
-        return characterCell
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -126,36 +170,66 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
     
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
-        header.contentView.backgroundColor = UIColor.screenLightGray
-        header.moreButton.isHidden = true
-        header.sectionLabel.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: 5).isActive = true
-        header.navigationButton.isEnabled = false
-        let font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        header.sectionLabel.font = font
-        header.sectionLabel.text = "Characters"
-        //header.subtitleLabel.text = "Character Arc"
-        
-        return header
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if let character = self.screenplay?.characters[indexPath.row],
-            let screenplay = self.screenplay, editingStyle == .delete {
-            FirebaseController.shared.delete(character: character, withScreenplay: screenplay)
+      
+        if self.roleCharacterSections.count == 0 {
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
+            header.contentView.backgroundColor = UIColor.screenLightGray
+            header.moreButton.isHidden = true
+            header.sectionLabel.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: 5).isActive = true
+            header.navigationButton.isEnabled = false
+            let font = UIFont.systemFont(ofSize: 16, weight: .bold)
+            header.sectionLabel.font = font
+            header.sectionLabel.text = "Characters"
+            header.sectionLabel.textColor = UIColor.screenDarkGray
+            //header.subtitleLabel.text = "Character Arc"
             
-            self.screenplay?.characters.remove(at: indexPath.row)
-            reloadTableView()
+            return header
+    
+        } else {
+            // Get Role title section
+            let roleTitle = self.roleCharacterSections[section].roleTitle
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
+            header.contentView.backgroundColor = UIColor.screenLightGray
+            header.moreButton.isHidden = true
+            header.sectionLabel.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: 5).isActive = true
+            header.navigationButton.isEnabled = false
+            let font = UIFont.systemFont(ofSize: 16, weight: .bold)
+            
+            header.sectionLabel.font = font
+            header.sectionLabel.textColor = UIColor.flamenco
+            header.sectionLabel.text = roleTitle
+            return header
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard let screenplay = self.screenplay else { return }
+        
+        let character = self.roleCharacterSections[indexPath.section].characters[indexPath.row]
+        
+        FirebaseController.shared.delete(character: character, withScreenplay: screenplay)
+        
+        var charIndex: Int = 0
+        for possibleCharacter in screenplay.characters {
+            if character.uuid == possibleCharacter.uuid {
+                self.screenplay?.characters.remove(at: charIndex)
+            }
+            charIndex += 1
+        }
+        
+    self.roleCharacterSections[indexPath.section].characters.remove(at: indexPath.row)
+        if roleCharacterSections[indexPath.section].characters.count == 0 {
+            self.roleCharacterSections.remove(at: indexPath.section)
+        }
+        
+    }
+    
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        if indexPath.row == 0 && screenplay?.characters.count == 0 {
+        if indexPath.row == 0 && self.roleCharacterSections.count == 0 {
             return .none
         } else {
             return .delete
@@ -178,10 +252,10 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         if segue.identifier == "newCharacterSegue" {
            
         } else if segue.identifier == "characterSegue" {
-            guard let indexPath = self.tableView.indexPathForSelectedRow,
-                let character = self.screenplay?.characters[indexPath.row] else {
+            guard let indexPath = self.tableView.indexPathForSelectedRow else {
                 return
             }
+             let character = self.roleCharacterSections[indexPath.section].characters[indexPath.row]
             characterDetailVC.character = character
         }
     }
