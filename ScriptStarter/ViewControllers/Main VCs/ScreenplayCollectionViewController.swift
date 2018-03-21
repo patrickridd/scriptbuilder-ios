@@ -30,12 +30,14 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         super.viewDidLoad()
         
         // Remove Navigation bar shadow and borderline
-        //self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-       // self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.backgroundColor = UIColor.screenMediumGray
-       // self.view.backgroundColor = UIColor.screenDark
-       // self.collectionView.backgroundColor = UIColor.screenDark
+   // self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+   //  self.navigationController?.navigationBar.shadowImage = UIImage()
+        //self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.backgroundColor = .white
+        
+      //  self.navigationController?.navigationBar.backgroundColor = UIColor.clear
+       // self.view.backgroundColor = UIColor.groupTableViewBackground
+        //self.collectionView.backgroundColor = UIColor.groupTableViewBackground
         getScreenplays()
         
         // Set Google Analytics Screen Name

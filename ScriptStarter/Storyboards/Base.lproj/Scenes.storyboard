@@ -87,7 +87,21 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dap-aA-tQg" userLabel="noScenesLabel">
                                             <rect key="frame" x="8" y="19" width="359" height="21"/>
                                             <attributedString key="attributedText">
-                                                <fragment content="Tap + to create a new Scene!">
+                                                <fragment content="Tap ">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.30201110240000001" green="0.3016212881" blue="0.32549369340000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <font key="NSFont" metaFont="system" size="17"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment content="+">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <font key="NSFont" metaFont="system" size="17"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment content=" to create a new Scene!">
                                                     <attributes>
                                                         <color key="NSColor" red="0.30201110240000001" green="0.3016212881" blue="0.32549369340000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <font key="NSFont" metaFont="system" size="17"/>
@@ -139,7 +153,7 @@
         <scene sceneID="Eay-4h-nw0">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rz7-tI-DoV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="scenes" image="storyboardIconAsset 1" selectedImage="storyboardIconAsset 1" id="2bg-Jp-ZzV">
+                    <tabBarItem key="tabBarItem" title="scenes" image="filmStripTabIconBlackAsset 2" selectedImage="filmStripTabIconBlackAsset 2" id="2bg-Jp-ZzV">
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -474,7 +488,7 @@
     </scenes>
     <resources>
         <image name="expandButtonAsset 3" width="15" height="15"/>
+        <image name="filmStripTabIconBlackAsset 2" width="20" height="23"/>
         <image name="rightArrowButtonAsset 1" width="11" height="18"/>
-        <image name="storyboardIconAsset 1" width="20" height="20"/>
     </resources>
 </document>
