@@ -55,6 +55,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         // Set Google Analytics Screen Name
         Analytics.setScreenName("Login", screenClass: "LoginViewController")
         
+        addToolBar(textField: self.emailTextField)
+        addToolBar(textField: self.passwordTextField)
     }
     
     // MARK: IBActions/Target methods
