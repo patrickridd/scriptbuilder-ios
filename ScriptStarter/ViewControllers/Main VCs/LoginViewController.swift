@@ -107,6 +107,27 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         UIApplication.shared.keyWindow?.rootViewController = signUpVC
     }
     
+    @IBAction func forgotPasswordTapped(_ sender: Any) {
+        guard let email = self.emailTextField.text else {
+            return
+        }
+        
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            // If error exists Alert User
+            if let error = error {
+                self.present(UIAlertControllers.emailAuthenticationError(message: error.localizedDescription), animated: true, completion: {
+                    self.emailTextField.becomeFirstResponder()
+                })
+            // Else let user know the password was reset
+            } else {
+                self.present(UIAlertControllers.passwordResetSuccess(email: email), animated: true, completion: {
+                    self.passwordTextField.becomeFirstResponder()
+                })
+            }
+        }
+    }
+    
+    
     // MARK: GIDSignInDelegate Methods
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
