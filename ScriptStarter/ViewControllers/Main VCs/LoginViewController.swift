@@ -21,7 +21,11 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var loginButton: UIButton!
+    
+    @IBOutlet weak var activityIndicatorContainerView: UIView!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -59,17 +63,35 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         addToolBar(textField: self.passwordTextField)
     }
     
+    
+    // MARK: UI Methods
+    
+    func showActivityIndicator() {
+        self.activityIndicatorContainerView.isHidden = false
+        self.activityIndicator.isAnimating
+         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func hideActivityIndicator() {
+        self.activityIndicatorContainerView.isHidden = true
+        self.activityIndicator.stopAnimating()
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
     // MARK: IBActions/Target methods
     
     @objc func facebookButtonTapped() {
         let loginManager = LoginManager()
-        loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { loginResult in
+        showActivityIndicator()
+        loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { [weak self] loginResult in
                 switch loginResult {
                 case .failed(let error):
+                    self?.hideActivityIndicator()
                     #if DEBUG
                         print(error)
                     #endif
                 case .cancelled:
+                    self?.hideActivityIndicator()
                     #if DEBUG
                         print("User cancelled login.")
                     #endif
@@ -79,8 +101,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                     #endif
                     // Login with Firebase
                     let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString )
-                    Auth.auth().signIn(with: credential) { (user, error) in
+                    Auth.auth().signIn(with: credential) { [weak self] (user, error) in
                         if let error = error {
+                            self?.hideActivityIndicator()
                             print(error.localizedDescription)
                             return
                         }
@@ -91,15 +114,20 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     
     @IBAction func loginInButtonTapped(_ sender: Any) {
         guard let email = emailTextField.text,
-            let password = passwordTextField.text else { return }
+            let password = passwordTextField.text else {
+                self.present(UIAlertControllers.emailAuthenticationError(message: "Needs both fields completed"), animated: true)
+                return
+        }
         
-        FirebaseController.shared.signIn(with: email, password: password) { (error, user) in
+        showActivityIndicator()
+        FirebaseController.shared.signIn(with: email, password: password) { [weak self] (error, user) in
+            self?.hideActivityIndicator()
             if let error = error {
                 let alert = UIAlertControllers.emailAuthenticationError(message: error.localizedDescription)
-                self.present(alert, animated: true, completion: nil)
+                self?.present(alert, animated: true, completion: nil)
                 return
             }
-            self.presentScreenPlayCollection()
+            self?.presentScreenPlayCollection()
         }
         
     }
@@ -113,18 +141,17 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         guard let email = self.emailTextField.text else {
             return
         }
-        
-        Auth.auth().sendPasswordReset(withEmail: email) { error in
+        showActivityIndicator()
+        Auth.auth().sendPasswordReset(withEmail: email) { [weak self] error in
+            
+            self?.hideActivityIndicator()
+            
             // If error exists Alert User
             if let error = error {
-                self.present(UIAlertControllers.emailAuthenticationError(message: error.localizedDescription), animated: true, completion: {
-                    self.emailTextField.becomeFirstResponder()
-                })
+                self?.present(UIAlertControllers.emailAuthenticationError(message: error.localizedDescription), animated: true, completion: nil)
             // Else let user know the password was reset
             } else {
-                self.present(UIAlertControllers.passwordResetSuccess(email: email), animated: true, completion: {
-                    self.passwordTextField.becomeFirstResponder()
-                })
+                self?.present(UIAlertControllers.passwordResetSuccess(email: email), animated: true, completion: nil)
             }
         }
     }
@@ -132,84 +159,30 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     
     // MARK: GIDSignInDelegate Methods
     
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user:
+        GIDGoogleUser!, withError error: Error?) {
+        showActivityIndicator()
         if let error = error {
+            hideActivityIndicator()
             #if DEBUG
                 print(error)
             #endif
             return
         }
         
-        guard let authentication = user.authentication else { return }
+        guard let authentication = user.authentication else {
+            self.hideActivityIndicator()
+            return
+        }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
-        Auth.auth().signIn(with: credential) { (user, error) in
+        Auth.auth().signIn(with: credential) { [weak self] (user, error) in
+            self?.hideActivityIndicator()
             if let error = error {
                 print(error)
                 return
             }
-            self.presentScreenPlayCollection()
+            self?.presentScreenPlayCollection()
         }
-    }
-    
-    func setupDynamicLink() {
-        // general link params
-//        guard let linkString = dictionary[.link]?.text else {
-//            print("Link can not be empty!")
-//            return
-//        }
-//
-//        guard let link = URL(string: linkString) else { return }
-//        let components = DynamicLinkComponents(link: link, domain: ViewController.DYNAMIC_LINK_DOMAIN)
-//
-//        // analytics params
-//        let analyticsParams = DynamicLinkGoogleAnalyticsParameters(
-//            source: dictionary[.source]?.text ?? "", medium: dictionary[.medium]?.text ?? "",
-//            campaign: dictionary[.campaign]?.text ?? "")
-//        analyticsParams.term = dictionary[.term]?.text
-//        analyticsParams.content = dictionary[.content]?.text
-//        components.analyticsParameters = analyticsParams
-//
-//        if let bundleID = dictionary[.bundleID]?.text {
-//            // iOS params
-//            let iOSParams = DynamicLinkIOSParameters(bundleID: bundleID)
-//            iOSParams.fallbackURL = dictionary[.fallbackURL]?.text.flatMap(URL.init)
-//            iOSParams.minimumAppVersion = dictionary[.minimumAppVersion]?.text
-//            iOSParams.customScheme = dictionary[.customScheme]?.text
-//            iOSParams.iPadBundleID = dictionary[.iPadBundleID]?.text
-//            iOSParams.iPadFallbackURL = dictionary[.iPadFallbackURL]?.text.flatMap(URL.init)
-//            iOSParams.appStoreID = dictionary[.appStoreID]?.text
-//            components.iOSParameters = iOSParams
-//
-//            // iTunesConnect params
-//            let appStoreParams = DynamicLinkItunesConnectAnalyticsParameters()
-//            appStoreParams.affiliateToken = dictionary[.affiliateToken]?.text
-//            appStoreParams.campaignToken = dictionary[.campaignToken]?.text
-//            appStoreParams.providerToken = dictionary[.providerToken]?.text
-//            components.iTunesConnectParameters = appStoreParams
-//        }
-//
-//        if let packageName = dictionary[.packageName]?.text {
-//            // Android params
-//            let androidParams = DynamicLinkAndroidParameters(packageName: packageName)
-//            androidParams.fallbackURL = dictionary[.androidFallbackURL]?.text.flatMap(URL.init)
-//            androidParams.minimumVersion = dictionary[.minimumVersion]?.text.flatMap {Int($0)} ?? 0
-//            components.androidParameters = androidParams
-//        }
-//
-//        // social tag params
-//        let socialParams = DynamicLinkSocialMetaTagParameters()
-//        socialParams.title = dictionary[.title]?.text
-//        socialParams.descriptionText = dictionary[.descriptionText]?.text
-//        socialParams.imageURL = dictionary[.imageURL]?.text.flatMap(URL.init)
-//        components.socialMetaTagParameters = socialParams
-//
-//        // OtherPlatform params
-//        let otherPlatformParams = DynamicLinkOtherPlatformParameters()
-//        otherPlatformParams.fallbackUrl = dictionary[.otherFallbackURL]?.text.flatMap(URL.init)
-//        components.otherPlatformParameters = otherPlatformParams
-//
-//        longLink = components.url
-//        print(longLink?.absoluteString ?? "")
     }
     
     // MARK: Tap Gesture Recognizer

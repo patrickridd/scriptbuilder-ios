@@ -22,7 +22,10 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
-
+    @IBOutlet weak var activityIndicatorContainerView: UIView!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
