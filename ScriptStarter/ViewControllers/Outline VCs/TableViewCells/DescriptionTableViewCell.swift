@@ -248,7 +248,7 @@ class DescriptionTableViewCell: UITableViewCell {
         case .outline:
             switch section {
             case 0:
-                screenplay?.logLine = textView.text
+                screenplay?.idea = textView.text
             case 1:
                 screenplay?.actOneDescription = textView.text
             case 2:
@@ -400,7 +400,7 @@ class DescriptionTableViewCell: UITableViewCell {
         // Get descriptionTextView size that fits in view
         let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
         if size.height > self.defaultHeight {
-            descriptionTextViewHeightConstraint.constant = size.height+5
+            descriptionTextViewHeightConstraint.constant = size.height
             delegate?.resizeCell(in: self.section)
         } else {
             descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
