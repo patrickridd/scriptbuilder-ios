@@ -76,24 +76,39 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         self.dismiss(animated: true, completion: nil)
     }
     
-    func segueToNewScreenPlay() {
-        let when = DispatchTime.now() + 1 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
+    func segueTo(screenplay: Screenplay) {
+       // let when = DispatchTime.now() + 1 // change to desired number of seconds
+       // DispatchQueue.main.asyncAfter(deadline: when) {
             // Your code with delay
             guard let screenplayPageVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else { return }
             
-            // TODO: Set screenplay object if it exists
+            ScreenplayController.shared.set(currentScreenplay: screenplay)
             self.isHeroEnabled = true
-            self.heroModalAnimationType = .selectBy(presenting:.zoom, dismissing:.zoomOut)
-        }
+            self.heroModalAnimationType
+                = .selectBy(presenting:.zoom, dismissing:.zoomOut)
+            self.present(screenplayPageVC, animated: true, completion: nil)
+      //  }
     }
     
     func getScreenplays() {
         FirebaseController.shared.getScreenplays { (screenplays) in
             DispatchQueue.main.async {
                 self.screenplays = screenplays
+                if let screenplay = self.getCachedScreenplay() {
+                    self.segueTo(screenplay: screenplay)
+                }
             }
         }
+    }
+    
+    func getCachedScreenplay() -> Screenplay? {
+        // Find previously opened screenplay and present it
+        guard let screenplayId = ScreenplayController.shared.getScreenPlayId(),
+            let screenplay = self.screenplays.filter({screenplayId == $0.uuid}).first else {
+                return nil
+        }
+        
+        return screenplay
     }
     
     // MARK - UICollectionViewDataSource
@@ -156,5 +171,6 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         
         let screenplay = screenplays[indexPath.row-1]
         ScreenplayController.shared.set(currentScreenplay: screenplay)
+        
     }
 }

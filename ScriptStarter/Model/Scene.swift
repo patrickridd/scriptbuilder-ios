@@ -62,18 +62,18 @@ class Scene: Hashable, Equatable {
     
     static var sceneTitles: [String] {
         return ["Scene Description",
+                "Characters",
                 "Dialogue",
                 "Action",
-                "Characters",
                 "Story Progression",
                 "Notes"]
     }
     
     static var sceneSubtitles: [String] {
         return ["Overall idea of what happens and feeling the scene bring",
+            "What do the characters want and what are they feeling?",
             "What snappy dialogue and/or information is said?",
             "What are your characters doing?",
-            "What are the characters feeling and what do they want?",
             "How does the scene move the story forward?",
             "Details you don't want to forget"]
     }

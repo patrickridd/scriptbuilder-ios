@@ -223,11 +223,11 @@ class DescriptionTableViewCell: UITableViewCell {
             case 1:
                 descriptionTextView.text = scene?.sceneDescription
             case 2:
-                descriptionTextView.text = scene?.dialogue
-            case 3:
-                descriptionTextView.text = scene?.action
-            case 4:
                 descriptionTextView.text = scene?.characters
+            case 3:
+                descriptionTextView.text = scene?.dialogue
+            case 4:
+                descriptionTextView.text = scene?.action
             case 5:
                 descriptionTextView.text = scene?.howPushesStory
             case 6:
@@ -379,13 +379,13 @@ class DescriptionTableViewCell: UITableViewCell {
         case .sceneDetail:
             switch section {
             case 1:
-                scene?.sceneDescription =  descriptionTextView.text
+                scene?.sceneDescription = descriptionTextView.text
             case 2:
-                scene?.dialogue = descriptionTextView.text
-            case 3:
-                scene?.action = descriptionTextView.text
-            case 4:
                 scene?.characters = descriptionTextView.text
+            case 3:
+                scene?.dialogue = descriptionTextView.text
+            case 4:
+                scene?.action = descriptionTextView.text
             case 5:
                 scene?.howPushesStory = descriptionTextView.text
             case 6:
