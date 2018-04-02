@@ -41,6 +41,9 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         
         //reloadSceneSection()
         adBannerView.load(GADRequest())
+        
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
@@ -192,6 +195,8 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             
             // Configure the cell...
             descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
+            descriptionCell.delegate = self
+            descriptionCell.defaultHeight = self.getDefaultHeightOfCell()
             descriptionCell.update(viewController: .actDetail, section: indexPath.section, act: self.act)
             descriptionCell.expandButton.tag = indexPath.section
             descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
@@ -200,15 +205,15 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         }
     }
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-//        case 1:
-//            return 60
-        default:
-            return 80
-        }
-   
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        switch indexPath.section {
+////        case 1:
+////            return 60
+//        default:
+//            return 80
+//        }
+ //
+//    }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 

@@ -14,7 +14,7 @@ import Firebase
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftInTabBar"
 let swipeRightNotificationKey = "com.scriptstarter.swipedRightInTabBar"
 
-class OutlineTableViewController: UITableViewController, DescriptionDelegate, GADBannerViewDelegate, UIPopoverPresentationControllerDelegate {
+class OutlineTableViewController: UITableViewController, DescriptionDelegate, GADBannerViewDelegate, UIPopoverPresentationControllerDelegate, UITextViewDelegate {
     
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -40,7 +40,9 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         super.viewWillAppear(animated)
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
-
+        
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         setupNavigationBar()
         self.tableView.reloadData()
         setupTabBar()
@@ -244,22 +246,22 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        var text: String
-        switch indexPath.section {
-        case 0: // Basic Info
-            text = self.screenplay?.logLine ?? ""
-        case 1: // Act 1
-            text = self.screenplay?.actOneDescription ?? ""
-        case 2: // Act 2
-            text = self.screenplay?.actTwoDescription ?? ""
-        case 3: // Act 3
-            text = self.screenplay?.actThreeDescription ?? ""
-        default:
-            return self.getDefaultHeightOfCell()
-        }
-        return self.getDescriptionCellHeight(with:text)
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        var text: String
+//        switch indexPath.section {
+//        case 0: // Basic Info
+//            text = self.screenplay?.logLine ?? ""
+//        case 1: // Act 1
+//            text = self.screenplay?.actOneDescription ?? ""
+//        case 2: // Act 2
+//            text = self.screenplay?.actTwoDescription ?? ""
+//        case 3: // Act 3
+//            text = self.screenplay?.actThreeDescription ?? ""
+//        default:
+//            return self.getDefaultHeightOfCell()
+//        }
+//        return self.getDescriptionCellHeight(with:text)
+//    }
     
     func adjustUITextViewHeight(arg : UITextView) {
         arg.translatesAutoresizingMaskIntoConstraints = true

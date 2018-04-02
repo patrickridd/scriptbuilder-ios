@@ -18,6 +18,7 @@ class DescriptionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
     @IBOutlet weak var expandButton: UIButton!
+    @IBOutlet weak var descriptionTextViewHeightConstraint: NSLayoutConstraint!
     
     var screenplay: Screenplay? {
         return ScreenplayController.shared.currentScreenplay
@@ -233,11 +234,13 @@ class DescriptionTableViewCell: UITableViewCell {
                 break
             }
         }
+        checkForResize(textView: self.descriptionTextView)
+
     }
     
     func textViewDidChange(_ textView: UITextView) {
         
-      // checkForResize(textView: textView)
+      checkForResize(textView: textView)
         
         switch viewController {
         case .outline:
@@ -394,7 +397,15 @@ class DescriptionTableViewCell: UITableViewCell {
     func checkForResize(textView:UITextView) {
         // Get descriptionTextView size that fits in view
         let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
-      delegate?.resizeCell(in: self.section)
+        if size.height > self.defaultHeight {
+            descriptionTextViewHeightConstraint.constant = size.height+5
+            delegate?.resizeCell(in: self.section)
+        } else {
+            descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
+            delegate?.resizeCell(in: self.section)
+
+        }
+        
 //        // Dynamically set descriptionTextView Height to that that fits in cell
 //        if size.height > self.contentView.frame.height ||
 //            size.height+50 < self.contentView.frame.height, size.height > defaultHeight {
