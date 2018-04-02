@@ -43,6 +43,14 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Resizes Cells Dynamically
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard let _ = self.scene else {
@@ -192,13 +200,11 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
+            descriptionCell.delegate = self
+            descriptionCell.defaultHeight = self.getDefaultHeightOfCell()
             descriptionCell.contentView.backgroundColor = .screenLightGray
             descriptionCell.update(viewController: .sceneDetail, section: indexPath.section, act: self.act, character: nil, scene: self.scene)
             return descriptionCell
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

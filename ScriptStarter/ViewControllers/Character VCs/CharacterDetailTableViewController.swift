@@ -57,6 +57,10 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         adBannerView.load(GADRequest())
+        // Resizes Cells Dynamically
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -190,6 +194,8 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
            return basicCharacterCell
         default:
             guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
+            descriptionCell.delegate = self
+            descriptionCell.defaultHeight = self.getDefaultHeightOfCell()
             descriptionCell.update(viewController: .characterDetail, section: indexPath.section, act: nil, character: self.character)
             descriptionCell.expandButton.tag = indexPath.section
             descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
@@ -251,19 +257,19 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         return 0
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        switch indexPath.section {
-        case 0:
-            return 90
-        default:
-            if self.view.frame.height >= 670 {
-                return self.view.frame.height * (1/8)
-            } else {
-                return self.view.frame.height * (1/9)
-            }
-        }
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//
+//        switch indexPath.section {
+//        case 0:
+//            return 90
+//        default:
+//            if self.view.frame.height >= 670 {
+//                return self.view.frame.height * (1/8)
+//            } else {
+//                return self.view.frame.height * (1/9)
+//            }
+//        }
+//    }
 
     // MARK: CollapsibleHeaderDelegate
     

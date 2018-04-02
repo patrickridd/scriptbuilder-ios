@@ -39,6 +39,8 @@ class DescriptionTableViewCell: UITableViewCell {
         descriptionTextView.font = font
         descriptionTextView.delegate = self
         addToolBar(textView: descriptionTextView)
+        
+       //self.descriptionTextView.textContainerInset = UIEdgeInsetsMake(5, 10, 5, 10);
     }
 
     func update(viewController: ViewController, section: Int, act: Act?, character: Character? = nil, scene: Scene? = nil) {
