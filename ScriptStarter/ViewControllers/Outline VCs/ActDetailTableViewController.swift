@@ -15,7 +15,6 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .idea
     var sectionBesidesBeats: Int = 2
-    
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
@@ -309,9 +308,25 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             self.tableView.beginUpdates()
             self.tableView.reloadSections(indexSet, with: .automatic)
             self.tableView.endUpdates()
+             self.updateDescriptionTextView(collapsed: collapsed, section: section)
         }
     }
     
+    
+    func updateDescriptionTextView(collapsed: Bool, section: Int) {
+        let indexPath = IndexPath(row: 0, section: section)
+        guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return }
+        //guard let descriptionCell = tableView(self.tableView, cellForRowAt: indexPath) as? DescriptionTableViewCell else {return }
+
+        if collapsed {
+            descriptionCell.resignTextView()
+        } else {
+         //  descriptionCell.becomeFirstResponder()
+            descriptionCell.makeTextViewFirstResponder()
+        // descriptionCell.descriptionTextView.awakeFromNib()
+         //descriptionCell.descriptionTextView.becomeFirstResponder()
+        }
+    }
 //    func reloadSceneSection() {
 //        // Reload section tapped
 //        let indexSet = IndexSet(integer: 1)
