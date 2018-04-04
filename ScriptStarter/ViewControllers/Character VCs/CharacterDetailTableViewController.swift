@@ -20,6 +20,9 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
 
     var character: Character?
     
+    var isExpandingCell: Bool = false
+    var isCollapsingCell: Bool = false
+    
     var customSelected: Bool = false // RoleCellSelected
     
     lazy var adBannerView: GADBannerView = {
@@ -135,7 +138,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
     }
     
 
-    // MARK: - Table view data source
+    // MARK: - TableView Data Source & Delegate Methods
 
     // Helper method that helps setup datasource
     func setupExpandableSections() {
@@ -202,6 +205,28 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
             descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
            
             return descriptionCell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            
+            guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
+            
+            if self.isExpandingCell {
+                descriptionCell.descriptionTextView.becomeFirstResponder()
+                self.isExpandingCell = false
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
+        
+        if self.isCollapsingCell {
+            descriptionCell.descriptionTextView.resignFirstResponder()
+            descriptionCell.resignFirstResponder()
+            self.isCollapsingCell = false
         }
     }
     
@@ -279,6 +304,14 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
             // Toggle collapse
             self.expandableSections[section-2].collapsed = collapsed
             header.setCollapsed(collapsed)
+            
+            if collapsed {
+                self.isExpandingCell = false
+                self.isCollapsingCell = true
+            } else {
+                self.isExpandingCell = true
+                self.isCollapsingCell = false
+            }
             
             // Reload section tapped
             let indexSet = IndexSet(integer: section)

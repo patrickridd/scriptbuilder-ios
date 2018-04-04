@@ -22,6 +22,9 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
     
+    var isExpandingCell: Bool = false
+    var isCollapsingCell: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupExpandableSections()
@@ -181,7 +184,7 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         }
     }
     
-    // MARK: - Table view data source
+    // MARK: - TableView Data Source & Delegate Methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // 1. Scene Description
@@ -235,6 +238,27 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         }
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            
+            guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
+            
+            if self.isExpandingCell {
+                descriptionCell.descriptionTextView.becomeFirstResponder()
+                self.isExpandingCell = false
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
+        
+        if self.isCollapsingCell {
+            descriptionCell.descriptionTextView.resignFirstResponder()
+            descriptionCell.resignFirstResponder()
+            self.isCollapsingCell = false
+        }
+    }
     
     // MARK: CollapsibleHeaderDelegate
     
@@ -244,6 +268,14 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
             // Toggle collapse
             self.expandableSections[section].collapsed = collapsed
             header.setCollapsed(collapsed)
+            
+            if collapsed {
+                self.isExpandingCell = false
+                self.isCollapsingCell = true
+            } else {
+                self.isExpandingCell = true
+                self.isCollapsingCell = false
+            }
             
             // Reload section tapped
             let indexSet = IndexSet(integer: section)
