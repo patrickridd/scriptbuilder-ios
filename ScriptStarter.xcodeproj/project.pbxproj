@@ -31,6 +31,7 @@
 		2146E3DE203F906B00FBD225 /* SceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2146E3DD203F906B00FBD225 /* SceneTableViewCell.swift */; };
 		2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151FC5F202260F200CE4823 /* ScreenplayController.swift */; };
 		21526C9D20409EE100B14402 /* SceneDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */; };
+		215829C820754AA200CEAC0A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215829C720754AA200CEAC0A /* SettingsViewController.swift */; };
 		21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21843CAC205AE3E900FAAE16 /* Scenes.storyboard */; };
 		218992C32046215F00EF87F3 /* AnalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218992C22046215F00EF87F3 /* AnalyticsController.swift */; };
 		2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2189FC8D2057187400A69DC1 /* StoreKit.framework */; };
@@ -129,6 +130,7 @@
 		2146E3DD203F906B00FBD225 /* SceneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTableViewCell.swift; sourceTree = "<group>"; };
 		2151FC5F202260F200CE4823 /* ScreenplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayController.swift; sourceTree = "<group>"; };
 		21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDetailTableViewController.swift; sourceTree = "<group>"; };
+		215829C720754AA200CEAC0A /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		21843CAB205AE3E900FAAE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Scenes.storyboard; sourceTree = "<group>"; };
 		218992C22046215F00EF87F3 /* AnalyticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsController.swift; sourceTree = "<group>"; };
 		2189FC8D2057187400A69DC1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -381,6 +383,7 @@
 				21B8FB83201A93D0000A8721 /* ScreenplayPageViewController.swift */,
 				21B8FB81201A922D000A8721 /* SceenplayCoverViewController.swift */,
 				21B8FB87201AA656000A8721 /* ScreenplayTabBarController.swift */,
+				215829C720754AA200CEAC0A /* SettingsViewController.swift */,
 				21099164201F8DFD00340124 /* CollectionViewCells */,
 			);
 			path = "Main VCs";
@@ -866,6 +869,7 @@
 				21A7CF5A202A622000D97394 /* ExpandableTableViewSection.swift in Sources */,
 				21D72801202E6A6C00861C2D /* CharacterSection.swift in Sources */,
 				21C903D82016528A0017D626 /* LoginViewController.swift in Sources */,
+				215829C820754AA200CEAC0A /* SettingsViewController.swift in Sources */,
 				21E661C12017DBAE006A14AF /* FirebaseController.swift in Sources */,
 				2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */,
 				21D727F2202CFD2400861C2D /* Extension+ViewController.swift in Sources */,
