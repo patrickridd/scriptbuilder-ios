@@ -10,14 +10,19 @@ import UIKit
 
 class ChangePasswordTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var changePasswordTextField: UITextField!
+    @IBOutlet weak var oldPasswordTextField: UITextField!
+    
+    @IBOutlet weak var newPasswordTextField: UITextField!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.changePasswordTextField.addToolBar()
+        self.oldPasswordTextField.addToolBar()
+        self.oldPasswordTextField.delegate = self
         
-        self.changePasswordTextField.delegate = self
+        self.newPasswordTextField.addToolBar()
+        self.newPasswordTextField.delegate = self
     }
     
     @IBAction func changePasswordButtonTapped(_ sender: Any) {
@@ -28,6 +33,7 @@ class ChangePasswordTableViewCell: UITableViewCell {
     // MARK: - UITextFieldDelegate Methods
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return self.changePasswordTextField.resignFirstResponder()
+        return
+        self.endEditing(true)
     }
 }

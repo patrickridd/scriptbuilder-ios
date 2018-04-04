@@ -33,6 +33,7 @@
 		21526C9D20409EE100B14402 /* SceneDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */; };
 		2153C34320755F2300C08B73 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C34220755F2300C08B73 /* SettingsTableViewController.swift */; };
 		2153C3452075608300C08B73 /* Extension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C3442075608300C08B73 /* Extension+UITextField.swift */; };
+		2153C34720757CB900C08B73 /* IAPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C34620757CB900C08B73 /* IAPTableViewCell.swift */; };
 		215829CB20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */; };
 		21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21843CAC205AE3E900FAAE16 /* Scenes.storyboard */; };
 		218992C32046215F00EF87F3 /* AnalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218992C22046215F00EF87F3 /* AnalyticsController.swift */; };
@@ -134,6 +135,7 @@
 		21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDetailTableViewController.swift; sourceTree = "<group>"; };
 		2153C34220755F2300C08B73 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2153C3442075608300C08B73 /* Extension+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITextField.swift"; sourceTree = "<group>"; };
+		2153C34620757CB900C08B73 /* IAPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPTableViewCell.swift; sourceTree = "<group>"; };
 		215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
 		21843CAB205AE3E900FAAE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Scenes.storyboard; sourceTree = "<group>"; };
 		218992C22046215F00EF87F3 /* AnalyticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsController.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */,
+				2153C34620757CB900C08B73 /* IAPTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -880,6 +883,7 @@
 			files = (
 				2104ADD5205C60080086CC9F /* SceneActNumberPopTableViewController.swift in Sources */,
 				211215D4203B5D200039D6E8 /* RolePopoverTableViewController.swift in Sources */,
+				2153C34720757CB900C08B73 /* IAPTableViewCell.swift in Sources */,
 				21A7CF5A202A622000D97394 /* ExpandableTableViewSection.swift in Sources */,
 				21D72801202E6A6C00861C2D /* CharacterSection.swift in Sources */,
 				21C903D82016528A0017D626 /* LoginViewController.swift in Sources */,

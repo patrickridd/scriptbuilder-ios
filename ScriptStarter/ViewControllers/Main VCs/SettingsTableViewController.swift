@@ -54,17 +54,17 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            return UITableViewCell()
-            
+            guard let inAppPurchaseCell = tableView.dequeueReusableCell(withIdentifier:"inAppPurchaseCell", for: indexPath) as? IAPTableViewCell else {
+                return UITableViewCell()
+            }
+            return inAppPurchaseCell
         case 1:
-            return UITableViewCell()
-            
-        case 2:
             guard let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell", for: indexPath) as? ChangePasswordTableViewCell else {
                 return UITableViewCell()
             }
             return changePasswordCell
-            
+        case 2:
+            return UITableViewCell()
         case 3:
             return UITableViewCell()
             
@@ -82,7 +82,12 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        switch indexPath.section {
+        case 0,1:
+            return 90
+        default:
+            return 60
+        }
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -102,9 +107,9 @@ class SettingsTableViewController: UITableViewController {
         case 0:
             sectionHeader.sectionLabel.text = "Remove Adds / Enable Offline Capabilities"
         case 1:
-            sectionHeader.sectionLabel.text = "Share with family / friends"
-        case 2:
             sectionHeader.sectionLabel.text = "Change Password"
+        case 2:
+            sectionHeader.sectionLabel.text = "Share with family / friends"
         case 3:
             sectionHeader.sectionLabel.text = "This will remove all information in database"
         default:
