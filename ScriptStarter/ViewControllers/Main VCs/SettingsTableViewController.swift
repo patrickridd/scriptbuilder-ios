@@ -64,10 +64,15 @@ class SettingsTableViewController: UITableViewController {
             }
             return changePasswordCell
         case 2:
-            return UITableViewCell()
+            guard let shareAppCell = tableView.dequeueReusableCell(withIdentifier: "shareAppCell", for: indexPath) as? ShareTableViewCell else {
+                return UITableViewCell()
+            }
+            return shareAppCell
         case 3:
-            return UITableViewCell()
-            
+                guard let deleteCell = tableView.dequeueReusableCell(withIdentifier: "deleteAccountCell", for: indexPath) as? DeleteAccountTableViewCell else {
+                    return UITableViewCell()
+            }
+                return deleteCell
         default:
             return UITableViewCell()
         }
@@ -78,7 +83,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 45
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -86,7 +91,7 @@ class SettingsTableViewController: UITableViewController {
         case 0,1:
             return 90
         default:
-            return 60
+            return 90
         }
     }
     
@@ -116,5 +121,18 @@ class SettingsTableViewController: UITableViewController {
             break
         }
         return sectionHeader
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 2:
+            // Share App
+            break
+        case 3:
+            // Delete Account
+            break
+        default:
+            break
+        }
     }
 }

@@ -20,9 +20,11 @@ class ChangePasswordTableViewCell: UITableViewCell {
         // Initialization code
         self.oldPasswordTextField.addToolBar()
         self.oldPasswordTextField.delegate = self
+        self.oldPasswordTextField.tag = 0
         
         self.newPasswordTextField.addToolBar()
         self.newPasswordTextField.delegate = self
+        self.newPasswordTextField.tag = 1
     }
     
     @IBAction func changePasswordButtonTapped(_ sender: Any) {
@@ -33,7 +35,15 @@ class ChangePasswordTableViewCell: UITableViewCell {
     // MARK: - UITextFieldDelegate Methods
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return
-        self.endEditing(true)
+        switch textField.tag {
+        case 0:
+            self.newPasswordTextField.becomeFirstResponder()
+        case 1:
+            self.endEditing(true)
+        default:
+            break
+        }
+        
+        return true
     }
 }

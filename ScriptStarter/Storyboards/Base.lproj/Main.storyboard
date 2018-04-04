@@ -477,27 +477,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="90" id="6vT-9y-M6K">
-                                        <rect key="frame" x="0.0" y="208" width="414" height="90"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6vT-9y-M6K" id="2Eo-Ui-hTQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vU-dU-rgj">
-                                                    <rect key="frame" x="146.66666666666666" y="28.666666666666671" width="120.99999999999997" height="33"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                    <state key="normal" title="Delete Account">
-                                                        <color key="titleColor" red="0.75618135929999997" green="0.25167006250000001" blue="0.24701988699999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    </state>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="1vU-dU-rgj" firstAttribute="centerY" secondItem="2Eo-Ui-hTQ" secondAttribute="centerY" id="2fX-a7-QRM"/>
-                                                <constraint firstItem="1vU-dU-rgj" firstAttribute="centerX" secondItem="2Eo-Ui-hTQ" secondAttribute="centerX" id="JRx-bL-dDr"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </prototypes>
                                 <sections/>
                                 <connections>
@@ -552,7 +531,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="289" height="60"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                                                    <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next"/>
                                                 </textField>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="new password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="CVX-9T-1Be">
                                                     <rect key="frame" x="0.0" y="60" width="289" height="59.666666666666657"/>
@@ -601,7 +580,7 @@
                                     <outlet property="oldPasswordTextField" destination="jCU-9Y-8f5" id="Y5I-3d-Ff1"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="90" id="0Vp-UD-tel">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="shareAppCell" rowHeight="90" id="0Vp-UD-tel" customClass="ShareTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="190.33333333333334" width="414" height="90.000000000000028"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Vp-UD-tel" id="rEl-zd-7eN">
@@ -609,16 +588,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Cut-JM-nMV">
-                                            <rect key="frame" x="85.666666666666671" y="30.333333333333329" width="243.66666666666663" height="30"/>
+                                            <rect key="frame" x="108" y="30.333333333333329" width="199.66666666666663" height="30"/>
                                             <subviews>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share Screenplay Planner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3d6-Mh-K4t">
-                                                    <rect key="frame" x="0.0" y="4.6666666666666679" width="193.66666666666666" height="20.333333333333332"/>
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share Script Builder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3d6-Mh-K4t">
+                                                    <rect key="frame" x="0.0" y="5.0000000000000036" width="149.66666666666666" height="20.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareArrowAsset 1" translatesAutoresizingMaskIntoConstraints="NO" id="Wjk-78-VG6">
-                                                    <rect key="frame" x="213.66666666666663" y="0.0" width="30" height="30"/>
+                                                    <rect key="frame" x="169.66666666666669" y="0.0" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Cs9-NF-sIV"/>
                                                         <constraint firstAttribute="width" constant="30" id="OMS-QH-XgW"/>
@@ -626,24 +605,14 @@
                                                 </imageView>
                                             </subviews>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13S-Cg-3xa">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Cut-JM-nMV" firstAttribute="centerX" secondItem="rEl-zd-7eN" secondAttribute="centerX" id="0Ll-wQ-ZOF"/>
                                         <constraint firstItem="Cut-JM-nMV" firstAttribute="centerY" secondItem="rEl-zd-7eN" secondAttribute="centerY" id="kCm-Rq-Vcg"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="13S-Cg-3xa" secondAttribute="bottom" id="Gdf-sj-bbc"/>
-                                    <constraint firstItem="13S-Cg-3xa" firstAttribute="leading" secondItem="0Vp-UD-tel" secondAttribute="leading" id="ND7-ry-EOk"/>
-                                    <constraint firstItem="13S-Cg-3xa" firstAttribute="top" secondItem="0Vp-UD-tel" secondAttribute="top" id="duT-fl-l0A"/>
-                                    <constraint firstAttribute="trailing" secondItem="13S-Cg-3xa" secondAttribute="trailing" id="j9h-B4-pmb"/>
-                                </constraints>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="inAppPurchaseCell" rowHeight="120" id="xX3-6a-Rh3" userLabel="inAppPurchaseCell" customClass="IAPTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="inAppPurchaseCell" rowHeight="120" id="xX3-6a-Rh3" userLabel="inAppPurchaseCell" customClass="IAPTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="280.33333333333337" width="414" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xX3-6a-Rh3" id="bdz-Ot-AqX">
@@ -711,6 +680,27 @@
                                 <connections>
                                     <outlet property="restoreButton" destination="YWe-Ul-gnu" id="o0Z-FY-VZi"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="deleteAccountCell" rowHeight="90" id="6vT-9y-M6K" customClass="DeleteAccountTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="400.33333333333337" width="414" height="90"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6vT-9y-M6K" id="2Eo-Ui-hTQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vU-dU-rgj">
+                                            <rect key="frame" x="146.66666666666666" y="28.666666666666671" width="120.99999999999997" height="33"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                            <state key="normal" title="Delete Account">
+                                                <color key="titleColor" red="0.75618135929999997" green="0.25167006250000001" blue="0.24701988699999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="1vU-dU-rgj" firstAttribute="centerY" secondItem="2Eo-Ui-hTQ" secondAttribute="centerY" id="2fX-a7-QRM"/>
+                                        <constraint firstItem="1vU-dU-rgj" firstAttribute="centerX" secondItem="2Eo-Ui-hTQ" secondAttribute="centerX" id="JRx-bL-dDr"/>
+                                    </constraints>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>

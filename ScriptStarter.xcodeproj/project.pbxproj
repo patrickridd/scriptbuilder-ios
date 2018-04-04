@@ -34,6 +34,8 @@
 		2153C34320755F2300C08B73 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C34220755F2300C08B73 /* SettingsTableViewController.swift */; };
 		2153C3452075608300C08B73 /* Extension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C3442075608300C08B73 /* Extension+UITextField.swift */; };
 		2153C34720757CB900C08B73 /* IAPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C34620757CB900C08B73 /* IAPTableViewCell.swift */; };
+		2153C349207586EA00C08B73 /* ShareTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C348207586EA00C08B73 /* ShareTableViewCell.swift */; };
+		2153C34B207587B500C08B73 /* DeleteAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */; };
 		215829CB20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */; };
 		21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21843CAC205AE3E900FAAE16 /* Scenes.storyboard */; };
 		218992C32046215F00EF87F3 /* AnalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218992C22046215F00EF87F3 /* AnalyticsController.swift */; };
@@ -136,6 +138,8 @@
 		2153C34220755F2300C08B73 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2153C3442075608300C08B73 /* Extension+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITextField.swift"; sourceTree = "<group>"; };
 		2153C34620757CB900C08B73 /* IAPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPTableViewCell.swift; sourceTree = "<group>"; };
+		2153C348207586EA00C08B73 /* ShareTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTableViewCell.swift; sourceTree = "<group>"; };
+		2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountTableViewCell.swift; sourceTree = "<group>"; };
 		215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
 		21843CAB205AE3E900FAAE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Scenes.storyboard; sourceTree = "<group>"; };
 		218992C22046215F00EF87F3 /* AnalyticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsController.swift; sourceTree = "<group>"; };
@@ -374,7 +378,9 @@
 			isa = PBXGroup;
 			children = (
 				215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */,
+				2153C348207586EA00C08B73 /* ShareTableViewCell.swift */,
 				2153C34620757CB900C08B73 /* IAPTableViewCell.swift */,
+				2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -895,6 +901,7 @@
 				21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */,
 				21A7CF542028E60D00D97394 /* ActDetailTableViewController.swift in Sources */,
 				2153C3452075608300C08B73 /* Extension+UITextField.swift in Sources */,
+				2153C34B207587B500C08B73 /* DeleteAccountTableViewCell.swift in Sources */,
 				21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */,
 				2146E3DE203F906B00FBD225 /* SceneTableViewCell.swift in Sources */,
 				21A7CF502025039800D97394 /* CharacterDetailTableViewController.swift in Sources */,
@@ -925,6 +932,7 @@
 				211800DA20238A1200F33924 /* ScreenplayCollectionViewCell.swift in Sources */,
 				2189FC92205719F900A69DC1 /* InAppPurchase.swift in Sources */,
 				212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */,
+				2153C349207586EA00C08B73 /* ShareTableViewCell.swift in Sources */,
 				218E8464203F841400D0D652 /* SceneHeader.swift in Sources */,
 				21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */,
 				21E661BD2017B1F6006A14AF /* DescriptionTableViewCell.swift in Sources */,
