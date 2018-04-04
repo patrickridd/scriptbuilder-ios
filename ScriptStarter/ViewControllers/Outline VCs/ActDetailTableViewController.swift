@@ -24,6 +24,10 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         return adBannerView
     }()
     
+    
+    var isExpandingCell: Bool = false
+    var isCollapsingCell: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupExpandableSections()
@@ -105,6 +109,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         }
     }
     
+    
     // MARK: UIPopoverPresentationControllerDelegate Methods
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -122,22 +127,6 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         switch section {
         case 0:
             return 1 // Overall Act Description
-            
-//        case 1:      // Scenes
-//            switch self.act {
-//            case .idea:
-//                return 0
-//            case .one:
-//                 guard let scenesCount = self.screenplay?.act1.scenes.count else { return 0 }
-//                 return (scenesCount == 0) ? 1 : scenesCount
-//            case .two:
-//                guard let scenesCount = self.screenplay?.act2.scenes.count else { return 0 }
-//                return (scenesCount == 0) ? 1 : scenesCount
-//            case .three:
-//                guard let scenesCount = self.screenplay?.act3.scenes.count else { return 0 }
-//                return (scenesCount == 0) ? 1 : scenesCount
-//            }
-            
         case 1:
             return 0 // Act Beats Section Header
             
@@ -199,21 +188,33 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             descriptionCell.update(viewController: .actDetail, section: indexPath.section, act: self.act)
             descriptionCell.expandButton.tag = indexPath.section
             descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
-            
+
             return descriptionCell
         }
     }
-
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        switch indexPath.section {
-////        case 1:
-////            return 60
-//        default:
-//            return 80
-//        }
- //
-//    }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        DispatchQueue.main.async {
+           
+            guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
+            
+            if self.isExpandingCell {
+            descriptionCell.descriptionTextView.becomeFirstResponder()
+                self.isExpandingCell = false
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
+        
+        if self.isCollapsingCell {
+         descriptionCell.descriptionTextView.resignFirstResponder()
+            descriptionCell.resignFirstResponder()
+            self.isCollapsingCell = false
+        }
+    }
+
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
         switch section {
@@ -267,10 +268,6 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         case 0:
             // Overall description header
             return 45
-//        case 1:
-//            // Scenes Header
-//            if self.act == .idea { return 0.0001 }
-//            return 25
         case 1:
             // Act Beats Header
             if self.act == .idea { return 0.0001 }
@@ -303,38 +300,19 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             self.expandableSections[section-self.sectionBesidesBeats].collapsed = collapsed
             header.setCollapsed(collapsed)
             
+            if collapsed {
+                self.isExpandingCell = false
+                self.isCollapsingCell = true
+            } else {
+                self.isExpandingCell = true
+                self.isCollapsingCell = false
+            }
+            
             // Reload section tapped
             let indexSet = IndexSet(integer: section)
             self.tableView.beginUpdates()
             self.tableView.reloadSections(indexSet, with: .automatic)
             self.tableView.endUpdates()
-             self.updateDescriptionTextView(collapsed: collapsed, section: section)
         }
     }
-    
-    
-    func updateDescriptionTextView(collapsed: Bool, section: Int) {
-        let indexPath = IndexPath(row: 0, section: section)
-        guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return }
-        //guard let descriptionCell = tableView(self.tableView, cellForRowAt: indexPath) as? DescriptionTableViewCell else {return }
-
-        if collapsed {
-            descriptionCell.resignTextView()
-        } else {
-         //  descriptionCell.becomeFirstResponder()
-            descriptionCell.makeTextViewFirstResponder()
-        // descriptionCell.descriptionTextView.awakeFromNib()
-         //descriptionCell.descriptionTextView.becomeFirstResponder()
-        }
-    }
-//    func reloadSceneSection() {
-//        // Reload section tapped
-//        let indexSet = IndexSet(integer: 1)
-//        self.tableView.beginUpdates()
-//        self.tableView.reloadSections(indexSet, with: .automatic)
-//        self.tableView.endUpdates()
-//    }
-//
-    
-
 }
