@@ -401,7 +401,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eyf-Do-ghs">
-                                <rect key="frame" x="0.0" y="79" width="414" height="657"/>
+                                <rect key="frame" x="0.0" y="35" width="414" height="701"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
@@ -544,21 +544,99 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h26-XB-M8C"/>
                     </view>
-                    <navigationItem key="navigationItem" id="aVj-El-MZm">
-                        <barButtonItem key="rightBarButtonItem" image="downArrowButtonAsset 1" id="agP-XL-Ngy">
-                            <color key="tintColor" red="0.75294117650000003" green="0.85490196080000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="downButtonTapped:" destination="NaU-uR-4Yg" id="6py-Y5-aFT"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="aVj-El-MZm"/>
                     <connections>
                         <outlet property="tableView" destination="eyf-Do-ghs" id="fub-xY-MxF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8ay-cJ-X5R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2016.8" y="956.67166416791611"/>
+            <point key="canvasLocation" x="2026" y="1497"/>
+        </scene>
+        <!--Settings Table View Controller-->
+        <scene sceneID="znh-ln-Tbl">
+            <objects>
+                <tableViewController id="SlF-ft-Xlu" customClass="SettingsTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="mUB-4Y-wpq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="ePq-4e-dUO">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="15"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="changePasswordCell" rowHeight="80" id="eWa-QW-inp" customClass="ChangePasswordTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="70.333333333333343" width="414" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eWa-QW-inp" id="xM8-91-cK8">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="79.666666666666671"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="new password..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jCU-9Y-8f5">
+                                            <rect key="frame" x="20" y="0.0" width="284" height="79.666666666666671"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qh4-OM-un7">
+                                            <rect key="frame" x="314" y="24" width="80" height="30"/>
+                                            <color key="backgroundColor" red="0.75294117650000003" green="0.85490196080000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="DxG-zU-3Aj"/>
+                                                <constraint firstAttribute="width" constant="80" id="LyR-kc-88s"/>
+                                            </constraints>
+                                            <state key="normal" title="Change">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="4"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="changePasswordButtonTapped:" destination="eWa-QW-inp" eventType="touchUpInside" id="cJa-yr-Vwo"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="jCU-9Y-8f5" firstAttribute="centerY" secondItem="xM8-91-cK8" secondAttribute="centerY" id="1yc-Vm-fvU"/>
+                                        <constraint firstItem="Qh4-OM-un7" firstAttribute="centerY" secondItem="xM8-91-cK8" secondAttribute="centerY" id="3WK-Uu-hY9"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Qh4-OM-un7" secondAttribute="trailing" id="S91-hd-cdA"/>
+                                        <constraint firstItem="jCU-9Y-8f5" firstAttribute="top" secondItem="xM8-91-cK8" secondAttribute="top" id="U7f-hT-Fjp"/>
+                                        <constraint firstItem="Qh4-OM-un7" firstAttribute="leading" secondItem="jCU-9Y-8f5" secondAttribute="trailing" constant="10" id="XZo-08-RIz"/>
+                                        <constraint firstAttribute="bottom" secondItem="jCU-9Y-8f5" secondAttribute="bottom" id="i7l-xV-cXg"/>
+                                        <constraint firstItem="jCU-9Y-8f5" firstAttribute="leading" secondItem="xM8-91-cK8" secondAttribute="leadingMargin" id="tD0-1X-EaY"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="changePasswordTextField" destination="jCU-9Y-8f5" id="vYJ-pQ-bVf"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="SlF-ft-Xlu" id="WhL-Ml-e2N"/>
+                            <outlet property="delegate" destination="SlF-ft-Xlu" id="ED3-N6-aKI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="CaE-CG-Ry6">
+                        <barButtonItem key="rightBarButtonItem" image="downArrowButtonAsset 1" id="agP-XL-Ngy">
+                            <color key="tintColor" red="0.75294117650000003" green="0.85490196080000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="downButtonTapped:" destination="SlF-ft-Xlu" id="hx6-9c-SbV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H6t-ln-6e3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2304" y="823"/>
         </scene>
         <!--Sceenplay Cover View Controller-->
         <scene sceneID="cwt-07-Q48">
@@ -984,12 +1062,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="NaU-uR-4Yg" kind="relationship" relationship="rootViewController" id="Cnz-Ht-9RA"/>
+                        <segue destination="SlF-ft-Xlu" kind="relationship" relationship="rootViewController" id="dKQ-8n-f5g"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zNM-Nb-ilo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1110" y="936"/>
+            <point key="canvasLocation" x="1545" y="823"/>
         </scene>
         <!--Scenes-->
         <scene sceneID="a0B-Au-SuB">

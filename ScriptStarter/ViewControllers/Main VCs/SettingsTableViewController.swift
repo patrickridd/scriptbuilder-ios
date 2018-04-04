@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.swift
+//  SettingsTableViewController.swift
 //  ScriptStarter
 //
 //  Created by Patrick Ridd (patrick.ridd@stgconsulting.com) on 4/4/18.
@@ -8,10 +8,8 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    @IBOutlet weak var tableView: UITableView!
-    
+class SettingsTableViewController: UITableViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,63 +33,66 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         self.title = "Settings"
     }
     
+    
     // MARK: - IBActions
     
     @IBAction func downButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     
     // MARK: - UITableView DataSource and Delegate Methods
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            break
+            return UITableViewCell()
+            
         case 1:
-            break
+            return UITableViewCell()
+            
         case 2:
-            break
+            guard let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell", for: indexPath) as? ChangePasswordTableViewCell else {
+                return UITableViewCell()
+            }
+            return changePasswordCell
+            
         case 3:
-            break
+            return UITableViewCell()
+            
         default:
-            break
+            return UITableViewCell()
         }
-        // Configure the cell...
-        
-        return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 15
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = UIView()
         footer.backgroundColor = UIColor.screenLightGray
         return footer
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-         let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
         
         sectionHeader.sectionLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
         sectionHeader.moreButton.isHidden = true
@@ -111,5 +112,4 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         return sectionHeader
     }
-    
 }
