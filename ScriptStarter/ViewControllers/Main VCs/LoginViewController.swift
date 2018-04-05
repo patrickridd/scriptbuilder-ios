@@ -34,10 +34,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if FBSDKAccessToken.current() != nil || Auth.auth().currentUser != nil {
-            // User is logged in so present their screenplays
-            presentScreenPlayCollection()
-        }
+       
         
         // Setup Facebook sign in buttons
         facebookButton.addTarget(self, action: #selector(facebookButtonTapped), for: .touchUpInside)
@@ -63,6 +60,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         addToolBar(textField: self.passwordTextField)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if FBSDKAccessToken.current() != nil || Auth.auth().currentUser != nil {
+            // User is logged in so present their screenplays
+            presentScreenPlayCollection()
+        }
+    }
     
     // MARK: UI Methods
     

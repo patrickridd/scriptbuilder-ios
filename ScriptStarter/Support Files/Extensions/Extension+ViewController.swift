@@ -96,4 +96,15 @@ extension UIViewController: UITextFieldDelegate {
         self.view.endEditing(true) // or do something
     }
     
+    func navigateToLoginViewController() {
+        // Present the main view
+        DispatchQueue.main.async {
+            let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+            if let loginViewController = mainStoryboard.instantiateViewController(withIdentifier: "loginVC") as? LoginViewController {
+                UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                self.dismiss(animated: false, completion: nil)
+            }
+        }
+    }
+    
 }

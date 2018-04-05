@@ -73,6 +73,10 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         }
         
         FBSDKLoginManager().logOut()
+        guard let _ = self.presentingViewController else {
+            self.navigateToLoginViewController()
+            return
+        }
         self.dismiss(animated: true, completion: nil)
     }
     

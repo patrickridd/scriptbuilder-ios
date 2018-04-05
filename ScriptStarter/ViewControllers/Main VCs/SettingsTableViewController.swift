@@ -139,14 +139,14 @@ class SettingsTableViewController: UITableViewController {
         case 2:
             // MARK: - Share App
             DispatchQueue.main.async {
-                if let link = NSURL(string: "https://itunes.apple.com/us/app/payraise/id1281621920?ls=1&mt=8") {
-                    let message = "Check out Script Builder"
-                    let objectsToShare = [message,link] as [Any]
-                    let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-                    self.present(activityVC, animated: true) {
-                        self.tableView.deselectRow(at: indexPath, animated: true)
-                    }
+            if let link = NSURL(string: "https://itunes.apple.com/us/app/payraise/id1281621920?ls=1&mt=8") {
+                let message = "Check out Script Builder"
+                let objectsToShare = [message,link] as [Any]
+                let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+                self.present(activityVC, animated: true) {
+                    self.tableView.deselectRow(at: indexPath, animated: true)
                 }
+            }
             }
 
             break
@@ -161,8 +161,13 @@ class SettingsTableViewController: UITableViewController {
                     }
                     if deleted {
                         self?.present(UIAlertControllers.accountDeleted {
-                            self?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                            guard let dismissingViewController = self?.presentingViewController?.presentingViewController else {
+                                self?.navigateToLoginViewController()
+                                return
+                            }
+                            dismissingViewController.dismiss(animated: true, completion: nil)
                         }, animated: true, completion: nil)
+                        
                     } else {
                         self?.present(UIAlertControllers.accountNotDeleted(), animated: true, completion: nil)
                     }

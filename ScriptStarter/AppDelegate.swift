@@ -47,8 +47,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Remove before app release.
             gai.logger.logLevel = .verbose
             
+//            if FBSDKAccessToken.current() != nil || Auth.auth().currentUser != nil {
+//                // User is logged in so present their screenplays
+//                self.presentScreenplayCollectionView()
+//            } else {
+//                self.presentLoginScreen()
+//            }
+            
             return true
     }
+    
+    
+    // MARK: - Navigation
+    
+    
+    func presentLoginScreen() {
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+        if let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "loginVC") as? LoginViewController {
+            self.window?.rootViewController = loginVC
+        }
+        self.window?.makeKeyAndVisible()
+    }
+    
+    func presentScreenplayCollectionView() {
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+        if let screenplayNav = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController {
+            self.window?.rootViewController = screenplayNav
+        }
+        self.window?.makeKeyAndVisible()
+    }
+    
+    
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
