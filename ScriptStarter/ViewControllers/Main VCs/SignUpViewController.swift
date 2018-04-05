@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import FacebookLogin
 import GoogleSignIn
 import Firebase
+import MBProgressHUD
 
 class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
 
@@ -30,6 +31,8 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     
     @IBOutlet weak var topView: UIView!
     
+    var loadingNotification = MBProgressHUD()
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -70,18 +73,52 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         
     }
     
+    // MARK: UI Methods
+    
+    func showActivityIndicator() {
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            self.loadingNotification =
+                MBProgressHUD.showAdded(to: self.view, animated: true)
+            self.loadingNotification.mode = MBProgressHUDMode.indeterminate
+            self.loadingNotification.animationType = .fade
+            self.loadingNotification.label.text = "loading"
+        }
+    }
+    
+    func hideActivityIndicator(success: Bool) {
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.loadingNotification.mode = .customView
+            if success {
+                self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
+                self.loadingNotification.label.text = "success"
+                self.loadingNotification.hide(animated: true, afterDelay: 1)
+                return
+            } else {
+                self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
+                self.loadingNotification.label.text = "failed"
+                self.loadingNotification.hide(animated: true, afterDelay: 0)
+            }
+        }
+        
+    }
+    
     
     // MARK: IBActions/Target methods
     
     @objc func facebookButtonTapped() {
         let loginManager = LoginManager()
+        showActivityIndicator()
         loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { loginResult in
             switch loginResult {
             case .failed(let error):
+                self.hideActivityIndicator(success: false)
                 #if DEBUG
                     print(error)
                 #endif
             case .cancelled:
+                self.hideActivityIndicator(success: false)
                 #if DEBUG
                     print("User cancelled login.")
                 #endif
@@ -92,10 +129,14 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
                 // Login with Firebase
                 let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString )
                 Auth.auth().signIn(with: credential) { (user, error) in
+                    
                     if let error = error {
                         print(error.localizedDescription)
+                        self.hideActivityIndicator(success: false)
+
                         return
                     }
+                    self.hideActivityIndicator(success: true)
                     self.presentScreenPlayCollection()
                 }
             }
@@ -108,12 +149,14 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
             self.present(alert, animated: true, completion: nil)
             return
         }
-        
+        showActivityIndicator()
         FirebaseController.shared.createAccount(firstName: firstName, lastName: lastName, withEmail: email, password: password) { (error, user) in
             if let error = error {
                 let alert = UIAlertControllers.emailAuthenticationError(message: error.localizedDescription)
+                self.hideActivityIndicator(success: false)
                 self.present(alert, animated: true, completion: nil)
             }
+            self.hideActivityIndicator(success: true)
             self.presentScreenPlayCollection()
         }
     }
@@ -135,11 +178,14 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         
         guard let authentication = user.authentication else { return }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+        showActivityIndicator()
         Auth.auth().signIn(with: credential) { (user, error) in
             if let error = error {
+                self.hideActivityIndicator(success: false)
                 print(error)
                 return
             }
+            self.hideActivityIndicator(success: true)
             self.presentScreenPlayCollection()
         }
     }

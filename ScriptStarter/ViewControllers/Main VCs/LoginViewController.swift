@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import FacebookLogin
 import GoogleSignIn
 import Firebase
+import MBProgressHUD
 
 class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
 
@@ -29,6 +30,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     
     @IBOutlet weak var textFieldStackCenterYConstraint: NSLayoutConstraint!
     
+    var loadingNotification = MBProgressHUD()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -78,15 +80,35 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     // MARK: UI Methods
     
     func showActivityIndicator() {
-        self.activityIndicatorContainerView.isHidden = false
-        self.activityIndicator.isAnimating
-         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+//        self.activityIndicatorContainerView.isHidden = false
+//        self.activityIndicator.isAnimating
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            self.loadingNotification =
+                MBProgressHUD.showAdded(to: self.view, animated: true)
+            self.loadingNotification.mode = MBProgressHUDMode.indeterminate
+            self.loadingNotification.animationType = .fade
+            self.loadingNotification.label.text = "loading"
+        }
     }
     
-    func hideActivityIndicator() {
-        self.activityIndicatorContainerView.isHidden = true
-        self.activityIndicator.stopAnimating()
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    func hideActivityIndicator(success: Bool, completion: (() -> Void)? = nil) {
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.loadingNotification.mode = .customView
+            if success {    
+                self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
+                self.loadingNotification.label.text = "success"
+                self.loadingNotification.hide(animated: true, afterDelay: 1)
+                completion?()
+            } else {
+                self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
+                self.loadingNotification.label.text = "failed"
+                self.loadingNotification.hide(animated: true, afterDelay: 0)
+                completion?()
+            }
+        }
+        
     }
     
     // MARK: IBActions/Target methods
@@ -97,12 +119,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { [weak self] loginResult in
                 switch loginResult {
                 case .failed(let error):
-                    self?.hideActivityIndicator()
+                    self?.hideActivityIndicator(success: false, completion: nil)
                     #if DEBUG
                         print(error)
                     #endif
                 case .cancelled:
-                    self?.hideActivityIndicator()
+                    self?.hideActivityIndicator(success: false)
                     #if DEBUG
                         print("User cancelled login.")
                     #endif
@@ -114,10 +136,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                     let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString )
                     Auth.auth().signIn(with: credential) { [weak self] (user, error) in
                         if let error = error {
-                            self?.hideActivityIndicator()
+                            self?.hideActivityIndicator(success: false)
                             print(error.localizedDescription)
                             return
                         }
+                        self?.hideActivityIndicator(success: true, completion: {
+                            self?.presentScreenPlayCollection()
+                        })
                     }
                 }
         }
@@ -132,12 +157,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         
         showActivityIndicator()
         FirebaseController.shared.signIn(with: email, password: password) { [weak self] (error, user) in
-            self?.hideActivityIndicator()
             if let error = error {
                 let alert = UIAlertControllers.emailAuthenticationError(message: error.localizedDescription)
+                self?.hideActivityIndicator(success: false)
                 self?.present(alert, animated: true, completion: nil)
                 return
             }
+            self?.hideActivityIndicator(success: true)
             self?.presentScreenPlayCollection()
         }
         
@@ -155,13 +181,14 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         showActivityIndicator()
         Auth.auth().sendPasswordReset(withEmail: email) { [weak self] error in
             
-            self?.hideActivityIndicator()
             
             // If error exists Alert User
             if let error = error {
+                self?.hideActivityIndicator(success: false)
                 self?.present(UIAlertControllers.emailAuthenticationError(message: error.localizedDescription), animated: true, completion: nil)
             // Else let user know the password was reset
             } else {
+                self?.hideActivityIndicator(success: true)
                 self?.present(UIAlertControllers.passwordResetSuccess(email: email), animated: true, completion: nil)
             }
         }
@@ -174,7 +201,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         GIDGoogleUser!, withError error: Error?) {
         showActivityIndicator()
         if let error = error {
-            hideActivityIndicator()
+            hideActivityIndicator(success: false)
             #if DEBUG
                 print(error)
             #endif
@@ -182,16 +209,17 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         }
         
         guard let authentication = user.authentication else {
-            self.hideActivityIndicator()
+            self.hideActivityIndicator(success: false)
             return
         }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
         Auth.auth().signIn(with: credential) { [weak self] (user, error) in
-            self?.hideActivityIndicator()
             if let error = error {
+                self?.hideActivityIndicator(success: false)
                 print(error)
                 return
             }
+            self?.hideActivityIndicator(success: true)
             self?.presentScreenPlayCollection()
         }
     }

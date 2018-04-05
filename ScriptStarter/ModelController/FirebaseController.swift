@@ -175,4 +175,18 @@ class FirebaseController {
         
     }
     
+    func changePassword(to newPassword: String, completion: @escaping (_ success: Bool) -> ()) {
+        guard let user = self.user else {
+            completion(false)
+            return
+        }
+        user.updatePassword(to: newPassword) { (error
+            ) in
+            if let _ = error {
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
 }

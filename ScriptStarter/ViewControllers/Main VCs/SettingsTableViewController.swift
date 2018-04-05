@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class SettingsTableViewController: UITableViewController {
 
@@ -19,7 +20,8 @@ class SettingsTableViewController: UITableViewController {
         self.tableView.separatorColor = UIColor.screenLightGray
     }
     
-    
+    var loadingNotification = MBProgressHUD()
+
     // MARK: UI Methods
     
     func setupNavigationBar() {
@@ -31,6 +33,40 @@ class SettingsTableViewController: UITableViewController {
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
         self.title = "Settings"
+    }
+    
+    // MARK: UI Methods
+    
+    func showActivityIndicator() {
+        //        self.activityIndicatorContainerView.isHidden = false
+        //        self.activityIndicator.isAnimating
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            self.loadingNotification =
+                MBProgressHUD.showAdded(to: self.view, animated: true)
+            self.loadingNotification.mode = MBProgressHUDMode.indeterminate
+            self.loadingNotification.animationType = .fade
+            self.loadingNotification.label.text = "loading"
+        }
+    }
+    
+    func hideActivityIndicator(success: Bool, completion: (() -> Void)? = nil) {
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.loadingNotification.mode = .customView
+            if success {
+                self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
+                self.loadingNotification.label.text = "success"
+                self.loadingNotification.hide(animated: true, afterDelay: 1)
+                completion?()
+            } else {
+                self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
+                self.loadingNotification.label.text = "failed"
+                self.loadingNotification.hide(animated: true, afterDelay: 0)
+                completion?()
+            }
+        }
+        
     }
     
     
@@ -49,7 +85,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     @objc func changePasswordButtonTapped() {
-        
+       
     }
     
     // MARK: - UITableView DataSource and Delegate Methods
@@ -152,25 +188,24 @@ class SettingsTableViewController: UITableViewController {
             break
         case 3:
             // MARK: - Delete Account
-            self.present(UIAlertControllers.deleteAccountConfirmation(completion: { [weak self] (deleted, canceled) in
+           self.showActivityIndicator()
+           self.present(UIAlertControllers.deleteAccountConfirmation(completion: { [weak self] (deleted, canceled) in
                 DispatchQueue.main.async {
                     self?.tableView.deselectRow(at: indexPath, animated: true)
                     
                     if canceled {
+                       self?.hideActivityIndicator(success: true, completion: nil)
                         return
                     }
-                    if deleted {
-                        self?.present(UIAlertControllers.accountDeleted {
-                            guard let dismissingViewController = self?.presentingViewController?.presentingViewController else {
-                                self?.navigateToLoginViewController()
-                                return
-                            }
-                            dismissingViewController.dismiss(animated: true, completion: nil)
-                        }, animated: true, completion: nil)
-                        
-                    } else {
-                        self?.present(UIAlertControllers.accountNotDeleted(), animated: true, completion: nil)
-                    }
+                    
+                    self?.hideActivityIndicator(success: true, completion: nil)
+                    self?.present(UIAlertControllers.accountDeleted {
+                        guard let dismissingViewController = self?.presentingViewController?.presentingViewController else {
+                            self?.navigateToLoginViewController()
+                            return
+                        }
+                        dismissingViewController.dismiss(animated: true, completion: nil)
+                    }, animated: true, completion: nil)
                 }
             }), animated: true, completion: nil)
         default:

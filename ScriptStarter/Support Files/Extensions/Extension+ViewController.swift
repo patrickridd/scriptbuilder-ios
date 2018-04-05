@@ -17,7 +17,7 @@ extension UIViewController: UITextFieldDelegate {
     
     func saveScreenplay() {
         let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
-        loadingNotification.mode = MBProgressHUDMode.annularDeterminate
+        loadingNotification.mode = MBProgressHUDMode.indeterminate
         loadingNotification.animationType = .fade
         loadingNotification.label.text = "saving"
         
