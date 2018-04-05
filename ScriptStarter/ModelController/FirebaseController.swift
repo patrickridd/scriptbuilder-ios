@@ -155,4 +155,24 @@ class FirebaseController {
         }
     }
     
+    func deleteAccount(completion: @escaping (_ deleted: Bool) -> Void) {
+        guard let user = user else {
+            completion(false)
+            return
+        }
+        let userRef = self.ref.child("users").child(user.uid)
+
+        user.delete(completion: { (error) in
+            if let _ = error { completion( false) }
+            userRef.removeValue { (error, _) in
+                if let _ = error {
+                    completion(false)
+                } else {
+                    completion(true)
+                }
+            }
+        })
+        
+    }
+    
 }

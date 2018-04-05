@@ -34,12 +34,23 @@ class SettingsTableViewController: UITableViewController {
     }
     
     
-    // MARK: - IBActions
+    // MARK: - IBActions && Target Methods
     
     @IBAction func downButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func restoreButtonTapped() {
+        
+    }
+    
+    @objc func purchaseButtonTapped() {
+        
+    }
+    
+    @objc func changePasswordButtonTapped() {
+        
+    }
     
     // MARK: - UITableView DataSource and Delegate Methods
     
@@ -91,7 +102,7 @@ class SettingsTableViewController: UITableViewController {
         case 0,1:
             return 90
         default:
-            return 90
+            return 80
         }
     }
     
@@ -126,13 +137,40 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 2:
-            // Share App
+            // MARK: - Share App
+            DispatchQueue.main.async {
+                if let link = NSURL(string: "https://itunes.apple.com/us/app/payraise/id1281621920?ls=1&mt=8") {
+                    let message = "Check out Script Builder"
+                    let objectsToShare = [message,link] as [Any]
+                    let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+                    self.present(activityVC, animated: true) {
+                        self.tableView.deselectRow(at: indexPath, animated: true)
+                    }
+                }
+            }
+
             break
         case 3:
-            // Delete Account
-            break
+            // MARK: - Delete Account
+            self.present(UIAlertControllers.deleteAccountConfirmation(completion: { [weak self] (deleted, canceled) in
+                DispatchQueue.main.async {
+                    self?.tableView.deselectRow(at: indexPath, animated: true)
+                    
+                    if canceled {
+                        return
+                    }
+                    if deleted {
+                        self?.present(UIAlertControllers.accountDeleted {
+                            self?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                        }, animated: true, completion: nil)
+                    } else {
+                        self?.present(UIAlertControllers.accountNotDeleted(), animated: true, completion: nil)
+                    }
+                }
+            }), animated: true, completion: nil)
         default:
             break
         }
     }
+    
 }
