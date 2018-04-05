@@ -27,6 +27,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var textFieldStackCenterYConstraint: NSLayoutConstraint!
+    
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -48,6 +51,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
+        // Sets keyboard observers so we can adjust the textfields
+        addKeyBoardObservers()
+        
+        // Add toolbars to be able to dismiss keyboard manually
+        addToolBar(textField: self.emailTextField)
+        addToolBar(textField: self.passwordTextField)
+        
         // Setup Tap Gesture to dismiss keyboard
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
@@ -55,9 +65,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         
         // Set Google Analytics Screen Name
         Analytics.setScreenName("Login", screenClass: "LoginViewController")
-        
-        addToolBar(textField: self.emailTextField)
-        addToolBar(textField: self.passwordTextField)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -207,6 +214,39 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             loginInButtonTapped(textField)
         }
         return true
+    }
+    
+    // MARK: - Keyboard Delegate methods
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        guard let info = notification.userInfo, let duration: Double = info[UIKeyboardAnimationDurationUserInfoKey] as? Double else {
+            return
+        }
+        
+        UIView.animate(withDuration: duration) {
+            self.textFieldStackCenterYConstraint.constant = -80
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        guard let info = notification.userInfo, let duration: Double = info[UIKeyboardAnimationDurationUserInfoKey] as? Double else {
+            return
+        }
+        
+        UIView.animate(withDuration: duration) {
+            self.textFieldStackCenterYConstraint.constant = 0
+        }
+    }
+    
+    func addKeyBoardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(NSNotification.Name.UIKeyboardWillHide)
+        NotificationCenter.default.removeObserver(NSNotification.Name.UIKeyboardWillShow)
     }
     
     

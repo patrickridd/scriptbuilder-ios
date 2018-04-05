@@ -26,6 +26,10 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var textFieldStackCenterYConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var topView: UIView!
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -46,6 +50,15 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         passwordTextField.delegate = self
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
+        
+        // Add toolbars to textfields
+        addToolBar(textField: self.emailTextField)
+        addToolBar(textField: self.passwordTextField)
+        addToolBar(textField: self.firstNameTextField)
+        addToolBar(textField: self.lastNameTextField)
+        
+        // Sets keyboard observers so we can adjust the textfields
+        addKeyBoardObservers()
         
         // Setup Tap Gesture to dismiss keyboard
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -154,6 +167,42 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
             signUpButtonTapped(textField)
         }
         return true
+    }
+    
+    // MARK: - Keyboard Delegate methods
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        guard let info = notification.userInfo, let duration: Double = info[UIKeyboardAnimationDurationUserInfoKey] as? Double else {
+            return
+        }
+       
+        UIView.animate(withDuration: duration) {
+           self.textFieldStackCenterYConstraint.constant = -100
+            self.topView.isHidden = true
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        guard let info = notification.userInfo, let duration: Double = info[UIKeyboardAnimationDurationUserInfoKey] as? Double else {
+            return
+        }
+        
+        // Vertically Center textField StackView by setting constant to 0
+        UIView.animate(withDuration: duration) {
+            self.textFieldStackCenterYConstraint.constant = 0
+            self.topView.isHidden = false
+        }
+    }
+    
+    func addKeyBoardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(NSNotification.Name.UIKeyboardWillHide)
+        NotificationCenter.default.removeObserver(NSNotification.Name.UIKeyboardWillShow)
     }
     
     

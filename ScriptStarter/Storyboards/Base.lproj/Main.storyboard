@@ -164,7 +164,7 @@
                                                         <rect key="frame" x="0.0" y="168" width="414" height="82"/>
                                                         <subviews>
                                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="SVr-Fp-fC6">
-                                                                <rect key="frame" x="188.66666666666666" y="22.666666666666657" width="37" height="37"/>
+                                                                <rect key="frame" x="188.66666666666666" y="23.333333333333343" width="37" height="37"/>
                                                                 <color key="color" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </activityIndicatorView>
                                                         </subviews>
@@ -235,6 +235,7 @@
                         <outlet property="googleSignInButton" destination="eWX-4p-hY8" id="lno-ne-JMr"/>
                         <outlet property="loginButton" destination="X5g-g7-BpV" id="upo-iT-K6y"/>
                         <outlet property="passwordTextField" destination="13Q-eR-o9O" id="5Oc-Bh-R7z"/>
+                        <outlet property="textFieldStackCenterYConstraint" destination="hhK-90-FWf" id="Lj1-xn-aKR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -507,7 +508,7 @@
         <scene sceneID="znh-ln-Tbl">
             <objects>
                 <tableViewController id="SlF-ft-Xlu" customClass="SettingsTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="mUB-4Y-wpq">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="mUB-4Y-wpq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -911,7 +912,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WCD-8k-Ani">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCD-8k-Ani">
                                 <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vZP-JF-Wf7" userLabel="containerView">
@@ -921,7 +922,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="273"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="nts-N2-lty">
-                                                        <rect key="frame" x="87.333333333333329" y="99" width="239.66666666666669" height="75.333333333333314"/>
+                                                        <rect key="frame" x="87.333333333333329" y="89" width="239.66666666666669" height="75.333333333333314"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Script Builder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCA-v7-B4N">
                                                                 <rect key="frame" x="0.0" y="0.0" width="239.66666666666666" height="54.666666666666664"/>
@@ -941,7 +942,7 @@
                                                 <color key="backgroundColor" red="0.34901612999999998" green="0.35298997160000001" blue="0.34901931879999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstItem="nts-N2-lty" firstAttribute="centerX" secondItem="o1c-LO-Qc6" secondAttribute="centerX" id="N0V-mi-t7c"/>
-                                                    <constraint firstItem="nts-N2-lty" firstAttribute="centerY" secondItem="o1c-LO-Qc6" secondAttribute="centerY" id="cVy-vP-YuW"/>
+                                                    <constraint firstItem="nts-N2-lty" firstAttribute="centerY" secondItem="o1c-LO-Qc6" secondAttribute="centerY" constant="-10" id="cVy-vP-YuW"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="I7s-fA-OEw" userLabel="socialMediaStack">
@@ -1057,10 +1058,10 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="voH-Hh-D0x" userLabel="indicatorContainer">
-                                                        <rect key="frame" x="332" y="106.33333333333333" width="40" height="39.999999999999986"/>
+                                                        <rect key="frame" x="332" y="96.333333333333329" width="40" height="39.999999999999986"/>
                                                         <subviews>
                                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="APu-i8-BpE">
-                                                                <rect key="frame" x="1.6666666666666856" y="2.0000000000000142" width="37" height="37"/>
+                                                                <rect key="frame" x="1.6666666666666856" y="2" width="37" height="37"/>
                                                                 <color key="color" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </activityIndicatorView>
                                                         </subviews>
@@ -1096,6 +1097,7 @@
                                             <constraint firstItem="9jp-fI-OUM" firstAttribute="leading" secondItem="vZP-JF-Wf7" secondAttribute="leading" constant="50" id="nGL-gn-9oa"/>
                                             <constraint firstItem="o1c-LO-Qc6" firstAttribute="top" secondItem="vZP-JF-Wf7" secondAttribute="top" id="rhj-df-nYw"/>
                                             <constraint firstAttribute="trailing" secondItem="o1c-LO-Qc6" secondAttribute="trailing" id="v2u-kc-6nU"/>
+                                            <constraint firstItem="I7s-fA-OEw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Fsi-jX-bWD" secondAttribute="bottom" constant="10" id="wGi-rC-Ki4"/>
                                             <constraint firstItem="9jp-fI-OUM" firstAttribute="top" secondItem="o1c-LO-Qc6" secondAttribute="bottom" id="xjs-JN-gRT"/>
                                         </constraints>
                                     </view>
@@ -1128,6 +1130,8 @@
                         <outlet property="googleSignInButton" destination="WfI-mM-Ywu" id="JzV-bq-x6e"/>
                         <outlet property="lastNameTextField" destination="WQ1-YE-raf" id="O0r-D0-hcg"/>
                         <outlet property="passwordTextField" destination="3U6-uP-T4P" id="y8E-yb-lZi"/>
+                        <outlet property="textFieldStackCenterYConstraint" destination="G9O-yP-fED" id="rBE-YG-RlT"/>
+                        <outlet property="topView" destination="o1c-LO-Qc6" id="3SU-yq-PCX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xRR-WN-xm4" sceneMemberID="firstResponder"/>
