@@ -201,17 +201,17 @@
                                                     </connections>
                                                 </textField>
                                                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vA8-hP-wVR">
-                                                    <rect key="frame" x="0.0" y="35" width="335" height="59.5"/>
+                                                    <rect key="frame" x="0.0" y="35" width="335" height="62"/>
                                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="0.5" id="yYn-gd-Uwv"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BnV-lC-5WV" userLabel="roleContainer">
-                                                    <rect key="frame" x="0.0" y="99.5" width="335" height="44.5"/>
+                                                    <rect key="frame" x="0.0" y="102" width="335" height="42"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="role" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5Vg-o2-u3g">
-                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="44.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="42"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" priority="750" constant="30" id="Bzi-0D-vod"/>
                                                             </constraints>
@@ -223,7 +223,7 @@
                                                             </connections>
                                                         </textField>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YF-DI-8EN" userLabel="roleButton">
-                                                            <rect key="frame" x="0.0" y="0.0" width="305" height="45"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="305" height="42.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </button>
                                                     </subviews>

@@ -25,11 +25,15 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var activityIndicatorContainerView: UIView!
     
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var textFieldStackCenterYConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var orViewCenterYConstraint: NSLayoutConstraint!
     @IBOutlet weak var topView: UIView!
+    
+    @IBOutlet weak var scriptBuilderLabel: UILabel!
+    
+    @IBOutlet weak var signUpButtonBottomConstraint: NSLayoutConstraint!
     
     var loadingNotification = MBProgressHUD()
 
@@ -47,6 +51,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         googleSignInButton.style = .iconOnly
+        googleSignInButton.colorScheme = .light
         
         // Set TextFields Delegate
         emailTextField.delegate = self
@@ -70,7 +75,14 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         
         // Set Google Analytics Screen Name
         Analytics.setScreenName("SignUp", screenClass: "SignUpViewController")
+       
+        let strokeTextAttributes: [NSAttributedStringKey : Any] = [
+            NSAttributedStringKey.strokeColor : UIColor.screenLightBlue,
+            NSAttributedStringKey.foregroundColor : UIColor.white,
+            NSAttributedStringKey.strokeWidth : 1,
+            ]
         
+        scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
     }
     
     // MARK: UI Methods
@@ -223,7 +235,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         }
        
         UIView.animate(withDuration: duration) {
-           self.textFieldStackCenterYConstraint.constant = -100
+           self.orViewCenterYConstraint.constant = -250
             self.topView.isHidden = true
         }
     }
@@ -233,9 +245,9 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
             return
         }
         
-        // Vertically Center textField StackView by setting constant to 0
+      
         UIView.animate(withDuration: duration) {
-            self.textFieldStackCenterYConstraint.constant = 0
+            self.orViewCenterYConstraint.constant = -75
             self.topView.isHidden = false
         }
     }

@@ -49,7 +49,28 @@ extension UIColor {
         return UIColor(red: 0.93, green: 0.77, blue: 0.32, alpha: 1.0)
     }
     
+    static var screenRetroPurp: UIColor {
+        return UIColor(red: 0.85, green: 0.63, blue: 0.92, alpha: 1.0)
+    }
+    
+    static var screenMidnightPink: UIColor {
+        return UIColor(red: 0.84, green: 0.33, blue: 0.54, alpha: 0.5)
+    }
+    
+    static var screenFrenchLilac: UIColor {
+        return UIColor(red: 0.91, green: 0.76, blue: 0.93, alpha: 1.0)
+    }
+    
     static var flamenco: UIColor {
         return UIColor(red: 0.92, green: 0.50, blue: 0.31, alpha: 0.50)
+    }
+    
+    
+    static var screenMidnightExpressBlack: UIColor {
+        return UIColor(red: 0.12, green: 0.16, blue: 0.22, alpha: 1.0)
+    }
+    
+    static var screenHaitiBlack: UIColor {
+        return UIColor(red: 0.12, green: 0.06, blue: 0.16, alpha: 1.0)
     }
 }

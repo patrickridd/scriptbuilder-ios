@@ -51,6 +51,15 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let strokeTextAttributes: [NSAttributedStringKey : Any] = [
+            NSAttributedStringKey.strokeColor : UIColor.screenLightBlue,
+            NSAttributedStringKey.foregroundColor : UIColor.white,
+            NSAttributedStringKey.strokeWidth : -2.0,
+            NSAttributedStringKey.font: UIFont(name: "Avenir-Light", size: 22) ?? UIFont.systemFont(ofSize: 22, weight: .regular)]
+       // self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
+        //let attributedString = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
+        self.navigationController?.navigationBar.titleTextAttributes = strokeTextAttributes
         self.title = "Script Builder"
         self.collectionView.reloadData()
     }

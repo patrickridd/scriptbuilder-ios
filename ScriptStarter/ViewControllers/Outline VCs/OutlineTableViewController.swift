@@ -225,6 +225,8 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         sectionHeader.navigationButton.tag = section
         sectionHeader.navigationButton.addTarget(self, action: #selector(pushToDetailView(sender:)), for: .touchUpInside)
         sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
+        sectionHeader.sectionLabel.textColor = UIColor.screenDark
+
         sectionHeader.sectionLabel.text = sectionName
         return sectionHeader
    }

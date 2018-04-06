@@ -28,7 +28,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var scriptBuilderLabel: UILabel!
     @IBOutlet weak var textFieldStackCenterYConstraint: NSLayoutConstraint!
+    
     
     var loadingNotification = MBProgressHUD()
     
@@ -48,6 +50,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         googleSignInButton.style = .iconOnly
+        googleSignInButton.colorScheme = .light
         
         // Set TextFields Delegate
         emailTextField.delegate = self
@@ -67,6 +70,14 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         
         // Set Google Analytics Screen Name
         Analytics.setScreenName("Login", screenClass: "LoginViewController")
+        
+        let strokeTextAttributes: [NSAttributedStringKey : Any] = [
+            NSAttributedStringKey.strokeColor : UIColor.screenLightBlue,
+            NSAttributedStringKey.foregroundColor : UIColor.white,
+            NSAttributedStringKey.strokeWidth : 1,
+            ]
+        
+        scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,6 +111,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
                 self.loadingNotification.label.text = "success"
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
+                let strokeTextAttributes: [NSAttributedStringKey : Any] = [
+                    NSAttributedStringKey.strokeColor : UIColor.screenLightBlue,
+                    NSAttributedStringKey.foregroundColor : UIColor.white,
+                    NSAttributedStringKey.strokeWidth : -2.0,
+                    ]
+                
+                self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
                 completion?()
             } else {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))

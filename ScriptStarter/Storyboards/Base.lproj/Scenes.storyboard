@@ -131,7 +131,7 @@
                     <navigationItem key="navigationItem" id="Q17-py-LpC">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="4xh-Gq-0Q4">
-                                <color key="tintColor" red="0.75294117650000003" green="0.85490196080000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="plusButtonTapped:" destination="a7m-0h-Cqv" id="kch-eh-cow"/>
                                 </connections>
@@ -443,7 +443,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ea8-8V-esE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="I2G-hi-Ukd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5733.6000000000004" y="536.58170914542734"/>
+            <point key="canvasLocation" x="5833" y="522"/>
         </scene>
         <!--Scene Act Number Pop Table View Controller-->
         <scene sceneID="ssD-aW-BJm">
@@ -487,7 +487,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4fg-Bd-V0G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5481" y="1031"/>
+            <point key="canvasLocation" x="5386" y="688"/>
         </scene>
     </scenes>
     <resources>
