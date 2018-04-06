@@ -22,6 +22,7 @@ class SettingsTableViewController: UITableViewController {
     
     var loadingNotification = MBProgressHUD()
 
+    
     // MARK: UI Methods
     
     func setupNavigationBar() {
@@ -66,8 +67,26 @@ class SettingsTableViewController: UITableViewController {
                 completion?()
             }
         }
-        
     }
+        
+    func presentDeleteAccountConfirmation(completion: @escaping (_ deleted: Bool,_ canceled: Bool) -> ()) -> UIAlertController {
+        let alert = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account?", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+            self.showActivityIndicator()
+            FirebaseController.shared.deleteAccount(completion: { [weak self] (deleted) in
+                self?.hideActivityIndicator(success: true, completion: nil)
+                completion(deleted,false)
+            })
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+            completion(false, true)
+        }
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        
+        return alert
+    }
+    
     
     
     // MARK: - IBActions && Target Methods
@@ -85,8 +104,25 @@ class SettingsTableViewController: UITableViewController {
     }
     
     @objc func changePasswordButtonTapped() {
-       
+        self.view.endEditing(true)
+        let indexPath = IndexPath(row: 0, section: 1)
+        guard let changePasswordCell = self.tableView.cellForRow(at: indexPath) as? ChangePasswordTableViewCell, let newPassword = changePasswordCell.newPasswordTextField.text else { return }
+        showActivityIndicator()
+        FirebaseController.shared.changePassword(to: newPassword) { [weak self] (success) in
+            DispatchQueue.main.async {
+                
+            
+            self?.hideActivityIndicator(success: success, completion: {
+                if success {
+                    
+                } else {
+                    
+                }
+            })
+            }
+        }
     }
+    
     
     // MARK: - UITableView DataSource and Delegate Methods
     
@@ -109,6 +145,8 @@ class SettingsTableViewController: UITableViewController {
             guard let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell", for: indexPath) as? ChangePasswordTableViewCell else {
                 return UITableViewCell()
             }
+            changePasswordCell.changeButton.addTarget(self, action: #selector(changePasswordButtonTapped), for: .touchUpInside)
+            
             return changePasswordCell
         case 2:
             guard let shareAppCell = tableView.dequeueReusableCell(withIdentifier: "shareAppCell", for: indexPath) as? ShareTableViewCell else {
@@ -135,10 +173,10 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
-        case 0,1:
+        case 0:
             return 90
         default:
-            return 80
+            return 60
         }
     }
     
@@ -175,39 +213,37 @@ class SettingsTableViewController: UITableViewController {
         case 2:
             // MARK: - Share App
             DispatchQueue.main.async {
-            if let link = NSURL(string: "https://itunes.apple.com/us/app/payraise/id1281621920?ls=1&mt=8") {
-                let message = "Check out Script Builder"
-                let objectsToShare = [message,link] as [Any]
-                let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-                self.present(activityVC, animated: true) {
-                    self.tableView.deselectRow(at: indexPath, animated: true)
+                if let link = NSURL(string: "https://itunes.apple.com/us/app/payraise/id1281621920?ls=1&mt=8") {
+                    let message = "Check out Script Builder"
+                    let objectsToShare = [message,link] as [Any]
+                    let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+                    self.present(activityVC, animated: true) {
+                        self.tableView.deselectRow(at: indexPath, animated: true)
+                    }
                 }
-            }
             }
 
             break
         case 3:
             // MARK: - Delete Account
-           self.showActivityIndicator()
-           self.present(UIAlertControllers.deleteAccountConfirmation(completion: { [weak self] (deleted, canceled) in
-                DispatchQueue.main.async {
-                    self?.tableView.deselectRow(at: indexPath, animated: true)
-                    
-                    if canceled {
-                       self?.hideActivityIndicator(success: true, completion: nil)
+        self.present(self.presentDeleteAccountConfirmation(completion: { [weak self] (deleted, canceled) in
+                
+            DispatchQueue.main.async {
+                self?.tableView.deselectRow(at: indexPath, animated: true)
+                
+                if canceled {
+                    return
+                }
+                
+                self?.present(UIAlertControllers.accountDeleted {
+                    guard let dismissingViewController = self?.presentingViewController?.presentingViewController else {
+                        self?.navigateToLoginViewController()
                         return
                     }
-                    
-                    self?.hideActivityIndicator(success: true, completion: nil)
-                    self?.present(UIAlertControllers.accountDeleted {
-                        guard let dismissingViewController = self?.presentingViewController?.presentingViewController else {
-                            self?.navigateToLoginViewController()
-                            return
-                        }
-                        dismissingViewController.dismiss(animated: true, completion: nil)
-                    }, animated: true, completion: nil)
-                }
-            }), animated: true, completion: nil)
+                    dismissingViewController.dismiss(animated: true, completion: nil)
+                }, animated: true, completion: nil)
+            }
+        }), animated: true, completion: nil)
         default:
             break
         }

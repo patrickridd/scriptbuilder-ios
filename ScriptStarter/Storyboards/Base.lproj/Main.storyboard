@@ -528,17 +528,17 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Wnv-ce-sMm">
                                             <rect key="frame" x="20" y="0.0" width="289" height="119.66666666666667"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="old password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jCU-9Y-8f5">
-                                                    <rect key="frame" x="0.0" y="0.0" width="289" height="60"/>
+                                                <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="old password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jCU-9Y-8f5">
+                                                    <rect key="frame" x="0.0" y="0.0" width="289" height="0.0"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next"/>
                                                 </textField>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="new password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="CVX-9T-1Be">
-                                                    <rect key="frame" x="0.0" y="60" width="289" height="59.666666666666657"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="new password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CVX-9T-1Be">
+                                                    <rect key="frame" x="0.0" y="0.0" width="289" height="119.66666666666667"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                                                    <textInputTraits key="textInputTraits" keyboardAppearance="alert" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                         </stackView>
@@ -557,9 +557,6 @@
                                                     <integer key="value" value="4"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="changePasswordButtonTapped:" destination="eWa-QW-inp" eventType="touchUpInside" id="cJa-yr-Vwo"/>
-                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -577,6 +574,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <outlet property="changeButton" destination="Qh4-OM-un7" id="Z5X-4x-Ann"/>
                                     <outlet property="newPasswordTextField" destination="CVX-9T-1Be" id="wZc-CP-QVf"/>
                                     <outlet property="oldPasswordTextField" destination="jCU-9Y-8f5" id="Y5I-3d-Ff1"/>
                                 </connections>
