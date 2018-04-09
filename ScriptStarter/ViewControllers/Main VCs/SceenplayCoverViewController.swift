@@ -55,7 +55,11 @@ class SceenplayCoverViewController: UIViewController, GADInterstitialDelegate {
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         ScreenplayController.shared.resetCurrentScreenplay()
-        hero_dismissViewController()
+        if let _ = self.presentingViewController {
+            hero_dismissViewController()
+            return
+        }
+        self.navigateToScreenplayCollectionView()
     }
     
     @IBAction func arrowButtonTapped(_ sender: Any) {
@@ -160,4 +164,5 @@ class SceenplayCoverViewController: UIViewController, GADInterstitialDelegate {
         }
         screenplay?.title = title
     }
+    
 }

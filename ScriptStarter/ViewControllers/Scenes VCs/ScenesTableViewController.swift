@@ -10,6 +10,8 @@ import UIKit
 
 class ScenesTableViewController: UITableViewController {
     
+    var newScene: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +23,9 @@ class ScenesTableViewController: UITableViewController {
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
         
+        if newScene {
+            self.pushToSceneDetailView(act: .one, scene: nil)
+        }
 //        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(gestureRecognizer:)))
 //        tableView.addGestureRecognizer(longpress)
     }

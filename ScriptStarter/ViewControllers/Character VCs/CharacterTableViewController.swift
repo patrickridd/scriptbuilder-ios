@@ -27,6 +27,8 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         }
     }
     
+    var newCharacter: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +38,9 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
 
         // Set Google Analytics Screen Name
         Analytics.setScreenName("CharacterTableView", screenClass: "CharacterTableViewController")
+        if newCharacter {
+            self.performSegue(withIdentifier: "newCharacterSegue", sender: nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

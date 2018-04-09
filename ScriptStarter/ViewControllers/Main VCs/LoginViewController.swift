@@ -80,14 +80,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if FBSDKAccessToken.current() != nil || Auth.auth().currentUser != nil {
-            // User is logged in so present their screenplays
-            presentScreenPlayCollection()
-        }
-    }
-    
     // MARK: UI Methods
     
     func showActivityIndicator() {

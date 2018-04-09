@@ -96,6 +96,8 @@ extension UIViewController: UITextFieldDelegate {
         self.view.endEditing(true) // or do something
     }
     
+    // MARK: Navigation
+    
     func navigateToLoginViewController() {
         // Present the main view
         DispatchQueue.main.async {
@@ -105,6 +107,16 @@ extension UIViewController: UITextFieldDelegate {
                 self.dismiss(animated: false, completion: nil)
             }
         }
+    }
+    
+    func navigateToScreenplayCollectionView() {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+    
+        guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else {
+            return
+        }
+        UIApplication.shared.keyWindow?.rootViewController = mainNavigationController
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

@@ -107,21 +107,11 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         FirebaseController.shared.getScreenplays { (screenplays) in
             DispatchQueue.main.async {
                 self.screenplays = screenplays
-                if let screenplay = self.getCachedScreenplay() {
+                if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: self.screenplays) {
                     self.segueTo(screenplay: screenplay)
                 }
             }
         }
-    }
-    
-    func getCachedScreenplay() -> Screenplay? {
-        // Find previously opened screenplay and present it
-        guard let screenplayId = ScreenplayController.shared.getScreenPlayId(),
-            let screenplay = self.screenplays.filter({screenplayId == $0.uuid}).first else {
-                return nil
-        }
-        
-        return screenplay
     }
     
     // MARK - UICollectionViewDataSource

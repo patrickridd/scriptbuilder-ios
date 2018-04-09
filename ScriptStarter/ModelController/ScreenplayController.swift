@@ -39,4 +39,14 @@ class ScreenplayController {
     func getScreenPlayId() -> String? {
         return userDefaults.value(forKey: screenplayKey) as? String
     }
+    
+    func getCachedScreenplay(screenplays: [Screenplay]) -> Screenplay? {
+        // Find previously opened screenplay and present it
+        guard let screenplayId = self.getScreenPlayId(),
+            let screenplay = screenplays.filter({screenplayId == $0.uuid}).first else {
+                return nil
+        }
+        
+        return screenplay
+    }
 }

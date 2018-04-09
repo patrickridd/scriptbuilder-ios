@@ -14,10 +14,16 @@ import GoogleMobileAds
 
 enum Shortcut: String {
     case newIdea = "newIdea"
+    case newScene = "newScene"
+    case newCharacter = "newCharacter"
 }
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    var isLoggedIn: Bool {
+        return FBSDKAccessToken.current() != nil || Auth.auth().currentUser != nil
+    }
     
     var window: UIWindow?
     
@@ -51,12 +57,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Remove before app release.
             gai.logger.logLevel = .verbose
             
-//            if FBSDKAccessToken.current() != nil || Auth.auth().currentUser != nil {
-//                // User is logged in so present their screenplays
-//                self.presentScreenplayCollectionView()
-//            } else {
-//                self.presentLoginScreen()
-//            }
+            if isLoggedIn {
+                // User is logged in so present their screenplays
+                self.presentScreenplayCollectionView()
+            } else {
+                self.presentLoginScreen()
+            }
             
             return true
     }
@@ -68,12 +74,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func handleQuickAction(shortcutItem: UIApplicationShortcutItem) -> Bool {
         
+        if !isLoggedIn {
+            self.presentLoginScreen()
+            return false
+        }
+        
         var quickActionHandled = false
         let type = shortcutItem.type.components(separatedBy: ".").last!
         if let shortcutType = Shortcut.init(rawValue: type) {
+        
             switch shortcutType {
             case .newIdea:
-                //self.window?.backgroundColor = UIColor(red: 151.0/255.0, green: 187.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+                self.presentNewScreenplayIdea()
+                quickActionHandled = true
+            case .newScene:
+                self.presentNewScene()
+                quickActionHandled = true
+
+            case .newCharacter:
+                self.presentNewCharacter()
                 quickActionHandled = true
             }
         }
@@ -82,7 +101,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // MARK: - Navigation
-    
     
     func presentLoginScreen() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -95,18 +113,87 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func presentScreenplayCollectionView() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
-        if let screenplayNav = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController {
-            self.window?.rootViewController = screenplayNav
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else {
+            return
         }
+        
+        self.window?.rootViewController = mainNavigationController
         self.window?.makeKeyAndVisible()
     }
     
+    func presentNewScreenplayIdea() {
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else {
+           // let screenplayCoverVC =  mainNavigationController.viewControllers[1] as? ScreenplayPageViewController else {
+            return
+        }
+       
+        self.window?.rootViewController = mainNavigationController
+        self.window?.makeKeyAndVisible()
+    }
     
+    func presentNewCharacter() {
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let screenplayCoverVC = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController,
+            let screenplayTabBar = screenplayCoverVC.orderedViewControllers[1] as? ScreenplayTabBarController,
+            let characterNavigationController = screenplayTabBar.viewControllers?[1] as? UINavigationController,
+             let characterTableViewController =  characterNavigationController.viewControllers[0] as? CharacterTableViewController else {
+            return
+        }
+        
+        screenplayCoverVC.swipedLeft()
+        screenplayTabBar.selectedIndex = 1
+        characterTableViewController.newCharacter = true
+        FirebaseController.shared.getScreenplays { (screenplays) in
+            if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays) {
+                ScreenplayController.shared.set(currentScreenplay: screenplay)
+                self.window?.rootViewController = screenplayCoverVC
+                self.window?.makeKeyAndVisible()
+                return
+            }
+            
+            let screenplay = Screenplay(title: "Untitled")
+            ScreenplayController.shared.set(currentScreenplay: screenplay)
+            self.window?.rootViewController = screenplayCoverVC
+            self.window?.makeKeyAndVisible()
+        }
+    }
     
+    func presentNewScene() {
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let screenplayCoverVC = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController,
+            let screenplayTabBar = screenplayCoverVC.orderedViewControllers[1] as? ScreenplayTabBarController,
+            let sceneNavigationController = screenplayTabBar.viewControllers?[2] as? UINavigationController,
+            let scenesTableViewController =  sceneNavigationController.viewControllers[0] as? ScenesTableViewController else {
+                return
+        }
+        
+        screenplayCoverVC.swipedLeft()
+        screenplayTabBar.selectedIndex = 2
+        scenesTableViewController.newScene = true
+        FirebaseController.shared.getScreenplays { (screenplays) in
+            if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays) {
+                ScreenplayController.shared.set(currentScreenplay: screenplay)
+                self.window?.rootViewController = screenplayCoverVC
+                self.window?.makeKeyAndVisible()
+                return
+            }
+            
+            let screenplay = Screenplay(title: "Untitled")
+            ScreenplayController.shared.set(currentScreenplay: screenplay)
+            self.window?.rootViewController = screenplayCoverVC
+            self.window?.makeKeyAndVisible()
+        }
+    }
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
         // Handles both Facebook and Google
+        
       let handled = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) ||   GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
         
         return handled
