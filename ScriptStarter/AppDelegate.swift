@@ -12,6 +12,10 @@ import FBSDKCoreKit
 import GoogleSignIn
 import GoogleMobileAds
 
+enum Shortcut: String {
+    case newIdea = "newIdea"
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -57,6 +61,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
     }
     
+
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        completionHandler(handleQuickAction(shortcutItem: shortcutItem))
+    }
+    
+    func handleQuickAction(shortcutItem: UIApplicationShortcutItem) -> Bool {
+        
+        var quickActionHandled = false
+        let type = shortcutItem.type.components(separatedBy: ".").last!
+        if let shortcutType = Shortcut.init(rawValue: type) {
+            switch shortcutType {
+            case .newIdea:
+                //self.window?.backgroundColor = UIColor(red: 151.0/255.0, green: 187.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+                quickActionHandled = true
+            }
+        }
+        
+        return quickActionHandled
+    }
     
     // MARK: - Navigation
     

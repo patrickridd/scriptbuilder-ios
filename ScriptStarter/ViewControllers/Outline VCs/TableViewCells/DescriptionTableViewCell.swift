@@ -40,13 +40,13 @@ class DescriptionTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code#colorLiteral(red: 0.1608378887, green: 0.2145528793, blue: 0.2791442871, alpha: 1)
         descriptionTextView.textColor = UIColor.screenHaitiBlack
-        let strokeTextAttributes: [NSAttributedStringKey : Any] = [
-            NSAttributedStringKey.strokeColor : UIColor.screenMidnightPink,
-            NSAttributedStringKey.foregroundColor : UIColor.screenMidnightPink,
-            NSAttributedStringKey.strokeWidth : -2.0,
-            ]
-        
-        self.descriptionTextView.placeholderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
+//        let strokeTextAttributes: [NSAttributedStringKey : Any] = [
+//            NSAttributedStringKey.strokeColor : UIColor.screenMidnightPink,
+//            NSAttributedStringKey.foregroundColor : UIColor.screenMidnightPink,
+//            NSAttributedStringKey.strokeWidth : -2.0,
+//            ]
+//        
+//        self.descriptionTextView.placeholderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
         //descriptionTextView.placeholderLabel.attributedText
         //descriptionTextView.placeholderColor = UIColor.screenFrenchLilac
         let font = UIFont.systemFont(ofSize: 14, weight: .regular)
