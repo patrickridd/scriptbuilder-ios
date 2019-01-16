@@ -8,6 +8,5 @@
 
 #ifndef ScriptStarter_Bridging_Header_h
 #define ScriptStarter_Bridging_Header_h
-#import <Google/Analytics.h>
 
 #endif /* ScriptStarter_Bridging_Header_h */

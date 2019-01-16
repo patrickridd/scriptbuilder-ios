@@ -36,6 +36,9 @@
 		2153C349207586EA00C08B73 /* ShareTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C348207586EA00C08B73 /* ShareTableViewCell.swift */; };
 		2153C34B207587B500C08B73 /* DeleteAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */; };
 		215829CB20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */; };
+		215DDCD321EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
+		215DDCD421EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
+		215DDCD521EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21843CAC205AE3E900FAAE16 /* Scenes.storyboard */; };
 		218992C32046215F00EF87F3 /* AnalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218992C22046215F00EF87F3 /* AnalyticsController.swift */; };
 		2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2189FC8D2057187400A69DC1 /* StoreKit.framework */; };
@@ -79,7 +82,6 @@
 		21E661C42017F979006A14AF /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661C32017F979006A14AF /* Extension+UIColor.swift */; };
 		21E661C620190E3E006A14AF /* UIAlertControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661C520190E3E006A14AF /* UIAlertControllers.swift */; };
 		21E661C820192E66006A14AF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E661C720192E66006A14AF /* SignUpViewController.swift */; };
-		21F1EA1320165FE700E0D677 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21F1EA1220165FE700E0D677 /* GoogleService-Info.plist */; };
 		21F8AA8120322AFC0008B4C1 /* Extension+UITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F8AA8020322AFC0008B4C1 /* Extension+UITableViewController.swift */; };
 		63AA0BC1A9D0948F916055BB /* Pods_ScriptStarterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7C3BBD8D640D2D2D12C438 /* Pods_ScriptStarterUITests.framework */; };
 		64E81E0F77F79B2E174E9206 /* Pods_ScriptStarterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E33E9FF2DBD1A43E7BAA94 /* Pods_ScriptStarterTests.framework */; };
@@ -139,6 +141,7 @@
 		2153C348207586EA00C08B73 /* ShareTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTableViewCell.swift; sourceTree = "<group>"; };
 		2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountTableViewCell.swift; sourceTree = "<group>"; };
 		215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
+		215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		21843CAB205AE3E900FAAE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Scenes.storyboard; sourceTree = "<group>"; };
 		218992C22046215F00EF87F3 /* AnalyticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsController.swift; sourceTree = "<group>"; };
 		2189FC8D2057187400A69DC1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -185,7 +188,6 @@
 		21E661C520190E3E006A14AF /* UIAlertControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllers.swift; sourceTree = "<group>"; };
 		21E661C720192E66006A14AF /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		21F1EA112016564000E0D677 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		21F1EA1220165FE700E0D677 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		21F8AA8020322AFC0008B4C1 /* Extension+UITableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITableViewController.swift"; sourceTree = "<group>"; };
 		530B6E37F1E8D830FD0921A0 /* Pods_ScriptStarter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScriptStarter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E44DB3CF692EA0E8845E27F /* Pods-ScriptStarterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScriptStarterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScriptStarterTests/Pods-ScriptStarterTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -336,7 +338,7 @@
 				219814CB2046125100FD94E9 /* ScriptStarter-Bridging-Header.h */,
 				212DEA7C2012746500FE9C3F /* LaunchScreen.storyboard */,
 				212DEA7F2012746600FE9C3F /* Info.plist */,
-				21F1EA1220165FE700E0D677 /* GoogleService-Info.plist */,
+				215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */,
 			);
 			path = ScriptStarter;
 			sourceTree = "<group>";
@@ -678,13 +680,13 @@
 			files = (
 				212DEA7E2012746500FE9C3F /* LaunchScreen.storyboard in Resources */,
 				21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */,
+				215DDCD321EFD30800C52B6C /* GoogleService-Info.plist in Resources */,
 				2135777F201292E100C5EADC /* Character.storyboard in Resources */,
 				2135777C201292AE00C5EADC /* Outline.storyboard in Resources */,
 				212DEA7B2012746500FE9C3F /* Assets.xcassets in Resources */,
 				2101F34E20619442003A90A4 /* Cork_closeup.jpg in Resources */,
 				212DEA792012746500FE9C3F /* Main.storyboard in Resources */,
 				21A84F4A2016988600CE4149 /* Storyboard.storyboard in Resources */,
-				21F1EA1320165FE700E0D677 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +694,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				215DDCD421EFD30800C52B6C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,6 +702,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				215DDCD521EFD30800C52B6C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

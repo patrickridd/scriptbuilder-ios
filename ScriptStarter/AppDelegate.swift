@@ -45,18 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Initialize GoogleMobileAds
             GADMobileAds.configure(withApplicationID: "ca-app-pub-1297096402264538~9994351234")
             
-            // Initialize Google Analytics
-            guard let gai = GAI.sharedInstance() else {
-                assert(false, "Google Analytics not configured correctly")
-            }
-            gai.tracker(withTrackingId: "UA-114892353-1")
-            // Optional: automatically report uncaught exceptions.
-            gai.trackUncaughtExceptions = true
-            
-            // Optional: set Logger to VERBOSE for debug information.
-            // Remove before app release.
-            gai.logger.logLevel = .verbose
-            
             if isLoggedIn {
                 // User is logged in so present their screenplays
                 self.presentScreenplayCollectionView()
@@ -206,7 +194,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                      sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
                                                      annotation: [:])
     }
-    
+
   
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

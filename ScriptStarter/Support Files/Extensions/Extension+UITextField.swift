@@ -6,20 +6,26 @@
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension UITextField {
     
     // UITextField Toolbar
     func addToolBar() {
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(donePressed))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(donePressed))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                          target: nil,
+                                          action: nil)
         
         let toolBar = UIToolbar()
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.screenLightBlue
-        toolBar.setItems([spaceButton, doneButton], animated: false)
+        toolBar.setItems([spaceButton, doneButton],
+                         animated: false)
         toolBar.isUserInteractionEnabled = true
         toolBar.sizeToFit()
 

@@ -21,11 +21,6 @@ extension UIViewController: UITextFieldDelegate {
         loadingNotification.animationType = .fade
         loadingNotification.label.text = "saving"
         
-        guard let tracker = GAI.sharedInstance().tracker(withTrackingId: "UA-114892353-1"),
-        let saveEvent = GAIDictionaryBuilder.createEvent(withCategory: "Saving", action: "Save", label: "Screenplay", value: 1) else { return }
-        
-        tracker.send(saveEvent.build() as [NSObject : AnyObject])
-        
         if let screenplay = screenplay {
             FirebaseController.shared.save(screenplay: screenplay, completion: { (success) in
                 DispatchQueue.main.async {

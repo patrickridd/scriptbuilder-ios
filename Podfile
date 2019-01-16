@@ -16,7 +16,6 @@ target 'ScriptStarter' do
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'Google-Mobile-Ads-SDK'
   pod 'GoogleAnalytics'
-  pod 'Google/Analytics'
   pod 'Firebase/DynamicLinks'
   
   target 'ScriptStarterTests' do
