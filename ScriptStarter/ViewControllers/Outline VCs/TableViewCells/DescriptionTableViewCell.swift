@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import KMPlaceholderTextView
+import KMPlaceholderTextView
 
 class DescriptionTableViewCell: UITableViewCell {
 
@@ -20,7 +20,7 @@ class DescriptionTableViewCell: UITableViewCell {
     var isResizing: Bool = false
     var defaultHeight: CGFloat = 0
     
-    @IBOutlet weak var descriptionTextView: UITextView! // KMPlaceholderTextView!
+    @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
     @IBOutlet weak var expandButton: UIButton!
     @IBOutlet weak var descriptionTextViewHeightConstraint: NSLayoutConstraint!
     
@@ -38,17 +38,9 @@ class DescriptionTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code#colorLiteral(red: 0.1608378887, green: 0.2145528793, blue: 0.2791442871, alpha: 1)
+        
         descriptionTextView.textColor = UIColor.screenHaitiBlack
-//        let strokeTextAttributes: [NSAttributedStringKey : Any] = [
-//            NSAttributedStringKey.strokeColor : UIColor.screenMidnightPink,
-//            NSAttributedStringKey.foregroundColor : UIColor.screenMidnightPink,
-//            NSAttributedStringKey.strokeWidth : -2.0,
-//            ]
-//        
-//        self.descriptionTextView.placeholderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
-        //descriptionTextView.placeholderLabel.attributedText
-        //descriptionTextView.placeholderColor = UIColor.screenFrenchLilac
+        descriptionTextView.placeholderColor = UIColor.lightGray
         let font = UIFont.systemFont(ofSize: 14, weight: .regular)
         descriptionTextView.font = font
         descriptionTextView.delegate = self
@@ -58,8 +50,6 @@ class DescriptionTableViewCell: UITableViewCell {
             self.descriptionTextView.becomeFirstResponder()
             self.textViewBecomesFirstResponder = false
         } 
-        
-       //self.descriptionTextView.textContainerInset = UIEdgeInsetsMake(5, 10, 5, 10);
     }
 
     func makeTextViewFirstResponder() {
@@ -93,18 +83,18 @@ class DescriptionTableViewCell: UITableViewCell {
         case .outline:
             switch section {
             case 0: // Idea
-              //  self.descriptionTextView.placeholder = "About a ..."
+                self.descriptionTextView.placeholder = "About a ..."
                 self.descriptionTextView.text = screenplay?.idea
             case 1: // Act 1
-              //  self.descriptionTextView.placeholder = "Setup"
+                self.descriptionTextView.placeholder = "Setup"
                 self.descriptionTextView.text = screenplay?.actOneDescription
                 
             case 2: // Act 2
-              //  self.descriptionTextView.placeholder = "Confrontation"
+                self.descriptionTextView.placeholder = "Confrontation"
                 self.descriptionTextView.text = screenplay?.actTwoDescription
                 
             case 3: // Act 3
-              //  self.descriptionTextView.placeholder = "Resolution"
+                self.descriptionTextView.placeholder = "Resolution"
                 self.descriptionTextView.text = screenplay?.actThreeDescription
             default:
                 break
@@ -117,15 +107,15 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     descriptionTextView.text = screenplay?.idea
-                   // descriptionTextView.placeholder = "About a ..."
+                    descriptionTextView.placeholder = "About a ..."
                 case 2:
                     descriptionTextView.text = screenplay?.logLine
                 case 3:
                     descriptionTextView.text = screenplay?.centralIntention
                 case 4:
-                     descriptionTextView.text = screenplay?.mainObstacle
+                    descriptionTextView.text = screenplay?.mainObstacle
                 case 5:
-                     descriptionTextView.text = screenplay?.theme
+                    descriptionTextView.text = screenplay?.theme
                 case 6:
                     descriptionTextView.text = screenplay?.notes
                 default:
@@ -153,9 +143,9 @@ class DescriptionTableViewCell: UITableViewCell {
                     break
                 }
                 if section == 0 {
-                   // descriptionTextView.placeholder = act.placeholders[section]
+                    descriptionTextView.placeholder = act.placeholders[section]
                 }  else {
-                   // descriptionTextView.placeholder = ""
+                    descriptionTextView.placeholder = ""
                 }
 
             case .two:
@@ -194,9 +184,9 @@ class DescriptionTableViewCell: UITableViewCell {
                     break
                 }
                 if section == 0 {
-              //      descriptionTextView.placeholder = act.placeholders[section]
+                    descriptionTextView.placeholder = act.placeholders[section]
                 }  else {
-               //     descriptionTextView.placeholder = ""
+                    descriptionTextView.placeholder = ""
                 }
             case .three:
                 switch section {
@@ -215,9 +205,9 @@ class DescriptionTableViewCell: UITableViewCell {
                     break
                 }
                 if section == 0 {
-                 //   descriptionTextView.placeholder = act.placeholders[section]
+                    descriptionTextView.placeholder = act.placeholders[section]
                 }  else {
-                 //   descriptionTextView.placeholder = ""
+                    descriptionTextView.placeholder = ""
                 }
             }
         case .characterDetail:
@@ -264,7 +254,6 @@ class DescriptionTableViewCell: UITableViewCell {
             }
         }
         checkForResize(textView: self.descriptionTextView)
-
     }
     
     func textViewDidChange(_ textView: UITextView) {
