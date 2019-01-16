@@ -22,25 +22,25 @@ enum Shortcut: String {
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var isLoggedIn: Bool {
-        return FBSDKAccessToken.current() != nil || Auth.auth().currentUser != nil
+        return FBSDKAccessToken.current() != nil || FIRAuth.auth()?.currentUser != nil
     }
     
     var window: UIWindow?
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
         -> Bool {
             
             // Configure Firebase
-            FirebaseApp.configure()
+            FIRApp.configure()
             
             // Enable offline persistence
-            Database.database().isPersistenceEnabled = true
+            FIRDatabase.database().persistenceEnabled = true
             
             // Initialize Facebook sign-in
             FBSDKApplicationDelegate.sharedInstance().application(application)
             
             // Initialize Google sign-in            
-            GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+            GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
             
             // Initialize GoogleMobileAds
             GADMobileAds.configure(withApplicationID: "ca-app-pub-1297096402264538~9994351234")
@@ -200,10 +200,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     @available(iOS 9.0, *)
-    func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any])
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
             return GIDSignIn.sharedInstance().handle(url,
-                                                     sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+                                                     sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
                                                      annotation: [:])
     }
     

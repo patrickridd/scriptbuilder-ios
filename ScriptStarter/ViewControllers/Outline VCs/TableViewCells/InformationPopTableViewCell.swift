@@ -24,7 +24,7 @@ class InformationPopTableViewCell: UITableViewCell {
         let paragraphStyle = NSMutableParagraphStyle()
         let font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         paragraphStyle.lineHeightMultiple = 1.25
-        let informationAttributedText = NSAttributedString(string: infoNote.description, attributes: [NSAttributedStringKey.foregroundColor:UIColor.flamenco, NSAttributedStringKey.paragraphStyle:paragraphStyle, NSAttributedStringKey.font: font])
+        let informationAttributedText = NSAttributedString(string: infoNote.description, attributes: [NSAttributedString.Key.foregroundColor:UIColor.flamenco, NSAttributedString.Key.paragraphStyle:paragraphStyle, NSAttributedString.Key.font: font])
         informationLabel.attributedText = informationAttributedText
     }
 }

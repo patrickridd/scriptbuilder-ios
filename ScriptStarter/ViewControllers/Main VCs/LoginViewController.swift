@@ -69,12 +69,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         tapGesture.cancelsTouchesInView = false // This way the google button will work
         
         // Set Google Analytics Screen Name
-        Analytics.setScreenName("Login", screenClass: "LoginViewController")
+        FIRAnalytics.setScreenName("Login", screenClass: "LoginViewController")
         
-        let strokeTextAttributes: [NSAttributedStringKey : Any] = [
-            NSAttributedStringKey.strokeColor : UIColor.screenLightBlue,
-            NSAttributedStringKey.foregroundColor : UIColor.white,
-            NSAttributedStringKey.strokeWidth : 1,
+        let strokeTextAttributes: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
+            NSAttributedString.Key.foregroundColor : UIColor.white,
+            NSAttributedString.Key.strokeWidth : 1,
             ]
         
         scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
@@ -103,10 +103,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
                 self.loadingNotification.label.text = "success"
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
-                let strokeTextAttributes: [NSAttributedStringKey : Any] = [
-                    NSAttributedStringKey.strokeColor : UIColor.screenLightBlue,
-                    NSAttributedStringKey.foregroundColor : UIColor.white,
-                    NSAttributedStringKey.strokeWidth : -2.0,
+                let strokeTextAttributes: [NSAttributedString.Key : Any] = [
+                    NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
+                    NSAttributedString.Key.foregroundColor : UIColor.white,
+                    NSAttributedString.Key.strokeWidth : -2.0,
                     ]
                 
                 self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
@@ -143,8 +143,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                         print("Logged in!")
                     #endif
                     // Login with Firebase
-                    let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString )
-                    Auth.auth().signIn(with: credential) { [weak self] (user, error) in
+                    let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString )
+                    FIRAuth.auth()?.signIn(with: credential) { [weak self] (user, error) in
                         if let error = error {
                             self?.hideActivityIndicator(success: false)
                             print(error.localizedDescription)
@@ -189,7 +189,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             return
         }
         showActivityIndicator()
-        Auth.auth().sendPasswordReset(withEmail: email) { [weak self] error in
+        FIRAuth.auth()?.sendPasswordReset(withEmail: email) { [weak self] error in
             
             
             // If error exists Alert User
@@ -222,8 +222,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             self.hideActivityIndicator(success: false)
             return
         }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
-        Auth.auth().signIn(with: credential) { [weak self] (user, error) in
+        let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+        FIRAuth.auth()?.signIn(with: credential) { [weak self] (user, error) in
             if let error = error {
                 self?.hideActivityIndicator(success: false)
                 print(error)
@@ -257,7 +257,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     // MARK: - Keyboard Delegate methods
     
     @objc func keyboardWillShow(notification: Notification) {
-        guard let info = notification.userInfo, let duration: Double = info[UIKeyboardAnimationDurationUserInfoKey] as? Double else {
+        guard let info = notification.userInfo, let duration: Double = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
             return
         }
         
@@ -267,7 +267,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     }
     
     @objc func keyboardWillHide(notification: Notification) {
-        guard let info = notification.userInfo, let duration: Double = info[UIKeyboardAnimationDurationUserInfoKey] as? Double else {
+        guard let info = notification.userInfo, let duration: Double = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
             return
         }
         
@@ -277,14 +277,20 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     }
     
     func addKeyBoardObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIWindow.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIWindow.keyboardWillHideNotification,
+                                               object: nil)
         
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(NSNotification.Name.UIKeyboardWillHide)
-        NotificationCenter.default.removeObserver(NSNotification.Name.UIKeyboardWillShow)
+        NotificationCenter.default.removeObserver(UIWindow.keyboardWillHideNotification)
+        NotificationCenter.default.removeObserver(UIWindow.keyboardWillShowNotification)
     }
     
     

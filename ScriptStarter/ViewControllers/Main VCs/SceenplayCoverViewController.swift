@@ -25,7 +25,7 @@ class SceenplayCoverViewController: UIViewController, GADInterstitialDelegate {
         
         titleTextField.delegate = self
 
-        if let name = Auth.auth().currentUser?.displayName {
+        if let name = FIRAuth.auth()?.currentUser?.displayName {
             self.nameLabel.text = name
         }
 
@@ -44,7 +44,7 @@ class SceenplayCoverViewController: UIViewController, GADInterstitialDelegate {
         view.addGestureRecognizer(tapGesture)
         
         // Set Google Analytics Screen Name
-        Analytics.setScreenName("ScreenplayCover", screenClass: "ScreenplayPageViewController")
+        FIRAnalytics.setScreenName("ScreenplayCover", screenClass: "ScreenplayPageViewController")
        
         // Create Interstitial Ad
        // interstitial = createAndLoadInterstitial()
@@ -56,7 +56,7 @@ class SceenplayCoverViewController: UIViewController, GADInterstitialDelegate {
     @IBAction func doneButtonTapped(_ sender: Any) {
         ScreenplayController.shared.resetCurrentScreenplay()
         if let _ = self.presentingViewController {
-            hero_dismissViewController()
+            hero.dismissViewController()
             return
         }
         self.navigateToScreenplayCollectionView()

@@ -47,12 +47,16 @@ extension UIViewController: UITextFieldDelegate {
     
     func getDescriptionCellHeight(with text:String) -> CGFloat {
         let aproximateWidthOfCell = self.view.frame.width // Minus 50 for the leading and trailing margins
-        let descriptionSize = CGSize(width: aproximateWidthOfCell, height: 1000)
-        let font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.regular)
+        let descriptionSize = CGSize(width: aproximateWidthOfCell,
+                                     height: 1000)
+        let font = UIFont.systemFont(ofSize: 17,
+                                     weight: UIFont.Weight.regular)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 1
         
-        let estimatedDescriptionHeight = NSString(string: text).boundingRect(with: descriptionSize, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font:font, NSAttributedStringKey.paragraphStyle:paragraphStyle], context: nil).height
+        let estimatedDescriptionHeight = NSString(string: text).boundingRect(with: descriptionSize,
+                                                                             options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font:font, NSAttributedString.Key.paragraphStyle:paragraphStyle],
+                                                                             context: nil).height
         if estimatedDescriptionHeight < getDefaultHeightOfCell() {
             return getDefaultHeightOfCell()
         } else {

@@ -22,26 +22,26 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         }
     }
     
-    var user: User? {
-        return Auth.auth().currentUser
+    var user: FIRUser? {
+        return FIRAuth.auth()?.currentUser
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Remove Navigation bar shadow and borderline
-   // self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-   //  self.navigationController?.navigationBar.shadowImage = UIImage()
+        // self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        //  self.navigationController?.navigationBar.shadowImage = UIImage()
         //self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.backgroundColor = .white
         
-      //  self.navigationController?.navigationBar.backgroundColor = UIColor.clear
-       // self.view.backgroundColor = UIColor.groupTableViewBackground
+        //  self.navigationController?.navigationBar.backgroundColor = UIColor.clear
+        // self.view.backgroundColor = UIColor.groupTableViewBackground
         //self.collectionView.backgroundColor = UIColor.groupTableViewBackground
         getScreenplays()
         
         // Set Google Analytics Screen Name
-        Analytics.setScreenName("ScreenCollectionView", screenClass: "ScreenplayCollectionViewController")
+        FIRAnalytics.setScreenName("ScreenCollectionView", screenClass: "ScreenplayCollectionViewController")
         
         // Enlarge new screenplay if none exist
         if screenplays.count == 0 {
@@ -52,11 +52,11 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let strokeTextAttributes: [NSAttributedStringKey : Any] = [
-            NSAttributedStringKey.strokeColor : UIColor.screenLightBlue,
-            NSAttributedStringKey.foregroundColor : UIColor.white,
-            NSAttributedStringKey.strokeWidth : -2.0,
-            NSAttributedStringKey.font: UIFont(name: "Avenir-Light", size: 22) ?? UIFont.systemFont(ofSize: 22, weight: .regular)]
+        let strokeTextAttributes: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
+            NSAttributedString.Key.foregroundColor : UIColor.white,
+            NSAttributedString.Key.strokeWidth : -2.0,
+            NSAttributedString.Key.font: UIFont(name: "Avenir-Light", size: 22) ?? UIFont.systemFont(ofSize: 22, weight: .regular)]
        // self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
         //let attributedString = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
         self.navigationController?.navigationBar.titleTextAttributes = strokeTextAttributes
@@ -76,7 +76,7 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
         do {
-            try Auth.auth().signOut()
+            try FIRAuth.auth()?.signOut()
         } catch let error {
             print(error)
         }
@@ -86,7 +86,8 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
             self.navigateToLoginViewController()
             return
         }
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true,
+                     completion: nil)
     }
     
     func segueTo(screenplay: Screenplay) {
@@ -96,8 +97,8 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
             guard let screenplayPageVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else { return }
             
             ScreenplayController.shared.set(currentScreenplay: screenplay)
-            self.isHeroEnabled = true
-            self.heroModalAnimationType
+            self.hero.isEnabled = true
+            self.hero.modalAnimationType
                 = .selectBy(presenting:.zoom, dismissing:.zoomOut)
             self.present(screenplayPageVC, animated: true, completion: nil)
       //  }
@@ -168,7 +169,7 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         
         guard let indexPath = collectionView.indexPathsForSelectedItems?.first, let screenplayCoverVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayCover") as? SceenplayCoverViewController else { return }
         
-        screenplayCoverVC.view.heroID = "\(indexPath.row)"
+        screenplayCoverVC.view.hero.id = "\(indexPath.row)"
         
         if indexPath.row == 0 { return } // Users tapped on "+" screenplay so return
         

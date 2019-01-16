@@ -37,7 +37,7 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         view.addGestureRecognizer(rightSwipe)
 
         // Set Google Analytics Screen Name
-        Analytics.setScreenName("CharacterTableView", screenClass: "CharacterTableViewController")
+        FIRAnalytics.setScreenName("CharacterTableView", screenClass: "CharacterTableViewController")
         if newCharacter {
             self.performSegue(withIdentifier: "newCharacterSegue", sender: nil)
         }
@@ -61,7 +61,7 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
         let backButton = UIBarButtonItem(title: "Home", style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
@@ -211,7 +211,7 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         return 50
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let screenplay = self.screenplay else { return }
         
         let character = self.roleCharacterSections[indexPath.section].characters[indexPath.row]
@@ -233,7 +233,7 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if indexPath.row == 0 && self.roleCharacterSections.count == 0 {
             return .none
         } else {

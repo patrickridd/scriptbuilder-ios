@@ -37,7 +37,7 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         setupNavigationBar()
         
         // Set Google Analytics Screen Name
-        Analytics.setScreenName("EnlargedDescription", screenClass: "EnlargedDescriptionTableViewController")
+        FIRAnalytics.setScreenName("EnlargedDescription", screenClass: "EnlargedDescriptionTableViewController")
         
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
@@ -88,7 +88,7 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.topItem?.title = title
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: font]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark, NSAttributedString.Key.font: font]
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
     }

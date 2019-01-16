@@ -14,29 +14,29 @@ class FirebaseController {
     
     static let shared = FirebaseController()
     
-    var ref: DatabaseReference {
-        return Database.database().reference()
+    var ref: FIRDatabaseReference {
+        return FIRDatabase.database().reference()
     }
     
-    var user: User? {
-        return Auth.auth().currentUser
+    var user: FIRUser? {
+        return FIRAuth.auth()?.currentUser
     }
     
-    func signIn(with email: String, password: String, completion: @escaping (_ error: Error?, _ user: User?) -> Void) {
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+    func signIn(with email: String, password: String, completion: @escaping (_ error: Error?, _ user: FIRUser?) -> Void) {
+        FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
             completion(error, user)
         }
     }
     
-    func createAccount(firstName: String, lastName: String, withEmail: String, password: String, completion: @escaping (_ error: Error?, _ user: User?) -> Void) {
+    func createAccount(firstName: String, lastName: String, withEmail: String, password: String, completion: @escaping (_ error: Error?, _ user: FIRUser?) -> Void) {
         
-        Auth.auth().createUser(withEmail: withEmail, password: password) { (user, error) in
+        FIRAuth.auth()?.createUser(withEmail: withEmail, password: password) { (user, error) in
             guard let createUser = user else {
                 completion(error, user)
                 return
             }
             
-            let changeRequest = createUser.createProfileChangeRequest()
+            let changeRequest = createUser.profileChangeRequest()
             changeRequest.displayName = "\(firstName) \(lastName)"
             changeRequest.commitChanges { error in
                 if let error = error {
@@ -180,7 +180,7 @@ class FirebaseController {
             completion(false)
             return
         }
-        user.updatePassword(to: newPassword) { (error
+        user.updatePassword(newPassword) { (error
             ) in
             if let _ = error {
                 completion(false)

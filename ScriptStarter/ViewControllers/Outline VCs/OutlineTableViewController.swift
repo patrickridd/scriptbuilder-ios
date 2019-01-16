@@ -33,7 +33,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
         
-        Analytics.setScreenName("Outline", screenClass: "OutlineTableViewController")
+        FIRAnalytics.setScreenName("Outline", screenClass: "OutlineTableViewController")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +42,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         self.tableView.separatorColor = self.tableView.backgroundColor
         
         self.tableView.estimatedRowHeight = 100
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         setupNavigationBar()
         self.tableView.reloadData()
         setupTabBar()
@@ -58,7 +58,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     
     @objc func expandButtonTapped(sender: UIButton) {
         let indexPath = IndexPath(row: 0, section: sender.tag)
-        guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.childViewControllers[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
         
         enlargedVC.viewController = .outline
         enlargedVC.text = descriptionCell.descriptionTextView.text
@@ -134,7 +134,7 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
             screenplay?.title = "Untitled"
         }
         self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
         

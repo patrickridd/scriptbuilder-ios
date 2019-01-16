@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import KMPlaceholderTextView
+//import KMPlaceholderTextView
 
 class DescriptionTableViewCell: UITableViewCell {
 
@@ -20,7 +20,7 @@ class DescriptionTableViewCell: UITableViewCell {
     var isResizing: Bool = false
     var defaultHeight: CGFloat = 0
     
-    @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
+    @IBOutlet weak var descriptionTextView: UITextView! // KMPlaceholderTextView!
     @IBOutlet weak var expandButton: UIButton!
     @IBOutlet weak var descriptionTextViewHeightConstraint: NSLayoutConstraint!
     
@@ -93,18 +93,18 @@ class DescriptionTableViewCell: UITableViewCell {
         case .outline:
             switch section {
             case 0: // Idea
-                self.descriptionTextView.placeholder = "About a ..."
+              //  self.descriptionTextView.placeholder = "About a ..."
                 self.descriptionTextView.text = screenplay?.idea
             case 1: // Act 1
-                self.descriptionTextView.placeholder = "Setup"
+              //  self.descriptionTextView.placeholder = "Setup"
                 self.descriptionTextView.text = screenplay?.actOneDescription
                 
             case 2: // Act 2
-                self.descriptionTextView.placeholder = "Confrontation"
+              //  self.descriptionTextView.placeholder = "Confrontation"
                 self.descriptionTextView.text = screenplay?.actTwoDescription
                 
             case 3: // Act 3
-                self.descriptionTextView.placeholder = "Resolution"
+              //  self.descriptionTextView.placeholder = "Resolution"
                 self.descriptionTextView.text = screenplay?.actThreeDescription
             default:
                 break
@@ -117,7 +117,7 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     descriptionTextView.text = screenplay?.idea
-                    descriptionTextView.placeholder = "About a ..."
+                   // descriptionTextView.placeholder = "About a ..."
                 case 2:
                     descriptionTextView.text = screenplay?.logLine
                 case 3:
@@ -153,9 +153,9 @@ class DescriptionTableViewCell: UITableViewCell {
                     break
                 }
                 if section == 0 {
-                    descriptionTextView.placeholder = act.placeholders[section]
+                   // descriptionTextView.placeholder = act.placeholders[section]
                 }  else {
-                    descriptionTextView.placeholder = ""
+                   // descriptionTextView.placeholder = ""
                 }
 
             case .two:
@@ -194,9 +194,9 @@ class DescriptionTableViewCell: UITableViewCell {
                     break
                 }
                 if section == 0 {
-                    descriptionTextView.placeholder = act.placeholders[section]
+              //      descriptionTextView.placeholder = act.placeholders[section]
                 }  else {
-                    descriptionTextView.placeholder = ""
+               //     descriptionTextView.placeholder = ""
                 }
             case .three:
                 switch section {
@@ -215,9 +215,9 @@ class DescriptionTableViewCell: UITableViewCell {
                     break
                 }
                 if section == 0 {
-                    descriptionTextView.placeholder = act.placeholders[section]
+                 //   descriptionTextView.placeholder = act.placeholders[section]
                 }  else {
-                    descriptionTextView.placeholder = ""
+                 //   descriptionTextView.placeholder = ""
                 }
             }
         case .characterDetail:

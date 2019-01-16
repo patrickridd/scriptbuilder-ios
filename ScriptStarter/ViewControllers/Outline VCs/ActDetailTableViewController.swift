@@ -33,7 +33,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         setupExpandableSections()
         self.title = act.title
         
-        Analytics.setScreenName("ActDetail", screenClass: "ActDetailTableViewController")
+        FIRAnalytics.setScreenName("ActDetail", screenClass: "ActDetailTableViewController")
         
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
@@ -46,7 +46,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         adBannerView.load(GADRequest())
         
         self.tableView.estimatedRowHeight = 100
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
@@ -55,7 +55,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
     
     @objc func expandButtonTapped(sender: UIButton) {
         let indexPath = IndexPath(row: 0, section: sender.tag)
-        guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.childViewControllers[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
         
         enlargedVC.viewController = .actDetail
         enlargedVC.act = self.act

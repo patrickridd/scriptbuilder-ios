@@ -50,7 +50,7 @@ class ScenesTableViewController: UITableViewController {
         }
         
         switch state {
-        case UIGestureRecognizerState.began:
+        case UIGestureRecognizer.State.began:
             Path.initialIndexPath = indexPath
             guard let cell = tableView.cellForRow(at: indexPath) else { return }
             My.cellSnapshot  = snapshopOfCell(inputView: cell)
@@ -73,7 +73,7 @@ class ScenesTableViewController: UITableViewController {
                     cell.isHidden = true
                 }
             })
-        case UIGestureRecognizerState.changed:
+        case UIGestureRecognizer.State.changed:
             var center = My.cellSnapshot?.center
             center?.y = locationInView.y
             if let center = center {
@@ -148,7 +148,7 @@ class ScenesTableViewController: UITableViewController {
             screenplay?.title = "Untitled"
         }
         self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
         
@@ -359,7 +359,7 @@ class ScenesTableViewController: UITableViewController {
     
     
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         switch indexPath.section {
         case 0: // Act 1

@@ -4,6 +4,7 @@ framework module FirebaseAuth {
   module * { export *}
   link "z"
   link framework "CoreGraphics"
-  link framework "SafariServices"
+  link framework "Foundation"
   link framework "Security"
-  link framework "SystemConfiguration"}
+  link framework "UIKit"
+}

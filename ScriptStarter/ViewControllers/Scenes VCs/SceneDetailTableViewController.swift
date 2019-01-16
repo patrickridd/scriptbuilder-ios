@@ -30,7 +30,7 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         setupExpandableSections()
         
         // Set Google Analytics Screen Name
-        Analytics.setScreenName("SceneDetail", screenClass: "SceneDetailTableViewController")
+        FIRAnalytics.setScreenName("SceneDetail", screenClass: "SceneDetailTableViewController")
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
       
@@ -50,7 +50,7 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         super.viewWillAppear(animated)
         // Resizes Cells Dynamically
         self.tableView.estimatedRowHeight = 100
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         
     }
     

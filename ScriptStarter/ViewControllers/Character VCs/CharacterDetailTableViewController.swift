@@ -37,7 +37,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
     override func viewDidLoad() {
         super.viewDidLoad()
         let font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.light)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font:font]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font:font]
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.setupExpandableSections()
       
@@ -47,7 +47,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         self.tableView.separatorColor = self.tableView.backgroundColor
        
         // Set Google Analytics Screen Name
-        Analytics.setScreenName("CharacterDetail", screenClass: "CharacterDetailTableViewController")
+        FIRAnalytics.setScreenName("CharacterDetail", screenClass: "CharacterDetailTableViewController")
         
         guard let _ = self.character else {
             let character = Character(name: "")
@@ -62,7 +62,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         adBannerView.load(GADRequest())
         // Resizes Cells Dynamically
         self.tableView.estimatedRowHeight = 100
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         
     }
     
@@ -79,7 +79,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         let storyboard = UIStoryboard(name: "Outline", bundle: nil)
         let indexPath = IndexPath(row: 0, section: sender.tag)
         guard let enlargedNavigationController =
-            storyboard.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.childViewControllers[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+            storyboard.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
         
         enlargedVC.act = nil
         enlargedVC.character = self.character
