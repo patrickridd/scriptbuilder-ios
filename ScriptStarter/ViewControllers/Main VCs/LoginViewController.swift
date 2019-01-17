@@ -77,7 +77,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             NSAttributedString.Key.strokeWidth : 1,
             ]
         
-        scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
+        scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder",
+                                                               attributes: strokeTextAttributes)
     }
     
     // MARK: UI Methods
@@ -180,8 +181,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     }
     
     @IBAction func newAccountButtonTapped(_ sender: Any) {
-        guard let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "signUpVC") as? SignUpViewController else { return }
-        UIApplication.shared.keyWindow?.rootViewController = signUpVC
+        DispatchQueue.main.async {
+            guard let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "signUpVC") as? SignUpViewController else { return }
+            UIApplication.shared.keyWindow?.rootViewController = signUpVC
+        }
     }
     
     @IBAction func forgotPasswordTapped(_ sender: Any) {

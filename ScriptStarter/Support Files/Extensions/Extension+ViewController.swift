@@ -109,13 +109,15 @@ extension UIViewController: UITextFieldDelegate {
     }
     
     func navigateToScreenplayCollectionView() {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-    
-        guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else {
-            return
+        DispatchQueue.main.async {
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else {
+                return
+            }
+            UIApplication.shared.keyWindow?.rootViewController = mainNavigationController
+            self.dismiss(animated: true, completion: nil)
         }
-        UIApplication.shared.keyWindow?.rootViewController = mainNavigationController
-        self.dismiss(animated: true, completion: nil)
     }
     
 }

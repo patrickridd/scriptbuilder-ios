@@ -174,8 +174,10 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     }
 
     @IBAction func haveAccountButtonTapped(_ sender: Any) {
-        guard let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as? LoginViewController else { return }
-        UIApplication.shared.keyWindow?.rootViewController = loginVC;
+        DispatchQueue.main.async {
+            guard let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as? LoginViewController else { return }
+            UIApplication.shared.keyWindow?.rootViewController = loginVC
+        }
     }
 
     // MARK: GIDSignInDelegate Methods
