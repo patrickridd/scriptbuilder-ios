@@ -12,7 +12,7 @@ import FBSDKLoginKit
 import Hero
 import Firebase
 
-class ScreenplayCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, HeroViewControllerDelegate {
+class ScreenplayCollectionViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -57,8 +57,7 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
             NSAttributedString.Key.foregroundColor : UIColor.white,
             NSAttributedString.Key.strokeWidth : -2.0,
             NSAttributedString.Key.font: UIFont(name: "Avenir-Light", size: 22) ?? UIFont.systemFont(ofSize: 22, weight: .regular)]
-       // self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
-        //let attributedString = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
+    
         self.navigationController?.navigationBar.titleTextAttributes = strokeTextAttributes
         self.title = "Script Builder"
         self.collectionView.reloadData()
@@ -91,17 +90,13 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
     }
     
     func segueTo(screenplay: Screenplay) {
-       // let when = DispatchTime.now() + 1 // change to desired number of seconds
-       // DispatchQueue.main.asyncAfter(deadline: when) {
-            // Your code with delay
-            guard let screenplayPageVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else { return }
-            
-            ScreenplayController.shared.set(currentScreenplay: screenplay)
-            self.hero.isEnabled = true
-            self.hero.modalAnimationType
-                = .selectBy(presenting:.zoom, dismissing:.zoomOut)
-            self.present(screenplayPageVC, animated: true, completion: nil)
-      //  }
+        guard let screenplayPageVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else { return }
+        
+        ScreenplayController.shared.set(currentScreenplay: screenplay)
+        self.hero.isEnabled = true
+        self.hero.modalAnimationType
+            = .selectBy(presenting:.zoom, dismissing:.zoomOut)
+        self.present(screenplayPageVC, animated: true, completion: nil)
     }
     
     func getScreenplays() {
@@ -115,8 +110,27 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
         }
     }
     
-    // MARK - UICollectionViewDataSource
-    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = UIColor.screenLightBlue
+        self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
+        
+        guard let indexPath = collectionView.indexPathsForSelectedItems?.first, let screenplayCoverVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayCover") as? ScreenplayCoverViewController else { return }
+        
+        screenplayCoverVC.view.hero.id = "\(indexPath.row)"
+        
+        if indexPath.row == 0 { return } // Users tapped on "+" screenplay so return
+        
+        let screenplay = screenplays[indexPath.row-1]
+        ScreenplayController.shared.set(currentScreenplay: screenplay)
+        
+    }
+}
+
+extension ScreenplayCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return screenplays.count + 1
@@ -138,43 +152,20 @@ class ScreenplayCollectionViewController: UIViewController, UICollectionViewDele
             return screenplayCell
         }
     }
-    
-    // MARK: UICollectionViewDelegateFlowLayout Methods
+}
+
+extension ScreenplayCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = self.view.frame.width * (2/5)
         let height = width * (4/3)
         return CGSize(width: width, height: height)
     }
-   
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
-        
-    }
-    
-    // MARK: - HeroViewControllerDelegate Methods
-    
-    func heroDidEndTransition() {
-         //   setStatusBarColor()
-        
-    }
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.navigationController?.navigationBar.topItem?.title = ""
-        self.navigationController?.navigationBar.tintColor = UIColor.screenLightBlue
-        self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
-        
-        guard let indexPath = collectionView.indexPathsForSelectedItems?.first, let screenplayCoverVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayCover") as? SceenplayCoverViewController else { return }
-        
-        screenplayCoverVC.view.hero.id = "\(indexPath.row)"
-        
-        if indexPath.row == 0 { return } // Users tapped on "+" screenplay so return
-        
-        let screenplay = screenplays[indexPath.row-1]
-        ScreenplayController.shared.set(currentScreenplay: screenplay)
-        
     }
 }
+
+
+

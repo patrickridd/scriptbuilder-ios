@@ -9,7 +9,7 @@
 import UIKit
 import Hero
 
-class ScreenplayPageViewController: UIPageViewController, UIPageViewControllerDataSource {
+class ScreenplayPageViewController: UIPageViewController {
 
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
@@ -35,12 +35,16 @@ class ScreenplayPageViewController: UIPageViewController, UIPageViewControllerDa
         }
         
         let swipedRightNotification = Notification.Name(swipeRightNotificationKey)
-        NotificationCenter.default.addObserver(self, selector: #selector(swipedRight), name: swipedRightNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(swipedRight),
+                                               name: swipedRightNotification,
+                                               object: nil)
         
         let swipedLeftNotification = Notification.Name(swipeLeftNotificationKey)
-        NotificationCenter.default.addObserver(self, selector: #selector(swipedLeft), name: swipedLeftNotification, object: nil)
-        
-       
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(swipedLeft),
+                                               name: swipedLeftNotification,
+                                               object: nil)
     }
     
     // Mark: SwipeLeftDelegate Methods
@@ -62,9 +66,10 @@ class ScreenplayPageViewController: UIPageViewController, UIPageViewControllerDa
                                completion: nil)
         }
     }
-
     
-    // MARK: UIPageViewControllerDataSource
+}
+
+extension ScreenplayPageViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
@@ -76,14 +81,13 @@ class ScreenplayPageViewController: UIPageViewController, UIPageViewControllerDa
         guard orderedViewControllersCount != nextIndex else { return nil }
         
         guard orderedViewControllersCount > nextIndex else { return nil }
-
+        
         return orderedViewControllers[nextIndex]
     }
-
+    
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         return nil
     }
-    
     
 }

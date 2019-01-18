@@ -21,7 +21,6 @@ class SettingsTableViewController: UITableViewController {
     }
     
     var loadingNotification = MBProgressHUD()
-
     
     // MARK: UI Methods
     
@@ -70,15 +69,20 @@ class SettingsTableViewController: UITableViewController {
     }
         
     func presentDeleteAccountConfirmation(completion: @escaping (_ deleted: Bool,_ canceled: Bool) -> ()) -> UIAlertController {
-        let alert = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account?", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+        let alert = UIAlertController(title: "Delete Account",
+                                      message: "Are you sure you want to delete your account?",
+                                      preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete",
+                                         style: .destructive) { (_) in
             self.showActivityIndicator()
             FirebaseController.shared.deleteAccount(completion: { [weak self] (deleted) in
-                self?.hideActivityIndicator(success: true, completion: nil)
+                self?.hideActivityIndicator(success: true,
+                                            completion: nil)
                 completion(deleted,false)
             })
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .cancel) { (_) in
             completion(false, true)
         }
         alert.addAction(deleteAction)
@@ -137,27 +141,25 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let inAppPurchaseCell = tableView.dequeueReusableCell(withIdentifier:"inAppPurchaseCell", for: indexPath) as? IAPTableViewCell else {
-                return UITableViewCell()
-            }
-            return inAppPurchaseCell
+           let inAppPurchaseCell = tableView.dequeueReusableCell(withIdentifier:"inAppPurchaseCell",
+                                                                        for: indexPath) as? IAPTableViewCell
+            return inAppPurchaseCell ?? UITableViewCell()
         case 1:
-            guard let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell", for: indexPath) as? ChangePasswordTableViewCell else {
-                return UITableViewCell()
-            }
-            changePasswordCell.changeButton.addTarget(self, action: #selector(changePasswordButtonTapped), for: .touchUpInside)
-            
-            return changePasswordCell
+            let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell",
+                                                                for: indexPath) as? ChangePasswordTableViewCell
+           
+            changePasswordCell?.changeButton.addTarget(self,
+                                                      action: #selector(changePasswordButtonTapped),
+                                                      for: .touchUpInside)
+            return changePasswordCell ?? UITableViewCell()
         case 2:
-            guard let shareAppCell = tableView.dequeueReusableCell(withIdentifier: "shareAppCell", for: indexPath) as? ShareTableViewCell else {
-                return UITableViewCell()
-            }
-            return shareAppCell
+            let shareAppCell = tableView.dequeueReusableCell(withIdentifier: "shareAppCell",
+                                                                 for: indexPath) as? ShareTableViewCell
+            return shareAppCell ?? UITableViewCell()
         case 3:
-                guard let deleteCell = tableView.dequeueReusableCell(withIdentifier: "deleteAccountCell", for: indexPath) as? DeleteAccountTableViewCell else {
-                    return UITableViewCell()
-            }
-                return deleteCell
+            let deleteCell = tableView.dequeueReusableCell(withIdentifier: "deleteAccountCell",
+                                                               for: indexPath) as? DeleteAccountTableViewCell
+            return deleteCell ?? UITableViewCell()
         default:
             return UITableViewCell()
         }
@@ -189,7 +191,8 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
         
-        sectionHeader.sectionLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        sectionHeader.sectionLabel.font = UIFont.systemFont(ofSize: 14,
+                                                            weight: .light)
         sectionHeader.moreButton.isHidden = true
         sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
         
@@ -216,10 +219,12 @@ class SettingsTableViewController: UITableViewController {
                 if let link = NSURL(string: "https://itunes.apple.com/us/app/payraise/id1281621920?ls=1&mt=8") {
                     let message = "Check out Script Builder"
                     let objectsToShare = [message,link] as [Any]
-                    let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+                    let activityVC = UIActivityViewController(activityItems: objectsToShare,
+                                                              applicationActivities: nil)
                     self.present(activityVC, animated: true) {
-                        self.tableView.deselectRow(at: indexPath, animated: true)
-                    }
+                                    self.tableView.deselectRow(at: indexPath,
+                                                               animated: true)
+                     }
                 }
             }
 
@@ -229,8 +234,8 @@ class SettingsTableViewController: UITableViewController {
         self.present(self.presentDeleteAccountConfirmation(completion: { [weak self] (deleted, canceled) in
                 
             DispatchQueue.main.async {
-                self?.tableView.deselectRow(at: indexPath, animated: true)
-                
+                self?.tableView.deselectRow(at: indexPath,
+                                            animated: true)
                 if canceled {
                     return
                 }
@@ -240,7 +245,8 @@ class SettingsTableViewController: UITableViewController {
                         self?.navigateToLoginViewController()
                         return
                     }
-                    dismissingViewController.dismiss(animated: true, completion: nil)
+                    dismissingViewController.dismiss(animated: true,
+                                                     completion: nil)
                 }, animated: true, completion: nil)
             }
         }), animated: true, completion: nil)

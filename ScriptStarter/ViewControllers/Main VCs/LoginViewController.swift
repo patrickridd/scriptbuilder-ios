@@ -41,8 +41,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-        
         // Setup Facebook sign in buttons
         facebookButton.addTarget(self, action: #selector(facebookButtonTapped), for: .touchUpInside)
         
@@ -71,11 +69,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         // Set Google Analytics Screen Name
         FIRAnalytics.setScreenName("Login", screenClass: "LoginViewController")
         
-        let strokeTextAttributes: [NSAttributedString.Key : Any] = [
-            NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
+        let strokeTextAttributes: [NSAttributedString.Key : Any] =
+            [NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
             NSAttributedString.Key.foregroundColor : UIColor.white,
-            NSAttributedString.Key.strokeWidth : 1,
-            ]
+            NSAttributedString.Key.strokeWidth : 1]
         
         scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder",
                                                                attributes: strokeTextAttributes)
@@ -84,8 +81,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     // MARK: UI Methods
     
     func showActivityIndicator() {
-//        self.activityIndicatorContainerView.isHidden = false
-//        self.activityIndicator.isAnimating
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             self.loadingNotification =
@@ -110,12 +105,14 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                     NSAttributedString.Key.strokeWidth : -2.0,
                     ]
                 
-                self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
+                self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder",
+                                                                            attributes: strokeTextAttributes)
                 completion?()
             } else {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
                 self.loadingNotification.label.text = "failed"
-                self.loadingNotification.hide(animated: true, afterDelay: 0)
+                self.loadingNotification.hide(animated: true,
+                                              afterDelay: 0)
                 completion?()
             }
         }
@@ -130,7 +127,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { [weak self] loginResult in
                 switch loginResult {
                 case .failed(let error):
-                    self?.hideActivityIndicator(success: false, completion: nil)
+                    self?.hideActivityIndicator(success: false,
+                                                completion: nil)
                     #if DEBUG
                         print(error)
                     #endif

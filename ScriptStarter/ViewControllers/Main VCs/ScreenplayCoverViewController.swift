@@ -1,5 +1,5 @@
 //
-//  SceenplayCoverViewController.swift
+//  ScreenplayCoverViewController.swift
 //  ScriptStarter
 //
 //  Created by Patrick Ridd (patrick.ridd@stgconsulting.com) on 1/25/18.
@@ -13,7 +13,7 @@ import GoogleMobileAds
 import MBProgressHUD
 import Firebase
 
-class SceenplayCoverViewController: UIViewController, GADInterstitialDelegate {
+class ScreenplayCoverViewController: UIViewController {
 
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var nameLabel: UILabel!
@@ -69,24 +69,28 @@ class SceenplayCoverViewController: UIViewController, GADInterstitialDelegate {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
+        let loadingNotification = MBProgressHUD.showAdded(to: view,
+                                                          animated: true)
         loadingNotification.mode = MBProgressHUDMode.annularDeterminate
         loadingNotification.animationType = .fade
         loadingNotification.label.text = "saving"
         
         if let screenplay = screenplay {
-            FirebaseController.shared.save(screenplay: screenplay, completion: { (success) in
+            FirebaseController.shared.save(screenplay: screenplay,
+                                           completion: { (success) in
                 DispatchQueue.main.async {
                     loadingNotification.mode = .customView
                     if success {
                         loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
                         loadingNotification.label.text = "success"
-                        loadingNotification.hide(animated: true, afterDelay: 1)
+                        loadingNotification.hide(animated: true,
+                                                 afterDelay: 1)
                         return
                     }
                     loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
                     loadingNotification.label.text = "failed"
-                    loadingNotification.hide(animated: true, afterDelay: 1)
+                    loadingNotification.hide(animated: true,
+                                             afterDelay: 1)
                 }
             })
         }
@@ -94,6 +98,12 @@ class SceenplayCoverViewController: UIViewController, GADInterstitialDelegate {
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
         self.present(deleteScreenplayAlert(), animated: true) 
+    }
+    
+    // MARK: Tap Gesture Recognizer
+    
+    @objc func dismissKeyboard() {
+        titleTextField.resignFirstResponder()
     }
     
     
@@ -117,22 +127,8 @@ class SceenplayCoverViewController: UIViewController, GADInterstitialDelegate {
         alert.addAction(deleteAction)
         return alert
     }
-    
-    // MARK: Tap Gesture Recognizer
-    
-    @objc func dismissKeyboard() {
-        titleTextField.resignFirstResponder()
-    }
 
     // MARK: GADInterstitialDelegate Methods
-    
-    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        ad.present(fromRootViewController: self)
-    }
-    
-    func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
-        print("Fail to receive interstitial")
-    }
     
     private func createAndLoadInterstitial() -> GADInterstitial? {
         interstitial = GADInterstitial(adUnitID: "ca-app-pub-1297096402264538/6489865275")
@@ -149,14 +145,28 @@ class SceenplayCoverViewController: UIViewController, GADInterstitialDelegate {
         
         return interstitial
     }
+}
+
+extension ScreenplayCoverViewController: GADInterstitialDelegate {
     
-    // MARK: UITextFieldDelegate Methods
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        ad.present(fromRootViewController: self)
+    }
+    
+    func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
+        print("Fail to receive interstitial")
+    }
+    
+}
+
+// Mark UITextField Methods
+extension ScreenplayCoverViewController {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         titleTextField.resignFirstResponder()
         return true
     }
-
+    
     @IBAction func titleTextFieldDidChange(_ sender: Any) {
         guard let title = titleTextField.text, title != "" else {
             screenplay?.title = "Untitled"
@@ -164,5 +174,4 @@ class SceenplayCoverViewController: UIViewController, GADInterstitialDelegate {
         }
         screenplay?.title = title
     }
-    
 }

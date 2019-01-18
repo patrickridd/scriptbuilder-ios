@@ -27,8 +27,6 @@ class ChangePasswordTableViewCell: UITableViewCell {
         self.newPasswordTextField.tag = 1
     }
     
-   
-    
     
     // MARK: - UITextFieldDelegate Methods
     

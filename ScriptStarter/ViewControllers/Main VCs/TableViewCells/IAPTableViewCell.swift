@@ -12,7 +12,6 @@ class IAPTableViewCell: UITableViewCell {
 
     @IBOutlet weak var restoreButton: UIButton!
     
-    
     override func awakeFromNib() {
         
         restoreButton.layer.borderColor = UIColor.screenLightBlue.cgColor
