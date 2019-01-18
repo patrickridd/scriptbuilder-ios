@@ -412,8 +412,10 @@ class DescriptionTableViewCell: UITableViewCell {
         }
     }
     
-    func checkForResize(textView:UITextView) {
+    func checkForResize(textView: UITextView) {
         // Get descriptionTextView size that fits in view
+        if descriptionTextViewHeightConstraint == nil { return }
+        
         let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
         if size.height > self.defaultHeight {
             descriptionTextViewHeightConstraint.constant = size.height
@@ -421,7 +423,6 @@ class DescriptionTableViewCell: UITableViewCell {
         } else {
             descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
             delegate?.resizeCell(in: self.section)
-
         }
         
 //        // Dynamically set descriptionTextView Height to that that fits in cell

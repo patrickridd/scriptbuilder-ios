@@ -113,7 +113,9 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell") as? DescriptionTableViewCell else { return UITableViewCell() }
         
-        descriptionCell.update(viewController: self.viewController, section: section, act: self.act )
+        descriptionCell.update(viewController: self.viewController,
+                               section: section,
+                               act: self.act )
         descriptionCell.backgroundColor = .screenLightGray
         return descriptionCell
     }

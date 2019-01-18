@@ -58,7 +58,13 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     
     @objc func expandButtonTapped(sender: UIButton) {
         let indexPath = IndexPath(row: 0, section: sender.tag)
-        guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        guard
+            let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController,
+            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController,
+            let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
+        else {
+            return
+        }
         
         enlargedVC.viewController = .outline
         enlargedVC.text = descriptionCell.descriptionTextView.text
@@ -74,8 +80,9 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         default:
             enlargedVC.act = nil
         }
-        
-        self.present(enlargedNavigationController, animated: true, completion: nil)
+        self.present(enlargedNavigationController,
+                     animated: true,
+                     completion: nil)
     }
     
     
