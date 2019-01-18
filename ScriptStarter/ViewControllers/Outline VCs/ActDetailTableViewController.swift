@@ -10,11 +10,12 @@ import UIKit
 import GoogleMobileAds
 import Firebase
 
-class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate, GADBannerViewDelegate, DescriptionDelegate, UIPopoverPresentationControllerDelegate {
+class ActDetailTableViewController: UITableViewController {
     
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .idea
     var sectionBesidesBeats: Int = 2
+    
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
@@ -24,7 +25,6 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         return adBannerView
     }()
     
-    
     var isExpandingCell: Bool = false
     var isCollapsingCell: Bool = false
     
@@ -32,9 +32,6 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         super.viewDidLoad()
         setupExpandableSections()
         self.title = act.title
-        
-        FIRAnalytics.setScreenName("ActDetail", screenClass: "ActDetailTableViewController")
-        
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
     }
@@ -49,55 +46,6 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         self.tableView.rowHeight = UITableView.automaticDimension
     }
     
-    @IBAction func saveButtonTapped(_ sender: Any) {
-        self.saveScreenplay()
-    }
-    
-    @objc func expandButtonTapped(sender: UIButton) {
-        let indexPath = IndexPath(row: 0, section: sender.tag)
-        guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
-        
-        enlargedVC.viewController = .actDetail
-        enlargedVC.act = self.act
-        enlargedVC.text = descriptionCell.descriptionTextView.text
-        enlargedVC.section = sender.tag
-        enlargedVC.delegate = self
-        
-        self.present(enlargedNavigationController, animated: true, completion: nil)
-    }
-    
-    @objc func informationButtonTapped(sender: UIButton) {
-        guard let informationPopTVC = self.storyboard?.instantiateViewController(withIdentifier: "informationPopTVC") as? InformationPopTableViewController else { return }
-        informationPopTVC.modalPresentationStyle = .popover
-        let popController = informationPopTVC.popoverPresentationController
-        popController?.delegate = self
-        popController?.backgroundColor = .white // Makes the arrow white
-        popController?.permittedArrowDirections = [.up,.down] // allow arrow to go both .up and .down
-        popController?.sourceView = sender
-        popController?.sourceRect = sender.bounds
-        let contentHeightSize = InformationNote.actBeats.contentHeight
-        informationPopTVC.informationNote = .actBeats
-        informationPopTVC.preferredContentSize = CGSize(width: self.view.bounds.width, height: CGFloat(contentHeightSize))
-        informationPopTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
-        self.present(informationPopTVC, animated: true, completion: nil)
-    }
-    
-    @objc func navigateToNewScene() {
-        self.performSegue(withIdentifier: "newSceneSegue", sender: nil)
-//        guard let sceneDetail = self.storyboard?.instantiateViewController(withIdentifier: "sceneDetailVC") as? SceneDetailTableViewController else { return }
-//        sceneDetail.act = self.act
-//        self.navigationController?.pushViewController(sceneDetail, animated: true)
-    }
-    
-    // MARK: DescriptionDelegate Methods
-    
-    func updatedText(_ text: String, in section: Int) {
-        let indexPath = IndexPath(row: 0, section: section)
-        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
-        
-        descriptionCell.descriptionTextView.text = text
-    }
-    
     func setupExpandableSections() {
         
         let sectionTitles = act.sectionsTitles
@@ -109,11 +57,56 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         }
     }
     
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        self.saveScreenplay()
+    }
     
-    // MARK: UIPopoverPresentationControllerDelegate Methods
+    @objc func expandButtonTapped(sender: UIButton) {
+        let indexPath = IndexPath(row: 0, section: sender.tag)
+        guard
+            let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController,
+            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController,
+            let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
+        else {
+            return
+        }
+        
+        enlargedVC.viewController = .actDetail
+        enlargedVC.act = self.act
+        enlargedVC.text = descriptionCell.descriptionTextView.text
+        enlargedVC.section = sender.tag
+        enlargedVC.delegate = self
+        
+        self.present(enlargedNavigationController,
+                     animated: true,
+                     completion: nil)
+    }
     
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
+    @objc func informationButtonTapped(sender: UIButton) {
+        guard let informationPopTVC = self.storyboard?.instantiateViewController(withIdentifier: "informationPopTVC") as? InformationPopTableViewController else { return }
+        informationPopTVC.modalPresentationStyle = .popover
+        let popController = informationPopTVC.popoverPresentationController
+        popController?.delegate = self
+        popController?.backgroundColor = .white // Makes the arrow white
+        popController?.permittedArrowDirections = [.up,
+                                                   .down] // allow arrow to go both .up and .down
+        popController?.sourceView = sender
+        popController?.sourceRect = sender.bounds
+        let contentHeightSize = InformationNote.actBeats.contentHeight
+        informationPopTVC.informationNote = .actBeats
+        informationPopTVC.preferredContentSize = CGSize(width: self.view.bounds.width,
+                                                        height: CGFloat(contentHeightSize))
+        informationPopTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
+        self.present(informationPopTVC,
+                     animated: true,
+                     completion: nil)
+    }
+    
+    @objc func navigateToNewScene() {
+        self.performSegue(withIdentifier: "newSceneSegue", sender: nil)
+//        guard let sceneDetail = self.storyboard?.instantiateViewController(withIdentifier: "sceneDetailVC") as? SceneDetailTableViewController else { return }
+//        sceneDetail.act = self.act
+//        self.navigationController?.pushViewController(sceneDetail, animated: true)
     }
     
     // MARK: - Table view data source
@@ -185,9 +178,13 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
             descriptionCell.delegate = self
             descriptionCell.defaultHeight = self.getDefaultHeightOfCell()
-            descriptionCell.update(viewController: .actDetail, section: indexPath.section, act: self.act)
+            descriptionCell.update(viewController: .actDetail,
+                                   section: indexPath.section,
+                                   act: self.act)
             descriptionCell.expandButton.tag = indexPath.section
-            descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
+            descriptionCell.expandButton.addTarget(self,
+                                                   action: #selector(expandButtonTapped(sender:)),
+                                                   for: .touchUpInside)
 
             return descriptionCell
         }
@@ -199,7 +196,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
             
             if self.isExpandingCell {
-            descriptionCell.descriptionTextView.becomeFirstResponder()
+                descriptionCell.descriptionTextView.becomeFirstResponder()
                 self.isExpandingCell = false
             }
         }
@@ -209,7 +206,7 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
         
         if self.isCollapsingCell {
-         descriptionCell.descriptionTextView.resignFirstResponder()
+            descriptionCell.descriptionTextView.resignFirstResponder()
             descriptionCell.resignFirstResponder()
             self.isCollapsingCell = false
         }
@@ -224,7 +221,8 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
             sectionHeader.moreButton.isHidden = true
             sectionHeader.navigationButton.isEnabled = false
-            let font = UIFont.systemFont(ofSize: 16, weight: .bold)
+            let font = UIFont.systemFont(ofSize: 16,
+                                         weight: .bold)
             sectionHeader.sectionLabel.font = font
             sectionHeader.sectionLabel.text = "Overall description"
             return sectionHeader
@@ -244,8 +242,10 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             case .idea:
                 return nil
             default:
-            header.titleLabel.text = "Act Beats"
-            header.infoButton.addTarget(self, action: #selector(informationButtonTapped), for: .touchUpInside)
+                header.titleLabel.text = "Act Beats"
+                header.infoButton.addTarget(self,
+                                            action: #selector(informationButtonTapped),
+                                            for: .touchUpInside)
             }
             return header
 
@@ -278,20 +278,9 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
         }
     }
     
-    // MARK: GADBannerViewDelegate Methods
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Banner loaded successfully")
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("Fail to receive ads")
-        print(error)
-    }
-    
-    // MARK: CollapsibleHeaderDelegate
+}
+
+extension ActDetailTableViewController: CollapsibleHeaderDelegate {
     
     func toggleSection(_ header: CollapsibleHeader, section: Int) {
         DispatchQueue.main.async {
@@ -311,8 +300,45 @@ class ActDetailTableViewController: UITableViewController, CollapsibleHeaderDele
             // Reload section tapped
             let indexSet = IndexSet(integer: section)
             self.tableView.beginUpdates()
-            self.tableView.reloadSections(indexSet, with: .automatic)
+            self.tableView.reloadSections(indexSet,
+                                          with: .automatic)
             self.tableView.endUpdates()
         }
+    }
+    
+}
+
+extension ActDetailTableViewController: GADBannerViewDelegate {
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Banner loaded successfully")
+        tableView.tableFooterView?.frame = bannerView.frame
+        tableView.tableFooterView = bannerView
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Fail to receive ads")
+        print(error)
+    }
+    
+}
+
+extension ActDetailTableViewController: DescriptionDelegate {
+    
+    // MARK: DescriptionDelegate Methods
+    
+    func updatedText(_ text: String, in section: Int) {
+        let indexPath = IndexPath(row: 0, section: section)
+        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        
+        descriptionCell.descriptionTextView.text = text
+    }
+    
+}
+
+extension ActDetailTableViewController: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 }

@@ -18,12 +18,15 @@ class RoleTableViewCell: UITableViewCell {
     }
     
     func update(with role: Role) {
-        let attributedText = NSAttributedString(string: role.title, attributes: [NSAttributedString.Key.foregroundColor: UIColor.flamenco])
+        let attributedText = NSAttributedString(string:role.title,
+                                                attributes: [NSAttributedString.Key.foregroundColor:UIColor.flamenco])
         roleLabel.attributedText = attributedText
     }
     
     func setupCustomLabel() {
-        let attributedText = NSAttributedString(string: "Custom", attributes: [NSAttributedString.Key.foregroundColor: UIColor.screenLightBlue])
+        let attributedText = NSAttributedString(string: "Custom",
+                                                attributes: [NSAttributedString.Key.foregroundColor:
+                                                    UIColor.screenLightBlue])
         roleLabel.attributedText = attributedText
     }
 }

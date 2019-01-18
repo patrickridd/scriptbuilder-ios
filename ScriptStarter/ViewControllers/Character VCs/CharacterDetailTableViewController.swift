@@ -14,7 +14,12 @@ protocol NameChangedDelegate: class {
     func nameChanged(name: String)
 }
 
-class CharacterDetailTableViewController: UITableViewController, DescriptionDelegate, CollapsibleHeaderDelegate, UIPopoverPresentationControllerDelegate, RoleCellSelected, NameChangedDelegate, GADBannerViewDelegate {
+protocol RoleCellSelected: class {
+    var customSelected: Bool { get set}
+    func updateRoleTextField(with row: Int)
+}
+
+class CharacterDetailTableViewController: UITableViewController {
     
     var expandableSections: [ExpandableTableViewSection] = []
 
@@ -46,9 +51,6 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
        
-        // Set Google Analytics Screen Name
-        FIRAnalytics.setScreenName("CharacterDetail", screenClass: "CharacterDetailTableViewController")
-        
         guard let _ = self.character else {
             let character = Character(name: "")
             self.character = character
@@ -78,8 +80,13 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
     @objc func expandButtonTapped(sender: UIButton) {
         let storyboard = UIStoryboard(name: "Outline", bundle: nil)
         let indexPath = IndexPath(row: 0, section: sender.tag)
-        guard let enlargedNavigationController =
-            storyboard.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        guard
+            let enlargedNavigationController = storyboard.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController,
+            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController,
+            let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
+        else {
+            return
+        }
         
         enlargedVC.act = nil
         enlargedVC.character = self.character
@@ -88,7 +95,9 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         enlargedVC.delegate = self
         enlargedVC.viewController = .characterDetail
 
-        self.present(enlargedNavigationController, animated: true, completion: nil)
+        self.present(enlargedNavigationController,
+                     animated: true,
+                     completion: nil)
     }
    
     @IBAction func saveButtonTapped(_ sender: Any) {
@@ -108,7 +117,8 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
 
         // Access the popController instance and configure its settings
         let popController = rolePopTVC.popoverPresentationController
-        popController?.permittedArrowDirections = [.up,.down] // allow arrow to go both .up and .down
+        popController?.permittedArrowDirections = [.up,
+                                                   .down] // allow arrow to go both .up and .down
         popController?.delegate = self
         popController?.backgroundColor = .white // Makes the arrow white
         rolePopTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
@@ -119,25 +129,14 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
 
         // change size of view controller to the size of my three cells.
         let contentHeightSize = (Role.count+1) * 40
-        rolePopTVC.preferredContentSize = CGSize(width: self.view.bounds.width, height: CGFloat(contentHeightSize))
+        rolePopTVC.preferredContentSize = CGSize(width: self.view.bounds.width,
+                                                 height: CGFloat(contentHeightSize))
 
-        self.present(rolePopTVC, animated: true, completion: nil)
+        self.present(rolePopTVC,
+                     animated: true,
+                     completion: nil)
     }
     
-    // MARK: GADBannerViewDelegate Methods
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Banner loaded successfully")
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("Fail to receive ads")
-        print(error)
-    }
-    
-
     // MARK: - TableView Data Source & Delegate Methods
 
     // Helper method that helps setup datasource
@@ -146,7 +145,8 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         for index in 0...sectionTitles.count-1 {
             let title = CharacterSection.sectionTitles[index]
             let subtitle = CharacterSection.sectionSubtitles[index]
-            let section = ExpandableTableViewSection(sectionTitle: title, sectionSubtitle: subtitle)
+            let section = ExpandableTableViewSection(sectionTitle: title,
+                                                     sectionSubtitle: subtitle)
             expandableSections.append(section)
         }
     }
@@ -192,16 +192,23 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
            if customSelected {
                 basicCharacterCell.customRoleSelected()
            }
-           basicCharacterCell.roleButton.addTarget(self, action: #selector(roleButtonTapped(_:)), for: .touchUpInside)
+           basicCharacterCell.roleButton.addTarget(self,
+                                                   action: #selector(roleButtonTapped(_:)),
+                                                   for: .touchUpInside)
            
            return basicCharacterCell
         default:
             guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
             descriptionCell.delegate = self
             descriptionCell.defaultHeight = self.getDefaultHeightOfCell()
-            descriptionCell.update(viewController: .characterDetail, section: indexPath.section, act: nil, character: self.character)
+            descriptionCell.update(viewController: .characterDetail,
+                                   section: indexPath.section,
+                                   act: nil,
+                                   character: self.character)
             descriptionCell.expandButton.tag = indexPath.section
-            descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
+            descriptionCell.expandButton.addTarget(self,
+                                                   action: #selector(expandButtonTapped(sender:)),
+                                                   for: .touchUpInside)
             descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
            
             return descriptionCell
@@ -211,7 +218,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
             
-            guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
+            guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
             
             if self.isExpandingCell {
                 descriptionCell.descriptionTextView.becomeFirstResponder()
@@ -221,7 +228,7 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
     }
     
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
+        guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
         
         if self.isCollapsingCell {
             descriptionCell.descriptionTextView.resignFirstResponder()
@@ -257,7 +264,6 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
             return header
         }
     }
-    
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
@@ -295,8 +301,22 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
 //            }
 //        }
 //    }
+    
+}
 
-    // MARK: CollapsibleHeaderDelegate
+extension CharacterDetailTableViewController: DescriptionDelegate {
+    
+    func updatedText(_ text: String, in section: Int) {
+        let indexPath = IndexPath(row: 0, section: section)
+        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        
+        descriptionCell.descriptionTextView.text = text
+    }
+    
+    
+}
+
+extension CharacterDetailTableViewController: CollapsibleHeaderDelegate {
     
     func toggleSection(_ header: CollapsibleHeader, section: Int) {
         DispatchQueue.main.async {
@@ -321,26 +341,19 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
         }
     }
     
-    // MARK: UIPopoverPresentationControllerDelegate Methods
+}
+
+extension CharacterDetailTableViewController: UIPopoverPresentationControllerDelegate {
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-            return .none
+        return .none
     }
-    
-    // MARK: DescriptionDelegate Methods
-    
-    func updatedText(_ text: String, in section: Int) {
-        let indexPath = IndexPath(row: 0, section: section)
-        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
-        
-        descriptionCell.descriptionTextView.text = text
-    }
-    
-    // MARK: RoleCellSelected Methods
+}
 
+extension CharacterDetailTableViewController: RoleCellSelected {
+    
     func updateRoleTextField(with row: Int) {
         DispatchQueue.main.async {
-            let indexSet = IndexSet(integer: 0)
             
             if let role = Role(rawValue: row) {
                 self.character?.role = role.title
@@ -351,26 +364,27 @@ class CharacterDetailTableViewController: UITableViewController, DescriptionDele
             self.tableView.reloadData()
         }
     }
-    
-    // MARK: NameChangedDelegate
+}
+
+extension CharacterDetailTableViewController: NameChangedDelegate {
     
     func nameChanged(name: String) {
         self.title = name
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }
 
-protocol RoleCellSelected: class {
-    var customSelected: Bool { get set}
-    func updateRoleTextField(with row: Int)
+extension CharacterDetailTableViewController: GADBannerViewDelegate {
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Banner loaded successfully")
+        tableView.tableFooterView?.frame = bannerView.frame
+        tableView.tableFooterView = bannerView
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Fail to receive ads")
+        print(error)
+    }
+
 }

@@ -29,7 +29,10 @@ class SettingsTableViewController: UITableViewController {
         // Remove Navigation bar shadow and borderline
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.light)]
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
+                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
+                                                                         weight: UIFont.Weight.light)]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
         self.title = "Settings"

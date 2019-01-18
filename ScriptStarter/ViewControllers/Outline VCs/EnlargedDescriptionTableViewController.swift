@@ -10,9 +10,8 @@ import UIKit
 import GoogleMobileAds
 import Firebase
 
-class EnlargedDescriptionTableViewController: UITableViewController, GADBannerViewDelegate {
+class EnlargedDescriptionTableViewController: UITableViewController {
     
-    let name = "EnlargedDescriptionTableViewController"
     var viewController: ViewController = .outline
     var section: Int = 0
     var act: Act?
@@ -36,9 +35,6 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         self.tableView.backgroundColor = .screenLightGray
         setupNavigationBar()
         
-        // Set Google Analytics Screen Name
-        FIRAnalytics.setScreenName("EnlargedDescription", screenClass: "EnlargedDescriptionTableViewController")
-        
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
     }
@@ -53,8 +49,10 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
     @IBAction func reduceScreenButtonTapped(_ sender: Any) {
         let indexPath = IndexPath(row: 0, section: 0)
         guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell, let text = descriptionCell.descriptionTextView.text else { return }
-        delegate?.updatedText(text, in: self.section)
-        self.dismiss(animated: true, completion: nil)
+        delegate?.updatedText(text,
+                              in: self.section)
+        self.dismiss(animated: true,
+                     completion: nil)
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
@@ -66,38 +64,30 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
     
     func setupNavigationBar() {
         var title: String = screenplay?.title ?? ""
-        var font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        var font = UIFont.systemFont(ofSize: 20,
+                                     weight: .semibold)
         switch viewController {
         case .actDetail:
             title = act?.title ?? title
-            font = UIFont.systemFont(ofSize: 20, weight: .light)
+            font = UIFont.systemFont(ofSize: 20,
+                                     weight: .light)
         case .characterDetail:
             title = character?.name ?? title
-            font = UIFont.systemFont(ofSize: 20, weight: .light)
+            font = UIFont.systemFont(ofSize: 20,
+                                     weight: .light)
         case .outline, .sceneDetail:
             break
         }
         // Remove Navigation bar shadow and borderline
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.topItem?.title = title
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark, NSAttributedString.Key.font: font]
-        self.navigationController?.navigationBar.tintColor = .screenLightBlue
-        self.navigationController?.navigationBar.barTintColor = .white
-    }
-    
-    
-    // MARK: GADBannerViewDelegate Methods
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Banner loaded successfully")
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("Fail to receive ads")
-        print(error)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.topItem?.title = title
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
+                          NSAttributedString.Key.font: font]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+           
+        navigationController?.navigationBar.tintColor = .screenLightBlue
+        navigationController?.navigationBar.barTintColor = .white
     }
     
     // MARK: - Table view data source
@@ -159,4 +149,19 @@ class EnlargedDescriptionTableViewController: UITableViewController, GADBannerVi
         return self.view.frame.height * (1/3)
     }
 
+}
+
+extension EnlargedDescriptionTableViewController: GADBannerViewDelegate {
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Banner loaded successfully")
+        tableView.tableFooterView?.frame = bannerView.frame
+        tableView.tableFooterView = bannerView
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Fail to receive ads")
+        print(error)
+    }
+    
 }

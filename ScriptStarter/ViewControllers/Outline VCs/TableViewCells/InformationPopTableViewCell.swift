@@ -22,9 +22,14 @@ class InformationPopTableViewCell: UITableViewCell {
     
     func update(with infoNote: InformationNote) {
         let paragraphStyle = NSMutableParagraphStyle()
-        let font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        let font = UIFont.systemFont(ofSize: 16,
+                                     weight: .semibold)
         paragraphStyle.lineHeightMultiple = 1.25
-        let informationAttributedText = NSAttributedString(string: infoNote.description, attributes: [NSAttributedString.Key.foregroundColor:UIColor.flamenco, NSAttributedString.Key.paragraphStyle:paragraphStyle, NSAttributedString.Key.font: font])
+        let attributes = [NSAttributedString.Key.foregroundColor:UIColor.flamenco,
+                          NSAttributedString.Key.paragraphStyle:paragraphStyle,
+                          NSAttributedString.Key.font: font]
+        let informationAttributedText = NSAttributedString(string: infoNote.description,
+                                                           attributes: attributes)
         informationLabel.attributedText = informationAttributedText
     }
 }

@@ -51,14 +51,6 @@ class DescriptionTableViewCell: UITableViewCell {
             self.textViewBecomesFirstResponder = false
         } 
     }
-
-    func makeTextViewFirstResponder() {
-   //     self.descriptionTextView.becomeFirstResponder()
-    }
-    
-    func resignTextView() {
-   //     self.descriptionTextView.resignFirstResponder()
-    }
     
     func update(viewController: ViewController, section: Int, act: Act?, character: Character? = nil, scene: Scene? = nil) {
         self.section = section
@@ -413,9 +405,9 @@ class DescriptionTableViewCell: UITableViewCell {
     }
     
     func checkForResize(textView: UITextView) {
-        // Get descriptionTextView size that fits in view
         if descriptionTextViewHeightConstraint == nil { return }
         
+        // Get descriptionTextView size that fits in view
         let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
         if size.height > self.defaultHeight {
             descriptionTextViewHeightConstraint.constant = size.height

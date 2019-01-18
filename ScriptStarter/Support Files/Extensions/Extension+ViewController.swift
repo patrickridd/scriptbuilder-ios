@@ -49,8 +49,11 @@ extension UIViewController: UITextFieldDelegate {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 1
         
+        let attributes = [NSAttributedString.Key.font:font,
+                          NSAttributedString.Key.paragraphStyle:paragraphStyle]
         let estimatedDescriptionHeight = NSString(string: text).boundingRect(with: descriptionSize,
-                                                                             options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font:font, NSAttributedString.Key.paragraphStyle:paragraphStyle],
+                                                                             options: .usesLineFragmentOrigin,
+                                                                             attributes: attributes,
                                                                              context: nil).height
         if estimatedDescriptionHeight < getDefaultHeightOfCell() {
             return getDefaultHeightOfCell()

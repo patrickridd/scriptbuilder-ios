@@ -15,7 +15,8 @@ class ScenesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(sender:)))
+        let rightSwipe = UISwipeGestureRecognizer(target: self,
+                                                  action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
 
@@ -24,7 +25,8 @@ class ScenesTableViewController: UITableViewController {
         self.tableView.separatorColor = self.tableView.backgroundColor
         
         if newScene {
-            self.pushToSceneDetailView(act: .one, scene: nil)
+            self.pushToSceneDetailView(act: .one,
+                                       scene: nil)
         }
 //        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(gestureRecognizer:)))
 //        tableView.addGestureRecognizer(longpress)
@@ -40,7 +42,12 @@ class ScenesTableViewController: UITableViewController {
         
         let state = longPress.state
         let locationInView = longPress.location(in: tableView)
-        guard let indexPath = tableView.indexPathForRow(at: locationInView), let screenplay = self.screenplay else { return }
+        guard
+            let indexPath = tableView.indexPathForRow(at: locationInView),
+            let screenplay = self.screenplay
+        else {
+            return
+        }
         
         struct My {
             static var cellSnapshot : UIView? = nil
@@ -64,7 +71,8 @@ class ScenesTableViewController: UITableViewController {
             UIView.animate(withDuration: 0.25, animations: { () -> Void in
                 center.y = locationInView.y
                 My.cellSnapshot?.center = center
-                My.cellSnapshot?.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                My.cellSnapshot?.transform = CGAffineTransform(scaleX: 1.05,
+                                                               y: 1.05)
                 My.cellSnapshot?.alpha = 0.98
                 cell.alpha = 0.0
                 
@@ -83,28 +91,40 @@ class ScenesTableViewController: UITableViewController {
             switch indexPath.section {
             case 0: // Act 1
                 if (indexPath != initialIndexPath) {
-                    swap(&screenplay.act1.scenes[indexPath.row], &screenplay.act1.scenes[initialIndexPath.row])
-                    tableView.moveRow(at: initialIndexPath, to: indexPath)
+                    swap(&screenplay.act1.scenes[indexPath.row],
+                         &screenplay.act1.scenes[initialIndexPath.row])
+                    tableView.moveRow(at: initialIndexPath,
+                                      to: indexPath)
                     Path.initialIndexPath = indexPath
                 }
             case 1: // Act 2
                 if (indexPath != initialIndexPath) {
-                    swap(&screenplay.act2.scenes[indexPath.row], &screenplay.act2.scenes[initialIndexPath.row])
-                    tableView.moveRow(at: initialIndexPath, to: indexPath)
+                    swap(&screenplay.act2.scenes[indexPath.row],
+                         &screenplay.act2.scenes[initialIndexPath.row])
+                    tableView.moveRow(at: initialIndexPath,
+                                      to: indexPath)
                     Path.initialIndexPath = indexPath
                 }
             case 2: // Act 3
                 if (indexPath != initialIndexPath) {
-                    swap(&screenplay.act3.scenes[indexPath.row], &screenplay.act3.scenes[initialIndexPath.row])
-                    tableView.moveRow(at: initialIndexPath, to: indexPath)
+                    swap(&screenplay.act3.scenes[indexPath.row],
+                         &screenplay.act3.scenes[initialIndexPath.row])
+                    tableView.moveRow(at: initialIndexPath,
+                                      to: indexPath)
                     Path.initialIndexPath = indexPath
                 }
                 
             default:
-                guard let initialIndexPath = Path.initialIndexPath, let cell = tableView.cellForRow(at: initialIndexPath) else { return }
+                guard
+                    let initialIndexPath = Path.initialIndexPath,
+                    let cell = tableView.cellForRow(at: initialIndexPath)
+                else {
+                    return
+                }
                 cell.isHidden = false
                 cell.alpha = 0.0
-                UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                UIView.animate(withDuration: 0.25,
+                               animations: { () -> Void in
                     My.cellSnapshot?.center = cell.center
                     My.cellSnapshot?.transform = CGAffineTransform.identity
                     My.cellSnapshot?.alpha = 0.0
@@ -122,7 +142,6 @@ class ScenesTableViewController: UITableViewController {
         }
     }
     
-    
     func snapshopOfCell(inputView: UIView) -> UIView {
         UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0.0)
         inputView.layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -131,7 +150,8 @@ class ScenesTableViewController: UITableViewController {
         let cellSnapshot : UIView = UIImageView(image: image)
         cellSnapshot.layer.masksToBounds = false
         cellSnapshot.layer.cornerRadius = 0.0
-        cellSnapshot.layer.shadowOffset = CGSize.init(width:-5.0,height:0.0)
+        cellSnapshot.layer.shadowOffset = CGSize.init(width:-5.0,
+                                                      height:0.0)
         cellSnapshot.layer.shadowRadius = 5.0
         cellSnapshot.layer.shadowOpacity = 0.4
         return cellSnapshot
@@ -142,19 +162,23 @@ class ScenesTableViewController: UITableViewController {
     func setupNavigationBar() {
         
         // Remove Navigation bar shadow and borderline
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = false
         if self.screenplay?.title == "" {
             screenplay?.title = "Untitled"
         }
-        self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
-        self.navigationController?.navigationBar.tintColor = .screenLightBlue
-        self.navigationController?.navigationBar.barTintColor = .white
-        
-      //  let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backButtonAsset"), style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
-         let backButton = UIBarButtonItem(title: "Home", style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
-        self.navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
+        navigationController?.navigationBar.topItem?.title = self.screenplay?.title
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
+                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
+                                                                         weight: .semibold)]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+        navigationController?.navigationBar.tintColor = .screenLightBlue
+        navigationController?.navigationBar.barTintColor = .white
+        let backButton = UIBarButtonItem(title: "Home",
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(handleRightSwipe(sender:)))
+        navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
     // MARK: - IBActions and Target Methods
@@ -184,7 +208,8 @@ class ScenesTableViewController: UITableViewController {
         
         sceneDetailVC.scene = scene
         sceneDetailVC.act = act
-        self.navigationController?.pushViewController(sceneDetailVC, animated: true)
+        self.navigationController?.pushViewController(sceneDetailVC,
+                                                      animated: true)
     }
     
     // MARK: - Table view data source
@@ -236,48 +261,51 @@ class ScenesTableViewController: UITableViewController {
            
             // If no scenes in this act return the noSceneCell
             if scenesCount == 0 {
-                guard let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as?
-                    NoCharacterTableViewCell else { return UITableViewCell() }
+                let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier",
+                                                                      for: indexPath) as?NoCharacterTableViewCell
                 
-                return noSceneCell
+                return noSceneCell ?? UITableViewCell()
             }
-            guard let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell", for: indexPath) as? SceneTableViewCell else { return UITableViewCell() }
+            let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell",
+                                                          for: indexPath) as? SceneTableViewCell
            // Find scene for this act and update sceneCell
             let scene = screenplay.act1.scenes[indexPath.row]
-            sceneCell.update(with: scene)
-            return sceneCell
+            sceneCell?.update(with: scene)
+            return sceneCell ?? UITableViewCell()
         
         case 1: // Act 2
             let scenesCount = screenplay.act2.scenes.count
             
             // If no scenes in this act return the noSceneCell
             if scenesCount == 0 {
-                guard let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as?
-                    NoCharacterTableViewCell else { return UITableViewCell() }
+                let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier",
+                                                                for: indexPath) as? NoCharacterTableViewCell
                 
-                return noSceneCell
+                return noSceneCell ?? UITableViewCell()
             }
-            guard let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell", for: indexPath) as? SceneTableViewCell else { return UITableViewCell() }
+            let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell",
+                                                          for: indexPath) as? SceneTableViewCell
             // Find scene for this act and update sceneCell
             let scene = screenplay.act2.scenes[indexPath.row]
-            sceneCell.update(with: scene)
-            return sceneCell
+            sceneCell?.update(with: scene)
+            return sceneCell ?? UITableViewCell()
         case 2: // Act 3
             let scenesCount = screenplay.act3.scenes.count
             
             // If no scenes in this act return the noSceneCell
             if scenesCount == 0 {
-                guard let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as?
-                    NoCharacterTableViewCell else { return UITableViewCell() }
+                let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier",
+                                                                for: indexPath) as? NoCharacterTableViewCell
                 
-                return noSceneCell
+                return noSceneCell ?? UITableViewCell()
             }
             
-            guard let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell", for: indexPath) as? SceneTableViewCell else { return UITableViewCell() }
+            let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell",
+                                                          for: indexPath) as? SceneTableViewCell
             // Find scene for this act and update sceneCell
             let scene = screenplay.act3.scenes[indexPath.row]
-            sceneCell.update(with: scene)
-            return sceneCell
+            sceneCell?.update(with: scene)
+            return sceneCell ?? UITableViewCell()
         default:
             return UITableViewCell()
         }
@@ -292,7 +320,9 @@ class ScenesTableViewController: UITableViewController {
         // Act Header
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SceneHeader ?? SceneHeader(reuseIdentifier: "header")
         header.plusButtonCover.tag = section // Used to get Act enum case
-        header.plusButtonCover.addTarget(self, action: #selector(plusButtonTapped(_:)), for: .touchUpInside)
+        header.plusButtonCover.addTarget(self,
+                                         action: #selector(plusButtonTapped(_:)),
+                                         for: .touchUpInside)
 
         switch section {
         case 0: // Act 1
@@ -322,28 +352,33 @@ class ScenesTableViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             guard let scenes = self.screenplay?.act1.scenes, scenes.count != 0 else {
-                self.pushToSceneDetailView(act: .one, scene: nil)
+                self.pushToSceneDetailView(act: .one,
+                                           scene: nil)
                 return
             }
             scene = self.screenplay?.act1.scenes[indexPath.row]
-            self.pushToSceneDetailView(act: .one, scene: scene)
+            self.pushToSceneDetailView(act: .one,
+                                       scene: scene)
         case 1:
             guard let scenes = self.screenplay?.act2.scenes, scenes.count != 0 else {
-                self.pushToSceneDetailView(act: .two, scene: nil)
+                self.pushToSceneDetailView(act: .two,
+                                           scene: nil)
                 return
             }
             
             scene = self.screenplay?.act2.scenes[indexPath.row]
-            self.pushToSceneDetailView(act: .two, scene: scene)
-            
+            self.pushToSceneDetailView(act: .two,
+                                       scene: scene)
         case 2:
             guard let scenes = self.screenplay?.act3.scenes, scenes.count != 0 else {
-                self.pushToSceneDetailView(act: .three, scene: nil)
+                self.pushToSceneDetailView(act: .three,
+                                           scene: nil)
                 return
             }
             
             scene = self.screenplay?.act3.scenes[indexPath.row]
-            self.pushToSceneDetailView(act: .three, scene: scene)
+            self.pushToSceneDetailView(act: .three,
+                                       scene: scene)
         default:
             break
         }
@@ -355,8 +390,6 @@ class ScenesTableViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
-
-    
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -365,7 +398,9 @@ class ScenesTableViewController: UITableViewController {
         case 0: // Act 1
             if let scene = self.screenplay?.act1.scenes[indexPath.row],
                 let screenplay = self.screenplay, editingStyle == .delete {
-               FirebaseController.shared.delete(scene: scene,withScreenplay: screenplay, inAct: .one)
+               FirebaseController.shared.delete(scene: scene,
+                                                withScreenplay: screenplay,
+                                                inAct: .one)
                 self.screenplay?.act1.scenes.remove(at: indexPath.row)
                 
                 self.reloadTableView()
@@ -373,19 +408,19 @@ class ScenesTableViewController: UITableViewController {
         case 1: // Act 2
             if let scene = self.screenplay?.act2.scenes[indexPath.row],
                 let screenplay = self.screenplay, editingStyle == .delete {
-                FirebaseController.shared.delete(scene: scene,withScreenplay: screenplay, inAct: .two)
-                
+                FirebaseController.shared.delete(scene: scene,
+                                                 withScreenplay: screenplay,
+                                                 inAct: .two)
                 self.screenplay?.act2.scenes.remove(at: indexPath.row)
-                
                 self.reloadTableView()
             }
         case 2: // Act 3
             if let scene = self.screenplay?.act3.scenes[indexPath.row],
                 let screenplay = self.screenplay, editingStyle == .delete {
-                  FirebaseController.shared.delete(scene: scene,withScreenplay: screenplay, inAct: .three)
-                
+                  FirebaseController.shared.delete(scene: scene,
+                                                   withScreenplay: screenplay,
+                                                   inAct: .three)
                 self.screenplay?.act3.scenes.remove(at: indexPath.row)
-                
                 self.reloadTableView()
             }
         default:

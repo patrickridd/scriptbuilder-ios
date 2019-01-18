@@ -61,10 +61,16 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
+        let attributes =  [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
+                           NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
+                                                                          weight: .semibold)]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
-        let backButton = UIBarButtonItem(title: "Home", style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
+        let backButton = UIBarButtonItem(title: "Home",
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(handleRightSwipe(sender:)))
        // let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backButtonAsset"), style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }

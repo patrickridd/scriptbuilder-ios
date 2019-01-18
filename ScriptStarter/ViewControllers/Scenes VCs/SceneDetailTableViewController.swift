@@ -9,7 +9,11 @@
 import UIKit
 import Firebase
 
-class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDelegate, UIPopoverPresentationControllerDelegate, SceneActSelected {
+protocol SceneActSelected: class {
+    func selected(newAct:Act)
+}
+
+class SceneDetailTableViewController: UITableViewController {
 
     @IBOutlet weak var sceneTitleTextField: UITextField!
     @IBOutlet weak var sceneNumberTextField: UITextField!
@@ -29,8 +33,6 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         super.viewDidLoad()
         setupExpandableSections()
         
-        // Set Google Analytics Screen Name
-        FIRAnalytics.setScreenName("SceneDetail", screenClass: "SceneDetailTableViewController")
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
       
@@ -78,31 +80,37 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
             
         case .one:
             if let highestSceneNumber = screenplay.act1.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
-                let scene = Scene(title: "New Scene", sceneNumber: highestSceneNumber+1)
+                let scene = Scene(title: "New Scene",
+                                  sceneNumber: highestSceneNumber+1)
                 self.scene = scene
                 self.screenplay?.act1.sceneSet.insert(scene)
             } else {
-                let scene = Scene(title: "New Scene", sceneNumber: 1)
+                let scene = Scene(title: "New Scene",
+                                  sceneNumber: 1)
                 self.scene = scene
                 self.screenplay?.act1.sceneSet.insert(scene)
             }
         case .two:
             if let highestSceneNumber = screenplay.act2.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
-                let scene = Scene(title: "New Scene", sceneNumber: highestSceneNumber+1)
+                let scene = Scene(title: "New Scene",
+                                  sceneNumber: highestSceneNumber+1)
                 self.scene = scene
                 self.screenplay?.act2.sceneSet.insert(scene)
             } else {
-                let scene = Scene(title: "New Scene", sceneNumber: 1)
+                let scene = Scene(title: "New Scene",
+                                  sceneNumber: 1)
                 self.scene = scene
                 self.screenplay?.act2.sceneSet.insert(scene)
             }
         case .three:
             if let highestSceneNumber = screenplay.act3.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
-                let scene = Scene(title: "New Scene", sceneNumber: highestSceneNumber+1)
+                let scene = Scene(title: "New Scene",
+                                  sceneNumber: highestSceneNumber+1)
                 self.scene = scene
                 self.screenplay?.act3.sceneSet.insert(scene)
             } else {
-                let scene = Scene(title: "New Scene", sceneNumber: 1)
+                let scene = Scene(title: "New Scene",
+                                  sceneNumber: 1)
                 self.scene = scene
                 self.screenplay?.act3.sceneSet.insert(scene)
             }
@@ -122,12 +130,14 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
 
     @IBAction func sceneNumberTextFieldChanged(_ sender: UITextField) {
         guard let sceneNumberText = sender.text,
-            let sceneNumber = Int(sceneNumberText) else { return }
+              let sceneNumber = Int(sceneNumberText) else { return }
         
         self.scene?.sceneNumber = sceneNumber
         
         if let scene = self.scene {
-            SceneController.shared.adjustSceneNumbers(for: scene, in: self.act, with: self.screenplay)
+            SceneController.shared.adjustSceneNumbers(for: scene,
+                                                      in: self.act,
+                                                      with: self.screenplay)
             switch self.act {
             case .one:
                 self.screenplay?.act1.scenes.sort(by: {$0.sceneNumber < $1.sceneNumber })
@@ -154,19 +164,25 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         
         // Access the popController instance and configure its settings
         let popController = sceneActNumberTVC.popoverPresentationController
-        popController?.permittedArrowDirections = [.up,.down] // allow arrow to go both .up and .down
+        popController?.permittedArrowDirections = [.up,
+                                                   .down] // allow arrow to go both .up and .down
         popController?.delegate = self
         popController?.backgroundColor = .white // Makes the arrow white
         sceneActNumberTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
         
-        let centerRect = CGRect(x: sender.bounds.width/2, y: 0, width: 0, height: sender.bounds.height)
+        let centerRect = CGRect(x: sender.bounds.width/2,
+                                y: 0, width: 0,
+                                height: sender.bounds.height)
         popController?.sourceView = sender
         popController?.sourceRect = centerRect
         
         sceneActNumberTVC.delegate = self // SceneActSelected protocol
-        sceneActNumberTVC.preferredContentSize = CGSize(width: self.sceneActNumberTextField.bounds.width, height: CGFloat(90))
+        sceneActNumberTVC.preferredContentSize = CGSize(width: self.sceneActNumberTextField.bounds.width,
+                                                        height: CGFloat(90))
         
-        self.present(sceneActNumberTVC, animated: true, completion: nil)
+        self.present(sceneActNumberTVC,
+                     animated: true,
+                     completion: nil)
     }
     
     
@@ -179,7 +195,8 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         for index in 0...sectionTitles.count-1 {
             let title = Scene.sceneTitles[index]
             let subtitle = "" //act.sectionSubTitles[index]
-            let section = ExpandableTableViewSection(sectionTitle: title, sectionSubtitle: subtitle)
+            let section = ExpandableTableViewSection(sectionTitle: title,
+                                                     sectionSubtitle: subtitle)
             expandableSections.append(section)
         }
     }
@@ -202,12 +219,17 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
-            descriptionCell.delegate = self
-            descriptionCell.defaultHeight = self.getDefaultHeightOfCell()
-            descriptionCell.contentView.backgroundColor = .screenLightGray
-            descriptionCell.update(viewController: .sceneDetail, section: indexPath.section, act: self.act, character: nil, scene: self.scene)
-            return descriptionCell
+            let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell",
+                                                                for: indexPath) as? DescriptionTableViewCell
+            descriptionCell?.delegate = self
+            descriptionCell?.defaultHeight = self.getDefaultHeightOfCell()
+            descriptionCell?.contentView.backgroundColor = .screenLightGray
+            descriptionCell?.update(viewController: .sceneDetail,
+                                   section: indexPath.section,
+                                   act: self.act,
+                                   character: nil,
+                                   scene: self.scene)
+            return descriptionCell ?? UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -241,7 +263,7 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
             
-            guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
+            guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
             
             if self.isExpandingCell {
                 descriptionCell.descriptionTextView.becomeFirstResponder()
@@ -251,7 +273,7 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
     }
     
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
+        guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
         
         if self.isCollapsingCell {
             descriptionCell.descriptionTextView.resignFirstResponder()
@@ -260,7 +282,16 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         }
     }
     
-    // MARK: CollapsibleHeaderDelegate
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+}
+
+extension SceneDetailTableViewController: CollapsibleHeaderDelegate {
     
     func toggleSection(_ header: CollapsibleHeader, section: Int) {
         DispatchQueue.main.async {
@@ -280,13 +311,24 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
             // Reload section tapped
             let indexSet = IndexSet(integer: section)
             self.tableView.beginUpdates()
-            self.tableView.reloadSections(indexSet, with: .automatic)
+            self.tableView.reloadSections(indexSet,
+                                          with: .automatic)
             self.tableView.endUpdates()
         }
     }
-    
+}
 
-    // MARK: - SceneActSelected Methods
+extension SceneDetailTableViewController: UIPopoverPresentationControllerDelegate {
+    
+    // MARK: UIPopoverPresentationControllerDelegate Methods
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+}
+
+extension SceneDetailTableViewController: SceneActSelected {
     
     func selected(newAct: Act) {
         guard let scene = self.scene, newAct != self.act else { return }
@@ -347,22 +389,4 @@ class SceneDetailTableViewController: UITableViewController, CollapsibleHeaderDe
         self.sceneNumberTextField.text = "\(scene.sceneNumber)"
     }
     
-    
-    // MARK: - UITextFieldDelegate
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    // MARK: UIPopoverPresentationControllerDelegate Methods
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-
-}
-
-protocol SceneActSelected: class {
-    func selected(newAct:Act)
 }

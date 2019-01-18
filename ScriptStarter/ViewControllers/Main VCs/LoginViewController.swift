@@ -70,9 +70,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         FIRAnalytics.setScreenName("Login", screenClass: "LoginViewController")
         
         let strokeTextAttributes: [NSAttributedString.Key : Any] =
-            [NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
-            NSAttributedString.Key.foregroundColor : UIColor.white,
-            NSAttributedString.Key.strokeWidth : 1]
+            [NSAttributedString.Key.strokeColor: UIColor.screenLightBlue,
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.strokeWidth: 1]
         
         scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder",
                                                                attributes: strokeTextAttributes)
@@ -99,12 +99,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
                 self.loadingNotification.label.text = "success"
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
-                let strokeTextAttributes: [NSAttributedString.Key : Any] = [
-                    NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
-                    NSAttributedString.Key.foregroundColor : UIColor.white,
-                    NSAttributedString.Key.strokeWidth : -2.0,
-                    ]
-                
+                let strokeTextAttributes: [NSAttributedString.Key:Any] =
+                    [NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
+                     NSAttributedString.Key.foregroundColor : UIColor.white,
+                     NSAttributedString.Key.strokeWidth : -2.0]
                 self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder",
                                                                             attributes: strokeTextAttributes)
                 completion?()
@@ -160,7 +158,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     @IBAction func loginInButtonTapped(_ sender: Any) {
         guard let email = emailTextField.text,
             let password = passwordTextField.text else {
-                self.present(UIAlertControllers.emailAuthenticationError(message: "Needs both fields completed"), animated: true)
+                self.present(UIAlertControllers.emailAuthenticationError(message: "Complete both fields"),
+                                                                         animated: true)
                 return
         }
         

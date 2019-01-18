@@ -20,23 +20,22 @@ class SceneActNumberPopTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 3
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let actNumberPopCell = tableView.dequeueReusableCell(withIdentifier: "actNumberCell", for: indexPath) as? ActNumberPopTableViewCell else { return UITableViewCell() }
+        let actNumberPopCell = tableView.dequeueReusableCell(withIdentifier: "actNumberCell",
+                                                             for: indexPath) as? ActNumberPopTableViewCell
         
         // Configure the cell...
-        actNumberPopCell.update(with:indexPath.row+1)
+        actNumberPopCell?.update(with:indexPath.row+1)
         
-        return actNumberPopCell
+        return actNumberPopCell ?? UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -47,6 +46,7 @@ class SceneActNumberPopTableViewController: UITableViewController {
         if let act = Act(rawValue: indexPath.row) {
             delegate?.selected(newAct: act)
         }
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true,
+                     completion: nil)
     }
 }

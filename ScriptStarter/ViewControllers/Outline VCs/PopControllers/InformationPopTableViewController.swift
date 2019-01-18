@@ -17,7 +17,8 @@ class InformationPopTableViewController: UITableViewController {
     }
     
     @objc func gotItButtonTapped() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true,
+                     completion: nil)
     }
     
 
@@ -40,7 +41,9 @@ class InformationPopTableViewController: UITableViewController {
 
         // Configure the cell...
         informationCell.update(with: self.informationNote)
-        informationCell.gotItButton.addTarget(self, action: #selector(gotItButtonTapped), for: .touchUpInside)
+        informationCell.gotItButton.addTarget(self,
+                                              action: #selector(gotItButtonTapped),
+                                              for: .touchUpInside)
         
         return informationCell
     }
