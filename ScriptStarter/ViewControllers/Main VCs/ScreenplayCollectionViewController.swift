@@ -40,9 +40,6 @@ class ScreenplayCollectionViewController: UIViewController {
         //self.collectionView.backgroundColor = UIColor.groupTableViewBackground
         getScreenplays()
         
-        // Set Google Analytics Screen Name
-        FIRAnalytics.setScreenName("ScreenCollectionView", screenClass: "ScreenplayCollectionViewController")
-        
         // Enlarge new screenplay if none exist
         if screenplays.count == 0 {
           //  segueToNewScreenPlay()

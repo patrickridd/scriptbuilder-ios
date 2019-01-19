@@ -36,8 +36,6 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
 
-        // Set Google Analytics Screen Name
-        FIRAnalytics.setScreenName("CharacterTableView", screenClass: "CharacterTableViewController")
         if newCharacter {
             self.performSegue(withIdentifier: "newCharacterSegue", sender: nil)
         }

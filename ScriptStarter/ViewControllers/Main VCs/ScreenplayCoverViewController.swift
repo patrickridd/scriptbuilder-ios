@@ -43,9 +43,6 @@ class ScreenplayCoverViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         
-        // Set Google Analytics Screen Name
-        FIRAnalytics.setScreenName("ScreenplayCover", screenClass: "ScreenplayPageViewController")
-       
         // Create Interstitial Ad
        // interstitial = createAndLoadInterstitial()
     }
