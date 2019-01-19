@@ -31,9 +31,11 @@ class ActDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupExpandableSections()
-        self.title = act.title
-        self.tableView.backgroundColor = UIColor.screenLightGray
-        self.tableView.separatorColor = self.tableView.backgroundColor
+        
+        title = act.title
+        tableView.backgroundColor = UIColor.screenLightGray
+        tableView.separatorColor = self.tableView.backgroundColor
+        tableView.keyboardDismissMode = .onDrag
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -12,7 +12,7 @@ import KMPlaceholderTextView
 class DescriptionTableViewCell: UITableViewCell {
 
     weak var delegate: ResizeCellProtocol?
-   
+    
     override var canBecomeFirstResponder: Bool {
         return true
     }
@@ -52,7 +52,12 @@ class DescriptionTableViewCell: UITableViewCell {
         } 
     }
     
-    func update(viewController: ViewController, section: Int, act: Act?, character: Character? = nil, scene: Scene? = nil) {
+    func update(viewController: ViewController,
+                section: Int,
+                act: Act?,
+                character: Character? = nil,
+                scene: Scene? = nil) {
+        
         self.section = section
         self.viewController = viewController
         
@@ -249,8 +254,7 @@ class DescriptionTableViewCell: UITableViewCell {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        
-      checkForResize(textView: textView)
+        checkForResize(textView: textView)
         
         switch viewController {
         case .outline:

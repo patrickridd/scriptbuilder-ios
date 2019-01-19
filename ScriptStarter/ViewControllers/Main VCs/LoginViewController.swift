@@ -41,41 +41,40 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Setup Facebook sign in buttons
-        facebookButton.addTarget(self, action: #selector(facebookButtonTapped), for: .touchUpInside)
-        
-        // Google Sign-in
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().uiDelegate = self
-        googleSignInButton.style = .iconOnly
-        googleSignInButton.colorScheme = .light
-        
-        // Set TextFields Delegate
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
-        
-        // Sets keyboard observers so we can adjust the textfields
-        addKeyBoardObservers()
-        
-        // Add toolbars to be able to dismiss keyboard manually
-        addToolBar(textField: self.emailTextField)
-        addToolBar(textField: self.passwordTextField)
-        
-        // Setup Tap Gesture to dismiss keyboard
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGesture)
-        tapGesture.cancelsTouchesInView = false // This way the google button will work
-        
-        // Set Google Analytics Screen Name
-        FIRAnalytics.setScreenName("Login", screenClass: "LoginViewController")
-        
-        let strokeTextAttributes: [NSAttributedString.Key : Any] =
-            [NSAttributedString.Key.strokeColor: UIColor.screenLightBlue,
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.strokeWidth: 1]
-        
-        scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder",
-                                                               attributes: strokeTextAttributes)
+            // Setup Facebook sign in buttons
+            self.facebookButton.addTarget(self,
+                                     action: #selector(self.facebookButtonTapped),
+                                     for: .touchUpInside)
+            
+            // Google Sign-in
+            GIDSignIn.sharedInstance().delegate = self
+            GIDSignIn.sharedInstance().uiDelegate = self
+            self.googleSignInButton.style = .iconOnly
+            self.googleSignInButton.colorScheme = .light
+            
+            // Set TextFields Delegate
+            self.emailTextField.delegate = self
+            self.passwordTextField.delegate = self
+            
+            // Sets keyboard observers so we can adjust the textfields
+            self.addKeyBoardObservers()
+            
+            // Add toolbars to be able to dismiss keyboard manually
+            self.addToolBar(textField: self.emailTextField)
+            self.addToolBar(textField: self.passwordTextField)
+            
+            // Setup Tap Gesture to dismiss keyboard
+            let tapGesture = UITapGestureRecognizer(target: self,
+                                                    action: #selector(self.dismissKeyboard))
+            self.view.addGestureRecognizer(tapGesture)
+            tapGesture.cancelsTouchesInView = false // This way the google button will work
+            
+            let strokeTextAttributes: [NSAttributedString.Key : Any] =
+                [NSAttributedString.Key.strokeColor: UIColor.screenLightBlue,
+                 NSAttributedString.Key.foregroundColor: UIColor.white,
+                 NSAttributedString.Key.strokeWidth: 1]
+            self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder",
+                                                                        attributes: strokeTextAttributes)
     }
     
     // MARK: UI Methods
@@ -191,15 +190,18 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         showActivityIndicator()
         FIRAuth.auth()?.sendPasswordReset(withEmail: email) { [weak self] error in
             
-            
             // If error exists Alert User
             if let error = error {
                 self?.hideActivityIndicator(success: false)
-                self?.present(UIAlertControllers.emailAuthenticationError(message: error.localizedDescription), animated: true, completion: nil)
+                self?.present(UIAlertControllers.emailAuthenticationError(message: error.localizedDescription),
+                              animated: true,
+                              completion: nil)
             // Else let user know the password was reset
             } else {
                 self?.hideActivityIndicator(success: true)
-                self?.present(UIAlertControllers.passwordResetSuccess(email: email), animated: true, completion: nil)
+                self?.present(UIAlertControllers.passwordResetSuccess(email: email),
+                              animated: true,
+                              completion: nil)
             }
         }
     }
@@ -207,8 +209,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     
     // MARK: GIDSignInDelegate Methods
     
-    func sign(_ signIn: GIDSignIn!, didSignInFor user:
-        GIDGoogleUser!, withError error: Error?) {
+    func sign(_ signIn: GIDSignIn!,
+              didSignInFor user: GIDGoogleUser!,
+              withError error: Error?) {
+        
         showActivityIndicator()
         if let error = error {
             hideActivityIndicator(success: false)
@@ -222,7 +226,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             self.hideActivityIndicator(success: false)
             return
         }
-        let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+        let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                          accessToken: authentication.accessToken)
         FIRAuth.auth()?.signIn(with: credential) { [weak self] (user, error) in
             if let error = error {
                 self?.hideActivityIndicator(success: false)
