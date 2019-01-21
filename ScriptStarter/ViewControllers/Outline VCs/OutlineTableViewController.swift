@@ -318,6 +318,7 @@ extension OutlineTableViewController: DescriptionDelegate {
         }
         
         descriptionCell.descriptionTextView.text = text
+        descriptionCell.textViewDidChange(descriptionCell.descriptionTextView)
     }
 }
 

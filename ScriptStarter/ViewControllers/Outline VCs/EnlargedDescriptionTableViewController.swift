@@ -43,14 +43,19 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         adBannerView.load(GADRequest())
     }
-
-    // MARK: - IBAction Methods
-
-    @IBAction func reduceScreenButtonTapped(_ sender: Any) {
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+      
         let indexPath = IndexPath(row: 0, section: 0)
         guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell, let text = descriptionCell.descriptionTextView.text else { return }
         delegate?.updatedText(text,
                               in: self.section)
+    }
+
+    // MARK: - IBAction Methods
+
+    @IBAction func reduceScreenButtonTapped(_ sender: Any) {
         self.dismiss(animated: true,
                      completion: nil)
     }
