@@ -189,18 +189,7 @@ class SceneDetailTableViewController: UITableViewController {
     @IBAction func saveButtonTapped(_ sender: Any) {
         self.saveScreenplay()
     }
-    
-    func setupExpandableSections() {
-        let sectionTitles = Scene.sceneTitles
-        for index in 0...sectionTitles.count-1 {
-            let title = Scene.sceneTitles[index]
-            let subtitle = "" //act.sectionSubTitles[index]
-            let section = ExpandableTableViewSection(sectionTitle: title,
-                                                     sectionSubtitle: subtitle)
-            expandableSections.append(section)
-        }
-    }
-    
+   
     // MARK: - TableView Data Source & Delegate Methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -292,6 +281,17 @@ class SceneDetailTableViewController: UITableViewController {
 }
 
 extension SceneDetailTableViewController: CollapsibleHeaderDelegate {
+    
+    func setupExpandableSections() {
+        let sectionTitles = Scene.sceneTitles
+        for index in 0...sectionTitles.count-1 {
+            let title = Scene.sceneTitles[index]
+            let subtitle = "" //act.sectionSubTitles[index]
+            let section = ExpandableTableViewSection(sectionTitle: title,
+                                                     sectionSubtitle: subtitle)
+            expandableSections.append(section)
+        }
+    }
     
     func toggleSection(_ header: CollapsibleHeader, section: Int) {
         DispatchQueue.main.async {

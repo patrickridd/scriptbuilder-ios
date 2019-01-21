@@ -138,18 +138,6 @@ class CharacterDetailTableViewController: UITableViewController {
     }
     
     // MARK: - TableView Data Source & Delegate Methods
-
-    // Helper method that helps setup datasource
-    func setupExpandableSections() {
-        let sectionTitles = CharacterSection.sectionTitles
-        for index in 0...sectionTitles.count-1 {
-            let title = CharacterSection.sectionTitles[index]
-            let subtitle = CharacterSection.sectionSubtitles[index]
-            let section = ExpandableTableViewSection(sectionTitle: title,
-                                                     sectionSubtitle: subtitle)
-            expandableSections.append(section)
-        }
-    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -317,6 +305,17 @@ extension CharacterDetailTableViewController: DescriptionDelegate {
 }
 
 extension CharacterDetailTableViewController: CollapsibleHeaderDelegate {
+    
+    func setupExpandableSections() {
+        let sectionTitles = CharacterSection.sectionTitles
+        for index in 0...sectionTitles.count-1 {
+            let title = CharacterSection.sectionTitles[index]
+            let subtitle = CharacterSection.sectionSubtitles[index]
+            let section = ExpandableTableViewSection(sectionTitle: title,
+                                                     sectionSubtitle: subtitle)
+            expandableSections.append(section)
+        }
+    }
     
     func toggleSection(_ header: CollapsibleHeader, section: Int) {
         DispatchQueue.main.async {

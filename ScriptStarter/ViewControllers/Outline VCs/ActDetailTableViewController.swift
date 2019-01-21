@@ -48,17 +48,6 @@ class ActDetailTableViewController: UITableViewController {
         self.tableView.rowHeight = UITableView.automaticDimension
     }
     
-    func setupExpandableSections() {
-        
-        let sectionTitles = act.sectionsTitles
-        for index in 0...sectionTitles.count-1 {
-            let title = act.sectionsTitles[index]
-            let subtitle = act.sectionSubTitles[index]
-            let section = ExpandableTableViewSection(sectionTitle: title, sectionSubtitle: subtitle)
-            expandableSections.append(section)
-        }
-    }
-    
     @IBAction func saveButtonTapped(_ sender: Any) {
         self.saveScreenplay()
     }
@@ -174,28 +163,29 @@ class ActDetailTableViewController: UITableViewController {
 //                return sceneCell
 //            }
         default:
-            guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
+            let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell",
+                                                                      for: indexPath) as?DescriptionTableViewCell
             
             // Configure the cell...
-            descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
-            descriptionCell.delegate = self
-            descriptionCell.defaultHeight = self.getDefaultHeightOfCell()
-            descriptionCell.update(viewController: .actDetail,
+            descriptionCell?.contentView.backgroundColor = UIColor.screenLightGray
+            descriptionCell?.delegate = self
+            descriptionCell?.defaultHeight = self.getDefaultHeightOfCell()
+            descriptionCell?.update(viewController: .actDetail,
                                    section: indexPath.section,
                                    act: self.act)
-            descriptionCell.expandButton.tag = indexPath.section
-            descriptionCell.expandButton.addTarget(self,
+            descriptionCell?.expandButton.tag = indexPath.section
+            descriptionCell?.expandButton.addTarget(self,
                                                    action: #selector(expandButtonTapped(sender:)),
                                                    for: .touchUpInside)
 
-            return descriptionCell
+            return descriptionCell ?? UITableViewCell()
         }
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
            
-            guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
+            guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
             
             if self.isExpandingCell {
                 descriptionCell.descriptionTextView.becomeFirstResponder()
@@ -205,7 +195,7 @@ class ActDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let descriptionCell = cell as?DescriptionTableViewCell else { return }
+        guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
         
         if self.isCollapsingCell {
             descriptionCell.descriptionTextView.resignFirstResponder()
@@ -283,6 +273,17 @@ class ActDetailTableViewController: UITableViewController {
 }
 
 extension ActDetailTableViewController: CollapsibleHeaderDelegate {
+    
+    func setupExpandableSections() {
+        
+        let sectionTitles = act.sectionsTitles
+        for index in 0...sectionTitles.count-1 {
+            let title = act.sectionsTitles[index]
+            let subtitle = act.sectionSubTitles[index]
+            let section = ExpandableTableViewSection(sectionTitle: title, sectionSubtitle: subtitle)
+            expandableSections.append(section)
+        }
+    }
     
     func toggleSection(_ header: CollapsibleHeader, section: Int) {
         DispatchQueue.main.async {

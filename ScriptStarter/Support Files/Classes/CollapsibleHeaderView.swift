@@ -9,7 +9,10 @@
 import UIKit
 
 protocol CollapsibleHeaderDelegate {
+  
+    var expandableSections: [ExpandableTableViewSection] { get set }
     func toggleSection(_ header: CollapsibleHeader, section: Int)
+    func setupExpandableSections()
 }
 
 class CollapsibleHeader: UITableViewHeaderFooterView {
