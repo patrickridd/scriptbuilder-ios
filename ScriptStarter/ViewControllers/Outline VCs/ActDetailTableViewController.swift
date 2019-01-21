@@ -183,15 +183,12 @@ class ActDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        DispatchQueue.main.async {
-           
             guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
             
             if self.isExpandingCell {
                 descriptionCell.descriptionTextView.becomeFirstResponder()
                 self.isExpandingCell = false
             }
-        }
     }
     
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -307,8 +304,8 @@ extension ActDetailTableViewController: CollapsibleHeaderDelegate {
                                           with: .automatic)
             self.tableView.endUpdates()
         }
-  //  }
     
+    }
 }
 
 extension ActDetailTableViewController: GADBannerViewDelegate {

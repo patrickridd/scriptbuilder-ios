@@ -12,11 +12,8 @@ extension UITableViewController: ResizeCellProtocol {
     
     func resizeCell(in section: Int) {
         // Reload section tapped
-        let indexSet = IndexSet(integer: section)
-        DispatchQueue.main.async {
-            self.tableView.beginUpdates()
-            self.tableView.endUpdates()
-        }
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
     }
     
 }
