@@ -107,6 +107,9 @@ class EnlargedDescriptionTableViewController: UITableViewController {
                                section: section,
                                act: self.act )
         descriptionCell.backgroundColor = .screenLightGray
+        descriptionCell.descriptionTextView.becomeFirstResponder()
+        addToolBar(textView: descriptionCell.descriptionTextView)
+        
         return descriptionCell
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-extension UIViewController: UITextFieldDelegate {
+extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     
     var screenplay: Screenplay? {
         return ScreenplayController.shared.currentScreenplay
@@ -75,10 +75,8 @@ extension UIViewController: UITextFieldDelegate {
         let toolBar = UIToolbar()
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.screenLightBlue// UIColor(red: 76 / 255, green: 217 / 255, blue: 100 / 255, alpha: 1)
-//        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(donePressed))
+        toolBar.tintColor = UIColor.screenLightBlue
         let doneButton = UIBarButtonItem(image: #imageLiteral(resourceName: "downArrowButtonAsset 1"), landscapeImagePhone: nil, style: .done, target: self, action: #selector(donePressed))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPressed))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([spaceButton, doneButton], animated: false)
         
@@ -89,9 +87,36 @@ extension UIViewController: UITextFieldDelegate {
         textField.inputAccessoryView = toolBar
     }
     
+    // UITextField UITextView
+    func addToolBar(textView: UITextView) {
+        let toolBar = UIToolbar()
+        toolBar.barStyle = .black
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.screenLightBlue// UIColor(red: 76 / 255, green: 217 / 255, blue: 100 / 255, alpha: 1)
+        let doneButton = UIBarButtonItem(title: "Done",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(donePressed))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([spaceButton, doneButton], animated: false)
+        
+        
+        toolBar.isUserInteractionEnabled = true
+        toolBar.sizeToFit()
+        
+        textView.delegate = self
+        textView.inputAccessoryView = toolBar
+    }
+    
     @objc func donePressed() {
         self.view.endEditing(true)
         self.navigationController?.view.endEditing(true)
+        switch self {
+        case is EnlargedDescriptionTableViewController:
+            dismiss(animated: true, completion: nil)
+        default:
+            break
+        }
     }
     
     @objc func cancelPressed() {
