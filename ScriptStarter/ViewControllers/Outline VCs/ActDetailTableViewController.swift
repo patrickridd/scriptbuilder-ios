@@ -35,7 +35,6 @@ class ActDetailTableViewController: UITableViewController {
         title = act.title
         tableView.backgroundColor = UIColor.screenLightGray
         tableView.separatorColor = self.tableView.backgroundColor
-        tableView.keyboardDismissMode = .onDrag
     }
     
     override func viewWillAppear(_ animated: Bool) {
