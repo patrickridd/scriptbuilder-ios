@@ -299,11 +299,6 @@ extension OutlineTableViewController: GADBannerViewDelegate {
         tableView.tableFooterView?.frame = bannerView.frame
         tableView.tableFooterView = bannerView
     }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("Fail to receive ads")
-        print(error)
-    }
 }
 
 extension OutlineTableViewController: DescriptionDelegate {
