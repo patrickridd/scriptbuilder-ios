@@ -10,7 +10,7 @@ import UIKit
 import GoogleMobileAds
 import Firebase
 
-class CharacterTableViewController: UITableViewController, GADBannerViewDelegate {
+class CharacterTableViewController: UITableViewController {
     
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -69,7 +69,6 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
                                          style: .plain,
                                          target: self,
                                          action: #selector(handleRightSwipe(sender:)))
-       // let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backButtonAsset"), style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
@@ -86,20 +85,6 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
         let swipeNotificationName = Notification.Name(swipeRightNotificationKey)
         let swipeNotification = Notification(name: swipeNotificationName)
         NotificationCenter.default.post(swipeNotification)
-    }
-    
-    
-    // MARK: GADBannerViewDelegate Methods
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Banner loaded successfully")
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("Fail to receive ads")
-        print(error)
     }
 
     // MARK: - Data Source helper methods
@@ -270,4 +255,13 @@ class CharacterTableViewController: UITableViewController, GADBannerViewDelegate
     }
     
 
+}
+
+extension CharacterTableViewController: GADBannerViewDelegate {
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        tableView.tableFooterView?.frame = bannerView.frame
+        tableView.tableFooterView = bannerView
+    }
+    
 }
