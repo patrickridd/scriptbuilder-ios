@@ -171,7 +171,8 @@ class SceneDetailTableViewController: UITableViewController {
         sceneActNumberTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
         
         let centerRect = CGRect(x: sender.bounds.width/2,
-                                y: 0, width: 0,
+                                y: 0,
+                                width: 0,
                                 height: sender.bounds.height)
         popController?.sourceView = sender
         popController?.sourceRect = centerRect
