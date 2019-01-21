@@ -262,34 +262,12 @@ class CharacterDetailTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 0 {
-            return self.adBannerView
-        }
-        return nil
-    }
-    
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
-            return self.adBannerView.frame.height
+            return 10.0
         }
         return 0
     }
-    
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//
-//        switch indexPath.section {
-//        case 0:
-//            return 90
-//        default:
-//            if self.view.frame.height >= 670 {
-//                return self.view.frame.height * (1/8)
-//            } else {
-//                return self.view.frame.height * (1/9)
-//            }
-//        }
-//    }
-    
 }
 
 extension CharacterDetailTableViewController: DescriptionDelegate {
@@ -377,8 +355,8 @@ extension CharacterDetailTableViewController: GADBannerViewDelegate {
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("Banner loaded successfully")
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
+        tableView.tableHeaderView?.frame = bannerView.frame
+        tableView.tableHeaderView = bannerView
     }
     
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {

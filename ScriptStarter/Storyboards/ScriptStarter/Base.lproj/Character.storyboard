@@ -176,18 +176,18 @@
                         <color key="backgroundColor" red="0.41568627450000001" green="0.41568627450000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicInfoCharacterCell" rowHeight="165" id="b89-Rk-iAk" customClass="BasicInfoCharacterTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="165"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicInfoCharacterCell" rowHeight="175" id="b89-Rk-iAk" customClass="BasicInfoCharacterTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="175"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b89-Rk-iAk" id="HYU-N6-Jm6">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="164.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="174.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="pEg-5c-fRQ">
-                                            <rect key="frame" x="20" y="10.5" width="335" height="144"/>
+                                            <rect key="frame" x="20" y="10.5" width="335" height="154"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6j8-8i-bZd" userLabel="nameContainer">
-                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="45"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="48"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="136-1D-puI">
                                                             <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
@@ -211,17 +211,17 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zmL-cU-anf">
-                                                    <rect key="frame" x="0.0" y="50" width="335" height="45"/>
+                                                    <rect key="frame" x="0.0" y="53" width="335" height="48.5"/>
                                                     <color key="backgroundColor" red="0.85882352939999995" green="0.85882352939999995" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="p7J-q2-7Oo"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BnV-lC-5WV" userLabel="roleContainer">
-                                                    <rect key="frame" x="0.0" y="100" width="335" height="44"/>
+                                                    <rect key="frame" x="0.0" y="106.5" width="335" height="47.5"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="role" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5Vg-o2-u3g">
-                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="47.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" priority="750" constant="30" id="Bzi-0D-vod"/>
                                                             </constraints>
@@ -233,7 +233,7 @@
                                                             </connections>
                                                         </textField>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YF-DI-8EN" userLabel="roleButton">
-                                                            <rect key="frame" x="0.0" y="0.0" width="305" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="305" height="47.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </button>
                                                     </subviews>
@@ -275,7 +275,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="96" id="LHz-iG-wIy" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="220.5" width="375" height="96"/>
+                                <rect key="frame" x="0.0" y="230.5" width="375" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LHz-iG-wIy" id="Wbp-Fc-7ks">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="95.5"/>
