@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rz7-tI-DoV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rz7-tI-DoV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -85,7 +83,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dap-aA-tQg" userLabel="noScenesLabel">
-                                            <rect key="frame" x="8" y="19" width="359" height="21"/>
+                                            <rect key="frame" x="8" y="19.5" width="359" height="21"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Tap ">
                                                     <attributes>
@@ -251,7 +249,7 @@
                                                     <rect key="frame" x="0.0" y="32" width="79" height="30"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e6O-QO-QeF">
-                                                            <rect key="frame" x="0.5" y="0.0" width="79" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="79" height="30"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="9uU-2m-ct0"/>
@@ -337,15 +335,15 @@
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="96" id="RED-yo-j3h" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="127.5" width="375" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RED-yo-j3h" id="9ok-1I-rWB">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RED-yo-j3h" id="9ok-1I-rWB">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="95.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QH2-cp-5as" userLabel="expandView">
-                                            <rect key="frame" x="10" y="-0.5" width="355" height="86.5"/>
+                                            <rect key="frame" x="10" y="0.0" width="355" height="86.5"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dgv-Ch-ZDl" userLabel="expandButton">
-                                                    <rect key="frame" x="325" y="0.0" width="30" height="30"/>
+                                                    <rect key="frame" x="325" y="0.0" width="30" height="30.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="f0b-xp-lLN"/>
                                                         <constraint firstAttribute="height" constant="30" id="lzJ-Po-i3r"/>
@@ -368,7 +366,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VpH-V4-QuB" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="10" y="0.0" width="325" height="86"/>
+                                            <rect key="frame" x="10" y="0.0" width="325" height="86.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="86" id="Adn-zO-xFb"/>
@@ -462,7 +460,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OWa-ir-dQT">
-                                            <rect key="frame" x="26" y="12" width="8" height="21"/>
+                                            <rect key="frame" x="26" y="11.5" width="8" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.75294117650000003" green="0.85490196080000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>

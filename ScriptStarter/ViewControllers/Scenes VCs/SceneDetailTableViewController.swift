@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleMobileAds
 
 protocol SceneActSelected: class {
     func selected(newAct:Act)
@@ -22,6 +23,15 @@ class SceneDetailTableViewController: UITableViewController {
     @IBOutlet weak var sceneActNumberTextField: UITextField!
     
     var scene: Scene?
+    
+    lazy var adBannerView: GADBannerView = {
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
     
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
@@ -53,7 +63,7 @@ class SceneDetailTableViewController: UITableViewController {
         // Resizes Cells Dynamically
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
-        
+        adBannerView.load(GADRequest())
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -388,6 +398,15 @@ extension SceneDetailTableViewController: SceneActSelected {
         
         // Set Scene # in case it changed during the act change
         self.sceneNumberTextField.text = "\(scene.sceneNumber)"
+    }
+    
+}
+
+extension SceneDetailTableViewController: GADBannerViewDelegate {
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        tableView.tableFooterView?.frame = bannerView.frame
+        tableView.tableFooterView = bannerView
     }
     
 }

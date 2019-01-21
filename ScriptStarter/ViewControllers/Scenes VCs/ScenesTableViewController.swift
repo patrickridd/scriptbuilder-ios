@@ -7,10 +7,20 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class ScenesTableViewController: UITableViewController {
     
     var newScene: Bool = false
+    
+    lazy var adBannerView: GADBannerView = {
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +44,7 @@ class ScenesTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        adBannerView.load(GADRequest())
         self.reloadTableView()
     }
     
@@ -521,4 +532,14 @@ class ScenesTableViewController: UITableViewController {
 //    }
     
 
+}
+
+extension ScenesTableViewController: GADBannerViewDelegate {
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Banner loaded successfully")
+        tableView.tableHeaderView?.frame = bannerView.frame
+        tableView.tableHeaderView = bannerView
+    }
+    
 }
