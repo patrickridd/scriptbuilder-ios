@@ -54,8 +54,8 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWX-4p-hY8" customClass="GIDSignInButton">
                                                 <rect key="frame" x="217" y="240" width="141" height="44"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OB7-Zb-xeT">
-                                                        <rect key="frame" x="51" y="13" width="39.333333333333343" height="18"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="OB7-Zb-xeT">
+                                                        <rect key="frame" x="30" y="13" width="101" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" red="0.34901612999999998" green="0.35298997160000001" blue="0.34901931879999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
@@ -64,8 +64,9 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="HEt-hX-l3a"/>
-                                                    <constraint firstItem="OB7-Zb-xeT" firstAttribute="centerX" secondItem="eWX-4p-hY8" secondAttribute="centerX" id="MhB-MV-Zz9"/>
+                                                    <constraint firstItem="OB7-Zb-xeT" firstAttribute="leading" secondItem="eWX-4p-hY8" secondAttribute="leading" constant="30" id="TYx-2v-Cse"/>
                                                     <constraint firstItem="OB7-Zb-xeT" firstAttribute="centerY" secondItem="eWX-4p-hY8" secondAttribute="centerY" id="bUZ-mr-CHi"/>
+                                                    <constraint firstAttribute="trailing" secondItem="OB7-Zb-xeT" secondAttribute="trailing" constant="10" id="fPl-tJ-tCJ"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="BE7-0b-XJs" userLabel="socialMediaStack">
@@ -74,8 +75,8 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zZl-Vp-qM5" userLabel="fbButtonContainer">
                                                         <rect key="frame" x="0.0" y="0.0" width="141" height="40"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="RWi-Lf-leN">
-                                                                <rect key="frame" x="51" y="11" width="39.333333333333343" height="18"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="RWi-Lf-leN">
+                                                                <rect key="frame" x="40" y="11" width="99" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -106,12 +107,12 @@
                                                             <constraint firstAttribute="bottom" secondItem="Oko-u2-Is4" secondAttribute="bottom" constant="2" id="177-Ps-Zij"/>
                                                             <constraint firstItem="Oko-u2-Is4" firstAttribute="top" secondItem="zZl-Vp-qM5" secondAttribute="top" constant="2" id="6x7-kR-TXO"/>
                                                             <constraint firstItem="Oko-u2-Is4" firstAttribute="leading" secondItem="zZl-Vp-qM5" secondAttribute="leading" constant="2" id="MgR-ed-IZM"/>
-                                                            <constraint firstItem="RWi-Lf-leN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Oko-u2-Is4" secondAttribute="trailing" constant="7.3300000000000001" id="UZf-GC-gEa"/>
+                                                            <constraint firstItem="RWi-Lf-leN" firstAttribute="leading" secondItem="Oko-u2-Is4" secondAttribute="trailing" constant="2" id="UZf-GC-gEa"/>
                                                             <constraint firstItem="RWi-Lf-leN" firstAttribute="centerY" secondItem="zZl-Vp-qM5" secondAttribute="centerY" id="ZtQ-S2-cDd"/>
                                                             <constraint firstItem="40D-85-d5s" firstAttribute="leading" secondItem="zZl-Vp-qM5" secondAttribute="leading" id="brW-1v-Ryb"/>
+                                                            <constraint firstAttribute="trailing" secondItem="RWi-Lf-leN" secondAttribute="trailing" constant="2" id="eCO-F2-ozc"/>
                                                             <constraint firstAttribute="trailing" secondItem="40D-85-d5s" secondAttribute="trailing" id="eZT-Gk-ESt"/>
                                                             <constraint firstAttribute="bottom" secondItem="40D-85-d5s" secondAttribute="bottom" id="eqr-jl-kWT"/>
-                                                            <constraint firstItem="RWi-Lf-leN" firstAttribute="centerX" secondItem="zZl-Vp-qM5" secondAttribute="centerX" id="fVD-R0-9ut"/>
                                                             <constraint firstItem="40D-85-d5s" firstAttribute="top" secondItem="zZl-Vp-qM5" secondAttribute="top" id="mn6-jF-fEM"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
@@ -1023,8 +1024,8 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GPk-eE-lV3" userLabel="fbButtonContainer">
                                                         <rect key="frame" x="0.0" y="0.0" width="141" height="40"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="OZi-bc-Ajs">
-                                                                <rect key="frame" x="45.333333333333329" y="11" width="50.333333333333329" height="18"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="OZi-bc-Ajs">
+                                                                <rect key="frame" x="40" y="11" width="96" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -1058,9 +1059,9 @@
                                                             <constraint firstItem="AWO-pG-xqG" firstAttribute="leading" secondItem="GPk-eE-lV3" secondAttribute="leading" id="661-Z5-E1Z"/>
                                                             <constraint firstItem="UJo-qM-h67" firstAttribute="leading" secondItem="GPk-eE-lV3" secondAttribute="leading" constant="2" id="7AN-UE-Roe"/>
                                                             <constraint firstAttribute="bottom" secondItem="AWO-pG-xqG" secondAttribute="bottom" id="EDe-Vn-z6a"/>
-                                                            <constraint firstItem="OZi-bc-Ajs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UJo-qM-h67" secondAttribute="trailing" constant="7.3300000000000001" id="MKz-Kx-qSm"/>
-                                                            <constraint firstItem="OZi-bc-Ajs" firstAttribute="centerX" secondItem="GPk-eE-lV3" secondAttribute="centerX" id="Wd4-1e-Zk0"/>
+                                                            <constraint firstItem="OZi-bc-Ajs" firstAttribute="leading" secondItem="UJo-qM-h67" secondAttribute="trailing" constant="2" id="MKz-Kx-qSm"/>
                                                             <constraint firstAttribute="trailing" secondItem="AWO-pG-xqG" secondAttribute="trailing" id="Wfa-ME-JI4"/>
+                                                            <constraint firstAttribute="trailing" secondItem="OZi-bc-Ajs" secondAttribute="trailing" constant="5" id="gYI-bO-M9e"/>
                                                             <constraint firstItem="UJo-qM-h67" firstAttribute="top" secondItem="GPk-eE-lV3" secondAttribute="top" constant="2" id="xsW-on-x8W"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
@@ -1077,8 +1078,8 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amR-d4-ay8" customClass="GIDSignInButton">
                                                 <rect key="frame" x="217" y="221" width="147" height="44"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4F-WL-orr">
-                                                        <rect key="frame" x="46.666666666666686" y="13" width="54" height="18"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="4" translatesAutoresizingMaskIntoConstraints="NO" id="w4F-WL-orr">
+                                                        <rect key="frame" x="35" y="13" width="102" height="18"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" red="0.34901612999999998" green="0.35298997160000001" blue="0.34901931879999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1087,9 +1088,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="w4F-WL-orr" secondAttribute="trailing" priority="750" constant="10" id="KEe-2R-03I"/>
                                                     <constraint firstItem="w4F-WL-orr" firstAttribute="centerY" secondItem="amR-d4-ay8" secondAttribute="centerY" id="dof-AD-MTw"/>
                                                     <constraint firstAttribute="height" constant="44" id="oaN-XR-zdZ"/>
-                                                    <constraint firstItem="w4F-WL-orr" firstAttribute="centerX" secondItem="amR-d4-ay8" secondAttribute="centerX" id="w9i-vs-K1M"/>
+                                                    <constraint firstItem="w4F-WL-orr" firstAttribute="leading" secondItem="amR-d4-ay8" secondAttribute="leading" constant="35" id="tJd-De-pJq"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eue-WF-dAO" userLabel="orContainer">
