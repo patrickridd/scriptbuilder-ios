@@ -307,20 +307,18 @@ extension ActDetailTableViewController: CollapsibleHeaderDelegate {
                                           with: .automatic)
             self.tableView.endUpdates()
         }
-    }
+  //  }
     
 }
 
 extension ActDetailTableViewController: GADBannerViewDelegate {
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Banner loaded successfully")
         tableView.tableFooterView?.frame = bannerView.frame
         tableView.tableFooterView = bannerView
     }
     
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("Fail to receive ads")
         print(error)
     }
     

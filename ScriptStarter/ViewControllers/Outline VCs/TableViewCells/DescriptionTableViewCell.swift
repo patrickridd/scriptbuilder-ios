@@ -12,7 +12,7 @@ import KMPlaceholderTextView
 class DescriptionTableViewCell: UITableViewCell {
 
     weak var delegate: ResizeCellProtocol?
-    
+
     override var canBecomeFirstResponder: Bool {
         return true
     }
@@ -255,7 +255,6 @@ class DescriptionTableViewCell: UITableViewCell {
     
     func textViewDidChange(_ textView: UITextView) {
         checkForResize(textView: textView)
-        
         switch viewController {
         case .outline:
             switch section {
@@ -420,21 +419,6 @@ class DescriptionTableViewCell: UITableViewCell {
             descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
             delegate?.resizeCell(in: self.section)
         }
-        
-//        // Dynamically set descriptionTextView Height to that that fits in cell
-//        if size.height > self.contentView.frame.height ||
-//            size.height+50 < self.contentView.frame.height, size.height > defaultHeight {
-//            delegate?.resizeCell(in: self.section)
-//        } else {
-//
-//        }
     }
-
-//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-//        if isResizing {
-//            return false
-//        } else {
-//            return true
-//        }
-//    }
+    
 }

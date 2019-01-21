@@ -16,8 +16,10 @@ extension UITableViewCell: UITextViewDelegate, UITextFieldDelegate {
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.screenLightBlue// UIColor(red: 76 / 255, green: 217 / 255, blue: 100 / 255, alpha: 1)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(donePressed))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPressed))
+        let doneButton = UIBarButtonItem(title: "Done",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(donePressed))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([spaceButton, doneButton], animated: false)
         

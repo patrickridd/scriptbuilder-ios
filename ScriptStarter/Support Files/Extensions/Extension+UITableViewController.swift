@@ -17,7 +17,6 @@ extension UITableViewController: ResizeCellProtocol {
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
         }
-      
     }
     
 }
