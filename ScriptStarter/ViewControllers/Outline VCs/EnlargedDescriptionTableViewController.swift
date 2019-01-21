@@ -39,16 +39,34 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         self.tableView.separatorColor = self.tableView.backgroundColor
     }
     
+    lazy var descriptionCell: DescriptionTableViewCell? = {
+        let indexPath = IndexPath(row: 0, section: 0)
+        return tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         adBannerView.load(GADRequest())
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        // Make sure the keyboard is visible at all times on this screen
+        guard let descriptionCell = descriptionCell else { return }
+        descriptionCell.descriptionTextView.becomeFirstResponder()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
       
-        let indexPath = IndexPath(row: 0, section: 0)
-        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell, let text = descriptionCell.descriptionTextView.text else { return }
+        guard
+            let descriptionCell = descriptionCell,
+            let text = descriptionCell.descriptionTextView.text
+        else {
+            return
+        }
+        
         delegate?.updatedText(text,
                               in: self.section)
     }
@@ -112,7 +130,6 @@ class EnlargedDescriptionTableViewController: UITableViewController {
                                section: section,
                                act: self.act )
         descriptionCell.backgroundColor = .screenLightGray
-        descriptionCell.descriptionTextView.becomeFirstResponder()
         addToolBar(textView: descriptionCell.descriptionTextView)
         
         return descriptionCell
