@@ -699,7 +699,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="J9l-QQ-5Mc">
                                                     <rect key="frame" x="0.0" y="0.0" width="175" height="30"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPB-uI-KGa">
+                                                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPB-uI-KGa">
                                                             <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
                                                             <color key="backgroundColor" red="0.58823529409999997" green="0.70980392160000005" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <constraints>
@@ -714,8 +714,11 @@
                                                                     <integer key="value" value="4"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="purchaseButtonTapped:" destination="xX3-6a-Rh3" eventType="touchUpInside" id="SEn-tv-xfc"/>
+                                                            </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWe-Ul-gnu">
+                                                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWe-Ul-gnu">
                                                             <rect key="frame" x="95" y="0.0" width="80" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="8dT-ev-hgr"/>
@@ -729,6 +732,9 @@
                                                                     <integer key="value" value="4"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="restoreButtonTapped:" destination="xX3-6a-Rh3" eventType="touchUpInside" id="3Ep-9n-0IF"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </stackView>
@@ -752,6 +758,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <outlet property="purchaseButton" destination="zPB-uI-KGa" id="Bi5-6e-e3v"/>
                                     <outlet property="restoreButton" destination="YWe-Ul-gnu" id="o0Z-FY-VZi"/>
                                 </connections>
                             </tableViewCell>

@@ -8,9 +8,10 @@
 
 import UIKit
 import MBProgressHUD
+import StoreKit
 
 class SettingsTableViewController: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,6 +19,7 @@ class SettingsTableViewController: UITableViewController {
         self.view.backgroundColor = UIColor.screenLightGray
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = UIColor.screenLightGray
+        
     }
     
     var loadingNotification = MBProgressHUD()
@@ -102,14 +104,6 @@ class SettingsTableViewController: UITableViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func restoreButtonTapped() {
-        
-    }
-    
-    @objc func purchaseButtonTapped() {
-        
-    }
-    
     @objc func changePasswordButtonTapped() {
         self.view.endEditing(true)
         let indexPath = IndexPath(row: 0, section: 1)
@@ -118,7 +112,6 @@ class SettingsTableViewController: UITableViewController {
         FirebaseController.shared.changePassword(to: newPassword) { [weak self] (success) in
             DispatchQueue.main.async {
                 
-            
             self?.hideActivityIndicator(success: success, completion: {
                 if success {
                     
@@ -146,6 +139,14 @@ class SettingsTableViewController: UITableViewController {
         case 0:
            let inAppPurchaseCell = tableView.dequeueReusableCell(withIdentifier:"inAppPurchaseCell",
                                                                         for: indexPath) as? IAPTableViewCell
+           inAppPurchaseCell?.purchaseButtonHandler = { product in
+                InAppPurchases.store.buyProduct(product)
+           }
+           
+           inAppPurchaseCell?.restoreButtonHandler = { product in
+                InAppPurchases.store.restorePurchase(for: product)
+           }
+           
             return inAppPurchaseCell ?? UITableViewCell()
         case 1:
             let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell",
