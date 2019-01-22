@@ -39,7 +39,6 @@
 		215DDCD321EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		215DDCD421EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		215DDCD521EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
-		215DDD3121F7A4E900C52B6C /* GoogleAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215DDD3021F7A4E900C52B6C /* GoogleAds.swift */; };
 		21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21843CAC205AE3E900FAAE16 /* Scenes.storyboard */; };
 		218992C32046215F00EF87F3 /* AnalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218992C22046215F00EF87F3 /* AnalyticsController.swift */; };
 		2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2189FC8D2057187400A69DC1 /* StoreKit.framework */; };
@@ -143,7 +142,6 @@
 		2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountTableViewCell.swift; sourceTree = "<group>"; };
 		215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
 		215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		215DDD3021F7A4E900C52B6C /* GoogleAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAds.swift; sourceTree = "<group>"; };
 		21843CAB205AE3E900FAAE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Scenes.storyboard; sourceTree = "<group>"; };
 		218992C22046215F00EF87F3 /* AnalyticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsController.swift; sourceTree = "<group>"; };
 		2189FC8D2057187400A69DC1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -235,7 +233,6 @@
 		2101F34F2061E6A2003A90A4 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
-				215DDD3021F7A4E900C52B6C /* GoogleAds.swift */,
 				2101F3522061E944003A90A4 /* CharacterTableViewSection.swift */,
 			);
 			path = Structs;
@@ -911,7 +908,6 @@
 				21D727FD202E332300861C2D /* InformationPopTableViewCell.swift in Sources */,
 				2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */,
 				218E8462203F379000D0D652 /* Scene.swift in Sources */,
-				215DDD3121F7A4E900C52B6C /* GoogleAds.swift in Sources */,
 				21A7CF4B2023B02D00D97394 /* Character.swift in Sources */,
 				218E8460203E3D9500D0D652 /* NoCharacterTableViewCell.swift in Sources */,
 				21A7CF4E2023B4D200D97394 /* CharacterTableViewCell.swift in Sources */,
