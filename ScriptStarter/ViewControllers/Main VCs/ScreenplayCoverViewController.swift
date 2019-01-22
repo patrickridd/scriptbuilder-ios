@@ -128,7 +128,7 @@ class ScreenplayCoverViewController: UIViewController {
     // MARK: GADInterstitialDelegate Methods
     
     private func createAndLoadInterstitial() -> GADInterstitial? {
-        interstitial = GADInterstitial(adUnitID: "ca-app-pub-1297096402264538/6489865275")
+        interstitial = GADInterstitial(adUnitID: GoogleAds.interstitialAdUnitId)
         
         guard let interstitial = interstitial else {
             return nil

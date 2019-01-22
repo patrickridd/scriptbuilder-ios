@@ -14,7 +14,7 @@ class CharacterTableViewController: UITableViewController {
     
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
+        adBannerView.adUnitID = GoogleAds.bannerAdUnitId
         adBannerView.delegate = self
         adBannerView.rootViewController = self
         
