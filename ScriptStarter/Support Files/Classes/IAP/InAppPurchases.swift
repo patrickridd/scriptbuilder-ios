@@ -8,13 +8,13 @@
 
 import Foundation
 
-public struct InAppPurchase {
+public struct InAppPurchases {
     
-    public static let noAdOfflineCapabilities = "noAdOfflineCapabilities"
+    public static let noAdsAndOfflineStorage = "NoAdsAndOfflineStorage"
     
-    fileprivate static let productIdentifiers: Set<ProductIdentifier> = [InAppPurchase.noAdOfflineCapabilities]
+    private static let productIdentifiers: Set<ProductIdentifier> = [InAppPurchases.noAdsAndOfflineStorage]
     
-    public static let store = IAPHelper(productIds: InAppPurchase.productIdentifiers)
+    public static let store = IAPHelper(productIds: InAppPurchases.productIdentifiers)
 }
 
 func resourceNameForProductIdentifier(_ productIdentifier: String) -> String? {

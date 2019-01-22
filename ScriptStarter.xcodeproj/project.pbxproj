@@ -44,7 +44,7 @@
 		218992C32046215F00EF87F3 /* AnalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218992C22046215F00EF87F3 /* AnalyticsController.swift */; };
 		2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2189FC8D2057187400A69DC1 /* StoreKit.framework */; };
 		2189FC902057199300A69DC1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189FC8F2057199300A69DC1 /* IAPHelper.swift */; };
-		2189FC92205719F900A69DC1 /* InAppPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189FC91205719F900A69DC1 /* InAppPurchase.swift */; };
+		2189FC92205719F900A69DC1 /* InAppPurchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189FC91205719F900A69DC1 /* InAppPurchases.swift */; };
 		218E8460203E3D9500D0D652 /* NoCharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */; };
 		218E8462203F379000D0D652 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8461203F379000D0D652 /* Scene.swift */; };
 		218E8464203F841400D0D652 /* SceneHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8463203F841400D0D652 /* SceneHeader.swift */; };
@@ -148,7 +148,7 @@
 		218992C22046215F00EF87F3 /* AnalyticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsController.swift; sourceTree = "<group>"; };
 		2189FC8D2057187400A69DC1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2189FC8F2057199300A69DC1 /* IAPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
-		2189FC91205719F900A69DC1 /* InAppPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchase.swift; sourceTree = "<group>"; };
+		2189FC91205719F900A69DC1 /* InAppPurchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchases.swift; sourceTree = "<group>"; };
 		218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCharacterTableViewCell.swift; sourceTree = "<group>"; };
 		218E8461203F379000D0D652 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		218E8463203F841400D0D652 /* SceneHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneHeader.swift; sourceTree = "<group>"; };
@@ -280,7 +280,7 @@
 				218E8463203F841400D0D652 /* SceneHeader.swift */,
 				21099167201FD4CF00340124 /* SectionHeaderView.swift */,
 				21D727F3202E0D1A00861C2D /* SectionHeaderSubtitle.swift */,
-				2189FC91205719F900A69DC1 /* InAppPurchase.swift */,
+				215DDD3621F7CB6E00C52B6C /* IAP */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -385,6 +385,15 @@
 				2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */,
 			);
 			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		215DDD3621F7CB6E00C52B6C /* IAP */ = {
+			isa = PBXGroup;
+			children = (
+				2189FC91205719F900A69DC1 /* InAppPurchases.swift */,
+				2189FC8F2057199300A69DC1 /* IAPHelper.swift */,
+			);
+			path = IAP;
 			sourceTree = "<group>";
 		};
 		21A7CF4C2023B4B800D97394 /* TableViewCells */ = {
@@ -504,7 +513,6 @@
 				21E661C02017DBAE006A14AF /* FirebaseController.swift */,
 				2151FC5F202260F200CE4823 /* ScreenplayController.swift */,
 				2104ADD8205C7F270086CC9F /* SceneController.swift */,
-				2189FC8F2057199300A69DC1 /* IAPHelper.swift */,
 				218992C22046215F00EF87F3 /* AnalyticsController.swift */,
 			);
 			path = ModelController;
@@ -930,7 +938,7 @@
 				2104ADD9205C7F270086CC9F /* SceneController.swift in Sources */,
 				211215D6203B5DC30039D6E8 /* Role.swift in Sources */,
 				211800DA20238A1200F33924 /* ScreenplayCollectionViewCell.swift in Sources */,
-				2189FC92205719F900A69DC1 /* InAppPurchase.swift in Sources */,
+				2189FC92205719F900A69DC1 /* InAppPurchases.swift in Sources */,
 				212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */,
 				2153C349207586EA00C08B73 /* ShareTableViewCell.swift in Sources */,
 				218E8464203F841400D0D652 /* SceneHeader.swift in Sources */,
