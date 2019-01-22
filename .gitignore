@@ -78,4 +78,4 @@ fastlane/test_output
 iOSInjectionProject/
 
 # Sensitive ScriptStarter files
-GoogleAds.swift
+*/Structs/GoogleAds.swift
