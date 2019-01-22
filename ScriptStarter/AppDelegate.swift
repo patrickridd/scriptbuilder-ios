@@ -177,22 +177,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.makeKeyAndVisible()
         }
     }
+    
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
         // Handles both Facebook and Google
         
       let handled = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) ||   GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
-        
+
         return handled
     }
     
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
-            return GIDSignIn.sharedInstance().handle(url,
-                                                     sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-                                                     annotation: [:])
+            
+            let handled = FBSDKApplicationDelegate.sharedInstance().application(application,
+                                                                                open: url,
+                                                                                options: options) || GIDSignIn.sharedInstance().handle(url,sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
+            return handled
     }
-
 }
 

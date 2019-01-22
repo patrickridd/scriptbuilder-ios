@@ -123,21 +123,14 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         showActivityIndicator()
         loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { [weak self] loginResult in
                 switch loginResult {
-                case .failed(let error):
+                case .failed:
                     self?.hideActivityIndicator(success: false,
                                                 completion: nil)
-                    #if DEBUG
-                        print(error)
-                    #endif
+
                 case .cancelled:
                     self?.hideActivityIndicator(success: false)
-                    #if DEBUG
-                        print("User cancelled login.")
-                    #endif
+        
                 case .success( _, _, _):
-                    #if DEBUG
-                        print("Logged in!")
-                    #endif
                     // Login with Firebase
                     let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString )
                     FIRAuth.auth()?.signIn(with: credential) { [weak self] (user, error) in
