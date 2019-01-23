@@ -49,7 +49,9 @@ class OutlineTableViewController: UITableViewController {
         setupNavigationBar()
         self.tableView.reloadData()
         setupTabBar()
-        adBannerView.load(GADRequest())
+        if InAppPurchases.shouldDisplayAds {
+            adBannerView.load(GADRequest())
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

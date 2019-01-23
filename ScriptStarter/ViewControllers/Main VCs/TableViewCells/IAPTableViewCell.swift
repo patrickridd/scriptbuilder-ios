@@ -21,14 +21,23 @@ class IAPTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        restoreButton.layer.borderColor = UIColor.screenLightBlue.cgColor
+       
         restoreButton.layer.borderWidth = 1.0
+        // Disable Purchase and Restore buttons until In App Purchase is available
+        restoreButton.layer.borderColor = UIColor.screenDarkGray.cgColor
+        restoreButton.setTitleColor(UIColor.screenDarkGray,
+                                    for: .normal)
+        purchaseButton.backgroundColor = UIColor.screenDarkGray
         
         InAppPurchases.store.requestProducts { [weak self] (_, products) in
             if let product = products?.first {
                 self?.inAppPurchase = product
                 self?.restoreButton.isEnabled = true
                 self?.purchaseButton.isEnabled = true
+                self?.purchaseButton.backgroundColor = UIColor.screenLightBlue
+                self?.restoreButton.layer.borderColor = UIColor.screenLightBlue.cgColor
+                self?.restoreButton.setTitleColor(UIColor.screenLightBlue,
+                                                  for: .normal)
             }
         }
     }

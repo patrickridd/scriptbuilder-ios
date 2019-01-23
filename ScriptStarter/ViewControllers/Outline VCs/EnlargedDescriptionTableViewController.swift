@@ -46,7 +46,10 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        adBannerView.load(GADRequest())
+        
+        if InAppPurchases.shouldDisplayAds {
+            adBannerView.load(GADRequest())
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

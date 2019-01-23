@@ -44,8 +44,11 @@ class ScenesTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        adBannerView.load(GADRequest())
         self.reloadTableView()
+        
+        if InAppPurchases.shouldDisplayAds {
+            adBannerView.load(GADRequest())
+        }
     }
     
     @objc func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {

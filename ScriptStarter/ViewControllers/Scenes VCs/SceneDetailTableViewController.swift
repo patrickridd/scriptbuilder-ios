@@ -63,7 +63,10 @@ class SceneDetailTableViewController: UITableViewController {
         // Resizes Cells Dynamically
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
-        adBannerView.load(GADRequest())
+        
+        if InAppPurchases.shouldDisplayAds {
+            adBannerView.load(GADRequest())
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -40,8 +40,9 @@ class ActDetailTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //reloadSceneSection()
-        adBannerView.load(GADRequest())
+        if InAppPurchases.shouldDisplayAds {
+            adBannerView.load(GADRequest())
+        }
         
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension

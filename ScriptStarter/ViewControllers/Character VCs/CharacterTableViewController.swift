@@ -47,8 +47,11 @@ class CharacterTableViewController: UITableViewController {
         
         self.tableView.reloadData()
         setupNavigationBar()
-        adBannerView.load(GADRequest())
         setupRoleSections()
+        
+        if InAppPurchases.shouldDisplayAds {
+            adBannerView.load(GADRequest())
+        }
     }
     
     // MARK: UI Methods

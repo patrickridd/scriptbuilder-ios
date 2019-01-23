@@ -61,11 +61,13 @@ class CharacterDetailTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        adBannerView.load(GADRequest())
         // Resizes Cells Dynamically
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
         
+        if InAppPurchases.shouldDisplayAds {
+            adBannerView.load(GADRequest())
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

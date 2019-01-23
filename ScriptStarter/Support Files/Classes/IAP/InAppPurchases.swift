@@ -15,6 +15,10 @@ public struct InAppPurchases {
     private static let productIdentifiers: Set<ProductIdentifier> = [InAppPurchases.noAdsAndOfflineStorage]
     
     public static let store = IAPHelper(productIds: InAppPurchases.productIdentifiers)
+    
+    public static var shouldDisplayAds: Bool {
+        return !InAppPurchases.store.isProductPurchased(InAppPurchases.noAdsAndOfflineStorage)
+    }
 }
 
 func resourceNameForProductIdentifier(_ productIdentifier: String) -> String? {
