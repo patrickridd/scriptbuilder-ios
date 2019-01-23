@@ -11,7 +11,7 @@ import StoreKit
 public typealias ProductIdentifier = String
 public typealias ProductsRequestCompletionHandler = (_ success: Bool, _ products: [SKProduct]?) -> ()
 
-open class IAPHelper : NSObject  {
+open class IAPHelper: NSObject  {
     
     static let IAPHelperPurchaseNotification = "IAPHelperPurchaseNotification"
     private let productIdentifiers: Set<ProductIdentifier>
@@ -41,7 +41,6 @@ open class IAPHelper : NSObject  {
 
 extension IAPHelper {
     
-    
     public func requestProducts(completionHandler: @escaping ProductsRequestCompletionHandler) {
         productsRequest?.cancel()
         productsRequestCompletionHandler = completionHandler
@@ -67,9 +66,7 @@ extension IAPHelper {
     }
     
     public func restorePurchase(for product: SKProduct) {
-        if isProductPurchased(product.productIdentifier) {
-            SKPaymentQueue.default().restoreCompletedTransactions()
-        }
+        SKPaymentQueue.default().restoreCompletedTransactions()
     }
 }
 
@@ -123,21 +120,18 @@ extension IAPHelper: SKPaymentTransactionObserver {
     }
     
     private func complete(transaction: SKPaymentTransaction) {
-        print("complete...")
         deliverPurchaseNotificationFor(identifier: transaction.payment.productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
     }
    
     private func restore(transaction: SKPaymentTransaction) {
         guard let productIdentifier = transaction.original?.payment.productIdentifier else { return }
-        
-        print("restore... \(productIdentifier)")
+
         deliverPurchaseNotificationFor(identifier: productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
     }
     
     private func fail(transaction: SKPaymentTransaction) {
-        print("fail...")
         if let transactionError = transaction.error as NSError? {
             if transactionError.code != SKError.paymentCancelled.rawValue {
                 print("Transaction Error: \(transaction.error?.localizedDescription ?? "No description available")")
@@ -153,7 +147,8 @@ extension IAPHelper: SKPaymentTransactionObserver {
         purchasedProductIdentifiers.insert(identifier)
         UserDefaults.standard.set(true, forKey: identifier)
         UserDefaults.standard.synchronize()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: IAPHelper.IAPHelperPurchaseNotification), object: identifier)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:IAPHelper.IAPHelperPurchaseNotification),
+                                        object: identifier)
     }
 }
 
