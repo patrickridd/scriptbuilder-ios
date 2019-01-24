@@ -117,16 +117,24 @@ class ScreenplayCoverViewController: UIViewController {
     func deleteScreenplayAlert() -> UIAlertController {
         let screenplayTitle = ScreenplayController.shared.currentScreenplay?.title ?? "this screenplay"
         
-        let alert = UIAlertController(title: "Delete Screenplay", message: "Are you sure you want to delete \(screenplayTitle)", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+        let alert = UIAlertController(title: "Delete Screenplay",
+                                      message: "Are you sure you want to delete \(screenplayTitle)",
+                                      preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .cancel,
+                                         handler: nil)
+        let deleteAction = UIAlertAction(title: "Delete",
+                                         style: .destructive) { (_) in
             if let screenplay = self.screenplay {
                 // Delete currentScreenplay
-                FirebaseController.shared.delete(screenplay: screenplay, completion: {
-                    self.dismiss(animated: true, completion: nil)
+                FirebaseController.shared.delete(screenplay: screenplay,
+                                                 completion: {
+                    self.dismiss(animated: true,
+                                 completion: nil)
                 })
             }
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true,
+                         completion: nil)
         }
         alert.addAction(cancelAction)
         alert.addAction(deleteAction)

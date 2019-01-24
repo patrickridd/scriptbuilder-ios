@@ -49,7 +49,8 @@ class SettingsTableViewController: UITableViewController {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             self.loadingNotification =
-                MBProgressHUD.showAdded(to: self.view, animated: true)
+                MBProgressHUD.showAdded(to: self.view,
+                                        animated: true)
             self.loadingNotification.mode = MBProgressHUDMode.indeterminate
             self.loadingNotification.animationType = .fade
             self.loadingNotification.label.text = "loading"
@@ -112,14 +113,13 @@ class SettingsTableViewController: UITableViewController {
         showActivityIndicator()
         FirebaseController.shared.changePassword(to: newPassword) { [weak self] (success) in
             DispatchQueue.main.async {
-                
-            self?.hideActivityIndicator(success: success, completion: {
-                if success {
-                    
-                } else {
-                    
-                }
-            })
+                self?.hideActivityIndicator(success: success, completion: {
+                    if success {
+                        
+                    } else {
+                        
+                    }
+                })
             }
         }
     }
@@ -156,7 +156,7 @@ class SettingsTableViewController: UITableViewController {
             return inAppPurchaseCell ?? UITableViewCell()
         case 1:
             let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell",
-                                                                for: indexPath) as? ChangePasswordTableViewCell
+                                                                   for: indexPath) as? ChangePasswordTableViewCell
            
             changePasswordCell?.changeButton.addTarget(self,
                                                       action: #selector(changePasswordButtonTapped),
@@ -164,11 +164,11 @@ class SettingsTableViewController: UITableViewController {
             return changePasswordCell ?? UITableViewCell()
         case 2:
             let shareAppCell = tableView.dequeueReusableCell(withIdentifier: "shareAppCell",
-                                                                 for: indexPath) as? ShareTableViewCell
+                                                             for: indexPath) as? ShareTableViewCell
             return shareAppCell ?? UITableViewCell()
         case 3:
             let deleteCell = tableView.dequeueReusableCell(withIdentifier: "deleteAccountCell",
-                                                               for: indexPath) as? DeleteAccountTableViewCell
+                                                           for: indexPath) as? DeleteAccountTableViewCell
             return deleteCell ?? UITableViewCell()
         default:
             return UITableViewCell()
@@ -279,7 +279,6 @@ extension SettingsTableViewController: InAppPurchaseDelegate {
         } else {
             hideActivityIndicator(success: true)
         }
-        
     }
     
 }
