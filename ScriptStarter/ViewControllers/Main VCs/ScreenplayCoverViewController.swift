@@ -43,8 +43,10 @@ class ScreenplayCoverViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         
-        // Create Interstitial Ad
-       // interstitial = createAndLoadInterstitial()
+        // Create new screenplay
+        if InAppPurchases.shouldDisplayAds {
+            interstitial = createAndLoadInterstitial()
+        }
     }
 
     
@@ -66,6 +68,12 @@ class ScreenplayCoverViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
+        if let interstitial = interstitial {
+            if interstitial.isReady {
+                interstitial.present(fromRootViewController: self)
+            }
+        }
+        
         let loadingNotification = MBProgressHUD.showAdded(to: view,
                                                           animated: true)
         loadingNotification.mode = MBProgressHUDMode.annularDeterminate
@@ -129,16 +137,16 @@ class ScreenplayCoverViewController: UIViewController {
     
     private func createAndLoadInterstitial() -> GADInterstitial? {
         interstitial = GADInterstitial(adUnitID: GoogleAds.interstitialAdUnitId)
-        
-        guard let interstitial = interstitial else {
-            return nil
-        }
-        
-        let request = GADRequest()
-        // TODO: Remove the following line before you upload the app
-        request.testDevices = [kGADSimulatorID]
-        interstitial.load(request)
+        guard let interstitial = interstitial else { return nil }
         interstitial.delegate = self
+
+        let request = GADRequest()
+
+        #if DEBUG
+            request.testDevices = [kGADSimulatorID]
+        #endif
+        
+        interstitial.load(request)
         
         return interstitial
     }
@@ -147,7 +155,7 @@ class ScreenplayCoverViewController: UIViewController {
 extension ScreenplayCoverViewController: GADInterstitialDelegate {
     
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        ad.present(fromRootViewController: self)
+        print("Did receive interstitial")
     }
     
     func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
