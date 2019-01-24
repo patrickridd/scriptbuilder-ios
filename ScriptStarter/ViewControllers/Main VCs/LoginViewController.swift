@@ -14,7 +14,7 @@ import GoogleSignIn
 import Firebase
 import MBProgressHUD
 
-class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
+class LoginViewController: UIViewController {
 
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
@@ -199,39 +199,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         }
     }
     
-    
-    // MARK: GIDSignInDelegate Methods
-    
-    func sign(_ signIn: GIDSignIn!,
-              didSignInFor user: GIDGoogleUser!,
-              withError error: Error?) {
-        
-        showActivityIndicator()
-        if let error = error {
-            hideActivityIndicator(success: false)
-            #if DEBUG
-                print(error)
-            #endif
-            return
-        }
-        
-        guard let authentication = user.authentication else {
-            self.hideActivityIndicator(success: false)
-            return
-        }
-        let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                          accessToken: authentication.accessToken)
-        FIRAuth.auth()?.signIn(with: credential) { [weak self] (user, error) in
-            if let error = error {
-                self?.hideActivityIndicator(success: false)
-                print(error)
-                return
-            }
-            self?.hideActivityIndicator(success: true)
-            self?.presentScreenPlayCollection()
-        }
-    }
-    
     // MARK: Tap Gesture Recognizer
     
     @objc func dismissKeyboard() {
@@ -297,7 +264,45 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     func presentScreenPlayCollection() {
         DispatchQueue.main.async {
             guard let screenplayCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else { return }
-            self.present(screenplayCollectionVC, animated: true, completion: nil)
+            self.present(screenplayCollectionVC,
+                         animated: true,
+                         completion: nil)
         }
     }
 }
+
+extension LoginViewController: GIDSignInDelegate {
+    
+    func sign(_ signIn: GIDSignIn!,
+              didSignInFor user: GIDGoogleUser!,
+              withError error: Error?) {
+        
+        showActivityIndicator()
+        if let error = error {
+            hideActivityIndicator(success: false)
+            #if DEBUG
+            print(error)
+            #endif
+            return
+        }
+        
+        guard let authentication = user.authentication else {
+            self.hideActivityIndicator(success: false)
+            return
+        }
+        let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                          accessToken: authentication.accessToken)
+        FIRAuth.auth()?.signIn(with: credential) { [weak self] (user, error) in
+            if let error = error {
+                self?.hideActivityIndicator(success: false)
+                print(error)
+                return
+            }
+            self?.hideActivityIndicator(success: true)
+            self?.presentScreenPlayCollection()
+        }
+    }
+    
+}
+
+extension LoginViewController: GIDSignInUIDelegate {}
