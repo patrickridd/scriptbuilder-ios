@@ -19,7 +19,7 @@ class RoleTableViewCell: UITableViewCell {
     
     func update(with role: Role) {
         let attributedText = NSAttributedString(string:role.title,
-                                                attributes: [NSAttributedString.Key.foregroundColor:UIColor.flamenco])
+                                                attributes: [NSAttributedString.Key.foregroundColor:UIColor.screenDarkMediumGray])
         roleLabel.attributedText = attributedText
     }
     

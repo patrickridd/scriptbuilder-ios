@@ -23,8 +23,8 @@ class BasicInfoCharacterTableViewCell: UITableViewCell {
         nameTextField.delegate = self
         roleTextField.delegate = self
         
-        self.nameTextField.textColor = UIColor.screenLightBlue
-        self.roleTextField.textColor = UIColor.flamenco
+        self.nameTextField.textColor = UIColor.screenDarkMediumGray
+        self.roleTextField.textColor = UIColor.screenLightBlue
         
         self.addToolBar(textField: self.nameTextField)
         self.addToolBar(textField: self.roleTextField)
