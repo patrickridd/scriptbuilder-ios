@@ -53,12 +53,7 @@ class ScreenplayCoverViewController: UIViewController {
     // MARK: IBActions
     
     @IBAction func doneButtonTapped(_ sender: Any) {
-        ScreenplayController.shared.resetCurrentScreenplay()
-        if let _ = self.presentingViewController {
-            hero.dismissViewController()
-            return
-        }
-        self.navigateToScreenplayCollectionView()
+        remindUserToSave()
     }
     
     @IBAction func arrowButtonTapped(_ sender: Any) {
@@ -73,32 +68,7 @@ class ScreenplayCoverViewController: UIViewController {
                 interstitial.present(fromRootViewController: self)
             }
         }
-        
-        let loadingNotification = MBProgressHUD.showAdded(to: view,
-                                                          animated: true)
-        loadingNotification.mode = MBProgressHUDMode.annularDeterminate
-        loadingNotification.animationType = .fade
-        loadingNotification.label.text = "saving"
-        
-        if let screenplay = screenplay {
-            FirebaseController.shared.save(screenplay: screenplay,
-                                           completion: { (success) in
-                DispatchQueue.main.async {
-                    loadingNotification.mode = .customView
-                    if success {
-                        loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
-                        loadingNotification.label.text = "success"
-                        loadingNotification.hide(animated: true,
-                                                 afterDelay: 1)
-                        return
-                    }
-                    loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
-                    loadingNotification.label.text = "failed"
-                    loadingNotification.hide(animated: true,
-                                             afterDelay: 1)
-                }
-            })
-        }
+        saveScreenplay()
     }
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
@@ -139,6 +109,37 @@ class ScreenplayCoverViewController: UIViewController {
         alert.addAction(cancelAction)
         alert.addAction(deleteAction)
         return alert
+    }
+    
+    func remindUserToSave() {
+        let saveReminderAlert = UIAlertController(title: "Save",
+                                                  message: "Would you like to save your work?",
+                                                  preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Save",
+                                       style: .default) { (_) in
+            self.saveScreenplay()
+            self.dismissView()
+        }
+        let nopeAction = UIAlertAction(title: "Nope",
+                                       style: .destructive) { (_) in
+            self.dismissView()
+        }
+        
+        
+        saveReminderAlert.addAction(saveAction)
+        saveReminderAlert.addAction(nopeAction)
+        self.present(saveReminderAlert,
+                     animated: true,
+                     completion: nil)
+    }
+    
+    func dismissView() {
+        ScreenplayController.shared.resetCurrentScreenplay()
+        if let _ = self.presentingViewController {
+            self.hero.dismissViewController()
+            return
+        }
+        self.navigateToScreenplayCollectionView()
     }
 
     // MARK: GADInterstitialDelegate Methods
