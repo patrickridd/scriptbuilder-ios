@@ -208,7 +208,7 @@ class SettingsTableViewController: UITableViewController {
         
         switch section {
         case 0:
-            sectionHeader.sectionLabel.text = "Remove Adds / Enable Offline Capabilities"
+            sectionHeader.sectionLabel.text = "Remove Ads"
         case 1:
             sectionHeader.sectionLabel.text = "Change Password"
         case 2:
