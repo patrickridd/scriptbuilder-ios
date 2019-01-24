@@ -38,7 +38,15 @@ class IAPTableViewCell: UITableViewCell {
                 self?.restoreButton.layer.borderColor = UIColor.screenLightBlue.cgColor
                 self?.restoreButton.setTitleColor(UIColor.screenLightBlue,
                                                   for: .normal)
+                self?.setAccessory()
             }
+        }
+    }
+    
+    func setAccessory() {
+        // If no Ads IAP has been purchased, place check mark next to box
+        if !InAppPurchases.shouldDisplayAds {
+            self.accessoryType = .checkmark
         }
     }
     

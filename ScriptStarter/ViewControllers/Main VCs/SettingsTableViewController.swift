@@ -10,6 +10,10 @@ import UIKit
 import MBProgressHUD
 import StoreKit
 
+protocol InAppPurchaseDelegate: class {
+    func didCompleteTransaction(with error: Error?)
+}
+
 class SettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
@@ -19,7 +23,6 @@ class SettingsTableViewController: UITableViewController {
         self.view.backgroundColor = UIColor.screenLightGray
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = UIColor.screenLightGray
-        
     }
     
     var loadingNotification = MBProgressHUD()
@@ -43,8 +46,6 @@ class SettingsTableViewController: UITableViewController {
     // MARK: UI Methods
     
     func showActivityIndicator() {
-        //        self.activityIndicatorContainerView.isHidden = false
-        //        self.activityIndicator.isAnimating
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             self.loadingNotification =
@@ -139,14 +140,19 @@ class SettingsTableViewController: UITableViewController {
         case 0:
            let inAppPurchaseCell = tableView.dequeueReusableCell(withIdentifier:"inAppPurchaseCell",
                                                                         for: indexPath) as? IAPTableViewCell
-           inAppPurchaseCell?.purchaseButtonHandler = { product in
+           inAppPurchaseCell?.purchaseButtonHandler = { [weak self] product in
+                self?.showActivityIndicator()
+                InAppPurchases.store.delegate = self
                 InAppPurchases.store.buyProduct(product)
            }
            
-           inAppPurchaseCell?.restoreButtonHandler = { product in
+           inAppPurchaseCell?.restoreButtonHandler = { [weak self] product in
+                self?.showActivityIndicator()
+                InAppPurchases.store.delegate = self
                 InAppPurchases.store.restorePurchase(for: product)
            }
            
+            inAppPurchaseCell?.setAccessory()
             return inAppPurchaseCell ?? UITableViewCell()
         case 1:
             let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell",
@@ -257,6 +263,23 @@ class SettingsTableViewController: UITableViewController {
         default:
             break
         }
+    }
+    
+}
+
+
+extension SettingsTableViewController: InAppPurchaseDelegate {
+    
+    func didCompleteTransaction(with error: Error?) {
+        tableView.reloadData()
+        if let error = error {
+            hideActivityIndicator(success: false) {
+                print(error)
+            }
+        } else {
+            hideActivityIndicator(success: true)
+        }
+        
     }
     
 }

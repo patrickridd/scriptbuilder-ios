@@ -18,6 +18,7 @@ open class IAPHelper: NSObject  {
     private var purchasedProductIdentifiers = Set<ProductIdentifier>()
     private var productsRequest: SKProductsRequest?
     private var productsRequestCompletionHandler: ProductsRequestCompletionHandler?
+    weak var delegate: InAppPurchaseDelegate?
     
     public init(productIds: Set<ProductIdentifier>) {
         self.productIdentifiers = productIds
@@ -122,6 +123,7 @@ extension IAPHelper: SKPaymentTransactionObserver {
     private func complete(transaction: SKPaymentTransaction) {
         deliverPurchaseNotificationFor(identifier: transaction.payment.productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
+        delegate?.didCompleteTransaction(with: nil)
     }
    
     private func restore(transaction: SKPaymentTransaction) {
@@ -129,15 +131,15 @@ extension IAPHelper: SKPaymentTransactionObserver {
 
         deliverPurchaseNotificationFor(identifier: productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
+        delegate?.didCompleteTransaction(with: nil)
     }
     
     private func fail(transaction: SKPaymentTransaction) {
-        if let transactionError = transaction.error as NSError? {
-            if transactionError.code != SKError.paymentCancelled.rawValue {
-                print("Transaction Error: \(transaction.error?.localizedDescription ?? "No description available")")
+        if let transactionError = transaction.error as Error? {
+            if transactionError._code != SKError.paymentCancelled.rawValue {
+                delegate?.didCompleteTransaction(with: transactionError)
             }
         }
-        
         SKPaymentQueue.default().finishTransaction(transaction)
     }
     
