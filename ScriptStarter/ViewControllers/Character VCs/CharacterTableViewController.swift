@@ -193,7 +193,6 @@ class CharacterTableViewController: UITableViewController {
             let font = UIFont.systemFont(ofSize: 16, weight: .bold)
             
             header.sectionLabel.font = font
-            header.sectionLabel.textColor = UIColor.flamenco
             header.sectionLabel.text = roleTitle
             return header
         }

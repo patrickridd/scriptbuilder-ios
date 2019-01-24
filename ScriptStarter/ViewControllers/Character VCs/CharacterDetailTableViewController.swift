@@ -104,13 +104,6 @@ class CharacterDetailTableViewController: UITableViewController {
    
     @IBAction func saveButtonTapped(_ sender: Any) {
         self.saveScreenplay()
-//        guard let character = self.character,
-//        let screenplay = self.screenplay else { return }
-//        FirebaseController.shared.save(character: character, screenplay: screenplay) { (success) in
-//            if !success {
-//                print("Error saving character")
-//            }
-//        }
     }
     
     @objc func roleButtonTapped(_ sender: UIButton) {

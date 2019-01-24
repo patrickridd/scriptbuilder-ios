@@ -45,7 +45,6 @@ class LoginViewController: UIViewController {
             self.facebookButton.addTarget(self,
                                      action: #selector(self.facebookButtonTapped),
                                      for: .touchUpInside)
-            
             // Google Sign-in
             GIDSignIn.sharedInstance().delegate = self
             GIDSignIn.sharedInstance().uiDelegate = self
@@ -160,7 +159,8 @@ class LoginViewController: UIViewController {
             if let error = error {
                 let alert = UIAlertControllers.emailAuthenticationError(message: error.localizedDescription)
                 self?.hideActivityIndicator(success: false)
-                self?.present(alert, animated: true, completion: nil)
+                self?.present(alert, animated: true,
+                              completion: nil)
                 return
             }
             self?.hideActivityIndicator(success: true)
