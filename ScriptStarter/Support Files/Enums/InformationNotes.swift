@@ -18,8 +18,7 @@ enum InformationNote {
         case .logline:
             return "A logline is a one to two sentence description of your screenplay. Think about how you pitch movies you want to see to your friends/family."
         case .actBeats:
-            return "These act beats are common plot points found in stories. They are not required, but they can help inspire you out of writer's block."
-           // return "These act beats are common plot points found in screenplays and stories. A lot of these beats are based on, The Hero With a Thousand Faces (Campbell, 1949). These are by no means rules in a screenplay, but something to help get ideas from."
+            return "Anserwing these questions can help you develop the plot points in your act and push the story forward. They are not required, but they can help in escaping writer's block."
         }
     }
     
