@@ -31,14 +31,16 @@ class IAPTableViewCell: UITableViewCell {
         
         InAppPurchases.store.requestProducts { [weak self] (_, products) in
             if let product = products?.first {
-                self?.inAppPurchase = product
-                self?.restoreButton.isEnabled = true
-                self?.purchaseButton.isEnabled = true
-                self?.purchaseButton.backgroundColor = UIColor.screenLightBlue
-                self?.restoreButton.layer.borderColor = UIColor.screenLightBlue.cgColor
-                self?.restoreButton.setTitleColor(UIColor.screenLightBlue,
-                                                  for: .normal)
-                self?.setAccessory()
+                DispatchQueue.main.async {
+                    self?.inAppPurchase = product
+                    self?.restoreButton.isEnabled = true
+                    self?.purchaseButton.isEnabled = true
+                    self?.purchaseButton.backgroundColor = UIColor.screenLightBlue
+                    self?.restoreButton.layer.borderColor = UIColor.screenLightBlue.cgColor
+                    self?.restoreButton.setTitleColor(UIColor.screenLightBlue,
+                                                      for: .normal)
+                    self?.setAccessory()
+                }
             }
         }
     }
