@@ -506,7 +506,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="60" id="jAk-OQ-2EZ"/>
                                                                     </constraints>
-                                                                    <state key="normal" title="$2.99">
+                                                                    <state key="normal" title="$1.99">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
@@ -693,11 +693,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="119.66666666666667"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bsA-tJ-KQJ">
-                                            <rect key="frame" x="119.66666666666669" y="33.666666666666657" width="175" height="52.333333333333343"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bsA-tJ-KQJ">
+                                            <rect key="frame" x="20" y="32.333333333333336" width="374" height="55.000000000000007"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="J9l-QQ-5Mc">
-                                                    <rect key="frame" x="0.0" y="0.0" width="175" height="30"/>
+                                                    <rect key="frame" x="99.666666666666686" y="0.0" width="175" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPB-uI-KGa">
                                                             <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
@@ -706,7 +706,7 @@
                                                                 <constraint firstAttribute="height" constant="30" id="EN8-FV-Ne1"/>
                                                                 <constraint firstAttribute="width" constant="80" id="ykx-Ld-tbp"/>
                                                             </constraints>
-                                                            <state key="normal" title="$2.99">
+                                                            <state key="normal" title="$1.99">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <userDefinedRuntimeAttributes>
@@ -738,9 +738,9 @@
                                                         </button>
                                                     </subviews>
                                                 </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If purchased before, tap &quot;Restore&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="5Jf-73-Rqh">
-                                                    <rect key="frame" x="0.0" y="38.000000000000007" width="175" height="14.333333333333336"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If already purchased, tap &quot;Restore&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="5Jf-73-Rqh">
+                                                    <rect key="frame" x="76.333333333333329" y="37.999999999999993" width="221.33333333333337" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -750,6 +750,8 @@
                                     <constraints>
                                         <constraint firstItem="bsA-tJ-KQJ" firstAttribute="centerY" secondItem="bdz-Ot-AqX" secondAttribute="centerY" id="7gL-sH-ROl"/>
                                         <constraint firstItem="bsA-tJ-KQJ" firstAttribute="centerX" secondItem="bdz-Ot-AqX" secondAttribute="centerX" id="DIO-HT-Bbs"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="bsA-tJ-KQJ" secondAttribute="trailing" id="J38-t6-cgr"/>
+                                        <constraint firstItem="bsA-tJ-KQJ" firstAttribute="leading" secondItem="bdz-Ot-AqX" secondAttribute="leadingMargin" id="SNa-bk-fPi"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <userDefinedRuntimeAttributes>

@@ -10,7 +10,7 @@ import Foundation
 
 public struct InAppPurchases {
     
-    public static let noAdsAndOfflineStorage = "com.patrickridd.ScriptStarter.NoAdsAndOfflineStorage"
+    public static let noAdsAndOfflineStorage = "com.patrickridd.ScriptStarter.NoAds"
     
     private static let productIdentifiers: Set<ProductIdentifier> = [InAppPurchases.noAdsAndOfflineStorage]
     
