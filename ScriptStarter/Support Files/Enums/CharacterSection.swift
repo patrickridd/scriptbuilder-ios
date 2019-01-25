@@ -29,9 +29,9 @@ enum CharacterSection {
                 "What obstacles are in your characters's way?",
                 "What flaws or fears does your character have?",
                 "Does acheiving their intention solve their problem?",
-                "Is there something the character \"really\" needs to do to fix their problem?",
+                "Is there something the character \"needs\" to do but is avoiding to fix their problem?",
                 "How is the character changed through the story?",
-                "Any pertinent details about the character?"]
+                "Any other pertinent details about the character?"]
     }
     
     static var sectionTitles: [String] {

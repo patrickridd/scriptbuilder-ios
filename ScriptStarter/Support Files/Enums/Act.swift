@@ -47,12 +47,12 @@ enum Act: Int {
             sectionTitles = ["Log line",
                              "Intention",
                              "Obstacle",
-                            "Themes",
-                            "Notes"]
+                             "Themes",
+                             "Notes"]
         case .one:
             sectionTitles = ["Old World",
                              "Inciting Incident",
-                             "Call to Adventure",
+                             "Call to Action",
                              "Themes Introduced",
                              "Analysis Paralysis",
                              "Character Defining Decision",
@@ -70,7 +70,7 @@ enum Act: Int {
         case .three:
             sectionTitles = ["The Ultimate Answer",
                              "Trophy",
-                             "Put a Bow On It",
+                             "Questions That Need Answering",
                              "Brand New World"]
             
         }
@@ -80,7 +80,7 @@ enum Act: Int {
     var sectionSubTitles: [String] {
         switch self {
         case .idea:
-            return ["One to two sentence description of your movie.",
+            return ["One to two sentence description of your movie",
                     "Central goal your hero(s) are trying to accomplish",
                     "Main obstacle preventing your hero(s) from getting what they want",
                     "Any beliefs or premises you want to test in your story",
@@ -88,7 +88,7 @@ enum Act: Int {
         case .one:
             return ["What is life like before the story begins?",
             "What event, person, or thing creates disharmony in the old world?",
-            "What must your hero or world do to bring harmony?",
+            "What must the hero or group do to bring harmony?",
             "Are there premises, beliefs, or ideas that can be tested in the adventure?",
             "Does your hero(s) have doubts about the adventure ahead?",
             "What convinces your hero(s) to make the decision go on the adventure?",
@@ -117,7 +117,7 @@ enum Act: Int {
             return ["What is your hero(s) ultimate answer(s) in making things right?",
                     "What type of reward does your hero(s) gain through the journey (wisdom, wealth, love)?",
                     "Are there any unanswered questions that need to be untangled?",
-                    "Because of the adventure, how is life and the characters in it different from the old world?"]
+                    "Because of the adventure, how is the world and the characters in it different from the start of the story?"]
         }
     }
     
@@ -129,11 +129,11 @@ enum Act: Int {
             return ["The setup",
                     "e.g. Bruce Wayne's parents have died and Gotham City is riddled with crime...",
                     "e.g. Princess Leia is captured by Darth Vader...",
-                "e.g. Indian Jones is asked by the government to find the Arc of the Covenant before the Nazis do",
-                "e.g. Better to be with friends and family even if they annoy you sometimes...",
-                "e.g. Luke Skywalker refuses the call to help save Princess Leia, because he needs to help his aunt and uncle with the farm",
-                "e.g. After Luke Skywalker's aunt and uncle are killed by stormtroopers he's realizes he must go help save princess Leia",
-                "e.g. Obi Wan and Luke get past the storm troopers on Tatooine. \"These aren't the droids you're looking for\""]
+                    "e.g. Indian Jones is asked by the government to find the Arc of the Covenant before the Nazis do",
+                    "e.g. Better to be with friends and family even if they annoy you sometimes...",
+                    "e.g. Luke Skywalker refuses the call to help save Princess Leia, because he needs to help his aunt and uncle with the farm",
+                    "e.g. After Luke Skywalker's aunt and uncle are killed by stormtroopers he's realizes he must go help save princess Leia",
+                    "e.g. Obi Wan and Luke get past the storm troopers on Tatooine. \"These aren't the droids you're looking for\""]
         case .two:
             return ["The conflict",
                     "e.g. In the Last Samurai, the hero's new world is of the Samurai who capture him.",

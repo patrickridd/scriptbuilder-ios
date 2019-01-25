@@ -18,7 +18,7 @@ enum InformationNote {
         case .logline:
             return "A logline is a one to two sentence description of your screenplay. Think about how you pitch movies you want to see to your friends/family."
         case .actBeats:
-            return "Anserwing these questions can help you develop the plot points in your act and push the story forward. They are not required, but they can help in escaping writer's block."
+            return "Answering these questions can help you develop the plot points in your acts and push the story forward. Although not required, they can help you escape writer's block."
         }
     }
     
