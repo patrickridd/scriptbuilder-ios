@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import GoogleMobileAds
 
 extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     
@@ -146,6 +147,38 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
             UIApplication.shared.keyWindow?.rootViewController = mainNavigationController
             self.dismiss(animated: true, completion: nil)
         }
+    }
+}
+
+extension UIViewController: GADInterstitialDelegate {
+    
+    // Helper methods
+    
+    func createAndLoadInterstitial() -> GADInterstitial? {
+       
+        let interstitial = GADInterstitial(adUnitID: GoogleAds.interstitialAdUnitId)
+        interstitial.delegate = self
+        
+        let request = GADRequest()
+        
+        #if DEBUG
+        request.testDevices = [kGADSimulatorID]
+        #endif
+        
+        interstitial.load(request)
+        
+        return interstitial
+    }
+    
+    
+    // Delegate Methods
+    
+    private func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        print("Did receive interstitial")
+    }
+    
+    private func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
+        print("Fail to receive interstitial")
     }
     
 }

@@ -40,15 +40,19 @@ class ScreenplayCoverViewController: UIViewController {
         }
         
         // Setup Tap Gesture to dismiss keyboard
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        // Create new screenplay
+        // Load Interstitial and display it whenever they save
         if InAppPurchases.shouldDisplayAds {
             interstitial = createAndLoadInterstitial()
         }
     }
-
     
     // MARK: IBActions
     
@@ -148,36 +152,6 @@ class ScreenplayCoverViewController: UIViewController {
         }
         self.navigateToScreenplayCollectionView()
     }
-
-    // MARK: GADInterstitialDelegate Methods
-    
-    private func createAndLoadInterstitial() -> GADInterstitial? {
-        interstitial = GADInterstitial(adUnitID: GoogleAds.interstitialAdUnitId)
-        guard let interstitial = interstitial else { return nil }
-        interstitial.delegate = self
-
-        let request = GADRequest()
-
-        #if DEBUG
-            request.testDevices = [kGADSimulatorID]
-        #endif
-        
-        interstitial.load(request)
-        
-        return interstitial
-    }
-}
-
-extension ScreenplayCoverViewController: GADInterstitialDelegate {
-    
-    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        print("Did receive interstitial")
-    }
-    
-    func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
-        print("Fail to receive interstitial")
-    }
-    
 }
 
 // Mark UITextField Methods
