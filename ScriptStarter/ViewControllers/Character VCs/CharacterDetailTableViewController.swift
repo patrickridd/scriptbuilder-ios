@@ -178,7 +178,6 @@ class CharacterDetailTableViewController: UITableViewController {
            basicCharacterCell.roleButton.addTarget(self,
                                                    action: #selector(roleButtonTapped(_:)),
                                                    for: .touchUpInside)
-           
            return basicCharacterCell
         default:
             guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }

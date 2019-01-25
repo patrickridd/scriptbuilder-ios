@@ -9,8 +9,8 @@
 import Foundation
 import Firebase
 
-class Screenplay {
-    
+class Screenplay: Equatable {
+  
     // keys
     let logLineKey = "logLineKey"
     let actOneDescriptionKey = "actOneDescription"
@@ -47,6 +47,22 @@ class Screenplay {
     var act2 = Act2()
     var act3 = Act3()
     
+    static func == (lhs: Screenplay, rhs: Screenplay) -> Bool {
+        return lhs.title == rhs.title &&
+               lhs.uuid == rhs.uuid &&
+               lhs.idea == rhs.idea &&
+               lhs.logLine == rhs.logLine &&
+               lhs.notes == rhs.notes &&
+               lhs.theme == rhs.theme &&
+               lhs.centralIntention == rhs.centralIntention &&
+               lhs.mainObstacle == rhs.mainObstacle &&
+               lhs.actOneDescription == rhs.actOneDescription &&
+               lhs.characters == rhs.characters &&
+               lhs.act1 == rhs.act1 &&
+               lhs.act2 == rhs.act2 &&
+               lhs.act3 == rhs.act3
+    }
+
     init(title: String) {
         self.title = title
         self.uuid = UUID().uuidString

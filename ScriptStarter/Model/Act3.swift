@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Act3 {
+class Act3: Equatable {
     
     // Keys
     let theUltimateAnswerKey = "theUltimateAnswer"
@@ -31,6 +31,14 @@ class Act3 {
     var rewards: String = ""
     var untangleStory: String = ""
     var brandNewWorld: String = ""
+    
+    static func == (lhs: Act3, rhs: Act3) -> Bool {
+        return lhs.scenes == rhs.scenes &&
+               lhs.theUltimateAnswer == rhs.theUltimateAnswer &&
+               lhs.rewards == rhs.rewards &&
+               lhs.untangleStory == rhs.untangleStory &&
+               lhs.brandNewWorld == rhs.brandNewWorld
+    }
     
     init() {}
     

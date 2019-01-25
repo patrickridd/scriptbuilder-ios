@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Character {
+class Character: Equatable {
     
     // Keys
     let nameKey = "name"
@@ -40,6 +40,22 @@ class Character {
     var howCharacterChanged: String = ""
     var notes: String = ""
     
+    static func == (lhs: Character, rhs: Character) -> Bool {
+        return lhs.uuid == rhs.uuid &&
+               lhs.name == rhs.name &&
+               lhs.role == rhs.role &&
+               lhs.intention == rhs.intention &&
+               lhs.whyIntention == rhs.whyIntention &&
+               lhs.whatToDo == rhs.whatToDo &&
+               lhs.howDoesCharacterDoIt == rhs.howDoesCharacterDoIt &&
+               lhs.obstacles == rhs.obstacles &&
+               lhs.flaws == rhs.flaws &&
+               lhs.intentionFix == rhs.intentionFix &&
+               lhs.need == rhs.need &&
+               lhs.howCharacterChanged == rhs.howCharacterChanged &&
+               lhs.notes == rhs.notes
+    }
+
     init(name:String) {
         self.name = name
         self.uuid = UUID().uuidString

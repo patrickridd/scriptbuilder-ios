@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Act1 {
+class Act1: Equatable {
     
     // Keys
     let oldWorldDescriptionKey = "oldWorldDescription"
@@ -37,6 +37,18 @@ class Act1 {
     var refusal: String = "" // 5
     var reasonToAdventure: String = "" // 6
     var enemyAtTheGates: String = "" // 7
+    
+    static func == (lhs: Act1, rhs: Act1) -> Bool {
+        return lhs.scenes == rhs.scenes &&
+               lhs.oldWorldDescription == rhs.oldWorldDescription &&
+               lhs.incitingIncident == rhs.incitingIncident &&
+               lhs.callToAdventure == rhs.callToAdventure &&
+               lhs.theme == rhs.theme &&
+               lhs.refusal == rhs.refusal &&
+               lhs.reasonToAdventure == rhs.reasonToAdventure &&
+               lhs.enemyAtTheGates == rhs.enemyAtTheGates
+    }
+    
     
     init() {
         self.sceneSet = []

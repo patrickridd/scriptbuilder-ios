@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Act2 {
+class Act2: Equatable {
     
     // Keys
     let newWorldDescriptionKey = "newWorldDescription"
@@ -44,6 +44,19 @@ class Act2 {
     var badGuysStrikeBack: String = ""
     var allIsLost: String = ""
     
+    static func == (lhs: Act2, rhs: Act2) -> Bool {
+        return lhs.scenes == rhs.scenes &&
+               lhs.newWorldDescription == rhs.newWorldDescription &&
+               lhs.enemiesFriends == rhs.enemiesFriends &&
+               lhs.obstacles == rhs.obstacles &&
+               lhs.sharpeningTheSword == rhs.sharpeningTheSword &&
+               lhs.burnTheBoats == rhs.burnTheBoats &&
+               lhs.theDeadlyEncounter == rhs.theDeadlyEncounter &&
+               lhs.celebrate == rhs.celebrate &&
+               lhs.stormGathers == rhs.stormGathers &&
+               lhs.badGuysStrikeBack == rhs.badGuysStrikeBack &&
+               lhs.allIsLost == rhs.allIsLost
+    }
     
     init() {}
     
