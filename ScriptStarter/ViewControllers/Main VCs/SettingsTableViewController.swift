@@ -152,7 +152,7 @@ class SettingsTableViewController: UITableViewController {
                 InAppPurchases.store.restorePurchase(for: product)
            }
            
-            inAppPurchaseCell?.setAccessory()
+            inAppPurchaseCell?.setPurchasedUI()
             return inAppPurchaseCell ?? UITableViewCell()
         case 1:
             let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell",
