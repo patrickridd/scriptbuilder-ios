@@ -53,7 +53,14 @@ class ScreenplayCoverViewController: UIViewController {
     // MARK: IBActions
     
     @IBAction func doneButtonTapped(_ sender: Any) {
-        remindUserToSave()
+        // We want to remind the user to save if the screenplay has changed
+        if ScreenplayController.shared.screenplayChanged {
+            remindUserToSave()
+        
+        // Else just dismiss the view
+        } else {
+            dismissView()
+        }
     }
     
     @IBAction func arrowButtonTapped(_ sender: Any) {

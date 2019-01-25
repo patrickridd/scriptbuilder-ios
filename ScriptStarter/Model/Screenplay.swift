@@ -103,6 +103,25 @@ class Screenplay: Equatable {
         }
     }
     
+    init(screenplay: Screenplay) {
+        title = screenplay.title
+        uuid = screenplay.uuid
+        
+        idea = screenplay.idea
+        logLine = screenplay.logLine
+        notes = screenplay.notes
+        theme = screenplay.theme
+        centralIntention = screenplay.centralIntention
+        mainObstacle = screenplay.mainObstacle
+        
+        actOneDescription = screenplay.actOneDescription
+        actTwoDescription = screenplay.actTwoDescription
+        actThreeDescription = screenplay.actThreeDescription
+        characters = screenplay.characters
+        act1 = screenplay.act1
+        act2 = screenplay.act2
+        act3 = screenplay.act3
+    }
     
     var firDictionary: [String:Any] {
         return [titleKey: self.title,

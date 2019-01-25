@@ -18,15 +18,22 @@ class ScreenplayController {
     let userDefaults = UserDefaults()
     
     var currentScreenplay: Screenplay?
+    var unalteredScreenplay: Screenplay?
+    
+    var screenplayChanged: Bool {
+        return self.currentScreenplay != unalteredScreenplay
+    }
     
     func set(currentScreenplay: Screenplay) {
         self.currentScreenplay = currentScreenplay
+        self.unalteredScreenplay = Screenplay(screenplay: currentScreenplay)
         // Save ID so that when user opens app we can open the screenplay they last were working on
           userDefaults.setValue(currentScreenplay.uuid, forKey: self.screenplayKey)
     }
     
     func resetCurrentScreenplay() {
         self.currentScreenplay = nil
+        self.unalteredScreenplay = nil
         self.userDefaults.setValue(nil, forKey: self.screenplayKey)
     }
     
