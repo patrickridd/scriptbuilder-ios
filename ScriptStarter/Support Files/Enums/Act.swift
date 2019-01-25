@@ -53,10 +53,11 @@ enum Act: Int {
             sectionTitles = ["Old World",
                              "Inciting Incident",
                              "Call to Action",
+                             "Meet your Mentor",
                              "Themes Introduced",
                              "Analysis Paralysis",
-                             "Character Defining Decision",
-                             "Enemy At The Gates"]
+                             "I Must Go",
+                             "You Can't Go"]
         case .two:
             sectionTitles = ["Strange New World",
                              "Friends / Foes / Frenemies",
@@ -66,7 +67,7 @@ enum Act: Int {
                              "Supreme Sacrifice",
                              "Celebrate Good Times",
                              "Empire Strikes Back",
-                             "The Darkness Before the Dawn"]
+                             "Darkest Before the Dawn"]
         case .three:
             sectionTitles = ["The Ultimate Answer",
                              "Trophy",
@@ -89,9 +90,10 @@ enum Act: Int {
             return ["What is life like before the story begins?",
             "What event, person, or thing creates disharmony in the old world?",
             "What must the hero or group do to bring harmony?",
+            "Does your hero(s) meet a mentor to help them through their journey",
             "Are there premises, beliefs, or ideas that can be tested in the adventure?",
             "Does your hero(s) have doubts about the adventure ahead?",
-            "What convinces your hero(s) to make the decision go on the adventure?",
+            "What convinces your hero(s) to make the decision to go on the adventure?",
             "Are there any obstacles/enemies/friends trying to prevent the adventure from being started?"]
         case .two:
             return [
@@ -111,7 +113,7 @@ enum Act: Int {
                 "What temporary wins and successes does your hero(s) experience?",
                 // Empire Strikes Back
                 "How do the antagonists defeat your hero(s) temporarily?",
-                // Darkness Before the Dawn
+                // Darkest Before the Dawn
                 "All is lost moment. What major fears are realized and what hopes are dashed?"]
         case .three:
             return ["What is your hero(s) ultimate answer(s) in making things right?",

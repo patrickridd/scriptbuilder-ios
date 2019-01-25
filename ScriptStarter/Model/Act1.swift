@@ -14,6 +14,7 @@ class Act1: Equatable {
     let oldWorldDescriptionKey = "oldWorldDescription"
     let incitingIncidentKey = "incitingIncident"
     let callToAdventureKey = "callToAdventure"
+    let meetingMentorKey = "meetingMentor"
     let themeKey = "theme"
     let refusalKey = "refusal"
     let reasonToAdventureKey = "reasonToAdventure"
@@ -33,22 +34,23 @@ class Act1: Equatable {
     var oldWorldDescription: String = "" // 1
     var incitingIncident: String = "" // 2
     var callToAdventure: String = "" // 3
-    var theme: String = "" // 4
-    var refusal: String = "" // 5
-    var reasonToAdventure: String = "" // 6
-    var enemyAtTheGates: String = "" // 7
+    var meetingMentor: String = "" // 4
+    var theme: String = "" // 5
+    var refusal: String = "" // 6
+    var reasonToAdventure: String = "" // 7
+    var enemyAtTheGates: String = "" // 8
     
     static func == (lhs: Act1, rhs: Act1) -> Bool {
         return lhs.scenes == rhs.scenes &&
                lhs.oldWorldDescription == rhs.oldWorldDescription &&
                lhs.incitingIncident == rhs.incitingIncident &&
                lhs.callToAdventure == rhs.callToAdventure &&
+               lhs.meetingMentor == rhs.meetingMentor &&
                lhs.theme == rhs.theme &&
                lhs.refusal == rhs.refusal &&
                lhs.reasonToAdventure == rhs.reasonToAdventure &&
                lhs.enemyAtTheGates == rhs.enemyAtTheGates
     }
-    
     
     init() {
         self.sceneSet = []
@@ -65,6 +67,9 @@ class Act1: Equatable {
             return nil
         }
         
+        let meetingMentor = actOneDict[meetingMentorKey] as? String ?? ""
+        
+        self.meetingMentor = meetingMentor
         self.oldWorldDescription = oldWorldDescription
         self.incitingIncident = incitingIncident
         self.callToAdventure = callToAdventure
@@ -89,11 +94,13 @@ class Act1: Equatable {
     }
     
     var firActOneDictionary: [String:Any] {
-        return [self.oldWorldDescriptionKey:self.oldWorldDescription,       self.incitingIncidentKey:self.incitingIncident,
-            self.callToAdventureKey:callToAdventure,
-            self.themeKey:theme,
-            self.refusalKey:refusal,
-            self.reasonToAdventureKey:reasonToAdventure,
-            self.enemyAtTheGatesKey:enemyAtTheGates]
+        return [self.oldWorldDescriptionKey:self.oldWorldDescription,
+                self.incitingIncidentKey:self.incitingIncident,
+                self.callToAdventureKey:callToAdventure,
+                self.meetingMentorKey:meetingMentor,
+                self.themeKey:theme,
+                self.refusalKey:refusal,
+                self.reasonToAdventureKey:reasonToAdventure,
+                self.enemyAtTheGatesKey:enemyAtTheGates]
     }
 }

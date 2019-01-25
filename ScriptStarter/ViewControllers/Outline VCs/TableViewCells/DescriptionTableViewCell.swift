@@ -129,12 +129,14 @@ class DescriptionTableViewCell: UITableViewCell {
                 case 4:
                     descriptionTextView.text = screenplay?.act1.callToAdventure
                 case 5:
-                    descriptionTextView.text = screenplay?.act1.theme
+                    descriptionTextView.text = screenplay?.act1.meetingMentor
                 case 6:
-                    descriptionTextView.text = screenplay?.act1.refusal
+                    descriptionTextView.text = screenplay?.act1.theme
                 case 7:
-                    descriptionTextView.text = screenplay?.act1.reasonToAdventure
+                    descriptionTextView.text = screenplay?.act1.refusal
                 case 8:
+                    descriptionTextView.text = screenplay?.act1.reasonToAdventure
+                case 9:
                     descriptionTextView.text = screenplay?.act1.enemyAtTheGates
                 default:
                     break
@@ -300,12 +302,14 @@ class DescriptionTableViewCell: UITableViewCell {
                 case 4:
                     screenplay?.act1.callToAdventure = textView.text
                 case 5:
-                    screenplay?.act1.theme = textView.text
+                    screenplay?.act1.meetingMentor = textView.text
                 case 6:
-                    screenplay?.act1.refusal = textView.text
+                    screenplay?.act1.theme = textView.text
                 case 7:
-                    screenplay?.act1.reasonToAdventure = textView.text
+                    screenplay?.act1.refusal = textView.text
                 case 8:
+                    screenplay?.act1.reasonToAdventure = textView.text
+                case 9:
                     screenplay?.act1.enemyAtTheGates = textView.text
                 default:
                     break
