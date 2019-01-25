@@ -48,6 +48,7 @@
 		218E8460203E3D9500D0D652 /* NoCharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */; };
 		218E8462203F379000D0D652 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8461203F379000D0D652 /* Scene.swift */; };
 		218E8464203F841400D0D652 /* SceneHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8463203F841400D0D652 /* SceneHeader.swift */; };
+		21916C6821FBCD2E00C6F024 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21916C6721FBCD2E00C6F024 /* Constants.swift */; };
 		21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF482023B00000D97394 /* CharacterTableViewController.swift */; };
 		21A7CF4B2023B02D00D97394 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF4A2023B02D00D97394 /* Character.swift */; };
 		21A7CF4E2023B4D200D97394 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF4D2023B4D200D97394 /* CharacterTableViewCell.swift */; };
@@ -152,6 +153,7 @@
 		218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCharacterTableViewCell.swift; sourceTree = "<group>"; };
 		218E8461203F379000D0D652 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		218E8463203F841400D0D652 /* SceneHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneHeader.swift; sourceTree = "<group>"; };
+		21916C6721FBCD2E00C6F024 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		219814CB2046125100FD94E9 /* ScriptStarter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ScriptStarter-Bridging-Header.h"; sourceTree = "<group>"; };
 		21A7CF482023B00000D97394 /* CharacterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewController.swift; sourceTree = "<group>"; };
 		21A7CF4A2023B02D00D97394 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			children = (
 				2101F3522061E944003A90A4 /* CharacterTableViewSection.swift */,
 				215DDD3421F7ABE000C52B6C /* GoogleAds.swift */,
+				21916C6721FBCD2E00C6F024 /* Constants.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -917,6 +920,7 @@
 				2146E3DE203F906B00FBD225 /* SceneTableViewCell.swift in Sources */,
 				21A7CF502025039800D97394 /* CharacterDetailTableViewController.swift in Sources */,
 				21A84F482016840300CE4149 /* Screenplay.swift in Sources */,
+				21916C6821FBCD2E00C6F024 /* Constants.swift in Sources */,
 				21A7CF582028EC8400D97394 /* Extension+UITableViewCell.swift in Sources */,
 				215829CB20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift in Sources */,
 				21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */,
