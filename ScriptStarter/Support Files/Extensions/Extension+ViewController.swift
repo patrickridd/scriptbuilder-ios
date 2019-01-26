@@ -17,7 +17,8 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     }
     
     func saveScreenplay() {
-        let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
+        let loadingNotification = MBProgressHUD.showAdded(to: self.view,
+                                                          animated: true)
         loadingNotification.mode = MBProgressHUDMode.indeterminate
         loadingNotification.animationType = .fade
         loadingNotification.label.text = "saving"
@@ -29,12 +30,14 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
                     if success {
                         loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
                         loadingNotification.label.text = "success"
-                        loadingNotification.hide(animated: true, afterDelay: 1)
+                        loadingNotification.hide(animated: true,
+                                                 afterDelay: 1)
                         return
                     }
                     loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
                     loadingNotification.label.text = "failed"
-                    loadingNotification.hide(animated: true, afterDelay: 1)
+                    loadingNotification.hide(animated: true,
+                                             afterDelay: 1)
                 }
             })
         }
@@ -77,9 +80,16 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.screenLightBlue
-        let doneButton = UIBarButtonItem(image: #imageLiteral(resourceName: "downArrowButtonAsset 1"), landscapeImagePhone: nil, style: .done, target: self, action: #selector(donePressed))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([spaceButton, doneButton], animated: false)
+        let doneButton = UIBarButtonItem(image: #imageLiteral(resourceName: "downArrowButtonAsset 1"),
+                                         landscapeImagePhone: nil,
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(donePressed))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                          target: nil,
+                                          action: nil)
+        toolBar.setItems([spaceButton, doneButton],
+                         animated: false)
         
         toolBar.isUserInteractionEnabled = true
         toolBar.sizeToFit()
@@ -93,13 +103,17 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         let toolBar = UIToolbar()
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.screenLightBlue// UIColor(red: 76 / 255, green: 217 / 255, blue: 100 / 255, alpha: 1)
+        toolBar.tintColor = UIColor.screenLightBlue
+        
         let doneButton = UIBarButtonItem(title: "Done",
                                          style: .done,
                                          target: self,
                                          action: #selector(donePressed))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([spaceButton, doneButton], animated: false)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                          target: nil,
+                                          action: nil)
+        toolBar.setItems([spaceButton, doneButton],
+                         animated: false)
         
         
         toolBar.isUserInteractionEnabled = true
@@ -114,7 +128,8 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         self.navigationController?.view.endEditing(true)
         switch self {
         case is EnlargedDescriptionTableViewController:
-            dismiss(animated: true, completion: nil)
+            dismiss(animated: true,
+                    completion: nil)
         default:
             break
         }
@@ -132,7 +147,8 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
             let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
             if let loginViewController = mainStoryboard.instantiateViewController(withIdentifier: "loginVC") as? LoginViewController {
                 UIApplication.shared.keyWindow?.rootViewController = loginViewController
-                self.dismiss(animated: false, completion: nil)
+                self.dismiss(animated: false,
+                             completion: nil)
             }
         }
     }
@@ -145,7 +161,8 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
                 return
             }
             UIApplication.shared.keyWindow?.rootViewController = mainNavigationController
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true,
+                         completion: nil)
         }
     }
 }
