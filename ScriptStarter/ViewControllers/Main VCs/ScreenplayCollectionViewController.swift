@@ -16,6 +16,8 @@ class ScreenplayCollectionViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var interstitial: GADInterstitial?
+    
     var screenplays: [Screenplay] = [] {
         didSet {
             self.collectionView.reloadData()
@@ -30,6 +32,11 @@ class ScreenplayCollectionViewController: UIViewController {
         super.viewDidLoad()
         
         getScreenplays()
+        
+        setShouldDisplayInterstitial(state: false)
+        
+        // Set timer to enable interstitial ads
+        scheduleInterstitialStateToTrue()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,9 +54,16 @@ class ScreenplayCollectionViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = strokeTextAttributes
         self.title = "Script Builder"
         self.collectionView.reloadData()
+        
+        // If interstitial is not ready load one
+        if !interstitialIsReady(interstitial: interstitial) {
+            interstitial = createAndLoadInterstitial()
+        }
+        
+        // Display ad if we have one loaded and we have interstitial ads enabled
+        display(interstitial: interstitial)
     }
-    
-
+   
     // MARK: IBActions
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
@@ -145,6 +159,3 @@ extension ScreenplayCollectionViewController: UICollectionViewDelegateFlowLayout
         return 20
     }
 }
-
-
-

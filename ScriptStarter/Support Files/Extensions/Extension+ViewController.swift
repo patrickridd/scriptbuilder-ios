@@ -16,6 +16,11 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         return ScreenplayController.shared.currentScreenplay
     }
     
+    var shouldDisplayInterstitials: Bool {
+        let shouldScheduleInterstitial = UserDefaults.standard.bool(forKey: Constants.shouldScheduleInterstitial)
+        return shouldScheduleInterstitial
+    }
+    
     func saveScreenplay() {
         let loadingNotification = MBProgressHUD.showAdded(to: self.view,
                                                           animated: true)
@@ -187,6 +192,17 @@ extension UIViewController: GADInterstitialDelegate {
         return interstitial
     }
     
+    func display(interstitial: GADInterstitial?) {
+        if shouldDisplayInterstitials {
+            if let interstitial = interstitial {
+                if interstitial.isReady, InAppPurchases.shouldDisplayAds {
+                    DispatchQueue.main.async {
+                        interstitial.present(fromRootViewController: self)
+                    }
+                }
+            }
+        }
+    }
     
     // Delegate Methods
     
@@ -198,4 +214,39 @@ extension UIViewController: GADInterstitialDelegate {
         print("Fail to receive interstitial")
     }
     
+    public func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        setShouldDisplayInterstitial(state: false)
+        scheduleInterstitialStateToTrue()
+    }
+}
+
+
+// MARK: Interstitial Ad State methods
+extension UIViewController {
+    
+    func setShouldDisplayInterstitial(state: Bool) {
+        UserDefaults.standard.set(state,
+                                  forKey: Constants.shouldScheduleInterstitial)
+    }
+    
+    func interstitialIsReady(interstitial: GADInterstitial?) -> Bool {
+        if let interstitial = interstitial {
+            return interstitial.isReady
+        } else {
+            return false
+        }
+    }
+    
+    @objc func enableInterstitialDisplay() {
+        setShouldDisplayInterstitial(state: true)
+    }
+    
+    func scheduleInterstitialStateToTrue() {
+        // Set timer to change enable interstitial ads every 3 minutes
+        Timer.scheduledTimer(timeInterval: 60*3,
+                             target: self,
+                             selector: #selector(enableInterstitialDisplay),
+                             userInfo: nil,
+                             repeats: false)
+    }
 }

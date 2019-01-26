@@ -44,14 +44,17 @@ class ScreenplayCoverViewController: UIViewController {
                                                 action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        // Load Interstitial and display it whenever they save
-        if InAppPurchases.shouldDisplayAds {
+        // If interstitial is not ready load one
+        if !interstitialIsReady(interstitial: interstitial) {
             interstitial = createAndLoadInterstitial()
         }
+        
+        // Display ad if we have one loaded and we have interstitial ads enabled
+        display(interstitial: interstitial)
     }
     
     // MARK: IBActions
@@ -74,11 +77,6 @@ class ScreenplayCoverViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        if let interstitial = interstitial {
-            if interstitial.isReady {
-                interstitial.present(fromRootViewController: self)
-            }
-        }
         saveScreenplay()
     }
     
