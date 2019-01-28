@@ -94,6 +94,16 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
+        guard
+            let descriptionCell = descriptionCell,
+            let text = descriptionCell.descriptionTextView.text
+        else {
+            self.saveScreenplay()
+            return
+        }
+        
+        delegate?.updatedText(text,
+                              in: self.section)
         self.saveScreenplay()
     }
     
