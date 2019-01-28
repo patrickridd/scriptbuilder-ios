@@ -15,6 +15,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     var viewController: ViewController = .outline
     var section: Int = 0
     var act: Act?
+    var scene: Scene?
     var character: Character?
 
     lazy var adBannerView: GADBannerView = {
@@ -142,7 +143,8 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         
         descriptionCell.update(viewController: self.viewController,
                                section: section,
-                               act: self.act )
+                               act: self.act,
+                               scene: self.scene)
         descriptionCell.backgroundColor = .screenLightGray
         addToolBar(textView: descriptionCell.descriptionTextView)
         
@@ -175,7 +177,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
             sectionHeader.sectionLabel.text = CharacterSection.sectionTitles[self.section-2]
             sectionHeader.subtitleLabel.text = CharacterSection.sectionSubtitles[self.section-2]
         case .sceneDetail:
-            sectionHeader.sectionLabel.text = Scene.sceneTitles[self.section-1]
+            sectionHeader.sectionLabel.text = Scene.sceneTitles[self.section]
         }
         return sectionHeader
     }

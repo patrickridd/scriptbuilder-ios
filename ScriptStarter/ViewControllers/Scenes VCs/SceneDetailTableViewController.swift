@@ -35,7 +35,8 @@ class SceneDetailTableViewController: UITableViewController {
     
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
-    
+    var scene: Scene?
+
     var isExpandingCell: Bool = false
     var isCollapsingCell: Bool = false
     
@@ -213,6 +214,28 @@ class SceneDetailTableViewController: UITableViewController {
     @IBAction func saveButtonTapped(_ sender: Any) {
         self.saveScreenplay()
     }
+    
+    @objc func expandButtonTapped(sender: UIButton) {
+        let indexPath = IndexPath(row: 0, section: sender.tag)
+        let storyboard = UIStoryboard(name: "Outline", bundle: nil)
+        guard
+            let enlargedNavigationController = storyboard.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController,
+            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController,
+            let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
+        else {
+            return
+        }
+        
+        enlargedVC.viewController = .sceneDetail
+        enlargedVC.text = descriptionCell.descriptionTextView.text
+        enlargedVC.section = sender.tag
+        enlargedVC.delegate = self
+        enlargedVC.scene = self.scene
+        
+        self.present(enlargedNavigationController,
+                     animated: true,
+                     completion: nil)
+    }
    
     // MARK: - TableView Data Source & Delegate Methods
 
@@ -242,35 +265,30 @@ class SceneDetailTableViewController: UITableViewController {
                                    act: self.act,
                                    character: nil,
                                    scene: self.scene)
+            descriptionCell?.expandButton.tag = indexPath.section
+            descriptionCell?.expandButton.addTarget(self,
+                                                    action: #selector(expandButtonTapped(sender:)),
+                                                    for: .touchUpInside)
             return descriptionCell ?? UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
       
         // Create Collapsible Header for Scene details
-        switch section {
-        case 0:
-            return nil
-        default:
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
-            header.contentView.backgroundColor = expandableSections[section].collapsed ? .white : UIColor.screenLightGray
-            header.titleLabel.text = Scene.sceneTitles[section]
-            header.subtitleLabel.text = Scene.sceneSubtitles[section]
-           // header.subtitleLabel.text = act.sectionSubTitles[section-self.sectionBesidesBeats]
-            header.setCollapsed(expandableSections[section].collapsed)
-            header.section = section
-            header.delegate = self
-            return header
-        }
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
+        header.contentView.backgroundColor = expandableSections[section].collapsed ? .white : UIColor.screenLightGray
+        header.titleLabel.text = Scene.sceneTitles[section]
+        header.subtitleLabel.text = Scene.sceneSubtitles[section]
+        // header.subtitleLabel.text = act.sectionSubTitles[section-self.sectionBesidesBeats]
+        header.setCollapsed(expandableSections[section].collapsed)
+        header.section = section
+        header.delegate = self
+        return header
+        
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 0:
-            return 0.0001
-        default:
-            return 60
-        }
+        return 60
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -420,6 +438,17 @@ extension SceneDetailTableViewController: GADBannerViewDelegate {
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         tableView.tableFooterView?.frame = bannerView.frame
         tableView.tableFooterView = bannerView
+    }
+    
+}
+
+extension SceneDetailTableViewController: DescriptionDelegate {
+    
+    func updatedText(_ text: String, in section: Int) {
+        let indexPath = IndexPath(row: 0, section: section)
+        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        
+        descriptionCell.descriptionTextView.text = text
     }
     
 }
