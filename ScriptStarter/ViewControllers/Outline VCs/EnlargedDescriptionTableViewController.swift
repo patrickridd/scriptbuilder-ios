@@ -26,6 +26,8 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         return adBannerView
     }()
     
+    var interstitial: GADInterstitial?
+    
     var text: String?
     
     weak var delegate: DescriptionDelegate?
@@ -55,10 +57,19 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
+        // If interstitial is not ready load one
+        if !interstitialIsReady(interstitial: interstitial) {
+            interstitial = createAndLoadInterstitial()
+        }
+        
+        // Display ad if we have one loaded and we have interstitial ads enabled
+        display(interstitial: interstitial)
+        
         // Make sure the keyboard is visible at all times on this screen
         guard let descriptionCell = descriptionCell else { return }
         descriptionCell.descriptionTextView.becomeFirstResponder()
     }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -182,14 +193,8 @@ class EnlargedDescriptionTableViewController: UITableViewController {
 extension EnlargedDescriptionTableViewController: GADBannerViewDelegate {
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Banner loaded successfully")
         tableView.tableFooterView?.frame = bannerView.frame
         tableView.tableFooterView = bannerView
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("Fail to receive ads")
-        print(error)
     }
     
 }

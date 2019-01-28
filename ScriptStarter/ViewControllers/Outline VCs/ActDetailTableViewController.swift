@@ -15,6 +15,7 @@ class ActDetailTableViewController: UITableViewController {
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .idea
     var sectionBesidesBeats: Int = 2
+    var interstitial: GADInterstitial?
     
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -46,6 +47,18 @@ class ActDetailTableViewController: UITableViewController {
         
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // If interstitial is not ready load one
+        if !interstitialIsReady(interstitial: interstitial) {
+            interstitial = createAndLoadInterstitial()
+        }
+        
+        // Display ad if we have one loaded and we have interstitial ads enabled
+        display(interstitial: interstitial)
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {

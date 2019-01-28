@@ -22,7 +22,7 @@ class SceneDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var sceneActNumberTextField: UITextField!
     
-    var scene: Scene?
+    var interstitial: GADInterstitial?
     
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -71,11 +71,21 @@ class SceneDetailTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+       
+        // If interstitial is not ready load one
+        if !interstitialIsReady(interstitial: interstitial) {
+            interstitial = createAndLoadInterstitial()
+        }
+        
+        // Display ad if we have one loaded and we have interstitial ads enabled
+        display(interstitial: interstitial)
+        
         guard let _ = self.scene else {
             createNewScene()
             self.sceneTitleTextField.becomeFirstResponder()
             return
         }
+      
     }
     
     

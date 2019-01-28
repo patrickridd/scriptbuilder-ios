@@ -30,6 +30,8 @@ class CharacterDetailTableViewController: UITableViewController {
     
     var customSelected: Bool = false // RoleCellSelected
     
+    var interstitial: GADInterstitial?
+    
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         adBannerView.adUnitID = GoogleAds.bannerAdUnitId
@@ -68,6 +70,18 @@ class CharacterDetailTableViewController: UITableViewController {
         if InAppPurchases.shouldDisplayAds {
             adBannerView.load(GADRequest())
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // If interstitial is not ready load one
+        if !interstitialIsReady(interstitial: interstitial) {
+            interstitial = createAndLoadInterstitial()
+        }
+        
+        // Display ad if we have one loaded and we have interstitial ads enabled
+        display(interstitial: interstitial)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

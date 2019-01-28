@@ -9,12 +9,15 @@
 import UIKit
 import MBProgressHUD
 import StoreKit
+import GoogleMobileAds
 
 protocol InAppPurchaseDelegate: class {
     func didCompleteTransaction(with error: Error?)
 }
 
 class SettingsTableViewController: UITableViewController {
+    
+    var interstitial: GADInterstitial?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +26,18 @@ class SettingsTableViewController: UITableViewController {
         self.view.backgroundColor = UIColor.screenLightGray
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = UIColor.screenLightGray
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // If interstitial is not ready load one
+        if !interstitialIsReady(interstitial: interstitial) {
+            interstitial = createAndLoadInterstitial()
+        }
+        
+        // Display ad if we have one loaded and we have interstitial ads enabled
+        display(interstitial: interstitial)
     }
     
     var loadingNotification = MBProgressHUD()

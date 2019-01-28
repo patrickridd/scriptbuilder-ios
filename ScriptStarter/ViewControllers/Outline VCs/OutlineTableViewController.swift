@@ -31,6 +31,8 @@ class OutlineTableViewController: UITableViewController {
 
     @IBOutlet weak var titleTextField: UITextField!
     
+    var interstitial: GADInterstitial?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let rightSwipe = UISwipeGestureRecognizer(target: self,
@@ -53,6 +55,19 @@ class OutlineTableViewController: UITableViewController {
             adBannerView.load(GADRequest())
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // If interstitial is not ready load one
+        if !interstitialIsReady(interstitial: interstitial) {
+            interstitial = createAndLoadInterstitial()
+        }
+        
+        // Display ad if we have one loaded and we have interstitial ads enabled
+        display(interstitial: interstitial)
+    }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
