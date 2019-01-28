@@ -17,8 +17,10 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     }
     
     var shouldDisplayInterstitials: Bool {
-        let shouldScheduleInterstitial = UserDefaults.standard.bool(forKey: Constants.shouldScheduleInterstitial)
-        return shouldScheduleInterstitial
+        let shouldDisplayInterstitial = UserDefaults.standard.bool(forKey: Constants.shouldDisplayInterstitial)
+        
+        // Should display interstitial if user defaults is stored as true and if they havent purchased the IAP
+        return (shouldDisplayInterstitial && InAppPurchases.shouldDisplayAds)
     }
     
     func saveScreenplay() {
@@ -193,9 +195,9 @@ extension UIViewController: GADInterstitialDelegate {
     }
     
     func display(interstitial: GADInterstitial?) {
-        if shouldDisplayInterstitials {
+        if shouldDisplayInterstitials, InAppPurchases.shouldDisplayAds {
             if let interstitial = interstitial {
-                if interstitial.isReady, InAppPurchases.shouldDisplayAds {
+                if interstitial.isReady {
                     DispatchQueue.main.async {
                         interstitial.present(fromRootViewController: self)
                     }
@@ -226,7 +228,7 @@ extension UIViewController {
     
     func setShouldDisplayInterstitial(state: Bool) {
         UserDefaults.standard.set(state,
-                                  forKey: Constants.shouldScheduleInterstitial)
+                                  forKey: Constants.shouldDisplayInterstitial)
     }
     
     func interstitialIsReady(interstitial: GADInterstitial?) -> Bool {
@@ -243,7 +245,7 @@ extension UIViewController {
     
     func scheduleInterstitialStateToTrue() {
         // Set timer to change enable interstitial ads every 3 minutes
-        Timer.scheduledTimer(timeInterval: 60*3,
+        Timer.scheduledTimer(timeInterval:60*3,
                              target: self,
                              selector: #selector(enableInterstitialDisplay),
                              userInfo: nil,

@@ -11,5 +11,5 @@ import Foundation
 struct Constants {
     
     // Keys
-    static let shouldScheduleInterstitial: String = "shouldScheduleAd"
+    static let shouldDisplayInterstitial: String = "shouldScheduleAd"
 }
