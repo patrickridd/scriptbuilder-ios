@@ -343,6 +343,7 @@ extension ActDetailTableViewController: DescriptionDelegate {
         guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
         
         descriptionCell.descriptionTextView.text = text
+        descriptionCell.textViewDidChange(descriptionCell.descriptionTextView)
     }
     
 }
