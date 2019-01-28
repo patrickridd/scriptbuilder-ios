@@ -216,8 +216,10 @@ class SceneDetailTableViewController: UITableViewController {
     }
     
     @objc func expandButtonTapped(sender: UIButton) {
-        let indexPath = IndexPath(row: 0, section: sender.tag)
-        let storyboard = UIStoryboard(name: "Outline", bundle: nil)
+        let indexPath = IndexPath(row: 0,
+                                  section: sender.tag)
+        let storyboard = UIStoryboard(name: "Outline",
+                                      bundle: nil)
         guard
             let enlargedNavigationController = storyboard.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController,
             let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController,
@@ -261,10 +263,10 @@ class SceneDetailTableViewController: UITableViewController {
             descriptionCell?.defaultHeight = self.getDefaultHeightOfCell()
             descriptionCell?.contentView.backgroundColor = .screenLightGray
             descriptionCell?.update(viewController: .sceneDetail,
-                                   section: indexPath.section,
-                                   act: self.act,
-                                   character: nil,
-                                   scene: self.scene)
+                                    section: indexPath.section,
+                                    act: self.act,
+                                    character: nil,
+                                    scene: self.scene)
             descriptionCell?.expandButton.tag = indexPath.section
             descriptionCell?.expandButton.addTarget(self,
                                                     action: #selector(expandButtonTapped(sender:)),
