@@ -154,6 +154,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         descriptionCell.update(viewController: self.viewController,
                                section: section,
                                act: self.act,
+                               character: self.character,
                                scene: self.scene)
         descriptionCell.backgroundColor = .screenLightGray
         addToolBar(textView: descriptionCell.descriptionTextView)
