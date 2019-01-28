@@ -198,7 +198,9 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.height * (1/3)
+        let noBannerAdConstant: CGFloat = InAppPurchases.shouldDisplayAds ? 0 : adBannerView.frame.height
+        
+        return self.view.frame.height * (1/3) + noBannerAdConstant
     }
 
 }
