@@ -50,8 +50,8 @@ class Scene: Hashable, Equatable {
     init?(uuid: String, sceneDictionary: [String:Any]) {
         self.uuid = uuid
         self.title = sceneDictionary[self.titleKey] as? String ?? ""
-         self.header = sceneDictionary[self.headerKey] as? String ?? ""
-         self.sceneNumber = sceneDictionary[self.sceneNumberKey] as? Int ?? 0
+        self.header = sceneDictionary[self.headerKey] as? String ?? ""
+        self.sceneNumber = sceneDictionary[self.sceneNumberKey] as? Int ?? 0
         self.sceneDescription = sceneDictionary[self.sceneDescriptionKey] as? String ?? ""
         self.dialogue = sceneDictionary[self.dialogueKey] as? String ?? ""
         self.action = sceneDictionary[self.actionKey] as? String ?? ""
@@ -70,7 +70,7 @@ class Scene: Hashable, Equatable {
     }
     
     static var sceneSubtitles: [String] {
-        return ["Overall idea of what happens and feeling the scene bring",
+        return ["Overall idea of what happens and the feeling the scene brings",
             "What do the characters want and what are they feeling?",
             "What snappy dialogue and/or information is said?",
             "What are your characters doing?",

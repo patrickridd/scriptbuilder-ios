@@ -29,7 +29,7 @@ enum CharacterSection {
                 "What obstacles are in your characters's way?",
                 "What flaws or fears does your character have?",
                 "Does acheiving their intention solve their problem?",
-                "Is there something the character \"needs\" to do but is avoiding to fix their problem?",
+                "Is there something the character \"needs\" to do but is avoiding that would fix their problem?",
                 "How is the character changed through the story?",
                 "Any other pertinent details about the character?"]
     }
