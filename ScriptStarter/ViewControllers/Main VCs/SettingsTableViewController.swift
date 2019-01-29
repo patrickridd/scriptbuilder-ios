@@ -18,7 +18,8 @@ protocol InAppPurchaseDelegate: class {
 class SettingsTableViewController: UITableViewController {
     
     var interstitial: GADInterstitial?
-    
+    var loadingNotification = MBProgressHUD()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,8 +40,6 @@ class SettingsTableViewController: UITableViewController {
         // Display ad if we have one loaded and we have interstitial ads enabled
         display(interstitial: interstitial)
     }
-    
-    var loadingNotification = MBProgressHUD()
     
     // MARK: UI Methods
     
