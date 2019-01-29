@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
             
             // Initialize GoogleMobileAds
-            GADMobileAds.configure(withApplicationID: "ca-app-pub-1297096402264538~9994351234")
+            GADMobileAds.configure(withApplicationID: GoogleAds.applicationId)
             
             if isLoggedIn {
                 // User is logged in so present their screenplays
