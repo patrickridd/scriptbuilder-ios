@@ -125,10 +125,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func presentNewCharacter() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let screenplayCoverVC = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController,
+        guard
+            let screenplayCoverVC = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController,
             let screenplayTabBar = screenplayCoverVC.orderedViewControllers[1] as? ScreenplayTabBarController,
             let characterNavigationController = screenplayTabBar.viewControllers?[1] as? UINavigationController,
-             let characterTableViewController =  characterNavigationController.viewControllers[0] as? CharacterTableViewController else {
+             let characterTableViewController =  characterNavigationController.viewControllers[0] as? CharacterTableViewController
+        else {
             return
         }
         
@@ -152,12 +154,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func presentNewScene() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let screenplayCoverVC = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController,
+        let mainStoryboard = UIStoryboard(name: "Main",
+                                          bundle: nil)
+        guard
+            let screenplayCoverVC = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController,
             let screenplayTabBar = screenplayCoverVC.orderedViewControllers[1] as? ScreenplayTabBarController,
             let sceneNavigationController = screenplayTabBar.viewControllers?[2] as? UINavigationController,
-            let scenesTableViewController =  sceneNavigationController.viewControllers[0] as? ScenesTableViewController else {
-                return
+            let scenesTableViewController =  sceneNavigationController.viewControllers[0] as? ScenesTableViewController
+        else {
+            return
         }
         
         screenplayCoverVC.swipedLeft()
