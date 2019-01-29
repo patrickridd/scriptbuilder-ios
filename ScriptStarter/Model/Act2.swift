@@ -103,13 +103,13 @@ class Act2: Equatable {
     
     var firActTwoDictionary: [String:Any] {
         return [self.newWorldDescriptionKey:self.newWorldDescription,       self.enemiesFriendsKey:self.enemiesFriends,
-                self.obstaclesKey:obstaclesKey,
+                self.obstaclesKey:obstacles,
                 self.theDeadlyEncounterKey:theDeadlyEncounter,
                 self.sharpeningTheSwordKey:self.sharpeningTheSword,
                 self.burnTheBoatsKey:self.burnTheBoats,
                 self.celebrateKey:celebrate,
                 self.stormGathersKey:stormGathers,
-                self.badGuysStrikeBackKey:badGuysStrikeBackKey,
+                self.badGuysStrikeBackKey:badGuysStrikeBack,
                 self.allIsLostKey:allIsLost]
     }
 }

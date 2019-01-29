@@ -71,11 +71,11 @@ class Scene: Hashable, Equatable {
     
     static var sceneSubtitles: [String] {
         return ["Overall idea of what happens and the feeling the scene brings",
-            "What do the characters want and what are they feeling?",
-            "What snappy dialogue and/or information is said?",
-            "What are your characters doing?",
-            "How does the scene move the story forward?",
-            "Details you don't want to forget"]
+                "What do the characters want and what are they feeling?",
+                "What snappy dialogue and/or information is said?",
+                "What are your characters doing?",
+                "How does the scene move the story forward?",
+                "Details you don't want to forget"]
     }
     
     var sceneDictionary: [String:Any] {

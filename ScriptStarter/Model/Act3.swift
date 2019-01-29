@@ -72,6 +72,6 @@ class Act3: Equatable {
         return [self.theUltimateAnswerKey:self.theUltimateAnswer,
                 self.rewardsKey:self.rewards,
                 self.untangleStoryKey:self.untangleStory,
-            self.brandNewWorldKey:self.brandNewWorld]
+                self.brandNewWorldKey:self.brandNewWorld]
     }
 }
