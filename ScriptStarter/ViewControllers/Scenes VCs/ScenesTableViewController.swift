@@ -11,8 +11,11 @@ import GoogleMobileAds
 
 class ScenesTableViewController: UITableViewController {
     
-    var newScene: Bool = false
+    @IBOutlet weak var addSceneButton: UIBarButtonItem!
     
+    var newScene: Bool = false
+    var products: [SKProduct]?
+
     var interstitial: GADInterstitial?
     
     lazy var adBannerView: GADBannerView = {
@@ -36,7 +39,12 @@ class ScenesTableViewController: UITableViewController {
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
         
-        if newScene {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(checkForSceneFeatureEnabled),
+                                               name: Notification.Name.IAPHelperPurchaseNotification,
+                                               object: nil)
+        
+        if newScene, InAppPurchases.sceneFeatureEnabled {
             self.pushToSceneDetailView(act: .one,
                                        scene: nil)
         }
@@ -46,9 +54,17 @@ class ScenesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.reloadTableView()
         
+        
+        // Retrieves in app purchases from apple
+        InAppPurchases.store.requestProducts { (_, products) in
+            self.products = products
+        }
+        
         if InAppPurchases.shouldDisplayAds {
             adBannerView.load(GADRequest())
         }
+        
+        checkForSceneFeatureEnabled()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -61,6 +77,10 @@ class ScenesTableViewController: UITableViewController {
         
         // Display ad if we have one loaded and we have interstitial ads enabled
         display(interstitial: interstitial)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
@@ -207,12 +227,63 @@ class ScenesTableViewController: UITableViewController {
         navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
+    @objc func checkForSceneFeatureEnabled() {
+        
+        if InAppPurchases.sceneFeatureEnabled {
+            enableView()
+        } else {
+            disableView()
+            presentIapAlert()
+        }
+    }
+    
+    func disableView() {
+        self.view.alpha = 0.8
+        self.view.isUserInteractionEnabled = false
+        self.addSceneButton.isEnabled = false
+    }
+    
+    func enableView() {
+        self.view.alpha = 1.0
+        self.view.isUserInteractionEnabled = true
+        self.addSceneButton.isEnabled = true
+    }
+    
+    func presentIapAlert() {
+        let alert = UIAlertController(title: "Scene Builder disabled\n😥",
+                                      message: "The Scene Builder feature requires a one time purchase.",
+                                      preferredStyle: .alert)
+        let purchaseAction = UIAlertAction(title: "$0.99 😎", style: .default) { [weak self] (_) in
+            if let sceneFeatureProduct = self?.products?.filter({$0.productIdentifier == InAppPurchases.sceneFeatureIdentifier}).first {
+                InAppPurchases.store.buyProduct(sceneFeatureProduct)
+            }
+        }
+        
+        alert.addAction(purchaseAction)
+        
+        let restoreAction = UIAlertAction(title: "Restore", style: .default) { [weak self] (_) in
+            guard let products = self?.products else { return }
+            for product in products {
+                InAppPurchases.store.restorePurchase(for: product)
+            }
+        }
+        alert.addAction(restoreAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .default,
+                                         handler: nil)
+        alert.addAction(cancelAction)
+        present(alert,
+                animated: true,
+                completion: nil)
+    }
+    
+    
     // MARK: - IBActions and Target Methods
     
     @IBAction func saveButtonTapped(sender: AnyObject) {
         self.saveScreenplay()
     }
-    
   
     @IBAction func plusButtonTapped(_ sender: UIButton) {
         if let act = Act(rawValue: sender.tag) {
