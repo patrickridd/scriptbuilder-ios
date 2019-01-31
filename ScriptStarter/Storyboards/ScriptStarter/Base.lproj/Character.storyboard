@@ -139,6 +139,9 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addCharacterButton" destination="z05-wF-IJX" id="MfC-S9-heS"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nJK-mR-lP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
