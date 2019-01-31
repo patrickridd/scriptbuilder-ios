@@ -111,13 +111,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func presentNewScreenplayIdea() {
+        ScreenplayController.shared.resetCurrentScreenplay()
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else {
-           // let screenplayCoverVC =  mainNavigationController.viewControllers[1] as? ScreenplayPageViewController else {
             return
         }
-       
+        
         self.window?.rootViewController = mainNavigationController
         self.window?.makeKeyAndVisible()
     }
