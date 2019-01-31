@@ -69,6 +69,7 @@
 		21B8FB84201A93D0000A8721 /* ScreenplayPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB83201A93D0000A8721 /* ScreenplayPageViewController.swift */; };
 		21B8FB88201AA656000A8721 /* ScreenplayTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB87201AA656000A8721 /* ScreenplayTabBarController.swift */; };
 		21C903D82016528A0017D626 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C903D72016528A0017D626 /* LoginViewController.swift */; };
+		21D3FA1D220277870058D8AE /* Extension+NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D3FA1C220277870058D8AE /* Extension+NotificationCenter.swift */; };
 		21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727ED202CE17700861C2D /* ActBeatSectionHeader.swift */; };
 		21D727F0202CEB8500861C2D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727EF202CEB8500861C2D /* ViewController.swift */; };
 		21D727F2202CFD2400861C2D /* Extension+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727F1202CFD2400861C2D /* Extension+ViewController.swift */; };
@@ -175,6 +176,7 @@
 		21B8FB83201A93D0000A8721 /* ScreenplayPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayPageViewController.swift; sourceTree = "<group>"; };
 		21B8FB87201AA656000A8721 /* ScreenplayTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayTabBarController.swift; sourceTree = "<group>"; };
 		21C903D72016528A0017D626 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		21D3FA1C220277870058D8AE /* Extension+NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+NotificationCenter.swift"; sourceTree = "<group>"; };
 		21D727ED202CE17700861C2D /* ActBeatSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActBeatSectionHeader.swift; sourceTree = "<group>"; };
 		21D727EF202CEB8500861C2D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		21D727F1202CFD2400861C2D /* Extension+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+ViewController.swift"; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				21D727F1202CFD2400861C2D /* Extension+ViewController.swift */,
 				21F8AA8020322AFC0008B4C1 /* Extension+UITableViewController.swift */,
 				2153C3442075608300C08B73 /* Extension+UITextField.swift */,
+				21D3FA1C220277870058D8AE /* Extension+NotificationCenter.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -930,6 +933,7 @@
 				21D727F0202CEB8500861C2D /* ViewController.swift in Sources */,
 				211215C5203652520039D6E8 /* BasicInfoCharacterTableViewCell.swift in Sources */,
 				21A7CF68202A683800D97394 /* Act3.swift in Sources */,
+				21D3FA1D220277870058D8AE /* Extension+NotificationCenter.swift in Sources */,
 				21F8AA8120322AFC0008B4C1 /* Extension+UITableViewController.swift in Sources */,
 				21A7CF64202A672100D97394 /* Act1.swift in Sources */,
 				21E661BF2017C236006A14AF /* OutlineTableViewController.swift in Sources */,

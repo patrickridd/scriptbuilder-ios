@@ -13,7 +13,6 @@ public typealias ProductsRequestCompletionHandler = (_ success: Bool, _ products
 
 open class IAPHelper: NSObject  {
     
-    static let IAPHelperPurchaseNotification = "IAPHelperPurchaseNotification"
     private let productIdentifiers: Set<ProductIdentifier>
     private var purchasedProductIdentifiers = Set<ProductIdentifier>()
     private var productsRequest: SKProductsRequest?
@@ -149,7 +148,7 @@ extension IAPHelper: SKPaymentTransactionObserver {
         purchasedProductIdentifiers.insert(identifier)
         UserDefaults.standard.set(true, forKey: identifier)
         UserDefaults.standard.synchronize()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:IAPHelper.IAPHelperPurchaseNotification),
+        NotificationCenter.default.post(name: Notification.Name.IAPHelperPurchaseNotification,
                                         object: identifier)
     }
 }
