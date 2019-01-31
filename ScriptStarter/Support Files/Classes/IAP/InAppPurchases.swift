@@ -10,14 +10,26 @@ import Foundation
 
 public struct InAppPurchases {
     
-    public static let noAdsAndOfflineStorage = "com.patrickridd.ScriptStarter.NoAds"
+    public static let noAdsIdentifier = "com.patrickridd.ScriptStarter.NoAds"
+    public static let characterFeatureIdentifier = "com.patrickridd.ScriptStarter.Character.Builder"
+    public static let sceneFeatureIdentifier = "com.patrickridd.ScriptStarter.Scene.Builder"
     
-    private static let productIdentifiers: Set<ProductIdentifier> = [InAppPurchases.noAdsAndOfflineStorage]
+    private static let productIdentifiers: Set<ProductIdentifier> = [InAppPurchases.noAdsIdentifier,
+                                                                     InAppPurchases.characterFeatureIdentifier,
+                                                                     InAppPurchases.sceneFeatureIdentifier]
     
     public static let store = IAPHelper(productIds: InAppPurchases.productIdentifiers)
     
     public static var shouldDisplayAds: Bool {
-        return !InAppPurchases.store.isProductPurchased(InAppPurchases.noAdsAndOfflineStorage)
+        return !InAppPurchases.store.isProductPurchased(InAppPurchases.noAdsIdentifier)
+    }
+    
+    public static var characterFeatureEnabled: Bool {
+        return InAppPurchases.store.isProductPurchased(InAppPurchases.characterFeatureIdentifier)
+    }
+    
+    public static var sceneFeatureEnabled: Bool {
+        return InAppPurchases.store.isProductPurchased(InAppPurchases.sceneFeatureIdentifier)
     }
 }
 
