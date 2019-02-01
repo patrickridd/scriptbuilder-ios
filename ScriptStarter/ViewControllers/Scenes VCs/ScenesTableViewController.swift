@@ -189,7 +189,8 @@ class ScenesTableViewController: UITableViewController {
     }
     
     func snapshopOfCell(inputView: UIView) -> UIView {
-        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size,
+                                               false, 0.0)
         inputView.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -221,9 +222,9 @@ class ScenesTableViewController: UITableViewController {
         navigationController?.navigationBar.tintColor = .screenLightBlue
         navigationController?.navigationBar.barTintColor = .white
         let backButton = UIBarButtonItem(title: "Home",
-                                          style: .plain,
-                                          target: self,
-                                          action: #selector(handleRightSwipe(sender:)))
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(handleRightSwipe(sender:)))
         navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
@@ -360,7 +361,6 @@ class ScenesTableViewController: UITableViewController {
             if scenesCount == 0 {
                 let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier",
                                                                       for: indexPath) as?NoCharacterTableViewCell
-                
                 return noSceneCell ?? UITableViewCell()
             }
             let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell",
@@ -377,7 +377,6 @@ class ScenesTableViewController: UITableViewController {
             if scenesCount == 0 {
                 let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier",
                                                                 for: indexPath) as? NoCharacterTableViewCell
-                
                 return noSceneCell ?? UITableViewCell()
             }
             let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell",
@@ -530,93 +529,16 @@ class ScenesTableViewController: UITableViewController {
         // We don't want cells with "Tap + to create a new Scene!" to be editable
         switch indexPath.section {
         case 0:
-            if screenplay?.act1.scenes.count == 0 {
-                return false
-            }
+            if screenplay?.act1.scenes.count == 0 { return false }
         case 1:
-            if screenplay?.act2.scenes.count == 0 {
-                return false
-            }
+            if screenplay?.act2.scenes.count == 0 { return false }
         case 2:
-            if screenplay?.act3.scenes.count == 0 {
-                return false
-            }
+            if screenplay?.act3.scenes.count == 0 { return false }
         default:
             break
         }
         return true
     }
-    
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        guard let navigationController = segue.destination as? UINavigationController, let sceneDetailTVC = navigationController.viewControllers[0] as? SceneDetailTableViewController,
-//        let indexPath = self.tableView.indexPathForSelectedRow else {
-//            return
-//        }
-//        
-//        if segue.identifier == "sceneSegue" {
-//            guard let indexPath = self.tableView.indexPathForSelectedRow else {
-//                return
-//            }
-//
-//            var scene: Scene?
-//            switch indexPath.section {
-//            case 0:
-//                scene = self.screenplay?.act1.scenes[indexPath.row]
-//            case 1:
-//                scene = self.screenplay?.act2.scenes[indexPath.row]
-//            case 2:
-//                scene = self.screenplay?.act3.scenes[indexPath.row]
-//            default:
-//                break
-//            }
-//            sceneDetailTVC.scene = scene
-//
-//        } else if segue.identifier == "newSceneSegue" {
-//
-//            switch indexPath.section  {
-//            case 0:
-//                guard let sceneCount = self.screenplay?.act1.scenes.count else { break }
-//                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
-//                self.screenplay?.act1.scenes.append(scene)
-//                sceneDetailTVC.act = .one
-//                sceneDetailTVC.scene = scene
-//            case 1:
-//                guard let sceneCount = self.screenplay?.act2.scenes.count else { break }
-//                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
-//                self.screenplay?.act2.scenes.append(scene)
-//                sceneDetailTVC.act = .two
-//                sceneDetailTVC.scene = scene
-//            case 2:
-//                guard let sceneCount = self.screenplay?.act3.scenes.count else { break }
-//                let scene = Scene(title: "New Scene", sceneNumber: sceneCount+1)
-//                self.screenplay?.act3.scenes.append(scene)
-//                sceneDetailTVC.act = .three
-//                sceneDetailTVC.scene = scene
-//            default:
-//                break
-//            }
-//        }
-//    }
-    
 
 }
 

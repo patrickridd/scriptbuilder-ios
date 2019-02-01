@@ -204,7 +204,6 @@ class SceneDetailTableViewController: UITableViewController {
         sceneActNumberTVC.delegate = self // SceneActSelected protocol
         sceneActNumberTVC.preferredContentSize = CGSize(width: self.sceneActNumberTextField.bounds.width,
                                                         height: CGFloat(90))
-        
         self.present(sceneActNumberTVC,
                      animated: true,
                      completion: nil)
