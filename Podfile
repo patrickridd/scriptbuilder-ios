@@ -15,7 +15,6 @@ target 'ScriptStarter' do
   pod 'Hero'
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'Google-Mobile-Ads-SDK'
-  pod 'GoogleAnalytics'
   pod 'Firebase/DynamicLinks'
   pod 'KMPlaceholderTextView', '~> 1.4.0'
   

@@ -694,7 +694,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bsA-tJ-KQJ">
-                                            <rect key="frame" x="20" y="32.333333333333336" width="374" height="55.000000000000007"/>
+                                            <rect key="frame" x="20" y="32.333333333333343" width="374" height="55"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="J9l-QQ-5Mc">
                                                     <rect key="frame" x="99.666666666666686" y="0.0" width="175" height="30"/>
@@ -926,7 +926,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K58-R9-BzK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2232" y="130"/>
+            <point key="canvasLocation" x="2342" y="130"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PND-EA-BRk">
