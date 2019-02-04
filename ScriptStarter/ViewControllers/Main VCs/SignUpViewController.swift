@@ -82,8 +82,6 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
     }
     
-    // MARK: UI Methods
-    
     func showActivityIndicator() {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true

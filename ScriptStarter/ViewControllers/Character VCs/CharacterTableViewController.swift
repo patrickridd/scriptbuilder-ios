@@ -15,6 +15,8 @@ class CharacterTableViewController: UITableViewController {
     @IBOutlet weak var addCharacterButton: UIBarButtonItem!
     
     var interstitial: GADInterstitial?
+    var rewardBasedAd: GADRewardBasedVideoAd?
+    
     var products: [SKProduct]?
 
     lazy var adBannerView: GADBannerView = {
@@ -59,6 +61,13 @@ class CharacterTableViewController: UITableViewController {
         setupNavigationBar()
         setupRoleSections()
         
+        // If RewardBased Ad is not ready load one
+        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
+            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
+            rewardBasedAd?.delegate = self
+            rewardBasedAd?.load(GADRequest(), withAdUnitID: GoogleAds.characterBuilderRewardAdId)
+        }
+
         if InAppPurchases.shouldDisplayAds {
             adBannerView.load(GADRequest())
         }
@@ -69,6 +78,7 @@ class CharacterTableViewController: UITableViewController {
         InAppPurchases.store.requestProducts { (_, products) in
             self.products = products
         }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -109,8 +119,7 @@ class CharacterTableViewController: UITableViewController {
     }
     
     @objc func checkForCharacterFeatureEnabled() {
-        
-        if InAppPurchases.characterFeatureEnabled {
+        if InAppPurchases.characterFeatureEnabled || self.characterBuilderRewarded() {
             enableView()
         } else {
             disableView()
@@ -150,6 +159,18 @@ class CharacterTableViewController: UITableViewController {
         }
         alert.addAction(restoreAction)
       
+        let tryAction = UIAlertAction(title: "Try it by watching ad",
+                                      style: .default) { [weak self] (_) in
+                                        
+            guard let strongSelf = self else { return }
+            strongSelf.rewardBasedAd?.present(fromRootViewController: strongSelf)
+            
+        }
+        
+        if rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
+            alert.addAction(tryAction)
+        }
+        
         let cancelAction = UIAlertAction(title: "Cancel",
                                          style: .default,
                                          handler: nil)

@@ -45,6 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Initialize GoogleMobileAds
             GADMobileAds.configure(withApplicationID: GoogleAds.applicationId)
             
+            // Reset Ad Rewarded features
+            resetAdRewardedFeatures()
+            
             if isLoggedIn {
                 // User is logged in so present their screenplays
                 self.presentScreenplayCollectionView()
@@ -183,6 +186,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func resetAdRewardedFeatures() {
+        // If user terminates app expire Character builder trial
+        UserDefaults.standard.set(false,
+                                  forKey: Constants.characterBuilderRewardEnabled)
+       
+        // If user terminates app expire Scene builder trial
+        UserDefaults.standard.set(false,
+                                  forKey: Constants.sceneBuilderTrialType)
+    }
+    
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
         // Handles both Facebook and Google
@@ -201,5 +214,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                                                 options: options) || GIDSignIn.sharedInstance().handle(url,sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
             return handled
     }
+    
 }
 

@@ -239,6 +239,14 @@ extension UIViewController {
         }
     }
     
+    func rewardBasedAdReady(rewardBasedAd: GADRewardBasedVideoAd?) -> Bool {
+        if let rewardBasedAd = rewardBasedAd {
+            return rewardBasedAd.isReady
+        } else {
+            return false
+        }
+    }
+    
     @objc func enableInterstitialDisplay() {
         setShouldDisplayInterstitial(state: true)
     }
@@ -252,3 +260,49 @@ extension UIViewController {
                              repeats: false)
     }
 }
+
+
+extension UIViewController: GADRewardBasedVideoAdDelegate {
+    
+    public func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
+                            didRewardUserWith reward: GADAdReward) {
+        switch reward.type {
+        case Constants.characterBuilderTrialType:
+            self.rewardUserWithCharacterBuilder()
+        case Constants.sceneBuilderTrialType:
+            self.rewardUserWithSceneBuilder()
+        default:
+            self.rewardUserWithSceneBuilder()
+            self.rewardUserWithCharacterBuilder()
+        }
+    }
+    
+    private func rewardBasedVideoAdDidClose(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
+        
+    }
+    
+    
+    // Reward Based Ad - Character Builder helper methods
+    
+    func scheduleTimerForCharacterBuilderReward() {
+        Timer.scheduledTimer(timeInterval: 60*10,
+                             target: self,
+                             selector: #selector(expireCharacterBuilderReward),
+                             userInfo: nil,
+                             repeats: false)
+    }
+    
+    @objc func expireCharacterBuilderReward() {
+        UserDefaults.standard.set(false,
+                                  forKey: Constants.characterBuilderRewardEnabled)
+    }
+    
+    func rewardUserWithCharacterBuilder() {
+        UserDefaults.standard.set(true,
+                                  forKey: Constants.characterBuilderRewardEnabled)
+        scheduleTimerForCharacterBuilderReward()
+    }
+    
+    func characterBuilderRewarded() -> Bool {
+        return UserDefaults.standard.bool(forKey: Constants.characterBuilderRewardEnabled)
+    }

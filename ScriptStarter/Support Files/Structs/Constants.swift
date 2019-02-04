@@ -12,4 +12,10 @@ struct Constants {
     
     // Keys
     static let shouldDisplayInterstitial: String = "shouldScheduleAd"
+    static let characterBuilderRewardEnabled: String = "characterBuilderRewardEnabled"
+    
+    
+    // Reward Based Ad Types
+    
+    static let characterBuilderTrialType = "Character Builder Trial"
 }
