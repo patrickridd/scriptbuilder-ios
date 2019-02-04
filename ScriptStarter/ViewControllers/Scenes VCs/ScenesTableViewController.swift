@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
+import MBProgressHUD
 
 class ScenesTableViewController: UITableViewController {
     
@@ -17,8 +18,10 @@ class ScenesTableViewController: UITableViewController {
     var products: [SKProduct]?
 
     var interstitial: GADInterstitial?
-    
     var rewardBasedAd: GADRewardBasedVideoAd?
+
+    var loadingNotification = MBProgressHUD()
+
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         adBannerView.adUnitID = GoogleAds.bannerAdUnitId
@@ -263,6 +266,7 @@ class ScenesTableViewController: UITableViewController {
                                       preferredStyle: .alert)
         let purchaseAction = UIAlertAction(title: "$0.99 😎", style: .default) { [weak self] (_) in
             if let sceneFeatureProduct = self?.products?.filter({$0.productIdentifier == InAppPurchases.sceneFeatureIdentifier}).first {
+                InAppPurchases.store.delegate = self
                 InAppPurchases.store.buyProduct(sceneFeatureProduct)
             }
         }
@@ -272,6 +276,7 @@ class ScenesTableViewController: UITableViewController {
         let restoreAction = UIAlertAction(title: "Restore", style: .default) { [weak self] (_) in
             guard let products = self?.products else { return }
             for product in products {
+                InAppPurchases.store.delegate = self
                 InAppPurchases.store.restorePurchase(for: product)
             }
         }
@@ -298,6 +303,34 @@ class ScenesTableViewController: UITableViewController {
                 completion: nil)
     }
     
+    func showActivityIndicator() {
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            self.loadingNotification =
+                MBProgressHUD.showAdded(to: self.view, animated: true)
+            self.loadingNotification.mode = MBProgressHUDMode.indeterminate
+            self.loadingNotification.animationType = .fade
+            self.loadingNotification.label.text = "loading"
+        }
+    }
+    
+    func hideActivityIndicator(success: Bool) {
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.loadingNotification.mode = .customView
+            if success {
+                self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
+                self.loadingNotification.label.text = "success"
+                self.loadingNotification.hide(animated: true, afterDelay: 1)
+                return
+            } else {
+                self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
+                self.loadingNotification.label.text = "failed"
+                self.loadingNotification.hide(animated: true, afterDelay: 0)
+            }
+        }
+        
+    }
     
     // MARK: - IBActions and Target Methods
     
@@ -567,6 +600,17 @@ extension ScenesTableViewController: GADBannerViewDelegate {
         print("Banner loaded successfully")
         tableView.tableHeaderView?.frame = bannerView.frame
         tableView.tableHeaderView = bannerView
+    }
+    
+}
+
+extension ScenesTableViewController: InAppPurchaseDelegate {
+    
+    func didCompleteTransaction(with error: Error?) {
+        self.hideActivityIndicator(success: error == nil)
+        if let error = error {
+            present(error: error)
+        }
     }
     
 }
