@@ -172,6 +172,20 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
                          completion: nil)
         }
     }
+    
+    // MARK: UIAlertControllers
+    func present(error: Error) {
+        let alert = UIAlertController(title: "Error",
+                                      message: error.localizedDescription,
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK",
+                                     style: .default,
+                                     handler: nil)
+        alert.addAction(okAction)
+        self.present(alert,
+                     animated: true,
+                     completion: nil)
+    }
 }
 
 extension UIViewController: GADInterstitialDelegate {
@@ -252,8 +266,8 @@ extension UIViewController {
     }
     
     func scheduleInterstitialStateToTrue() {
-        // Set timer to change enable interstitial ads every 3 minutes
-        Timer.scheduledTimer(timeInterval:60*3,
+        // Set timer to change enable interstitial ads every 5 minutes
+        Timer.scheduledTimer(timeInterval:60*5,
                              target: self,
                              selector: #selector(enableInterstitialDisplay),
                              userInfo: nil,
