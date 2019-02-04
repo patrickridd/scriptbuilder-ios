@@ -306,3 +306,29 @@ extension UIViewController: GADRewardBasedVideoAdDelegate {
     func characterBuilderRewarded() -> Bool {
         return UserDefaults.standard.bool(forKey: Constants.characterBuilderRewardEnabled)
     }
+    
+    // Reward Based Ad - Scene Builder helper methods
+    
+    func scheduleTimerForSceneBuilderReward() {
+        Timer.scheduledTimer(timeInterval: 60*10,
+                             target: self,
+                             selector: #selector(expireSceneBuilderReward),
+                             userInfo: nil,
+                             repeats: false)
+    }
+    
+    @objc func expireSceneBuilderReward() {
+        UserDefaults.standard.set(false,
+                                  forKey: Constants.sceneBuilderTrialType)
+    }
+    
+    func rewardUserWithSceneBuilder() {
+        UserDefaults.standard.set(true,
+                                  forKey: Constants.sceneBuilderTrialType)
+        scheduleTimerForSceneBuilderReward()
+    }
+    
+    func sceneBuilderRewardEnabled() -> Bool {
+        return UserDefaults.standard.bool(forKey: Constants.sceneBuilderTrialType)
+    }
+}

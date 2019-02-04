@@ -18,4 +18,5 @@ struct Constants {
     // Reward Based Ad Types
     
     static let characterBuilderTrialType = "Character Builder Trial"
+    static let sceneBuilderTrialType = "Scene Builder Trial"
 }

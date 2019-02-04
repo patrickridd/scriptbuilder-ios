@@ -18,6 +18,7 @@ class ScenesTableViewController: UITableViewController {
 
     var interstitial: GADInterstitial?
     
+    var rewardBasedAd: GADRewardBasedVideoAd?
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         adBannerView.adUnitID = GoogleAds.bannerAdUnitId
@@ -54,7 +55,13 @@ class ScenesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.reloadTableView()
         
-        
+        // If RewardBased Ad is not ready, load one
+        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
+            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
+            rewardBasedAd?.delegate = self
+            rewardBasedAd?.load(GADRequest(), withAdUnitID: GoogleAds.sceneBuilderRewardAdId)
+        }
+
         // Retrieves in app purchases from apple
         InAppPurchases.store.requestProducts { (_, products) in
             self.products = products
@@ -230,7 +237,7 @@ class ScenesTableViewController: UITableViewController {
     
     @objc func checkForSceneFeatureEnabled() {
         
-        if InAppPurchases.sceneFeatureEnabled {
+        if InAppPurchases.sceneFeatureEnabled || self.sceneBuilderRewardEnabled() {
             enableView()
         } else {
             disableView()
@@ -269,6 +276,18 @@ class ScenesTableViewController: UITableViewController {
             }
         }
         alert.addAction(restoreAction)
+        
+        
+        let tryAction = UIAlertAction(title: "Try it by watching ad",
+                                      style: .default) { [weak self] (_) in
+                                        
+            guard let strongSelf = self else { return }
+            strongSelf.rewardBasedAd?.present(fromRootViewController: strongSelf)
+        }
+        
+        if rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
+            alert.addAction(tryAction)
+        }
         
         let cancelAction = UIAlertAction(title: "Cancel",
                                          style: .default,
