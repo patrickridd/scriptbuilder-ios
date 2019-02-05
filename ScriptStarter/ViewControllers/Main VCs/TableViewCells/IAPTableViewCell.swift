@@ -30,7 +30,7 @@ class IAPTableViewCell: UITableViewCell {
         purchaseButton.backgroundColor = UIColor.screenDarkGray
         
         InAppPurchases.store.requestProducts { [weak self] (_, products) in
-            if let product = products?.first {
+            if let product = products?.filter({ $0.productIdentifier == InAppPurchases.noAdsIdentifier }).first {
                 DispatchQueue.main.async {
                     self?.inAppPurchase = product
                     self?.restoreButton.isEnabled = true

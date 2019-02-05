@@ -258,24 +258,7 @@ class OutlineTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1
     }
-    
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        var text: String
-//        switch indexPath.section {
-//        case 0: // Basic Info
-//            text = self.screenplay?.logLine ?? ""
-//        case 1: // Act 1
-//            text = self.screenplay?.actOneDescription ?? ""
-//        case 2: // Act 2
-//            text = self.screenplay?.actTwoDescription ?? ""
-//        case 3: // Act 3
-//            text = self.screenplay?.actThreeDescription ?? ""
-//        default:
-//            return self.getDefaultHeightOfCell()
-//        }
-//        return self.getDescriptionCellHeight(with:text)
-//    }
-    
+
     func adjustUITextViewHeight(arg : UITextView) {
         arg.translatesAutoresizingMaskIntoConstraints = true
         arg.sizeToFit()
