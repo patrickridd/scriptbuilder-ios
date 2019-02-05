@@ -119,6 +119,10 @@ extension IAPHelper: SKPaymentTransactionObserver {
         }
     }
     
+    public func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+        self.delegate?.didCompleteTransaction(with: nil, displayLoadingImage: false)
+    }
+    
     private func complete(transaction: SKPaymentTransaction) {
         deliverPurchaseNotificationFor(identifier: transaction.payment.productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
