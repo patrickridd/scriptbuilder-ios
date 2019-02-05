@@ -13,6 +13,7 @@ import GoogleMobileAds
 
 protocol InAppPurchaseDelegate: class {
     func didCompleteTransaction(with error: Error?)
+    func startingTransaction()
 }
 
 class SettingsTableViewController: UITableViewController {
@@ -83,7 +84,7 @@ class SettingsTableViewController: UITableViewController {
             } else {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
                 self.loadingNotification.label.text = "failed"
-                self.loadingNotification.hide(animated: true, afterDelay: 0)
+                self.loadingNotification.hide(animated: true, afterDelay: 1)
                 completion?()
             }
         }
@@ -155,13 +156,11 @@ class SettingsTableViewController: UITableViewController {
            let inAppPurchaseCell = tableView.dequeueReusableCell(withIdentifier:"inAppPurchaseCell",
                                                                         for: indexPath) as? IAPTableViewCell
            inAppPurchaseCell?.purchaseButtonHandler = { [weak self] product in
-                self?.showActivityIndicator()
                 InAppPurchases.store.delegate = self
                 InAppPurchases.store.buyProduct(product)
            }
            
            inAppPurchaseCell?.restoreButtonHandler = { [weak self] product in
-                self?.showActivityIndicator()
                 InAppPurchases.store.delegate = self
                 InAppPurchases.store.restorePurchase(for: product)
            }
@@ -293,6 +292,10 @@ extension SettingsTableViewController: InAppPurchaseDelegate {
         } else {
             hideActivityIndicator(success: true)
         }
+    }
+    
+    func startingTransaction() {
+        self.showActivityIndicator()
     }
     
 }

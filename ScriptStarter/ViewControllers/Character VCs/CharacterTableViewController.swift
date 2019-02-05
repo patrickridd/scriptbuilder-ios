@@ -147,8 +147,8 @@ class CharacterTableViewController: UITableViewController {
                                       preferredStyle: .alert)
         let purchaseAction = UIAlertAction(title: "$0.99 😎", style: .default) { [weak self] (_) in
             if let characterFeatureProduct = self?.products?.filter({$0.productIdentifier == InAppPurchases.characterFeatureIdentifier}).first {
-                self?.showActivityIndicator()
                 InAppPurchases.store.delegate = self
+                
                 InAppPurchases.store.buyProduct(characterFeatureProduct)
             }
         }
@@ -156,6 +156,7 @@ class CharacterTableViewController: UITableViewController {
         
         let restoreAction = UIAlertAction(title: "Restore", style: .default) { [weak self] (_) in
             guard let products = self?.products else { return }
+
             for product in products {
                 InAppPurchases.store.delegate = self
                 self?.showActivityIndicator()
@@ -211,7 +212,7 @@ class CharacterTableViewController: UITableViewController {
             } else {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
                 self.loadingNotification.label.text = "failed"
-                self.loadingNotification.hide(animated: true, afterDelay: 0)
+                self.loadingNotification.hide(animated: true, afterDelay: 1)
                 completion?()
             }
         }
@@ -406,7 +407,9 @@ extension CharacterTableViewController: GADBannerViewDelegate {
 
 extension CharacterTableViewController: InAppPurchaseDelegate {
     
-    func didCompleteTransaction(with error: Error?) {
+    func startingTransaction() {
+        self.showActivityIndicator()
+    }
         self.hideActivityIndicator(success: error == nil)
         if let error = error {
             present(error: error)

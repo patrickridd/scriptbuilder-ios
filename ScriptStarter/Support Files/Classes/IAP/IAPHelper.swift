@@ -51,13 +51,14 @@ extension IAPHelper {
     }
     
     public func buyProduct(_ product: SKProduct) {
-        print("Buying \(product.productIdentifier)...")
+        delegate?.startingTransaction()
         let payment = SKPayment(product: product)
         SKPaymentQueue.default().add(payment)
     }
     
     
     public func isProductPurchased(_ productIdentifier: ProductIdentifier) -> Bool {
+        delegate?.startingTransaction()
         return purchasedProductIdentifiers.contains(productIdentifier)
     }
     
@@ -102,7 +103,9 @@ extension IAPHelper: SKProductsRequestDelegate {
 
 extension IAPHelper: SKPaymentTransactionObserver {
     
-    public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    public func paymentQueue(_ queue: SKPaymentQueue,
+                             updatedTransactions transactions: [SKPaymentTransaction]) {
+        
         for transaction in transactions {
             switch (transaction.transactionState) {
             case .purchased:
@@ -150,7 +153,8 @@ extension IAPHelper: SKPaymentTransactionObserver {
         guard let identifier = identifier else { return }
         
         purchasedProductIdentifiers.insert(identifier)
-        UserDefaults.standard.set(true, forKey: identifier)
+        UserDefaults.standard.set(true,
+                                  forKey: identifier)
         UserDefaults.standard.synchronize()
         NotificationCenter.default.post(name: Notification.Name.IAPHelperPurchaseNotification,
                                         object: identifier)

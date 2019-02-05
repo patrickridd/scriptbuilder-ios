@@ -275,6 +275,7 @@ class ScenesTableViewController: UITableViewController {
         
         let restoreAction = UIAlertAction(title: "Restore", style: .default) { [weak self] (_) in
             guard let products = self?.products else { return }
+
             for product in products {
                 InAppPurchases.store.delegate = self
                 InAppPurchases.store.restorePurchase(for: product)
@@ -608,6 +609,9 @@ extension ScenesTableViewController: InAppPurchaseDelegate {
     
     func didCompleteTransaction(with error: Error?) {
         self.hideActivityIndicator(success: error == nil)
+    func startingTransaction() {
+        self.showActivityIndicator()
+    }
         if let error = error {
             present(error: error)
         }
