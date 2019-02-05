@@ -410,6 +410,8 @@ extension CharacterTableViewController: InAppPurchaseDelegate {
     func startingTransaction() {
         self.showActivityIndicator()
     }
+    
+    func didCompleteTransaction(with error: Error?, displayLoadingImage: Bool = true) {
         self.hideActivityIndicator(success: error == nil)
         if let error = error {
             present(error: error)

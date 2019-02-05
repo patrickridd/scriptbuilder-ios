@@ -69,6 +69,7 @@ extension IAPHelper {
     public func restorePurchase(for product: SKProduct) {
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
+    
 }
 
 // MARK: - SKProductsRequestDelegate
@@ -129,7 +130,7 @@ extension IAPHelper: SKPaymentTransactionObserver {
     private func complete(transaction: SKPaymentTransaction) {
         deliverPurchaseNotificationFor(identifier: transaction.payment.productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
-        delegate?.didCompleteTransaction(with: nil)
+        delegate?.didCompleteTransaction(with: nil, displayLoadingImage: true)
     }
    
     private func restore(transaction: SKPaymentTransaction) {
@@ -137,14 +138,16 @@ extension IAPHelper: SKPaymentTransactionObserver {
 
         deliverPurchaseNotificationFor(identifier: productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
-        delegate?.didCompleteTransaction(with: nil)
+        delegate?.didCompleteTransaction(with: nil, displayLoadingImage: true)
     }
     
     private func fail(transaction: SKPaymentTransaction) {
         if let transactionError = transaction.error as Error? {
-            delegate?.didCompleteTransaction(with: transactionError)
+            delegate?.didCompleteTransaction(with: transactionError,
+                                             displayLoadingImage: true)
         } else {
-            delegate?.didCompleteTransaction(with: nil)
+            delegate?.didCompleteTransaction(with: nil,
+                                             displayLoadingImage: true)
         }
         SKPaymentQueue.default().finishTransaction(transaction)
     }

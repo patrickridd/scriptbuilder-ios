@@ -12,7 +12,7 @@ import StoreKit
 import GoogleMobileAds
 
 protocol InAppPurchaseDelegate: class {
-    func didCompleteTransaction(with error: Error?)
+    func didCompleteTransaction(with error: Error?, displayLoadingImage: Bool)
     func startingTransaction()
 }
 
@@ -72,9 +72,16 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
-    func hideActivityIndicator(success: Bool, completion: (() -> Void)? = nil) {
+    func hideActivityIndicator(success: Bool, displayImage: Bool = true, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            
+            if !displayImage {
+                self.loadingNotification.hide(animated: true)
+                completion?()
+                return
+            }
+            
             self.loadingNotification.mode = .customView
             if success {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
@@ -282,15 +289,15 @@ class SettingsTableViewController: UITableViewController {
 
 
 extension SettingsTableViewController: InAppPurchaseDelegate {
-    
-    func didCompleteTransaction(with error: Error?) {
+
+    func didCompleteTransaction(with error: Error?, displayLoadingImage: Bool = true) {
         tableView.reloadData()
         if let error = error {
-            hideActivityIndicator(success: false) {
+            hideActivityIndicator(success: false, displayImage: displayLoadingImage) {
                 print(error)
             }
         } else {
-            hideActivityIndicator(success: true)
+            hideActivityIndicator(success: true, displayImage: displayLoadingImage)
         }
     }
     

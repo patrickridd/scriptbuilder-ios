@@ -242,6 +242,8 @@ class ScenesTableViewController: UITableViewController {
         
         if InAppPurchases.sceneFeatureEnabled || self.sceneBuilderRewardEnabled() {
             enableView()
+            hideActivityIndicator(success: true,
+                                  displayImage: false)
         } else {
             disableView()
             presentIapAlert()
@@ -315,10 +317,14 @@ class ScenesTableViewController: UITableViewController {
         }
     }
     
-    func hideActivityIndicator(success: Bool) {
+    func hideActivityIndicator(success: Bool, displayImage: Bool) {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.loadingNotification.mode = .customView
+            if !displayImage {
+                self.loadingNotification.hide(animated: true)
+                return
+            }
             if success {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
                 self.loadingNotification.label.text = "success"
@@ -607,11 +613,13 @@ extension ScenesTableViewController: GADBannerViewDelegate {
 
 extension ScenesTableViewController: InAppPurchaseDelegate {
     
-    func didCompleteTransaction(with error: Error?) {
-        self.hideActivityIndicator(success: error == nil)
     func startingTransaction() {
         self.showActivityIndicator()
     }
+    
+    func didCompleteTransaction(with error: Error?, displayLoadingImage: Bool = true) {
+        self.hideActivityIndicator(success: error == nil,
+                                   displayImage: displayLoadingImage)
         if let error = error {
             present(error: error)
         }
