@@ -23,14 +23,16 @@ class FirebaseController {
     }
     
     func signIn(with email: String, password: String, completion: @escaping (_ error: Error?, _ user: FIRUser?) -> Void) {
-        FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
+        FIRAuth.auth()?.signIn(withEmail: email,
+                               password: password) { (user, error) in
             completion(error, user)
         }
     }
     
     func createAccount(firstName: String, lastName: String, withEmail: String, password: String, completion: @escaping (_ error: Error?, _ user: FIRUser?) -> Void) {
         
-        FIRAuth.auth()?.createUser(withEmail: withEmail, password: password) { (user, error) in
+        FIRAuth.auth()?.createUser(withEmail: withEmail,
+                                   password: password) { (user, error) in
             guard let createUser = user else {
                 completion(error, user)
                 return

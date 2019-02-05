@@ -20,8 +20,11 @@ extension UITableViewCell: UITextViewDelegate, UITextFieldDelegate {
                                          style: .done,
                                          target: self,
                                          action: #selector(donePressed))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([spaceButton, doneButton], animated: false)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                          target: nil,
+                                          action: nil)
+        toolBar.setItems([spaceButton, doneButton],
+                         animated: false)
         
         
         toolBar.isUserInteractionEnabled = true
@@ -36,13 +39,16 @@ extension UITableViewCell: UITextViewDelegate, UITextFieldDelegate {
         let toolBar = UIToolbar()
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.screenLightBlue// UIColor(red: 76 / 255, green: 217 / 255, blue: 100 / 255, alpha: 1)
+        toolBar.tintColor = UIColor.screenLightBlue
         let doneButton = UIBarButtonItem(title: "Done",
                                          style: .done,
                                          target: self,
                                          action: #selector(donePressed))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([spaceButton, doneButton], animated: false)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                          target: nil,
+                                          action: nil)
+        toolBar.setItems([spaceButton, doneButton],
+                         animated: false)
         
         toolBar.isUserInteractionEnabled = true
         toolBar.sizeToFit()

@@ -30,10 +30,13 @@ class SectionHeaderSubtitle: UITableViewHeaderFooterView {
     
     func setupSectionLabel() {
         self.addSubview(sectionLabel)
-        let font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        let font = UIFont.systemFont(ofSize: 18,
+                                     weight: .semibold)
         sectionLabel.translatesAutoresizingMaskIntoConstraints = false
-        sectionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
-        sectionLabel.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
+        sectionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,
+                                              constant: 20).isActive = true
+        sectionLabel.bottomAnchor.constraint(equalTo: self.centerYAnchor,
+                                             constant: 0).isActive = true
         sectionLabel.textColor = UIColor.screenDark
         sectionLabel.font = font
     }
@@ -45,7 +48,9 @@ class SectionHeaderSubtitle: UITableViewHeaderFooterView {
         subtitleLabel.numberOfLines = 0
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.leadingAnchor.constraint(equalTo: self.sectionLabel.leadingAnchor).isActive = true
-        subtitleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5).isActive = true
-        subtitleLabel.topAnchor.constraint(equalTo: self.sectionLabel.bottomAnchor, constant: 0).isActive = true
+        subtitleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,
+                                                constant: -5).isActive = true
+        subtitleLabel.topAnchor.constraint(equalTo: self.sectionLabel.bottomAnchor,
+                                           constant: 0).isActive = true
     }
 }

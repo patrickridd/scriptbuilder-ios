@@ -32,10 +32,13 @@ class ActBeatSectionHeader: UITableViewHeaderFooterView {
         self.addSubview(titleLabel)
         let marginGuide = contentView.layoutMarginsGuide
 
-        let font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        let font = UIFont.systemFont(ofSize: 18,
+                                     weight: .semibold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant:0).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 10).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor,
+                                            constant:0).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor,
+                                           constant: 10).isActive = true
         titleLabel.textColor = UIColor.screenDark
         titleLabel.font = font
     }
@@ -45,14 +48,16 @@ class ActBeatSectionHeader: UITableViewHeaderFooterView {
         contentView.addSubview(infoButton)
         
         infoButton.translatesAutoresizingMaskIntoConstraints = false
-        infoButton.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor, constant: 5).isActive = true
+        infoButton.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor,
+                                            constant: 5).isActive = true
         infoButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
-        infoButton.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
+        infoButton.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000),
+                                                           for: .horizontal)
         infoButton.contentMode = .scaleAspectFill
         infoButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         infoButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        infoButton.setImage(#imageLiteral(resourceName: "blueInfoButtonAsset 1"), for: .normal)
-        
+        infoButton.setImage(#imageLiteral(resourceName: "blueInfoButtonAsset 1"),
+                            for: .normal)
     }
 
 }

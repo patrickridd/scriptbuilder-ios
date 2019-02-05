@@ -30,7 +30,8 @@ class CollapsibleHeader: UITableViewHeaderFooterView {
         setupPlusButtonLabel()
         setupTitleLabel()
         setupSubtitleLabel()
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CollapsibleHeader.tapHeader(_:))))
+        addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                    action: #selector(CollapsibleHeader.tapHeader(_:))))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,22 +41,28 @@ class CollapsibleHeader: UITableViewHeaderFooterView {
     func setupTitleLabel() {
         // Title label
         contentView.addSubview(titleLabel)
-        let font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        let font = UIFont.systemFont(ofSize: 14,
+                                     weight: .semibold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: self.topAnchor,constant: 10).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: plusButtonLabel.trailingAnchor, constant: 10).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: self.topAnchor,
+                                        constant: 10).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: plusButtonLabel.trailingAnchor,
+                                            constant: 10).isActive = true
         titleLabel.font = font
     }
     
     func setupSubtitleLabel() {
         contentView.addSubview(subtitleLabel)
-        let font = UIFont.systemFont(ofSize: 12, weight: .light)
+        let font = UIFont.systemFont(ofSize: 12,
+                                     weight: .light)
         subtitleLabel.font = font
         subtitleLabel.numberOfLines = 0
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor).isActive = true
-        subtitleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5).isActive = true
-        subtitleLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 0).isActive = true
+        subtitleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,
+                                                constant: -5).isActive = true
+        subtitleLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor,
+                                           constant: 0).isActive = true
     }
     
     func setupPlusButtonLabel() {
@@ -63,10 +70,14 @@ class CollapsibleHeader: UITableViewHeaderFooterView {
         contentView.addSubview(plusButtonLabel)
         plusButtonLabel.translatesAutoresizingMaskIntoConstraints = false
         let marginGuide = contentView.layoutMarginsGuide
-        plusButtonLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant: 0).isActive = true
-        plusButtonLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor, constant: 0).isActive = true
-        plusButtonLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
-        let font = UIFont.systemFont(ofSize: 24, weight: .semibold)
+        plusButtonLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor,
+                                                 constant: 0).isActive = true
+        plusButtonLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor,
+                                                 constant: 0).isActive = true
+        plusButtonLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000),
+                                                                for: .horizontal)
+        let font = UIFont.systemFont(ofSize: 24,
+                                     weight: .semibold)
         plusButtonLabel.font = font
         plusButtonLabel.textColor = .screenLightBlue
         plusButtonLabel.text = "+"
@@ -78,7 +89,8 @@ class CollapsibleHeader: UITableViewHeaderFooterView {
         guard let cell = gestureRecognizer.view as? CollapsibleHeader else {
             return
         }
-        delegate?.toggleSection(self, section: cell.section)
+        delegate?.toggleSection(self,
+                                section: cell.section)
     }
     
     func setCollapsed(_ collapsed: Bool) {
