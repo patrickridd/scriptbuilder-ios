@@ -57,7 +57,8 @@ class ScenesTableViewController: UITableViewController {
         if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
             rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
             rewardBasedAd?.delegate = self
-            rewardBasedAd?.load(GADRequest(), withAdUnitID: GoogleAds.sceneBuilderRewardAdId)
+            rewardBasedAd?.load(GADRequest(),
+                                withAdUnitID: GoogleAds.sceneBuilderRewardAdId)
         }
 
         // Retrieves in app purchases from apple
@@ -266,13 +267,10 @@ class ScenesTableViewController: UITableViewController {
         
         alert.addAction(purchaseAction)
         
-        let restoreAction = UIAlertAction(title: "Restore", style: .default) { [weak self] (_) in
-            guard let products = self?.products else { return }
-
-            for product in products {
-                InAppPurchases.store.delegate = self
-                InAppPurchases.store.restorePurchase(for: product)
-            }
+        let restoreAction = UIAlertAction(title: "Restore",
+                                          style: .default) { [weak self] (_) in
+            InAppPurchases.store.delegate = self
+            InAppPurchases.store.restorePurchases()
         }
         alert.addAction(restoreAction)
         
@@ -324,7 +322,7 @@ class ScenesTableViewController: UITableViewController {
             } else {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
                 self.loadingNotification.label.text = "failed"
-                self.loadingNotification.hide(animated: true, afterDelay: 0)
+                self.loadingNotification.hide(animated: true, afterDelay: 1)
             }
         }
         

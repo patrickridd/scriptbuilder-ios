@@ -171,7 +171,7 @@ class SettingsTableViewController: UITableViewController {
            
            inAppPurchaseCell?.restoreButtonHandler = { [weak self] product in
                 InAppPurchases.store.delegate = self
-                InAppPurchases.store.restorePurchase(for: product)
+                InAppPurchases.store.restorePurchases()
            }
            
             inAppPurchaseCell?.setPurchasedUI()

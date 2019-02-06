@@ -140,20 +140,15 @@ class CharacterTableViewController: UITableViewController {
         let purchaseAction = UIAlertAction(title: "$0.99 😎", style: .default) { [weak self] (_) in
             if let characterFeatureProduct = self?.products?.filter({$0.productIdentifier == InAppPurchases.characterFeatureIdentifier}).first {
                 InAppPurchases.store.delegate = self
-                
                 InAppPurchases.store.buyProduct(characterFeatureProduct)
             }
         }
         alert.addAction(purchaseAction)
         
-        let restoreAction = UIAlertAction(title: "Restore", style: .default) { [weak self] (_) in
-            guard let products = self?.products else { return }
-
-            for product in products {
-                InAppPurchases.store.delegate = self
-                self?.showActivityIndicator()
-                InAppPurchases.store.restorePurchase(for: product)
-            }
+        let restoreAction = UIAlertAction(title: "Restore",
+                                          style: .default) { [weak self] (_) in
+            InAppPurchases.store.delegate = self
+            InAppPurchases.store.restorePurchases()
         }
         alert.addAction(restoreAction)
       
@@ -192,10 +187,16 @@ class CharacterTableViewController: UITableViewController {
         }
     }
     
-    func hideActivityIndicator(success: Bool, completion: (() -> Void)? = nil) {
+    func hideActivityIndicator(success: Bool, displayImage: Bool, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.loadingNotification.mode = .customView
+            
+            if !displayImage {
+                self.loadingNotification.hide(animated: true)
+                return
+            }
+            
             if success {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
                 self.loadingNotification.label.text = "success"
@@ -403,10 +404,17 @@ extension CharacterTableViewController: InAppPurchaseDelegate {
         self.showActivityIndicator()
     }
     
-    func didCompleteTransaction(with error: Error?, displayLoadingImage: Bool = true) {
-        self.hideActivityIndicator(success: error == nil)
+    func didCompleteTransaction(for productIdentifier: String,
+                                with error: Error?,
+                                displayLoadingImage: Bool = true) {
+        
+        self.hideActivityIndicator(success: error == nil,
+                                   displayImage: displayLoadingImage)
         if let error = error {
             present(error: error)
+        }
+        if productIdentifier == InAppPurchases.characterFeatureIdentifier {
+            checkForCharacterFeatureEnabled()
         }
     }
 }
