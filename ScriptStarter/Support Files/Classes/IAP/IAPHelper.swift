@@ -58,7 +58,6 @@ extension IAPHelper {
     
     
     public func isProductPurchased(_ productIdentifier: ProductIdentifier) -> Bool {
-        delegate?.startingTransaction()
         return purchasedProductIdentifiers.contains(productIdentifier)
     }
     
