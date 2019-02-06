@@ -66,7 +66,8 @@ extension IAPHelper {
         return SKPaymentQueue.canMakePayments()
     }
     
-    public func restorePurchase(for product: SKProduct) {
+    public func restorePurchases() {
+        delegate?.startingTransaction()
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
     
@@ -123,14 +124,23 @@ extension IAPHelper: SKPaymentTransactionObserver {
         }
     }
     
-    public func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-        self.delegate?.didCompleteTransaction(with: nil, displayLoadingImage: false)
+    public func paymentQueue(_ queue: SKPaymentQueue,
+                             restoreCompletedTransactionsFailedWithError error: Error) {
+        
+        if let productIdentifier = queue.transactions.first?.payment.productIdentifier {
+            self.delegate?.didCompleteTransaction(for: productIdentifier,
+                                                  with: nil,
+                                                  displayLoadingImage: false)
+        }
     }
     
     private func complete(transaction: SKPaymentTransaction) {
-        deliverPurchaseNotificationFor(identifier: transaction.payment.productIdentifier)
+        let productIdentifier = transaction.payment.productIdentifier
+        deliverPurchaseNotificationFor(identifier: productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
-        delegate?.didCompleteTransaction(with: nil, displayLoadingImage: true)
+        delegate?.didCompleteTransaction(for: productIdentifier,
+                                         with: nil,
+                                         displayLoadingImage: true)
     }
    
     private func restore(transaction: SKPaymentTransaction) {
@@ -138,15 +148,21 @@ extension IAPHelper: SKPaymentTransactionObserver {
 
         deliverPurchaseNotificationFor(identifier: productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
-        delegate?.didCompleteTransaction(with: nil, displayLoadingImage: true)
+        delegate?.didCompleteTransaction(for: productIdentifier,
+                                         with: nil,
+                                         displayLoadingImage: true)
     }
     
     private func fail(transaction: SKPaymentTransaction) {
+        guard let productIdentifier = transaction.original?.payment.productIdentifier else { return }
+        
         if let transactionError = transaction.error as Error? {
-            delegate?.didCompleteTransaction(with: transactionError,
+            delegate?.didCompleteTransaction(for: productIdentifier,
+                                             with: transactionError,
                                              displayLoadingImage: true)
         } else {
-            delegate?.didCompleteTransaction(with: nil,
+            delegate?.didCompleteTransaction(for: productIdentifier,
+                                             with: nil,
                                              displayLoadingImage: true)
         }
         SKPaymentQueue.default().finishTransaction(transaction)
@@ -158,7 +174,6 @@ extension IAPHelper: SKPaymentTransactionObserver {
         purchasedProductIdentifiers.insert(identifier)
         UserDefaults.standard.set(true,
                                   forKey: identifier)
-        UserDefaults.standard.synchronize()
         NotificationCenter.default.post(name: Notification.Name.IAPHelperPurchaseNotification,
                                         object: identifier)
     }

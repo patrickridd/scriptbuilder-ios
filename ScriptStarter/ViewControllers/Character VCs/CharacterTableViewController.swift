@@ -45,10 +45,6 @@ class CharacterTableViewController: UITableViewController {
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(checkForCharacterFeatureEnabled),
-                                               name: Notification.Name.IAPHelperPurchaseNotification,
-                                               object: nil)
         if newCharacter, InAppPurchases.characterFeatureEnabled {
             self.performSegue(withIdentifier: "newCharacterSegue",
                               sender: nil)
@@ -93,10 +89,6 @@ class CharacterTableViewController: UITableViewController {
         
         // Display ad if we have one loaded and we have interstitial ads enabled
         display(interstitial: interstitial)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: UI Methods

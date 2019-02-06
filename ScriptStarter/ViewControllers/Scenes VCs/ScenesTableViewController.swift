@@ -43,11 +43,6 @@ class ScenesTableViewController: UITableViewController {
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(checkForSceneFeatureEnabled),
-                                               name: Notification.Name.IAPHelperPurchaseNotification,
-                                               object: nil)
-        
         if newScene, InAppPurchases.sceneFeatureEnabled {
             self.pushToSceneDetailView(act: .one,
                                        scene: nil)
@@ -87,10 +82,6 @@ class ScenesTableViewController: UITableViewController {
         
         // Display ad if we have one loaded and we have interstitial ads enabled
         display(interstitial: interstitial)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
@@ -617,11 +608,18 @@ extension ScenesTableViewController: InAppPurchaseDelegate {
         self.showActivityIndicator()
     }
     
-    func didCompleteTransaction(with error: Error?, displayLoadingImage: Bool = true) {
+    func didCompleteTransaction(for productIdentifier: String,
+                                with error: Error?,
+                                displayLoadingImage: Bool = true) {
+        
         self.hideActivityIndicator(success: error == nil,
                                    displayImage: displayLoadingImage)
         if let error = error {
             present(error: error)
+        }
+        
+        if productIdentifier == InAppPurchases.sceneFeatureIdentifier {
+            checkForSceneFeatureEnabled()
         }
     }
     

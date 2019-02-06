@@ -12,7 +12,9 @@ import StoreKit
 import GoogleMobileAds
 
 protocol InAppPurchaseDelegate: class {
-    func didCompleteTransaction(with error: Error?, displayLoadingImage: Bool)
+    func didCompleteTransaction(for productIdentifier: String,
+                                with error: Error?,
+                                displayLoadingImage: Bool)
     func startingTransaction()
 }
 
@@ -290,11 +292,13 @@ class SettingsTableViewController: UITableViewController {
 
 extension SettingsTableViewController: InAppPurchaseDelegate {
 
-    func didCompleteTransaction(with error: Error?, displayLoadingImage: Bool = true) {
+    func didCompleteTransaction(for productIdentifier: String,
+                                with error: Error?,
+                                displayLoadingImage: Bool = true) {
         tableView.reloadData()
         if let error = error {
             hideActivityIndicator(success: false, displayImage: displayLoadingImage) {
-                print(error)
+                self.present(error: error)
             }
         } else {
             hideActivityIndicator(success: true, displayImage: displayLoadingImage)
