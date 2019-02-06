@@ -299,7 +299,7 @@ extension UIViewController: GADRewardBasedVideoAdDelegate {
     // Reward Based Ad - Character Builder helper methods
     
     func scheduleTimerForCharacterBuilderReward() {
-        Timer.scheduledTimer(timeInterval: 60*10,
+        Timer.scheduledTimer(timeInterval: 3*10,
                              target: self,
                              selector: #selector(expireCharacterBuilderReward),
                              userInfo: nil,
@@ -324,7 +324,7 @@ extension UIViewController: GADRewardBasedVideoAdDelegate {
     // Reward Based Ad - Scene Builder helper methods
     
     func scheduleTimerForSceneBuilderReward() {
-        Timer.scheduledTimer(timeInterval: 60*10,
+        Timer.scheduledTimer(timeInterval: 3*10,
                              target: self,
                              selector: #selector(expireSceneBuilderReward),
                              userInfo: nil,
