@@ -275,7 +275,7 @@ class ScenesTableViewController: UITableViewController {
         alert.addAction(restoreAction)
         
         
-        let tryAction = UIAlertAction(title: "Try it by watching ad",
+        let tryAction = UIAlertAction(title: "Try by watching Ad 🎥",
                                       style: .default) { [weak self] (_) in
                                         
             guard let strongSelf = self else { return }
