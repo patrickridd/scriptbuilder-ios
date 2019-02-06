@@ -177,7 +177,10 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func forgotPasswordTapped(_ sender: Any) {
-        guard let email = self.emailTextField.text else {
+        guard let email = self.emailTextField.text, email != "" else {
+            self.present(UIAlertControllers.emailAuthenticationError(message:"Please enter your email in the address field."),
+                          animated: true,
+                          completion: nil)
             return
         }
         showActivityIndicator()
