@@ -24,7 +24,7 @@ class UIAlertControllers {
     
     static func passwordResetSuccess(email: String) -> UIAlertController {
         let alert = UIAlertController(title: "It worked!",
-                                      message: "Check \(email)'s inbox for a link to make your new password.",
+                                      message: "Check \(email)'s inbox for a link to create your new password.",
                                       preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK",
                                      style: .default,

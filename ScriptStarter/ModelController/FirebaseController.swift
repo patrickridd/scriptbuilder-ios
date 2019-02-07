@@ -182,6 +182,7 @@ class FirebaseController {
             completion(false)
             return
         }
+        
         user.updatePassword(newPassword) { (error
             ) in
             if let _ = error {

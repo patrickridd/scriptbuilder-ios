@@ -177,29 +177,52 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func forgotPasswordTapped(_ sender: Any) {
-        guard let email = self.emailTextField.text, email != "" else {
-            self.present(UIAlertControllers.emailAuthenticationError(message:"Please enter your email in the address field."),
-                          animated: true,
-                          completion: nil)
-            return
+        let alertController = UIAlertController(title: "Forgot password?",
+                                                message: "Please enter your email and tap \"OK\" to reset your password",
+                                                preferredStyle: .alert)
+        alertController.addTextField { [weak self] oldTextField in
+            oldTextField.placeholder = "email"
+            oldTextField.text = self?.emailTextField.text
         }
-        showActivityIndicator()
-        FIRAuth.auth()?.sendPasswordReset(withEmail: email) { [weak self] error in
-            
-            // If error exists Alert User
-            if let error = error {
-                self?.hideActivityIndicator(success: false)
-                self?.present(UIAlertControllers.emailAuthenticationError(message: error.localizedDescription),
-                              animated: true,
-                              completion: nil)
-            // Else let user know the password was reset
-            } else {
-                self?.hideActivityIndicator(success: true)
-                self?.present(UIAlertControllers.passwordResetSuccess(email: email),
-                              animated: true,
-                              completion: nil)
+        
+        let confirmAction = UIAlertAction(title: "OK",
+                                          style: .default) { [weak alertController, weak self] _ in
+            guard let alertController = alertController,
+            let textField = alertController.textFields?.first else { return }
+            //compare the current password and do action here
+                        
+            guard let email = textField.text, email != "" else {
+                self?.present(UIAlertControllers.emailAuthenticationError(message: "Please enter your email"),
+                             animated: true,
+                             completion: nil)
+                return
+            }
+            self?.showActivityIndicator()
+            FIRAuth.auth()?.sendPasswordReset(withEmail: email) { [weak self] error in
+                
+                // If error exists Alert User
+                if let error = error {
+                    self?.hideActivityIndicator(success: false)
+                    self?.present(UIAlertControllers.emailAuthenticationError(message: error.localizedDescription),
+                                  animated: true,
+                                  completion: nil)
+                    // Else let user know the password was reset
+                } else {
+                    self?.hideActivityIndicator(success: true)
+                    self?.present(UIAlertControllers.passwordResetSuccess(email: email),
+                                  animated: true,
+                                  completion: nil)
+                }
             }
         }
+        alertController.addAction(confirmAction)
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .cancel,
+                                         handler: nil)
+        alertController.addAction(cancelAction)
+        present(alertController,
+                animated: true,
+                completion: nil)
     }
     
     // MARK: Tap Gesture Recognizer

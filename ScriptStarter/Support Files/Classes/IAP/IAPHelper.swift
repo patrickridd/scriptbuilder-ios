@@ -130,6 +130,10 @@ extension IAPHelper: SKPaymentTransactionObserver {
             self.delegate?.didCompleteTransaction(for: productIdentifier,
                                                   with: nil,
                                                   displayLoadingImage: false)
+        } else {
+            self.delegate?.didCompleteTransaction(for: "",
+                                                  with: nil,
+                                                  displayLoadingImage: false)
         }
     }
     

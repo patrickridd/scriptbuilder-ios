@@ -139,9 +139,9 @@ class SettingsTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 self?.hideActivityIndicator(success: success, completion: {
                     if success {
-                        
+
                     } else {
-                        
+
                     }
                 })
             }
