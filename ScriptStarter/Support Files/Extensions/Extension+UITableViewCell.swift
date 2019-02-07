@@ -16,7 +16,7 @@ extension UITableViewCell: UITextViewDelegate, UITextFieldDelegate {
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.screenLightBlue// UIColor(red: 76 / 255, green: 217 / 255, blue: 100 / 255, alpha: 1)
-        let doneButton = UIBarButtonItem(title: "Done",
+        let doneButton = UIBarButtonItem(title: "Done".localized,
                                          style: .done,
                                          target: self,
                                          action: #selector(donePressed))
@@ -40,7 +40,7 @@ extension UITableViewCell: UITextViewDelegate, UITextFieldDelegate {
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.screenLightBlue
-        let doneButton = UIBarButtonItem(title: "Done",
+        let doneButton = UIBarButtonItem(title: "Done".localized,
                                          style: .done,
                                          target: self,
                                          action: #selector(donePressed))

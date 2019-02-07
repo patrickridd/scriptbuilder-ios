@@ -72,7 +72,7 @@ class LoginViewController: UIViewController {
                 [NSAttributedString.Key.strokeColor: UIColor.screenLightBlue,
                  NSAttributedString.Key.foregroundColor: UIColor.white,
                  NSAttributedString.Key.strokeWidth: 1]
-            self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder",
+            self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder".localized,
                                                                         attributes: strokeTextAttributes)
     }
     
@@ -85,7 +85,7 @@ class LoginViewController: UIViewController {
                 MBProgressHUD.showAdded(to: self.view, animated: true)
             self.loadingNotification.mode = MBProgressHUDMode.indeterminate
             self.loadingNotification.animationType = .fade
-            self.loadingNotification.label.text = "loading"
+            self.loadingNotification.label.text = "loading".localized
         }
     }
     
@@ -95,18 +95,18 @@ class LoginViewController: UIViewController {
             self.loadingNotification.mode = .customView
             if success {    
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
-                self.loadingNotification.label.text = "success"
+                self.loadingNotification.label.text = "success".localized
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
                 let strokeTextAttributes: [NSAttributedString.Key:Any] =
                     [NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
                      NSAttributedString.Key.foregroundColor : UIColor.white,
                      NSAttributedString.Key.strokeWidth : -2.0]
-                self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder",
+                self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder".localized,
                                                                             attributes: strokeTextAttributes)
                 completion?()
             } else {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
-                self.loadingNotification.label.text = "failed"
+                self.loadingNotification.label.text = "failed".localized
                 self.loadingNotification.hide(animated: true,
                                               afterDelay: 0)
                 completion?()
@@ -149,7 +149,7 @@ class LoginViewController: UIViewController {
     @IBAction func loginInButtonTapped(_ sender: Any) {
         guard let email = emailTextField.text,
             let password = passwordTextField.text else {
-                self.present(UIAlertControllers.emailAuthenticationError(message: "Complete both fields"),
+                self.present(UIAlertControllers.emailAuthenticationError(message: "Complete both fields".localized),
                                                                          animated: true)
                 return
         }
@@ -177,22 +177,22 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func forgotPasswordTapped(_ sender: Any) {
-        let alertController = UIAlertController(title: "Forgot password?",
-                                                message: "Please enter your email and tap \"OK\" to reset your password",
+        let alertController = UIAlertController(title: "Forgot password?".localized,
+                                                message: "Please enter your email and tap \"OK\" to reset your password".localized,
                                                 preferredStyle: .alert)
         alertController.addTextField { [weak self] oldTextField in
-            oldTextField.placeholder = "email"
+            oldTextField.placeholder = "email".localized
             oldTextField.text = self?.emailTextField.text
         }
         
-        let confirmAction = UIAlertAction(title: "OK",
+        let confirmAction = UIAlertAction(title: "OK".localized,
                                           style: .default) { [weak alertController, weak self] _ in
             guard let alertController = alertController,
             let textField = alertController.textFields?.first else { return }
             //compare the current password and do action here
                         
             guard let email = textField.text, email != "" else {
-                self?.present(UIAlertControllers.emailAuthenticationError(message: "Please enter your email"),
+                self?.present(UIAlertControllers.emailAuthenticationError(message: "Please enter your email".localized),
                              animated: true,
                              completion: nil)
                 return
@@ -216,7 +216,7 @@ class LoginViewController: UIViewController {
             }
         }
         alertController.addAction(confirmAction)
-        let cancelAction = UIAlertAction(title: "Cancel",
+        let cancelAction = UIAlertAction(title: "Cancel".localized,
                                          style: .cancel,
                                          handler: nil)
         alertController.addAction(cancelAction)

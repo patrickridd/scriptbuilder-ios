@@ -214,7 +214,7 @@ class ScenesTableViewController: UITableViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         if self.screenplay?.title == "" {
-            screenplay?.title = "Untitled"
+            screenplay?.title = "Untitled".localized
         }
         navigationController?.navigationBar.topItem?.title = self.screenplay?.title
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
@@ -223,7 +223,7 @@ class ScenesTableViewController: UITableViewController {
         navigationController?.navigationBar.titleTextAttributes = attributes
         navigationController?.navigationBar.tintColor = .screenLightBlue
         navigationController?.navigationBar.barTintColor = .white
-        let backButton = UIBarButtonItem(title: "Home",
+        let backButton = UIBarButtonItem(title: "Home".localized,
                                          style: .plain,
                                          target: self,
                                          action: #selector(handleRightSwipe(sender:)))
@@ -255,10 +255,10 @@ class ScenesTableViewController: UITableViewController {
     }
     
     func presentIapAlert() {
-        let alert = UIAlertController(title: "Scene Builder disabled\n😥",
-                                      message: "The Scene Builder feature requires a one time purchase.",
+        let alert = UIAlertController(title: "Scene Builder disabled\n😥".localized,
+                                      message: "The Scene Builder feature requires a one time purchase.".localized,
                                       preferredStyle: .alert)
-        let purchaseAction = UIAlertAction(title: "$0.99 😎", style: .default) { [weak self] (_) in
+        let purchaseAction = UIAlertAction(title: "$0.99 😎".localized, style: .default) { [weak self] (_) in
             if let sceneFeatureProduct = self?.products?.filter({$0.productIdentifier == InAppPurchases.sceneFeatureIdentifier}).first {
                 InAppPurchases.store.delegate = self
                 InAppPurchases.store.buyProduct(sceneFeatureProduct)
@@ -267,7 +267,7 @@ class ScenesTableViewController: UITableViewController {
         
         alert.addAction(purchaseAction)
         
-        let restoreAction = UIAlertAction(title: "Restore",
+        let restoreAction = UIAlertAction(title: "Restore".localized,
                                           style: .default) { [weak self] (_) in
             InAppPurchases.store.delegate = self
             InAppPurchases.store.restorePurchases()
@@ -275,7 +275,7 @@ class ScenesTableViewController: UITableViewController {
         alert.addAction(restoreAction)
         
         
-        let tryAction = UIAlertAction(title: "Try by watching Ad 🎥",
+        let tryAction = UIAlertAction(title: "Try by watching Ad 🎥".localized,
                                       style: .default) { [weak self] (_) in
                                         
             guard let strongSelf = self else { return }
@@ -286,7 +286,7 @@ class ScenesTableViewController: UITableViewController {
             alert.addAction(tryAction)
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel",
+        let cancelAction = UIAlertAction(title: "Cancel".localized,
                                          style: .default,
                                          handler: nil)
         alert.addAction(cancelAction)
@@ -302,7 +302,7 @@ class ScenesTableViewController: UITableViewController {
                 MBProgressHUD.showAdded(to: self.view, animated: true)
             self.loadingNotification.mode = MBProgressHUDMode.indeterminate
             self.loadingNotification.animationType = .fade
-            self.loadingNotification.label.text = "loading"
+            self.loadingNotification.label.text = "loading".localized
         }
     }
     
@@ -316,12 +316,12 @@ class ScenesTableViewController: UITableViewController {
             }
             if success {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
-                self.loadingNotification.label.text = "success"
+                self.loadingNotification.label.text = "success".localized
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
                 return
             } else {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
-                self.loadingNotification.label.text = "failed"
+                self.loadingNotification.label.text = "failed".localized
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
             }
         }
@@ -470,11 +470,12 @@ class ScenesTableViewController: UITableViewController {
 
         switch section {
         case 0: // Act 1
-            header.titleLabel.text = "Act 1"
+            header.titleLabel.text = "Act 1".localized
         case 1: // Act 2
-            header.titleLabel.text = "Act 2"
+            header.titleLabel.text = "Act 2".localized
         case 2: // Act 3
-            header.titleLabel.text = "Act 3"
+            header.titleLabel.text = "Act 3".localized
+            
         default:
             break
         }
@@ -593,7 +594,6 @@ class ScenesTableViewController: UITableViewController {
 extension ScenesTableViewController: GADBannerViewDelegate {
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Banner loaded successfully")
         tableView.tableHeaderView?.frame = bannerView.frame
         tableView.tableHeaderView = bannerView
     }

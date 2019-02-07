@@ -105,7 +105,7 @@ class CharacterTableViewController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
-        let backButton = UIBarButtonItem(title: "Home",
+        let backButton = UIBarButtonItem(title: "Home".localized,
                                          style: .plain,
                                          target: self,
                                          action: #selector(handleRightSwipe(sender:)))
@@ -134,10 +134,11 @@ class CharacterTableViewController: UITableViewController {
     }
     
     func presentIapAlert() {
-        let alert = UIAlertController(title: "Character Builder disabled\n😥",
-                                      message: "The Character Builder feature requires a one time purchase.",
+        let alert = UIAlertController(title: "Character Builder disabled\n😥".localized,
+                                      message: "The Character Builder feature requires a one time purchase.".localized,
                                       preferredStyle: .alert)
-        let purchaseAction = UIAlertAction(title: "$0.99 😎", style: .default) { [weak self] (_) in
+        let purchaseAction = UIAlertAction(title: "$0.99 😎".localized,
+                                           style: .default) { [weak self] (_) in
             if let characterFeatureProduct = self?.products?.filter({$0.productIdentifier == InAppPurchases.characterFeatureIdentifier}).first {
                 InAppPurchases.store.delegate = self
                 InAppPurchases.store.buyProduct(characterFeatureProduct)
@@ -145,14 +146,14 @@ class CharacterTableViewController: UITableViewController {
         }
         alert.addAction(purchaseAction)
         
-        let restoreAction = UIAlertAction(title: "Restore",
+        let restoreAction = UIAlertAction(title: "Restore".localized,
                                           style: .default) { [weak self] (_) in
             InAppPurchases.store.delegate = self
             InAppPurchases.store.restorePurchases()
         }
         alert.addAction(restoreAction)
       
-        let tryAction = UIAlertAction(title: "Try by watching Ad 🎥",
+        let tryAction = UIAlertAction(title: "Try by watching Ad 🎥".localized,
                                       style: .default) { [weak self] (_) in
                                         
             guard let strongSelf = self else { return }
@@ -164,7 +165,7 @@ class CharacterTableViewController: UITableViewController {
             alert.addAction(tryAction)
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel",
+        let cancelAction = UIAlertAction(title: "Cancel".localized,
                                          style: .default,
                                          handler: nil)
         alert.addAction(cancelAction)
@@ -183,7 +184,7 @@ class CharacterTableViewController: UITableViewController {
                                         animated: true)
             self.loadingNotification.mode = MBProgressHUDMode.indeterminate
             self.loadingNotification.animationType = .fade
-            self.loadingNotification.label.text = "loading"
+            self.loadingNotification.label.text = "loading".localized
         }
     }
     
@@ -199,12 +200,12 @@ class CharacterTableViewController: UITableViewController {
             
             if success {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
-                self.loadingNotification.label.text = "success"
+                self.loadingNotification.label.text = "success".localized
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
                 completion?()
             } else {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
-                self.loadingNotification.label.text = "failed"
+                self.loadingNotification.label.text = "failed".localized
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
                 completion?()
             }
@@ -240,7 +241,8 @@ class CharacterTableViewController: UITableViewController {
                 characterTableViewSections.insert(characterSection)
             } else {
                 let noRoleCharacters = screenplay.characters.filter({ $0.role == nil })
-                let noRoleCharacterSection = CharacterTableViewSection(roleTitle: "Character", characters: noRoleCharacters)
+                let noRoleCharacterSection = CharacterTableViewSection(roleTitle: "Character".localized,
+                                                                       characters: noRoleCharacters)
                 characterTableViewSections.insert(noRoleCharacterSection)
             }
         }
@@ -306,7 +308,7 @@ class CharacterTableViewController: UITableViewController {
             header.navigationButton.isEnabled = false
             let font = UIFont.systemFont(ofSize: 16, weight: .bold)
             header.sectionLabel.font = font
-            header.sectionLabel.text = "Characters"
+            header.sectionLabel.text = "Characters".localized
             header.sectionLabel.textColor = UIColor.screenDarkGray
             //header.subtitleLabel.text = "Character Arc"
             

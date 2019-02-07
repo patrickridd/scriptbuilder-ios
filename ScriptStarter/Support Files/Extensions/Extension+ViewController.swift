@@ -28,7 +28,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
                                                           animated: true)
         loadingNotification.mode = MBProgressHUDMode.indeterminate
         loadingNotification.animationType = .fade
-        loadingNotification.label.text = "saving"
+        loadingNotification.label.text = "saving".localized
         
         if let screenplay = screenplay {
             FirebaseController.shared.save(screenplay: screenplay, completion: { (success) in
@@ -36,13 +36,13 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
                     loadingNotification.mode = .customView
                     if success {
                         loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
-                        loadingNotification.label.text = "success"
+                        loadingNotification.label.text = "success".localized
                         loadingNotification.hide(animated: true,
                                                  afterDelay: 1)
                         return
                     }
                     loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
-                    loadingNotification.label.text = "failed"
+                    loadingNotification.label.text = "failed".localized
                     loadingNotification.hide(animated: true,
                                              afterDelay: 1)
                 }
@@ -112,7 +112,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.screenLightBlue
         
-        let doneButton = UIBarButtonItem(title: "Done",
+        let doneButton = UIBarButtonItem(title: "Done".localized,
                                          style: .done,
                                          target: self,
                                          action: #selector(donePressed))
@@ -175,10 +175,10 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     
     // MARK: UIAlertControllers
     func present(error: Error) {
-        let alert = UIAlertController(title: "Error",
+        let alert = UIAlertController(title: "Error".localized,
                                       message: error.localizedDescription,
                                       preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK",
+        let okAction = UIAlertAction(title: "OK".localized,
                                      style: .default,
                                      handler: nil)
         alert.addAction(okAction)

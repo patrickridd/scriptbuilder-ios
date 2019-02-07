@@ -104,36 +104,36 @@ class SceneDetailTableViewController: UITableViewController {
             
         case .one:
             if let highestSceneNumber = screenplay.act1.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
-                let scene = Scene(title: "New Scene",
+                let scene = Scene(title: "New Scene".localized,
                                   sceneNumber: highestSceneNumber+1)
                 self.scene = scene
                 self.screenplay?.act1.sceneSet.insert(scene)
             } else {
-                let scene = Scene(title: "New Scene",
+                let scene = Scene(title: "New Scene".localized,
                                   sceneNumber: 1)
                 self.scene = scene
                 self.screenplay?.act1.sceneSet.insert(scene)
             }
         case .two:
             if let highestSceneNumber = screenplay.act2.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
-                let scene = Scene(title: "New Scene",
+                let scene = Scene(title: "New Scene".localized,
                                   sceneNumber: highestSceneNumber+1)
                 self.scene = scene
                 self.screenplay?.act2.sceneSet.insert(scene)
             } else {
-                let scene = Scene(title: "New Scene",
+                let scene = Scene(title: "New Scene".localized,
                                   sceneNumber: 1)
                 self.scene = scene
                 self.screenplay?.act2.sceneSet.insert(scene)
             }
         case .three:
             if let highestSceneNumber = screenplay.act3.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
-                let scene = Scene(title: "New Scene",
+                let scene = Scene(title: "New Scene".localized,
                                   sceneNumber: highestSceneNumber+1)
                 self.scene = scene
                 self.screenplay?.act3.sceneSet.insert(scene)
             } else {
-                let scene = Scene(title: "New Scene",
+                let scene = Scene(title: "New Scene".localized,
                                   sceneNumber: 1)
                 self.scene = scene
                 self.screenplay?.act3.sceneSet.insert(scene)
@@ -149,7 +149,7 @@ class SceneDetailTableViewController: UITableViewController {
     }
 
     @IBAction func sceneTitleTextFieldChanged(_ sender: UITextField) {
-        self.scene?.title = sender.text ?? "New Scene"
+        self.scene?.title = sender.text ?? "New Scene".localized
     }
 
     @IBAction func sceneNumberTextFieldChanged(_ sender: UITextField) {

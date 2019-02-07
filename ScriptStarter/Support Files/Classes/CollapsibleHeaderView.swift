@@ -94,6 +94,6 @@ class CollapsibleHeader: UITableViewHeaderFooterView {
     }
     
     func setCollapsed(_ collapsed: Bool) {
-        plusButtonLabel.text = collapsed ? "+" : "-"
+        plusButtonLabel.text = collapsed ? "+".localized : "-".localized
     }
 }

@@ -12,7 +12,7 @@ extension UITextField {
     
     // UITextField Toolbar
     func addToolBar() {
-        let doneButton = UIBarButtonItem(title: "Done",
+        let doneButton = UIBarButtonItem(title: "Done".localized,
                                          style: .done,
                                          target: self,
                                          action: #selector(donePressed))

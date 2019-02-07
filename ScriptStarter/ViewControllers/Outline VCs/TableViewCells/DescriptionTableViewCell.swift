@@ -80,18 +80,18 @@ class DescriptionTableViewCell: UITableViewCell {
         case .outline:
             switch section {
             case 0: // Idea
-                self.descriptionTextView.placeholder = "About a ..."
+                self.descriptionTextView.placeholder = "About a ...".localized
                 self.descriptionTextView.text = screenplay?.idea
             case 1: // Act 1
-                self.descriptionTextView.placeholder = "Setup"
+                self.descriptionTextView.placeholder = "Setup".localized
                 self.descriptionTextView.text = screenplay?.actOneDescription
                 
             case 2: // Act 2
-                self.descriptionTextView.placeholder = "Confrontation"
+                self.descriptionTextView.placeholder = "Confrontation".localized
                 self.descriptionTextView.text = screenplay?.actTwoDescription
                 
             case 3: // Act 3
-                self.descriptionTextView.placeholder = "Resolution"
+                self.descriptionTextView.placeholder = "Resolution".localized
                 self.descriptionTextView.text = screenplay?.actThreeDescription
             default:
                 break
@@ -104,7 +104,7 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     descriptionTextView.text = screenplay?.idea
-                    descriptionTextView.placeholder = "About a ..."
+                    descriptionTextView.placeholder = "About a ...".localized
                 case 2:
                     descriptionTextView.text = screenplay?.logLine
                 case 3:

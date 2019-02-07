@@ -22,23 +22,23 @@ enum Role: Int {
     var title: String {
         switch self {
         case .protagonist:
-            return "Protagonist"
+            return "Protagonist".localized
         case .antagonist:
-            return "Antagonist"
+            return "Antagonist".localized
         case .mentor:
-            return "Mentor"
+            return "Mentor".localized
         case .lover:
-            return "Lover"
+            return "Lover".localized
         case .friend:
-            return "Friend"
+            return "Friend".localized
         case .jester:
-            return "Jester"
+            return "Jester".localized
         case .enemy:
-            return "Enemy"
+            return "Enemy".localized
         case .ally:
-            return "Ally"
+            return "Ally".localized
         case .mysterious:
-            return "Mysterious"
+            return "Mysterious".localized
         }
     }
     

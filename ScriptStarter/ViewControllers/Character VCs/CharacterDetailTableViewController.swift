@@ -48,7 +48,7 @@ class CharacterDetailTableViewController: UITableViewController {
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.setupExpandableSections()
       
-        self.title = self.character?.name ?? "New Character"
+        self.title = self.character?.name ?? "New Character".localized
       
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = self.tableView.backgroundColor
@@ -87,7 +87,7 @@ class CharacterDetailTableViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if character?.name == "" {
-            character?.name = "Unnamed"
+            character?.name = "Unnamed".localized
         }
     }
     
@@ -244,7 +244,7 @@ class CharacterDetailTableViewController: UITableViewController {
             header.navigationButton.isEnabled = false
             let font = UIFont.systemFont(ofSize: 16, weight: .bold)
             header.sectionLabel.font = font
-            header.sectionLabel.text = (section == 1) ? "Character Arc" : "Basic Info"
+            header.sectionLabel.text = (section == 1) ? "Character Arc".localized : "Basic Info".localized
             //header.subtitleLabel.text = "Character Arc"
             
             return header
@@ -363,14 +363,8 @@ extension CharacterDetailTableViewController: NameChangedDelegate {
 extension CharacterDetailTableViewController: GADBannerViewDelegate {
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Banner loaded successfully")
         tableView.tableHeaderView?.frame = bannerView.frame
         tableView.tableHeaderView = bannerView
     }
     
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("Fail to receive ads")
-        print(error)
-    }
-
 }

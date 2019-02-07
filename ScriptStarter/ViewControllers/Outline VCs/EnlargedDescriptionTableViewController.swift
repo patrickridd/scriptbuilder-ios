@@ -167,10 +167,10 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         
         switch viewController {
         case .outline:
-            sectionHeader.subtitleLabel.text = "Overall description"
+            sectionHeader.subtitleLabel.text = "Overall description".localized
             switch self.section {
             case 0: // "Basic Idea (Log Line)"
-                sectionHeader.sectionLabel.text = "Basic Idea (Log Line)"
+                sectionHeader.sectionLabel.text = "Basic Idea (Log Line)".localized
             default: // "Acts"
                 sectionHeader.sectionLabel.text = act?.title
             }
@@ -179,7 +179,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
             guard let act = act else { break }
             if self.section == 0 {
                 sectionHeader.sectionLabel.text = act.title
-                sectionHeader.subtitleLabel.text = "Overall description"
+                sectionHeader.subtitleLabel.text = "Overall description".localized
             } else {
                 sectionHeader.sectionLabel.text = act.sectionsTitles[self.section-2]
                 sectionHeader.subtitleLabel.text = act.sectionSubTitles[self.section-2]

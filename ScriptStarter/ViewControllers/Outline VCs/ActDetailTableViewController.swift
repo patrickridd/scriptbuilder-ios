@@ -133,66 +133,22 @@ class ActDetailTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell",
+                                                            for: indexPath) as?DescriptionTableViewCell
         
-        switch indexPath.section {
-//        case 1:
-//            var sceneCount = 0
-//            switch act {
-//            case .one:
-//                sceneCount = self.screenplay?.act1.scenes.count ?? 0
-//            case .two:
-//                sceneCount = self.screenplay?.act2.scenes.count ?? 0
-//            case .three:
-//                sceneCount = self.screenplay?.act3.scenes.count ?? 0
-//            default:
-//                break
-//            }
-//            if sceneCount == 0 {
-//                 guard let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as?
-//                        NoCharacterTableViewCell else { return UITableViewCell() }
-//
-//                return noSceneCell
-//            } else {
-//                 guard let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell", for: indexPath) as? SceneTableViewCell else { return UITableViewCell() }
-//
-//                var scene: Scene
-//                switch act {
-//                case .one:
-//                    guard let act1Scenes = self.screenplay?.act1.scenes else { break }
-//                    scene = act1Scenes[indexPath.row]
-//                    sceneCell.update(with: scene)
-//                case .two:
-//                    guard let act2Scenes = self.screenplay?.act2.scenes else { break }
-//                    scene = act2Scenes[indexPath.row]
-//                    sceneCell.update(with: scene)
-//                case .three:
-//                    guard let act3Scenes = self.screenplay?.act3.scenes else { break }
-//                    scene = act3Scenes[indexPath.row]
-//                    sceneCell.update(with: scene)
-//                default:
-//                    break
-//                }
-//
-//                return sceneCell
-//            }
-        default:
-            let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell",
-                                                                      for: indexPath) as?DescriptionTableViewCell
-            
-            // Configure the cell...
-            descriptionCell?.contentView.backgroundColor = UIColor.screenLightGray
-            descriptionCell?.delegate = self
-            descriptionCell?.defaultHeight = self.getDefaultHeightOfCell()
-            descriptionCell?.update(viewController: .actDetail,
-                                   section: indexPath.section,
-                                   act: self.act)
-            descriptionCell?.expandButton.tag = indexPath.section
-            descriptionCell?.expandButton.addTarget(self,
-                                                   action: #selector(expandButtonTapped(sender:)),
-                                                   for: .touchUpInside)
-
-            return descriptionCell ?? UITableViewCell()
-        }
+        // Configure the cell...
+        descriptionCell?.contentView.backgroundColor = UIColor.screenLightGray
+        descriptionCell?.delegate = self
+        descriptionCell?.defaultHeight = self.getDefaultHeightOfCell()
+        descriptionCell?.update(viewController: .actDetail,
+                                section: indexPath.section,
+                                act: self.act)
+        descriptionCell?.expandButton.tag = indexPath.section
+        descriptionCell?.expandButton.addTarget(self,
+                                                action: #selector(expandButtonTapped(sender:)),
+                                                for: .touchUpInside)
+        
+        return descriptionCell ?? UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -226,7 +182,7 @@ class ActDetailTableViewController: UITableViewController {
             let font = UIFont.systemFont(ofSize: 16,
                                          weight: .bold)
             sectionHeader.sectionLabel.font = font
-            sectionHeader.sectionLabel.text = "Overall description"
+            sectionHeader.sectionLabel.text = "Overall description".localized
             return sectionHeader
        
 //        case 1:
@@ -244,7 +200,7 @@ class ActDetailTableViewController: UITableViewController {
             case .idea:
                 return nil
             default:
-                header.titleLabel.text = "Act Beats"
+                header.titleLabel.text = "Act Beats".localized
                 header.infoButton.addTarget(self,
                                             action: #selector(informationButtonTapped),
                                             for: .touchUpInside)

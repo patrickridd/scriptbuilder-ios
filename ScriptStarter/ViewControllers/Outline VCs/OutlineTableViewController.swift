@@ -145,7 +145,7 @@ class OutlineTableViewController: UITableViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         if self.screenplay?.title == "" {
-            screenplay?.title = "Untitled"
+            screenplay?.title = "Untitled".localized
         }
         navigationController?.navigationBar.topItem?.title = self.screenplay?.title
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
@@ -216,15 +216,15 @@ class OutlineTableViewController: UITableViewController {
 //             loglineSection.infoButton.addTarget(self, action: #selector(informationButtonTapped(sender:)), for: .touchUpInside)
 //            return loglineSection
         case 1:
-            sectionName = " Act 1"
+            sectionName = "Act 1".localized
             sectionHeader.moreButton.isHidden = false
             sectionHeader.navigationButton.isEnabled = true
         case 2:
-            sectionName = "Act 2"
+            sectionName = "Act 2".localized
             sectionHeader.moreButton.isHidden = false
             sectionHeader.navigationButton.isEnabled = true
         case 3:
-            sectionName = "Act 3"
+            sectionName = "Act 3".localized
             sectionHeader.moreButton.isHidden = false
             sectionHeader.navigationButton.isEnabled = true
         default:
@@ -295,7 +295,6 @@ class OutlineTableViewController: UITableViewController {
 extension OutlineTableViewController: GADBannerViewDelegate {
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Banner loaded successfully")
         tableView.tableFooterView?.frame = bannerView.frame
         tableView.tableFooterView = bannerView
     }

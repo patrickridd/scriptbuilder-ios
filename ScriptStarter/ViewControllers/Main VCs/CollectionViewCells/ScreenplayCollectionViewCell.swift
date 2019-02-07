@@ -16,12 +16,12 @@ class ScreenplayCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     
     override func awakeFromNib() {
-        self.contentView.heroID = "screenplay"
+        self.contentView.hero.id = "screenplay"
     }
     
     func update(title: String, name: String, heroId: String) {
         self.titleLabel.text = title
         self.nameLabel.text = name
-        self.contentView.heroID = heroId
+        self.contentView.hero.id = heroId
     }
 }

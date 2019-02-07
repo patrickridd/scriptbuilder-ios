@@ -61,21 +61,21 @@ class Scene: Hashable, Equatable {
     }
     
     static var sceneTitles: [String] {
-        return ["Scene Description",
-                "Characters",
-                "Dialogue",
-                "Action",
-                "Story Progression",
-                "Notes"]
+        return ["Scene Description".localized,
+                "Characters".localized,
+                "Dialogue".localized,
+                "Action".localized,
+                "Story Progression".localized,
+                "Notes".localized]
     }
     
     static var sceneSubtitles: [String] {
-        return ["Overall idea of what happens and the feeling the scene brings",
-                "What do the characters want and what are they feeling?",
-                "What snappy dialogue and/or information is said?",
-                "What are your characters doing?",
-                "How does the scene move the story forward?",
-                "Details you don't want to forget"]
+        return ["Overall idea of what happens and the feeling the scene brings".localized,
+                "What do the characters want and what are they feeling?".localized,
+                "What snappy dialogue and/or information is said?".localized,
+                "What are your characters doing?".localized,
+                "How does the scene move the story forward?".localized,
+                "Details you don't want to forget".localized]
     }
     
     var sceneDictionary: [String:Any] {

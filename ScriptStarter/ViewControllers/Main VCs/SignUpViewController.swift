@@ -79,7 +79,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
             NSAttributedString.Key.strokeWidth : 1,
             ]
         
-        scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder", attributes: strokeTextAttributes)
+        scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder".localized, attributes: strokeTextAttributes)
     }
     
     func showActivityIndicator() {
@@ -89,7 +89,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
                 MBProgressHUD.showAdded(to: self.view, animated: true)
             self.loadingNotification.mode = MBProgressHUDMode.indeterminate
             self.loadingNotification.animationType = .fade
-            self.loadingNotification.label.text = "loading"
+            self.loadingNotification.label.text = "loading".localized
         }
     }
     
@@ -99,12 +99,12 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
             self.loadingNotification.mode = .customView
             if success {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
-                self.loadingNotification.label.text = "success"
+                self.loadingNotification.label.text = "success".localized
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
                 return
             } else {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
-                self.loadingNotification.label.text = "failed"
+                self.loadingNotification.label.text = "failed".localized
                 self.loadingNotification.hide(animated: true, afterDelay: 0)
             }
         }
@@ -152,7 +152,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     
     @IBAction func signUpButtonTapped(_ sender: Any) {
         guard let firstName = firstNameTextField.text, firstName != "", let lastName = lastNameTextField.text, lastName != "", let email = emailTextField.text, email != "", let password = passwordTextField.text, password != "" else {
-            let alert = UIAlertControllers.emailAuthenticationError(message: "Please complete all fields")
+            let alert = UIAlertControllers.emailAuthenticationError(message: "Please complete all fields".localized)
             self.present(alert, animated: true, completion: nil)
             return
         }

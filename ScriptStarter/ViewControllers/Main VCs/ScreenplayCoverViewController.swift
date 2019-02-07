@@ -94,15 +94,15 @@ class ScreenplayCoverViewController: UIViewController {
     // MARK: Helper Methods
     
     func deleteScreenplayAlert() -> UIAlertController {
-        let screenplayTitle = ScreenplayController.shared.currentScreenplay?.title ?? "this screenplay"
+        let screenplayTitle = ScreenplayController.shared.currentScreenplay?.title ?? "this screenplay".localized
         
-        let alert = UIAlertController(title: "Delete Screenplay",
-                                      message: "Are you sure you want to delete \(screenplayTitle)",
+        let alert = UIAlertController(title: "Delete Screenplay".localized,
+                                      message: "Are you sure you want to delete %@?".localized(with: screenplayTitle),
                                       preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel",
+        let cancelAction = UIAlertAction(title: "Cancel".localized,
                                          style: .cancel,
                                          handler: nil)
-        let deleteAction = UIAlertAction(title: "Delete",
+        let deleteAction = UIAlertAction(title: "Delete".localized,
                                          style: .destructive) { (_) in
             if let screenplay = self.screenplay {
                 // Delete currentScreenplay
@@ -121,15 +121,15 @@ class ScreenplayCoverViewController: UIViewController {
     }
     
     func remindUserToSave() {
-        let saveReminderAlert = UIAlertController(title: "Save",
-                                                  message: "Would you like to save your work?",
+        let saveReminderAlert = UIAlertController(title: "Save".localized,
+                                                  message: "Would you like to save your work?".localized,
                                                   preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Save",
+        let saveAction = UIAlertAction(title: "Save".localized,
                                        style: .default) { (_) in
             self.saveScreenplay()
             self.dismissView()
         }
-        let nopeAction = UIAlertAction(title: "Nope",
+        let nopeAction = UIAlertAction(title: "Nope".localized,
                                        style: .destructive) { (_) in
             self.dismissView()
         }
@@ -162,7 +162,7 @@ extension ScreenplayCoverViewController {
     
     @IBAction func titleTextFieldDidChange(_ sender: Any) {
         guard let title = titleTextField.text, title != "" else {
-            screenplay?.title = "Untitled"
+            screenplay?.title = "Untitled".localized
             return
         }
         screenplay?.title = title

@@ -57,7 +57,7 @@ class SettingsTableViewController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
         self.navigationController?.navigationBar.barTintColor = .white
-        self.title = "Settings"
+        self.title = "Settings".localized
     }
     
     // MARK: UI Methods
@@ -70,7 +70,7 @@ class SettingsTableViewController: UITableViewController {
                                         animated: true)
             self.loadingNotification.mode = MBProgressHUDMode.indeterminate
             self.loadingNotification.animationType = .fade
-            self.loadingNotification.label.text = "loading"
+            self.loadingNotification.label.text = "loading".localized
         }
     }
     
@@ -87,12 +87,12 @@ class SettingsTableViewController: UITableViewController {
             self.loadingNotification.mode = .customView
             if success {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
-                self.loadingNotification.label.text = "success"
+                self.loadingNotification.label.text = "success".localized
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
                 completion?()
             } else {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
-                self.loadingNotification.label.text = "failed"
+                self.loadingNotification.label.text = "failed".localized
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
                 completion?()
             }
@@ -100,10 +100,10 @@ class SettingsTableViewController: UITableViewController {
     }
         
     func presentDeleteAccountConfirmation(completion: @escaping (_ deleted: Bool,_ canceled: Bool) -> ()) -> UIAlertController {
-        let alert = UIAlertController(title: "Delete Account",
-                                      message: "Are you sure you want to delete your account?",
+        let alert = UIAlertController(title: "Delete Account".localized,
+                                      message: "Are you sure you want to delete your account?".localized,
                                       preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete",
+        let deleteAction = UIAlertAction(title: "Delete".localized,
                                          style: .destructive) { (_) in
             self.showActivityIndicator()
             FirebaseController.shared.deleteAccount(completion: { [weak self] (deleted) in
@@ -112,7 +112,7 @@ class SettingsTableViewController: UITableViewController {
                 completion(deleted,false)
             })
         }
-        let cancelAction = UIAlertAction(title: "Cancel",
+        let cancelAction = UIAlertAction(title: "Cancel".localized,
                                          style: .cancel) { (_) in
             completion(false, true)
         }
@@ -230,9 +230,9 @@ class SettingsTableViewController: UITableViewController {
         
         switch section {
         case 0:
-            sectionHeader.sectionLabel.text = "Remove Banner & Interstitial Ads"
+            sectionHeader.sectionLabel.text = "Remove Banner & Interstitial Ads".localized
         case 1:
-            sectionHeader.sectionLabel.text = "Change Password - if signed up via email & password"
+            sectionHeader.sectionLabel.text = "Change Password - if signed up via email & password".localized
         case 2:
             sectionHeader.sectionLabel.text = "Share with family & friends"
         case 3:
