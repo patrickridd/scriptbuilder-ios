@@ -139,7 +139,7 @@ class SettingsTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 self?.hideActivityIndicator(success: success, completion: {
                     if success {
-
+                        
                     } else {
 
                     }
@@ -230,11 +230,11 @@ class SettingsTableViewController: UITableViewController {
         
         switch section {
         case 0:
-            sectionHeader.sectionLabel.text = "Remove Ads"
+            sectionHeader.sectionLabel.text = "Remove Banner & Interstitial Ads"
         case 1:
-            sectionHeader.sectionLabel.text = "Change Password"
+            sectionHeader.sectionLabel.text = "Change Password - if signed up via email & password"
         case 2:
-            sectionHeader.sectionLabel.text = "Share with family / friends"
+            sectionHeader.sectionLabel.text = "Share with family & friends"
         case 3:
             sectionHeader.sectionLabel.text = "This will remove all information in database"
         default:

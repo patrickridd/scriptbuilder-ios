@@ -45,12 +45,15 @@ class SectionHeaderView: UITableViewHeaderFooterView {
         self.addSubview(sectionLabel)
         let font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         sectionLabel.translatesAutoresizingMaskIntoConstraints = false
+        sectionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,
+                                               constant: 15).isActive = true
         sectionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,
                                               constant: 20).isActive = true
         sectionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor,
                                               constant: 0).isActive = true
         sectionLabel.textColor = UIColor.screenDark
         sectionLabel.font = font
+        sectionLabel.numberOfLines = 0
     }
     
     func setupSubtitleLabel() {
@@ -101,8 +104,6 @@ class SectionHeaderView: UITableViewHeaderFooterView {
         navigationButton.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000),
                                                                  for: .horizontal)
         navigationButton.contentMode = .scaleAspectFill
-        //navigationButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-       // navigationButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         moreButton.setImage(#imageLiteral(resourceName: "rightArrowButtonAsset 1"),
                             for: .normal)
     }
