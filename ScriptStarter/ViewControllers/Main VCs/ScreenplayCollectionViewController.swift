@@ -31,8 +31,6 @@ class ScreenplayCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getScreenplays()
-        
         setShouldDisplayInterstitial(state: false)
         
         // Set timer to enable interstitial ads
@@ -60,6 +58,8 @@ class ScreenplayCollectionViewController: UIViewController {
             interstitial = createAndLoadInterstitial()
         }
         
+        getScreenplays()
+
         // Display ad if we have one loaded and we have interstitial ads enabled
         display(interstitial: interstitial)
     }

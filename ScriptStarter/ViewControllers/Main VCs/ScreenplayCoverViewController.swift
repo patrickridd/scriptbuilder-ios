@@ -131,6 +131,7 @@ class ScreenplayCoverViewController: UIViewController {
         }
         let nopeAction = UIAlertAction(title: "Nope".localized,
                                        style: .destructive) { (_) in
+            ScreenplayController.shared.discardChangesInCurrentScreenplay()
             self.dismissView()
         }
         
