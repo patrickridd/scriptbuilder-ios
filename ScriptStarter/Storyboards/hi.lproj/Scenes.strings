@@ -1,0 +1,27 @@
+
+/* Class = "UITabBarItem"; title = "scenes"; ObjectID = "2bg-Jp-ZzV"; */
+"2bg-Jp-ZzV.title" = "scenes";
+
+/* Class = "UITextField"; placeholder = "Scene Title"; ObjectID = "3To-7T-LVO"; */
+"3To-7T-LVO.placeholder" = "Scene Title";
+
+/* Class = "UILabel"; text = "Act"; ObjectID = "8zT-qv-MY7"; */
+"8zT-qv-MY7.text" = "Act";
+
+/* Class = "UILabel"; text = "Scene #"; ObjectID = "GKn-PD-liA"; */
+"GKn-PD-liA.text" = "Scene #";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "OWa-ir-dQT"; */
+"OWa-ir-dQT.text" = "1";
+
+/* Class = "UITextField"; placeholder = "EXT. APARTMENT - NIGHT"; ObjectID = "c4A-qY-A83"; */
+"c4A-qY-A83.placeholder" = "EXT. APARTMENT - NIGHT";
+
+/* Class = "UILabel"; text = "Heading"; ObjectID = "qsB-nH-dXA"; */
+"qsB-nH-dXA.text" = "Heading";
+
+/* Class = "UILabel"; text = "1."; ObjectID = "sVr-xV-pDK"; */
+"sVr-xV-pDK.text" = "1.";
+
+/* Class = "UILabel"; text = "We meet Jack"; ObjectID = "w2v-6U-MQk"; */
+"w2v-6U-MQk.text" = "We meet Jack";
