@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  ScriptStarter
+
+  Created by Patrick Ridd (patrick.ridd@stgconsulting.com) on 2/8/19.
+  Copyright © 2019 patrickridd. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "ScriptBuilder";
+"NSHumanReadableCopyright" = "Copyright © 2019 patrickridd. All rights reserved.";

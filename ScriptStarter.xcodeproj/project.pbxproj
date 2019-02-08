@@ -29,6 +29,7 @@
 		2135777F201292E100C5EADC /* Character.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2135777D201292E100C5EADC /* Character.storyboard */; };
 		21368528220CB5270019A9A8 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21368527220CB5270019A9A8 /* Extension+String.swift */; };
 		2136852E220CB9990019A9A8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21368530220CB9990019A9A8 /* Localizable.strings */; };
+		21368536220E0C090019A9A8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21368538220E0C090019A9A8 /* InfoPlist.strings */; };
 		2146E3DE203F906B00FBD225 /* SceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2146E3DD203F906B00FBD225 /* SceneTableViewCell.swift */; };
 		2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151FC5F202260F200CE4823 /* ScreenplayController.swift */; };
 		21526C9D20409EE100B14402 /* SceneDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */; };
@@ -143,6 +144,9 @@
 		21368526220CB3C10019A9A8 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		21368527220CB5270019A9A8 /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		2136852F220CB9990019A9A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		21368533220E0A040019A9A8 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		21368537220E0C090019A9A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		21368539220E0C0B0019A9A8 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2146E3DD203F906B00FBD225 /* SceneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTableViewCell.swift; sourceTree = "<group>"; };
 		2151FC5F202260F200CE4823 /* ScreenplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayController.swift; sourceTree = "<group>"; };
 		21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -351,7 +355,7 @@
 				21C903D5201652620017D626 /* Model */,
 				21C903D4201652520017D626 /* ViewControllers */,
 				213577832012930E00C5EADC /* Storyboards */,
-				2136852B220CB6AF0019A9A8 /* LocalizedStrings */,
+				2136852B220CB6AF0019A9A8 /* Localize Resources */,
 				212DEA7A2012746500FE9C3F /* Assets.xcassets */,
 				219814CB2046125100FD94E9 /* ScriptStarter-Bridging-Header.h */,
 				212DEA7C2012746500FE9C3F /* LaunchScreen.storyboard */,
@@ -391,12 +395,13 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		2136852B220CB6AF0019A9A8 /* LocalizedStrings */ = {
+		2136852B220CB6AF0019A9A8 /* Localize Resources */ = {
 			isa = PBXGroup;
 			children = (
 				21368530220CB9990019A9A8 /* Localizable.strings */,
+				21368538220E0C090019A9A8 /* InfoPlist.strings */,
 			);
-			path = LocalizedStrings;
+			path = "Localize Resources";
 			sourceTree = "<group>";
 		};
 		215829C920755AFB00CEAC0A /* TableViewCells */ = {
@@ -716,6 +721,7 @@
 				212DEA7B2012746500FE9C3F /* Assets.xcassets in Resources */,
 				2101F34E20619442003A90A4 /* Cork_closeup.jpg in Resources */,
 				212DEA792012746500FE9C3F /* Main.storyboard in Resources */,
+				21368536220E0C090019A9A8 /* InfoPlist.strings in Resources */,
 				21A84F4A2016988600CE4149 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1052,8 +1058,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				2136852F220CB9990019A9A8 /* en */,
+				21368533220E0A040019A9A8 /* es */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		21368538220E0C090019A9A8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				21368537220E0C090019A9A8 /* en */,
+				21368539220E0C0B0019A9A8 /* es */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		21843CAC205AE3E900FAAE16 /* Scenes.storyboard */ = {
