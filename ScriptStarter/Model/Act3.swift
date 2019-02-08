@@ -68,6 +68,21 @@ class Act3: Equatable {
         self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
     }
     
+    init(act3: Act3) {
+        self.brandNewWorld = act3.brandNewWorld
+        self.theUltimateAnswer = act3.theUltimateAnswer
+        self.rewards = act3.rewards
+        self.untangleStory = act3.untangleStory
+        
+        var scenes: [Scene] = []
+        
+        for scene in act3.scenes {
+            let sceneCopy = Scene(scene: scene)
+            scenes.append(sceneCopy)
+        }
+        self.scenes = scenes
+    }
+    
     var firActThreeDictionary: [String:Any] {
         return [self.theUltimateAnswerKey:self.theUltimateAnswer,
                 self.rewardsKey:self.rewards,

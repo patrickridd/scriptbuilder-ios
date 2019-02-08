@@ -93,6 +93,24 @@ class Act1: Equatable {
         self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
     }
     
+    init(act1: Act1) {
+        self.meetingMentor = act1.meetingMentor
+        self.oldWorldDescription = act1.oldWorldDescription
+        self.incitingIncident = act1.incitingIncident
+        self.callToAdventure = act1.callToAdventure
+        self.theme = act1.theme
+        self.refusal = act1.refusal
+        self.reasonToAdventure = act1.reasonToAdventure
+        self.enemyAtTheGates = act1.enemyAtTheGates
+        
+        var scenes: [Scene] = []
+        for scene in act1.scenes {
+            let sceneCopy = Scene(scene: scene)
+            scenes.append(sceneCopy)
+        }
+        self.scenes = scenes
+    }
+    
     var firActOneDictionary: [String:Any] {
         return [self.oldWorldDescriptionKey:self.oldWorldDescription,
                 self.incitingIncidentKey:self.incitingIncident,

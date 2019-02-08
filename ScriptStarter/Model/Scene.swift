@@ -60,6 +60,19 @@ class Scene: Hashable, Equatable {
         self.notes = sceneDictionary[self.notesKey] as? String ?? ""
     }
     
+    init(scene: Scene) {
+        self.uuid = scene.uuid
+        self.title = scene.title
+        self.header = scene.header
+        self.sceneNumber = scene.sceneNumber
+        self.sceneDescription = scene.sceneDescription
+        self.dialogue = scene.dialogue
+        self.action = scene.action
+        self.characters = scene.characters
+        self.howPushesStory = scene.howPushesStory
+        self.notes = scene.notes
+    }
+    
     static var sceneTitles: [String] {
         return ["Scene Description".localized,
                 "Characters".localized,

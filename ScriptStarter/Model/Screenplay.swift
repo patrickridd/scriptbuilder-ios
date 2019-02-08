@@ -117,10 +117,18 @@ class Screenplay: Equatable {
         actOneDescription = screenplay.actOneDescription
         actTwoDescription = screenplay.actTwoDescription
         actThreeDescription = screenplay.actThreeDescription
-        characters = screenplay.characters
-        act1 = screenplay.act1
-        act2 = screenplay.act2
-        act3 = screenplay.act3
+        
+        // Create new Character, Acts, and Scene References so that this screenplay is completely separate than the object passed in
+        var characterObjects: [Character] = []
+        for character in screenplay.characters {
+            let character = Character(character: character)
+            characterObjects.append(character)
+        }
+        characters = characterObjects
+        
+        act1 = Act1(act1: screenplay.act1)
+        act2 = Act2(act2: screenplay.act2)
+        act3 = Act3(act3: screenplay.act3)
     }
     
     var firDictionary: [String:Any] {

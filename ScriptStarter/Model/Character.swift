@@ -76,6 +76,21 @@ class Character: Equatable {
         self.notes = characterDictionary[notesKey] as? String ?? ""
     }
     
+    init(character:Character) {
+        self.uuid = character.uuid
+        self.name = character.name
+        self.role = character.role
+        self.intention = character.intention
+        self.whyIntention = character.whyIntention
+        self.whatToDo = character.whatToDo
+        self.howDoesCharacterDoIt = character.howDoesCharacterDoIt
+        self.obstacles = character.obstacles
+        self.flaws = character.flaws
+        self.need = character.need
+        self.howCharacterChanged = character.howCharacterChanged
+        self.notes = character.notes
+    }
+    
     
     var characterDictionary: [String:Any] {
         return [self.nameKey:name,
