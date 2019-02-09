@@ -14,7 +14,10 @@ extension String {
         return NSLocalizedString(self, comment: "")
     }
     
-    public func localized(with arguments: CVarArg...) -> String {
-        return String(format: self, arguments: arguments)
+    public func localized(with argument: String) -> String {
+        let localizedString = NSLocalizedString(self,
+                                                comment: "")
+        return String(format: localizedString,
+                      argument)
     }
 }
