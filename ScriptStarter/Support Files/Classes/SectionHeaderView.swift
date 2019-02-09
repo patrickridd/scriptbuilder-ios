@@ -45,8 +45,6 @@ class SectionHeaderView: UITableViewHeaderFooterView {
         self.addSubview(sectionLabel)
         let font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         sectionLabel.translatesAutoresizingMaskIntoConstraints = false
-        sectionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,
-                                               constant: 15).isActive = true
         sectionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,
                                               constant: 20).isActive = true
         sectionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor,
