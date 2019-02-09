@@ -138,7 +138,7 @@ class Screenplay: Equatable {
                 themeKey:self.theme,
                 notesKey:self.notes,
                 centralIntentionKey:self.centralIntention,
-                mainObstacleKey: self.mainObstacleKey,
+                mainObstacleKey: self.mainObstacle,
                 actOneDescriptionKey: self.actOneDescription,
                 actTwoDescriptionKey: self.actTwoDescription,
                 actThreeDescriptionKey: self.actThreeDescription,
