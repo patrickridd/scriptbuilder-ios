@@ -129,7 +129,7 @@ class ScreenplayCoverViewController: UIViewController {
             self.saveScreenplay()
             self.dismissView()
         }
-        let nopeAction = UIAlertAction(title: "Nope".localized,
+        let nopeAction = UIAlertAction(title: "Discard".localized,
                                        style: .destructive) { (_) in
             ScreenplayController.shared.discardChangesInCurrentScreenplay()
             self.dismissView()
