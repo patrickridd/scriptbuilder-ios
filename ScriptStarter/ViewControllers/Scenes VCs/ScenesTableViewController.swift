@@ -616,7 +616,8 @@ extension ScenesTableViewController: InAppPurchaseDelegate {
             present(error: error)
         }
         
-        if productIdentifier == InAppPurchases.sceneFeatureIdentifier {
+        if productIdentifier == InAppPurchases.sceneFeatureIdentifier ||
+           productIdentifier.isEmpty {
             checkForSceneFeatureEnabled()
         }
     }

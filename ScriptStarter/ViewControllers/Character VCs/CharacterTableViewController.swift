@@ -415,7 +415,8 @@ extension CharacterTableViewController: InAppPurchaseDelegate {
         if let error = error {
             present(error: error)
         }
-        if productIdentifier == InAppPurchases.characterFeatureIdentifier {
+        if productIdentifier == InAppPurchases.characterFeatureIdentifier ||
+           productIdentifier.isEmpty {
             checkForCharacterFeatureEnabled()
         }
     }
