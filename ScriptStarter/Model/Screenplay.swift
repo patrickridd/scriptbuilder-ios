@@ -57,6 +57,8 @@ class Screenplay: Equatable {
                lhs.centralIntention == rhs.centralIntention &&
                lhs.mainObstacle == rhs.mainObstacle &&
                lhs.actOneDescription == rhs.actOneDescription &&
+               lhs.actTwoDescription == rhs.actTwoDescription &&
+               lhs.actThreeDescription == rhs.actThreeDescription &&
                lhs.characters == rhs.characters &&
                lhs.act1 == rhs.act1 &&
                lhs.act2 == rhs.act2 &&
