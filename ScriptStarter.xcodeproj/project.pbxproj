@@ -42,8 +42,8 @@
 		215DDCD321EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		215DDCD421EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		215DDCD521EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
-		215DDD3521F7ABE000C52B6C /* GoogleAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215DDD3421F7ABE000C52B6C /* GoogleAds.swift */; };
 		21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21843CAC205AE3E900FAAE16 /* Scenes.storyboard */; };
+		2187E18422122EEB0070AD9D /* GoogleAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2187E18322122EEB0070AD9D /* GoogleAds.swift */; };
 		2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2189FC8D2057187400A69DC1 /* StoreKit.framework */; };
 		2189FC902057199300A69DC1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189FC8F2057199300A69DC1 /* IAPHelper.swift */; };
 		2189FC92205719F900A69DC1 /* InAppPurchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189FC91205719F900A69DC1 /* InAppPurchases.swift */; };
@@ -192,8 +192,8 @@
 		2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountTableViewCell.swift; sourceTree = "<group>"; };
 		215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
 		215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		215DDD3421F7ABE000C52B6C /* GoogleAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAds.swift; sourceTree = "<group>"; };
 		21843CAB205AE3E900FAAE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Scenes.storyboard; sourceTree = "<group>"; };
+		2187E18322122EEB0070AD9D /* GoogleAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAds.swift; sourceTree = "<group>"; };
 		2189FC8D2057187400A69DC1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2189FC8F2057199300A69DC1 /* IAPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		2189FC91205719F900A69DC1 /* InAppPurchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchases.swift; sourceTree = "<group>"; };
@@ -286,8 +286,8 @@
 			isa = PBXGroup;
 			children = (
 				2101F3522061E944003A90A4 /* CharacterTableViewSection.swift */,
-				215DDD3421F7ABE000C52B6C /* GoogleAds.swift */,
 				21916C6721FBCD2E00C6F024 /* Constants.swift */,
+				2187E18322122EEB0070AD9D /* GoogleAds.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -972,7 +972,6 @@
 				2189FC902057199300A69DC1 /* IAPHelper.swift in Sources */,
 				211215D8203B5E680039D6E8 /* RoleTableViewCell.swift in Sources */,
 				21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */,
-				215DDD3521F7ABE000C52B6C /* GoogleAds.swift in Sources */,
 				21A7CF542028E60D00D97394 /* ActDetailTableViewController.swift in Sources */,
 				2153C3452075608300C08B73 /* Extension+UITextField.swift in Sources */,
 				2153C34B207587B500C08B73 /* DeleteAccountTableViewCell.swift in Sources */,
@@ -1002,6 +1001,7 @@
 				21D727F4202E0D1A00861C2D /* SectionHeaderSubtitle.swift in Sources */,
 				21E661C820192E66006A14AF /* SignUpViewController.swift in Sources */,
 				21D727FB202E32D500861C2D /* InformationPopTableViewController.swift in Sources */,
+				2187E18422122EEB0070AD9D /* GoogleAds.swift in Sources */,
 				21A7CF6A202A6D3A00D97394 /* Act.swift in Sources */,
 				2104ADD9205C7F270086CC9F /* SceneController.swift in Sources */,
 				211215D6203B5DC30039D6E8 /* Role.swift in Sources */,
