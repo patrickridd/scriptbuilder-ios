@@ -184,14 +184,6 @@ class ActDetailTableViewController: UITableViewController {
             sectionHeader.sectionLabel.font = font
             sectionHeader.sectionLabel.text = "Overall description".localized
             return sectionHeader
-       
-//        case 1:
-//            if self.act == .idea { return nil }
-//            // Scenes Header
-//            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SceneHeader ?? SceneHeader(reuseIdentifier: "header")
-//            header.titleLabel.text = "Scenes"
-//            header.plusButtonCover.addTarget(self, action: #selector(navigateToNewScene), for: .touchUpInside)
-//            return header
         case 1:
             if self.act == .idea { return nil }
             // Act Beats i section

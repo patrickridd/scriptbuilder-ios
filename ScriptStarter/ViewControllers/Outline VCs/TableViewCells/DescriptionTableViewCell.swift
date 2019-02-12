@@ -39,9 +39,13 @@ class DescriptionTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+        
         descriptionTextView.textColor = UIColor.screenHaitiBlack
         descriptionTextView.placeholderColor = UIColor.lightGray
-        let font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        let font = UIFont.systemFont(ofSize: isIpad ? 24: 14,
+                                     weight: .regular)
+        
         descriptionTextView.font = font
         descriptionTextView.delegate = self
         addToolBar(textView: descriptionTextView)
