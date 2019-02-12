@@ -170,7 +170,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
             sectionHeader.subtitleLabel.text = "Overall description".localized
             switch self.section {
             case 0: // "Basic Idea (Log Line)"
-                sectionHeader.sectionLabel.text = "Basic Idea (Log Line)".localized
+                sectionHeader.sectionLabel.text = "Idea".localized
             default: // "Acts"
                 sectionHeader.sectionLabel.text = act?.title
             }
