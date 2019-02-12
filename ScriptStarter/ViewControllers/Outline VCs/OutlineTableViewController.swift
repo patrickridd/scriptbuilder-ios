@@ -208,13 +208,7 @@ class OutlineTableViewController: UITableViewController {
         var sectionName = String()
         switch section {
         case 0:
-            
-            sectionName = "Idea"
-//             let loglineSection = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ActBeatSectionHeader ?? ActBeatSectionHeader(reuseIdentifier: "header")
-//            loglineSection.titleLabel.text = "Log line"
-//             loglineSection.titleLabel.centerYAnchor.constraint(equalTo: loglineSection.centerYAnchor, constant: 0).isActive = true
-//             loglineSection.infoButton.addTarget(self, action: #selector(informationButtonTapped(sender:)), for: .touchUpInside)
-//            return loglineSection
+            sectionName = "Idea".localized
         case 1:
             sectionName = "Act 1".localized
             sectionHeader.moreButton.isHidden = false
