@@ -248,7 +248,9 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="AFc-37-b2h" firstAttribute="leading" secondItem="vEl-1M-Ofy" secondAttribute="leading" constant="50" id="1dO-Wa-VRd"/>
+                                            <constraint firstItem="AFc-37-b2h" firstAttribute="leading" secondItem="vEl-1M-Ofy" secondAttribute="leading" constant="50" id="1dO-Wa-VRd">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                            </constraint>
                                             <constraint firstItem="42I-NO-dhN" firstAttribute="top" secondItem="cUa-kL-YaK" secondAttribute="bottom" id="455-Rg-t7J"/>
                                             <constraint firstItem="9GI-Oi-34J" firstAttribute="bottom" secondItem="BE7-0b-XJs" secondAttribute="bottom" id="53v-AH-W8u"/>
                                             <constraint firstItem="BE7-0b-XJs" firstAttribute="leading" secondItem="AFc-37-b2h" secondAttribute="leading" constant="6" id="7Dm-hm-SFA"/>
@@ -256,7 +258,9 @@
                                             <constraint firstItem="42I-NO-dhN" firstAttribute="leading" secondItem="vEl-1M-Ofy" secondAttribute="leading" id="AXa-zU-ZYG"/>
                                             <constraint firstItem="1Gc-l0-R2B" firstAttribute="leading" secondItem="vEl-1M-Ofy" secondAttribute="leading" id="BaB-D0-DXg"/>
                                             <constraint firstItem="AFc-37-b2h" firstAttribute="centerX" secondItem="vEl-1M-Ofy" secondAttribute="centerX" id="CKT-9m-wKC"/>
-                                            <constraint firstAttribute="trailing" secondItem="AFc-37-b2h" secondAttribute="trailing" constant="50" id="DR7-xR-Kcx"/>
+                                            <constraint firstAttribute="trailing" secondItem="AFc-37-b2h" secondAttribute="trailing" constant="50" id="DR7-xR-Kcx">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                            </constraint>
                                             <constraint firstItem="cUa-kL-YaK" firstAttribute="centerX" secondItem="vEl-1M-Ofy" secondAttribute="centerX" id="IMU-Wc-rwg"/>
                                             <constraint firstAttribute="bottom" secondItem="H6O-qY-3Oj" secondAttribute="bottom" id="PNz-j2-0Xg"/>
                                             <constraint firstItem="eWX-4p-hY8" firstAttribute="centerY" secondItem="BE7-0b-XJs" secondAttribute="centerY" id="PXA-Nv-yTc"/>
@@ -1270,9 +1274,13 @@
                                             <constraint firstItem="FnD-L5-s6F" firstAttribute="trailing" secondItem="9jp-fI-OUM" secondAttribute="trailing" id="gYh-qZ-M59"/>
                                             <constraint firstAttribute="trailing" secondItem="RHT-LI-AB0" secondAttribute="trailing" id="ghX-zj-YAX"/>
                                             <constraint firstAttribute="trailing" secondItem="OcY-67-UtK" secondAttribute="trailing" id="hHF-wr-d8D"/>
-                                            <constraint firstItem="9jp-fI-OUM" firstAttribute="leading" secondItem="vZP-JF-Wf7" secondAttribute="leading" constant="50" id="iyN-wB-iKA"/>
+                                            <constraint firstItem="9jp-fI-OUM" firstAttribute="leading" secondItem="vZP-JF-Wf7" secondAttribute="leading" constant="50" id="iyN-wB-iKA">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                            </constraint>
                                             <constraint firstItem="GAk-aX-w1R" firstAttribute="top" secondItem="9jp-fI-OUM" secondAttribute="bottom" constant="15" id="mbG-rX-kPG"/>
-                                            <constraint firstAttribute="trailing" secondItem="9jp-fI-OUM" secondAttribute="trailing" constant="50" id="o1E-Ac-ziy"/>
+                                            <constraint firstAttribute="trailing" secondItem="9jp-fI-OUM" secondAttribute="trailing" constant="50" id="o1E-Ac-ziy">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                            </constraint>
                                             <constraint firstItem="GAk-aX-w1R" firstAttribute="centerX" secondItem="vZP-JF-Wf7" secondAttribute="centerX" id="oLl-OW-Rce"/>
                                             <constraint firstItem="OcY-67-UtK" firstAttribute="top" secondItem="GAk-aX-w1R" secondAttribute="bottom" id="oQH-FL-K7a"/>
                                             <constraint firstItem="o1c-LO-Qc6" firstAttribute="top" secondItem="vZP-JF-Wf7" secondAttribute="top" id="rhj-df-nYw"/>
