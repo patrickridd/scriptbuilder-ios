@@ -406,12 +406,16 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="wZ6-7H-ahU" firstAttribute="top" secondItem="NOP-aH-Q5V" secondAttribute="bottom" constant="2" id="0sD-gP-HIw"/>
+                                            <constraint firstItem="wZ6-7H-ahU" firstAttribute="top" secondItem="NOP-aH-Q5V" secondAttribute="bottom" constant="2" id="0sD-gP-HIw">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="5"/>
+                                            </constraint>
                                             <constraint firstItem="NOP-aH-Q5V" firstAttribute="centerX" secondItem="ZBL-Z5-wgF" secondAttribute="centerX" id="1Ey-6c-3Yh"/>
                                             <constraint firstItem="wZ6-7H-ahU" firstAttribute="centerX" secondItem="ZBL-Z5-wgF" secondAttribute="centerX" id="8Tf-Hc-EhE"/>
                                             <constraint firstItem="ho6-1A-xJQ" firstAttribute="centerX" secondItem="ZBL-Z5-wgF" secondAttribute="centerX" id="ETg-od-Dcz"/>
                                             <constraint firstItem="ho6-1A-xJQ" firstAttribute="leading" secondItem="ZBL-Z5-wgF" secondAttribute="leadingMargin" id="N4K-c2-qBX"/>
-                                            <constraint firstItem="NOP-aH-Q5V" firstAttribute="top" secondItem="ho6-1A-xJQ" secondAttribute="bottom" constant="2" id="O34-V7-eRa"/>
+                                            <constraint firstItem="NOP-aH-Q5V" firstAttribute="top" secondItem="ho6-1A-xJQ" secondAttribute="bottom" constant="2" id="O34-V7-eRa">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="5"/>
+                                            </constraint>
                                             <constraint firstItem="wZ6-7H-ahU" firstAttribute="leading" secondItem="ZBL-Z5-wgF" secondAttribute="leadingMargin" id="UFA-cF-Me2"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="wZ6-7H-ahU" secondAttribute="trailing" id="aoc-uo-Vz3"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="ho6-1A-xJQ" secondAttribute="trailing" id="d7S-Us-ljH"/>
@@ -838,7 +842,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardAppearance="alert"/>
                                 <variation key="heightClass=regular-widthClass=regular">
-                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 </variation>
                                 <connections>
                                     <action selector="titleTextFieldDidChange:" destination="V0n-xO-FAg" eventType="editingChanged" id="aFs-nO-erC"/>
@@ -901,8 +905,12 @@
                             <constraint firstItem="Vag-Lh-c30" firstAttribute="centerY" secondItem="tVJ-SE-YRF" secondAttribute="centerY" id="8qU-cw-bmH"/>
                             <constraint firstItem="Fiz-pH-YgK" firstAttribute="leading" secondItem="9Ij-MY-r1m" secondAttribute="leading" constant="20" id="BCO-8M-XX2"/>
                             <constraint firstItem="4MR-wb-F71" firstAttribute="centerX" secondItem="tVJ-SE-YRF" secondAttribute="centerX" id="C3S-vN-9r7"/>
-                            <constraint firstItem="Vag-Lh-c30" firstAttribute="top" secondItem="4MR-wb-F71" secondAttribute="bottom" constant="5" id="F79-bV-tJo"/>
-                            <constraint firstItem="iGQ-js-Qji" firstAttribute="top" secondItem="Vag-Lh-c30" secondAttribute="bottom" constant="5" id="RVi-tF-Z31"/>
+                            <constraint firstItem="Vag-Lh-c30" firstAttribute="top" secondItem="4MR-wb-F71" secondAttribute="bottom" constant="5" id="F79-bV-tJo">
+                                <variation key="heightClass=regular-widthClass=regular" constant="10"/>
+                            </constraint>
+                            <constraint firstItem="iGQ-js-Qji" firstAttribute="top" secondItem="Vag-Lh-c30" secondAttribute="bottom" constant="5" id="RVi-tF-Z31">
+                                <variation key="heightClass=regular-widthClass=regular" constant="10"/>
+                            </constraint>
                             <constraint firstItem="bN9-GH-ear" firstAttribute="centerY" secondItem="tVJ-SE-YRF" secondAttribute="centerY" id="XvK-2L-WK4"/>
                             <constraint firstItem="9Ij-MY-r1m" firstAttribute="trailing" secondItem="flj-yl-qjQ" secondAttribute="trailing" constant="20" id="Z9M-8F-gC5"/>
                             <constraint firstItem="Vag-Lh-c30" firstAttribute="centerX" secondItem="tVJ-SE-YRF" secondAttribute="centerX" id="cbP-be-kju"/>
