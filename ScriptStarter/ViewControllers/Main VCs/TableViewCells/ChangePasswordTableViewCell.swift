@@ -10,7 +10,6 @@ import UIKit
 
 class ChangePasswordTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var oldPasswordTextField: UITextField!
     @IBOutlet weak var newPasswordTextField: UITextField!
     
     @IBOutlet weak var changeButton: UIButton!
@@ -18,9 +17,6 @@ class ChangePasswordTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.oldPasswordTextField.addToolBar()
-        self.oldPasswordTextField.delegate = self
-        self.oldPasswordTextField.tag = 0
         
         self.newPasswordTextField.addToolBar()
         self.newPasswordTextField.delegate = self
