@@ -234,9 +234,9 @@ class SettingsTableViewController: UITableViewController {
         case 1:
             sectionHeader.sectionLabel.text = "Change Password - if signed up via email & password".localized
         case 2:
-            sectionHeader.sectionLabel.text = "Share with family & friends"
+            sectionHeader.sectionLabel.text = "Share with family & friends".localized
         case 3:
-            sectionHeader.sectionLabel.text = "This will remove all information in database"
+            sectionHeader.sectionLabel.text = "This will remove all information in database".localized
         default:
             break
         }
@@ -249,7 +249,7 @@ class SettingsTableViewController: UITableViewController {
             // MARK: - Share App
             DispatchQueue.main.async {
                 if let link = URL(string: "https://itunes.apple.com/us/app/scriptbuilder/id1358448790?ls=1&mt=8") {
-                    let message = "Build your Screenplay outline"
+                    let message = "Build your Screenplay outline".localized
                     let objectsToShare = [message,link] as [Any]
                     let activityVC = UIActivityViewController(activityItems: objectsToShare,
                                                               applicationActivities: nil)
@@ -264,7 +264,7 @@ class SettingsTableViewController: UITableViewController {
         case 3:
             // MARK: - Delete Account
         self.present(self.presentDeleteAccountConfirmation(completion: { [weak self] (deleted, canceled) in
-                
+            
             DispatchQueue.main.async {
                 self?.tableView.deselectRow(at: indexPath,
                                             animated: true)
