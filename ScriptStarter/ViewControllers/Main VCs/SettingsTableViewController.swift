@@ -248,8 +248,8 @@ class SettingsTableViewController: UITableViewController {
         case 2:
             // MARK: - Share App
             DispatchQueue.main.async {
-                if let link = NSURL(string: "https://itunes.apple.com/us/app/payraise/id1281621920?ls=1&mt=8") {
-                    let message = "Check out Script Builder"
+                if let link = URL(string: "https://itunes.apple.com/us/app/scriptbuilder/id1358448790?ls=1&mt=8") {
+                    let message = "Build your Screenplay outline"
                     let objectsToShare = [message,link] as [Any]
                     let activityVC = UIActivityViewController(activityItems: objectsToShare,
                                                               applicationActivities: nil)
