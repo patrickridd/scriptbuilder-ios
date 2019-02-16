@@ -88,12 +88,14 @@ class SettingsTableViewController: UITableViewController {
             if success {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
                 self.loadingNotification.label.text = "success".localized
-                self.loadingNotification.hide(animated: true, afterDelay: 1)
+                self.loadingNotification.hide(animated: true,
+                                              afterDelay: 1)
                 completion?()
             } else {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
                 self.loadingNotification.label.text = "failed".localized
-                self.loadingNotification.hide(animated: true, afterDelay: 1)
+                self.loadingNotification.hide(animated: true,
+                                              afterDelay: 1)
                 completion?()
             }
         }
@@ -259,8 +261,6 @@ class SettingsTableViewController: UITableViewController {
                      }
                 }
             }
-
-            break
         case 3:
             // MARK: - Delete Account
         self.present(self.presentDeleteAccountConfirmation(completion: { [weak self] (deleted, canceled) in
@@ -279,9 +279,11 @@ class SettingsTableViewController: UITableViewController {
                     }
                     dismissingViewController.dismiss(animated: true,
                                                      completion: nil)
-                }, animated: true, completion: nil)
+                }, animated: true,
+                   completion: nil)
             }
-        }), animated: true, completion: nil)
+        }), animated: true,
+            completion: nil)
         default:
             break
         }
@@ -297,11 +299,13 @@ extension SettingsTableViewController: InAppPurchaseDelegate {
                                 displayLoadingImage: Bool = true) {
         tableView.reloadData()
         if let error = error {
-            hideActivityIndicator(success: false, displayImage: displayLoadingImage) {
+            hideActivityIndicator(success: false,
+                                  displayImage: displayLoadingImage) {
                 self.present(error: error)
             }
         } else {
-            hideActivityIndicator(success: true, displayImage: displayLoadingImage)
+            hideActivityIndicator(success: true,
+                                  displayImage: displayLoadingImage)
         }
     }
     
