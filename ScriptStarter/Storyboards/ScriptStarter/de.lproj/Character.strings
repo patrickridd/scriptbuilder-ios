@@ -2,23 +2,11 @@
 /* Class = "UITextField"; placeholder = "name"; ObjectID = "136-1D-puI"; */
 "136-1D-puI.placeholder" = "name";
 
-/* Class = "UILabel"; text = "intentionLabel"; ObjectID = "2wJ-LW-8hM"; */
-"2wJ-LW-8hM.text" = "intentionLabel";
-
 /* Class = "UITextField"; placeholder = "role"; ObjectID = "5Vg-o2-u3g"; */
 "5Vg-o2-u3g.placeholder" = "role";
-
-/* Class = "UILabel"; text = "nameLabel"; ObjectID = "BLI-K9-35X"; */
-"BLI-K9-35X.text" = "nameLabel";
-
-/* Class = "UILabel"; text = "Act 1"; ObjectID = "gau-4X-2Fc"; */
-"gau-4X-2Fc.text" = "Act 1";
 
 /* Class = "UITabBarItem"; title = "characters"; ObjectID = "hBH-bD-Xzg"; */
 "hBH-bD-Xzg.title" = "characters";
 
 /* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "p7I-k4-nr3"; */
 "p7I-k4-nr3.title" = "Save";
-
-/* Class = "UILabel"; text = "Protagonist"; ObjectID = "y19-ze-94C"; */
-"y19-ze-94C.text" = "Protagonist";

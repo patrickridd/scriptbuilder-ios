@@ -1,60 +1,6 @@
 
-/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt "; ObjectID = "0h3-lV-ynJ"; */
-"0h3-lV-ynJ.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ";
-
-/* Class = "UITextField"; placeholder = "EXT. PARK - DAY"; ObjectID = "1Ch-Sm-J3h"; */
-"1Ch-Sm-J3h.placeholder" = "EXT. PARK - DAY";
-
-/* Class = "UILabel"; text = "Action"; ObjectID = "2wh-yU-jju"; */
-"2wh-yU-jju.text" = "Action";
-
-/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt "; ObjectID = "3kq-FL-ITV"; */
-"3kq-FL-ITV.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ";
-
-/* Class = "UILabel"; text = "How does scene push the story forward?"; ObjectID = "8ck-6P-T4i"; */
-"8ck-6P-T4i.text" = "How does scene push the story forward?";
-
-/* Class = "UIButton"; normalTitle = "Got it"; ObjectID = "FSA-rY-JHg"; */
-"FSA-rY-JHg.normalTitle" = "Got it";
-
-/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "JWx-ZF-LDB"; */
-"JWx-ZF-LDB.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
-
 /* Class = "UITabBarItem"; title = "outline"; ObjectID = "MGt-Ot-BVC"; */
 "MGt-Ot-BVC.title" = "outline";
 
-/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt "; ObjectID = "NtZ-BR-4M3"; */
-"NtZ-BR-4M3.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ";
-
-/* Class = "UILabel"; text = "Characters"; ObjectID = "Qfa-ep-gVM"; */
-"Qfa-ep-gVM.text" = "Characters";
-
-/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt "; ObjectID = "Vg8-FH-Y4A"; */
-"Vg8-FH-Y4A.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ";
-
-/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt "; ObjectID = "Wn4-Eg-V9G"; */
-"Wn4-Eg-V9G.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ";
-
-/* Class = "UILabel"; text = "Dialog"; ObjectID = "Yny-gm-Erq"; */
-"Yny-gm-Erq.text" = "Dialog";
-
-/* Class = "UILabel"; text = "Notes"; ObjectID = "a0j-cp-Ufa"; */
-"a0j-cp-Ufa.text" = "Notes";
-
-/* Class = "UILabel"; text = "Scene Description"; ObjectID = "aIb-pS-GQD"; */
-"aIb-pS-GQD.text" = "Scene Description";
-
-/* Class = "UITextField"; text = "1"; ObjectID = "b7l-h7-XlQ"; */
-"b7l-h7-XlQ.text" = "1";
-
-/* Class = "UILabel"; text = "Heading"; ObjectID = "pHc-me-msX"; */
-"pHc-me-msX.text" = "Heading";
-
 /* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "rVc-q6-nHg"; */
 "rVc-q6-nHg.title" = "Save";
-
-/* Class = "UILabel"; text = "Scene #"; ObjectID = "vHg-Th-B9I"; */
-"vHg-Th-B9I.text" = "Scene #";
-
-/* Class = "UIButton"; normalTitle = "Delete Scene"; ObjectID = "zFB-Mo-qdv"; */
-"zFB-Mo-qdv.normalTitle" = "Delete Scene";
