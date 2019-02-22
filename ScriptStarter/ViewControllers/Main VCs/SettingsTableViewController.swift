@@ -10,6 +10,7 @@ import UIKit
 import MBProgressHUD
 import StoreKit
 import GoogleMobileAds
+import Firebase
 
 protocol InAppPurchaseDelegate: class {
     func didCompleteTransaction(for productIdentifier: String,
@@ -22,7 +23,12 @@ class SettingsTableViewController: UITableViewController {
     
     var interstitial: GADInterstitial?
     var loadingNotification = MBProgressHUD()
+    var screenplays: [Screenplay] = []
 
+    var user: FIRUser? {
+        return FIRAuth.auth()?.currentUser
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -125,7 +131,6 @@ class SettingsTableViewController: UITableViewController {
     }
     
     
-    
     // MARK: - IBActions && Target Methods
     
     @IBAction func downButtonTapped(_ sender: Any) {
@@ -154,7 +159,7 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - UITableView DataSource and Delegate Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -164,6 +169,11 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
+            let personalInfoCell = tableView.dequeueReusableCell(withIdentifier: "personalCell",
+                                                                 for: indexPath) as? PersonalInfoTableViewCell
+            personalInfoCell?.updateCell(with: user, and: screenplays)
+            return personalInfoCell ?? UITableViewCell()
+        case 1:
            let inAppPurchaseCell = tableView.dequeueReusableCell(withIdentifier:"inAppPurchaseCell",
                                                                         for: indexPath) as? IAPTableViewCell
            inAppPurchaseCell?.purchaseButtonHandler = { [weak self] product in
@@ -178,7 +188,7 @@ class SettingsTableViewController: UITableViewController {
            
             inAppPurchaseCell?.setPurchasedUI()
             return inAppPurchaseCell ?? UITableViewCell()
-        case 1:
+        case 2:
             let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell",
                                                                    for: indexPath) as? ChangePasswordTableViewCell
            
@@ -186,11 +196,11 @@ class SettingsTableViewController: UITableViewController {
                                                       action: #selector(changePasswordButtonTapped),
                                                       for: .touchUpInside)
             return changePasswordCell ?? UITableViewCell()
-        case 2:
+        case 3:
             let shareAppCell = tableView.dequeueReusableCell(withIdentifier: "shareAppCell",
                                                              for: indexPath) as? ShareTableViewCell
             return shareAppCell ?? UITableViewCell()
-        case 3:
+        case 4:
             let deleteCell = tableView.dequeueReusableCell(withIdentifier: "deleteAccountCell",
                                                            for: indexPath) as? DeleteAccountTableViewCell
             return deleteCell ?? UITableViewCell()
@@ -204,12 +214,19 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 45
+        switch section {
+        case 0:
+            return 15
+        default:
+            return 45
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
+            return 130
+        case 1:
             return 90
         default:
             return 60
@@ -232,12 +249,14 @@ class SettingsTableViewController: UITableViewController {
         
         switch section {
         case 0:
-            sectionHeader.sectionLabel.text = "Remove Banner & Interstitial Ads".localized
+            sectionHeader.sectionLabel.text = ""
         case 1:
-            sectionHeader.sectionLabel.text = "Change Password - if signed up via email & password".localized
+            sectionHeader.sectionLabel.text = "Remove Banner & Interstitial Ads".localized
         case 2:
-            sectionHeader.sectionLabel.text = "Share with family & friends".localized
+            sectionHeader.sectionLabel.text = "Change Password - if signed up via email & password".localized
         case 3:
+            sectionHeader.sectionLabel.text = "Share with family & friends".localized
+        case 4:
             sectionHeader.sectionLabel.text = "This will remove all information in database".localized
         default:
             break

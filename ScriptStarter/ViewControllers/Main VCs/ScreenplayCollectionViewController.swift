@@ -107,20 +107,31 @@ class ScreenplayCollectionViewController: UIViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.navigationController?.navigationBar.topItem?.title = ""
-        self.navigationController?.navigationBar.tintColor = UIColor.screenLightBlue
-        self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
-        
-        guard let indexPath = collectionView.indexPathsForSelectedItems?.first, let screenplayCoverVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayCover") as? ScreenplayCoverViewController else { return }
-        
-        screenplayCoverVC.view.hero.id = "\(indexPath.row)"
-        
-        if indexPath.row == 0 { return } // Users tapped on "+" screenplay so return
-        
-        let screenplay = screenplays[indexPath.row-1]
-        ScreenplayController.shared.set(currentScreenplay: screenplay)
-        
+        if segue.identifier == "screenplaySegue" {
+            self.navigationController?.navigationBar.topItem?.title = ""
+            self.navigationController?.navigationBar.tintColor = UIColor.screenLightBlue
+            self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
+            
+            guard let indexPath = collectionView.indexPathsForSelectedItems?.first, let screenplayCoverVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayCover") as? ScreenplayCoverViewController else { return }
+            
+            screenplayCoverVC.view.hero.id = "\(indexPath.row)"
+            
+            if indexPath.row == 0 { return } // Users tapped on "+" screenplay so return
+            
+            let screenplay = screenplays[indexPath.row-1]
+            ScreenplayController.shared.set(currentScreenplay: screenplay)
+        } else if segue.identifier == "settingsSegue" {
+            guard
+                let navController = segue.destination as? UINavigationController,
+                let settingsTableViewController = navController.viewControllers.first as? SettingsTableViewController
+            else {
+                return
+            }
+            settingsTableViewController.screenplays = self.screenplays
+        }
+       
     }
+    
 }
 
 extension ScreenplayCollectionViewController: UICollectionViewDataSource {

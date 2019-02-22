@@ -10,7 +10,6 @@ import UIKit
 import Hero
 
 class ScreenplayPageViewController: UIPageViewController {
-
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         return [self.getScreenplayViewController(with:"screenplayCover"),
@@ -23,8 +22,7 @@ class ScreenplayPageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        
+
         self.dataSource = self
         
         if let screenplayCover = orderedViewControllers.first {
