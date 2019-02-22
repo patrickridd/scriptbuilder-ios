@@ -41,13 +41,22 @@ class CharacterTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(sender:)))
+        let rightSwipe = UISwipeGestureRecognizer(target: self,
+                                                  action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
         
         if newCharacter, InAppPurchases.characterFeatureEnabled {
             self.performSegue(withIdentifier: "newCharacterSegue",
                               sender: nil)
+        }
+    
+        // If RewardBased Ad is not ready load one
+        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
+            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
+            rewardBasedAd?.delegate = self
+            rewardBasedAd?.load(GADRequest(),
+                                withAdUnitID: GoogleAds.characterBuilderRewardAdId)
         }
     }
     
@@ -63,14 +72,13 @@ class CharacterTableViewController: UITableViewController {
         if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
             rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
             rewardBasedAd?.delegate = self
-            rewardBasedAd?.load(GADRequest(), withAdUnitID: GoogleAds.characterBuilderRewardAdId)
+            rewardBasedAd?.load(GADRequest(),
+                                withAdUnitID: GoogleAds.characterBuilderRewardAdId)
         }
 
         if InAppPurchases.shouldDisplayAds {
             adBannerView.load(GADRequest())
         }
-       
-        checkForCharacterFeatureEnabled()
         
         // Retrieves in app purchases from apple
         InAppPurchases.store.requestProducts { (_, products) in
@@ -89,6 +97,7 @@ class CharacterTableViewController: UITableViewController {
         
         // Display ad if we have one loaded and we have interstitial ads enabled
         display(interstitial: interstitial)
+        checkForCharacterFeatureEnabled()
     }
     
     // MARK: UI Methods

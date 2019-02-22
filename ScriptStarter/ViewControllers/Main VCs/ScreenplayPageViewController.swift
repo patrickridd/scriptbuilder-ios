@@ -34,6 +34,16 @@ class ScreenplayPageViewController: UIPageViewController {
                                completion: nil)
         }
         
+        // Load Views early so that the RewardAd is loaded when the user taps on the CharacterTableViewController and SceneTableViewController
+        if let screenplayTab = orderedViewControllers[1] as? ScreenplayTabBarController {
+            _ = ((screenplayTab.viewControllers?[0] as!
+                UINavigationController).viewControllers.first as! OutlineTableViewController).view
+            _ = ((screenplayTab.viewControllers?[1] as!
+                UINavigationController).viewControllers.first as! CharacterTableViewController).view
+            _ = ((screenplayTab.viewControllers?[2] as!
+                UINavigationController).viewControllers.first as! ScenesTableViewController).view
+        }
+        
         let swipedRightNotification = Notification.Name(swipeRightNotificationKey)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(swipedRight),

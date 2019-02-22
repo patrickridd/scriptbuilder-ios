@@ -47,6 +47,14 @@ class ScenesTableViewController: UITableViewController {
             self.pushToSceneDetailView(act: .one,
                                        scene: nil)
         }
+        
+        // If RewardBased Ad is not ready, load one
+        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
+            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
+            rewardBasedAd?.delegate = self
+            rewardBasedAd?.load(GADRequest(),
+                                withAdUnitID: GoogleAds.sceneBuilderRewardAdId)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,8 +77,6 @@ class ScenesTableViewController: UITableViewController {
         if InAppPurchases.shouldDisplayAds {
             adBannerView.load(GADRequest())
         }
-        
-        checkForSceneFeatureEnabled()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -83,6 +89,7 @@ class ScenesTableViewController: UITableViewController {
         
         // Display ad if we have one loaded and we have interstitial ads enabled
         display(interstitial: interstitial)
+        checkForSceneFeatureEnabled()
     }
     
     @objc func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
