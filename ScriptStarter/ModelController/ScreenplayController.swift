@@ -44,7 +44,7 @@ class ScreenplayController {
     
     func add(character: Character) {
         if let screenplay = self.currentScreenplay {
-            screenplay.characters.append(character)
+            screenplay.characters.insert(character)
         }
     }
     

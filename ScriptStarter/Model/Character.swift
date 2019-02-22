@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Character: Equatable {
+class Character: Equatable, Hashable {
     
     // Keys
     let nameKey = "name"
@@ -55,7 +55,11 @@ class Character: Equatable {
                lhs.howCharacterChanged == rhs.howCharacterChanged &&
                lhs.notes == rhs.notes
     }
-
+    
+    var hashValue: Int {
+        return uuid.hashValue
+    }
+    
     init(name:String) {
         self.name = name
         self.uuid = UUID().uuidString

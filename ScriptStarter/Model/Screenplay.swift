@@ -42,7 +42,7 @@ class Screenplay: Equatable {
     var actOneDescription: String = ""
     var actTwoDescription: String = ""
     var actThreeDescription: String = ""
-    var characters: [Character] = []
+    var characters: Set<Character> = []
     var act1 = Act1()
     var act2 = Act2()
     var act3 = Act3()
@@ -101,7 +101,7 @@ class Screenplay: Equatable {
              let character = Character(uuid: characterKeyPair.key, characterDictionary:characterDictionary) else {
                 continue
             }
-            self.characters.append(character)
+            self.characters.insert(character)
         }
     }
     
@@ -121,10 +121,10 @@ class Screenplay: Equatable {
         actThreeDescription = screenplay.actThreeDescription
         
         // Create new Character, Acts, and Scene References so that this screenplay is completely separate than the object passed in
-        var characterObjects: [Character] = []
+        var characterObjects: Set<Character> = []
         for character in screenplay.characters {
             let character = Character(character: character)
-            characterObjects.append(character)
+            characterObjects.insert(character)
         }
         characters = characterObjects
         

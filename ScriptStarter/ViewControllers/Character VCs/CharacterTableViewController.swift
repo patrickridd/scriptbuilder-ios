@@ -244,14 +244,21 @@ class CharacterTableViewController: UITableViewController {
         
         // Avoid duplicate role titles
         for character in screenplay.characters {
-            if let role = character.role {
-                let roleCharacters = self.screenplay?.characters.filter({$0.role == role})
-                let characterSection = CharacterTableViewSection(roleTitle: role, characters: roleCharacters ?? [])
+            if let role = character.role, role != "" {
+                var roleCharactersArray: [Character] = []
+                let roleCharacters = self.screenplay?.characters.filter({ $0.role == role })
+                roleCharactersArray.append(contentsOf: roleCharacters!)
+                let characterSection = CharacterTableViewSection(roleTitle: role,
+                                                                 characters: roleCharactersArray)
                 characterTableViewSections.insert(characterSection)
             } else {
-                let noRoleCharacters = screenplay.characters.filter({ $0.role == nil })
+                let noRoleCharactersSet = screenplay.characters.filter({ $0.role == nil || $0.role == "" })
+                var noRoleCharactersArray: [Character] = []
+                noRoleCharactersArray.append(contentsOf:noRoleCharactersSet)
+                
+                
                 let noRoleCharacterSection = CharacterTableViewSection(roleTitle: "Character".localized,
-                                                                       characters: noRoleCharacters)
+                                                                       characters: noRoleCharactersArray)
                 characterTableViewSections.insert(noRoleCharacterSection)
             }
         }
@@ -291,12 +298,19 @@ class CharacterTableViewController: UITableViewController {
                 return UITableViewCell()
             }
             return noCharacterCell
+            
         } else {
-            guard let characterCell = tableView.dequeueReusableCell(withIdentifier: "characterCell", for: indexPath) as? CharacterTableViewCell else { return UITableViewCell() }
+            guard
+                let characterCell = tableView.dequeueReusableCell(withIdentifier: "characterCell",
+                                                                  for: indexPath) as? CharacterTableViewCell
+            else {
+                return UITableViewCell()
+            }
             
             // Configure the cell...
-            let character = self.roleCharacterSections[indexPath.section].characters[indexPath.row]
-            characterCell.updateCell(with: character)
+            let characterSection = self.roleCharacterSections[indexPath.section]
+            let character = characterSection.characters[indexPath.row]
+            characterCell.updateCell(with:character)
             
             return characterCell
         }
@@ -305,7 +319,6 @@ class CharacterTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-    
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
       
@@ -348,17 +361,12 @@ class CharacterTableViewController: UITableViewController {
         
         let character = self.roleCharacterSections[indexPath.section].characters[indexPath.row]
         
-        FirebaseController.shared.delete(character: character, withScreenplay: screenplay)
+        FirebaseController.shared.delete(character: character,
+                                         withScreenplay: screenplay)
         
-        var charIndex: Int = 0
-        for possibleCharacter in screenplay.characters {
-            if character.uuid == possibleCharacter.uuid {
-                self.screenplay?.characters.remove(at: charIndex)
-            }
-            charIndex += 1
-        }
+        screenplay.characters.remove(character)
         
-    self.roleCharacterSections[indexPath.section].characters.remove(at: indexPath.row)
+        self.roleCharacterSections[indexPath.section].characters.remove(at: indexPath.row)
         if roleCharacterSections[indexPath.section].characters.count == 0 {
             self.roleCharacterSections.remove(at: indexPath.section)
         }
@@ -374,9 +382,7 @@ class CharacterTableViewController: UITableViewController {
     }
     
     func reloadTableView() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        self.tableView.reloadData()
     }
     
     // MARK: - Navigation
@@ -392,7 +398,8 @@ class CharacterTableViewController: UITableViewController {
             guard let indexPath = self.tableView.indexPathForSelectedRow else {
                 return
             }
-             let character = self.roleCharacterSections[indexPath.section].characters[indexPath.row]
+            
+            let character = self.roleCharacterSections[indexPath.section].characters[indexPath.row]
             characterDetailVC.character = character
         }
     }
