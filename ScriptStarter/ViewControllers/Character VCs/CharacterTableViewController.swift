@@ -343,6 +343,7 @@ class CharacterTableViewController: UITableViewController {
             header.contentView.backgroundColor = UIColor.screenLightGray
             header.moreButton.isHidden = true
             header.sectionLabel.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: 5).isActive = true
+            header.sectionLabel.textColor = UIColor.screenDarkGray
             header.navigationButton.isEnabled = false
             let font = UIFont.systemFont(ofSize: 16, weight: .bold)
             
