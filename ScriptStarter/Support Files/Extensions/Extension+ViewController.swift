@@ -280,15 +280,8 @@ extension UIViewController: GADRewardBasedVideoAdDelegate {
     
     public func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
                             didRewardUserWith reward: GADAdReward) {
-        switch reward.type {
-        case Constants.characterBuilderTrialType:
-            self.rewardUserWithCharacterBuilder()
-        case Constants.sceneBuilderTrialType:
-            self.rewardUserWithSceneBuilder()
-        default:
-            self.rewardUserWithSceneBuilder()
-            self.rewardUserWithCharacterBuilder()
-        }
+        self.rewardUserWithSceneBuilder()
+        self.rewardUserWithCharacterBuilder()
     }
     
     // Reward Based Ad - Character Builder helper methods

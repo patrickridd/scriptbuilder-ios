@@ -132,7 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let screenplayCoverVC = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController,
             let screenplayTabBar = screenplayCoverVC.orderedViewControllers[1] as? ScreenplayTabBarController,
             let characterNavigationController = screenplayTabBar.viewControllers?[1] as? UINavigationController,
-             let characterTableViewController =  characterNavigationController.viewControllers[0] as? CharacterTableViewController
+            let characterTableViewController = characterNavigationController.viewControllers[0] as? CharacterTableViewController
         else {
             return
         }
