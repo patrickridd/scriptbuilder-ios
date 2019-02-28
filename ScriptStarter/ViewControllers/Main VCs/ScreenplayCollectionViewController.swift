@@ -48,9 +48,9 @@ class ScreenplayCollectionViewController: UIViewController {
             NSAttributedString.Key.font: UIFont(name: "Avenir-Light",
                                                 size: 22) ?? UIFont.systemFont(ofSize: 22,
                                                                                weight: .regular)]
-    
+        
         self.navigationController?.navigationBar.titleTextAttributes = strokeTextAttributes
-        self.title = "Script Builder"
+        self.title = "Script Builder".localized
         self.collectionView.reloadData()
         
         // If interstitial is not ready load one

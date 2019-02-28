@@ -14,6 +14,12 @@
 /* Class = "UITextField"; placeholder = "password"; ObjectID = "3U6-uP-T4P"; */
 "3U6-uP-T4P.placeholder" = "password";
 
+/* Class = "UILabel"; text = "Characters"; ObjectID = "3Yv-We-PHn"; */
+"3Yv-We-PHn.text" = "Characters";
+
+/* Class = "UILabel"; text = "Scenes"; ObjectID = "3bE-HG-OYl"; */
+"3bE-HG-OYl.text" = "Scenes";
+
 /* Class = "UILabel"; text = "Share Script Builder"; ObjectID = "3d6-Mh-K4t"; */
 "3d6-Mh-K4t.text" = "Share Script Builder";
 
@@ -29,11 +35,14 @@
 /* Class = "UITextField"; placeholder = "new password"; ObjectID = "CVX-9T-1Be"; */
 "CVX-9T-1Be.placeholder" = "new password";
 
-/* Class = "UILabel"; text = "From your screen to the silverscreen"; ObjectID = "Fsi-jX-bWD"; */
-"Fsi-jX-bWD.text" = "From your screen to the silverscreen";
+/* Class = "UILabel"; text = "Screenplays"; ObjectID = "EpR-aK-F1Y"; */
+"EpR-aK-F1Y.text" = "Screenplays";
 
-/* Class = "UILabel"; text = "From your screen to the silverscreen"; ObjectID = "Fyo-d4-jYt"; */
-"Fyo-d4-jYt.text" = "From your screen to the silverscreen";
+/* Class = "UILabel"; text = "From your screen to the silver screen"; ObjectID = "Fsi-jX-bWD"; */
+"Fsi-jX-bWD.text" = "From your screen to the silver screen";
+
+/* Class = "UILabel"; text = "From your screen to the silver screen"; ObjectID = "Fyo-d4-jYt"; */
+"Fyo-d4-jYt.text" = "From your screen to the silver screen";
 
 /* Class = "UIButton"; normalTitle = "sign-up"; ObjectID = "GAk-aX-w1R"; */
 "GAk-aX-w1R.normalTitle" = "sign-up";
@@ -92,9 +101,6 @@
 /* Class = "UIButton"; normalTitle = "forgot password"; ObjectID = "cUa-kL-YaK"; */
 "cUa-kL-YaK.normalTitle" = "forgot password";
 
-/* Class = "UIButton"; normalTitle = "Reset Password"; ObjectID = "eG2-ae-Vpt"; */
-"eG2-ae-Vpt.normalTitle" = "Reset Password";
-
 /* Class = "UIButton"; normalTitle = "Save"; ObjectID = "flj-yl-qjQ"; */
 "flj-yl-qjQ.normalTitle" = "Save";
 
@@ -104,17 +110,8 @@
 /* Class = "UILabel"; text = "or"; ObjectID = "hpR-ym-C8z"; */
 "hpR-ym-C8z.text" = "or";
 
-/* Class = "UILabel"; text = "Name"; ObjectID = "iGQ-js-Qji"; */
-"iGQ-js-Qji.text" = "Name";
-
 /* Class = "UILabel"; text = "Script Builder"; ObjectID = "jCA-v7-B4N"; */
 "jCA-v7-B4N.text" = "Script Builder";
-
-/* Class = "UITextField"; placeholder = "old password"; ObjectID = "jCU-9Y-8f5"; */
-"jCU-9Y-8f5.placeholder" = "old password";
-
-/* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "jM0-Mg-Cag"; */
-"jM0-Mg-Cag.normalTitle" = "Restore";
 
 /* Class = "UITextField"; placeholder = "first name"; ObjectID = "odC-YR-ugF"; */
 "odC-YR-ugF.placeholder" = "first name";
@@ -128,17 +125,8 @@
 /* Class = "UILabel"; text = "Sign up"; ObjectID = "w4F-WL-orr"; */
 "w4F-WL-orr.text" = "Sign up";
 
-/* Class = "UILabel"; text = "Name"; ObjectID = "wZ6-7H-ahU"; */
-"wZ6-7H-ahU.text" = "Name";
-
-/* Class = "UIButton"; normalTitle = "$1.99"; ObjectID = "wfP-hD-iYG"; */
-"wfP-hD-iYG.normalTitle" = "$1.99";
-
-/* Class = "UILabel"; text = "Remove Ads / Enable Offline Capabilites"; ObjectID = "wpO-r8-Bnz"; */
-"wpO-r8-Bnz.text" = "Remove Ads / Enable Offline Capabilites";
-
-/* Class = "UILabel"; text = "Script Builder"; ObjectID = "yBv-n3-fZh"; */
-"yBv-n3-fZh.text" = "Script Builder";
+/* Class = "UILabel"; text = "Screenplay Planner"; ObjectID = "yBv-n3-fZh"; */
+"yBv-n3-fZh.text" = "Screenplay Planner";
 
 /* Class = "UIButton"; normalTitle = "$1.99"; ObjectID = "zPB-uI-KGa"; */
 "zPB-uI-KGa.normalTitle" = "$1.99";

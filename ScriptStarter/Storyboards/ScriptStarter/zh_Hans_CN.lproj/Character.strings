@@ -1,0 +1,12 @@
+/* Class = "UITextField"; placeholder = "role"; ObjectID = "5Vg-o2-u3g"; */
+"5Vg-o2-u3g.placeholder" = "角色";
+
+/* Class = "UITextField"; placeholder = "name"; ObjectID = "136-1D-puI"; */
+"136-1D-puI.placeholder" = "名称";
+
+/* Class = "UITabBarItem"; title = "characters"; ObjectID = "hBH-bD-Xzg"; */
+"hBH-bD-Xzg.title" = "人物";
+
+/* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "p7I-k4-nr3"; */
+"p7I-k4-nr3.title" = "保存";
+

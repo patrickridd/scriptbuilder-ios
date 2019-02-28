@@ -1,144 +1,132 @@
-
 /* Class = "UIButton"; normalTitle = "already have account"; ObjectID = "0es-Xi-5cd"; */
-"0es-Xi-5cd.normalTitle" = "already have account";
-
-/* Class = "UITextField"; placeholder = "password"; ObjectID = "13Q-eR-o9O"; */
-"13Q-eR-o9O.placeholder" = "password";
+"0es-Xi-5cd.normalTitle" = "이미 계정이있다.";
 
 /* Class = "UIButton"; normalTitle = "Delete Account"; ObjectID = "1vU-dU-rgj"; */
-"1vU-dU-rgj.normalTitle" = "Delete Account";
+"1vU-dU-rgj.normalTitle" = "계정 삭제";
 
-/* Class = "UITabBarItem"; title = "Item"; ObjectID = "22b-nd-Oat"; */
-"22b-nd-Oat.title" = "Item";
-
-/* Class = "UITextField"; placeholder = "password"; ObjectID = "3U6-uP-T4P"; */
-"3U6-uP-T4P.placeholder" = "password";
+/* Class = "UILabel"; text = "Scenes"; ObjectID = "3bE-HG-OYl"; */
+"3bE-HG-OYl.text" = "장면들";
 
 /* Class = "UILabel"; text = "Share Script Builder"; ObjectID = "3d6-Mh-K4t"; */
-"3d6-Mh-K4t.text" = "Share Script Builder";
+"3d6-Mh-K4t.text" = "스크립트 빌더 공유";
+
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "3U6-uP-T4P"; */
+"3U6-uP-T4P.placeholder" = "암호";
+
+/* Class = "UILabel"; text = "Characters"; ObjectID = "3Yv-We-PHn"; */
+"3Yv-We-PHn.text" = "문자";
 
 /* Class = "UITextField"; placeholder = "Untitled"; ObjectID = "4MR-wb-F71"; */
-"4MR-wb-F71.placeholder" = "Untitled";
+"4MR-wb-F71.placeholder" = "제목 없음";
 
 /* Class = "UILabel"; text = "If already purchased, tap \"Restore\""; ObjectID = "5Jf-73-Rqh"; */
-"5Jf-73-Rqh.text" = "If already purchased, tap \"Restore\"";
+"5Jf-73-Rqh.text" = "이미 구입 한 경우 '복원'을 탭합니다.";
+
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "13Q-eR-o9O"; */
+"13Q-eR-o9O.placeholder" = "암호";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "22b-nd-Oat"; */
+"22b-nd-Oat.title" = "목";
 
 /* Class = "UIBarButtonItem"; title = "Log Out"; ObjectID = "BdL-zr-FoL"; */
-"BdL-zr-FoL.title" = "Log Out";
-
-/* Class = "UITextField"; placeholder = "new password"; ObjectID = "CVX-9T-1Be"; */
-"CVX-9T-1Be.placeholder" = "new password";
-
-/* Class = "UILabel"; text = "From your screen to the silverscreen"; ObjectID = "Fsi-jX-bWD"; */
-"Fsi-jX-bWD.text" = "From your screen to the silverscreen";
-
-/* Class = "UILabel"; text = "From your screen to the silverscreen"; ObjectID = "Fyo-d4-jYt"; */
-"Fyo-d4-jYt.text" = "From your screen to the silverscreen";
-
-/* Class = "UIButton"; normalTitle = "sign-up"; ObjectID = "GAk-aX-w1R"; */
-"GAk-aX-w1R.normalTitle" = "sign-up";
-
-/* Class = "UITextField"; placeholder = "email"; ObjectID = "GIJ-PI-6y0"; */
-"GIJ-PI-6y0.placeholder" = "email";
-
-/* Class = "UITabBarItem"; title = "Item"; ObjectID = "JdU-iq-7Rv"; */
-"JdU-iq-7Rv.title" = "Item";
-
-/* Class = "UILabel"; text = "by"; ObjectID = "NOP-aH-Q5V"; */
-"NOP-aH-Q5V.text" = "by";
-
-/* Class = "UITextField"; placeholder = "email"; ObjectID = "NXQ-VX-hUz"; */
-"NXQ-VX-hUz.placeholder" = "email";
-
-/* Class = "UILabel"; text = "Login"; ObjectID = "OB7-Zb-xeT"; */
-"OB7-Zb-xeT.text" = "Login";
-
-/* Class = "UILabel"; text = "Sign up"; ObjectID = "OZi-bc-Ajs"; */
-"OZi-bc-Ajs.text" = "Sign up";
-
-/* Class = "UIButton"; normalTitle = "Change"; ObjectID = "Qh4-OM-un7"; */
-"Qh4-OM-un7.normalTitle" = "Change";
-
-/* Class = "UILabel"; text = "Login"; ObjectID = "RWi-Lf-leN"; */
-"RWi-Lf-leN.text" = "Login";
-
-/* Class = "UIButton"; normalTitle = "sign up"; ObjectID = "Rhn-Gv-AT6"; */
-"Rhn-Gv-AT6.normalTitle" = "sign up";
-
-/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "RlF-25-Daw"; */
-"RlF-25-Daw.normalTitle" = "Done";
-
-/* Class = "UINavigationItem"; title = "Scripts"; ObjectID = "Tuv-JO-Xdu"; */
-"Tuv-JO-Xdu.title" = "Scripts";
-
-/* Class = "UILabel"; text = "by"; ObjectID = "Vag-Lh-c30"; */
-"Vag-Lh-c30.text" = "by";
-
-/* Class = "UITextField"; placeholder = "last name"; ObjectID = "WQ1-YE-raf"; */
-"WQ1-YE-raf.placeholder" = "last name";
-
-/* Class = "UIButton"; normalTitle = "login"; ObjectID = "X5g-g7-BpV"; */
-"X5g-g7-BpV.normalTitle" = "login";
-
-/* Class = "UILabel"; text = "+"; ObjectID = "YTy-Aw-S9O"; */
-"YTy-Aw-S9O.text" = "+";
-
-/* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "YWe-Ul-gnu"; */
-"YWe-Ul-gnu.normalTitle" = "Restore";
+"BdL-zr-FoL.title" = "로그 아웃";
 
 /* Class = "UIButton"; normalTitle = "→"; ObjectID = "bN9-GH-ear"; */
 "bN9-GH-ear.normalTitle" = "→";
 
 /* Class = "UIButton"; normalTitle = "forgot password"; ObjectID = "cUa-kL-YaK"; */
-"cUa-kL-YaK.normalTitle" = "forgot password";
+"cUa-kL-YaK.normalTitle" = "비밀번호를 잊으 셨나요";
 
-/* Class = "UIButton"; normalTitle = "Reset Password"; ObjectID = "eG2-ae-Vpt"; */
-"eG2-ae-Vpt.normalTitle" = "Reset Password";
+/* Class = "UITextField"; placeholder = "new password"; ObjectID = "CVX-9T-1Be"; */
+"CVX-9T-1Be.placeholder" = "새 비밀번호";
+
+/* Class = "UILabel"; text = "Screenplays"; ObjectID = "EpR-aK-F1Y"; */
+"EpR-aK-F1Y.text" = "각본";
 
 /* Class = "UIButton"; normalTitle = "Save"; ObjectID = "flj-yl-qjQ"; */
-"flj-yl-qjQ.normalTitle" = "Save";
+"flj-yl-qjQ.normalTitle" = "구하다";
+
+/* Class = "UILabel"; text = "From your screen to the silver screen"; ObjectID = "Fsi-jX-bWD"; */
+"Fsi-jX-bWD.text" = "화면에서 실버 스크린까지";
+
+/* Class = "UILabel"; text = "From your screen to the silver screen"; ObjectID = "Fyo-d4-jYt"; */
+"Fyo-d4-jYt.text" = "화면에서 실버 스크린까지";
+
+/* Class = "UIButton"; normalTitle = "sign-up"; ObjectID = "GAk-aX-w1R"; */
+"GAk-aX-w1R.normalTitle" = "가입";
+
+/* Class = "UITextField"; placeholder = "email"; ObjectID = "GIJ-PI-6y0"; */
+"GIJ-PI-6y0.placeholder" = "이메일";
 
 /* Class = "UILabel"; text = "Untitled"; ObjectID = "ho6-1A-xJQ"; */
-"ho6-1A-xJQ.text" = "Untitled";
+"ho6-1A-xJQ.text" = "제목 없음";
 
 /* Class = "UILabel"; text = "or"; ObjectID = "hpR-ym-C8z"; */
-"hpR-ym-C8z.text" = "or";
-
-/* Class = "UILabel"; text = "Name"; ObjectID = "iGQ-js-Qji"; */
-"iGQ-js-Qji.text" = "Name";
+"hpR-ym-C8z.text" = "또는";
 
 /* Class = "UILabel"; text = "Script Builder"; ObjectID = "jCA-v7-B4N"; */
-"jCA-v7-B4N.text" = "Script Builder";
+"jCA-v7-B4N.text" = "스크립트 빌더";
 
-/* Class = "UITextField"; placeholder = "old password"; ObjectID = "jCU-9Y-8f5"; */
-"jCU-9Y-8f5.placeholder" = "old password";
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "JdU-iq-7Rv"; */
+"JdU-iq-7Rv.title" = "목";
 
-/* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "jM0-Mg-Cag"; */
-"jM0-Mg-Cag.normalTitle" = "Restore";
+/* Class = "UILabel"; text = "by"; ObjectID = "NOP-aH-Q5V"; */
+"NOP-aH-Q5V.text" = "으로";
+
+/* Class = "UITextField"; placeholder = "email"; ObjectID = "NXQ-VX-hUz"; */
+"NXQ-VX-hUz.placeholder" = "이메일";
+
+/* Class = "UILabel"; text = "Login"; ObjectID = "OB7-Zb-xeT"; */
+"OB7-Zb-xeT.text" = "로그인";
 
 /* Class = "UITextField"; placeholder = "first name"; ObjectID = "odC-YR-ugF"; */
-"odC-YR-ugF.placeholder" = "first name";
+"odC-YR-ugF.placeholder" = "이름";
+
+/* Class = "UILabel"; text = "Sign up"; ObjectID = "OZi-bc-Ajs"; */
+"OZi-bc-Ajs.text" = "가입";
+
+/* Class = "UIButton"; normalTitle = "Change"; ObjectID = "Qh4-OM-un7"; */
+"Qh4-OM-un7.normalTitle" = "변화";
+
+/* Class = "UIButton"; normalTitle = "sign up"; ObjectID = "Rhn-Gv-AT6"; */
+"Rhn-Gv-AT6.normalTitle" = "가입하다";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "RlF-25-Daw"; */
+"RlF-25-Daw.normalTitle" = "끝난";
 
 /* Class = "UITabBarItem"; title = "scenes"; ObjectID = "rLt-tS-b6P"; */
-"rLt-tS-b6P.title" = "scenes";
+"rLt-tS-b6P.title" = "장면들";
+
+/* Class = "UILabel"; text = "Login"; ObjectID = "RWi-Lf-leN"; */
+"RWi-Lf-leN.text" = "로그인";
+
+/* Class = "UINavigationItem"; title = "Scripts"; ObjectID = "Tuv-JO-Xdu"; */
+"Tuv-JO-Xdu.title" = "스크립트";
 
 /* Class = "UILabel"; text = "or"; ObjectID = "txz-jU-gZ3"; */
-"txz-jU-gZ3.text" = "or";
+"txz-jU-gZ3.text" = "또는";
+
+/* Class = "UILabel"; text = "by"; ObjectID = "Vag-Lh-c30"; */
+"Vag-Lh-c30.text" = "으로";
 
 /* Class = "UILabel"; text = "Sign up"; ObjectID = "w4F-WL-orr"; */
-"w4F-WL-orr.text" = "Sign up";
+"w4F-WL-orr.text" = "가입";
 
-/* Class = "UILabel"; text = "Name"; ObjectID = "wZ6-7H-ahU"; */
-"wZ6-7H-ahU.text" = "Name";
+/* Class = "UITextField"; placeholder = "last name"; ObjectID = "WQ1-YE-raf"; */
+"WQ1-YE-raf.placeholder" = "성";
 
-/* Class = "UIButton"; normalTitle = "$1.99"; ObjectID = "wfP-hD-iYG"; */
-"wfP-hD-iYG.normalTitle" = "$1.99";
+/* Class = "UIButton"; normalTitle = "login"; ObjectID = "X5g-g7-BpV"; */
+"X5g-g7-BpV.normalTitle" = "로그인";
 
-/* Class = "UILabel"; text = "Remove Ads / Enable Offline Capabilites"; ObjectID = "wpO-r8-Bnz"; */
-"wpO-r8-Bnz.text" = "Remove Ads / Enable Offline Capabilites";
+/* Class = "UILabel"; text = "Screenplay Planner"; ObjectID = "yBv-n3-fZh"; */
+"yBv-n3-fZh.text" = "대본 제작자";
 
-/* Class = "UILabel"; text = "Script Builder"; ObjectID = "yBv-n3-fZh"; */
-"yBv-n3-fZh.text" = "Script Builder";
+/* Class = "UILabel"; text = "+"; ObjectID = "YTy-Aw-S9O"; */
+"YTy-Aw-S9O.text" = "+";
+
+/* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "YWe-Ul-gnu"; */
+"YWe-Ul-gnu.normalTitle" = "복원";
 
 /* Class = "UIButton"; normalTitle = "$1.99"; ObjectID = "zPB-uI-KGa"; */
-"zPB-uI-KGa.normalTitle" = "$1.99";
+"zPB-uI-KGa.normalTitle" = "$ 1.99";
+

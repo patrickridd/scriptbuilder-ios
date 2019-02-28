@@ -22,15 +22,15 @@
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="96" id="6Yl-JZ-UQ4" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Yl-JZ-UQ4" id="pIk-pI-vdS">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Yl-JZ-UQ4" id="pIk-pI-vdS">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="95.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ejy-l3-4Uu" userLabel="expandView">
-                                            <rect key="frame" x="10" y="0.0" width="355" height="86.5"/>
+                                            <rect key="frame" x="10" y="0.0" width="355" height="86"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoG-mU-OaH" userLabel="expandButton">
-                                                    <rect key="frame" x="325" y="0.0" width="30" height="30.5"/>
+                                                    <rect key="frame" x="325" y="0.0" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="hhp-G1-KDy"/>
                                                         <constraint firstAttribute="height" constant="30" id="wK3-uA-C0A"/>
@@ -53,7 +53,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-BN-hxh" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="10" y="0.0" width="325" height="86.5"/>
+                                            <rect key="frame" x="10" y="0.0" width="325" height="86"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="86" id="KdW-zN-ZWc"/>
@@ -61,7 +61,6 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="About a robot"/>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="NO"/>
                                             </userDefinedRuntimeAttributes>
@@ -236,15 +235,15 @@
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="96" id="34E-BM-Gnm" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="34E-BM-Gnm" id="8cz-VY-lR0">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="34E-BM-Gnm" id="8cz-VY-lR0">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="95.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZPg-pn-mpR" userLabel="expandView">
-                                            <rect key="frame" x="10" y="0.0" width="355" height="86.5"/>
+                                            <rect key="frame" x="10" y="0.0" width="355" height="86"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b93-dJ-4ek" userLabel="expandButton">
-                                                    <rect key="frame" x="325" y="0.0" width="30" height="30.5"/>
+                                                    <rect key="frame" x="325" y="0.0" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="Wby-MU-b2a"/>
                                                         <constraint firstAttribute="height" constant="30" id="u32-e9-7Ad"/>
@@ -267,7 +266,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsVerticalScrollIndicator="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M2q-6h-tdl" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="10" y="0.0" width="325" height="86.5"/>
+                                            <rect key="frame" x="10" y="0.0" width="325" height="86"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="86" id="JHK-rs-O04"/>

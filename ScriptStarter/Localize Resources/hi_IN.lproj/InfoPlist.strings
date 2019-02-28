@@ -1,0 +1,22 @@
+/* InfoPlist.strings
+  ScriptStarter
+
+  Created by Patrick Ridd (patrick.ridd@stgconsulting.com) on 2/8/19.
+  Copyright © 2019 patrickridd. All rights reserved. */
+"CFBundleDisplayName" = "ScriptBuilder";
+
+/* Bundle name */
+"CFBundleName" = "$ (PRODUCT_NAME)";
+
+/* (No Comment) */
+"New Character" = "नया चरित्र";
+
+/* (No Comment) */
+"New Scene" = "नया दृश्य";
+
+/* (No Comment) */
+"New Script Idea" = "नई स्क्रिप्ट आइडिया";
+
+/* (No Comment) */
+"NSHumanReadableCopyright" = "कॉपीराइट © 2019 देशभक्ति। सर्वाधिकार सुरक्षित।";
+

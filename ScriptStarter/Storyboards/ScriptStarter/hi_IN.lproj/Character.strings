@@ -1,0 +1,12 @@
+/* Class = "UITextField"; placeholder = "role"; ObjectID = "5Vg-o2-u3g"; */
+"5Vg-o2-u3g.placeholder" = "भूमिका";
+
+/* Class = "UITextField"; placeholder = "name"; ObjectID = "136-1D-puI"; */
+"136-1D-puI.placeholder" = "नाम";
+
+/* Class = "UITabBarItem"; title = "characters"; ObjectID = "hBH-bD-Xzg"; */
+"hBH-bD-Xzg.title" = "वर्ण";
+
+/* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "p7I-k4-nr3"; */
+"p7I-k4-nr3.title" = "बचाना";
+

@@ -1,0 +1,21 @@
+/* Class = "UITabBarItem"; title = "scenes"; ObjectID = "2bg-Jp-ZzV"; */
+"2bg-Jp-ZzV.title" = "场景";
+
+/* Class = "UITextField"; placeholder = "Scene Title"; ObjectID = "3To-7T-LVO"; */
+"3To-7T-LVO.placeholder" = "场景标题";
+
+/* Class = "UILabel"; text = "Act"; ObjectID = "8zT-qv-MY7"; */
+"8zT-qv-MY7.text" = "法案";
+
+/* Class = "UITextField"; placeholder = "EXT. APARTMENT - NIGHT"; ObjectID = "c4A-qY-A83"; */
+"c4A-qY-A83.placeholder" = "EXT。公寓 - 夜晚";
+
+/* Class = "UILabel"; text = "Scene #"; ObjectID = "GKn-PD-liA"; */
+"GKn-PD-liA.text" = "场景＃";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "OWa-ir-dQT"; */
+"OWa-ir-dQT.text" = "1";
+
+/* Class = "UILabel"; text = "Heading"; ObjectID = "qsB-nH-dXA"; */
+"qsB-nH-dXA.text" = "标题";
+

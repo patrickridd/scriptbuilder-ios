@@ -1,10 +1,22 @@
-/* 
-  InfoPlist.strings
+/* InfoPlist.strings
   ScriptStarter
 
   Created by Patrick Ridd (patrick.ridd@stgconsulting.com) on 2/8/19.
-  Copyright © 2019 patrickridd. All rights reserved.
-*/
-
+  Copyright © 2019 patrickridd. All rights reserved. */
 "CFBundleDisplayName" = "ScriptBuilder";
-"NSHumanReadableCopyright" = "Copyright © 2019 patrickridd. All rights reserved.";
+
+/* Bundle name */
+"CFBundleName" = "$ (PRODUCT_NAME)";
+
+/* (No Comment) */
+"New Character" = "Nuevo personaje";
+
+/* (No Comment) */
+"New Scene" = "Nueva escena";
+
+/* (No Comment) */
+"New Script Idea" = "Nueva idea de script";
+
+/* (No Comment) */
+"NSHumanReadableCopyright" = "Derechos de autor © 2019 patrickridd. Todos los derechos reservados.";
+
