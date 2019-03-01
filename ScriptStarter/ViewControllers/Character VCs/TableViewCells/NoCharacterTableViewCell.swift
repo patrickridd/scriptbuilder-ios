@@ -20,4 +20,17 @@ class NoCharacterTableViewCell: UITableViewCell {
         noCharacterLabel.lineBreakMode = .byClipping
     }
     
+    func update(with text: String) {
+        let plusButton = "+"
+        let range = (text as NSString).range(of: plusButton)
+        
+        let attributedText = NSMutableAttributedString.init(string: text)
+       
+        attributedText.addAttribute(NSAttributedString.Key.foregroundColor,
+                                    value: UIColor.screenLightBlue,
+                                    range: range)
+        
+        noCharacterLabel.attributedText = attributedText
+    }
+    
 }

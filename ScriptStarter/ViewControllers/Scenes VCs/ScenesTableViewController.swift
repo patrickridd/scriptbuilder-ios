@@ -262,7 +262,7 @@ class ScenesTableViewController: UITableViewController {
     }
     
     func presentIapAlert() {
-        let alert = UIAlertController(title: "Scene Builder disabled\n😥".localized,
+        let alert = UIAlertController(title: "Scene Builder disabled 😥".localized,
                                       message: "The Scene Builder feature requires a one time purchase.".localized,
                                       preferredStyle: .alert)
         let purchaseAction = UIAlertAction(title: "$0.99 😎".localized, style: .default) { [weak self] (_) in
@@ -416,6 +416,7 @@ class ScenesTableViewController: UITableViewController {
             if scenesCount == 0 {
                 let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier",
                                                                       for: indexPath) as?NoCharacterTableViewCell
+                noSceneCell?.update(with: "Tap + to create a new Scene!".localized)
                 return noSceneCell ?? UITableViewCell()
             }
             let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell",
@@ -430,8 +431,10 @@ class ScenesTableViewController: UITableViewController {
             
             // If no scenes in this act return the noSceneCell
             if scenesCount == 0 {
-                let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier",
-                                                                for: indexPath) as? NoCharacterTableViewCell
+                let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as? NoCharacterTableViewCell
+                
+                noSceneCell?.update(with: "Tap + to create a new Scene!".localized)
+
                 return noSceneCell ?? UITableViewCell()
             }
             let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell",
@@ -445,8 +448,9 @@ class ScenesTableViewController: UITableViewController {
             
             // If no scenes in this act return the noSceneCell
             if scenesCount == 0 {
-                let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier",
-                                                                for: indexPath) as? NoCharacterTableViewCell
+                let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier", for: indexPath) as? NoCharacterTableViewCell
+                
+                noSceneCell?.update(with: "Tap + to create a new Scene!".localized)
                 
                 return noSceneCell ?? UITableViewCell()
             }

@@ -136,6 +136,8 @@
 "Changed" = "Changed";
 "Notes" = "Notes";
 
+"Tap + to create your first character" = "Tap + to create your first character";
+
 // MARK: Scene Builder Strings
 "New Scene" = "New Scene";
 "Scene Description" = "Scene Description";
@@ -150,6 +152,8 @@
 "What are your characters doing?" = "What are your characters doing?";
 "How does the scene move the story forward?" = "How does the scene move the story forward?";
 "Details you don't want to forget" = "Details you don't want to forget";
+"Tap + to create a new Scene!" = "Tap + to create a new Scene!";
+
 
 // MARK: Setting Strings
 "Settings" = "Settings";
@@ -185,12 +189,12 @@
 "Discard" = "Discard";
 "Are you sure you want to delete your account?" = "Are you sure you want to delete your account?";
 "Delete Account" = "Delete Account";
-"Character Builder disabled\n😥" = "Character Builder disabled\n😥";
+"Character Builder disabled 😥" = "Character Builder disabled\n😥";
 "The Character Builder feature requires a one time purchase." = "The Character Builder feature requires a one time purchase.";
 "$0.99 😎" = "$0.99 😎";
 "Restore" = "Restore";
 "Try by watching Ad 🎥" = "Try by watching Ad 🎥";
-"Scene Builder disabled\n😥" = "Scene Builder disabled\n😥";
+"Scene Builder disabled 😥" = "Scene Builder disabled\n😥";
 "The Scene Builder feature requires a one time purchase." = "The Scene Builder feature requires a one time purchase.";
 "Error" = "Error";
 

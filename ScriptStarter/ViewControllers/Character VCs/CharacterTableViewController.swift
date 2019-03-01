@@ -143,7 +143,7 @@ class CharacterTableViewController: UITableViewController {
     }
     
     func presentIapAlert() {
-        let alert = UIAlertController(title: "Character Builder disabled\n😥".localized,
+        let alert = UIAlertController(title: "Character Builder disabled 😥".localized,
                                       message: "The Character Builder feature requires a one time purchase.".localized,
                                       preferredStyle: .alert)
         let purchaseAction = UIAlertAction(title: "$0.99 😎".localized,
@@ -297,12 +297,13 @@ class CharacterTableViewController: UITableViewController {
             guard let noCharacterCell = tableView.dequeueReusableCell(withIdentifier: "noCharacterCell", for: indexPath) as? NoCharacterTableViewCell else {
                 return UITableViewCell()
             }
+            
+            noCharacterCell.update(with: "Tap + to create your first character".localized)
             return noCharacterCell
             
         } else {
             guard
-                let characterCell = tableView.dequeueReusableCell(withIdentifier: "characterCell",
-                                                                  for: indexPath) as? CharacterTableViewCell
+                let characterCell = tableView.dequeueReusableCell(withIdentifier: "characterCell", for: indexPath) as? CharacterTableViewCell
             else {
                 return UITableViewCell()
             }
@@ -338,7 +339,7 @@ class CharacterTableViewController: UITableViewController {
     
         } else {
             // Get Role title section
-            let roleTitle = self.roleCharacterSections[section].roleTitle
+            let roleTitle = self.roleCharacterSections[section].roleTitle.localized
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
             header.contentView.backgroundColor = UIColor.screenLightGray
             header.moreButton.isHidden = true
