@@ -246,7 +246,8 @@ class SettingsTableViewController: UITableViewController {
                                                             weight: .light)
         sectionHeader.moreButton.isHidden = true
         sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
-        
+        sectionHeader.sectionLabel.trailingAnchor.constraint(equalTo: sectionHeader.trailingAnchor,
+                                                             constant: -10).isActive = true
         switch section {
         case 0:
             sectionHeader.sectionLabel.text = ""
