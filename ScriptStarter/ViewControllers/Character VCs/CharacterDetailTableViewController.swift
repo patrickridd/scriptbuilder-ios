@@ -342,7 +342,7 @@ extension CharacterDetailTableViewController: RoleCellSelected {
         DispatchQueue.main.async {
             
             if let role = Role(rawValue: row) {
-                self.character?.role = role.title
+                self.character?.role = role.title.localized
                 self.customSelected = false
             } else {
                 self.customSelected = true
