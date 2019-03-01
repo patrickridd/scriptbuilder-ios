@@ -5,7 +5,7 @@
 "+" = "+";
 
 /* (No Comment) */
-"$0.99 😎" = "0.99ドル 😎";
+"$0.99 😎" = "0.99ドル";
 
 /* (No Comment) */
 "A logline is a one to two sentence description of your screenplay. Think about how you pitch movies you want to see to your friends/family." = "ログラインはあなたの脚本の1から2文の説明です。どのようにあなたが見たい映画をあなたの友人/家族に売り込むかについて考えてください。";
@@ -113,7 +113,7 @@
 "Character Arc" = "キャラクターアーク";
 
 /* (No Comment) */
-"Character Builder disabled\n😥" = "キャラクタービルダーは無効 😥";
+"Character Builder disabled 😥" = "キャラクタービルダーは無効 😥";
 
 /* (No Comment) */
 "Characters" = "キャラクター";
@@ -335,7 +335,7 @@
 "saving" = "節約";
 
 /* (No Comment) */
-"Scene Builder disabled\n😥" = "シーンビルダーは無効 😥";
+"Scene Builder disabled 😥" = "シーンビルダーは無効 😥";
 
 /* (No Comment) */
 "Scene Description" = "シーンの説明";
@@ -366,6 +366,12 @@
 
 /* (No Comment) */
 "Supreme Sacrifice" = "最高の犠牲";
+
+/* (No Comment) */
+"Tap + to create a new Scene!" = "新しいシーンを作成するには、+をタップします。";
+
+/* (No Comment) */
+"Tap + to create your first character" = "最初のキャラクターを作成するには、+をタップします";
 
 /* (No Comment) */
 "Test Resolve" = "テスト解決";

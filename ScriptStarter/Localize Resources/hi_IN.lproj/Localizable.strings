@@ -113,7 +113,7 @@
 "Character Arc" = "चरित्र आर्क";
 
 /* (No Comment) */
-"Character Builder disabled\n😥" = "चरित्र बिल्डर अक्षम 😥";
+"Character Builder disabled 😥" = "चरित्र बिल्डर अक्षम 😥";
 
 /* (No Comment) */
 "Characters" = "वर्ण";
@@ -335,7 +335,7 @@
 "saving" = "बचत";
 
 /* (No Comment) */
-"Scene Builder disabled\n😥" = "दृश्य बिल्डर अक्षम 😥";
+"Scene Builder disabled 😥" = "दृश्य बिल्डर अक्षम 😥";
 
 /* (No Comment) */
 "Scene Description" = "दृश्य विवरण";
@@ -366,6 +366,12 @@
 
 /* (No Comment) */
 "Supreme Sacrifice" = "सर्वोच्च बलिदान";
+
+/* (No Comment) */
+"Tap + to create a new Scene!" = "नया दृश्य बनाने के लिए + टैप करें!";
+
+/* (No Comment) */
+"Tap + to create your first character" = "अपना पहला चरित्र बनाने के लिए + टैप करें";
 
 /* (No Comment) */
 "Test Resolve" = "टेस्ट हल";

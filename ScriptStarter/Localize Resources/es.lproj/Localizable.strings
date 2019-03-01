@@ -113,7 +113,7 @@
 "Character Arc" = "Arco de personajes";
 
 /* (No Comment) */
-"Character Builder disabled\n😥" = "Generador de caracteres desactivado 😥";
+"Character Builder disabled 😥" = "Generador de caracteres desactivado 😥";
 
 /* (No Comment) */
 "Characters" = "Caracteres";
@@ -335,7 +335,7 @@
 "saving" = "ahorro";
 
 /* (No Comment) */
-"Scene Builder disabled\n😥" = "Constructor de escena desactivado 😥";
+"Scene Builder disabled 😥" = "Constructor de escena desactivado 😥";
 
 /* (No Comment) */
 "Scene Description" = "Descripción de la escena";
@@ -366,6 +366,12 @@
 
 /* (No Comment) */
 "Supreme Sacrifice" = "Sacrificio supremo";
+
+/* (No Comment) */
+"Tap + to create a new Scene!" = "Toca + para crear una nueva escena!";
+
+/* (No Comment) */
+"Tap + to create your first character" = "Toca + para crear tu primer personaje.";
 
 /* (No Comment) */
 "Test Resolve" = "Prueba de resolución";

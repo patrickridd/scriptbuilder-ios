@@ -113,7 +113,7 @@
 "Character Arc" = "문자 호";
 
 /* (No Comment) */
-"Character Builder disabled\n😥" = "문자 작성기 사용 중지됨 😥";
+"Character Builder disabled 😥" = "문자 작성기 사용 중지됨 😥";
 
 /* (No Comment) */
 "Characters" = "문자";
@@ -335,7 +335,7 @@
 "saving" = "절약";
 
 /* (No Comment) */
-"Scene Builder disabled\n😥" = "장면 작성기 사용 중지됨 😥";
+"Scene Builder disabled 😥" = "장면 작성기 사용 중지됨 😥";
 
 /* (No Comment) */
 "Scene Description" = "장면 설명";
@@ -366,6 +366,12 @@
 
 /* (No Comment) */
 "Supreme Sacrifice" = "최극 희생";
+
+/* (No Comment) */
+"Tap + to create a new Scene!" = "+를 탭하여 새 장면을 만듭니다!";
+
+/* (No Comment) */
+"Tap + to create your first character" = "+을 탭하여 첫 번째 캐릭터를 만듭니다.";
 
 /* (No Comment) */
 "Test Resolve" = "테스트 해결";

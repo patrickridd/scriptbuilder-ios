@@ -113,9 +113,7 @@
 "Character Arc" = "角色弧";
 
 /* (No Comment) */
-"Character Builder disabled
-😥" = "角色生成器禁用
- 😥";
+"Character Builder disabled 😥" = "角色生成器禁用 😥";
 
 /* (No Comment) */
 "Characters" = "人物";
@@ -337,7 +335,7 @@
 "saving" = "保存";
 
 /* (No Comment) */
-"Character Builder disabled\n😥" = "场景生成器禁用 😥";
+"Scene Builder disabled 😥" = "场景生成器禁用 😥";
 
 /* (No Comment) */
 "Scene Description" = "场景描述";
@@ -368,6 +366,12 @@
 
 /* (No Comment) */
 "Supreme Sacrifice" = "至尊牺牲";
+
+/* (No Comment) */
+"Tap + to create a new Scene!" = "点按+以创建新场景！";
+
+/* (No Comment) */
+"Tap + to create your first character" = "点按+即可创建第一个角色";
 
 /* (No Comment) */
 "Test Resolve" = "测试解决";

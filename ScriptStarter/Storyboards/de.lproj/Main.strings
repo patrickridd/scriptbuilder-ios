@@ -1,132 +1,132 @@
-
 /* Class = "UIButton"; normalTitle = "already have account"; ObjectID = "0es-Xi-5cd"; */
-"0es-Xi-5cd.normalTitle" = "already have account";
-
-/* Class = "UITextField"; placeholder = "password"; ObjectID = "13Q-eR-o9O"; */
-"13Q-eR-o9O.placeholder" = "password";
+"0es-Xi-5cd.normalTitle" = "habe bereits ein Konto";
 
 /* Class = "UIButton"; normalTitle = "Delete Account"; ObjectID = "1vU-dU-rgj"; */
-"1vU-dU-rgj.normalTitle" = "Delete Account";
-
-/* Class = "UITabBarItem"; title = "Item"; ObjectID = "22b-nd-Oat"; */
-"22b-nd-Oat.title" = "Item";
-
-/* Class = "UITextField"; placeholder = "password"; ObjectID = "3U6-uP-T4P"; */
-"3U6-uP-T4P.placeholder" = "password";
-
-/* Class = "UILabel"; text = "Characters"; ObjectID = "3Yv-We-PHn"; */
-"3Yv-We-PHn.text" = "Characters";
+"1vU-dU-rgj.normalTitle" = "Konto löschen";
 
 /* Class = "UILabel"; text = "Scenes"; ObjectID = "3bE-HG-OYl"; */
-"3bE-HG-OYl.text" = "Scenes";
+"3bE-HG-OYl.text" = "Szenen";
 
 /* Class = "UILabel"; text = "Share Script Builder"; ObjectID = "3d6-Mh-K4t"; */
 "3d6-Mh-K4t.text" = "Share Script Builder";
 
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "3U6-uP-T4P"; */
+"3U6-uP-T4P.placeholder" = "Passwort";
+
+/* Class = "UILabel"; text = "Characters"; ObjectID = "3Yv-We-PHn"; */
+"3Yv-We-PHn.text" = "Zeichen";
+
 /* Class = "UITextField"; placeholder = "Untitled"; ObjectID = "4MR-wb-F71"; */
-"4MR-wb-F71.placeholder" = "Untitled";
+"4MR-wb-F71.placeholder" = "Ohne Titel";
 
 /* Class = "UILabel"; text = "If already purchased, tap \"Restore\""; ObjectID = "5Jf-73-Rqh"; */
-"5Jf-73-Rqh.text" = "If already purchased, tap \"Restore\"";
+"5Jf-73-Rqh.text" = "Wenn Sie bereits gekauft haben, tippen Sie auf \"Wiederherstellen\".";
+
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "13Q-eR-o9O"; */
+"13Q-eR-o9O.placeholder" = "Passwort";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "22b-nd-Oat"; */
+"22b-nd-Oat.title" = "Artikel";
 
 /* Class = "UIBarButtonItem"; title = "Log Out"; ObjectID = "BdL-zr-FoL"; */
-"BdL-zr-FoL.title" = "Log Out";
-
-/* Class = "UITextField"; placeholder = "new password"; ObjectID = "CVX-9T-1Be"; */
-"CVX-9T-1Be.placeholder" = "new password";
-
-/* Class = "UILabel"; text = "Screenplays"; ObjectID = "EpR-aK-F1Y"; */
-"EpR-aK-F1Y.text" = "Screenplays";
-
-/* Class = "UILabel"; text = "From your screen to the silver screen"; ObjectID = "Fsi-jX-bWD"; */
-"Fsi-jX-bWD.text" = "From your screen to the silver screen";
-
-/* Class = "UILabel"; text = "From your screen to the silver screen"; ObjectID = "Fyo-d4-jYt"; */
-"Fyo-d4-jYt.text" = "From your screen to the silver screen";
-
-/* Class = "UIButton"; normalTitle = "sign-up"; ObjectID = "GAk-aX-w1R"; */
-"GAk-aX-w1R.normalTitle" = "sign-up";
-
-/* Class = "UITextField"; placeholder = "email"; ObjectID = "GIJ-PI-6y0"; */
-"GIJ-PI-6y0.placeholder" = "email";
-
-/* Class = "UITabBarItem"; title = "Item"; ObjectID = "JdU-iq-7Rv"; */
-"JdU-iq-7Rv.title" = "Item";
-
-/* Class = "UILabel"; text = "by"; ObjectID = "NOP-aH-Q5V"; */
-"NOP-aH-Q5V.text" = "by";
-
-/* Class = "UITextField"; placeholder = "email"; ObjectID = "NXQ-VX-hUz"; */
-"NXQ-VX-hUz.placeholder" = "email";
-
-/* Class = "UILabel"; text = "Login"; ObjectID = "OB7-Zb-xeT"; */
-"OB7-Zb-xeT.text" = "Login";
-
-/* Class = "UILabel"; text = "Sign up"; ObjectID = "OZi-bc-Ajs"; */
-"OZi-bc-Ajs.text" = "Sign up";
-
-/* Class = "UIButton"; normalTitle = "Change"; ObjectID = "Qh4-OM-un7"; */
-"Qh4-OM-un7.normalTitle" = "Change";
-
-/* Class = "UILabel"; text = "Login"; ObjectID = "RWi-Lf-leN"; */
-"RWi-Lf-leN.text" = "Login";
-
-/* Class = "UIButton"; normalTitle = "sign up"; ObjectID = "Rhn-Gv-AT6"; */
-"Rhn-Gv-AT6.normalTitle" = "sign up";
-
-/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "RlF-25-Daw"; */
-"RlF-25-Daw.normalTitle" = "Done";
-
-/* Class = "UINavigationItem"; title = "Scripts"; ObjectID = "Tuv-JO-Xdu"; */
-"Tuv-JO-Xdu.title" = "Scripts";
-
-/* Class = "UILabel"; text = "by"; ObjectID = "Vag-Lh-c30"; */
-"Vag-Lh-c30.text" = "by";
-
-/* Class = "UITextField"; placeholder = "last name"; ObjectID = "WQ1-YE-raf"; */
-"WQ1-YE-raf.placeholder" = "last name";
-
-/* Class = "UIButton"; normalTitle = "login"; ObjectID = "X5g-g7-BpV"; */
-"X5g-g7-BpV.normalTitle" = "login";
-
-/* Class = "UILabel"; text = "+"; ObjectID = "YTy-Aw-S9O"; */
-"YTy-Aw-S9O.text" = "+";
-
-/* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "YWe-Ul-gnu"; */
-"YWe-Ul-gnu.normalTitle" = "Restore";
+"BdL-zr-FoL.title" = "Ausloggen";
 
 /* Class = "UIButton"; normalTitle = "→"; ObjectID = "bN9-GH-ear"; */
 "bN9-GH-ear.normalTitle" = "→";
 
 /* Class = "UIButton"; normalTitle = "forgot password"; ObjectID = "cUa-kL-YaK"; */
-"cUa-kL-YaK.normalTitle" = "forgot password";
+"cUa-kL-YaK.normalTitle" = "Passwort vergessen";
+
+/* Class = "UITextField"; placeholder = "new password"; ObjectID = "CVX-9T-1Be"; */
+"CVX-9T-1Be.placeholder" = "Neues Kennwort";
+
+/* Class = "UILabel"; text = "Screenplays"; ObjectID = "EpR-aK-F1Y"; */
+"EpR-aK-F1Y.text" = "Drehbücher";
 
 /* Class = "UIButton"; normalTitle = "Save"; ObjectID = "flj-yl-qjQ"; */
-"flj-yl-qjQ.normalTitle" = "Save";
+"flj-yl-qjQ.normalTitle" = "sparen";
+
+/* Class = "UILabel"; text = "From your screen to the silver screen"; ObjectID = "Fsi-jX-bWD"; */
+"Fsi-jX-bWD.text" = "Von Ihrem Bildschirm bis zur Leinwand";
+
+/* Class = "UILabel"; text = "From your screen to the silver screen"; ObjectID = "Fyo-d4-jYt"; */
+"Fyo-d4-jYt.text" = "Von Ihrem Bildschirm bis zur Leinwand";
+
+/* Class = "UIButton"; normalTitle = "sign-up"; ObjectID = "GAk-aX-w1R"; */
+"GAk-aX-w1R.normalTitle" = "Anmelden";
+
+/* Class = "UITextField"; placeholder = "email"; ObjectID = "GIJ-PI-6y0"; */
+"GIJ-PI-6y0.placeholder" = "Email";
 
 /* Class = "UILabel"; text = "Untitled"; ObjectID = "ho6-1A-xJQ"; */
-"ho6-1A-xJQ.text" = "Untitled";
+"ho6-1A-xJQ.text" = "Ohne Titel";
 
 /* Class = "UILabel"; text = "or"; ObjectID = "hpR-ym-C8z"; */
-"hpR-ym-C8z.text" = "or";
+"hpR-ym-C8z.text" = "oder";
 
 /* Class = "UILabel"; text = "Script Builder"; ObjectID = "jCA-v7-B4N"; */
-"jCA-v7-B4N.text" = "Script Builder";
+"jCA-v7-B4N.text" = "Skript-Generator";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "JdU-iq-7Rv"; */
+"JdU-iq-7Rv.title" = "Artikel";
+
+/* Class = "UILabel"; text = "by"; ObjectID = "NOP-aH-Q5V"; */
+"NOP-aH-Q5V.text" = "durch";
+
+/* Class = "UITextField"; placeholder = "email"; ObjectID = "NXQ-VX-hUz"; */
+"NXQ-VX-hUz.placeholder" = "Email";
+
+/* Class = "UILabel"; text = "Login"; ObjectID = "OB7-Zb-xeT"; */
+"OB7-Zb-xeT.text" = "Anmeldung";
 
 /* Class = "UITextField"; placeholder = "first name"; ObjectID = "odC-YR-ugF"; */
-"odC-YR-ugF.placeholder" = "first name";
+"odC-YR-ugF.placeholder" = "Vorname";
+
+/* Class = "UILabel"; text = "Sign up"; ObjectID = "OZi-bc-Ajs"; */
+"OZi-bc-Ajs.text" = "Anmelden";
+
+/* Class = "UIButton"; normalTitle = "Change"; ObjectID = "Qh4-OM-un7"; */
+"Qh4-OM-un7.normalTitle" = "Veränderung";
+
+/* Class = "UIButton"; normalTitle = "sign up"; ObjectID = "Rhn-Gv-AT6"; */
+"Rhn-Gv-AT6.normalTitle" = "Anmelden";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "RlF-25-Daw"; */
+"RlF-25-Daw.normalTitle" = "Erledigt";
 
 /* Class = "UITabBarItem"; title = "scenes"; ObjectID = "rLt-tS-b6P"; */
-"rLt-tS-b6P.title" = "scenes";
+"rLt-tS-b6P.title" = "Szenen";
+
+/* Class = "UILabel"; text = "Login"; ObjectID = "RWi-Lf-leN"; */
+"RWi-Lf-leN.text" = "Anmeldung";
+
+/* Class = "UINavigationItem"; title = "Scripts"; ObjectID = "Tuv-JO-Xdu"; */
+"Tuv-JO-Xdu.title" = "Skripte";
 
 /* Class = "UILabel"; text = "or"; ObjectID = "txz-jU-gZ3"; */
-"txz-jU-gZ3.text" = "or";
+"txz-jU-gZ3.text" = "oder";
+
+/* Class = "UILabel"; text = "by"; ObjectID = "Vag-Lh-c30"; */
+"Vag-Lh-c30.text" = "durch";
 
 /* Class = "UILabel"; text = "Sign up"; ObjectID = "w4F-WL-orr"; */
-"w4F-WL-orr.text" = "Sign up";
+"w4F-WL-orr.text" = "Anmelden";
+
+/* Class = "UITextField"; placeholder = "last name"; ObjectID = "WQ1-YE-raf"; */
+"WQ1-YE-raf.placeholder" = "Nachname";
+
+/* Class = "UIButton"; normalTitle = "login"; ObjectID = "X5g-g7-BpV"; */
+"X5g-g7-BpV.normalTitle" = "Anmeldung";
 
 /* Class = "UILabel"; text = "Screenplay Planner"; ObjectID = "yBv-n3-fZh"; */
-"yBv-n3-fZh.text" = "Screenplay Planner";
+"yBv-n3-fZh.text" = "Drehbuch-Planer";
+
+/* Class = "UILabel"; text = "+"; ObjectID = "YTy-Aw-S9O"; */
+"YTy-Aw-S9O.text" = "+";
+
+/* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "YWe-Ul-gnu"; */
+"YWe-Ul-gnu.normalTitle" = "Wiederherstellen";
 
 /* Class = "UIButton"; normalTitle = "$1.99"; ObjectID = "zPB-uI-KGa"; */
-"zPB-uI-KGa.normalTitle" = "$1.99";
+"zPB-uI-KGa.normalTitle" = "1,99 $";
+

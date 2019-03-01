@@ -178,6 +178,11 @@
 		2189FC8D2057187400A69DC1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2189FC8F2057199300A69DC1 /* IAPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		2189FC91205719F900A69DC1 /* InAppPurchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchases.swift; sourceTree = "<group>"; };
+		218CDC4A2228AD5E004419D1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = zh_CN.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		218CDC4B2228AD5E004419D1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
+		218CDC4C2228AD5E004419D1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = ScriptStarter/zh_CN.lproj/Character.strings; sourceTree = "<group>"; };
+		218CDC4D2228AD5E004419D1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = zh_CN.lproj/Scenes.strings; sourceTree = "<group>"; };
+		218CDC4E2228AD5E004419D1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = ScriptStarter/zh_CN.lproj/Outline.strings; sourceTree = "<group>"; };
 		218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCharacterTableViewCell.swift; sourceTree = "<group>"; };
 		218E8461203F379000D0D652 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		218E8463203F841400D0D652 /* SceneHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneHeader.swift; sourceTree = "<group>"; };
@@ -1121,6 +1126,7 @@
 				217DF0F222288FB700C7A543 /* en */,
 				21C8D3CF22289485004EC055 /* hi-IN */,
 				21319B212228956500F4F588 /* zh-Hans-CN */,
+				218CDC4E2228AD5E004419D1 /* zh-Hans */,
 			);
 			name = Outline.storyboard;
 			sourceTree = "<group>";
@@ -1137,6 +1143,7 @@
 				217DF0F422288FBB00C7A543 /* en */,
 				21C8D3CC22289485004EC055 /* hi-IN */,
 				21319B1E2228956500F4F588 /* zh-Hans-CN */,
+				218CDC4C2228AD5E004419D1 /* zh-Hans */,
 			);
 			name = Character.storyboard;
 			sourceTree = "<group>";
@@ -1152,6 +1159,7 @@
 				21BF30FF22177F3100DB3DF5 /* ko */,
 				21C8D3CB22289485004EC055 /* hi-IN */,
 				21319B1D2228956500F4F588 /* zh-Hans-CN */,
+				218CDC4B2228AD5E004419D1 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1167,6 +1175,7 @@
 				2136855C220E10350019A9A8 /* ko */,
 				21C8D3CA22289485004EC055 /* hi-IN */,
 				21319B1C2228956500F4F588 /* zh-Hans-CN */,
+				218CDC4A2228AD5E004419D1 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1183,6 +1192,7 @@
 				217DF0F622288FBF00C7A543 /* en */,
 				21C8D3CD22289485004EC055 /* hi-IN */,
 				21319B1F2228956500F4F588 /* zh-Hans-CN */,
+				218CDC4D2228AD5E004419D1 /* zh-Hans */,
 			);
 			name = Scenes.storyboard;
 			sourceTree = "<group>";

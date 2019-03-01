@@ -5,7 +5,7 @@
 "+" = "+";
 
 /* (No Comment) */
-"$0.99 😎" = "0,99 $ 😎";
+"$0.99 😎" = "0,99 $";
 
 /* (No Comment) */
 "A logline is a one to two sentence description of your screenplay. Think about how you pitch movies you want to see to your friends/family." = "Eine Logline ist eine Beschreibung Ihres Drehbuchs mit ein bis zwei Sätzen. Überlegen Sie, wie Sie Filme filmen, die Sie für Ihre Freunde / Familie sehen möchten.";
@@ -113,7 +113,7 @@
 "Character Arc" = "Zeichenbogen";
 
 /* (No Comment) */
-"Character Builder disabled\n😥" = "Character Builder deaktiviert 😥";
+"Character Builder disabled 😥" = "Charakter Baumeister deaktiviert 😥";
 
 /* (No Comment) */
 "Characters" = "Zeichen";
@@ -335,7 +335,7 @@
 "saving" = "Sparen";
 
 /* (No Comment) */
-"Scene Builder disabled\n😥" = "Scene Builder deaktiviert 😥";
+"Scene Builder disabled 😥" = "Szene Baumeister deaktiviert 😥";
 
 /* (No Comment) */
 "Scene Description" = "Szenenbeschreibung";
@@ -366,6 +366,12 @@
 
 /* (No Comment) */
 "Supreme Sacrifice" = "Oberste Opferung";
+
+/* (No Comment) */
+"Tap + to create a new Scene!" = "Tippen Sie auf +, um eine neue Szene zu erstellen!";
+
+/* (No Comment) */
+"Tap + to create your first character" = "Tippen Sie auf +, um Ihren ersten Buchstaben zu erstellen";
 
 /* (No Comment) */
 "Test Resolve" = "Testauflösung";
