@@ -10,15 +10,12 @@ import UIKit
 
 class ShareTableViewCell: UITableViewCell {
 
-    
-    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var shareLabel: UILabel!
     
     override func awakeFromNib() {
-        
-    }
-    
-    @IBAction func shareButtonTapped(_ sender: Any) {
-        
+        shareLabel.font = UIFont.systemFont(ofSize: 17,
+                                            weight: .light)
+        shareLabel.text = "Share Script Builder".localized
     }
     
 }
