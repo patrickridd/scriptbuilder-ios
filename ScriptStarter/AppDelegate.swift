@@ -179,7 +179,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return
             }
             
-            let screenplay = Screenplay(title: "Untitled")
+            let screenplay = Screenplay(title: "Untitled".localized)
             ScreenplayController.shared.set(currentScreenplay: screenplay)
             self.window?.rootViewController = screenplayCoverVC
             self.window?.makeKeyAndVisible()
