@@ -73,15 +73,17 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgF-Ez-7Rh">
-                                            <rect key="frame" x="187.5" y="45" width="0.0" height="0.0"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="kgF-Ez-7Rh">
+                                            <rect key="frame" x="30" y="45" width="315" height="0.0"/>
                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
                                             <color key="textColor" red="0.30201110240000001" green="0.3016212881" blue="0.32549369340000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="kgF-Ez-7Rh" firstAttribute="leading" secondItem="0CQ-KN-Twm" secondAttribute="leading" constant="30" id="1af-pE-758"/>
                                         <constraint firstItem="kgF-Ez-7Rh" firstAttribute="centerX" secondItem="0CQ-KN-Twm" secondAttribute="centerX" id="pJx-UF-oHP"/>
+                                        <constraint firstAttribute="trailing" secondItem="kgF-Ez-7Rh" secondAttribute="trailing" constant="30" id="upk-v6-iTQ"/>
                                         <constraint firstItem="kgF-Ez-7Rh" firstAttribute="centerY" secondItem="0CQ-KN-Twm" secondAttribute="centerY" id="wer-Tz-cRG"/>
                                     </constraints>
                                 </tableViewCellContentView>
