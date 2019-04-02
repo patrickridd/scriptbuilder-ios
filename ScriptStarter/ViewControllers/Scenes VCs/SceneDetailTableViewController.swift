@@ -49,7 +49,10 @@ class SceneDetailTableViewController: UITableViewController {
       
         self.sceneTitleTextField.delegate = self
         self.sceneHeaderTextField.delegate = self
-        
+        self.sceneHeaderTextField.addTarget(self,
+                                            action: #selector(textFieldDidChange(_:)),
+                                            for: .editingChanged)
+
         addToolBar(textField: self.sceneTitleTextField)
         addToolBar(textField: self.sceneNumberTextField)
         addToolBar(textField: self.sceneHeaderTextField)
@@ -96,6 +99,7 @@ class SceneDetailTableViewController: UITableViewController {
         self.sceneTitleTextField.text = scene.title
         self.sceneActNumberTextField.text = "\(self.act.rawValue+1)"
         self.sceneNumberTextField.text = "\(scene.sceneNumber)"
+        self.sceneHeaderTextField.text = scene.header
     }
     
     func createNewScene() {
@@ -320,7 +324,18 @@ class SceneDetailTableViewController: UITableViewController {
         textField.resignFirstResponder()
         return true
     }
-
+    
+ 
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        switch textField.tag {
+        case 2:
+            self.scene?.header = textField.text ?? ""
+        default:
+            break
+        }
+    }
+    
+    
 }
 
 extension SceneDetailTableViewController: CollapsibleHeaderDelegate {
