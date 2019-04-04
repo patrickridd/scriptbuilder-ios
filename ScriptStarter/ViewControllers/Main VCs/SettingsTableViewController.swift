@@ -267,7 +267,7 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
-        case 2:
+        case 3:
             // MARK: - Share App
             DispatchQueue.main.async {
                 if let link = URL(string: "https://itunes.apple.com/us/app/scriptbuilder/id1358448790?ls=1&mt=8") {
@@ -281,7 +281,7 @@ class SettingsTableViewController: UITableViewController {
                      }
                 }
             }
-        case 3:
+        case 4:
             // MARK: - Delete Account
         self.present(self.presentDeleteAccountConfirmation(completion: { [weak self] (deleted, canceled) in
             
