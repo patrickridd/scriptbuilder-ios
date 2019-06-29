@@ -14,6 +14,7 @@
 		2104ADD9205C7F270086CC9F /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD8205C7F270086CC9F /* SceneController.swift */; };
 		21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */; };
 		21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099167201FD4CF00340124 /* SectionHeaderView.swift */; };
+		210C07DC22C81B2200F66D7B /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210C07DB22C81B2200F66D7B /* SaveButton.swift */; };
 		211215C5203652520039D6E8 /* BasicInfoCharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215C4203652510039D6E8 /* BasicInfoCharacterTableViewCell.swift */; };
 		211215D4203B5D200039D6E8 /* RolePopoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215D3203B5D200039D6E8 /* RolePopoverTableViewController.swift */; };
 		211215D6203B5DC30039D6E8 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215D5203B5DC30039D6E8 /* Role.swift */; };
@@ -24,7 +25,6 @@
 		212DEA792012746500FE9C3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA772012746500FE9C3F /* Main.storyboard */; };
 		212DEA7B2012746500FE9C3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA7A2012746500FE9C3F /* Assets.xcassets */; };
 		212DEA7E2012746500FE9C3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA7C2012746500FE9C3F /* LaunchScreen.storyboard */; };
-		212DEA942012746600FE9C3F /* ScriptStarterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212DEA932012746600FE9C3F /* ScriptStarterUITests.swift */; };
 		2135777C201292AE00C5EADC /* Outline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2135777A201292AE00C5EADC /* Outline.storyboard */; };
 		2135777F201292E100C5EADC /* Character.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2135777D201292E100C5EADC /* Character.storyboard */; };
 		21368528220CB5270019A9A8 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21368527220CB5270019A9A8 /* Extension+String.swift */; };
@@ -43,6 +43,7 @@
 		215DDCD321EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		215DDCD421EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		215DDCD521EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
+		217AD64B22A08B2E00E5ED41 /* SaveBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217AD64A22A08B2E00E5ED41 /* SaveBarButtonItem.swift */; };
 		21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21843CAC205AE3E900FAAE16 /* Scenes.storyboard */; };
 		2187E18422122EEB0070AD9D /* GoogleAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2187E18322122EEB0070AD9D /* GoogleAds.swift */; };
 		2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2189FC8D2057187400A69DC1 /* StoreKit.framework */; };
@@ -119,6 +120,7 @@
 		2104ADD8205C7F270086CC9F /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
 		21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScreenplayCollectionViewCell.swift; sourceTree = "<group>"; };
 		21099167201FD4CF00340124 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		210C07DB22C81B2200F66D7B /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
 		211215C4203652510039D6E8 /* BasicInfoCharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoCharacterTableViewCell.swift; sourceTree = "<group>"; };
 		211215D3203B5D200039D6E8 /* RolePopoverTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePopoverTableViewController.swift; sourceTree = "<group>"; };
 		211215D5203B5DC30039D6E8 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
@@ -134,7 +136,6 @@
 		212DEA842012746600FE9C3F /* ScriptStarterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScriptStarterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		212DEA8A2012746600FE9C3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		212DEA8F2012746600FE9C3F /* ScriptStarterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScriptStarterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		212DEA932012746600FE9C3F /* ScriptStarterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptStarterUITests.swift; sourceTree = "<group>"; };
 		212DEA952012746600FE9C3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21319B1C2228956500F4F588 /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = zh_Hans_CN.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		21319B1D2228956500F4F588 /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = zh_Hans_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -169,6 +170,7 @@
 		2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountTableViewCell.swift; sourceTree = "<group>"; };
 		215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
 		215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		217AD64A22A08B2E00E5ED41 /* SaveBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveBarButtonItem.swift; sourceTree = "<group>"; };
 		217DF0F022288FAF00C7A543 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		217DF0F222288FB700C7A543 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ScriptStarter/en.lproj/Outline.strings; sourceTree = "<group>"; };
 		217DF0F422288FBB00C7A543 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ScriptStarter/en.lproj/Character.strings; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 			children = (
 				21B6A30920473D0800E8B0F9 /* ScriptStarter.entitlements */,
 				212DEA732012746500FE9C3F /* AppDelegate.swift */,
+				217AD64822A08AD700E5ED41 /* Shared  */,
 				21E661C22017F955006A14AF /* Support Files */,
 				21C903D6201652660017D626 /* ModelController */,
 				21C903D5201652620017D626 /* Model */,
@@ -432,7 +435,6 @@
 		212DEA922012746600FE9C3F /* ScriptStarterUITests */ = {
 			isa = PBXGroup;
 			children = (
-				212DEA932012746600FE9C3F /* ScriptStarterUITests.swift */,
 				212DEA952012746600FE9C3F /* Info.plist */,
 			);
 			path = ScriptStarterUITests;
@@ -478,6 +480,15 @@
 				2189FC8F2057199300A69DC1 /* IAPHelper.swift */,
 			);
 			path = IAP;
+			sourceTree = "<group>";
+		};
+		217AD64822A08AD700E5ED41 /* Shared  */ = {
+			isa = PBXGroup;
+			children = (
+				217AD64A22A08B2E00E5ED41 /* SaveBarButtonItem.swift */,
+				210C07DB22C81B2200F66D7B /* SaveButton.swift */,
+			);
+			path = "Shared ";
 			sourceTree = "<group>";
 		};
 		21A7CF4C2023B4B800D97394 /* TableViewCells */ = {
@@ -1000,6 +1011,7 @@
 				2153C34B207587B500C08B73 /* DeleteAccountTableViewCell.swift in Sources */,
 				21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */,
 				2146E3DE203F906B00FBD225 /* SceneTableViewCell.swift in Sources */,
+				217AD64B22A08B2E00E5ED41 /* SaveBarButtonItem.swift in Sources */,
 				21A7CF502025039800D97394 /* CharacterDetailTableViewController.swift in Sources */,
 				21A84F482016840300CE4149 /* Screenplay.swift in Sources */,
 				21916C6821FBCD2E00C6F024 /* Constants.swift in Sources */,
@@ -1042,6 +1054,7 @@
 				21A84F46201683D500CE4149 /* ScreenplayCollectionViewController.swift in Sources */,
 				21E661C620190E3E006A14AF /* UIAlertControllers.swift in Sources */,
 				2104ADD7205C60CB0086CC9F /* ActNumberPopTableViewCell.swift in Sources */,
+				210C07DC22C81B2200F66D7B /* SaveButton.swift in Sources */,
 				21E661C42017F979006A14AF /* Extension+UIColor.swift in Sources */,
 				21A7CF522028E45300D97394 /* CollapsibleHeaderView.swift in Sources */,
 				21D727FF202E41DD00861C2D /* InformationNotes.swift in Sources */,
@@ -1061,7 +1074,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				212DEA942012746600FE9C3F /* ScriptStarterUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
