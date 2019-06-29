@@ -12,6 +12,9 @@ import Firebase
 
 class EnlargedDescriptionTableViewController: UITableViewController {
     
+    
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
     var viewController: ViewController = .outline
     var section: Int = 0
     var act: Act?
@@ -35,6 +38,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.tableView.backgroundColor = .screenLightGray
         setupNavigationBar()
         
@@ -94,17 +98,22 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
+        saveButton.isEnabled = false
         guard
             let descriptionCell = descriptionCell,
             let text = descriptionCell.descriptionTextView.text
         else {
-            self.saveScreenplay()
+            self.saveScreenplay {
+                self.saveButton.isEnabled = true
+            }
             return
         }
         
         delegate?.updatedText(text,
                               in: self.section)
-        self.saveScreenplay()
+        self.saveScreenplay {
+            self.saveButton.isEnabled = true
+        }
     }
     
     

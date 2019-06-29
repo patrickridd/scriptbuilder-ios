@@ -163,8 +163,11 @@
                                     <action selector="reduceScreenButtonTapped:" destination="qVa-mf-xMm" id="aGS-2Y-rV4"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Save" id="rVc-q6-nHg" customClass="SaveBarButtonItem" customModule="ScriptStarter" customModuleProvider="target">
+                            <barButtonItem title="Save" id="rVc-q6-nHg">
                                 <color key="tintColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="qVa-mf-xMm" id="fVx-gU-b3A"/>
+                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
@@ -172,7 +175,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="saveButton" destination="rVc-q6-nHg" id="92i-mR-VHX"/>
+                        <outlet property="saveButton" destination="rVc-q6-nHg" id="Rkf-ON-3CA"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ApB-qt-Jd0" userLabel="First Responder" sceneMemberID="firstResponder"/>
