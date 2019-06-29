@@ -32,7 +32,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         
         if let screenplay = screenplay {
             FirebaseController.shared.save(screenplay: screenplay, completion: { (success) in
-                DispatchQueue.main.async {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                     loadingNotification.mode = .customView
                     if success {
                         loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
@@ -47,7 +47,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
                     loadingNotification.hide(animated: true,
                                              afterDelay: 1)
                     completion()
-                }
+                })
             })
         }
     }
