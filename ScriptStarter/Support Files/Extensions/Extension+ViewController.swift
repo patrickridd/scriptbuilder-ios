@@ -268,8 +268,8 @@ extension UIViewController {
     }
     
     func scheduleInterstitialStateToTrue() {
-        // Set timer to change enable interstitial ads every 5 minutes
-        Timer.scheduledTimer(timeInterval:60*5,
+        // Set timer to change enable interstitial ads every 3 minutes
+        Timer.scheduledTimer(timeInterval:60*3,
                              target: self,
                              selector: #selector(enableInterstitialDisplay),
                              userInfo: nil,
@@ -282,8 +282,16 @@ extension UIViewController: GADRewardBasedVideoAdDelegate {
     
     public func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
                             didRewardUserWith reward: GADAdReward) {
-        self.rewardUserWithSceneBuilder()
-        self.rewardUserWithCharacterBuilder()
+        switch reward.type {
+        case "Character Builder Trial":
+            self.rewardUserWithCharacterBuilder()
+        case "Scene Builder Trial":
+            self.rewardUserWithSceneBuilder()
+        default:
+            self.rewardUserWithSceneBuilder()
+            self.rewardUserWithCharacterBuilder()
+        }
+       
     }
     
     // Reward Based Ad - Character Builder helper methods
