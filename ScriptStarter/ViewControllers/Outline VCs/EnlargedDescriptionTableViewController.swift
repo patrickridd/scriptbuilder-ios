@@ -104,7 +104,9 @@ class EnlargedDescriptionTableViewController: UITableViewController {
             let text = descriptionCell.descriptionTextView.text
         else {
             self.saveScreenplay {
-                self.saveButton.isEnabled = true
+                DispatchQueue.main.async {
+                    self.saveButton.isEnabled = true
+                }
             }
             return
         }
@@ -112,7 +114,9 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         delegate?.updatedText(text,
                               in: self.section)
         self.saveScreenplay {
-            self.saveButton.isEnabled = true
+            DispatchQueue.main.async {
+                self.saveButton.isEnabled = true
+            }
         }
     }
     
