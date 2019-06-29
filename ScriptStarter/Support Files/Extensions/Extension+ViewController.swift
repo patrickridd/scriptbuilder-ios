@@ -23,7 +23,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         return (shouldDisplayInterstitial && InAppPurchases.shouldDisplayAds)
     }
     
-    func saveScreenplay() {
+    func saveScreenplay(completion: @escaping () -> Void) {
         let loadingNotification = MBProgressHUD.showAdded(to: self.view,
                                                           animated: true)
         loadingNotification.mode = MBProgressHUDMode.indeterminate
@@ -39,12 +39,14 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
                         loadingNotification.label.text = "success".localized
                         loadingNotification.hide(animated: true,
                                                  afterDelay: 1)
+                        completion()
                         return
                     }
                     loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
                     loadingNotification.label.text = "failed".localized
                     loadingNotification.hide(animated: true,
                                              afterDelay: 1)
+                    completion()
                 }
             })
         }
