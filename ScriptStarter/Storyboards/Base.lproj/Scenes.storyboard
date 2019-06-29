@@ -113,16 +113,14 @@
                                     <action selector="plusButtonTapped:" destination="a7m-0h-Cqv" id="kch-eh-cow"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="save" id="xVJ-li-atB">
+                            <barButtonItem systemItem="save" id="xVJ-li-atB" customClass="SaveBarButtonItem" customModule="ScriptStarter" customModuleProvider="target">
                                 <color key="tintColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="saveButtonTappedWithSender:" destination="a7m-0h-Cqv" id="1cR-fw-Ihk"/>
-                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addSceneButton" destination="4xh-Gq-0Q4" id="OBd-cX-A4e"/>
+                        <outlet property="saveButton" destination="xVJ-li-atB" id="yXQ-DL-2qq"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdV-Uq-Fdl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -402,11 +400,8 @@
                                 <action selector="sceneTitleTextFieldChanged:" destination="SYB-4i-W3C" eventType="editingChanged" id="Z5z-lG-bin"/>
                             </connections>
                         </textField>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Rpp-MH-4tY">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Rpp-MH-4tY" customClass="SaveBarButtonItem" customModule="ScriptStarter" customModuleProvider="target">
                             <color key="tintColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="saveButtonTapped:" destination="SYB-4i-W3C" id="XZ3-6u-wd3"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -414,6 +409,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="saveButton" destination="Rpp-MH-4tY" id="JTM-hc-OqK"/>
                         <outlet property="sceneActNumberTextField" destination="C4Z-ew-bdb" id="nPQ-3h-okt"/>
                         <outlet property="sceneHeaderTextField" destination="c4A-qY-A83" id="SQj-oV-i8i"/>
                         <outlet property="sceneNumberTextField" destination="e6O-QO-QeF" id="4sy-1c-aen"/>

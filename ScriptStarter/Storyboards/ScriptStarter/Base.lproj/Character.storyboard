@@ -106,16 +106,14 @@
                                     <segue destination="40X-hD-gqv" kind="show" identifier="newCharacterSegue" id="OMY-8M-hf5"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Save" id="p7I-k4-nr3">
+                            <barButtonItem title="Save" id="p7I-k4-nr3" customClass="SaveBarButtonItem" customModule="ScriptStarter" customModuleProvider="target">
                                 <color key="tintColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <connections>
-                                    <action selector="saveButtonTapped:" destination="Dkg-JQ-QIE" id="hi0-na-aiO"/>
-                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addCharacterButton" destination="z05-wF-IJX" id="MfC-S9-heS"/>
+                        <outlet property="saveButton" destination="p7I-k4-nr3" id="kYa-ye-4Q2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nJK-mR-lP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -329,17 +327,17 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="xXr-li-IFO">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="hC2-HR-5fx">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="hC2-HR-5fx" customClass="SaveBarButtonItem" customModule="ScriptStarter" customModuleProvider="target">
                             <color key="tintColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="saveButtonTapped:" destination="40X-hD-gqv" id="UCq-nr-plf"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="saveButton" destination="hC2-HR-5fx" id="Psx-3L-i8R"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="axU-Lc-unS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

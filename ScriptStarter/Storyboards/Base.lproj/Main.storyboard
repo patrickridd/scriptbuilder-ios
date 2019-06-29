@@ -861,7 +861,7 @@
                                     <action selector="doneButtonTapped:" destination="V0n-xO-FAg" eventType="touchUpInside" id="3WL-Wy-VhF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flj-yl-qjQ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flj-yl-qjQ" customClass="SaveButton" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="351" y="20" width="43" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="rNQ-fD-YCN"/>
@@ -870,9 +870,6 @@
                                 <state key="normal" title="Save">
                                     <color key="titleColor" red="0.58896142240000005" green="0.71160560849999999" blue="0.84707981349999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
-                                <connections>
-                                    <action selector="saveButtonTapped:" destination="V0n-xO-FAg" eventType="touchUpInside" id="YsZ-r5-sU5"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bN9-GH-ear">
                                 <rect key="frame" x="364" y="344" width="30" height="48"/>
@@ -926,6 +923,7 @@
                     </view>
                     <connections>
                         <outlet property="nameLabel" destination="iGQ-js-Qji" id="JBS-nQ-Jpb"/>
+                        <outlet property="saveButton" destination="flj-yl-qjQ" id="Hep-9g-fSA"/>
                         <outlet property="titleTextField" destination="4MR-wb-F71" id="9OT-PG-gTF"/>
                     </connections>
                 </viewController>
