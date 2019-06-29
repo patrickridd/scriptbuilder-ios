@@ -12,6 +12,8 @@ import Firebase
 
 class ActDetailTableViewController: UITableViewController {
     
+    @IBOutlet weak var saveButton: SaveBarButtonItem!
+    
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .idea
     var sectionBesidesBeats: Int = 2
@@ -31,8 +33,10 @@ class ActDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupExpandableSections()
         
+        saveButton.view = self
+        
+        setupExpandableSections()
         title = act.title
         tableView.backgroundColor = UIColor.screenLightGray
         tableView.separatorColor = self.tableView.backgroundColor
@@ -59,10 +63,6 @@ class ActDetailTableViewController: UITableViewController {
         
         // Display ad if we have one loaded and we have interstitial ads enabled
         display(interstitial: interstitial)
-    }
-    
-    @IBAction func saveButtonTapped(_ sender: Any) {
-        self.saveScreenplay()
     }
     
     @objc func expandButtonTapped(sender: UIButton) {

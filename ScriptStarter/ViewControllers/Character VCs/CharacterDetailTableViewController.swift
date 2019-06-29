@@ -21,6 +21,9 @@ protocol RoleCellSelected: class {
 
 class CharacterDetailTableViewController: UITableViewController {
     
+    
+    @IBOutlet weak var saveButton: SaveBarButtonItem!
+    
     var expandableSections: [ExpandableTableViewSection] = []
 
     var character: Character?
@@ -43,6 +46,9 @@ class CharacterDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        saveButton.view = self
+        
         let font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.light)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font:font]
         self.tableView.backgroundColor = UIColor.screenLightGray
@@ -114,10 +120,6 @@ class CharacterDetailTableViewController: UITableViewController {
         self.present(enlargedNavigationController,
                      animated: true,
                      completion: nil)
-    }
-   
-    @IBAction func saveButtonTapped(_ sender: Any) {
-        self.saveScreenplay()
     }
     
     @objc func roleButtonTapped(_ sender: UIButton) {

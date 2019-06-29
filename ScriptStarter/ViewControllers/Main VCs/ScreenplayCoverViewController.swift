@@ -15,6 +15,8 @@ import Firebase
 
 class ScreenplayCoverViewController: UIViewController {
 
+    
+    @IBOutlet weak var saveButton: SaveButton!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -23,6 +25,7 @@ class ScreenplayCoverViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        saveButton.view = self
         titleTextField.delegate = self
 
         if let name = FIRAuth.auth()?.currentUser?.displayName {
@@ -76,10 +79,6 @@ class ScreenplayCoverViewController: UIViewController {
         NotificationCenter.default.post(swipeNotification)
     }
     
-    @IBAction func saveButtonTapped(_ sender: Any) {
-        saveScreenplay()
-    }
-    
     @IBAction func deleteButtonTapped(_ sender: Any) {
         self.present(deleteScreenplayAlert(), animated: true) 
     }
@@ -125,14 +124,14 @@ class ScreenplayCoverViewController: UIViewController {
                                                   message: "Would you like to save your work?".localized,
                                                   preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save".localized,
-                                       style: .default) { (_) in
-            self.saveScreenplay()
-            self.dismissView()
+                                       style: .default) { [weak self] (_) in
+            self?.saveButton.save()
+            self?.dismissView()
         }
         let nopeAction = UIAlertAction(title: "Discard".localized,
-                                       style: .destructive) { (_) in
+                                       style: .destructive) { [weak self] (_) in
             ScreenplayController.shared.discardChangesInCurrentScreenplay()
-            self.dismissView()
+            self?.dismissView()
         }
         
         

@@ -16,6 +16,8 @@ protocol SceneActSelected: class {
 
 class SceneDetailTableViewController: UITableViewController {
 
+    
+    @IBOutlet weak var saveButton: SaveBarButtonItem!
     @IBOutlet weak var sceneTitleTextField: UITextField!
     @IBOutlet weak var sceneNumberTextField: UITextField!
     @IBOutlet weak var sceneHeaderTextField: UITextField!
@@ -211,11 +213,6 @@ class SceneDetailTableViewController: UITableViewController {
         self.present(sceneActNumberTVC,
                      animated: true,
                      completion: nil)
-    }
-    
-    
-    @IBAction func saveButtonTapped(_ sender: Any) {
-        self.saveScreenplay()
     }
     
     @objc func expandButtonTapped(sender: UIButton) {

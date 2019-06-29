@@ -31,10 +31,14 @@ class OutlineTableViewController: UITableViewController {
 
     @IBOutlet weak var titleTextField: UITextField!
     
+    @IBOutlet weak var saveButton: SaveBarButtonItem!
+    
     var interstitial: GADInterstitial?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        saveButton.view = self
         let rightSwipe = UISwipeGestureRecognizer(target: self,
                                                   action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right
@@ -103,10 +107,6 @@ class OutlineTableViewController: UITableViewController {
         self.present(enlargedNavigationController,
                      animated: true,
                      completion: nil)
-    }
-    
-    @IBAction func saveButtonTapped(_ sender: Any) {
-        self.saveScreenplay()
     }
     
     // MARK: Swipe gestures

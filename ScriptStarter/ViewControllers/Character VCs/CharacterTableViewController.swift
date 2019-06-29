@@ -13,6 +13,8 @@ import MBProgressHUD
 
 class CharacterTableViewController: UITableViewController {
     
+    
+    @IBOutlet weak var saveButton: SaveBarButtonItem!
     @IBOutlet weak var addCharacterButton: UIBarButtonItem!
     
     var interstitial: GADInterstitial?
@@ -41,6 +43,8 @@ class CharacterTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        saveButton.view = self
+
         let rightSwipe = UISwipeGestureRecognizer(target: self,
                                                   action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right
@@ -221,11 +225,6 @@ class CharacterTableViewController: UITableViewController {
         }
     }
     
-    // MARK: IBActions
-    
-    @IBAction func saveButtonTapped(_ sender: Any) {
-        self.saveScreenplay()
-    }
     
     // MARK: Swipe gestures
     

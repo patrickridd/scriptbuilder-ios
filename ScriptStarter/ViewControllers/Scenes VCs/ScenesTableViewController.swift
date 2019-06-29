@@ -13,6 +13,7 @@ import MBProgressHUD
 class ScenesTableViewController: UITableViewController {
     
     @IBOutlet weak var addSceneButton: UIBarButtonItem!
+    @IBOutlet weak var saveButton: SaveBarButtonItem!
     
     var newScene: Bool = false
     var products: [SKProduct]?
@@ -34,6 +35,8 @@ class ScenesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        saveButton.view = self
+
         let rightSwipe = UISwipeGestureRecognizer(target: self,
                                                   action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right
@@ -336,10 +339,6 @@ class ScenesTableViewController: UITableViewController {
     }
     
     // MARK: - IBActions and Target Methods
-    
-    @IBAction func saveButtonTapped(sender: AnyObject) {
-        self.saveScreenplay()
-    }
   
     @IBAction func plusButtonTapped(_ sender: UIButton) {
         if let act = Act(rawValue: sender.tag) {
