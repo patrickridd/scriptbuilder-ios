@@ -74,7 +74,11 @@ class FirebaseController {
                 character.name = "Unnamed"
             }
             characterRef.updateChildValues([character.uuid:character.characterDictionary]) { (error, reference) in
-                completion(true)
+                if let _ = error {
+                    completion(false)
+                } else {
+                    completion(true)
+                }
             }
         }
         
@@ -82,7 +86,11 @@ class FirebaseController {
         let actOneScenesRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid).child("actOne").child("scenes")
         for scene in screenplay.act1.scenes {
             actOneScenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
-                completion(true)
+                if let _ = error {
+                    completion(false)
+                } else {
+                    completion(true)
+                }
         }
         
             // Update Act Two Scenes
@@ -90,7 +98,11 @@ class FirebaseController {
             
             for scene in screenplay.act2.scenes {
                 actTwoScenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
-                    completion(true)
+                    if let _ = error {
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
                 }
             }
             
@@ -98,7 +110,11 @@ class FirebaseController {
             let actThreeScenesRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid).child("actThree").child("scenes")
             for scene in screenplay.act3.scenes {
                 actThreeScenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
-                    completion(true)
+                    if let _ = error {
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
                 }
             }
         }
