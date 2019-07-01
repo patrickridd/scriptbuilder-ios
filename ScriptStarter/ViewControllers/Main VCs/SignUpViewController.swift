@@ -232,7 +232,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         }
        
         UIView.animate(withDuration: duration) {
-           self.orViewCenterYConstraint.constant = -250
+            self.orViewCenterYConstraint.constant = -250
             self.topView.isHidden = true
         }
     }

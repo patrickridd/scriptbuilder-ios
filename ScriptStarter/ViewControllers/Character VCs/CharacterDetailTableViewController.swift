@@ -49,7 +49,8 @@ class CharacterDetailTableViewController: UITableViewController {
         
         saveButton.view = self
         
-        let font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.light)
+        let font = UIFont.systemFont(ofSize: 20,
+                                     weight: UIFont.Weight.light)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font:font]
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.setupExpandableSections()
