@@ -12,6 +12,8 @@ class SaveBarButtonItem: UIBarButtonItem {
     
     weak var view: UIViewController?
     
+    let button: UIButton = UIButton()
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -19,8 +21,14 @@ class SaveBarButtonItem: UIBarButtonItem {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let saveAction = #selector(save)
-        self.action = saveAction
+        button.setTitle("Save",
+                        for: .normal)
+        button.setTitleColor(.screenLightBlue,
+                             for: .normal)
+        button.addTarget(self,
+                         action: #selector(save),
+                         for: .touchUpInside)
+        self.customView = button
     }
     
     @objc func save() {
