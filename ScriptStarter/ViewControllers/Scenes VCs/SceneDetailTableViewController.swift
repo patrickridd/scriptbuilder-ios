@@ -44,6 +44,8 @@ class SceneDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        saveButton.view = self
         setupExpandableSections()
         
         self.tableView.backgroundColor = UIColor.screenLightGray
@@ -208,7 +210,8 @@ class SceneDetailTableViewController: UITableViewController {
         popController?.sourceRect = centerRect
         
         sceneActNumberTVC.delegate = self // SceneActSelected protocol
-        sceneActNumberTVC.preferredContentSize = CGSize(width: self.sceneActNumberTextField.bounds.width,
+        sceneActNumberTVC.preferredContentSize = CGSize(width:
+            self.sceneActNumberTextField.bounds.width,
                                                         height: CGFloat(90))
         self.present(sceneActNumberTVC,
                      animated: true,
