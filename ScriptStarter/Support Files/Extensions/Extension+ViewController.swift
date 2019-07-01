@@ -12,6 +12,7 @@ import GoogleMobileAds
 
 extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     
+    
     var screenplay: Screenplay? {
         return ScreenplayController.shared.currentScreenplay
     }
@@ -32,7 +33,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         
         if let screenplay = screenplay {
             FirebaseController.shared.save(screenplay: screenplay, completion: { (success) in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                     loadingNotification.mode = .customView
                     if success {
                         loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
