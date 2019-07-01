@@ -336,7 +336,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="saveButton" destination="hC2-HR-5fx" id="Psx-3L-i8R"/>
+                        <outlet property="saveButton" destination="hC2-HR-5fx" id="UtW-4c-eCZ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="axU-Lc-unS" userLabel="First Responder" sceneMemberID="firstResponder"/>
