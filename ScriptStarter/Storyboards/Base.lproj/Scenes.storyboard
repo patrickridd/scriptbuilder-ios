@@ -238,8 +238,7 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert"/>
                                                             <connections>
-                                                                <action selector="sceneNumberTextField:" destination="I2G-hi-Ukd" eventType="editingDidEnd" id="F9B-XP-Hbv"/>
-                                                                <action selector="sceneNumberTextFieldChanged:" destination="SYB-4i-W3C" eventType="editingDidEnd" id="TsN-oH-WxG"/>
+                                                                <action selector="sceneNumberTextFieldChanged:" destination="SYB-4i-W3C" eventType="editingChanged" id="eMP-uj-E8E"/>
                                                             </connections>
                                                         </textField>
                                                     </subviews>
