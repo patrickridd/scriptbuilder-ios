@@ -19,6 +19,10 @@ class SaveButton: UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        setTitleColor(.screenLightBlue,
+                      for: .normal)
+        setTitleColor(UIColor.screenLightGray,
+                      for: .disabled)
         let saveAction = #selector(save)
         self.addTarget(self,
                        action: saveAction,
@@ -27,15 +31,22 @@ class SaveButton: UIButton {
     
     @objc func save() {
         if let view = view {
-            self.isEnabled = false
+            disable()
             view.saveScreenplay {
                 DispatchQueue.main.async {
-                    self.isEnabled = true
+                    self.enable()
                 }
             }
         }
     }
     
+    func enable() {
+        self.isEnabled = true
+    }
+    
+    func disable() {
+        self.isEnabled = false
+    }
 }
 
 

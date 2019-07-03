@@ -25,6 +25,8 @@ class SaveBarButtonItem: UIBarButtonItem {
                         for: .normal)
         button.setTitleColor(.screenLightBlue,
                              for: .normal)
+        button.setTitleColor(UIColor.screenLightGray,
+                             for: .disabled)
         button.addTarget(self,
                          action: #selector(save),
                          for: .touchUpInside)
@@ -33,13 +35,23 @@ class SaveBarButtonItem: UIBarButtonItem {
     
     @objc func save() {
         if let view = view {
-            self.isEnabled = false
+            disable()
             view.saveScreenplay {
                 DispatchQueue.main.async {
-                    self.isEnabled = true
+                   self.enable()
                 }
             }
         }
+    }
+    
+    func disable() {
+        self.isEnabled = false
+        self.button.isEnabled = false
+    }
+    
+    func enable() {
+        self.isEnabled = true
+        self.button.isEnabled = true
     }
 
 }
