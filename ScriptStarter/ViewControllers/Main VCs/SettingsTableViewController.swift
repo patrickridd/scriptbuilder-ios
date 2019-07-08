@@ -25,8 +25,8 @@ class SettingsTableViewController: UITableViewController {
     var loadingNotification = MBProgressHUD()
     var screenplays: [Screenplay] = []
 
-    var user: FIRUser? {
-        return FIRAuth.auth()?.currentUser
+    var user: Firebase.User? {
+        return Auth.auth().currentUser
     }
     
     override func viewDidLoad() {

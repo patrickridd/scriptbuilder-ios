@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import FBSDKCoreKit
 import FacebookLogin
+import FBSDKLoginKit
 import GoogleSignIn
 import Firebase
 import MBProgressHUD
@@ -119,20 +120,25 @@ class LoginViewController: UIViewController {
     
     @objc func facebookButtonTapped() {
         let loginManager = LoginManager()
+        
         showActivityIndicator()
-        loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { [weak self] loginResult in
+        loginManager.logIn(permissions: [.publicProfile], viewController: self) { [weak self] loginResult in
                 switch loginResult {
                 case .failed:
                     self?.hideActivityIndicator(success: false,
                                                 completion: nil)
-
                 case .cancelled:
                     self?.hideActivityIndicator(success: false)
         
-                case .success( _, _, _):
+                case .success(granted: _, declined: _, token: _):
                     // Login with Firebase
-                    let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString )
-                    FIRAuth.auth()?.signIn(with: credential) { [weak self] (user, error) in
+                    guard let tokenString = AccessToken.current?.tokenString else {
+                        self?.hideActivityIndicator(success: false)
+                        print("Facebook Token String nil")
+                        return
+                    }
+                    let credential = FacebookAuthProvider.credential(withAccessToken: tokenString)
+                    Auth.auth().signIn(with: credential) { [weak self] (user, error) in
                         if let error = error {
                             self?.hideActivityIndicator(success: false)
                             print(error.localizedDescription)
@@ -198,7 +204,7 @@ class LoginViewController: UIViewController {
                 return
             }
             self?.showActivityIndicator()
-            FIRAuth.auth()?.sendPasswordReset(withEmail: email) { [weak self] error in
+            Auth.auth().sendPasswordReset(withEmail: email) { [weak self] error in
                 
                 // If error exists Alert User
                 if let error = error {
@@ -316,9 +322,9 @@ extension LoginViewController: GIDSignInDelegate {
             self.hideActivityIndicator(success: false)
             return
         }
-        let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                           accessToken: authentication.accessToken)
-        FIRAuth.auth()?.signIn(with: credential) { [weak self] (user, error) in
+        Auth.auth().signIn(with: credential) { [weak self] (user, error) in
             if let error = error {
                 self?.hideActivityIndicator(success: false)
                 print(error)

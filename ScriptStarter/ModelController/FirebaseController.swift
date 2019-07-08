@@ -14,31 +14,31 @@ class FirebaseController {
     
     static let shared = FirebaseController()
     
-    var ref: FIRDatabaseReference {
-        return FIRDatabase.database().reference()
+    var ref: DatabaseReference {
+        return Database.database().reference()
     }
     
-    var user: FIRUser? {
-        return FIRAuth.auth()?.currentUser
+    var user: Firebase.User? {
+        return Auth.auth().currentUser
     }
     
-    func signIn(with email: String, password: String, completion: @escaping (_ error: Error?, _ user: FIRUser?) -> Void) {
-        FIRAuth.auth()?.signIn(withEmail: email,
-                               password: password) { (user, error) in
-            completion(error, user)
+    func signIn(with email: String, password: String, completion: @escaping (_ error: Error?, _ user: Firebase.User?) -> Void) {
+        Auth.auth().signIn(withEmail: email,
+                               password: password) { (result, error) in
+            completion(error, result?.user)
         }
     }
     
-    func createAccount(firstName: String, lastName: String, withEmail: String, password: String, completion: @escaping (_ error: Error?, _ user: FIRUser?) -> Void) {
+    func createAccount(firstName: String, lastName: String, withEmail: String, password: String, completion: @escaping (_ error: Error?, _ user: Firebase.User?) -> Void) {
         
-        FIRAuth.auth()?.createUser(withEmail: withEmail,
-                                   password: password) { (user, error) in
-            guard let createUser = user else {
-                completion(error, user)
+        Auth.auth().createUser(withEmail: withEmail,
+                               password: password) { (result, error) in
+            guard let createUser = result?.user else {
+                completion(error, result?.user)
                 return
             }
             
-            let changeRequest = createUser.profileChangeRequest()
+            let changeRequest = createUser.createProfileChangeRequest()
             changeRequest.displayName = "\(firstName) \(lastName)"
             changeRequest.commitChanges { error in
                 if let error = error {
@@ -199,7 +199,7 @@ class FirebaseController {
             return
         }
         
-        user.updatePassword(newPassword) { (error
+        user.updatePassword(to: newPassword) { (error
             ) in
             if let _ = error {
                 completion(false)

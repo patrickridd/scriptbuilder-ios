@@ -28,7 +28,7 @@ class ScreenplayCoverViewController: UIViewController {
         saveButton.view = self
         titleTextField.delegate = self
 
-        if let name = FIRAuth.auth()?.currentUser?.displayName {
+        if let name = Auth.auth().currentUser?.displayName {
             self.nameLabel.text = name
         }
 

@@ -24,13 +24,12 @@ class ScreenplayCollectionViewController: UIViewController {
         }
     }
     
-    var user: FIRUser? {
-        return FIRAuth.auth()?.currentUser
+    var user: Firebase.User? {
+        return Auth.auth().currentUser
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setShouldDisplayInterstitial(state: false)
         
         // Set timer to enable interstitial ads
@@ -69,12 +68,12 @@ class ScreenplayCollectionViewController: UIViewController {
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
         do {
-            try FIRAuth.auth()?.signOut()
+            try Auth.auth().signOut()
         } catch let error {
             print(error)
         }
         
-        FBSDKLoginManager().logOut()
+        LoginManager().logOut()
         guard let _ = self.presentingViewController else {
             self.navigateToLoginViewController()
             return

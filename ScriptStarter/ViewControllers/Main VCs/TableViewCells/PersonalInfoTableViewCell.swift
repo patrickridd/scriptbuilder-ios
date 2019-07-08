@@ -58,7 +58,7 @@ class PersonalInfoTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func updateCell(with user: FIRUser?, and screenplays: [Screenplay]) {
+    func updateCell(with user: User?, and screenplays: [Screenplay]) {
         nameLabel.text = user?.displayName ?? ""
         emailLabel.text = user?.email ?? ""
         

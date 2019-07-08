@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import FBSDKCoreKit
 import FacebookLogin
+import FBSDKLoginKit
 import GoogleSignIn
 import Firebase
 import MBProgressHUD
@@ -116,38 +117,79 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     
     @objc func facebookButtonTapped() {
         let loginManager = LoginManager()
+    
         showActivityIndicator()
-        loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { loginResult in
+        
+        loginManager.logIn(permissions: [.publicProfile], viewController: self) { (loginResult) in
             switch loginResult {
             case .failed(let error):
                 self.hideActivityIndicator(success: false)
                 #if DEBUG
-                    print(error)
+                print(error)
                 #endif
             case .cancelled:
                 self.hideActivityIndicator(success: false)
                 #if DEBUG
-                    print("User cancelled login.")
+                print("User cancelled login.")
                 #endif
             case .success( _, _, _):
                 #if DEBUG
-                    print("Logged in!")
+                print("Logged in!")
                 #endif
                 // Login with Firebase
-                let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString )
-                FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+                guard let tokenString = AccessToken.current?.tokenString else {
+                    self.hideActivityIndicator(success: false)
+                    print("Facebook Token String nil")
+                    return
+                }
+
+                let credential = FacebookAuthProvider.credential(withAccessToken: tokenString)
+                Auth.auth().signIn(with: credential) { (user, error) in
                     
                     if let error = error {
                         print(error.localizedDescription)
                         self.hideActivityIndicator(success: false)
-
+                        
                         return
                     }
                     self.hideActivityIndicator(success: true)
                     self.presentScreenPlayCollection()
                 }
             }
+
         }
+        
+//        loginManager.logIn(permissions: ["default"], from: self) { (loginResult, error) in
+//            switch loginResult {
+//            case .failed(let error):
+//                self.hideActivityIndicator(success: false)
+//                #if DEBUG
+//                    print(error)
+//                #endif
+//            case .cancelled:
+//                self.hideActivityIndicator(success: false)
+//                #if DEBUG
+//                    print("User cancelled login.")
+//                #endif
+//            case .success( _, _, _):
+//                #if DEBUG
+//                    print("Logged in!")
+//                #endif
+//                // Login with Firebase
+//                let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString )
+//                Auth.auth().signIn(with: credential) { (user, error) in
+//
+//                    if let error = error {
+//                        print(error.localizedDescription)
+//                        self.hideActivityIndicator(success: false)
+//
+//                        return
+//                    }
+//                    self.hideActivityIndicator(success: true)
+//                    self.presentScreenPlayCollection()
+//                }
+//            }
+//        }
     }
     
     @IBAction func signUpButtonTapped(_ sender: Any) {
@@ -186,9 +228,9 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         }
         
         guard let authentication = user.authentication else { return }
-        let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
         showActivityIndicator()
-        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+        Auth.auth().signIn(with: credential) { (user, error) in
             if let error = error {
                 self.hideActivityIndicator(success: false)
                 print(error)

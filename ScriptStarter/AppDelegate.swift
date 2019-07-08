@@ -22,7 +22,7 @@ enum Shortcut: String {
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var isLoggedIn: Bool {
-        return FBSDKAccessToken.current() != nil || FIRAuth.auth()?.currentUser != nil
+        return AccessToken.current != nil || Auth.auth().currentUser != nil
     }
     
     var window: UIWindow?
@@ -31,19 +31,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         -> Bool {
             
             // Configure Firebase
-            FIRApp.configure()
+            FirebaseApp.configure()
             
             // Enable offline persistence
-            FIRDatabase.database().persistenceEnabled = true
+            Database.database().isPersistenceEnabled = true
             
             // Initialize Facebook sign-in
-            FBSDKApplicationDelegate.sharedInstance().application(application)
+            ApplicationDelegate.shared.application(application,
+                                                   didFinishLaunchingWithOptions: launchOptions)
             
             // Initialize Google sign-in            
-            GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+            GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
             
             // Initialize GoogleMobileAds
-            GADMobileAds.configure(withApplicationID: GoogleAds.applicationId)
+            GADMobileAds.sharedInstance().start(completionHandler: nil)
             
             // Reset Ad Rewarded features
             resetAdRewardedFeatures()
@@ -200,7 +201,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Handles both Facebook and Google
 
-      let handled = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) ||   GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
+        let handled = ApplicationDelegate.shared.application(application,
+                                                             open: url,
+                                                             sourceApplication: sourceApplication,
+                                                             annotation: annotation) ||   GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
 
         return handled
     }
@@ -209,9 +213,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
             
-            let handled = FBSDKApplicationDelegate.sharedInstance().application(application,
-                                                                                open: url,
-                                                                                options: options) || GIDSignIn.sharedInstance().handle(url,sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
+            let handled = ApplicationDelegate.shared.application(application,
+                                                                 open: url,
+                                                                 options: options) || GIDSignIn.sharedInstance().handle(url, sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
             return handled
     }
     
