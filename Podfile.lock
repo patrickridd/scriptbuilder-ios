@@ -97,7 +97,6 @@ PODS:
   - GoogleUtilities/UserDefaults (6.2.1):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.2)
-  - Hero (1.4.0)
   - KMPlaceholderTextView (1.4.0)
   - leveldb-library (1.20)
   - MBProgressHUD (1.1.0)
@@ -116,12 +115,11 @@ DEPENDENCIES:
   - Firebase/DynamicLinks
   - Google-Mobile-Ads-SDK
   - GoogleSignIn
-  - Hero
   - KMPlaceholderTextView (~> 1.4.0)
   - MBProgressHUD (~> 1.1.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - FacebookCore
     - FacebookLogin
     - FBSDKCoreKit
@@ -141,7 +139,6 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GoogleUtilities
     - GTMSessionFetcher
-    - Hero
     - KMPlaceholderTextView
     - leveldb-library
     - MBProgressHUD
@@ -167,12 +164,11 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
   GoogleUtilities: c7a0b08bda3bf808be823ed151f0e28ac6866e71
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
-  Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
   KMPlaceholderTextView: 2206c3df39979e9396e2d96fa9f427a8951121b0
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
 
-PODFILE CHECKSUM: bf83603b71b44881d0ed8700ef2e9b25a1984a3c
+PODFILE CHECKSUM: 95cd62c206cff69d98137345a683c4b7020b7ab9
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.8.4

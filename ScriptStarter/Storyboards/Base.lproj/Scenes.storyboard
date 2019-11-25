@@ -323,10 +323,6 @@
                                                         <constraint firstAttribute="height" constant="30" id="lzJ-Po-i3r"/>
                                                     </constraints>
                                                     <state key="normal" image="expandButtonAsset 3"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="NO"/>
-                                                    </userDefinedRuntimeAttributes>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -334,10 +330,6 @@
                                                 <constraint firstItem="Dgv-Ch-ZDl" firstAttribute="top" secondItem="QH2-cp-5as" secondAttribute="top" id="rDc-ZN-NR3"/>
                                                 <constraint firstAttribute="trailing" secondItem="Dgv-Ch-ZDl" secondAttribute="trailing" id="rFa-Fx-SEt"/>
                                             </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="NO"/>
-                                            </userDefinedRuntimeAttributes>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VpH-V4-QuB" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
                                             <rect key="frame" x="10" y="0.0" width="364" height="86"/>
@@ -347,10 +339,6 @@
                                             </constraints>
                                             <attributedString key="attributedText"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="NO"/>
-                                            </userDefinedRuntimeAttributes>
                                         </textView>
                                     </subviews>
                                     <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -365,10 +353,6 @@
                                         <constraint firstItem="QH2-cp-5as" firstAttribute="trailing" secondItem="VpH-V4-QuB" secondAttribute="trailing" constant="30" id="yuX-F7-nMP"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="NO"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="descriptionTextView" destination="VpH-V4-QuB" id="Bw9-jk-ern"/>
                                     <outlet property="descriptionTextViewHeightConstraint" destination="Adn-zO-xFb" id="dSW-Py-mFm"/>
@@ -398,9 +382,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="saveButton" destination="Rpp-MH-4tY" id="JTM-hc-OqK"/>
                         <outlet property="sceneActNumberTextField" destination="C4Z-ew-bdb" id="nPQ-3h-okt"/>

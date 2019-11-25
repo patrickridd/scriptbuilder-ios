@@ -9,7 +9,6 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
-import Hero
 import Firebase
 
 class ScreenplayCollectionViewController: UIViewController {
@@ -110,9 +109,7 @@ class ScreenplayCollectionViewController: UIViewController {
             self.navigationController?.navigationBar.tintColor = UIColor.screenLightBlue
             self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
             
-            guard let indexPath = collectionView.indexPathsForSelectedItems?.first, let screenplayCoverVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayCover") as? ScreenplayCoverViewController else { return }
-            
-            screenplayCoverVC.view.hero.id = "\(indexPath.row)"
+            guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
             
             if indexPath.row == 0 { return } // Users tapped on "+" screenplay so return
             
@@ -144,13 +141,12 @@ extension ScreenplayCollectionViewController: UICollectionViewDataSource {
         case 0:
             // Create the Add '+' screenplay cell
             guard let addScreenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "addScreenplayCell", for: indexPath) as? AddScreenplayCollectionViewCell else { return UICollectionViewCell() }
-            addScreenplayCell.update(heroId: "\(indexPath.row)")
             return addScreenplayCell
         default:
             // TODO: Create a cell for an existing screenplay
             guard let screenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "screenplayCell", for: indexPath) as? ScreenplayCollectionViewCell else { return UICollectionViewCell() }
             let screenplay = self.screenplays[indexPath.row-1]
-            screenplayCell.update(title: screenplay.title, name: self.user?.displayName ?? "Name", heroId: "\(indexPath.row)")
+            screenplayCell.update(title: screenplay.title, name: self.user?.displayName ?? "Name")
             return screenplayCell
         }
     }

@@ -12,7 +12,6 @@ target 'ScriptStarter' do
   pod 'GoogleSignIn'
   pod 'FBSDKLoginKit'
   pod 'FacebookLogin'
-  pod 'Hero'
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'Google-Mobile-Ads-SDK'
   pod 'Firebase/DynamicLinks'

@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import Hero
 import GoogleMobileAds
 import MBProgressHUD
 import Firebase
@@ -145,7 +144,7 @@ class ScreenplayCoverViewController: UIViewController {
     func dismissView() {
         ScreenplayController.shared.resetCurrentScreenplay()
         if let _ = self.presentingViewController {
-            self.hero.dismissViewController()
+            self.dismiss(animated: true, completion: nil)
             return
         }
         self.navigateToScreenplayCollectionView()

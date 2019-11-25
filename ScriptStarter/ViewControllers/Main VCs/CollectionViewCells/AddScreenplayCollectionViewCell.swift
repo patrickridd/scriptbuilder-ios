@@ -7,15 +7,7 @@
 //
 
 import UIKit
-import Hero
 
 class AddScreenplayCollectionViewCell: UICollectionViewCell {
-    
-    override func awakeFromNib() {
-        
-    }
-    
-    func update(heroId: String) {
-        self.contentView.heroID = heroId
-    }
+
 }
