@@ -763,6 +763,8 @@
 				ja,
 				ko,
 				"zh-Hans",
+				"hi-IN",
+				"zh-Hans-CN",
 			);
 			mainGroup = 212DEA672012746500FE9C3F;
 			productRefGroup = 212DEA712012746500FE9C3F /* Products */;

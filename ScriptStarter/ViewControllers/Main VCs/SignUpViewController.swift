@@ -308,6 +308,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     func presentScreenPlayCollection() {
         DispatchQueue.main.async {
             guard let screenplayCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else { return }
+            screenplayCollectionVC.modalPresentationStyle = .fullScreen
             self.present(screenplayCollectionVC, animated: true, completion: nil)
         }
     }

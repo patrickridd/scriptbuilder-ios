@@ -86,9 +86,7 @@ class ScreenplayCollectionViewController: UIViewController {
         guard let screenplayPageVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else { return }
         
         ScreenplayController.shared.set(currentScreenplay: screenplay)
-        self.hero.isEnabled = true
-        self.hero.modalAnimationType
-            = .selectBy(presenting:.zoom, dismissing:.zoomOut)
+        screenplayPageVC.modalPresentationStyle = .fullScreen
         self.present(screenplayPageVC, animated: true, completion: nil)
     }
     

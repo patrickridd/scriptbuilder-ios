@@ -104,6 +104,7 @@ class OutlineTableViewController: UITableViewController {
         default:
             enlargedVC.act = nil
         }
+        enlargedNavigationController.modalPresentationStyle = .fullScreen
         self.present(enlargedNavigationController,
                      animated: true,
                      completion: nil)
