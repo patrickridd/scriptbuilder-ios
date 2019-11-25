@@ -56,8 +56,8 @@ class Character: Equatable, Hashable {
                lhs.notes == rhs.notes
     }
     
-    var hashValue: Int {
-        return uuid.hashValue
+    func hash(into hasher: inout Hasher) {
+        self.uuid.hash(into: &hasher)
     }
     
     init(name:String) {

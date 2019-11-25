@@ -13,8 +13,8 @@ struct CharacterTableViewSection: Hashable {
     var roleTitle: String
     var characters: [Character] = []
     
-    var hashValue: Int {
-        return self.roleTitle.hashValue
+    func hash(into hasher: inout Hasher) {
+        self.roleTitle.hash(into: &hasher)
     }
     
     static func ==(lhs: CharacterTableViewSection, rhs: CharacterTableViewSection) -> Bool {

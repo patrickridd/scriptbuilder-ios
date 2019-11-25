@@ -33,8 +33,8 @@ class Scene: Hashable, Equatable {
     var howPushesStory: String = ""
     var notes: String = ""
     
-    var hashValue: Int {
-        return self.uuid.hashValue
+    func hash(into hasher: inout Hasher) {
+        self.uuid.hash(into: &hasher)
     }
     
     static func ==(lhs: Scene, rhs: Scene) -> Bool {
