@@ -582,7 +582,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bsA-tJ-KQJ">
                                             <rect key="frame" x="20" y="27.666666666666671" width="374" height="65"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="J9l-QQ-5Mc">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="J9l-QQ-5Mc">
                                                     <rect key="frame" x="59.666666666666686" y="0.0" width="255" height="40"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPB-uI-KGa">
@@ -590,7 +590,6 @@
                                                             <color key="backgroundColor" red="0.58823529409999997" green="0.70980392160000005" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="EN8-FV-Ne1"/>
-                                                                <constraint firstAttribute="width" constant="120" id="ykx-Ld-tbp"/>
                                                             </constraints>
                                                             <state key="normal" title="$1.99">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -607,7 +606,7 @@
                                                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWe-Ul-gnu">
                                                             <rect key="frame" x="135" y="0.0" width="120" height="40"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="120" id="8dT-ev-hgr"/>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="8dT-ev-hgr"/>
                                                                 <constraint firstAttribute="height" constant="40" id="ad8-js-guq"/>
                                                             </constraints>
                                                             <state key="normal" title="Restore">
@@ -623,6 +622,9 @@
                                                             </connections>
                                                         </button>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="zPB-uI-KGa" firstAttribute="width" secondItem="YWe-Ul-gnu" secondAttribute="width" id="7j3-XJ-2pg"/>
+                                                    </constraints>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If already purchased, tap &quot;Restore&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="5Jf-73-Rqh">
                                                     <rect key="frame" x="76.666666666666686" y="48" width="221" height="17"/>
