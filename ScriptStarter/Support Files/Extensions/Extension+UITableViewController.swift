@@ -12,8 +12,7 @@ extension UITableViewController: ResizeCellProtocol {
     
     func resizeCell(in section: Int) {
         // Reload section tapped
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
+        self.tableView.performBatchUpdates(nil, completion: nil)
     }
     
 }

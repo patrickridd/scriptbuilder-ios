@@ -134,7 +134,7 @@ class ActDetailTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell",
-                                                            for: indexPath) as?DescriptionTableViewCell
+                                                            for: indexPath) as? DescriptionTableViewCell
         
         // Configure the cell...
         descriptionCell?.contentView.backgroundColor = UIColor.screenLightGray
@@ -260,10 +260,10 @@ extension ActDetailTableViewController: CollapsibleHeaderDelegate {
             
             // Reload section tapped
             let indexSet = IndexSet(integer: section)
-            self.tableView.beginUpdates()
-            self.tableView.reloadSections(indexSet,
-                                          with: .automatic)
-            self.tableView.endUpdates()
+            self.tableView.performBatchUpdates({
+                  self.tableView.reloadSections(indexSet, with: .automatic)
+            }, completion: nil)
+            
         }
     
     }
