@@ -108,7 +108,6 @@ class DescriptionTableViewCell: UITableViewCell {
                 switch section {
                 case 0:
                     descriptionTextView.text = screenplay?.idea
-                    descriptionTextView.placeholder = "About a ...".localized
                 case 2:
                     descriptionTextView.text = screenplay?.logLine
                 case 3:
