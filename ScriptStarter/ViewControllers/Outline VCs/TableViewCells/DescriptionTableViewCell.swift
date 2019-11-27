@@ -41,17 +41,17 @@ class DescriptionTableViewCell: UITableViewCell {
         
         let isIpad = UIDevice.current.userInterfaceIdiom == .pad
         
-        descriptionTextView.textColor = UIColor.screenHaitiBlack
-        descriptionTextView.placeholderColor = UIColor.lightGray
+        self.descriptionTextView.textColor = UIColor.screenHaitiBlack
+        self.descriptionTextView.placeholderColor = UIColor.lightGray
         let font = UIFont.systemFont(ofSize: isIpad ? 24: 14,
                                      weight: .regular)
         
-        descriptionTextView.font = font
-        descriptionTextView.delegate = self
-        addToolBar(textView: descriptionTextView)
+        self.descriptionTextView.font = font
+        self.descriptionTextView.delegate = self
+        addToolBar(textView: self.descriptionTextView)
         
         if textViewBecomesFirstResponder {
-            self.descriptionTextView.becomeFirstResponder()
+            self.self.descriptionTextView.becomeFirstResponder()
             self.textViewBecomesFirstResponder = false
         } 
     }
@@ -61,7 +61,8 @@ class DescriptionTableViewCell: UITableViewCell {
                 act: Act?,
                 character: Character? = nil,
                 scene: Scene? = nil) {
-        
+        DispatchQueue.main.async {
+
         self.section = section
         self.viewController = viewController
         
@@ -85,20 +86,21 @@ class DescriptionTableViewCell: UITableViewCell {
             switch section {
             case 0: // Idea
                 self.descriptionTextView.placeholder = "About a ...".localized
-                self.descriptionTextView.text = screenplay?.idea
+                self.descriptionTextView.text  = self.screenplay?.idea
             case 1: // Act 1
                 self.descriptionTextView.placeholder = "Setup".localized
-                self.descriptionTextView.text = screenplay?.actOneDescription
+                self.descriptionTextView.text = self.screenplay?.actOneDescription
                 
             case 2: // Act 2
                 self.descriptionTextView.placeholder = "Confrontation".localized
-                self.descriptionTextView.text = screenplay?.actTwoDescription
+                self.descriptionTextView.text = self.screenplay?.actTwoDescription
                 
             case 3: // Act 3
                 self.descriptionTextView.placeholder = "Resolution".localized
-                self.descriptionTextView.text = screenplay?.actThreeDescription
+                self.descriptionTextView.text = self.screenplay?.actThreeDescription
             default:
-                break
+                self.descriptionTextView.text = ""
+                self.descriptionTextView.placeholder = ""
             }
             
         case .actDetail:
@@ -107,170 +109,179 @@ class DescriptionTableViewCell: UITableViewCell {
             case .idea:
                 switch section {
                 case 0:
-                    descriptionTextView.text = screenplay?.idea
+                    self.descriptionTextView.text = self.screenplay?.idea
                 case 2:
-                    descriptionTextView.text = screenplay?.logLine
+                    self.descriptionTextView.text = self.screenplay?.logLine
                 case 3:
-                    descriptionTextView.text = screenplay?.centralIntention
+                    self.descriptionTextView.text = self.screenplay?.centralIntention
                 case 4:
-                    descriptionTextView.text = screenplay?.mainObstacle
+                    self.descriptionTextView.text = self.screenplay?.mainObstacle
                 case 5:
-                    descriptionTextView.text = screenplay?.theme
+                    self.descriptionTextView.text = self.screenplay?.theme
                 case 6:
-                    descriptionTextView.text = screenplay?.notes
+                    self.descriptionTextView.text = self.screenplay?.notes
                 default:
-                    break
+                    self.descriptionTextView.text = ""
+                    self.descriptionTextView.placeholder = ""
                 }
             case .one:
                 switch section {
                 case 0:
-                    descriptionTextView.text = screenplay?.actOneDescription
+                    self.descriptionTextView.text = self.screenplay?.actOneDescription
                 case 2:
-                    descriptionTextView.text = screenplay?.act1.oldWorldDescription
+                    self.descriptionTextView.text = self.screenplay?.act1.oldWorldDescription
                 case 3:
-                    descriptionTextView.text = screenplay?.act1.incitingIncident
+                    self.descriptionTextView.text = self.screenplay?.act1.incitingIncident
                 case 4:
-                    descriptionTextView.text = screenplay?.act1.callToAdventure
+                    self.descriptionTextView.text = self.screenplay?.act1.callToAdventure
                 case 5:
-                    descriptionTextView.text = screenplay?.act1.meetingMentor
+                    self.descriptionTextView.text = self.screenplay?.act1.meetingMentor
                 case 6:
-                    descriptionTextView.text = screenplay?.act1.theme
+                    self.descriptionTextView.text = self.screenplay?.act1.theme
                 case 7:
-                    descriptionTextView.text = screenplay?.act1.refusal
+                    self.descriptionTextView.text = self.screenplay?.act1.refusal
                 case 8:
-                    descriptionTextView.text = screenplay?.act1.reasonToAdventure
+                    self.descriptionTextView.text = self.screenplay?.act1.reasonToAdventure
                 case 9:
-                    descriptionTextView.text = screenplay?.act1.enemyAtTheGates
+                    self.descriptionTextView.text = self.screenplay?.act1.enemyAtTheGates
                 default:
-                    break
+                    self.descriptionTextView.text = ""
+                    self.descriptionTextView.placeholder = ""
                 }
                 if section == 0 {
-                    descriptionTextView.placeholder = act.placeholders[section]
+                    self.descriptionTextView.placeholder = act.placeholders[section]
                 }  else {
-                    descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholder = ""
                 }
 
             case .two:
                 switch section {
                 case 0:
                     // General description
-                    descriptionTextView.text = screenplay?.actTwoDescription
+                    self.descriptionTextView.text = self.screenplay?.actTwoDescription
                 case 2:
                      // Strange New World
-                    descriptionTextView.text = screenplay?.act2.newWorldDescription
+                    self.descriptionTextView.text = self.screenplay?.act2.newWorldDescription
                 case 3:
                     // Friends/Foes/Frenemies
-                    descriptionTextView.text = screenplay?.act2.enemiesFriends
+                    self.descriptionTextView.text = self.screenplay?.act2.enemiesFriends
                 case 4:
                     // Test Resolve
-                    descriptionTextView.text = screenplay?.act2.obstacles
+                    self.descriptionTextView.text = self.screenplay?.act2.obstacles
                 case 5:
                     // Sharpening the sword
-                    descriptionTextView.text = screenplay?.act2.sharpeningTheSword
+                    self.descriptionTextView.text = self.screenplay?.act2.sharpeningTheSword
                 case 6:
                     // Burn the Boats
-                    descriptionTextView.text =  screenplay?.act2.burnTheBoats
+                    self.descriptionTextView.text = self.screenplay?.act2.burnTheBoats
                 case 7:
                     // Supreme Sacrifice
-                    descriptionTextView.text = screenplay?.act2.theDeadlyEncounter
+                    self.descriptionTextView.text = self.screenplay?.act2.theDeadlyEncounter
                 case 8:
                       // Celebrate Good Times
-                    descriptionTextView.text = screenplay?.act2.celebrate
+                    self.descriptionTextView.text = self.screenplay?.act2.celebrate
                 case 9:
                        // Bad Guys Strike back
-                    descriptionTextView.text = screenplay?.act2.badGuysStrikeBack
-                case 11:
+                    self.descriptionTextView.text = self.screenplay?.act2.badGuysStrikeBack
+                case 10:
                      // Darkness Before the Dawn
-                    descriptionTextView.text = screenplay?.act2.allIsLost
+                    self.descriptionTextView.text = self.screenplay?.act2.allIsLost
                 default:
-                    break
+                    self.descriptionTextView.text = ""
+                    self.descriptionTextView.placeholder = ""
                 }
                 if section == 0 {
-                    descriptionTextView.placeholder = act.placeholders[section]
+                    self.descriptionTextView.placeholder = act.placeholders[section]
                 }  else {
-                    descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholder = ""
                 }
             case .three:
                 switch section {
                 case 0:
-                    descriptionTextView.text = screenplay?.actThreeDescription
+                    self.descriptionTextView.text = self.screenplay?.actThreeDescription
                 case 2:
-                    descriptionTextView.text = screenplay?.act3.theUltimateAnswer
+                    self.descriptionTextView.text = self.screenplay?.act3.theUltimateAnswer
                 case 3:
-                    descriptionTextView.text = screenplay?.act3.rewards
+                    self.descriptionTextView.text = self.screenplay?.act3.rewards
                 case 4:
-                    descriptionTextView.text = screenplay?.act3.untangleStory
+                    self.descriptionTextView.text = self.screenplay?.act3.untangleStory
                 case 5:
-                    descriptionTextView.text =
-                    screenplay?.act3.brandNewWorld
+                    self.descriptionTextView.text =
+                    self.screenplay?.act3.brandNewWorld
                 default:
-                    break
+                    self.descriptionTextView.text = ""
+                    self.descriptionTextView.placeholder = ""
                 }
                 if section == 0 {
-                    descriptionTextView.placeholder = act.placeholders[section]
+                    self.descriptionTextView.placeholder = act.placeholders[section]
                 }  else {
-                    descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholder = ""
                 }
             }
         case .characterDetail:
             switch section {
             case 2:
-                descriptionTextView.text = character?.intention
+                self.descriptionTextView.text = character?.intention
             case 3:
-                descriptionTextView.text = character?.whyIntention
+                self.descriptionTextView.text = character?.whyIntention
             case 4:
-                descriptionTextView.text = character?.whatToDo
+                self.descriptionTextView.text = character?.whatToDo
             case 5:
-                descriptionTextView.text = character?.howDoesCharacterDoIt
+                self.descriptionTextView.text = character?.howDoesCharacterDoIt
             case 6:
-                descriptionTextView.text = character?.obstacles
+                self.descriptionTextView.text = character?.obstacles
             case 7:
-                descriptionTextView.text = character?.flaws
+                self.descriptionTextView.text = character?.flaws
             case 8:
-                descriptionTextView.text = character?.intentionFix
+                self.descriptionTextView.text = character?.intentionFix
             case 9:
-                descriptionTextView.text = character?.need
+                self.descriptionTextView.text = character?.need
             case 10:
-                descriptionTextView.text = character?.howCharacterChanged
+                self.descriptionTextView.text = character?.howCharacterChanged
             case 11:
-                descriptionTextView.text = character?.notes
+                self.descriptionTextView.text = character?.notes
             default:
-                break
+                self.descriptionTextView.text = ""
+                self.descriptionTextView.placeholder = ""
             }
         case .sceneDetail:
             switch section {
             case 0:
-                descriptionTextView.text = scene?.sceneDescription
+                self.descriptionTextView.text = scene?.sceneDescription
             case 1:
-                descriptionTextView.text = scene?.characters
+                self.descriptionTextView.text = scene?.characters
             case 2:
-                descriptionTextView.text = scene?.dialogue
+                self.descriptionTextView.text = scene?.dialogue
             case 3:
-                descriptionTextView.text = scene?.action
+                self.descriptionTextView.text = scene?.action
             case 4:
-                descriptionTextView.text = scene?.howPushesStory
+                self.descriptionTextView.text = scene?.howPushesStory
             case 5:
-                descriptionTextView.text = scene?.notes
+                self.descriptionTextView.text = scene?.notes
             default:
-                break
+                self.descriptionTextView.text = ""
+                self.descriptionTextView.placeholder = ""
             }
         }
-        checkForResize(textView: self.descriptionTextView)
+           self.checkForResize(textView: self.descriptionTextView)
+        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        checkForResize(textView: textView)
-        switch viewController {
+        DispatchQueue.main.async {
+            
+        self.checkForResize(textView: textView)
+            switch self.viewController {
         case .outline:
-            switch section {
+            switch self.section {
             case 0:
-                screenplay?.idea = textView.text
+               self.screenplay?.idea = textView.text
             case 1:
-                screenplay?.actOneDescription = textView.text
+                self.screenplay?.actOneDescription = textView.text
             case 2:
-                screenplay?.actTwoDescription = textView.text
+                self.screenplay?.actTwoDescription = textView.text
             case 3:
-                screenplay?.actThreeDescription = textView.text
+                self.screenplay?.actThreeDescription = textView.text
             default:
                 break
             }
@@ -278,160 +289,189 @@ class DescriptionTableViewCell: UITableViewCell {
             guard let act = self.act else { break }
             switch act {
             case .idea:
-                switch section {
+                switch self.section {
                 case 0:
-                    screenplay?.idea = textView.text
+                   self.screenplay?.idea = textView.text
                 case 2:
-                    screenplay?.logLine = textView.text
+                   self.screenplay?.logLine = textView.text
                 case 3:
-                    screenplay?.centralIntention = textView.text
+                   self.screenplay?.centralIntention = textView.text
                 case 4:
-                    screenplay?.mainObstacle = textView.text
+                   self.screenplay?.mainObstacle = textView.text
                 case 5:
-                    screenplay?.theme = textView.text
+                   self.screenplay?.theme = textView.text
                 case 6:
-                    screenplay?.notes = textView.text
+                   self.screenplay?.notes = textView.text
                 default:
                     break
                 }
             case .one:
-                switch section {
+                switch self.section {
                 case 0:
-                    screenplay?.actOneDescription = textView.text
+                   self.screenplay?.actOneDescription = textView.text
                 case 2:
-                    screenplay?.act1.oldWorldDescription = textView.text
+                   self.screenplay?.act1.oldWorldDescription = textView.text
                 case 3:
-                    screenplay?.act1.incitingIncident = textView.text
+                   self.screenplay?.act1.incitingIncident = textView.text
                 case 4:
-                    screenplay?.act1.callToAdventure = textView.text
+                   self.screenplay?.act1.callToAdventure = textView.text
                 case 5:
-                    screenplay?.act1.meetingMentor = textView.text
+                   self.screenplay?.act1.meetingMentor = textView.text
                 case 6:
-                    screenplay?.act1.theme = textView.text
+                   self.screenplay?.act1.theme = textView.text
                 case 7:
-                    screenplay?.act1.refusal = textView.text
+                   self.screenplay?.act1.refusal = textView.text
                 case 8:
-                    screenplay?.act1.reasonToAdventure = textView.text
+                   self.screenplay?.act1.reasonToAdventure = textView.text
                 case 9:
-                    screenplay?.act1.enemyAtTheGates = textView.text
+                   self.screenplay?.act1.enemyAtTheGates = textView.text
                 default:
                     break
                 }
                 
             case .two:
-                switch section {
+                switch self.section {
                     case 0:
                     // General description
-                     screenplay?.actTwoDescription = descriptionTextView.text
+                    self.screenplay?.actTwoDescription = self.descriptionTextView.text
                     case 2:
                     // Strange New World
-                     screenplay?.act2.newWorldDescription = descriptionTextView.text
+                    self.screenplay?.act2.newWorldDescription = self.descriptionTextView.text
                     case 3:
                     // Friends/Foes/Frenemies
-                     screenplay?.act2.enemiesFriends = descriptionTextView.text
+                    self.screenplay?.act2.enemiesFriends = self.descriptionTextView.text
                     case 4:
                     // Test Resolve
-                     screenplay?.act2.obstacles = descriptionTextView.text
+                    self.screenplay?.act2.obstacles = self.descriptionTextView.text
                     case 5:
                     // Sharpening the sword
-                    screenplay?.act2.sharpeningTheSword = descriptionTextView.text
+                   self.screenplay?.act2.sharpeningTheSword = self.descriptionTextView.text
                     case 6:
                     // Burn the Boats
-                    screenplay?.act2.burnTheBoats = descriptionTextView.text
+                   self.screenplay?.act2.burnTheBoats = self.descriptionTextView.text
                     case 7:
                     // Supreme Sacrifice
-                    screenplay?.act2.theDeadlyEncounter = descriptionTextView.text
+                   self.screenplay?.act2.theDeadlyEncounter = self.descriptionTextView.text
                     case 8:
                     // Celebrate Good Times
-                     screenplay?.act2.celebrate = descriptionTextView.text
+                    self.screenplay?.act2.celebrate = self.descriptionTextView.text
                     case 9:
                     // Bad Guys Strike back
-                     screenplay?.act2.badGuysStrikeBack = descriptionTextView.text
+                    self.screenplay?.act2.badGuysStrikeBack = self.descriptionTextView.text
                     case 10:
                     // Darkness Before the Dawn
-                    screenplay?.act2.allIsLost = descriptionTextView.text
+                   self.screenplay?.act2.allIsLost = self.descriptionTextView.text
                     default:
                         break
                     }
             case .three:
-                switch section {
+                switch self.section {
                 case 0:
-                    screenplay?.actThreeDescription = textView.text
+                   self.screenplay?.actThreeDescription = textView.text
                 case 2:
-                    screenplay?.act3.theUltimateAnswer = textView.text
+                   self.screenplay?.act3.theUltimateAnswer = textView.text
                 case 3:
-                    screenplay?.act3.rewards = textView.text
+                   self.screenplay?.act3.rewards = textView.text
                 case 4:
-                    screenplay?.act3.untangleStory = textView.text
+                   self.screenplay?.act3.untangleStory = textView.text
                 case 5:
-                    screenplay?.act3.brandNewWorld = textView.text
+                   self.screenplay?.act3.brandNewWorld = textView.text
                 default:
                     break
                 }
             }
         case .characterDetail:
-            switch section {
+            switch self.section {
             case 2:
-                character?.intention = descriptionTextView.text
+                self.character?.intention = self.descriptionTextView.text
             case 3:
-                character?.whyIntention = descriptionTextView.text
+                self.character?.whyIntention = self.descriptionTextView.text
             case 4:
-                character?.whatToDo = descriptionTextView.text
+                self.character?.whatToDo = self.descriptionTextView.text
             case 5:
-                character?.howDoesCharacterDoIt = descriptionTextView.text
+                self.character?.howDoesCharacterDoIt = self.descriptionTextView.text
             case 6:
-                character?.obstacles = descriptionTextView.text
+                self.character?.obstacles = self.descriptionTextView.text
             case 7:
-                character?.flaws = descriptionTextView.text
+                self.character?.flaws = self.descriptionTextView.text
             case 8:
-                character?.intentionFix = descriptionTextView.text
+                self.character?.intentionFix = self.descriptionTextView.text
             case 9:
-                character?.need = descriptionTextView.text
+                self.character?.need = self.descriptionTextView.text
             case 10:
-                character?.howCharacterChanged = descriptionTextView.text
+                self.character?.howCharacterChanged = self.descriptionTextView.text
             case 11:
-                character?.notes = descriptionTextView.text
+                self.character?.notes = self.descriptionTextView.text
             default:
                 break
             }
         case .sceneDetail:
-            switch section {
+            switch self.section {
             case 0:
-                scene?.sceneDescription = descriptionTextView.text
+                self.scene?.sceneDescription = self.descriptionTextView.text
             case 1:
-                scene?.characters = descriptionTextView.text
+                self.scene?.characters = self.descriptionTextView.text
             case 2:
-                scene?.dialogue = descriptionTextView.text
+                self.scene?.dialogue = self.descriptionTextView.text
             case 3:
-                scene?.action = descriptionTextView.text
+                self.scene?.action = self.descriptionTextView.text
             case 4:
-                scene?.howPushesStory = descriptionTextView.text
+                self.scene?.howPushesStory = self.descriptionTextView.text
             case 5:
-                scene?.notes = descriptionTextView.text
+                self.scene?.notes = self.descriptionTextView.text
             default:
                 break
             }
         }
-    }
-    
-    func checkForResize(textView: UITextView) {
-        if descriptionTextViewHeightConstraint == nil { return }
-
-        // Get descriptionTextView size that fits in view
-        let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width,
-                                                height: CGFloat.greatestFiniteMagnitude))
-        if size.height > self.defaultHeight {
-            if descriptionTextViewHeightConstraint.constant != size.height {
-                descriptionTextViewHeightConstraint.constant = size.height
-                delegate?.resizeCell(in: self.section)
-            }
-        } else {
-            if descriptionTextViewHeightConstraint.constant != defaultHeight-10 {
-                descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
-                delegate?.resizeCell(in: self.section)
-            }
-           
         }
     }
     
+//    func checkForResize(textView: UITextView) {
+//        if descriptionTextViewHeightConstraint == nil { return }
+//
+//        // Get descriptionTextView size that fits in view
+//        let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width,
+//                                                height: CGFloat.greatestFiniteMagnitude))
+//        if size.height > self.defaultHeight {
+//            if descriptionTextViewHeightConstraint.constant != size.height {
+//                descriptionTextViewHeightConstraint.constant = size.height
+//                delegate?.resizeCell(in: self.section)
+//            }
+//        } else {
+//            if descriptionTextViewHeightConstraint.constant != defaultHeight-10 {
+//                descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
+//                delegate?.resizeCell(in: self.section)
+//            }
+//
+//        }
+//    }
+    
+    func checkForResize(textView: UITextView) {
+        if self.descriptionTextViewHeightConstraint == nil { return }
+    
+        // Get self.descriptionTextView size that fits in view
+        let size = textView.sizeThatFits(CGSize(width: textView.bounds.size.width,
+                                                height: CGFloat.greatestFiniteMagnitude))
+    
+    
+        if size.height > self.descriptionTextViewHeightConstraint.constant {
+            print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
+            print("Size Height: \(size.height)")
+            if self.descriptionTextViewHeightConstraint.constant != size.height {
+                self.descriptionTextViewHeightConstraint.constant = size.height
+                delegate?.resizeCell(in: self.section)
+            }
+        }
+        else if size.height < self.descriptionTextViewHeightConstraint.constant {
+            print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
+            print("Size Height: \(size.height)")
+            if size.height >= 100 {
+                self.descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
+                delegate?.resizeCell(in: self.section)
+            }
+        }
+    }
+
 }
+
+
