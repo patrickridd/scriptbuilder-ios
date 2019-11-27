@@ -368,10 +368,9 @@ extension SceneDetailTableViewController: CollapsibleHeaderDelegate {
             
             // Reload section tapped
             let indexSet = IndexSet(integer: section)
-            self.tableView.beginUpdates()
-            self.tableView.reloadSections(indexSet,
-                                          with: .automatic)
-            self.tableView.endUpdates()
+            self.tableView.performBatchUpdates({
+                  self.tableView.reloadSections(indexSet, with: .automatic)
+            }, completion: nil)
         }
     }
 }
