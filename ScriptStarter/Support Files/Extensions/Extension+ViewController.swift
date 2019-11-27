@@ -90,7 +90,8 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.screenLightBlue
-        let doneButton = UIBarButtonItem(image: #imageLiteral(resourceName: "downArrowButtonAsset 1"),
+        let image = UIImage(contentsOfFile: "downArrowButtonAsset 1")
+        let doneButton = UIBarButtonItem(image: image,
                                          landscapeImagePhone: nil,
                                          style: .done,
                                          target: self,
