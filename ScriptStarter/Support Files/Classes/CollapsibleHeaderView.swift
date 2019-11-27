@@ -58,8 +58,9 @@ class CollapsibleHeader: UITableViewHeaderFooterView {
         subtitleLabel.font = font
         subtitleLabel.numberOfLines = 0
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor).isActive = true
-        subtitleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,
+        subtitleLabel.leadingAnchor.constraint(equalTo: self.plusButtonLabel.trailingAnchor,
+                                               constant: 10).isActive = true
+        subtitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,
                                                 constant: -5).isActive = true
         subtitleLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor,
                                            constant: 0).isActive = true

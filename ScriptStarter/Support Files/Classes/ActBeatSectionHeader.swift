@@ -56,7 +56,8 @@ class ActBeatSectionHeader: UITableViewHeaderFooterView {
         infoButton.contentMode = .scaleAspectFill
         infoButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         infoButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        infoButton.setImage(#imageLiteral(resourceName: "blueInfoButtonAsset 1"),
+        let image = UIImage(named: "blueInfoButtonAsset 1")
+        infoButton.setImage(image,
                             for: .normal)
     }
 
