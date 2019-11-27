@@ -421,11 +421,16 @@ class DescriptionTableViewCell: UITableViewCell {
         let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width,
                                                 height: CGFloat.greatestFiniteMagnitude))
         if size.height > self.defaultHeight {
-            descriptionTextViewHeightConstraint.constant = size.height
-            delegate?.resizeCell(in: self.section)
+            if descriptionTextViewHeightConstraint.constant != size.height {
+                descriptionTextViewHeightConstraint.constant = size.height
+                delegate?.resizeCell(in: self.section)
+            }
         } else {
-            descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
-            delegate?.resizeCell(in: self.section)
+            if descriptionTextViewHeightConstraint.constant != defaultHeight-10 {
+                descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
+                delegate?.resizeCell(in: self.section)
+            }
+           
         }
     }
     
