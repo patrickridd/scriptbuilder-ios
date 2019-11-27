@@ -197,32 +197,27 @@ class CharacterDetailTableViewController: UITableViewController {
                                                    for: .touchUpInside)
            return basicCharacterCell
         default:
-            guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else { return UITableViewCell() }
-            descriptionCell.delegate = self
-            descriptionCell.defaultHeight = self.getDefaultHeightOfCell()
-            descriptionCell.update(viewController: .characterDetail,
+            let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell",
+                                                                for: indexPath) as? DescriptionTableViewCell
+            descriptionCell?.contentView.backgroundColor = UIColor.screenLightGray
+            descriptionCell?.delegate = self
+            descriptionCell?.defaultHeight = self.getDefaultHeightOfCell()
+            descriptionCell?.update(viewController: .characterDetail,
                                    section: indexPath.section,
                                    act: nil,
                                    character: self.character)
-            descriptionCell.expandButton.tag = indexPath.section
-            descriptionCell.expandButton.addTarget(self,
+            descriptionCell?.expandButton.tag = indexPath.section
+            descriptionCell?.expandButton.addTarget(self,
                                                    action: #selector(expandButtonTapped(sender:)),
                                                    for: .touchUpInside)
-            descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
-           
-            return descriptionCell
+            return descriptionCell ?? UITableViewCell()
         }
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        DispatchQueue.main.async {
-            
-            guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
-            
-            if self.isExpandingCell {
-                descriptionCell.descriptionTextView.becomeFirstResponder()
-                self.isExpandingCell = false
-            }
+        if let descriptionCell = cell as? DescriptionTableViewCell, self.isExpandingCell {
+            descriptionCell.descriptionTextView.becomeFirstResponder()
+            self.isExpandingCell = false
         }
     }
     

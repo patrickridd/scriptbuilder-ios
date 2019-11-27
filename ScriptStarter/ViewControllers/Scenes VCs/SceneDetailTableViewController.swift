@@ -297,14 +297,11 @@ class SceneDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        DispatchQueue.main.async {
-            
-            guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
-            
-            if self.isExpandingCell {
-                descriptionCell.descriptionTextView.becomeFirstResponder()
-                self.isExpandingCell = false
-            }
+        guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
+        
+        if self.isExpandingCell {
+            descriptionCell.descriptionTextView.becomeFirstResponder()
+            self.isExpandingCell = false
         }
     }
     
