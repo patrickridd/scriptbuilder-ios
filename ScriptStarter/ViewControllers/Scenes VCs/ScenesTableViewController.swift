@@ -300,6 +300,7 @@ class ScenesTableViewController: UITableViewController {
                                          style: .default,
                                          handler: nil)
         alert.addAction(cancelAction)
+        alert.view.layoutIfNeeded() // Avoids snapshot error
         present(alert,
                 animated: true,
                 completion: nil)

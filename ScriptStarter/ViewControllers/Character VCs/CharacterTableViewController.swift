@@ -182,6 +182,7 @@ class CharacterTableViewController: UITableViewController {
                                          style: .default,
                                          handler: nil)
         alert.addAction(cancelAction)
+        alert.view.layoutIfNeeded()
         present(alert,
                 animated: true,
                 completion: nil)
