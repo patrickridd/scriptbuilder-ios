@@ -152,21 +152,26 @@ class ActDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
-        
-        if self.isExpandingCell {
-            descriptionCell.descriptionTextView.becomeFirstResponder()
-            self.isExpandingCell = false
+        DispatchQueue.main.async {
+            guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
+            
+            if self.isExpandingCell {
+                descriptionCell.descriptionTextView.becomeFirstResponder()
+                descriptionCell.descriptionTextView.isHidden = false
+                self.isExpandingCell = false
+            }
         }
     }
     
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
-        
-        if self.isCollapsingCell {
-            descriptionCell.descriptionTextView.resignFirstResponder()
-            descriptionCell.resignFirstResponder()
-            self.isCollapsingCell = false
+        DispatchQueue.main.async {
+            guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
+                  
+                  if self.isCollapsingCell {
+                      descriptionCell.descriptionTextView.resignFirstResponder()
+                      descriptionCell.resignFirstResponder()
+                      self.isCollapsingCell = false
+                  }
         }
     }
 
@@ -261,7 +266,7 @@ extension ActDetailTableViewController: CollapsibleHeaderDelegate {
             // Reload section tapped
             let indexSet = IndexSet(integer: section)
             self.tableView.performBatchUpdates({
-                  self.tableView.reloadSections(indexSet, with: .automatic)
+                 self.tableView.reloadSections(indexSet, with: .automatic)
             }, completion: nil)
             
         }

@@ -296,24 +296,29 @@ class SceneDetailTableViewController: UITableViewController {
         return 60
     }
     
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
-        
-        if self.isExpandingCell {
-            descriptionCell.descriptionTextView.becomeFirstResponder()
-            self.isExpandingCell = false
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
-        
-        if self.isCollapsingCell {
-            descriptionCell.descriptionTextView.resignFirstResponder()
-            descriptionCell.resignFirstResponder()
-            self.isCollapsingCell = false
-        }
-    }
+       override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+         DispatchQueue.main.async {
+             guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
+             
+             if self.isExpandingCell {
+                 descriptionCell.descriptionTextView.becomeFirstResponder()
+                 descriptionCell.descriptionTextView.isHidden = false
+                 self.isExpandingCell = false
+             }
+         }
+     }
+     
+     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+         DispatchQueue.main.async {
+             guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
+                   
+                   if self.isCollapsingCell {
+                       descriptionCell.descriptionTextView.resignFirstResponder()
+                       descriptionCell.resignFirstResponder()
+                       self.isCollapsingCell = false
+                   }
+         }
+     }
     
     // MARK: - UITextFieldDelegate
     
