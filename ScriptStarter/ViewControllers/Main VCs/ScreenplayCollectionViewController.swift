@@ -92,7 +92,7 @@ class ScreenplayCollectionViewController: UIViewController {
     func getScreenplays() {
         FirebaseController.shared.getScreenplays { (screenplays) in
             DispatchQueue.main.async {
-                self.screenplays = screenplays
+                self.screenplays = ScreenplayController.shared.sort(screenplays: screenplays)
                 if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: self.screenplays) {
                     self.segueTo(screenplay: screenplay)
                 }

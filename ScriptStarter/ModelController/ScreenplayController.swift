@@ -38,6 +38,12 @@ class ScreenplayController {
         self.userDefaults.setValue(nil, forKey: self.screenplayKey)
     }
     
+    func sort(screenplays: [Screenplay]) -> [Screenplay] {
+        return screenplays.sorted { (screenplay1, screenplay2) -> Bool in
+            return screenplay1.title < screenplay2.title
+        }
+    }
+    
     func discardChangesInCurrentScreenplay() {
         self.currentScreenplay = unalteredScreenplay
     }
