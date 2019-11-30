@@ -68,6 +68,7 @@
 		21A84F46201683D500CE4149 /* ScreenplayCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */; };
 		21A84F482016840300CE4149 /* Screenplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A84F472016840300CE4149 /* Screenplay.swift */; };
 		21A84F4A2016988600CE4149 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21A84F492016988600CE4149 /* Storyboard.storyboard */; };
+		21A8C33D2391C296008AEB95 /* PdfHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A8C33C2391C296008AEB95 /* PdfHelper.swift */; };
 		21AE274F205ADA5300C44A52 /* ScenesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AE274E205ADA5300C44A52 /* ScenesTableViewController.swift */; };
 		21B2E6122047233A009E4788 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B2E6112047233A009E4788 /* AdSupport.framework */; };
 		21B8FB82201A922D000A8721 /* ScreenplayCoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB81201A922D000A8721 /* ScreenplayCoverViewController.swift */; };
@@ -205,6 +206,7 @@
 		21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayCollectionViewController.swift; sourceTree = "<group>"; };
 		21A84F472016840300CE4149 /* Screenplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenplay.swift; sourceTree = "<group>"; };
 		21A84F492016988600CE4149 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
+		21A8C33C2391C296008AEB95 /* PdfHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfHelper.swift; sourceTree = "<group>"; };
 		21AE274E205ADA5300C44A52 /* ScenesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenesTableViewController.swift; sourceTree = "<group>"; };
 		21B255E822272A1700C8F147 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Scenes.strings; sourceTree = "<group>"; };
 		21B255EC22272A1C00C8F147 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Scenes.strings; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 				218E8463203F841400D0D652 /* SceneHeader.swift */,
 				21099167201FD4CF00340124 /* SectionHeaderView.swift */,
 				21D727F3202E0D1A00861C2D /* SectionHeaderSubtitle.swift */,
+				21A8C33C2391C296008AEB95 /* PdfHelper.swift */,
 				215DDD3621F7CB6E00C52B6C /* IAP */,
 			);
 			path = Classes;
@@ -981,6 +984,7 @@
 				21A7CF6A202A6D3A00D97394 /* Act.swift in Sources */,
 				2104ADD9205C7F270086CC9F /* SceneController.swift in Sources */,
 				211215D6203B5DC30039D6E8 /* Role.swift in Sources */,
+				21A8C33D2391C296008AEB95 /* PdfHelper.swift in Sources */,
 				211800DA20238A1200F33924 /* ScreenplayCollectionViewCell.swift in Sources */,
 				2189FC92205719F900A69DC1 /* InAppPurchases.swift in Sources */,
 				212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */,
