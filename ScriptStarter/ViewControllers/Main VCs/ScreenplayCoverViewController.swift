@@ -82,6 +82,18 @@ class ScreenplayCoverViewController: UIViewController {
         self.present(deleteScreenplayAlert(), animated: true) 
     }
     
+    @IBAction func shareButtonTapped(_ sender: UIButton) {
+        ScreenplayController.shared.generateAndSharePdfForCurrentScreenplay { [weak self] (error, data) in
+            guard let data = data else { return }
+            let vc = UIActivityViewController(
+              activityItems: [data],
+              applicationActivities: []
+            )
+            self?.present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    
     // MARK: Tap Gesture Recognizer
     
     @objc func dismissKeyboard() {
