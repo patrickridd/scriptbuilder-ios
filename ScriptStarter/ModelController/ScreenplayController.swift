@@ -67,4 +67,15 @@ class ScreenplayController {
         
         return screenplay
     }
+    
+    func generateAndSharePdfForCurrentScreenplay(completion: @escaping (_ error: Error?,_ data: Data?) -> Void) {
+        guard let screenplay = currentScreenplay else {
+            completion(nil, nil)
+            return
+        }
+        let pdfHelper = PdfHelper()
+        let data = pdfHelper.createPdf(with: screenplay)
+        
+        completion(nil, data)
+    }
 }
