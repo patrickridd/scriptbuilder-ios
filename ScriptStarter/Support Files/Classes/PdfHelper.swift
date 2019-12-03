@@ -11,6 +11,13 @@ import PDFKit
 
 class PdfHelper {
     
+    let pageHeight = 11 * 72.0
+    let pageWidth = 8.5 * 72.0
+    let newScreenplayRect = CGRect(x: 50, y: 50, width: (8.5 * 72.0)-100, height: 11 * 72.0)
+    
+    var currentPageHeight: Int = 0
+
+    
     func createPdf(with screenplay: Screenplay) -> Data {
         // 1
         let pdfMetaData = [
@@ -274,6 +281,30 @@ class PdfHelper {
         return attributedString
     }
     
+    
+    func add(content: NSAttributedString, in context: UIGraphicsPDFRendererContext) {
+        /* If adding this string's size plus the current page height is greater than or equal we need to
+            • Create new page
+            • Add content to new page
+            • Reset and update currentPageHeight
+         */
+        if currentPageHeight + Int(content.size().height) >= Int(pageHeight) {
+            context.beginPage()
+            content.draw(in: newScreenplayRect)
+            currentPageHeight = Int(content.size().height)+50
+            
+        /*Else we need to
+          • Create rect with y value the height of the currentpageHeight
+          • Draw content on current page with new rect
+          • Update current page height
+        */
+        } else {
+            let newScreenplayRect = CGRect(x: 50, y: currentPageHeight, width: Int(pageWidth)-100, height: Int(pageHeight))
+            content.draw(in: newScreenplayRect)
+            currentPageHeight += Int(content.size().height)
+        }
+        
+    }
     
     // Creates Outline Idea section
     func createIdeaSection(with screenplay: Screenplay) -> NSAttributedString {
