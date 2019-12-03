@@ -30,47 +30,24 @@ class PdfHelper {
         format.documentInfo = pdfMetaData as [String: Any]
         
         // 2
-        let pageWidth = 8.5 * 72.0
-        let pageHeight = 11 * 72.0
         let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
-        
+
         // 3
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
         // 4
         let data = renderer.pdfData { (context) in
             // 5
-        //    context.beginPage()
-                        
-            // Mutatble Attributed String that contains ENTIRE screenplay
-            let screenplayString = NSMutableAttributedString()
+            context.beginPage()
 
             // Screenplay Title
-            screenplayString.append(formatText(screenplayTitle: screenplay.title))
+            formatAndAdd(screenplayTitle: screenplay.title, with: context)
             
             // Create Outline section
-            screenplayString.append(formatText(sectionTitle: "Outline".localized))
-            
+            formatAndAdd(sectionTitle: "Outline".localized, with: context)
             
             // Idea section //
-            screenplayString.append(createIdeaSection(with: screenplay))
+            createIdeaSection(with: screenplay, with: context)
 
-            let estimatedSize = CGSize(width: pageWidth-100, height: 1000)
-            let estimatedScreenplayRect = screenplayString.boundingRect(with: estimatedSize,
-                                                                        options: .usesLineFragmentOrigin,
-                                                                        context: nil)
-            
-            let screenplayRect = CGRect(x: 50, y: 50, width: pageWidth-100, height: 200000000)
-            //screenplayString.draw(in: screenplayRect)
-            
-            let screenplayHeight = Int(screenplayString.size().height)
-            let numberOfPages = screenplayHeight/(11 * 72)
-            
-            for _ in 0...numberOfPages {
-                context.beginPage()
-                screenplayString.draw(in: screenplayRect)
-
-            }
-            
             /////////////
             
             // Act 1 //
@@ -204,81 +181,77 @@ class PdfHelper {
     }
     
     // Screenplay Title
-    func formatText(screenplayTitle: String) -> NSAttributedString {
+    func formatAndAdd(screenplayTitle: String, with context: UIGraphicsPDFRendererContext) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
-        let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 40),
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 35, weight: .heavy),
                                          NSAttributedString.Key.paragraphStyle: paragraphStyle]
         
-        let attributedTitle = NSAttributedString(string: "\n" + screenplayTitle + "\n\n\n",
+        let attributedTitle = NSAttributedString(string: "\n" + screenplayTitle + "\n\n",
                                                         attributes: attributes)
         
-        print(attributedTitle.size().height)
-        return attributedTitle
         
+        add(content: attributedTitle, in: context)
     }
     
     // Formats Sections - Outline, Characters, Scenes
-    func formatText(sectionTitle: String) -> NSAttributedString {
+    func formatAndAdd(sectionTitle: String, with context: UIGraphicsPDFRendererContext) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
-        let sectionTitleAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 30),
+        let sectionTitleAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .bold),
                                       NSAttributedString.Key.paragraphStyle: paragraphStyle]
       
-        let attributedTitle = NSAttributedString(string: sectionTitle + "\n\n",
+        let attributedTitle = NSAttributedString(string: sectionTitle + "\n",
                                                  attributes: sectionTitleAttributes)
-        print(attributedTitle.size().height)
-        return attributedTitle
+        add(content: attributedTitle, in: context)
     }
     
     // Formats Section Subtitles - Idea, Act 1, Act 2, Act 2
-    func formatText(sectionSubtitle: String) -> NSAttributedString {
-        let sectionTitleAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24)]
-        let attributedTitle = NSAttributedString(string: sectionSubtitle + "\n\n",
+    func formatAndAdd(sectionSubtitle: String, with context: UIGraphicsPDFRendererContext) {
+        let sectionTitleAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .semibold)]
+        let attributedTitle = NSAttributedString(string: sectionSubtitle + "\n",
                                                  attributes: sectionTitleAttributes)
-        print(attributedTitle.size().height)
-        return attributedTitle
+        
+        add(content: attributedTitle, in: context)
     }
     
     // Formats "Overall Description" titles
-    func formatOverAllDescription() -> NSAttributedString {
-        let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)]
-        let overAllDescription = NSAttributedString(string: "Overall Description".localized + "\n\n",
+    func formatOverAllDescriptionAndAdd(in context: UIGraphicsPDFRendererContext) {
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .medium)]
+        let overAllDescription = NSAttributedString(string: "Overall Description".localized + "\n",
                                                     attributes: attributes)
         
-        print(overAllDescription.size().height)
-        return overAllDescription
+        add(content: overAllDescription, in: context)
     }
     
     // Formats question titles e.g. Old World, Inciting Incident, Call To Action, etc...
-    func format(questionTitle: String) -> NSAttributedString {
-        let questionTitleAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)]
-        let attributedTitle = NSAttributedString(string: questionTitle + "\n", attributes: questionTitleAttributes)
+    func formatAndAdd(questionTitle: String, with context: UIGraphicsPDFRendererContext) {
+        let questionTitleAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .medium)]
+        let attributedTitle = NSAttributedString(string: questionTitle, attributes: questionTitleAttributes)
         print(attributedTitle.size().height)
-        return attributedTitle
+        
+        add(content: attributedTitle, in: context)
     }
     
     // Formats question subtitles e.g "What is life like before the story begins?"
-    func format(questionSubtitle: String) -> NSAttributedString {
+    func formatAndAdd(questionSubtitle: String, with context: UIGraphicsPDFRendererContext) {
         let attributes = [NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: 14)]
-        let attributedTitle = NSAttributedString(string: questionSubtitle + ":\n\n", attributes: attributes)
+        let attributedTitle = NSAttributedString(string: questionSubtitle + ":\n", attributes: attributes)
         print(attributedTitle.size().height)
-
-        return attributedTitle
+        
+        add(content: attributedTitle, in: context)
     }
     
     // Formats all user input
-    func format(content: String) -> NSAttributedString {
+    func formatAndAdd(content: String, with context: UIGraphicsPDFRendererContext) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .natural
         paragraphStyle.lineBreakMode = .byWordWrapping
         
         let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
                           NSAttributedString.Key.paragraphStyle: paragraphStyle]
-        let attributedString = NSAttributedString(string: content + "\n\n\n", attributes: attributes)
-        print(attributedString.size().height)
-
-        return attributedString
+        let attributedString = NSAttributedString(string: content + "\n\n\n\n", attributes: attributes)
+        add(content: attributedString, in: context)
     }
     
     
@@ -293,7 +266,7 @@ class PdfHelper {
             content.draw(in: newScreenplayRect)
             currentPageHeight = Int(content.size().height)+50
             
-        /*Else we need to
+        /* Else we need to
           • Create rect with y value the height of the currentpageHeight
           • Draw content on current page with new rect
           • Update current page height
@@ -307,42 +280,61 @@ class PdfHelper {
     }
     
     // Creates Outline Idea section
-    func createIdeaSection(with screenplay: Screenplay) -> NSAttributedString {
-        let ideaSectionString = NSMutableAttributedString()
+    func createIdeaSection(with screenplay: Screenplay, with context: UIGraphicsPDFRendererContext) {
         
         // Idea section
-        ideaSectionString.append(formatText(sectionSubtitle: Act.idea.title))
+        formatAndAdd(sectionSubtitle: Act.idea.title, with: context)
         
         // overall description
-        ideaSectionString.append(formatOverAllDescription())
-        ideaSectionString.append(format(content: screenplay.idea))
+        formatOverAllDescriptionAndAdd(in: context)
+        if screenplay.idea != "" {
+            formatAndAdd(content: screenplay.idea, with: context)
+        }
         
         // logLine
-        ideaSectionString.append(format(questionTitle: Act.idea.sectionsTitles[0]))
-        ideaSectionString.append(format(questionSubtitle: Act.idea.sectionSubTitles[0]))
-        ideaSectionString.append(format(content: screenplay.logLine))
+        formatAndAdd(questionTitle: Act.idea.sectionsTitles[0], with: context)
+        formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[0], with: context)
+        if screenplay.logLine == "" {
+            add(content: NSAttributedString(string:"\n"), in: context)
+        } else {
+            formatAndAdd(content: screenplay.logLine, with: context)
+        }
         
         // intention
-        ideaSectionString.append(format(questionTitle: Act.idea.sectionsTitles[1]))
-        ideaSectionString.append(format(questionSubtitle: Act.idea.sectionSubTitles[1]))
-        ideaSectionString.append(format(content: screenplay.centralIntention))
+        formatAndAdd(questionTitle: Act.idea.sectionsTitles[1], with: context)
+        formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[1], with: context)
+        if screenplay.centralIntention == "" {
+            add(content: NSAttributedString(string:"\n"), in: context)
+        } else {
+            formatAndAdd(content: screenplay.centralIntention, with: context)
+        }
         
         // obstacle
-        ideaSectionString.append(format(questionTitle: Act.idea.sectionsTitles[2]))
-        ideaSectionString.append(format(questionSubtitle: Act.idea.sectionSubTitles[2]))
-        ideaSectionString.append(format(content: screenplay.mainObstacle))
+        formatAndAdd(questionTitle: Act.idea.sectionsTitles[2], with: context)
+        formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[2], with: context)
+        if screenplay.mainObstacle == "" {
+            add(content: NSAttributedString(string:"\n"), in: context)
+        } else {
+            formatAndAdd(content: screenplay.mainObstacle, with: context)
+        }
         
         // themes
-        ideaSectionString.append(format(questionTitle: Act.idea.sectionsTitles[3]))
-        ideaSectionString.append(format(questionSubtitle: Act.idea.sectionSubTitles[3]))
-        ideaSectionString.append(format(content: screenplay.theme))
+        formatAndAdd(questionTitle: Act.idea.sectionsTitles[3], with: context)
+        formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[3], with: context)
+        if screenplay.theme == "" {
+            add(content: NSAttributedString(string:"\n"), in: context)
+        } else {
+            formatAndAdd(content: screenplay.theme, with: context)
+        }
         
         // notes
-        ideaSectionString.append(format(questionTitle: Act.idea.sectionsTitles[4]))
-        ideaSectionString.append(format(questionSubtitle: Act.idea.sectionSubTitles[4]))
-        ideaSectionString.append(format(content: screenplay.notes))
-        
-        return ideaSectionString
+        formatAndAdd(questionTitle: Act.idea.sectionsTitles[4], with: context)
+        formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[4], with: context)
+        if screenplay.notes == "" {
+            add(content: NSAttributedString(string:"\n"), in: context)
+        } else {
+            formatAndAdd(content: screenplay.notes, with: context)
+        }
     }
     
     
