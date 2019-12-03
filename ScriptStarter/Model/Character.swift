@@ -18,6 +18,7 @@ class Character: Equatable, Hashable {
     let whatToDoKey = "physicalGoal"
     let obstaclesKey = "obstacles"
     let flawsKey = "flaws"
+    let intentionFixKey = "intentionFix"
     let howCharacterChangedKey = "howCharacterChanged"
     let notesKey = "notes"
     let howDoesCharacterDoItKey = "howDoesCharacterDoIt"
@@ -75,6 +76,7 @@ class Character: Equatable, Hashable {
         self.howDoesCharacterDoIt = characterDictionary[howDoesCharacterDoItKey] as? String ?? ""
         self.obstacles = characterDictionary[obstaclesKey] as? String ?? ""
         self.flaws = characterDictionary[flawsKey] as? String ?? ""
+        self.intentionFix = characterDictionary[intentionFixKey] as? String ?? ""
         self.need = characterDictionary[needKey] as? String ?? ""
         self.howCharacterChanged = characterDictionary[howCharacterChangedKey] as? String ?? ""
         self.notes = characterDictionary[notesKey] as? String ?? ""
@@ -90,6 +92,7 @@ class Character: Equatable, Hashable {
         self.howDoesCharacterDoIt = character.howDoesCharacterDoIt
         self.obstacles = character.obstacles
         self.flaws = character.flaws
+        self.intentionFix = character.intentionFix
         self.need = character.need
         self.howCharacterChanged = character.howCharacterChanged
         self.notes = character.notes
@@ -105,6 +108,7 @@ class Character: Equatable, Hashable {
                 self.howDoesCharacterDoItKey:howDoesCharacterDoIt,
                 self.obstaclesKey:obstacles,
                 self.flawsKey:flaws,
+                self.intentionFixKey:intentionFix,
                 self.needKey:need,
                 self.howCharacterChangedKey:howCharacterChanged,
                 self.notesKey:notes]

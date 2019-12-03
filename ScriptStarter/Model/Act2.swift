@@ -122,7 +122,8 @@ class Act2: Equatable {
     }
     
     var firActTwoDictionary: [String:Any] {
-        return [self.newWorldDescriptionKey:self.newWorldDescription,       self.enemiesFriendsKey:self.enemiesFriends,
+        return [self.newWorldDescriptionKey:self.newWorldDescription,
+                self.enemiesFriendsKey:self.enemiesFriends,
                 self.obstaclesKey:obstacles,
                 self.theDeadlyEncounterKey:theDeadlyEncounter,
                 self.sharpeningTheSwordKey:self.sharpeningTheSword,
