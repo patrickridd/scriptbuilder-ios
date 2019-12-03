@@ -42,119 +42,41 @@ class PdfHelper {
             // Screenplay Title
             formatAndAdd(screenplayTitle: screenplay.title, with: context)
             
-            // Create Outline section
+            // Outline section //
             formatAndAdd(sectionTitle: "Outline".localized, with: context)
             
-            // Idea section //
+            // Idea section
             createIdeaSection(with: screenplay, with: context)
             
-            // Act 1 Section //
+            // Act 1 Section
             createAct1Section(with: screenplay, in: context)
             
-            // Act 2 //
+            // Act 2
+            createAct2Section(with: screenplay, in: context)
             
-            // overall description
+            // Act 3
+            createAct3Section(with: screenplay, in: context)
             
-            // friends / foes / frenemies
-            
-            // test resolve
-            
-            // sharpening the sword
-            
-            // burn the boats
-            
-            // supreme sacrifice
-            
-            // celebrate good times
-            
-            // empires strikes back
-            
-            // darkest before the dawn
-            
-            
-            // Act 3 //
-            
-            // overall description
-            
-            // the ultimate answer
-            
-            // reap rewards
-            
-            // questions that need answering
-            
-            // brand new world
-            
-            
-            // Characters //
-            
-            // name
-            // title
-            
-            // intention
-            
-            // why
-            
-            // what
-            
-            // how
-            
-            // obstacles
-            
-            // flaws
-            
-            // problem solved?
-            
-            // need
-            
-            // changed
-            
-            // notes
+            // Characters Section //
+            formatAndAdd(sectionTitle: "Characters".localized, with: context)
+            createCharacterSection(with: screenplay, in: context)
             
             
             // Scenes //
-            
+            formatAndAdd(sectionTitle: "Scenes".localized, with: context)
+
             // Act 1//
+            formatAndAdd(sectionSubtitle: Act.one.title, with: context)
+            createSceneSection(for: screenplay.act1.scenes, in: context)
             
-            // scene number + title
-            
-            // heading
-            
-            // scene description
-            
-            // characters
-            
-            // dialogue
-            
-            // action
-            
-            // story progression
-            
-            // notes
-            
-            
+           
             // Act 2 //
-            
-            // scenes
-            
+            formatAndAdd(sectionSubtitle: Act.two.title, with: context)
+            createSceneSection(for: screenplay.act2.scenes, in: context)
             
             // Act 3 //
-            
-            // scenes
-            
-//            let ideaTitle = "\(Act.idea)\n\n"
-//            ideaTitle.
-//            let idea = screenplay.idea
-//
-//            let act1 = screenplay.act1
-//            act1.oldWorldDescription
-//
-//
-            // Create Characters section
-            
-            
-            
-            // Create Scene section
-            
+            formatAndAdd(sectionSubtitle: Act.three.title, with: context)
+            createSceneSection(for: screenplay.act3.scenes, in: context)
         }
         
         return data
@@ -189,7 +111,7 @@ class PdfHelper {
     // Formats Section Subtitles - Idea, Act 1, Act 2, Act 2
     func formatAndAdd(sectionSubtitle: String, with context: UIGraphicsPDFRendererContext) {
         let sectionTitleAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .semibold)]
-        let attributedTitle = NSAttributedString(string: sectionSubtitle + "\n",
+        let attributedTitle = NSAttributedString(string:"- " + sectionSubtitle + " -\n",
                                                  attributes: sectionTitleAttributes)
         
         add(content: attributedTitle, in: context)
@@ -208,7 +130,6 @@ class PdfHelper {
     func formatAndAdd(questionTitle: String, with context: UIGraphicsPDFRendererContext) {
         let questionTitleAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .medium)]
         let attributedTitle = NSAttributedString(string: questionTitle, attributes: questionTitleAttributes)
-        print(attributedTitle.size().height)
         
         add(content: attributedTitle, in: context)
     }
@@ -216,8 +137,7 @@ class PdfHelper {
     // Formats question subtitles e.g "What is life like before the story begins?"
     func formatAndAdd(questionSubtitle: String, with context: UIGraphicsPDFRendererContext) {
         let attributes = [NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: 14)]
-        let attributedTitle = NSAttributedString(string: questionSubtitle + ":\n", attributes: attributes)
-        print(attributedTitle.size().height)
+        let attributedTitle = NSAttributedString(string: questionSubtitle + "\n", attributes: attributes)
         
         add(content: attributedTitle, in: context)
     }
@@ -235,6 +155,39 @@ class PdfHelper {
                               NSAttributedString.Key.paragraphStyle: paragraphStyle]
             let attributedString = NSAttributedString(string: content + "\n\n\n\n", attributes: attributes)
             add(content: attributedString, in: context)
+        }
+    }
+    
+    // Format Character name
+    func formatAndAdd(characterName: String, with context: UIGraphicsPDFRendererContext) {
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .semibold)]
+        let attributedTitle = NSAttributedString(string: characterName, attributes: attributes)
+          
+        add(content: attributedTitle, in: context)
+    }
+    
+    func formatAndAdd(characterRole: String, with context: UIGraphicsPDFRendererContext) {
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .light)]
+        let attributedTitle = NSAttributedString(string: characterRole + "\n\n", attributes: attributes)
+          
+        add(content: attributedTitle, in: context)
+    }
+    
+    func formatAndAdd(sceneTitleAndNumber: String, with context: UIGraphicsPDFRendererContext) {
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .bold)]
+        let attributedTitle = NSAttributedString(string: sceneTitleAndNumber, attributes: attributes)
+            
+        add(content: attributedTitle, in: context)
+    }
+    
+    func formatAndAdd(sceneHeading: String, with context: UIGraphicsPDFRendererContext) {
+        if sceneHeading == "" {
+            add(content: NSAttributedString(string: "\n"), in: context)
+        } else {
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .light)]
+            let attributedTitle = NSAttributedString(string: sceneHeading + "\n\n", attributes: attributes)
+            
+            add(content: attributedTitle, in: context)
         }
     }
     
@@ -299,7 +252,7 @@ class PdfHelper {
         formatAndAdd(content: screenplay.notes, with: context)
     }
     
-    
+    // Act 1 section
     func createAct1Section(with screenplay: Screenplay, in context: UIGraphicsPDFRendererContext) {
         // Act 1 //
         formatAndAdd(sectionSubtitle: Act.one.title, with: context)
@@ -348,5 +301,198 @@ class PdfHelper {
         formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[7], with: context)
         formatAndAdd(content: screenplay.act1.enemyAtTheGates, with: context)
     }
+    
+    // Act 2 section
+    func createAct2Section(with screenplay: Screenplay, in context: UIGraphicsPDFRendererContext) {
+        // Act 2
+        formatAndAdd(sectionSubtitle: Act.two.title, with: context)
+               
+        // overall description
+        formatOverAllDescriptionAndAdd(in: context)
+        formatAndAdd(content: screenplay.actTwoDescription, with: context)
 
+        // Strange new world
+        formatAndAdd(questionTitle: Act.two.sectionsTitles[0], with: context)
+        formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[0], with: context)
+        formatAndAdd(content: screenplay.act2.newWorldDescription, with: context)
+        
+        // friends / foes / frenemies
+        formatAndAdd(questionTitle: Act.two.sectionsTitles[1], with: context)
+        formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[1], with: context)
+        formatAndAdd(content: screenplay.act2.enemiesFriends, with: context)
+        
+        // test resolve
+        formatAndAdd(questionTitle: Act.two.sectionsTitles[2], with: context)
+        formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[2], with: context)
+        formatAndAdd(content: screenplay.act2.obstacles, with: context)
+        
+        // sharpening the sword
+        formatAndAdd(questionTitle: Act.two.sectionsTitles[3], with: context)
+        formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[3], with: context)
+        formatAndAdd(content: screenplay.act2.sharpeningTheSword, with: context)
+       
+        // burn the boats
+        formatAndAdd(questionTitle: Act.two.sectionsTitles[4], with: context)
+        formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[4], with: context)
+        formatAndAdd(content: screenplay.act2.burnTheBoats, with: context)
+        
+        // supreme sacrifice
+        formatAndAdd(questionTitle: Act.two.sectionsTitles[5], with: context)
+        formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[5], with: context)
+        formatAndAdd(content: screenplay.act2.theDeadlyEncounter, with: context)
+        
+        // celebrate good times
+        formatAndAdd(questionTitle: Act.two.sectionsTitles[6], with: context)
+        formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[6], with: context)
+        formatAndAdd(content: screenplay.act2.celebrate, with: context)
+        
+        // empires strikes back
+        formatAndAdd(questionTitle: Act.two.sectionsTitles[7], with: context)
+        formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[7], with: context)
+        formatAndAdd(content: screenplay.act2.badGuysStrikeBack, with: context)
+        
+        // darkest before the dawn
+        formatAndAdd(questionTitle: Act.two.sectionsTitles[8], with: context)
+        formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[8], with: context)
+        formatAndAdd(content: screenplay.act2.allIsLost, with: context)
+      
+    }
+    
+    // Act 3 section
+    func createAct3Section(with screenplay: Screenplay, in context: UIGraphicsPDFRendererContext) {
+        // Act 3
+        formatAndAdd(sectionSubtitle: Act.three.title, with: context)
+        
+        // overall description
+        formatOverAllDescriptionAndAdd(in: context)
+        formatAndAdd(content: screenplay.actThreeDescription, with: context)
+
+        // the ultimate answer
+        formatAndAdd(questionTitle: Act.three.sectionsTitles[0], with: context)
+        formatAndAdd(questionSubtitle: Act.three.sectionSubTitles[0], with: context)
+        formatAndAdd(content: screenplay.act3.theUltimateAnswer, with: context)
+        
+        // reap rewards
+        formatAndAdd(questionTitle: Act.three.sectionsTitles[1], with: context)
+        formatAndAdd(questionSubtitle: Act.three.sectionSubTitles[1], with: context)
+        formatAndAdd(content: screenplay.act3.rewards, with: context)
+        
+        // questions that need answering
+        formatAndAdd(questionTitle: Act.three.sectionsTitles[2], with: context)
+        formatAndAdd(questionSubtitle: Act.three.sectionSubTitles[2], with: context)
+        formatAndAdd(content: screenplay.act3.untangleStory, with: context)
+        
+        // brand new world
+        formatAndAdd(questionTitle: Act.three.sectionsTitles[3], with: context)
+        formatAndAdd(questionSubtitle: Act.three.sectionSubTitles[3], with: context)
+        formatAndAdd(content: screenplay.act3.brandNewWorld, with: context)
+    }
+
+    func createCharacterSection(with screenplay: Screenplay, in context: UIGraphicsPDFRendererContext) {
+        
+        for character in screenplay.characters {
+            // name
+            formatAndAdd(characterName: character.name, with: context)
+            // role
+            if let role = character.role {
+                formatAndAdd(characterRole: role, with: context)
+            }
+     
+            // intention
+            formatAndAdd(questionTitle: CharacterSection.sectionTitles[0], with: context)
+            formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[0], with: context)
+            formatAndAdd(content: character.intention, with: context)
+                   
+            // why
+            formatAndAdd(questionTitle: CharacterSection.sectionTitles[1], with: context)
+            formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[1], with: context)
+            formatAndAdd(content: character.whyIntention, with: context)
+                              
+            // what
+            formatAndAdd(questionTitle: CharacterSection.sectionTitles[2], with: context)
+            formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[2], with: context)
+            formatAndAdd(content: character.whatToDo, with: context)
+                              
+            // how
+            formatAndAdd(questionTitle: CharacterSection.sectionTitles[3], with: context)
+            formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[3], with: context)
+            formatAndAdd(content: character.howDoesCharacterDoIt, with: context)
+                              
+            // obstacles
+            formatAndAdd(questionTitle: CharacterSection.sectionTitles[4], with: context)
+            formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[4], with: context)
+            formatAndAdd(content: character.obstacles, with: context)
+                              
+            // flaws
+            formatAndAdd(questionTitle: CharacterSection.sectionTitles[5], with: context)
+            formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[5], with: context)
+            formatAndAdd(content: character.flaws, with: context)
+                              
+            // problem solved?
+            formatAndAdd(questionTitle: CharacterSection.sectionTitles[6], with: context)
+            formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[6], with: context)
+            formatAndAdd(content: character.intentionFix, with: context)
+                              
+            // need
+            formatAndAdd(questionTitle: CharacterSection.sectionTitles[7], with: context)
+            formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[7], with: context)
+            formatAndAdd(content: character.need, with: context)
+            
+            // changed
+            formatAndAdd(questionTitle: CharacterSection.sectionTitles[8], with: context)
+            formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[8], with: context)
+            formatAndAdd(content: character.howCharacterChanged, with: context)
+            
+            // notes
+            formatAndAdd(questionTitle: CharacterSection.sectionTitles[9], with: context)
+            formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[9], with: context)
+            formatAndAdd(content: character.notes, with: context)
+        }
+    }
+    
+    func createSceneSection(for scenes: [Scene], in context: UIGraphicsPDFRendererContext) {
+        
+        var sceneNumber: Int = 1
+        for scene in scenes {
+            
+            // scene number + title
+            formatAndAdd(sceneTitleAndNumber: "\(sceneNumber). \(scene.title)", with: context)
+            
+            // heading
+            formatAndAdd(sceneHeading: scene.header, with: context)
+            
+            // scene description
+            formatAndAdd(questionTitle: Scene.sceneTitles[0], with: context)
+            formatAndAdd(questionSubtitle: Scene.sceneSubtitles[0], with: context)
+            formatAndAdd(content: scene.sceneDescription, with: context)
+            
+            // characters
+            formatAndAdd(questionTitle: Scene.sceneTitles[1], with: context)
+            formatAndAdd(questionSubtitle: Scene.sceneSubtitles[1], with: context)
+            formatAndAdd(content: scene.characters, with: context)
+            
+            // dialogue
+            formatAndAdd(questionTitle: Scene.sceneTitles[2], with: context)
+            formatAndAdd(questionSubtitle: Scene.sceneSubtitles[2], with: context)
+            formatAndAdd(content: scene.dialogue, with: context)
+            
+            // action
+            formatAndAdd(questionTitle: Scene.sceneTitles[3], with: context)
+            formatAndAdd(questionSubtitle: Scene.sceneSubtitles[3], with: context)
+            formatAndAdd(content: scene.action, with: context)
+           
+            // story progression
+            formatAndAdd(questionTitle: Scene.sceneTitles[4], with: context)
+            formatAndAdd(questionSubtitle: Scene.sceneSubtitles[4], with: context)
+            formatAndAdd(content: scene.howPushesStory, with: context)
+            
+            // notes
+            formatAndAdd(questionTitle: Scene.sceneTitles[5], with: context)
+            formatAndAdd(questionSubtitle: Scene.sceneSubtitles[5], with: context)
+            formatAndAdd(content: scene.notes, with: context)
+            
+            sceneNumber += 1
+        }
+    }
+    
 }
