@@ -244,14 +244,18 @@ class PdfHelper {
     
     // Formats all user input
     func formatAndAdd(content: String, with context: UIGraphicsPDFRendererContext) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .natural
-        paragraphStyle.lineBreakMode = .byWordWrapping
-        
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-                          NSAttributedString.Key.paragraphStyle: paragraphStyle]
-        let attributedString = NSAttributedString(string: content + "\n\n\n\n", attributes: attributes)
-        add(content: attributedString, in: context)
+        if content == "" {
+            add(content: NSAttributedString(string: "\n"), in: context)
+        } else {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .natural
+            paragraphStyle.lineBreakMode = .byWordWrapping
+            
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+                              NSAttributedString.Key.paragraphStyle: paragraphStyle]
+            let attributedString = NSAttributedString(string: content + "\n\n\n\n", attributes: attributes)
+            add(content: attributedString, in: context)
+        }
     }
     
     
@@ -287,54 +291,32 @@ class PdfHelper {
         
         // overall description
         formatOverAllDescriptionAndAdd(in: context)
-        if screenplay.idea != "" {
-            formatAndAdd(content: screenplay.idea, with: context)
-        }
+        formatAndAdd(content: screenplay.idea, with: context)
         
         // logLine
         formatAndAdd(questionTitle: Act.idea.sectionsTitles[0], with: context)
         formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[0], with: context)
-        if screenplay.logLine == "" {
-            add(content: NSAttributedString(string:"\n"), in: context)
-        } else {
-            formatAndAdd(content: screenplay.logLine, with: context)
-        }
+        formatAndAdd(content: screenplay.logLine, with: context)
         
         // intention
         formatAndAdd(questionTitle: Act.idea.sectionsTitles[1], with: context)
         formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[1], with: context)
-        if screenplay.centralIntention == "" {
-            add(content: NSAttributedString(string:"\n"), in: context)
-        } else {
-            formatAndAdd(content: screenplay.centralIntention, with: context)
-        }
+        formatAndAdd(content: screenplay.centralIntention, with: context)
         
         // obstacle
         formatAndAdd(questionTitle: Act.idea.sectionsTitles[2], with: context)
         formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[2], with: context)
-        if screenplay.mainObstacle == "" {
-            add(content: NSAttributedString(string:"\n"), in: context)
-        } else {
-            formatAndAdd(content: screenplay.mainObstacle, with: context)
-        }
+        formatAndAdd(content: screenplay.mainObstacle, with: context)
         
         // themes
         formatAndAdd(questionTitle: Act.idea.sectionsTitles[3], with: context)
         formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[3], with: context)
-        if screenplay.theme == "" {
-            add(content: NSAttributedString(string:"\n"), in: context)
-        } else {
-            formatAndAdd(content: screenplay.theme, with: context)
-        }
+        formatAndAdd(content: screenplay.theme, with: context)
         
         // notes
         formatAndAdd(questionTitle: Act.idea.sectionsTitles[4], with: context)
         formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[4], with: context)
-        if screenplay.notes == "" {
-            add(content: NSAttributedString(string:"\n"), in: context)
-        } else {
-            formatAndAdd(content: screenplay.notes, with: context)
-        }
+        formatAndAdd(content: screenplay.notes, with: context)
     }
     
     
