@@ -29,7 +29,7 @@ enum CharacterSection {
                 "What obstacles are in your characters's way?".localized,
                 "What flaws or fears does your character have?".localized,
                 "Does acheiving their intention solve their problem?".localized,
-                "Is there something the character \"needs\" to do but is avoiding that would fix their problem?".localized,
+                "What does he/she \"need\" to do but is avoiding that would fix their problem?".localized,
                 "How is the character changed through the story?".localized,
                 "Any other pertinent details about the character?".localized]
     }
