@@ -47,29 +47,9 @@ class PdfHelper {
             
             // Idea section //
             createIdeaSection(with: screenplay, with: context)
-
-            /////////////
             
-            // Act 1 //
-            
-            // overall description
-            
-            // old world
-            
-            // inciting incident
-            
-            // call to action
-            
-            // meet your mentor
-            
-            // themes introduced
-            
-            // analysis paralysis
-            
-            // i must go
-            
-            // we won't let you go
-            
+            // Act 1 Section //
+            createAct1Section(with: screenplay, in: context)
             
             // Act 2 //
             
@@ -320,5 +300,53 @@ class PdfHelper {
     }
     
     
+    func createAct1Section(with screenplay: Screenplay, in context: UIGraphicsPDFRendererContext) {
+        // Act 1 //
+        formatAndAdd(sectionSubtitle: Act.one.title, with: context)
+               
+        // overall description
+        formatOverAllDescriptionAndAdd(in: context)
+        formatAndAdd(content: screenplay.actOneDescription, with: context)
+        
+        // old world
+        formatAndAdd(questionTitle: Act.one.sectionsTitles[0], with: context)
+        formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[0], with: context)
+        formatAndAdd(content: screenplay.act1.oldWorldDescription, with: context)
+              
+        // inciting incident
+        formatAndAdd(questionTitle: Act.one.sectionsTitles[1], with: context)
+        formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[1], with: context)
+        formatAndAdd(content: screenplay.act1.incitingIncident, with: context)
+        
+        // call to action
+        formatAndAdd(questionTitle: Act.one.sectionsTitles[2], with: context)
+        formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[2], with: context)
+        formatAndAdd(content: screenplay.act1.callToAdventure, with: context)
+        
+        // meet your mentor
+        formatAndAdd(questionTitle: Act.one.sectionsTitles[3], with: context)
+        formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[3], with: context)
+        formatAndAdd(content: screenplay.act1.meetingMentor, with: context)
+        
+        // themes introduced
+        formatAndAdd(questionTitle: Act.one.sectionsTitles[4], with: context)
+        formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[4], with: context)
+        formatAndAdd(content: screenplay.act1.theme, with: context)
+        
+        // analysis paralysis
+        formatAndAdd(questionTitle: Act.one.sectionsTitles[5], with: context)
+        formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[5], with: context)
+        formatAndAdd(content: screenplay.act1.refusal, with: context)
+        
+        // i must go
+        formatAndAdd(questionTitle: Act.one.sectionsTitles[6], with: context)
+        formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[6], with: context)
+        formatAndAdd(content: screenplay.act1.reasonToAdventure, with: context)
+        
+        // we won't let you go
+        formatAndAdd(questionTitle: Act.one.sectionsTitles[7], with: context)
+        formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[7], with: context)
+        formatAndAdd(content: screenplay.act1.enemyAtTheGates, with: context)
+    }
 
 }
