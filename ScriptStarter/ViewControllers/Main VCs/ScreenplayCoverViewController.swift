@@ -85,10 +85,17 @@ class ScreenplayCoverViewController: UIViewController {
     @IBAction func shareButtonTapped(_ sender: UIButton) {
         ScreenplayController.shared.generateAndSharePdfForCurrentScreenplay { [weak self] (error, data) in
             guard let data = data else { return }
-            let vc = UIActivityViewController(
-              activityItems: [data],
-              applicationActivities: []
-            )
+
+            let vc = UIActivityViewController(activityItems: [data], applicationActivities: [])
+
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                vc.popoverPresentationController?.sourceView = self?.view
+                vc.popoverPresentationController?.sourceRect = CGRect(x: (self?.view.bounds.width ?? 1)/2,
+                                                                      y: (self?.view.bounds.height ?? 1)/2,
+                                                                      width: self?.view.bounds.width ?? 50,
+                                                                      height: 50)
+            }
+            
             self?.present(vc, animated: true, completion: nil)
         }
     }
