@@ -22,6 +22,19 @@ class FirebaseController {
         return Auth.auth().currentUser
     }
     
+    func areWeOffline(completion: @escaping (_ offline: Bool) -> Void) {
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+          if snapshot.value as? Bool ?? false {
+            // Online
+            completion(false)
+          } else {
+            // Offline
+            completion(true)
+          }
+        })
+    }
+    
     func signIn(with email: String, password: String, completion: @escaping (_ error: Error?, _ user: Firebase.User?) -> Void) {
         Auth.auth().signIn(withEmail: email,
                                password: password) { (result, error) in
@@ -116,6 +129,13 @@ class FirebaseController {
                         completion(true)
                     }
                 }
+            }
+        }
+        
+        self.areWeOffline { (offline) in
+            if offline {
+                // We want to perform an optimistic update if offline so return true
+                completion(true)
             }
         }
     }
