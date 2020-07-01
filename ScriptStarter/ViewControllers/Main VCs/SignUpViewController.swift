@@ -15,7 +15,7 @@ import GoogleSignIn
 import Firebase
 import MBProgressHUD
 
-class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
+class SignUpViewController: UIViewController, GIDSignInDelegate {
 
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
@@ -50,7 +50,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         
         // Google Sign-in
         GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().uiDelegate = self
+   //     GIDSignIn.sharedInstance().uiDelegate = self
         googleSignInButton.style = .iconOnly
         googleSignInButton.colorScheme = .light
         

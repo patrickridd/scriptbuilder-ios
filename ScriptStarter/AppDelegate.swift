@@ -204,7 +204,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let handled = ApplicationDelegate.shared.application(application,
                                                              open: url,
                                                              sourceApplication: sourceApplication,
-                                                             annotation: annotation) ||   GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
+                                                             annotation: annotation) ||   GIDSignIn.sharedInstance().handle(url)
+        
 
         return handled
     }
@@ -215,7 +216,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let handled = ApplicationDelegate.shared.application(application,
                                                                  open: url,
-                                                                 options: options) || GIDSignIn.sharedInstance().handle(url, sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
+                                                                 options: options) || GIDSignIn.sharedInstance().handle(url)
             return handled
     }
     

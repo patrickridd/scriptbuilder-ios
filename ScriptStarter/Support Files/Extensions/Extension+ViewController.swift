@@ -202,9 +202,8 @@ extension UIViewController: GADInterstitialDelegate {
         interstitial.delegate = self
         
         let request = GADRequest()
-        
         #if DEBUG
-        request.testDevices = [kGADSimulatorID]
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as? String ?? ""] 
         #endif
         
         interstitial.load(request)

@@ -48,7 +48,7 @@ class LoginViewController: UIViewController {
                                      for: .touchUpInside)
             // Google Sign-in
             GIDSignIn.sharedInstance().delegate = self
-            GIDSignIn.sharedInstance().uiDelegate = self
+            GIDSignIn.sharedInstance()?.presentingViewController = self
             self.googleSignInButton.style = .iconOnly
             self.googleSignInButton.colorScheme = .light
             
@@ -338,4 +338,4 @@ extension LoginViewController: GIDSignInDelegate {
     
 }
 
-extension LoginViewController: GIDSignInUIDelegate {}
+//extension LoginViewController: GIDSignInUIDelegate {}
