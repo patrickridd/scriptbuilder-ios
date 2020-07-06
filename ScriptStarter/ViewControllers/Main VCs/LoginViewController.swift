@@ -17,6 +17,7 @@ import MBProgressHUD
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var authenticationStackView: UIStackView!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
     
