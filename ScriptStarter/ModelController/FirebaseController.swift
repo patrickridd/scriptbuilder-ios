@@ -17,6 +17,7 @@ let actOneKey: String = "actOne"
 let actTwoKey: String = "actTwo"
 let actThreeKey: String = "actThree"
 let scenesKey: String = "scenes"
+let charactersKey: String = "characters"
 
 class FirebaseController {
     
@@ -80,9 +81,9 @@ class FirebaseController {
         
         if screenplay.title == "" { screenplay.title = "Untitled" }
         let screenplayRef = self.ref.child(usersKey)
-            .child(user.uid)
-            .child(screenplaysKey)
-            .child(screenplay.uuid)
+                           .child(user.uid)
+                           .child(screenplaysKey)
+                           .child(screenplay.uuid)
         screenplayRef.setValue(screenplay.firDictionary) { [weak self] (error, reference) in
             if let _ = error {
                 completion(false)
@@ -102,15 +103,14 @@ class FirebaseController {
                         completion(true)
                     }
                 }
-                
             }
         }
-        //        self.areWeOffline { (offline) in
-        //            if offline {
-        //                // We want to perform an optimistic update if offline so return true
-        //                completion(true)
-        //            }
-        //        }
+        self.areWeOffline { (offline) in
+            if offline {
+                // We want to perform an optimistic update if offline so return true
+                completion(true)
+            }
+        }
     }
     
     func saveCharacters(in screenplay: Screenplay,
@@ -121,7 +121,11 @@ class FirebaseController {
         var dispatchEnterCount: Int = 0
         
         // Update characters
-        let characterRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid).child("characters")
+        let characterRef = self.ref.child(usersKey)
+                          .child(user.uid)
+                          .child(screenplaysKey)
+                          .child(screenplay.uuid)
+                          .child(charactersKey)
         for character in screenplay.characters {
             dispatchGroup.enter()
             dispatchEnterCount += 1
@@ -175,11 +179,11 @@ class FirebaseController {
         var actOneScenesDispatchEnterCount: Int = 0
         // Act 1 Reference
         let actOneScenesRef = self.ref.child(usersKey)
-            .child(user.uid)
-            .child(screenplaysKey)
-            .child(screenplay.uuid)
-            .child(actOneKey)
-            .child(scenesKey)
+                             .child(user.uid)
+                             .child(screenplaysKey)
+                             .child(screenplay.uuid)
+                             .child(actOneKey)
+                             .child(scenesKey)
         for scene in screenplay.act1.scenes {
             actOneScenesDispatchGroup.enter()
             actOneScenesDispatchEnterCount += 1
@@ -210,12 +214,12 @@ class FirebaseController {
         
         // Act 2 Reference
         let actTwoScenesRef = self.ref.child(usersKey)
-            .child(user.uid)
-            .child(screenplaysKey)
-            .child(screenplay.uuid)
-            .child(actTwoKey)
-            .child(scenesKey)
-        
+                             .child(user.uid)
+                             .child(screenplaysKey)
+                             .child(screenplay.uuid)
+                             .child(actTwoKey)
+                             .child(scenesKey)
+
         for scene in screenplay.act2.scenes {
             actTwoScenesDispatchGroup.enter()
             actTwoScenesDispatchEnterCount += 1
@@ -277,7 +281,10 @@ class FirebaseController {
             completion()
             return
         }
-        let screenplayRef = self.ref.child("users").child(user.uid).child("screenplays").child(screenplay.uuid)
+        let screenplayRef = self.ref.child(usersKey)
+                           .child(user.uid)
+                           .child(screenplaysKey)
+                           .child(screenplay.uuid)
         
         screenplayRef.removeValue { (_, _) in
             ScreenplayController.shared.resetCurrentScreenplay()
@@ -288,7 +295,12 @@ class FirebaseController {
     func delete(character: Character, withScreenplay: Screenplay) {
         guard let user = user else { return }
         // Update characters
-        let characterRef = self.ref.child("users").child(user.uid).child("screenplays").child(withScreenplay.uuid).child("characters").child(character.uuid)
+        let characterRef = self.ref.child(usersKey)
+            .child(user.uid)
+            .child(screenplaysKey)
+            .child(withScreenplay.uuid)
+            .child(charactersKey)
+            .child(character.uuid)
         
         characterRef.removeValue()
     }
@@ -296,7 +308,13 @@ class FirebaseController {
     func delete(scene: Scene, withScreenplay: Screenplay, inAct: Act) {
         guard let user = user else { return }
         
-        let sceneRef = self.ref.child("users").child(user.uid).child("screenplays").child(withScreenplay.uuid).child(inAct.firebaseTitle).child("scenes").child(scene.uuid)
+        let sceneRef = self.ref.child(usersKey)
+            .child(user.uid)
+            .child(screenplaysKey)
+            .child(withScreenplay.uuid)
+            .child(inAct.firebaseTitle)
+            .child(scenesKey)
+            .child(scene.uuid)
         
         sceneRef.removeValue()
     }
@@ -306,7 +324,10 @@ class FirebaseController {
             completion([])
             return
         }
-        self.ref.child("users").child(user.uid).child("screenplays").observe(.value) { (snapshot) in
+        self.ref.child(usersKey)
+            .child(user.uid)
+            .child(screenplaysKey)
+            .observe(.value) { (snapshot) in
             guard let screenplayDictionaryArray = snapshot.value as? [String:Any] else {
                 completion([])
                 return
@@ -315,9 +336,10 @@ class FirebaseController {
             var screenplays: [Screenplay] = []
             for screenplayKeyValuePair in screenplayDictionaryArray {
                 let uuid = screenplayKeyValuePair.key
-                guard let screenplayDictionary = screenplayKeyValuePair.value as? [String:Any],
+                guard
+                    let screenplayDictionary = screenplayKeyValuePair.value as? [String:Any],
                     let screenplay = Screenplay(uuid: uuid, screenplayDictionary: screenplayDictionary)
-                    else { continue }
+                else { continue }
                 
                 screenplays.append(screenplay)
             }
@@ -330,7 +352,7 @@ class FirebaseController {
             completion(false)
             return
         }
-        let userRef = self.ref.child("users").child(user.uid)
+        let userRef = self.ref.child(usersKey).child(user.uid)
         
         user.delete(completion: { (error) in
             if let _ = error { completion( false) }
