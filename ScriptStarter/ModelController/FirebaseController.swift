@@ -80,10 +80,11 @@ class FirebaseController {
         }
         
         if screenplay.title == "" { screenplay.title = "Untitled" }
+       
         let screenplayRef = self.ref.child(usersKey)
-                           .child(user.uid)
-                           .child(screenplaysKey)
-                           .child(screenplay.uuid)
+            .child(user.uid)
+            .child(screenplaysKey)
+            .child(screenplay.uuid)
         screenplayRef.setValue(screenplay.firDictionary) { [weak self] (error, reference) in
             if let _ = error {
                 completion(false)
@@ -95,22 +96,73 @@ class FirebaseController {
                     completion(false)
                     return
                 }
-                
-                self?.saveScenes(in: screenplay, with: user) { (error) in
-                    if let _ = error {
-                        completion(false)
-                    } else {
-                        completion(true)
-                    }
-                }
+                // ACT 1 SCENES
+                self?.save(scenes: screenplay.act1.scenes,
+                           for: actOneKey,
+                           in: screenplay,
+                           with: user, completion: { (error) in
+                            if let _ = error {
+                                completion(false)
+                                return
+                            }
+                            // ACT 2 SCENES
+                            self?.save(scenes: screenplay.act2.scenes,
+                                       for: actTwoKey,
+                                       in: screenplay,
+                                       with: user, completion: { (error) in
+                                if let _ = error {
+                                    completion(false)
+                                    return
+                                }
+                                // ACT 3 SCENES
+                                self?.save(scenes: screenplay.act3.scenes,
+                                           for: actThreeKey,
+                                           in: screenplay,
+                                           with: user, completion: { (error) in
+                                    if let _ = error {
+                                        completion(false)
+                                    } else {
+                                        completion(true)
+                                    }
+                                })
+                            })
+                })
             }
         }
         self.areWeOffline { (offline) in
             if offline {
                 // We want to perform an optimistic update if offline so return true
                 completion(true)
+                self.saveScreenplayOffline(screenplay: screenplay, with: user)
             }
         }
+    }
+    
+    // Save References without worrying about network calls
+    func saveScreenplayOffline(screenplay: Screenplay, with user: User) {
+        
+        // Save Outline
+        let screenplayRef = self.ref.child(usersKey).child(user.uid).child(screenplaysKey).child(screenplay.uuid)
+        screenplayRef.setValue(screenplay.firDictionary) { (_, _) in }
+        
+        // Save Characters
+        self.saveCharacters(in: screenplay, with: user) { (_) in }
+        
+        // Act 1
+        self.save(scenes: screenplay.act1.scenes,
+                  for: actOneKey,
+                  in: screenplay,
+                  with: user, completion: { (_) in })
+        // Act 2
+        self.save(scenes: screenplay.act2.scenes,
+                  for: actTwoKey,
+                  in: screenplay,
+                  with: user, completion: { (_) in })
+        // Act 3
+        self.save(scenes: screenplay.act3.scenes,
+                  for: actThreeKey,
+                  in: screenplay,
+                  with: user, completion: { (_) in })
     }
     
     func saveCharacters(in screenplay: Screenplay,
@@ -150,131 +202,111 @@ class FirebaseController {
         }
     }
     
-    
-    func saveScenes(in screenplay: Screenplay, with user: User, completion: @escaping (_ error: Error?)-> Void) {
-        saveScenesInActOne(in: screenplay, with: user) { [weak self] (error) in
-            if let _ = error {
-                completion(error)
-                return
-            }
-            
-            self?.saveScenesInActTwo(in: screenplay, with: user) { (error) in
-                if let _ = error {
-                    completion(error)
-                    return
-                }
-                
-                self?.saveScenesInActThree(in: screenplay, with: user) { (error) in
-                    completion(error)
-                }
-            }
-        }
-    }
-    
-    // ACT 1 SCENES
-    func saveScenesInActOne(in screenplay: Screenplay,
-                            with user: User,
-                            completion: @escaping (_ error: Error?) -> Void) {
-        let actOneScenesDispatchGroup: DispatchGroup = DispatchGroup()
-        var actOneScenesDispatchEnterCount: Int = 0
-        // Act 1 Reference
-        let actOneScenesRef = self.ref.child(usersKey)
+    func save(scenes: [Scene],
+              for act: String,
+              in screenplay: Screenplay,
+              with user: User,
+              completion: @escaping (_ error: Error?) -> Void) {
+       
+        let dispatchGroup: DispatchGroup = DispatchGroup()
+        var dispatchEnterCount: Int = 0
+        
+        let scenesRef = self.ref.child(usersKey)
                              .child(user.uid)
                              .child(screenplaysKey)
                              .child(screenplay.uuid)
-                             .child(actOneKey)
+                             .child(act)
                              .child(scenesKey)
-        for scene in screenplay.act1.scenes {
-            actOneScenesDispatchGroup.enter()
-            actOneScenesDispatchEnterCount += 1
+        for scene in scenes {
+            dispatchGroup.enter()
+            dispatchEnterCount += 1
             
-            actOneScenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
+            scenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
                 if let _ = error {
                     completion(error)
                 }
-                
-                if actOneScenesDispatchEnterCount > 0 {
-                    actOneScenesDispatchGroup.leave()
-                    actOneScenesDispatchEnterCount -= 1
+                if dispatchEnterCount > 0 {
+                    dispatchGroup.leave()
+                    dispatchEnterCount -= 1
                 }
             }
         }
-        
-        actOneScenesDispatchGroup.notify(queue: .main) {
+        dispatchGroup.notify(queue: .main) {
             completion(nil)
         }
     }
     
-    // ACT 2 SCENES
-    func saveScenesInActTwo(in screenplay: Screenplay,
-                            with user: User,
-                            completion: @escaping (_ error: Error?) -> Void) {
-        let actTwoScenesDispatchGroup: DispatchGroup = DispatchGroup()
-        var actTwoScenesDispatchEnterCount: Int = 0
-        
-        // Act 2 Reference
-        let actTwoScenesRef = self.ref.child(usersKey)
-                             .child(user.uid)
-                             .child(screenplaysKey)
-                             .child(screenplay.uuid)
-                             .child(actTwoKey)
-                             .child(scenesKey)
-
-        for scene in screenplay.act2.scenes {
-            actTwoScenesDispatchGroup.enter()
-            actTwoScenesDispatchEnterCount += 1
-            
-            actTwoScenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
-                if let _ = error {
-                    completion(error)
-                }
-                if actTwoScenesDispatchEnterCount > 0 {
-                    actTwoScenesDispatchGroup.leave()
-                    actTwoScenesDispatchEnterCount -= 1
-                }
-            }
-        }
-        actTwoScenesDispatchGroup.notify(queue: .main) {
-            completion(nil)
-        }
-    }
-    
-    // ACT 3 SCENES
-    func saveScenesInActThree(in screenplay: Screenplay,
-                              with user: User,
-                              completion: @escaping (_ error: Error?) -> Void) {
-        
-        let actThreeScenesDispatchGroup: DispatchGroup = DispatchGroup()
-        var actThreeScenesDispatchEnterCount: Int = 0
-        
-        // Act 3 Reference
-        let actThreeScenesRef = self.ref.child(usersKey)
-            .child(user.uid)
-            .child(screenplaysKey)
-            .child(screenplay.uuid)
-            .child(actThreeKey)
-            .child(scenesKey)
-        
-        for scene in screenplay.act3.scenes {
-            actThreeScenesDispatchGroup.enter()
-            actThreeScenesDispatchEnterCount += 1
-            actThreeScenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
-                if let _ = error {
-                    completion(error)
-                    return
-                }
-                
-                if actThreeScenesDispatchEnterCount > 0 {
-                    actThreeScenesDispatchGroup.leave()
-                    actThreeScenesDispatchEnterCount -= 1
-                }
-            }
-        }
-        
-        actThreeScenesDispatchGroup.notify(queue: .main) {
-            completion(nil)
-        }
-    }
+//
+//    // ACT 2 SCENES
+//    func saveScenesInActTwo(in screenplay: Screenplay,
+//                            with user: User,
+//                            completion: @escaping (_ error: Error?) -> Void) {
+//        let actTwoScenesDispatchGroup: DispatchGroup = DispatchGroup()
+//        var actTwoScenesDispatchEnterCount: Int = 0
+//
+//        // Act 2 Reference
+//        let actTwoScenesRef = self.ref.child(usersKey)
+//                             .child(user.uid)
+//                             .child(screenplaysKey)
+//                             .child(screenplay.uuid)
+//                             .child(actTwoKey)
+//                             .child(scenesKey)
+//
+//        for scene in screenplay.act2.scenes {
+//            actTwoScenesDispatchGroup.enter()
+//            actTwoScenesDispatchEnterCount += 1
+//
+//            actTwoScenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
+//                if let _ = error {
+//                    completion(error)
+//                }
+//                if actTwoScenesDispatchEnterCount > 0 {
+//                    actTwoScenesDispatchGroup.leave()
+//                    actTwoScenesDispatchEnterCount -= 1
+//                }
+//            }
+//        }
+//        actTwoScenesDispatchGroup.notify(queue: .main) {
+//            completion(nil)
+//        }
+//    }
+//
+//    // ACT 3 SCENES
+//    func saveScenesInActThree(in screenplay: Screenplay,
+//                              with user: User,
+//                              completion: @escaping (_ error: Error?) -> Void) {
+//
+//        let actThreeScenesDispatchGroup: DispatchGroup = DispatchGroup()
+//        var actThreeScenesDispatchEnterCount: Int = 0
+//
+//        // Act 3 Reference
+//        let actThreeScenesRef = self.ref.child(usersKey)
+//            .child(user.uid)
+//            .child(screenplaysKey)
+//            .child(screenplay.uuid)
+//            .child(actThreeKey)
+//            .child(scenesKey)
+//
+//        for scene in screenplay.act3.scenes {
+//            actThreeScenesDispatchGroup.enter()
+//            actThreeScenesDispatchEnterCount += 1
+//            actThreeScenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
+//                if let _ = error {
+//                    completion(error)
+//                    return
+//                }
+//
+//                if actThreeScenesDispatchEnterCount > 0 {
+//                    actThreeScenesDispatchGroup.leave()
+//                    actThreeScenesDispatchEnterCount -= 1
+//                }
+//            }
+//        }
+//
+//        actThreeScenesDispatchGroup.notify(queue: .main) {
+//            completion(nil)
+//        }
+//    }
     
     func delete(screenplay: Screenplay, completion: @escaping () -> Void) {
         guard let user = user else {
