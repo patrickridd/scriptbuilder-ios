@@ -16,6 +16,7 @@ target 'ScriptStarter' do
   pod 'Google-Mobile-Ads-SDK'
   pod 'Firebase/DynamicLinks'
   pod 'KMPlaceholderTextView', '~> 1.4.0'
+  pod 'AmazonAd'
   
   target 'ScriptStarterTests' do
     inherit! :search_paths
