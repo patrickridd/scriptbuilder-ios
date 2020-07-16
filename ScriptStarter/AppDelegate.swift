@@ -30,7 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
         -> Bool {
             
-            AmazonAd
+            // Set AmazonAd AppKey
+            AmazonAdRegistration.shared()?.setAppKey("e5b3fc2981db4d93be80a670f7cae363")
+            
             // Configure Firebase
             FirebaseApp.configure()
             

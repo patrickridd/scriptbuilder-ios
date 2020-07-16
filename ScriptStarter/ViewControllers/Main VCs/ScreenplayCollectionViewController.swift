@@ -53,14 +53,21 @@ class ScreenplayCollectionViewController: UIViewController {
         self.collectionView.reloadData()
         
         // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
-        }
+//        if !interstitialIsReady(interstitial: interstitial) {
+//            interstitial = createAndLoadInterstitial()
+//        }
         
         getScreenplays()
 
         // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
+        //display(interstitial: interstitial)
+        
+        // Load Banner Add
+        let amazonAdView = AmazonAdService().loadBannerAd(with: AmazonAdSize_320x50)
+        amazonAdView?.delegate = self
+        if let adView = amazonAdView {
+            self.collectionView.addSubview(adView)
+        }
     }
    
     // MARK: IBActions
@@ -163,4 +170,12 @@ extension ScreenplayCollectionViewController: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
+}
+
+extension ScreenplayCollectionViewController: AmazonAdViewDelegate {
+   
+    func viewControllerForPresentingModalView() -> UIViewController! {
+        return self
+    }
+    
 }

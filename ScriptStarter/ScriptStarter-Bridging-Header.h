@@ -11,5 +11,7 @@
 #import <AmazonAd/AmazonAdRegistration.h>
 #import <AmazonAd/AmazonAdOptions.h>
 #import <AmazonAd/AmazonAdError.h>
-//#import <AmazonAd/AmazonAdInterstitual.h>
+#import <AmazonAd/AmazonAdView.h>
+#import <AmazonAd/AmazonAdInterstitial.h>
 #endif /* ScriptStarter_Bridging_Header_h */
+
