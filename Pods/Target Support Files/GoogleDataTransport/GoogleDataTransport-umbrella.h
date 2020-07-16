@@ -20,7 +20,6 @@
 #import "GDTCORPlatform.h"
 #import "GDTCORReachability.h"
 #import "GDTCORRegistrar.h"
-#import "GDTCORStorageEventSelector.h"
 #import "GDTCORStorageProtocol.h"
 #import "GDTCORTargets.h"
 #import "GDTCORTransport.h"
