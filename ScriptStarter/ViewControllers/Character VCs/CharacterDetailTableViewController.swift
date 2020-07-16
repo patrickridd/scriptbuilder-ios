@@ -33,7 +33,8 @@ class CharacterDetailTableViewController: UITableViewController {
     
     var customSelected: Bool = false // RoleCellSelected
     
-    var interstitial: GADInterstitial?
+    var interstitial: AmazonAdInterstitial?
+    var amazonAdService: AmazonAdServiceLogic?
     
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -46,6 +47,8 @@ class CharacterDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        amazonAdService = AmazonAdService()
         
         saveButton.view = self
         
@@ -84,7 +87,7 @@ class CharacterDetailTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial()
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled

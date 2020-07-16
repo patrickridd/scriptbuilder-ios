@@ -21,10 +21,11 @@ protocol InAppPurchaseDelegate: class {
 
 class SettingsTableViewController: UITableViewController {
     
-    var interstitial: GADInterstitial?
+    var interstitial: AmazonAdInterstitial?
     var loadingNotification = MBProgressHUD()
     var screenplays: [Screenplay] = []
-
+    var amazonAdService: AmazonAdService?
+    
     var user: Firebase.User? {
         return Auth.auth().currentUser
     }
@@ -32,6 +33,8 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        amazonAdService = AmazonAdService()
+
         setupNavigationBar()
         self.view.backgroundColor = UIColor.screenLightGray
         self.tableView.backgroundColor = UIColor.screenLightGray
@@ -41,9 +44,10 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial()
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled

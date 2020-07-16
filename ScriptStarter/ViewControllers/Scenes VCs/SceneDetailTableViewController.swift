@@ -15,7 +15,6 @@ protocol SceneActSelected: class {
 }
 
 class SceneDetailTableViewController: UITableViewController {
-
     
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     @IBOutlet weak var sceneTitleTextField: UITextField!
@@ -24,7 +23,8 @@ class SceneDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var sceneActNumberTextField: UITextField!
     
-    var interstitial: GADInterstitial?
+    var amazonAdService: AmazonAdServiceLogic?
+    var interstitial: AmazonAdInterstitial?
     
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -45,6 +45,7 @@ class SceneDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        amazonAdService = AmazonAdService()
         saveButton.view = self
         setupExpandableSections()
         
@@ -82,7 +83,7 @@ class SceneDetailTableViewController: UITableViewController {
        
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial()
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled

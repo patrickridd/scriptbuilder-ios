@@ -17,7 +17,8 @@ class CharacterTableViewController: UITableViewController {
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     @IBOutlet weak var addCharacterButton: UIBarButtonItem!
     
-    var interstitial: GADInterstitial?
+    var amazonAdService: AmazonAdServiceLogic?
+    var interstitial: AmazonAdInterstitial?
     var rewardBasedAd: GADRewardBasedVideoAd?
     
     var products: [SKProduct]?
@@ -43,6 +44,7 @@ class CharacterTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        amazonAdService = AmazonAdService()
         saveButton.view = self
 
         let rightSwipe = UISwipeGestureRecognizer(target: self,
@@ -96,7 +98,7 @@ class CharacterTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial()
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled

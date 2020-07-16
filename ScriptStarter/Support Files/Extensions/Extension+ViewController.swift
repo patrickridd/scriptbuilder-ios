@@ -211,12 +211,12 @@ extension UIViewController: GADInterstitialDelegate {
         return interstitial
     }
     
-    func display(interstitial: GADInterstitial?) {
+    func display(interstitial: AmazonAdInterstitial?) {
         if shouldDisplayInterstitials, InAppPurchases.shouldDisplayAds {
             if let interstitial = interstitial {
                 if interstitial.isReady {
                     DispatchQueue.main.async {
-                        interstitial.present(fromRootViewController: self)
+                        interstitial.present(from: self)
                     }
                 }
             }
@@ -240,6 +240,24 @@ extension UIViewController: GADInterstitialDelegate {
 }
 
 
+extension UIViewController: AmazonAdInterstitialDelegate {
+
+    public func interstitialDidDismiss(_ interstitial: AmazonAdInterstitial!) {
+        setShouldDisplayInterstitial(state: false)
+        scheduleInterstitialStateToTrue()
+    }
+    
+}
+
+extension UIViewController: AmazonAdViewDelegate {
+   
+    public func viewControllerForPresentingModalView() -> UIViewController! {
+        return self
+    }
+    
+}
+
+
 // MARK: Interstitial Ad State methods
 extension UIViewController {
     
@@ -248,7 +266,7 @@ extension UIViewController {
                                   forKey: Constants.shouldDisplayInterstitial)
     }
     
-    func interstitialIsReady(interstitial: GADInterstitial?) -> Bool {
+    func interstitialIsReady(interstitial: AmazonAdInterstitial?) -> Bool {
         if let interstitial = interstitial {
             return interstitial.isReady
         } else {

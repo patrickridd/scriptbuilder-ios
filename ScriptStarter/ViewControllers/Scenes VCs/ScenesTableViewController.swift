@@ -18,7 +18,8 @@ class ScenesTableViewController: UITableViewController {
     var newScene: Bool = false
     var products: [SKProduct]?
 
-    var interstitial: GADInterstitial?
+    var amazonAdService: AmazonAdServiceLogic?
+    var interstitial: AmazonAdInterstitial?
     var rewardBasedAd: GADRewardBasedVideoAd?
 
     var loadingNotification = MBProgressHUD()
@@ -35,6 +36,7 @@ class ScenesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        amazonAdService = AmazonAdService()
         saveButton.view = self
 
         let rightSwipe = UISwipeGestureRecognizer(target: self,
@@ -87,7 +89,7 @@ class ScenesTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial()
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled

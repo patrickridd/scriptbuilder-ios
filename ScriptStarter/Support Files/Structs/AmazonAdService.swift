@@ -28,7 +28,15 @@ struct AmazonAdService: AmazonAdServiceLogic {
     }
     
     func loadInterstitial() -> AmazonAdInterstitial {
-        return AmazonAdInterstitial()
+        let interstitial = AmazonAdInterstitial()
+        let adOptions = AmazonAdOptions()
+
+        #if DEBUG
+        adOptions.isTestRequest = true
+        interstitial.load(adOptions)
+        #endif
+               
+        return interstitial
     }
     
 }

@@ -33,11 +33,13 @@ class OutlineTableViewController: UITableViewController {
     
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     
-    var interstitial: GADInterstitial?
+    var interstitial: AmazonAdInterstitial?
+    var amazonAdService: AmazonAdServiceLogic?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        amazonAdService = AmazonAdService()
         saveButton.view = self
         let rightSwipe = UISwipeGestureRecognizer(target: self,
                                                   action: #selector(handleRightSwipe(sender:)))
@@ -65,7 +67,7 @@ class OutlineTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial()
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled
