@@ -26,15 +26,6 @@ class SceneDetailTableViewController: UITableViewController {
     var amazonAdService: AmazonAdServiceLogic?
     var interstitial: AmazonAdInterstitial?
     
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = GoogleAds.bannerAdUnitId
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
-    
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
     var scene: Scene?
@@ -74,7 +65,10 @@ class SceneDetailTableViewController: UITableViewController {
         self.tableView.rowHeight = UITableView.automaticDimension
         
         if InAppPurchases.shouldDisplayAds {
-            adBannerView.load(GADRequest())
+            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50) {
+                tableView.tableFooterView?.frame = amazonAdView.frame
+                tableView.tableFooterView = amazonAdView
+            }
         }
     }
     

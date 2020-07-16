@@ -21,15 +21,6 @@ class ActDetailTableViewController: UITableViewController {
     var interstitial: AmazonAdInterstitial?
     var amazonAdService: AmazonAdServiceLogic?
     
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = GoogleAds.bannerAdUnitId
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
-    
     var isExpandingCell: Bool = false
     var isCollapsingCell: Bool = false
     
@@ -50,9 +41,12 @@ class ActDetailTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         if InAppPurchases.shouldDisplayAds {
-            adBannerView.load(GADRequest())
+            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50) {
+                tableView.tableFooterView?.frame = amazonAdView.frame
+                tableView.tableFooterView = amazonAdView
+            }
         }
-        
+       
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
     }
@@ -276,19 +270,6 @@ extension ActDetailTableViewController: CollapsibleHeaderDelegate {
         }
     
     }
-}
-
-extension ActDetailTableViewController: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print(error)
-    }
-    
 }
 
 extension ActDetailTableViewController: DescriptionDelegate {

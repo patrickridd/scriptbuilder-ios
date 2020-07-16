@@ -20,15 +20,6 @@ protocol DescriptionDelegate: class {
 
 class OutlineTableViewController: UITableViewController {
     
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = GoogleAds.bannerAdUnitId
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
-
     @IBOutlet weak var titleTextField: UITextField!
     
     @IBOutlet weak var saveButton: SaveBarButtonItem!
@@ -57,8 +48,12 @@ class OutlineTableViewController: UITableViewController {
         setupNavigationBar()
         self.tableView.reloadData()
         setupTabBar()
+        
         if InAppPurchases.shouldDisplayAds {
-            adBannerView.load(GADRequest())
+            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50) {
+                tableView.tableFooterView?.frame = amazonAdView.frame
+                tableView.tableFooterView = amazonAdView
+            }
         }
     }
     
@@ -285,15 +280,6 @@ class OutlineTableViewController: UITableViewController {
             self.navigationController?.pushViewController(actDetailVC,
                                                           animated: true)
         }
-    }
-}
-
-
-extension OutlineTableViewController: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
     }
 }
 

@@ -192,23 +192,11 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     }
 }
 
-extension UIViewController: GADInterstitialDelegate {
-    
-    // Helper methods
-    
-    func createAndLoadInterstitial() -> GADInterstitial? {
-       
-        let interstitial = GADInterstitial(adUnitID: GoogleAds.interstitialAdUnitId)
-        interstitial.delegate = self
-        
-        let request = GADRequest()
-        #if DEBUG
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as? String ?? ""] 
-        #endif
-        
-        interstitial.load(request)
-        
-        return interstitial
+extension UIViewController: AmazonAdInterstitialDelegate {
+
+    public func interstitialDidDismiss(_ interstitial: AmazonAdInterstitial!) {
+        setShouldDisplayInterstitial(state: false)
+        scheduleInterstitialStateToTrue()
     }
     
     func display(interstitial: AmazonAdInterstitial?) {
@@ -221,30 +209,6 @@ extension UIViewController: GADInterstitialDelegate {
                 }
             }
         }
-    }
-    
-    // Delegate Methods
-    
-    private func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        print("Did receive interstitial")
-    }
-    
-    private func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
-        print("Fail to receive interstitial")
-    }
-    
-    public func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        setShouldDisplayInterstitial(state: false)
-        scheduleInterstitialStateToTrue()
-    }
-}
-
-
-extension UIViewController: AmazonAdInterstitialDelegate {
-
-    public func interstitialDidDismiss(_ interstitial: AmazonAdInterstitial!) {
-        setShouldDisplayInterstitial(state: false)
-        scheduleInterstitialStateToTrue()
     }
     
 }

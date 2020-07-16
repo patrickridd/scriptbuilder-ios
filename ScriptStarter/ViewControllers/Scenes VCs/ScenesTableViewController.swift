@@ -23,15 +23,6 @@ class ScenesTableViewController: UITableViewController {
     var rewardBasedAd: GADRewardBasedVideoAd?
 
     var loadingNotification = MBProgressHUD()
-
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = GoogleAds.bannerAdUnitId
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,12 +45,12 @@ class ScenesTableViewController: UITableViewController {
         }
         
         // If RewardBased Ad is not ready, load one
-        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
-            rewardBasedAd?.delegate = self
-            rewardBasedAd?.load(GADRequest(),
-                                withAdUnitID: GoogleAds.sceneBuilderRewardAdId)
-        }
+//        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
+//            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
+//            rewardBasedAd?.delegate = self
+//            rewardBasedAd?.load(GADRequest(),
+//                                withAdUnitID: GoogleAds.sceneBuilderRewardAdId)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,12 +58,12 @@ class ScenesTableViewController: UITableViewController {
         self.reloadTableView()
         
         // If RewardBased Ad is not ready, load one
-        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
-            rewardBasedAd?.delegate = self
-            rewardBasedAd?.load(GADRequest(),
-                                withAdUnitID: GoogleAds.sceneBuilderRewardAdId)
-        }
+//        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
+//            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
+//            rewardBasedAd?.delegate = self
+//            rewardBasedAd?.load(GADRequest(),
+//                                withAdUnitID: GoogleAds.sceneBuilderRewardAdId)
+//        }
 
         // Retrieves in app purchases from apple
         InAppPurchases.store.requestProducts { (_, products) in
@@ -80,7 +71,10 @@ class ScenesTableViewController: UITableViewController {
         }
         
         if InAppPurchases.shouldDisplayAds {
-            adBannerView.load(GADRequest())
+            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50) {
+                tableView.tableFooterView?.frame = amazonAdView.frame
+                tableView.tableFooterView = amazonAdView
+            }
         }
     }
     

@@ -33,17 +33,8 @@ class CharacterDetailTableViewController: UITableViewController {
     
     var customSelected: Bool = false // RoleCellSelected
     
-    var interstitial: AmazonAdInterstitial?
     var amazonAdService: AmazonAdServiceLogic?
-    
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = GoogleAds.bannerAdUnitId
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
+    var interstitial: AmazonAdInterstitial?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +69,10 @@ class CharacterDetailTableViewController: UITableViewController {
         self.tableView.rowHeight = UITableView.automaticDimension
         
         if InAppPurchases.shouldDisplayAds {
-            adBannerView.load(GADRequest())
+            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50) {
+                tableView.tableFooterView?.frame = amazonAdView.frame
+                tableView.tableFooterView = amazonAdView
+            }
         }
     }
     
@@ -364,15 +358,6 @@ extension CharacterDetailTableViewController: NameChangedDelegate {
     
     func nameChanged(name: String) {
         self.title = name
-    }
-    
-}
-
-extension CharacterDetailTableViewController: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        tableView.tableHeaderView?.frame = bannerView.frame
-        tableView.tableHeaderView = bannerView
     }
     
 }
