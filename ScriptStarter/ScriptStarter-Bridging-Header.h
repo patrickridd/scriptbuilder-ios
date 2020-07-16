@@ -8,5 +8,8 @@
 
 #ifndef ScriptStarter_Bridging_Header_h
 #define ScriptStarter_Bridging_Header_h
-
+#import <AmazonAd/AmazonAdRegistration.h>
+#import <AmazonAd/AmazonAdOptions.h>
+#import <AmazonAd/AmazonAdError.h>
+//#import <AmazonAd/AmazonAdInterstitual.h>
 #endif /* ScriptStarter_Bridging_Header_h */
