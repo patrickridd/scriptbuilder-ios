@@ -41,7 +41,8 @@ class ActDetailTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         if InAppPurchases.shouldDisplayAds {
-            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50) {
+            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
+                                                                for: self) {
                 tableView.tableFooterView?.frame = amazonAdView.frame
                 tableView.tableFooterView = amazonAdView
             }
@@ -56,7 +57,7 @@ class ActDetailTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = amazonAdService?.loadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled

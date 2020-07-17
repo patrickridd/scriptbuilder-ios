@@ -9,15 +9,16 @@
 import Foundation
 
 protocol AmazonAdServiceLogic {
-    func loadBannerAd(with size: CGSize) -> AmazonAdView?
-    func loadInterstitial() -> AmazonAdInterstitial
+    func loadBannerAd(with size: CGSize, for delegate: UIViewController) -> AmazonAdView?
+    func loadInterstitial(for delegate: UIViewController) -> AmazonAdInterstitial
 }
 
 struct AmazonAdService: AmazonAdServiceLogic {
    
-    func loadBannerAd(with size: CGSize) -> AmazonAdView? {
+    func loadBannerAd(with size: CGSize, for delegate: UIViewController) -> AmazonAdView? {
         let amazonAdView = AmazonAdView(adSize: size)
         let adOptions = AmazonAdOptions()
+        amazonAdView?.delegate = delegate
         
         #if DEBUG
         adOptions.isTestRequest = true
@@ -27,10 +28,11 @@ struct AmazonAdService: AmazonAdServiceLogic {
         return amazonAdView
     }
     
-    func loadInterstitial() -> AmazonAdInterstitial {
+    func loadInterstitial(for delegate: UIViewController) -> AmazonAdInterstitial {
         let interstitial = AmazonAdInterstitial()
         let adOptions = AmazonAdOptions()
-
+        interstitial.delegate = delegate
+        
         #if DEBUG
         adOptions.isTestRequest = true
         interstitial.load(adOptions)
