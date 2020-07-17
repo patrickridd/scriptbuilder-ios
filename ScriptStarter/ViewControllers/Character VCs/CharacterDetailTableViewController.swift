@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GoogleMobileAds
 import Firebase
 
 protocol NameChangedDelegate: class {

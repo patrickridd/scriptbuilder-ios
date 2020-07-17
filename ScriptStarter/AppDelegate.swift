@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 import FBSDKCoreKit
 import GoogleSignIn
-import GoogleMobileAds
 
 enum Shortcut: String {
     case newIdea = "newIdea"
@@ -45,9 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // Initialize Google sign-in            
             GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-            
-            // Initialize GoogleMobileAds
-            GADMobileAds.sharedInstance().start(completionHandler: nil)
             
             // Reset Ad Rewarded features
             resetAdRewardedFeatures()

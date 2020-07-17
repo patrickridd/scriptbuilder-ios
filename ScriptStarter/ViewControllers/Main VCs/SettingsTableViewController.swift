@@ -9,7 +9,6 @@
 import UIKit
 import MBProgressHUD
 import StoreKit
-import GoogleMobileAds
 import Firebase
 
 protocol InAppPurchaseDelegate: class {

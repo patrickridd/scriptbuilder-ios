@@ -7,11 +7,9 @@
 //
 
 import UIKit
-import GoogleMobileAds
 import Firebase
 
 class EnlargedDescriptionTableViewController: UITableViewController {
-    
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     

@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import GoogleMobileAds
 import Firebase
 import MBProgressHUD
+import StoreKit
 
 class CharacterTableViewController: UITableViewController {
     
@@ -19,7 +19,6 @@ class CharacterTableViewController: UITableViewController {
     
     var amazonAdService: AmazonAdServiceLogic?
     var interstitial: AmazonAdInterstitial?
-    var rewardBasedAd: GADRewardBasedVideoAd?
     
     var products: [SKProduct]?
     var loadingNotification = MBProgressHUD()
@@ -167,13 +166,13 @@ class CharacterTableViewController: UITableViewController {
                                       style: .default) { [weak self] (_) in
                                         
             guard let strongSelf = self else { return }
-            strongSelf.rewardBasedAd?.present(fromRootViewController: strongSelf)
+          //  strongSelf.rewardBasedAd?.present(fromRootViewController: strongSelf)
             
         }
         
-        if rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-            alert.addAction(tryAction)
-        }
+//        if rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
+//            alert.addAction(tryAction)
+//        }
         
         let cancelAction = UIAlertAction(title: "Cancel".localized,
                                          style: .default,
@@ -404,15 +403,6 @@ class CharacterTableViewController: UITableViewController {
     }
     
 
-}
-
-extension CharacterTableViewController: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
-    }
-    
 }
 
 extension CharacterTableViewController: InAppPurchaseDelegate {

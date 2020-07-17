@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import GoogleMobileAds
 
 protocol SceneActSelected: class {
     func selected(newAct:Act)
@@ -442,15 +441,6 @@ extension SceneDetailTableViewController: SceneActSelected {
         
         // Set Scene # in case it changed during the act change
         self.sceneNumberTextField.text = "\(scene.sceneNumber)"
-    }
-    
-}
-
-extension SceneDetailTableViewController: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
     }
     
 }

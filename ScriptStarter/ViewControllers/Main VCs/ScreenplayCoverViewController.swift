@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import GoogleMobileAds
 import MBProgressHUD
 import Firebase
 

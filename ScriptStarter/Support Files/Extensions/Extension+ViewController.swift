@@ -8,7 +8,6 @@
 
 import UIKit
 import MBProgressHUD
-import GoogleMobileAds
 
 extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     
@@ -238,13 +237,13 @@ extension UIViewController {
         }
     }
     
-    func rewardBasedAdReady(rewardBasedAd: GADRewardBasedVideoAd?) -> Bool {
-        if let rewardBasedAd = rewardBasedAd {
-            return rewardBasedAd.isReady
-        } else {
-            return false
-        }
-    }
+//    func rewardBasedAdReady(rewardBasedAd: GADRewardBasedVideoAd?) -> Bool {
+//        if let rewardBasedAd = rewardBasedAd {
+//            return rewardBasedAd.isReady
+//        } else {
+//            return false
+//        }
+//    }
     
     @objc func enableInterstitialDisplay() {
         setShouldDisplayInterstitial(state: true)
@@ -261,22 +260,22 @@ extension UIViewController {
 }
 
 
-extension UIViewController: GADRewardBasedVideoAdDelegate {
+extension UIViewController {
     
-    public func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
-                            didRewardUserWith reward: GADAdReward) {
-        switch reward.type {
-        case "Character Builder Trial":
-            self.rewardUserWithCharacterBuilder()
-        case "Scene Builder Trial":
-            self.rewardUserWithSceneBuilder()
-        default:
-            self.rewardUserWithSceneBuilder()
-            self.rewardUserWithCharacterBuilder()
-        }
-       
-    }
-    
+//    public func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
+//                            didRewardUserWith reward: GADAdReward) {
+//        switch reward.type {
+//        case "Character Builder Trial":
+//            self.rewardUserWithCharacterBuilder()
+//        case "Scene Builder Trial":
+//            self.rewardUserWithSceneBuilder()
+//        default:
+//            self.rewardUserWithSceneBuilder()
+//            self.rewardUserWithCharacterBuilder()
+//        }
+//
+//    }
+//
     // Reward Based Ad - Character Builder helper methods
     
     func scheduleTimerForCharacterBuilderReward() {
