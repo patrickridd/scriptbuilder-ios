@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GoogleMobileAds
 import MBProgressHUD
 import Firebase
 
@@ -20,24 +19,17 @@ protocol DescriptionDelegate: class {
 
 class OutlineTableViewController: UITableViewController {
     
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = GoogleAds.bannerAdUnitId
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
-
     @IBOutlet weak var titleTextField: UITextField!
     
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     
-    var interstitial: GADInterstitial?
+    var interstitial: AmazonAdInterstitial?
+    var amazonAdService: AmazonAdServiceLogic?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        amazonAdService = AmazonAdService()
         saveButton.view = self
         let rightSwipe = UISwipeGestureRecognizer(target: self,
                                                   action: #selector(handleRightSwipe(sender:)))
@@ -55,8 +47,13 @@ class OutlineTableViewController: UITableViewController {
         setupNavigationBar()
         self.tableView.reloadData()
         setupTabBar()
+        
         if InAppPurchases.shouldDisplayAds {
-            adBannerView.load(GADRequest())
+            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
+                                                                for: self) {
+                tableView.tableFooterView?.frame = amazonAdView.frame
+                tableView.tableFooterView = amazonAdView
+            }
         }
     }
     
@@ -65,7 +62,7 @@ class OutlineTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled
@@ -283,15 +280,6 @@ class OutlineTableViewController: UITableViewController {
             self.navigationController?.pushViewController(actDetailVC,
                                                           animated: true)
         }
-    }
-}
-
-
-extension OutlineTableViewController: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
     }
 }
 

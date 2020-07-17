@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 import FBSDKCoreKit
 import GoogleSignIn
-import GoogleMobileAds
 
 enum Shortcut: String {
     case newIdea = "newIdea"
@@ -30,6 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
         -> Bool {
             
+            // Set AmazonAd AppKey
+            AmazonAdRegistration.shared()?.setAppKey("e5b3fc2981db4d93be80a670f7cae363")
+            
             // Configure Firebase
             FirebaseApp.configure()
             
@@ -42,9 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // Initialize Google sign-in            
             GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-            
-            // Initialize GoogleMobileAds
-            GADMobileAds.sharedInstance().start(completionHandler: nil)
             
             // Reset Ad Rewarded features
             resetAdRewardedFeatures()

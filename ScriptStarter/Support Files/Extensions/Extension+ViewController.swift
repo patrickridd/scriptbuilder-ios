@@ -8,7 +8,6 @@
 
 import UIKit
 import MBProgressHUD
-import GoogleMobileAds
 
 extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     
@@ -192,51 +191,33 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     }
 }
 
-extension UIViewController: GADInterstitialDelegate {
-    
-    // Helper methods
-    
-    func createAndLoadInterstitial() -> GADInterstitial? {
-       
-        let interstitial = GADInterstitial(adUnitID: GoogleAds.interstitialAdUnitId)
-        interstitial.delegate = self
-        
-        let request = GADRequest()
-        #if DEBUG
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as? String ?? ""] 
-        #endif
-        
-        interstitial.load(request)
-        
-        return interstitial
+extension UIViewController: AmazonAdInterstitialDelegate {
+
+    public func interstitialDidDismiss(_ interstitial: AmazonAdInterstitial!) {
+        setShouldDisplayInterstitial(state: false)
+        scheduleInterstitialStateToTrue()
     }
     
-    func display(interstitial: GADInterstitial?) {
+    func display(interstitial: AmazonAdInterstitial?) {
         if shouldDisplayInterstitials, InAppPurchases.shouldDisplayAds {
             if let interstitial = interstitial {
                 if interstitial.isReady {
                     DispatchQueue.main.async {
-                        interstitial.present(fromRootViewController: self)
+                        interstitial.present(from: self)
                     }
                 }
             }
         }
     }
     
-    // Delegate Methods
-    
-    private func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        print("Did receive interstitial")
+}
+
+extension UIViewController: AmazonAdViewDelegate {
+   
+    public func viewControllerForPresentingModalView() -> UIViewController! {
+        return self
     }
     
-    private func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
-        print("Fail to receive interstitial")
-    }
-    
-    public func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        setShouldDisplayInterstitial(state: false)
-        scheduleInterstitialStateToTrue()
-    }
 }
 
 
@@ -248,7 +229,7 @@ extension UIViewController {
                                   forKey: Constants.shouldDisplayInterstitial)
     }
     
-    func interstitialIsReady(interstitial: GADInterstitial?) -> Bool {
+    func interstitialIsReady(interstitial: AmazonAdInterstitial?) -> Bool {
         if let interstitial = interstitial {
             return interstitial.isReady
         } else {
@@ -256,13 +237,13 @@ extension UIViewController {
         }
     }
     
-    func rewardBasedAdReady(rewardBasedAd: GADRewardBasedVideoAd?) -> Bool {
-        if let rewardBasedAd = rewardBasedAd {
-            return rewardBasedAd.isReady
-        } else {
-            return false
-        }
-    }
+//    func rewardBasedAdReady(rewardBasedAd: GADRewardBasedVideoAd?) -> Bool {
+//        if let rewardBasedAd = rewardBasedAd {
+//            return rewardBasedAd.isReady
+//        } else {
+//            return false
+//        }
+//    }
     
     @objc func enableInterstitialDisplay() {
         setShouldDisplayInterstitial(state: true)
@@ -279,22 +260,22 @@ extension UIViewController {
 }
 
 
-extension UIViewController: GADRewardBasedVideoAdDelegate {
+extension UIViewController {
     
-    public func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
-                            didRewardUserWith reward: GADAdReward) {
-        switch reward.type {
-        case "Character Builder Trial":
-            self.rewardUserWithCharacterBuilder()
-        case "Scene Builder Trial":
-            self.rewardUserWithSceneBuilder()
-        default:
-            self.rewardUserWithSceneBuilder()
-            self.rewardUserWithCharacterBuilder()
-        }
-       
-    }
-    
+//    public func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
+//                            didRewardUserWith reward: GADAdReward) {
+//        switch reward.type {
+//        case "Character Builder Trial":
+//            self.rewardUserWithCharacterBuilder()
+//        case "Scene Builder Trial":
+//            self.rewardUserWithSceneBuilder()
+//        default:
+//            self.rewardUserWithSceneBuilder()
+//            self.rewardUserWithCharacterBuilder()
+//        }
+//
+//    }
+//
     // Reward Based Ad - Character Builder helper methods
     
     func scheduleTimerForCharacterBuilderReward() {

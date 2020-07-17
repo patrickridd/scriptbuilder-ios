@@ -62,6 +62,13 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>ScriptBuilder would like to schedule events on your calendar.</string>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>

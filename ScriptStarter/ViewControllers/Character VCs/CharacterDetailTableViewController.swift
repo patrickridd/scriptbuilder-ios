@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GoogleMobileAds
 import Firebase
 
 protocol NameChangedDelegate: class {
@@ -33,19 +32,13 @@ class CharacterDetailTableViewController: UITableViewController {
     
     var customSelected: Bool = false // RoleCellSelected
     
-    var interstitial: GADInterstitial?
-    
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = GoogleAds.bannerAdUnitId
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
+    var amazonAdService: AmazonAdServiceLogic?
+    var interstitial: AmazonAdInterstitial?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        amazonAdService = AmazonAdService()
         
         saveButton.view = self
         
@@ -75,7 +68,11 @@ class CharacterDetailTableViewController: UITableViewController {
         self.tableView.rowHeight = UITableView.automaticDimension
         
         if InAppPurchases.shouldDisplayAds {
-            adBannerView.load(GADRequest())
+            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
+                                                                for: self) {
+                tableView.tableFooterView?.frame = amazonAdView.frame
+                tableView.tableFooterView = amazonAdView
+            }
         }
     }
     
@@ -84,7 +81,7 @@ class CharacterDetailTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled
@@ -361,15 +358,6 @@ extension CharacterDetailTableViewController: NameChangedDelegate {
     
     func nameChanged(name: String) {
         self.title = name
-    }
-    
-}
-
-extension CharacterDetailTableViewController: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        tableView.tableHeaderView?.frame = bannerView.frame
-        tableView.tableHeaderView = bannerView
     }
     
 }

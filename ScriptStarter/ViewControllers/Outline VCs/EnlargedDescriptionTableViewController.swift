@@ -7,11 +7,9 @@
 //
 
 import UIKit
-import GoogleMobileAds
 import Firebase
 
 class EnlargedDescriptionTableViewController: UITableViewController {
-    
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
@@ -20,17 +18,10 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     var act: Act?
     var scene: Scene?
     var character: Character?
-
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = GoogleAds.bannerAdUnitId
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
     
-    var interstitial: GADInterstitial?
+    var amazonAdService: AmazonAdServiceLogic?
+    var interstitial: AmazonAdInterstitial?
+    var amazonAdView: AmazonAdView?
     
     var text: String?
     
@@ -39,6 +30,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        amazonAdService = AmazonAdService()
         self.tableView.backgroundColor = .screenLightGray
         setupNavigationBar()
         
@@ -55,7 +47,12 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         if InAppPurchases.shouldDisplayAds {
-            adBannerView.load(GADRequest())
+            amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
+                                                         for: self)
+            if let amazonAdView = amazonAdView {
+                tableView.tableFooterView?.frame = amazonAdView.frame
+                tableView.tableFooterView = amazonAdView
+            }
         }
     }
     
@@ -64,7 +61,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled
@@ -119,7 +116,6 @@ class EnlargedDescriptionTableViewController: UITableViewController {
             }
         }
     }
-    
     
     // MARK: - UI Methods
     
@@ -211,18 +207,9 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let noBannerAdConstant: CGFloat = InAppPurchases.shouldDisplayAds ? 0 : adBannerView.frame.height
+        let noBannerAdConstant: CGFloat = InAppPurchases.shouldDisplayAds ? 0 : amazonAdView?.frame.height ?? 0
         
         return self.view.frame.height * (1/3) + noBannerAdConstant
     }
 
-}
-
-extension EnlargedDescriptionTableViewController: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
-    }
-    
 }

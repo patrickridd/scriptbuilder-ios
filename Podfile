@@ -13,7 +13,6 @@ target 'ScriptStarter' do
   pod 'FBSDKLoginKit'
   pod 'FacebookLogin'
   pod 'MBProgressHUD', '~> 1.1.0'
-  pod 'Google-Mobile-Ads-SDK'
   pod 'Firebase/DynamicLinks'
   pod 'KMPlaceholderTextView', '~> 1.4.0'
   

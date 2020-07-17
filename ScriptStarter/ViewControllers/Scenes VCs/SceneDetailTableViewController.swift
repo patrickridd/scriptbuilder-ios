@@ -8,14 +8,12 @@
 
 import UIKit
 import Firebase
-import GoogleMobileAds
 
 protocol SceneActSelected: class {
     func selected(newAct:Act)
 }
 
 class SceneDetailTableViewController: UITableViewController {
-
     
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     @IBOutlet weak var sceneTitleTextField: UITextField!
@@ -24,16 +22,8 @@ class SceneDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var sceneActNumberTextField: UITextField!
     
-    var interstitial: GADInterstitial?
-    
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = GoogleAds.bannerAdUnitId
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
+    var amazonAdService: AmazonAdServiceLogic?
+    var interstitial: AmazonAdInterstitial?
     
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
@@ -45,6 +35,7 @@ class SceneDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        amazonAdService = AmazonAdService()
         saveButton.view = self
         setupExpandableSections()
         
@@ -73,7 +64,11 @@ class SceneDetailTableViewController: UITableViewController {
         self.tableView.rowHeight = UITableView.automaticDimension
         
         if InAppPurchases.shouldDisplayAds {
-            adBannerView.load(GADRequest())
+            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
+                                                                for: self) {
+                tableView.tableFooterView?.frame = amazonAdView.frame
+                tableView.tableFooterView = amazonAdView
+            }
         }
     }
     
@@ -82,7 +77,7 @@ class SceneDetailTableViewController: UITableViewController {
        
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled
@@ -446,15 +441,6 @@ extension SceneDetailTableViewController: SceneActSelected {
         
         // Set Scene # in case it changed during the act change
         self.sceneNumberTextField.text = "\(scene.sceneNumber)"
-    }
-    
-}
-
-extension SceneDetailTableViewController: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
     }
     
 }

@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import GoogleMobileAds
 import Firebase
 import MBProgressHUD
+import StoreKit
 
 class CharacterTableViewController: UITableViewController {
     
@@ -17,20 +17,11 @@ class CharacterTableViewController: UITableViewController {
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     @IBOutlet weak var addCharacterButton: UIBarButtonItem!
     
-    var interstitial: GADInterstitial?
-    var rewardBasedAd: GADRewardBasedVideoAd?
+    var amazonAdService: AmazonAdServiceLogic?
+    var interstitial: AmazonAdInterstitial?
     
     var products: [SKProduct]?
     var loadingNotification = MBProgressHUD()
-
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = GoogleAds.bannerAdUnitId
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
     
     var roleCharacterSections: [CharacterTableViewSection] = [] {
         didSet {
@@ -43,6 +34,7 @@ class CharacterTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        amazonAdService = AmazonAdService()
         saveButton.view = self
 
         let rightSwipe = UISwipeGestureRecognizer(target: self,
@@ -56,12 +48,12 @@ class CharacterTableViewController: UITableViewController {
         }
     
         // If RewardBased Ad is not ready load one
-        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
-            rewardBasedAd?.delegate = self
-            rewardBasedAd?.load(GADRequest(),
-                                withAdUnitID: GoogleAds.characterBuilderRewardAdId)
-        }
+//        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
+//            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
+//            rewardBasedAd?.delegate = self
+//            rewardBasedAd?.load(GADRequest(),
+//                                withAdUnitID: GoogleAds.characterBuilderRewardAdId)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,15 +65,19 @@ class CharacterTableViewController: UITableViewController {
         setupRoleSections()
         
         // If RewardBased Ad is not ready load one
-        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
-            rewardBasedAd?.delegate = self
-            rewardBasedAd?.load(GADRequest(),
-                                withAdUnitID: GoogleAds.characterBuilderRewardAdId)
-        }
+//        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
+//            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
+//            rewardBasedAd?.delegate = self
+//            rewardBasedAd?.load(GADRequest(),
+//                                withAdUnitID: GoogleAds.characterBuilderRewardAdId)
+//        }
 
         if InAppPurchases.shouldDisplayAds {
-            adBannerView.load(GADRequest())
+            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
+                                                                for: self) {
+                tableView.tableFooterView?.frame = amazonAdView.frame
+                tableView.tableFooterView = amazonAdView
+            }
         }
         
         // Retrieves in app purchases from apple
@@ -96,7 +92,7 @@ class CharacterTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled
@@ -170,13 +166,13 @@ class CharacterTableViewController: UITableViewController {
                                       style: .default) { [weak self] (_) in
                                         
             guard let strongSelf = self else { return }
-            strongSelf.rewardBasedAd?.present(fromRootViewController: strongSelf)
+          //  strongSelf.rewardBasedAd?.present(fromRootViewController: strongSelf)
             
         }
         
-        if rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-            alert.addAction(tryAction)
-        }
+//        if rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
+//            alert.addAction(tryAction)
+//        }
         
         let cancelAction = UIAlertAction(title: "Cancel".localized,
                                          style: .default,
@@ -407,15 +403,6 @@ class CharacterTableViewController: UITableViewController {
     }
     
 
-}
-
-extension CharacterTableViewController: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
-    }
-    
 }
 
 extension CharacterTableViewController: InAppPurchaseDelegate {

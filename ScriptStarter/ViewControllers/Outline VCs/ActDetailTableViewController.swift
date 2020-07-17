@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GoogleMobileAds
 import Firebase
 
 class ActDetailTableViewController: UITableViewController {
@@ -17,22 +16,17 @@ class ActDetailTableViewController: UITableViewController {
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .idea
     var sectionBesidesBeats: Int = 2
-    var interstitial: GADInterstitial?
     
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = GoogleAds.bannerAdUnitId
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
+    var interstitial: AmazonAdInterstitial?
+    var amazonAdService: AmazonAdServiceLogic?
     
     var isExpandingCell: Bool = false
     var isCollapsingCell: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        amazonAdService = AmazonAdService()
         
         saveButton.view = self
         
@@ -46,9 +40,13 @@ class ActDetailTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         if InAppPurchases.shouldDisplayAds {
-            adBannerView.load(GADRequest())
+            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
+                                                                for: self) {
+                tableView.tableFooterView?.frame = amazonAdView.frame
+                tableView.tableFooterView = amazonAdView
+            }
         }
-        
+       
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
     }
@@ -58,7 +56,7 @@ class ActDetailTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = createAndLoadInterstitial()
+            interstitial = amazonAdService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled
@@ -272,19 +270,6 @@ extension ActDetailTableViewController: CollapsibleHeaderDelegate {
         }
     
     }
-}
-
-extension ActDetailTableViewController: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print(error)
-    }
-    
 }
 
 extension ActDetailTableViewController: DescriptionDelegate {
