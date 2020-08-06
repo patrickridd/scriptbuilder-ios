@@ -22,9 +22,9 @@ struct AmazonAdService: AmazonAdServiceLogic {
         
         #if DEBUG
         adOptions.isTestRequest = true
-        amazonAdView?.loadAd(adOptions)
         #endif
         
+        amazonAdView?.loadAd(adOptions)
         return amazonAdView
     }
     
@@ -35,9 +35,9 @@ struct AmazonAdService: AmazonAdServiceLogic {
         
         #if DEBUG
         adOptions.isTestRequest = true
-        interstitial.load(adOptions)
         #endif
-               
+        
+        interstitial.load(adOptions)
         return interstitial
     }
     
