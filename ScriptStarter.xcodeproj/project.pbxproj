@@ -13,6 +13,7 @@
 		2104ADD7205C60CB0086CC9F /* ActNumberPopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD6205C60CB0086CC9F /* ActNumberPopTableViewCell.swift */; };
 		2104ADD9205C7F270086CC9F /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD8205C7F270086CC9F /* SceneController.swift */; };
 		2106EF2F24C0CB1D009DEB47 /* AmazonAdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2106EF2E24C0CB1D009DEB47 /* AmazonAdService.swift */; };
+		21075ACA256611080049D09B /* FacebookAdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21075AC9256611080049D09B /* FacebookAdService.swift */; };
 		21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */; };
 		21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099167201FD4CF00340124 /* SectionHeaderView.swift */; };
 		210C07DC22C81B2200F66D7B /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210C07DB22C81B2200F66D7B /* SaveButton.swift */; };
@@ -122,6 +123,7 @@
 		2104ADD6205C60CB0086CC9F /* ActNumberPopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActNumberPopTableViewCell.swift; sourceTree = "<group>"; };
 		2104ADD8205C7F270086CC9F /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
 		2106EF2E24C0CB1D009DEB47 /* AmazonAdService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmazonAdService.swift; sourceTree = "<group>"; };
+		21075AC9256611080049D09B /* FacebookAdService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookAdService.swift; sourceTree = "<group>"; };
 		21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScreenplayCollectionViewCell.swift; sourceTree = "<group>"; };
 		21099167201FD4CF00340124 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		210C07DB22C81B2200F66D7B /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				2101F3522061E944003A90A4 /* CharacterTableViewSection.swift */,
 				21916C6721FBCD2E00C6F024 /* Constants.swift */,
 				2106EF2E24C0CB1D009DEB47 /* AmazonAdService.swift */,
+				21075AC9256611080049D09B /* FacebookAdService.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -1018,6 +1021,7 @@
 				21B8FB88201AA656000A8721 /* ScreenplayTabBarController.swift in Sources */,
 				21AE274F205ADA5300C44A52 /* ScenesTableViewController.swift in Sources */,
 				21B8FB84201A93D0000A8721 /* ScreenplayPageViewController.swift in Sources */,
+				21075ACA256611080049D09B /* FacebookAdService.swift in Sources */,
 				21A84F46201683D500CE4149 /* ScreenplayCollectionViewController.swift in Sources */,
 				21E661C620190E3E006A14AF /* UIAlertControllers.swift in Sources */,
 				2104ADD7205C60CB0086CC9F /* ActNumberPopTableViewCell.swift in Sources */,

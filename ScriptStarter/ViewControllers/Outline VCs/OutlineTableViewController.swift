@@ -9,6 +9,7 @@
 import UIKit
 import MBProgressHUD
 import Firebase
+import FBAudienceNetwork
 
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftInTabBar"
 let swipeRightNotificationKey = "com.scriptstarter.swipedRightInTabBar"
@@ -20,16 +21,17 @@ protocol DescriptionDelegate: class {
 class OutlineTableViewController: UITableViewController {
     
     @IBOutlet weak var titleTextField: UITextField!
-    
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     
+    var facebookAdService: FacebookAdService?
     var interstitial: AmazonAdInterstitial?
-    var amazonAdService: AmazonAdServiceLogic?
+   // var amazonAdService: AmazonAdServiceLogic?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        amazonAdService = AmazonAdService()
+        //amazonAdService = AmazonAdService()
+        facebookAdService = FacebookAdService()
         saveButton.view = self
         let rightSwipe = UISwipeGestureRecognizer(target: self,
                                                   action: #selector(handleRightSwipe(sender:)))
@@ -49,10 +51,11 @@ class OutlineTableViewController: UITableViewController {
         setupTabBar()
         
         if InAppPurchases.shouldDisplayAds {
-            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
-                                                                for: self) {
-                tableView.tableFooterView?.frame = amazonAdView.frame
-                tableView.tableFooterView = amazonAdView
+            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
+                facebookAdView.delegate = self
+                facebookAdView.loadAd()
+                tableView.tableFooterView?.frame = facebookAdView.frame
+                tableView.tableFooterView = facebookAdView
             }
         }
     }
@@ -62,7 +65,7 @@ class OutlineTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = amazonAdService?.loadInterstitial(for: self)
+            //  interstitial = amazonAdService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled
@@ -306,6 +309,3 @@ extension OutlineTableViewController: UIPopoverPresentationControllerDelegate {
     }
     
 }
-
-
-
