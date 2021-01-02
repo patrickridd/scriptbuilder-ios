@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import FBAudienceNetwork
 
 extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     
@@ -212,14 +213,6 @@ extension UIViewController: AmazonAdInterstitialDelegate {
     
 }
 
-extension UIViewController: AmazonAdViewDelegate {
-   
-    public func viewControllerForPresentingModalView() -> UIViewController! {
-        return self
-    }
-    
-}
-
 
 // MARK: Interstitial Ad State methods
 extension UIViewController {
@@ -325,4 +318,16 @@ extension UIViewController {
     func sceneBuilderRewardEnabled() -> Bool {
         return UserDefaults.standard.bool(forKey: Constants.sceneBuilderTrialType)
     }
+}
+
+extension UIViewController: FBAdViewDelegate {
+    
+    private func adViewDidLoad(_ adView: FBAdView) {
+        print(adView)
+    }
+    
+    public func adView(_ adView: FBAdView, didFailWithError error: Error) {
+        print(error)
+    }
+    
 }

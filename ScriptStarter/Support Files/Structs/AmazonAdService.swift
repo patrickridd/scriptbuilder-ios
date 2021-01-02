@@ -18,7 +18,7 @@ struct AmazonAdService: AmazonAdServiceLogic {
     func loadBannerAd(with size: CGSize, for delegate: UIViewController) -> AmazonAdView? {
         let amazonAdView = AmazonAdView(adSize: size)
         let adOptions = AmazonAdOptions()
-        amazonAdView?.delegate = delegate
+      //  amazonAdView?.delegate = delegate
         
         #if DEBUG
         adOptions.isTestRequest = true

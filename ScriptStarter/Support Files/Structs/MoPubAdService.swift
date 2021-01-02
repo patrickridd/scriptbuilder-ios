@@ -25,7 +25,7 @@ struct MoPubAdServic: MoPubAdServicLogic {
         return bannerView
     }
     
-    func loadInterstitial(for delegate: UIViewController) -> MPAdView {
+    func loadInterstitial(for delegate: UIViewController) -> AmazonAdInterstitial? {
         let interstitial = AmazonAdInterstitial()
         let adOptions = AmazonAdOptions()
         interstitial.delegate = delegate
