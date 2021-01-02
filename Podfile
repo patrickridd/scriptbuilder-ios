@@ -16,6 +16,7 @@ target 'ScriptStarter' do
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'Firebase/DynamicLinks'
   pod 'KMPlaceholderTextView', '~> 1.4.0'
+  pod 'mopub-ios-sdk'
   
   target 'ScriptStarterTests' do
     inherit! :search_paths
