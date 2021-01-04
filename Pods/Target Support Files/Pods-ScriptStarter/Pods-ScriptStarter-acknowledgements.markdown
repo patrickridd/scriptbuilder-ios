@@ -2685,6 +2685,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+## MoPub-FacebookAudienceNetwork-Adapters
+
+ The MoPub SDK License can be found at http://www.mopub.com/legal/sdk-license-agreement/
+
+
+
+
 ## PromisesObjC
 
 

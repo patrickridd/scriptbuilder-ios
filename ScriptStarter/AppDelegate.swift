@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import GoogleSignIn
 import MoPub
 import FBAudienceNetwork
+import MoPub_FacebookAudienceNetwork_Adapters
 
 enum Shortcut: String {
     case newIdea = "newIdea"
@@ -57,6 +58,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "db12acb01a204aa8bd15d88017ee921b")
             MoPub.sharedInstance().initializeSdk(with: sdkConfig, completion: nil)
 
+            let settings = MPStaticNativeAdRendererSettings()
+            if let config = FacebookNativeAdRenderer(rendererSettings: settings) {
+                _ = MPNativeAdRequest(adUnitIdentifier: "", rendererConfigurations: [config])
+            }
+            
             if isLoggedIn {
                 // User is logged in so present their screenplays
                 self.presentScreenplayCollectionView()
