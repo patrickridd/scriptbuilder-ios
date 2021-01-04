@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import GoogleSignIn
 import MoPub
 import FBAudienceNetwork
+
 enum Shortcut: String {
     case newIdea = "newIdea"
     case newScene = "newScene"
@@ -78,6 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func addTestDevicesForFacebookAds(){
         let key = FBAdSettings.testDeviceHash()
         FBAdSettings.setLogLevel(FBAdLogLevel.log)
+      //  FBAdSettings.isTestMode()
         FBAdSettings.addTestDevice(key)
     }
 

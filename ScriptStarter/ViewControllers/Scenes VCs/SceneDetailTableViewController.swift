@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import FBAudienceNetwork
+import MoPub
 
 protocol SceneActSelected: class {
     func selected(newAct:Act)
@@ -22,8 +24,9 @@ class SceneDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var sceneActNumberTextField: UITextField!
     
-    var amazonAdService: AmazonAdServiceLogic?
-    var interstitial: AmazonAdInterstitial?
+    var facebookAdService: FacebookAdService?
+    var interstitial: MPInterstitialAdController?
+    var adService: MoPubAdServicLogic?
     
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
@@ -35,7 +38,9 @@ class SceneDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        amazonAdService = AmazonAdService()
+        facebookAdService = FacebookAdService()
+        adService = MoPubAdServic()
+
         saveButton.view = self
         setupExpandableSections()
         
@@ -63,11 +68,19 @@ class SceneDetailTableViewController: UITableViewController {
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
         
+//        if InAppPurchases.shouldDisplayAds {
+//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
+////                facebookAdView.delegate = self
+//                facebookAdView.loadAd()
+//                tableView.tableFooterView?.frame = facebookAdView.frame
+//                tableView.tableFooterView = facebookAdView
+//            }
+//        }
         if InAppPurchases.shouldDisplayAds {
-            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
-                                                                for: self) {
-                tableView.tableFooterView?.frame = amazonAdView.frame
-                tableView.tableFooterView = amazonAdView
+            if let adView = self.adService?.loadBannerAd() {
+                adView.delegate = self
+                tableView.tableFooterView?.frame = adView.frame
+                tableView.tableFooterView = adView
             }
         }
     }
@@ -77,7 +90,7 @@ class SceneDetailTableViewController: UITableViewController {
        
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = amazonAdService?.loadInterstitial(for: self)
+            interstitial = adService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled

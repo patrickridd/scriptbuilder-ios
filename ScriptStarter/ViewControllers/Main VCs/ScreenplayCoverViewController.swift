@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import MBProgressHUD
 import Firebase
+import MoPub
 
 class ScreenplayCoverViewController: UIViewController {
 
@@ -18,13 +19,14 @@ class ScreenplayCoverViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var nameLabel: UILabel!
     
-    var interstitial: AmazonAdInterstitial?
-    var amazonAdService: AmazonAdServiceLogic?
+    var interstitial: MPInterstitialAdController?
+    var adService: MoPubAdServicLogic?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        amazonAdService = AmazonAdService()
+        adService = MoPubAdServic()
         saveButton.view = self
         titleTextField.delegate = self
 
@@ -53,7 +55,7 @@ class ScreenplayCoverViewController: UIViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = amazonAdService?.loadInterstitial(for: self)
+            interstitial = adService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled
