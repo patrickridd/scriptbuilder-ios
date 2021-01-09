@@ -26,7 +26,7 @@ class SceneDetailTableViewController: UITableViewController {
     
     var facebookAdService: FacebookAdService?
     var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServicLogic?
+    var adService: MoPubAdServiceLogic?
     
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
@@ -39,7 +39,7 @@ class SceneDetailTableViewController: UITableViewController {
         super.viewDidLoad()
         
         facebookAdService = FacebookAdService()
-        adService = MoPubAdServic()
+        adService = MoPubAdService()
 
         saveButton.view = self
         setupExpandableSections()

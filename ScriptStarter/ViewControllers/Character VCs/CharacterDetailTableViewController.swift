@@ -35,13 +35,13 @@ class CharacterDetailTableViewController: UITableViewController {
     
     var facebookAdService: FacebookAdService?
     var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServicLogic?
+    var adService: MoPubAdServiceLogic?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         facebookAdService = FacebookAdService()
-        adService = MoPubAdServic()
+        adService = MoPubAdService()
 
         saveButton.view = self
         

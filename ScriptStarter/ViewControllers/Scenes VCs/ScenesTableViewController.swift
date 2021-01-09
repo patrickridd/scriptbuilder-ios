@@ -22,7 +22,7 @@ class ScenesTableViewController: UITableViewController {
 
     var facebookAdService: FacebookAdService?
     var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServicLogic?
+    var adService: MoPubAdServiceLogic!
     
     var loadingNotification = MBProgressHUD()
     
@@ -30,7 +30,7 @@ class ScenesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         facebookAdService = FacebookAdService()
-        adService = MoPubAdServic()
+        adService = MoPubAdService()
 
         saveButton.view = self
 
@@ -48,6 +48,11 @@ class ScenesTableViewController: UITableViewController {
                                        scene: nil)
         }
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(checkForSceneFeatureEnabled),
+                                               name: .CheckIfSceneBuilderIsEnabled,
+                                               object: nil)
+        
         // If RewardBased Ad is not ready, load one
 //        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
 //            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
@@ -62,12 +67,9 @@ class ScenesTableViewController: UITableViewController {
         self.reloadTableView()
         
         // If RewardBased Ad is not ready, load one
-//        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-//            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
-//            rewardBasedAd?.delegate = self
-//            rewardBasedAd?.load(GADRequest(),
-//                                withAdUnitID: GoogleAds.sceneBuilderRewardAdId)
-//        }
+        if !adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId) {
+            adService.loadRewardedAd(with: MoPubAdService.sceneBuilderRewardedVideoId, delegate: self)
+        }
 
         // Retrieves in app purchases from apple
         InAppPurchases.store.requestProducts { (_, products) in
@@ -102,6 +104,10 @@ class ScenesTableViewController: UITableViewController {
         // Display ad if we have one loaded and we have interstitial ads enabled
         display(interstitial: interstitial)
         checkForSceneFeatureEnabled()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
@@ -296,14 +302,15 @@ class ScenesTableViewController: UITableViewController {
         
         let tryAction = UIAlertAction(title: "Try by watching Ad 🎥".localized,
                                       style: .default) { [weak self] (_) in
-                                        
             guard let strongSelf = self else { return }
-         //   strongSelf.rewardBasedAd?.present(fromRootViewController: strongSelf)
+            if strongSelf.adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId){
+                strongSelf.adService.presentRewardedVideo(using: MoPubAdService.sceneBuilderRewardedVideoId, with: strongSelf)
+            }
         }
         
-//        if rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-//            alert.addAction(tryAction)
-//        }
+        if adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId) {
+            alert.addAction(tryAction)
+        }
         
         let cancelAction = UIAlertAction(title: "Cancel".localized,
                                          style: .default,

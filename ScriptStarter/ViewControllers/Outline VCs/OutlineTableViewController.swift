@@ -26,14 +26,14 @@ class OutlineTableViewController: UITableViewController {
     
     var facebookAdService: FacebookAdService?
     var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServicLogic?
+    var adService: MoPubAdServiceLogic?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //amazonAdService = AmazonAdService()
         facebookAdService = FacebookAdService()
-        adService = MoPubAdServic()
+        adService = MoPubAdService()
         facebookAdService = FacebookAdService()
         saveButton.view = self
         let rightSwipe = UISwipeGestureRecognizer(target: self,

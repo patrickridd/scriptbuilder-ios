@@ -22,7 +22,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     var character: Character?
     
     var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServicLogic?
+    var adService: MoPubAdServiceLogic?
     var adView: MPAdView?
     var facebookAdService: FacebookAdService?
 
@@ -34,7 +34,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         super.viewDidLoad()
         
         facebookAdService = FacebookAdService()
-        adService = MoPubAdServic()
+        adService = MoPubAdService()
 
         self.tableView.backgroundColor = .screenLightGray
         setupNavigationBar()

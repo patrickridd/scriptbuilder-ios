@@ -306,8 +306,8 @@ extension UIViewController {
     }
     
     func rewardUserWithCharacterBuilder() {
-        UserDefaults.standard.set(true,
-                                  forKey: Constants.characterBuilderRewardEnabled)
+        UserDefaults.standard.set(true, forKey: Constants.characterBuilderRewardEnabled)
+        NotificationCenter.default.post(name: Notification.Name.CheckIfCharacterBuilderIsEnabled, object: nil)
         scheduleTimerForCharacterBuilderReward()
     }
     
@@ -331,8 +331,8 @@ extension UIViewController {
     }
     
     func rewardUserWithSceneBuilder() {
-        UserDefaults.standard.set(true,
-                                  forKey: Constants.sceneBuilderTrialType)
+        UserDefaults.standard.set(true, forKey: Constants.sceneBuilderTrialType)
+        NotificationCenter.default.post(name: Notification.Name.CheckIfSceneBuilderIsEnabled, object: nil)
         scheduleTimerForSceneBuilderReward()
     }
     
@@ -367,4 +367,20 @@ extension UIViewController: MPAdViewDelegate {
     public func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
         print("Successfully loaded ad from MoPub")
     }
+}
+
+extension UIViewController: MPRewardedVideoDelegate {
+    
+    public func rewardedVideoAdDidLoad(forAdUnitID adUnitID: String!) {
+        switch adUnitID {
+        case MoPubAdService.characterRewardedVideoId:
+            self.rewardUserWithCharacterBuilder()
+        case MoPubAdService.sceneBuilderRewardedVideoId:
+            self.rewardUserWithSceneBuilder()
+        default:
+            self.rewardUserWithCharacterBuilder()
+            self.rewardUserWithSceneBuilder()
+        }
+    }
+    
 }

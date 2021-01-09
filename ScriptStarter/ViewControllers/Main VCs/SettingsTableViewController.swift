@@ -22,7 +22,7 @@ protocol InAppPurchaseDelegate: class {
 class SettingsTableViewController: UITableViewController {
     
     var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServicLogic?
+    var adService: MoPubAdServiceLogic?
     var loadingNotification = MBProgressHUD()
     var screenplays: [Screenplay] = []
     
@@ -33,7 +33,7 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        adService = MoPubAdServic()
+        adService = MoPubAdService()
         setupNavigationBar()
         self.view.backgroundColor = UIColor.screenLightGray
         self.tableView.backgroundColor = UIColor.screenLightGray

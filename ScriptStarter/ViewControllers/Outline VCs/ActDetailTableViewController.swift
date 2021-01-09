@@ -21,7 +21,7 @@ class ActDetailTableViewController: UITableViewController {
     
     var facebookAdService: FacebookAdService?
     var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServicLogic?
+    var adService: MoPubAdServiceLogic?
     
     var isExpandingCell: Bool = false
     var isCollapsingCell: Bool = false
@@ -31,7 +31,7 @@ class ActDetailTableViewController: UITableViewController {
         
       //  amazonAdService = AmazonAdService()
         facebookAdService = FacebookAdService()
-        adService = MoPubAdServic()
+        adService = MoPubAdService()
 
         saveButton.view = self
         

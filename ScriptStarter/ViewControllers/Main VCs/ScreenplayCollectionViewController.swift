@@ -17,7 +17,7 @@ class ScreenplayCollectionViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServicLogic?
+    var adService: MoPubAdServiceLogic?
 
     var screenplays: [Screenplay] = [] {
         didSet {
@@ -32,7 +32,7 @@ class ScreenplayCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        adService = MoPubAdServic()
+        adService = MoPubAdService()
         setShouldDisplayInterstitial(state: false)
         
         // Set timer to enable interstitial ads

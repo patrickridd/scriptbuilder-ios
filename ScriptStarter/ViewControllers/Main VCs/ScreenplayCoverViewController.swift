@@ -20,13 +20,13 @@ class ScreenplayCoverViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     
     var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServicLogic?
+    var adService: MoPubAdServiceLogic?
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        adService = MoPubAdServic()
+        adService = MoPubAdService()
         saveButton.view = self
         titleTextField.delegate = self
 
