@@ -67,7 +67,7 @@ class ScenesTableViewController: UITableViewController {
         self.reloadTableView()
         
         // If RewardBased Ad is not ready, load one
-        if !adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId) {
+        if !adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId) && !InAppPurchases.sceneFeatureEnabled {
             adService.loadRewardedAd(with: MoPubAdService.sceneBuilderRewardedVideoId, delegate: self)
         }
 
@@ -304,6 +304,7 @@ class ScenesTableViewController: UITableViewController {
                                       style: .default) { [weak self] (_) in
             guard let strongSelf = self else { return }
             if strongSelf.adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId){
+                strongSelf.rewardUserWithSceneBuilder()
                 strongSelf.adService.presentRewardedVideo(using: MoPubAdService.sceneBuilderRewardedVideoId, with: strongSelf)
             }
         }

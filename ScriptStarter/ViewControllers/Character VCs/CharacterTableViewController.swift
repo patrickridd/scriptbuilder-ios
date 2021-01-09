@@ -73,7 +73,7 @@ class CharacterTableViewController: UITableViewController {
         setupNavigationBar()
         setupRoleSections()
         
-        if !adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) {
+        if !adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) && !InAppPurchases.characterFeatureEnabled {
             adService.loadRewardedAd(with: MoPubAdService.characterRewardedVideoId, delegate: self)
         }
         
@@ -194,6 +194,7 @@ class CharacterTableViewController: UITableViewController {
                                         
             guard let strongSelf = self else { return }
             if strongSelf.adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) {
+                strongSelf.rewardUserWithCharacterBuilder()
                 strongSelf.adService.presentRewardedVideo(using: MoPubAdService.characterRewardedVideoId, with: strongSelf)
             }
             

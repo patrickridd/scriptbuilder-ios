@@ -26,7 +26,7 @@ class OutlineTableViewController: UITableViewController {
     
     var facebookAdService: FacebookAdService?
     var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic?
+    var adService: MoPubAdServiceLogic!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,14 +61,16 @@ class OutlineTableViewController: UITableViewController {
             }
         }
         
-//        if InAppPurchases.shouldDisplayAds {
-//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
-//                facebookAdView.delegate = self
-//                facebookAdView.loadAd()
-//                tableView.tableFooterView?.frame = facebookAdView.frame
-//                tableView.tableFooterView = facebookAdView
-//            }
-//        }
+        // If RewardBased Ad is not ready, load one
+        if !adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId) && !InAppPurchases.sceneFeatureEnabled {
+            adService.loadRewardedAd(with: MoPubAdService.sceneBuilderRewardedVideoId, delegate: self)
+        }
+        
+        // If RewardBased Ad is not ready, load one
+        if !adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) && !InAppPurchases.characterFeatureEnabled {
+            adService.loadRewardedAd(with: MoPubAdService.characterRewardedVideoId, delegate: self)
+        }
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
