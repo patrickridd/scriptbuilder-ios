@@ -183,8 +183,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.window?.makeKeyAndVisible()
                 return
             }
-            
-            let screenplay = Screenplay(title: "Untitled")
+            let name = Auth.auth().currentUser?.displayName ?? "Name"
+            let screenplay = Screenplay(title: "Untitled", authorName: name)
             ScreenplayController.shared.set(currentScreenplay: screenplay)
             self.window?.rootViewController = screenplayCoverVC
             self.window?.makeKeyAndVisible()
@@ -215,7 +215,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return
             }
             
-            let screenplay = Screenplay(title: "Untitled".localized)
+            let name = Auth.auth().currentUser?.displayName ?? "Name"
+            let screenplay = Screenplay(title: "Untitled".localized, authorName: name)
             ScreenplayController.shared.set(currentScreenplay: screenplay)
             self.window?.rootViewController = screenplayCoverVC
             self.window?.makeKeyAndVisible()
