@@ -157,7 +157,7 @@ extension ScreenplayCollectionViewController: UICollectionViewDataSource {
             // TODO: Create a cell for an existing screenplay
             guard let screenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "screenplayCell", for: indexPath) as? ScreenplayCollectionViewCell else { return UICollectionViewCell() }
             let screenplay = self.screenplays[indexPath.row-1]
-            screenplayCell.update(title: screenplay.title, name: self.user?.displayName ?? "Name")
+            screenplayCell.update(title: screenplay.title, name: screenplay.authorName ?? self.user?.displayName ?? "Name")
             return screenplayCell
         }
     }

@@ -383,8 +383,8 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Untitled" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="ho6-1A-xJQ">
-                                                    <rect key="frame" x="8" y="56.666666666666657" width="124" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Untitled" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="ho6-1A-xJQ">
+                                                    <rect key="frame" x="8" y="53.666666666666657" width="124" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -392,9 +392,9 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="wZ6-7H-ahU">
-                                                    <rect key="frame" x="8" y="102.66666666666667" width="124" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="wZ6-7H-ahU">
+                                                    <rect key="frame" x="8" y="105.66666666666667" width="124" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="heightClass=regular-widthClass=regular">
@@ -405,14 +405,14 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="wZ6-7H-ahU" firstAttribute="top" secondItem="NOP-aH-Q5V" secondAttribute="bottom" constant="2" id="0sD-gP-HIw">
+                                            <constraint firstItem="wZ6-7H-ahU" firstAttribute="top" secondItem="NOP-aH-Q5V" secondAttribute="bottom" constant="5" id="0sD-gP-HIw">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="5"/>
                                             </constraint>
                                             <constraint firstItem="NOP-aH-Q5V" firstAttribute="centerX" secondItem="ZBL-Z5-wgF" secondAttribute="centerX" id="1Ey-6c-3Yh"/>
                                             <constraint firstItem="wZ6-7H-ahU" firstAttribute="centerX" secondItem="ZBL-Z5-wgF" secondAttribute="centerX" id="8Tf-Hc-EhE"/>
                                             <constraint firstItem="ho6-1A-xJQ" firstAttribute="centerX" secondItem="ZBL-Z5-wgF" secondAttribute="centerX" id="ETg-od-Dcz"/>
                                             <constraint firstItem="ho6-1A-xJQ" firstAttribute="leading" secondItem="ZBL-Z5-wgF" secondAttribute="leadingMargin" id="N4K-c2-qBX"/>
-                                            <constraint firstItem="NOP-aH-Q5V" firstAttribute="top" secondItem="ho6-1A-xJQ" secondAttribute="bottom" constant="2" id="O34-V7-eRa">
+                                            <constraint firstItem="NOP-aH-Q5V" firstAttribute="top" secondItem="ho6-1A-xJQ" secondAttribute="bottom" constant="5" id="O34-V7-eRa">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="5"/>
                                             </constraint>
                                             <constraint firstItem="wZ6-7H-ahU" firstAttribute="leading" secondItem="ZBL-Z5-wgF" secondAttribute="leadingMargin" id="UFA-cF-Me2"/>
@@ -814,8 +814,8 @@
                                 </variation>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Untitled" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4MR-wb-F71">
-                                <rect key="frame" x="172.66666666666666" y="407" width="69" height="25.666666666666686"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <rect key="frame" x="166" y="399.33333333333331" width="82" height="30.333333333333314"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardAppearance="alert"/>
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -824,8 +824,8 @@
                                     <action selector="titleTextFieldDidChange:" destination="V0n-xO-FAg" eventType="editingChanged" id="aFs-nO-erC"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WAY-mo-wtP" userLabel="Name TextField">
-                                <rect key="frame" x="181" y="463.66666666666669" width="52" height="25.666666666666686"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="WAY-mo-wtP" userLabel="Name TextField">
+                                <rect key="frame" x="181" y="466.66666666666669" width="52" height="24.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardAppearance="alert"/>
                                 <variation key="heightClass=regular-widthClass=regular">
@@ -895,11 +895,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="WAY-mo-wtP" firstAttribute="top" secondItem="Vag-Lh-c30" secondAttribute="bottom" constant="5" id="2B5-Ke-kwH"/>
+                            <constraint firstItem="WAY-mo-wtP" firstAttribute="top" secondItem="Vag-Lh-c30" secondAttribute="bottom" constant="8" id="2B5-Ke-kwH"/>
                             <constraint firstItem="RlF-25-Daw" firstAttribute="top" secondItem="9Ij-MY-r1m" secondAttribute="top" id="2HP-fO-npl"/>
                             <constraint firstItem="Vag-Lh-c30" firstAttribute="centerY" secondItem="tVJ-SE-YRF" secondAttribute="centerY" id="8qU-cw-bmH"/>
                             <constraint firstItem="4MR-wb-F71" firstAttribute="centerX" secondItem="tVJ-SE-YRF" secondAttribute="centerX" id="C3S-vN-9r7"/>
-                            <constraint firstItem="Vag-Lh-c30" firstAttribute="top" secondItem="4MR-wb-F71" secondAttribute="bottom" constant="5" id="F79-bV-tJo">
+                            <constraint firstItem="Vag-Lh-c30" firstAttribute="top" secondItem="4MR-wb-F71" secondAttribute="bottom" constant="8" id="F79-bV-tJo">
                                 <variation key="heightClass=regular-widthClass=regular" constant="10"/>
                             </constraint>
                             <constraint firstItem="WAY-mo-wtP" firstAttribute="centerX" secondItem="tVJ-SE-YRF" secondAttribute="centerX" id="T2P-yk-Cyr"/>
