@@ -138,7 +138,8 @@ class Screenplay: Equatable {
     }
     
     var firDictionary: [String:Any] {
-        return [titleKey: self.title,
+        return [titleKey:self.title,
+                authorNameKey:self.authorName ?? Auth.auth().currentUser?.displayName ?? "Name",
                 logLineKey:self.logLine,
                 ideaKey:self.idea,
                 themeKey:self.theme,
