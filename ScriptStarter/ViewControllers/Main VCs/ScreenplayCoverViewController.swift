@@ -14,14 +14,13 @@ import MoPub
 
 class ScreenplayCoverViewController: UIViewController {
 
-    
     @IBOutlet weak var saveButton: SaveButton!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
     
     var interstitial: MPInterstitialAdController?
     var adService: MoPubAdServiceLogic?
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +28,8 @@ class ScreenplayCoverViewController: UIViewController {
         adService = MoPubAdService()
         saveButton.view = self
         titleTextField.delegate = self
+        nameTextField.delegate = self
+        
         let name = Auth.auth().currentUser?.displayName ?? "Name"
 
         if let screenplay = self.screenplay {
