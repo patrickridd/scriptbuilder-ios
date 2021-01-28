@@ -225,6 +225,8 @@ extension UIViewController: MPInterstitialAdControllerDelegate {
         if shouldDisplayInterstitials, InAppPurchases.shouldDisplayAds {
             if let interstitial = interstitial {
                 if interstitial.ready {
+                    self.setShouldDisplayInterstitial(state: false)
+                    self.scheduleInterstitialStateToTrue()
                     DispatchQueue.main.async {
                         interstitial.show(from: self)
                     }
@@ -264,8 +266,8 @@ extension UIViewController {
     }
     
     func scheduleInterstitialStateToTrue() {
-        // Set timer to change enable interstitial ads every 3 minutes
-        Timer.scheduledTimer(timeInterval:60*3,
+        // Set timer to change enable interstitial ads every 5 minutes
+        Timer.scheduledTimer(timeInterval:60*5,
                              target: self,
                              selector: #selector(enableInterstitialDisplay),
                              userInfo: nil,
