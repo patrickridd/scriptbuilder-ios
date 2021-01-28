@@ -20,6 +20,7 @@ class Screenplay: Equatable {
     let actTwoKey = "actTwo"
     let actThreeKey = "actThree"
     let titleKey = "title"
+    let authorNameKey = "authorNameKey"
     let uuidKey = "uuid"
     let ideaKey = "idea"
     let notesKey = "notes"
@@ -31,6 +32,7 @@ class Screenplay: Equatable {
     
     var title: String
     var uuid: String
+    var authorName: String?
     
     var idea: String = ""
     var logLine: String = ""
@@ -65,8 +67,9 @@ class Screenplay: Equatable {
                lhs.act3 == rhs.act3
     }
 
-    init(title: String) {
+    init(title: String, authorName: String) {
         self.title = title
+        self.authorName = authorName
         self.uuid = UUID().uuidString
     }
     
@@ -74,6 +77,7 @@ class Screenplay: Equatable {
         guard let title = screenplayDictionary[titleKey] as? String else
         { return nil }
         
+        self.authorName = screenplayDictionary[authorNameKey] as? String
         self.notes = screenplayDictionary[notesKey] as? String ?? ""
         self.theme =  screenplayDictionary[themeKey] as? String ?? ""
         self.centralIntention = screenplayDictionary[centralIntentionKey] as? String ?? ""
@@ -108,7 +112,7 @@ class Screenplay: Equatable {
     init(screenplay: Screenplay) {
         title = screenplay.title
         uuid = screenplay.uuid
-        
+        authorName = screenplay.authorName
         idea = screenplay.idea
         logLine = screenplay.logLine
         notes = screenplay.notes
@@ -134,7 +138,8 @@ class Screenplay: Equatable {
     }
     
     var firDictionary: [String:Any] {
-        return [titleKey: self.title,
+        return [titleKey:self.title,
+                authorNameKey:self.authorName ?? Auth.auth().currentUser?.displayName ?? "Name",
                 logLineKey:self.logLine,
                 ideaKey:self.idea,
                 themeKey:self.theme,

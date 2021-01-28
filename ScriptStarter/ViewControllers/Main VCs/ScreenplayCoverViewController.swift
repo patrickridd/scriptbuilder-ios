@@ -14,14 +14,13 @@ import MoPub
 
 class ScreenplayCoverViewController: UIViewController {
 
-    
     @IBOutlet weak var saveButton: SaveButton!
     @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameTextField: UITextField!
     
     var interstitial: MPInterstitialAdController?
     var adService: MoPubAdServiceLogic?
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,17 +28,18 @@ class ScreenplayCoverViewController: UIViewController {
         adService = MoPubAdService()
         saveButton.view = self
         titleTextField.delegate = self
-
-        if let name = Auth.auth().currentUser?.displayName {
-            self.nameLabel.text = name
-        }
+        nameTextField.delegate = self
+        
+        let name = Auth.auth().currentUser?.displayName ?? "Name"
 
         if let screenplay = self.screenplay {
             // Set title of existing screenplay
             self.titleTextField.text = screenplay.title
+            self.nameTextField.text = screenplay.authorName ?? name
         } else {
             // Create new screenplay
-            let newScreenplay = Screenplay(title: "")
+            let newScreenplay = Screenplay(title: "",
+                                           authorName: name)
             ScreenplayController.shared.set(currentScreenplay: newScreenplay)
             self.titleTextField.becomeFirstResponder()
         }
@@ -178,6 +178,8 @@ extension ScreenplayCoverViewController {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         titleTextField.resignFirstResponder()
+        nameTextField.resignFirstResponder()
+        
         return true
     }
     
@@ -188,4 +190,15 @@ extension ScreenplayCoverViewController {
         }
         screenplay?.title = title
     }
+    
+    @IBAction func nameTextFieldDidChange(_ sender: Any) {
+        guard
+            let authorName = nameTextField.text, authorName != ""
+        else {
+            screenplay?.authorName = "Name".localized
+            return
+        }
+        screenplay?.authorName = authorName
+    }
+    
 }
