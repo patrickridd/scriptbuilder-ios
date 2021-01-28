@@ -2174,6 +2174,10 @@ Copyright 2020 Google
    limitations under the License.
 
 
+## Google-Mobile-Ads-SDK
+
+Copyright 2020 Google
+
 ## GoogleAppMeasurement
 
 Copyright 2020 Google
@@ -2387,6 +2391,10 @@ Copyright 2020 Google
 ## GoogleSignIn
 
 Copyright 2019 Google
+
+## GoogleUserMessagingPlatform
+
+Copyright 2020 Google
 
 ## GoogleUtilities
 
@@ -2684,6 +2692,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+## MoPub-AdMob-Adapters
+
+ The MoPub SDK License can be found at http://www.mopub.com/legal/sdk-license-agreement/
+
+
+
+
+## MoPub-FacebookAudienceNetwork-Adapters
+
+ The MoPub SDK License can be found at http://www.mopub.com/legal/sdk-license-agreement/
+
+
+
 
 ## PromisesObjC
 

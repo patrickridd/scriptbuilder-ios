@@ -10,14 +10,15 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 import Firebase
+import MoPub
 
 class ScreenplayCollectionViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var interstitial: AmazonAdInterstitial?
-    var amazonAdService: AmazonAdServiceLogic?
-    
+    var interstitial: MPInterstitialAdController?
+    var adService: MoPubAdServiceLogic?
+
     var screenplays: [Screenplay] = [] {
         didSet {
             self.collectionView.reloadData()
@@ -31,7 +32,7 @@ class ScreenplayCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        amazonAdService = AmazonAdService()
+        adService = MoPubAdService()
         setShouldDisplayInterstitial(state: false)
         
         // Set timer to enable interstitial ads
@@ -57,13 +58,13 @@ class ScreenplayCollectionViewController: UIViewController {
 
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = amazonAdService?.loadInterstitial(for: self)
+            interstitial = adService?.loadInterstitial(for: self)
         }
         
-        getScreenplays()
-
         // Display ad if we have one loaded and we have interstitial ads enabled
         display(interstitial: interstitial)
+        
+        getScreenplays()
         
         // Load Banner Add
 //        let amazonAdView = AmazonAdService().loadBannerAd(with: AmazonAdSize_320x50)

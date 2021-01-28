@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import FBAudienceNetwork
+import MoPub
 
 class EnlargedDescriptionTableViewController: UITableViewController {
     
@@ -19,10 +21,11 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     var scene: Scene?
     var character: Character?
     
-    var amazonAdService: AmazonAdServiceLogic?
-    var interstitial: AmazonAdInterstitial?
-    var amazonAdView: AmazonAdView?
-    
+    var interstitial: MPInterstitialAdController?
+    var adService: MoPubAdServiceLogic?
+    var adView: MPAdView?
+    var facebookAdService: FacebookAdService?
+
     var text: String?
     
     weak var delegate: DescriptionDelegate?
@@ -30,7 +33,9 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        amazonAdService = AmazonAdService()
+        facebookAdService = FacebookAdService()
+        adService = MoPubAdService()
+
         self.tableView.backgroundColor = .screenLightGray
         setupNavigationBar()
         
@@ -46,12 +51,21 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+//        if InAppPurchases.shouldDisplayAds {
+//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
+////                facebookAdView.delegate = self
+//                facebookAdView.loadAd()
+//                tableView.tableFooterView?.frame = facebookAdView.frame
+//                tableView.tableFooterView = facebookAdView
+//            }
+//        }
+        
         if InAppPurchases.shouldDisplayAds {
-            amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
-                                                         for: self)
-            if let amazonAdView = amazonAdView {
-                tableView.tableFooterView?.frame = amazonAdView.frame
-                tableView.tableFooterView = amazonAdView
+            if let adView = self.adService?.loadBannerAd() {
+                self.adView = adView
+                adView.delegate = self
+                tableView.tableFooterView?.frame = adView.frame
+                tableView.tableFooterView = adView
             }
         }
     }
@@ -61,7 +75,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = amazonAdService?.loadInterstitial(for: self)
+            interstitial = adService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled
@@ -207,7 +221,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let noBannerAdConstant: CGFloat = InAppPurchases.shouldDisplayAds ? 0 : amazonAdView?.frame.height ?? 0
+        let noBannerAdConstant: CGFloat = InAppPurchases.shouldDisplayAds ? 0 : adView?.frame.height ?? 0
         
         return self.view.frame.height * (1/3) + noBannerAdConstant
     }

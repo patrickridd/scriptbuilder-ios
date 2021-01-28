@@ -11,6 +11,8 @@ import Firebase
 import FBSDKCoreKit
 import GoogleSignIn
 import MoPub
+import FBAudienceNetwork
+import MoPub_FacebookAudienceNetwork_Adapters
 
 enum Shortcut: String {
     case newIdea = "newIdea"
@@ -46,6 +48,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Initialize Google sign-in            
             GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
             
+            // Facebook Audience Network
+            facebookAdsControl()
+        
             // Reset Ad Rewarded features
             resetAdRewardedFeatures()
             
@@ -53,6 +58,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "db12acb01a204aa8bd15d88017ee921b")
             MoPub.sharedInstance().initializeSdk(with: sdkConfig, completion: nil)
 
+            let settings = MPStaticNativeAdRendererSettings()
+            if let config = FacebookNativeAdRenderer(rendererSettings: settings) {
+                _ = MPNativeAdRequest(adUnitIdentifier: "", rendererConfigurations: [config])
+            }
+            
             if isLoggedIn {
                 // User is logged in so present their screenplays
                 self.presentScreenplayCollectionView()
@@ -61,6 +71,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             return true
+    }
+    
+    private func facebookAdsControl() {
+        #if DEBUG
+            self.addTestDevicesForFacebookAds()
+        #else
+            self.clearTestDevicesForFacebookAds()
+        #endif
+    }
+
+    ///remove for live mode
+    private func addTestDevicesForFacebookAds(){
+        let key = FBAdSettings.testDeviceHash()
+        FBAdSettings.setLogLevel(FBAdLogLevel.log)
+      //  FBAdSettings.isTestMode()
+        FBAdSettings.addTestDevice(key)
+    }
+
+    ///add for live mode
+    private func clearTestDevicesForFacebookAds() {
+        FBAdSettings.clearTestDevices()
     }
     
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {

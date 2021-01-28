@@ -17,7 +17,9 @@ target 'ScriptStarter' do
   pod 'Firebase/DynamicLinks'
   pod 'KMPlaceholderTextView', '~> 1.4.0'
   pod 'mopub-ios-sdk'
-  
+  pod 'MoPub-FacebookAudienceNetwork-Adapters'
+  pod 'MoPub-AdMob-Adapters'
+
   target 'ScriptStarterTests' do
     inherit! :search_paths
     # Pods for testing

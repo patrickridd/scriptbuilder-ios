@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import FBAudienceNetwork
+import MoPub
 
 protocol NameChangedDelegate: class {
     func nameChanged(name: String)
@@ -20,7 +22,6 @@ protocol RoleCellSelected: class {
 
 class CharacterDetailTableViewController: UITableViewController {
     
-    
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     
     var expandableSections: [ExpandableTableViewSection] = []
@@ -32,14 +33,16 @@ class CharacterDetailTableViewController: UITableViewController {
     
     var customSelected: Bool = false // RoleCellSelected
     
-    var amazonAdService: AmazonAdServiceLogic?
-    var interstitial: AmazonAdInterstitial?
+    var facebookAdService: FacebookAdService?
+    var interstitial: MPInterstitialAdController?
+    var adService: MoPubAdServiceLogic?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        amazonAdService = AmazonAdService()
-        
+        facebookAdService = FacebookAdService()
+        adService = MoPubAdService()
+
         saveButton.view = self
         
         let font = UIFont.systemFont(ofSize: 20,
@@ -67,11 +70,20 @@ class CharacterDetailTableViewController: UITableViewController {
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
         
+//        if InAppPurchases.shouldDisplayAds {
+//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
+//              //  facebookAdView.delegate = self
+//                facebookAdView.loadAd()
+//                tableView.tableFooterView?.frame = facebookAdView.frame
+//                tableView.tableFooterView = facebookAdView
+//            }
+//        }
+        
         if InAppPurchases.shouldDisplayAds {
-            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
-                                                                for: self) {
-                tableView.tableFooterView?.frame = amazonAdView.frame
-                tableView.tableFooterView = amazonAdView
+            if let adView = self.adService?.loadBannerAd() {
+                adView.delegate = self
+                tableView.tableFooterView?.frame = adView.frame
+                tableView.tableFooterView = adView
             }
         }
     }
@@ -81,7 +93,7 @@ class CharacterDetailTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = amazonAdService?.loadInterstitial(for: self)
+            interstitial = adService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled

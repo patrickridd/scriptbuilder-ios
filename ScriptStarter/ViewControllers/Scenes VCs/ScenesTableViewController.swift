@@ -9,6 +9,8 @@
 import UIKit
 import MBProgressHUD
 import StoreKit
+import FBAudienceNetwork
+import MoPub
 
 class ScenesTableViewController: UITableViewController {
     
@@ -18,15 +20,18 @@ class ScenesTableViewController: UITableViewController {
     var newScene: Bool = false
     var products: [SKProduct]?
 
-    var amazonAdService: AmazonAdServiceLogic?
-    var interstitial: AmazonAdInterstitial?
-
+    var facebookAdService: FacebookAdService?
+    var interstitial: MPInterstitialAdController?
+    var adService: MoPubAdServiceLogic!
+    
     var loadingNotification = MBProgressHUD()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        amazonAdService = AmazonAdService()
+        facebookAdService = FacebookAdService()
+        adService = MoPubAdService()
+
         saveButton.view = self
 
         let rightSwipe = UISwipeGestureRecognizer(target: self,
@@ -43,6 +48,11 @@ class ScenesTableViewController: UITableViewController {
                                        scene: nil)
         }
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(checkForSceneFeatureEnabled),
+                                               name: .CheckIfSceneBuilderIsEnabled,
+                                               object: nil)
+        
         // If RewardBased Ad is not ready, load one
 //        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
 //            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
@@ -57,23 +67,28 @@ class ScenesTableViewController: UITableViewController {
         self.reloadTableView()
         
         // If RewardBased Ad is not ready, load one
-//        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-//            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
-//            rewardBasedAd?.delegate = self
-//            rewardBasedAd?.load(GADRequest(),
-//                                withAdUnitID: GoogleAds.sceneBuilderRewardAdId)
-//        }
+        if !adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId) && !InAppPurchases.sceneFeatureEnabled {
+            adService.loadRewardedAd(with: MoPubAdService.sceneBuilderRewardedVideoId, delegate: self)
+        }
 
         // Retrieves in app purchases from apple
         InAppPurchases.store.requestProducts { (_, products) in
             self.products = products
         }
         
+//        if InAppPurchases.shouldDisplayAds {
+//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
+////                facebookAdView.delegate = self
+//                facebookAdView.loadAd()
+//                tableView.tableFooterView?.frame = facebookAdView.frame
+//                tableView.tableFooterView = facebookAdView
+//            }
+//        }
         if InAppPurchases.shouldDisplayAds {
-            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
-                                                                for: self) {
-                tableView.tableFooterView?.frame = amazonAdView.frame
-                tableView.tableFooterView = amazonAdView
+            if let adView = self.adService?.loadBannerAd() {
+                adView.delegate = self
+                tableView.tableFooterView?.frame = adView.frame
+                tableView.tableFooterView = adView
             }
         }
     }
@@ -83,12 +98,16 @@ class ScenesTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = amazonAdService?.loadInterstitial(for: self)
+            interstitial = adService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled
         display(interstitial: interstitial)
         checkForSceneFeatureEnabled()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
@@ -283,14 +302,16 @@ class ScenesTableViewController: UITableViewController {
         
         let tryAction = UIAlertAction(title: "Try by watching Ad 🎥".localized,
                                       style: .default) { [weak self] (_) in
-                                        
             guard let strongSelf = self else { return }
-         //   strongSelf.rewardBasedAd?.present(fromRootViewController: strongSelf)
+            if strongSelf.adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId){
+                strongSelf.rewardUserWithSceneBuilder()
+                strongSelf.adService.presentRewardedVideo(using: MoPubAdService.sceneBuilderRewardedVideoId, with: strongSelf)
+            }
         }
         
-//        if rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-//            alert.addAction(tryAction)
-//        }
+        if adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId) {
+            alert.addAction(tryAction)
+        }
         
         let cancelAction = UIAlertAction(title: "Cancel".localized,
                                          style: .default,

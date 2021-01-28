@@ -69,6 +69,13 @@
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>ScriptBuilder would like to schedule events on your calendar.</string>
+	<key>SKAdNetworkItems</key>
+	<array>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>cstr6suwn9.skadnetwork</string>
+		</dict>
+	</array>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>

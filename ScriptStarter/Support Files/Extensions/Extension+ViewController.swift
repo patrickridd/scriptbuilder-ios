@@ -9,6 +9,7 @@
 import UIKit
 import MBProgressHUD
 import FBAudienceNetwork
+import MoPub
 
 extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     
@@ -213,6 +214,26 @@ extension UIViewController: AmazonAdInterstitialDelegate {
     
 }
 
+extension UIViewController: MPInterstitialAdControllerDelegate {
+    
+    public func interstitialDidDisappear(_ interstitial: MPInterstitialAdController!) {
+        setShouldDisplayInterstitial(state: false)
+        scheduleInterstitialStateToTrue()
+    }
+    
+    func display(interstitial: MPInterstitialAdController?) {
+        if shouldDisplayInterstitials, InAppPurchases.shouldDisplayAds {
+            if let interstitial = interstitial {
+                if interstitial.ready {
+                    DispatchQueue.main.async {
+                        interstitial.show(from: self)
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 // MARK: Interstitial Ad State methods
 extension UIViewController {
@@ -222,9 +243,9 @@ extension UIViewController {
                                   forKey: Constants.shouldDisplayInterstitial)
     }
     
-    func interstitialIsReady(interstitial: AmazonAdInterstitial?) -> Bool {
+    func interstitialIsReady(interstitial: MPInterstitialAdController?) -> Bool {
         if let interstitial = interstitial {
-            return interstitial.isReady
+            return interstitial.ready
         } else {
             return false
         }
@@ -285,8 +306,8 @@ extension UIViewController {
     }
     
     func rewardUserWithCharacterBuilder() {
-        UserDefaults.standard.set(true,
-                                  forKey: Constants.characterBuilderRewardEnabled)
+        UserDefaults.standard.set(true, forKey: Constants.characterBuilderRewardEnabled)
+        NotificationCenter.default.post(name: Notification.Name.CheckIfCharacterBuilderIsEnabled, object: nil)
         scheduleTimerForCharacterBuilderReward()
     }
     
@@ -310,8 +331,8 @@ extension UIViewController {
     }
     
     func rewardUserWithSceneBuilder() {
-        UserDefaults.standard.set(true,
-                                  forKey: Constants.sceneBuilderTrialType)
+        UserDefaults.standard.set(true, forKey: Constants.sceneBuilderTrialType)
+        NotificationCenter.default.post(name: Notification.Name.CheckIfSceneBuilderIsEnabled, object: nil)
         scheduleTimerForSceneBuilderReward()
     }
     
@@ -320,14 +341,46 @@ extension UIViewController {
     }
 }
 
-extension UIViewController: FBAdViewDelegate {
-    
-    private func adViewDidLoad(_ adView: FBAdView) {
-        print(adView)
+//extension UIViewController: FBAdViewDelegate {
+//    
+//    private func adViewDidLoad(_ adView: FBAdView) {
+//        print(adView)
+//    }
+//    
+//    public func adView(_ adView: FBAdView, didFailWithError error: Error) {
+//        print(error)
+//    }
+//
+//    
+//}
+
+extension UIViewController: MPAdViewDelegate {
+  
+    public func viewControllerForPresentingModalView() -> UIViewController! {
+        return self
     }
     
-    public func adView(_ adView: FBAdView, didFailWithError error: Error) {
+    public func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
         print(error)
+    }
+    
+    public func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
+        print("Successfully loaded ad from MoPub")
+    }
+}
+
+extension UIViewController: MPRewardedVideoDelegate {
+    
+    public func rewardedVideoAdDidLoad(forAdUnitID adUnitID: String!) {
+        switch adUnitID {
+        case MoPubAdService.characterRewardedVideoId:
+            self.rewardUserWithCharacterBuilder()
+        case MoPubAdService.sceneBuilderRewardedVideoId:
+            self.rewardUserWithSceneBuilder()
+        default:
+            self.rewardUserWithCharacterBuilder()
+            self.rewardUserWithSceneBuilder()
+        }
     }
     
 }

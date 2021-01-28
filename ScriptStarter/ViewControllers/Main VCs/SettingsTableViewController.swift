@@ -10,6 +10,7 @@ import UIKit
 import MBProgressHUD
 import StoreKit
 import Firebase
+import MoPub
 
 protocol InAppPurchaseDelegate: class {
     func didCompleteTransaction(for productIdentifier: String,
@@ -20,10 +21,10 @@ protocol InAppPurchaseDelegate: class {
 
 class SettingsTableViewController: UITableViewController {
     
-    var interstitial: AmazonAdInterstitial?
+    var interstitial: MPInterstitialAdController?
+    var adService: MoPubAdServiceLogic?
     var loadingNotification = MBProgressHUD()
     var screenplays: [Screenplay] = []
-    var amazonAdService: AmazonAdService?
     
     var user: Firebase.User? {
         return Auth.auth().currentUser
@@ -32,8 +33,7 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        amazonAdService = AmazonAdService()
-
+        adService = MoPubAdService()
         setupNavigationBar()
         self.view.backgroundColor = UIColor.screenLightGray
         self.tableView.backgroundColor = UIColor.screenLightGray
@@ -46,7 +46,7 @@ class SettingsTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = amazonAdService?.loadInterstitial(for: self)
+            interstitial = adService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled

@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 import MBProgressHUD
 import StoreKit
+import FBAudienceNetwork
+import MoPub
 
 class CharacterTableViewController: UITableViewController {
     
@@ -17,8 +19,9 @@ class CharacterTableViewController: UITableViewController {
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     @IBOutlet weak var addCharacterButton: UIBarButtonItem!
     
-    var amazonAdService: AmazonAdServiceLogic?
-    var interstitial: AmazonAdInterstitial?
+    var facebookAdService: FacebookAdService?
+    var interstitial: MPInterstitialAdController?
+    var adService: MoPubAdServiceLogic!
     
     var products: [SKProduct]?
     var loadingNotification = MBProgressHUD()
@@ -34,7 +37,8 @@ class CharacterTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        amazonAdService = AmazonAdService()
+        facebookAdService = FacebookAdService()
+        adService = MoPubAdService()
         saveButton.view = self
 
         let rightSwipe = UISwipeGestureRecognizer(target: self,
@@ -47,13 +51,18 @@ class CharacterTableViewController: UITableViewController {
                               sender: nil)
         }
     
-        // If RewardBased Ad is not ready load one
+   //      If RewardBased Ad is not ready load one
 //        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
 //            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
 //            rewardBasedAd?.delegate = self
 //            rewardBasedAd?.load(GADRequest(),
 //                                withAdUnitID: GoogleAds.characterBuilderRewardAdId)
 //        }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(checkForCharacterFeatureEnabled),
+                                               name: .CheckIfCharacterBuilderIsEnabled,
+                                               object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +73,10 @@ class CharacterTableViewController: UITableViewController {
         setupNavigationBar()
         setupRoleSections()
         
+        if !adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) && !InAppPurchases.characterFeatureEnabled {
+            adService.loadRewardedAd(with: MoPubAdService.characterRewardedVideoId, delegate: self)
+        }
+        
         // If RewardBased Ad is not ready load one
 //        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
 //            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
@@ -72,11 +85,20 @@ class CharacterTableViewController: UITableViewController {
 //                                withAdUnitID: GoogleAds.characterBuilderRewardAdId)
 //        }
 
+//        if InAppPurchases.shouldDisplayAds {
+//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
+//                //   facebookAdView.delegate = self
+//                facebookAdView.loadAd()
+//                tableView.tableFooterView?.frame = facebookAdView.frame
+//                tableView.tableFooterView = facebookAdView
+//            }
+//        }
+        
         if InAppPurchases.shouldDisplayAds {
-            if let amazonAdView = amazonAdService?.loadBannerAd(with: AmazonAdSize_320x50,
-                                                                for: self) {
-                tableView.tableFooterView?.frame = amazonAdView.frame
-                tableView.tableFooterView = amazonAdView
+            if let adView = self.adService?.loadBannerAd() {
+                adView.delegate = self
+                tableView.tableFooterView?.frame = adView.frame
+                tableView.tableFooterView = adView
             }
         }
         
@@ -92,12 +114,17 @@ class CharacterTableViewController: UITableViewController {
         
         // If interstitial is not ready load one
         if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = amazonAdService?.loadInterstitial(for: self)
+            interstitial = adService?.loadInterstitial(for: self)
         }
         
         // Display ad if we have one loaded and we have interstitial ads enabled
         display(interstitial: interstitial)
+        
         checkForCharacterFeatureEnabled()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: UI Methods
@@ -166,13 +193,16 @@ class CharacterTableViewController: UITableViewController {
                                       style: .default) { [weak self] (_) in
                                         
             guard let strongSelf = self else { return }
-          //  strongSelf.rewardBasedAd?.present(fromRootViewController: strongSelf)
+            if strongSelf.adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) {
+                strongSelf.rewardUserWithCharacterBuilder()
+                strongSelf.adService.presentRewardedVideo(using: MoPubAdService.characterRewardedVideoId, with: strongSelf)
+            }
             
         }
         
-//        if rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-//            alert.addAction(tryAction)
-//        }
+        if adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) {
+            alert.addAction(tryAction)
+        }
         
         let cancelAction = UIAlertAction(title: "Cancel".localized,
                                          style: .default,
