@@ -72,17 +72,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             return true
     }
-    
-    func applicationDidEnterBackground(_ application: UIApplication) {
+        
+    func applicationWillResignActive(_ application: UIApplication) {
         NotificationCenter.default.post(name: Notification.Name.AppWillEnterBackground,
                                         object: nil)
     }
-    
-    func applicationWillTerminate(_ application: UIApplication) {
-        NotificationCenter.default.post(name: Notification.Name.AppWillEnterBackground,
-                                        object: nil)
-    }
-       
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         NotificationCenter.default.post(name: Notification.Name.AppWillEnterForeground,
