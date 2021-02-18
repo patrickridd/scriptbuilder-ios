@@ -385,7 +385,10 @@ class CharacterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let screenplay = self.screenplay else { return }
+        guard let screenplay = self.screenplay else {
+            reloadScreenplaysWithAnimation()
+            return
+        }
         
         let character = self.roleCharacterSections[indexPath.section].characters[indexPath.row]
         

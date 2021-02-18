@@ -390,9 +390,12 @@ class ScenesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
-        guard let screenplay = self.screenplay else { return 1 }
-       
+        
+        guard let screenplay = self.screenplay else {
+            reloadScreenplaysWithAnimation()
+            return 1
+        }
+        
         // Return the amount scenes for each Act
         switch section {
         case 0: // Act 1
@@ -421,6 +424,7 @@ class ScenesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let screenplay = self.screenplay else {
+            reloadScreenplaysWithAnimation()
             return UITableViewCell()
         }
         

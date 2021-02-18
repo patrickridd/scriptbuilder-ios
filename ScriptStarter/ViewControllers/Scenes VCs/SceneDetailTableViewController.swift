@@ -115,7 +115,10 @@ class SceneDetailTableViewController: UITableViewController {
     }
     
     func createNewScene() {
-        guard let screenplay = self.screenplay else { return }
+        guard let screenplay = self.screenplay else {
+            reloadScreenplaysWithAnimation()
+            return
+        }
         switch self.act {
             
         case .one:

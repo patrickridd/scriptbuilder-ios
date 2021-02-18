@@ -28,7 +28,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     @objc func saveCurrentScreenplay() {
         if let screenplay = screenplay {
             FirebaseController.shared.save(screenplay: screenplay) { (_) in
-                print("Saved...")
+                print("Saved...✅")
             }
         }
     }
@@ -63,12 +63,44 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         }
     }
     
+    func reloadScreenplaysWithAnimation() {
+        let loadingNotification = MBProgressHUD.showAdded(to: self.view,
+                                                          animated: true)
+        loadingNotification.mode = MBProgressHUDMode.indeterminate
+        loadingNotification.animationType = .fade
+        loadingNotification.label.text = "Reloading Screenplay".localized
+        
+        FirebaseController.shared.getScreenplays { (screenplays) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                
+                guard
+                    let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays)
+                else {
+                    loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "redFrownieFaceAsset 1"))
+                    loadingNotification.label.text = "failed".localized
+                    loadingNotification.hide(animated: true,
+                                             afterDelay: 1)
+                    self.navigateToScreenplayCollectionView()
+                    return
+                }
+                
+                loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
+                loadingNotification.label.text = "success".localized
+                loadingNotification.hide(animated: true,
+                                         afterDelay: 1)
+                ScreenplayController.shared.set(currentScreenplay: screenplay)
+                print("Screenplay reloaded ⬇︎")
+            })
+        }
+    }
+    
     @objc func reloadScreenplays() {
         FirebaseController.shared.getScreenplays { (screenplays) in
             if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                DispatchQueue.main.async {
                     ScreenplayController.shared.set(currentScreenplay: screenplay)
-                })
+                    print("Screenplay reloaded ⬇︎")
+                }
             }
         }
     }
