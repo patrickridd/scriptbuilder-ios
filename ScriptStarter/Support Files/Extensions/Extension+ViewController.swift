@@ -25,6 +25,15 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         return (shouldDisplayInterstitial && InAppPurchases.shouldDisplayAds)
     }
     
+    @objc func saveCurrentScreenplay() {
+        if let screenplay = screenplay {
+            FirebaseController.shared.save(screenplay: screenplay) { (_) in
+                print("Saved...")
+            }
+        }
+    }
+    
+    
     func saveScreenplay(completion: @escaping () -> Void) {
         let loadingNotification = MBProgressHUD.showAdded(to: self.view,
                                                           animated: true)
@@ -54,6 +63,15 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         }
     }
     
+    @objc func reloadScreenplays() {
+        FirebaseController.shared.getScreenplays { (screenplays) in
+            if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                    ScreenplayController.shared.set(currentScreenplay: screenplay)
+                })
+            }
+        }
+    }
     
     func getDescriptionCellHeight(with text:String) -> CGFloat {
         let aproximateWidthOfCell = self.view.frame.width // Minus 50 for the leading and trailing margins

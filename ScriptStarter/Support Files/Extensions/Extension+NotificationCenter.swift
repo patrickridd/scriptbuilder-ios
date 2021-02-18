@@ -14,4 +14,9 @@ extension Notification.Name {
     static let CheckIfCharacterBuilderIsEnabled = Notification.Name(rawValue:"CheckIfCharacterBuilderIsEnabled")
     static let CheckIfSceneBuilderIsEnabled = Notification.Name(rawValue:"CheckIfSceneBuilderIsEnabled")
     
+    static let AppWillEnterBackground =
+        Notification.Name(rawValue:"appWillEnterBackgroundNotificationKey")
+    static let AppWillEnterForeground =
+        Notification.Name(rawValue:"appWillEnterForegroundNotificationKey")
+    
 }
