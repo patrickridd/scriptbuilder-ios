@@ -86,7 +86,7 @@ class FirebaseController {
             .child(user.uid)
             .child(screenplaysKey)
             .child(screenplay.uuid)
-        screenplayRef.setValue(screenplay.firDictionary) { [weak self] (error, reference) in
+        screenplayRef.updateChildValues(screenplay.firDictionary) { [weak self] (error, reference) in
             if let _ = error {
                 completion(false)
                 return
@@ -144,7 +144,7 @@ class FirebaseController {
         
         // Save Outline
         let screenplayRef = self.ref.child(usersKey).child(user.uid).child(screenplaysKey).child(screenplay.uuid)
-        screenplayRef.setValue(screenplay.firDictionary) { (_, _) in }
+        screenplayRef.updateChildValues(screenplay.firDictionary) { (_, _) in }
         
         // Save Characters
         self.saveCharacters(in: screenplay, with: user) { (_) in }
