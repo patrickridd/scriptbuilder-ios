@@ -317,7 +317,7 @@ extension UIViewController {
     
     func scheduleInterstitialStateToTrue() {
         // Set timer to change enable interstitial ads every 5 minutes
-        Timer.scheduledTimer(timeInterval:60*5,
+        Timer.scheduledTimer(timeInterval:60*4,
                              target: self,
                              selector: #selector(enableInterstitialDisplay),
                              userInfo: nil,
