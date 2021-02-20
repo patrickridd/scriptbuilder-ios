@@ -224,7 +224,7 @@ class FirebaseController {
             dispatchEnterCount += 1
             
             scenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
-                if let _ = error {
+                if let error = error {
                     completion(error)
                 }
                 if dispatchEnterCount > 0 {
