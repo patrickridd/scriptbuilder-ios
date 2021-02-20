@@ -63,7 +63,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         }
     }
     
-    func reloadScreenplaysWithAnimation() {
+    func reloadScreenplaysWithAnimation(completion: @escaping ()-> Void) {
         let loadingNotification = MBProgressHUD.showAdded(to: self.view,
                                                           animated: true)
         loadingNotification.mode = MBProgressHUDMode.indeterminate
@@ -81,6 +81,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
                     loadingNotification.hide(animated: true,
                                              afterDelay: 1)
                     self.navigateToScreenplayCollectionView()
+                    completion()
                     return
                 }
                 
@@ -90,6 +91,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
                                          afterDelay: 1)
                 ScreenplayController.shared.set(currentScreenplay: screenplay)
                 print("Screenplay reloaded ⬇︎")
+                completion()
             })
         }
     }

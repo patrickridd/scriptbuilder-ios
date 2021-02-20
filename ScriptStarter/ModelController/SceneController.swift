@@ -12,8 +12,8 @@ class SceneController {
     
     static let shared = SceneController()
     
-    func adjustSceneNumbers(for scene: Scene, in act: Act, with screenplay: Screenplay?) {
-        guard let screenplay = screenplay else { return }
+    func adjustSceneNumbers(for scene: Scene, in act: Act, with screenplay: Screenplay) {
+
         switch act {
         case .one:
             for otherScene in screenplay.act1.scenes {

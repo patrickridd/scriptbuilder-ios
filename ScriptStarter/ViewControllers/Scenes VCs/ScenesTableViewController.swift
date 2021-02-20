@@ -234,6 +234,12 @@ class ScenesTableViewController: UITableViewController {
     // MARK: - UI Methods
     
     func setupNavigationBar() {
+        guard let _ = self.screenplay else {
+            reloadScreenplaysWithAnimation {
+                self.reloadTableView()
+            }
+            return
+        }
         
         // Remove Navigation bar shadow and borderline
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -392,7 +398,9 @@ class ScenesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         guard let screenplay = self.screenplay else {
-            reloadScreenplaysWithAnimation()
+            reloadScreenplaysWithAnimation {
+                self.reloadTableView()
+            }
             return 1
         }
         
@@ -424,7 +432,9 @@ class ScenesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let screenplay = self.screenplay else {
-            reloadScreenplaysWithAnimation()
+            reloadScreenplaysWithAnimation {
+                self.reloadTableView()
+            }
             return UITableViewCell()
         }
         
@@ -525,6 +535,13 @@ class ScenesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard let _ = self.screenplay else {
+            self.reloadScreenplaysWithAnimation {
+                self.reloadTableView()
+            }
+            return
+        }
+        
         var scene: Scene?
         switch indexPath.section {
         case 0:
@@ -570,6 +587,13 @@ class ScenesTableViewController: UITableViewController {
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        guard let _ = self.screenplay else {
+            reloadScreenplaysWithAnimation {
+                self.reloadTableView()
+            }
+            return
+        }
         
         switch indexPath.section {
         case 0: // Act 1

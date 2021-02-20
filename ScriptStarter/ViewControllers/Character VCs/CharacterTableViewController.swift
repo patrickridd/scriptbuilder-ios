@@ -130,7 +130,10 @@ class CharacterTableViewController: UITableViewController {
     // MARK: UI Methods
     
     func setupNavigationBar() {
-        
+        guard let _ = self.screenplay else {
+            reloadScreenplays()
+            return
+        }
         // Remove Navigation bar shadow and borderline
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
@@ -264,7 +267,12 @@ class CharacterTableViewController: UITableViewController {
     // MARK: - Data Source helper methods
     
     func setupRoleSections() {
-        guard let screenplay = screenplay else { return }
+        guard let screenplay = screenplay else {
+            reloadScreenplaysWithAnimation {
+                self.reloadTableView()
+            }
+            return
+        }
         
         var characterTableViewSections: Set<CharacterTableViewSection> = []
         
@@ -386,7 +394,9 @@ class CharacterTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let screenplay = self.screenplay else {
-            reloadScreenplaysWithAnimation()
+            reloadScreenplaysWithAnimation {
+                self.reloadTableView()
+            }
             return
         }
         

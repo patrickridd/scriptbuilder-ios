@@ -116,7 +116,9 @@ class SceneDetailTableViewController: UITableViewController {
     
     func createNewScene() {
         guard let screenplay = self.screenplay else {
-            reloadScreenplaysWithAnimation()
+            reloadScreenplaysWithAnimation {
+                self.tableView.reloadData()
+            }
             return
         }
         switch self.act {
@@ -172,15 +174,22 @@ class SceneDetailTableViewController: UITableViewController {
     }
 
     @IBAction func sceneNumberTextFieldChanged(_ sender: UITextField) {
+        guard let screenplay = self.screenplay else {
+            reloadScreenplaysWithAnimation {
+                self.tableView.reloadData()
+            }
+            return
+        }
         guard let sceneNumberText = sender.text,
               let sceneNumber = Int(sceneNumberText) else { return }
+        
         
         self.scene?.sceneNumber = sceneNumber
         
         if let scene = self.scene {
             SceneController.shared.adjustSceneNumbers(for: scene,
                                                       in: self.act,
-                                                      with: self.screenplay)
+                                                      with: screenplay)
             switch self.act {
             case .one:
                 self.screenplay?.act1.scenes.sort(by: {$0.sceneNumber < $1.sceneNumber })
@@ -401,6 +410,12 @@ extension SceneDetailTableViewController: UIPopoverPresentationControllerDelegat
 extension SceneDetailTableViewController: SceneActSelected {
     
     func selected(newAct: Act) {
+        guard let _ = self.screenplay else {
+            reloadScreenplaysWithAnimation {
+                self.tableView.reloadData()
+            }
+            return
+        }
         guard let scene = self.scene, newAct != self.act else { return }
         
         // Remove scene from old act

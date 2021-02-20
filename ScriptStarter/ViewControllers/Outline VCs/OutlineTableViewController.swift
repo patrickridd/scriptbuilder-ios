@@ -199,7 +199,12 @@ class OutlineTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
+        guard let _ = self.screenplay else {
+            reloadScreenplaysWithAnimation {
+                self.tableView.reloadData()
+            }
+            return UITableViewCell()
+        }
         let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell",
                                                             for: indexPath) as? DescriptionTableViewCell
         descriptionCell?.delegate = self
