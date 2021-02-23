@@ -124,40 +124,40 @@ class SceneDetailTableViewController: UITableViewController {
         switch self.act {
             
         case .one:
-            if let highestSceneNumber = screenplay.act1.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
+            if let highestSceneNumber = screenplay.act1ScenesArray.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
                 let scene = Scene(title: "New Scene".localized,
                                   sceneNumber: highestSceneNumber+1)
                 self.scene = scene
-                self.screenplay?.act1.sceneSet.insert(scene)
+                self.screenplay?.act1ScenesSet.insert(scene)
             } else {
                 let scene = Scene(title: "New Scene".localized,
                                   sceneNumber: 1)
                 self.scene = scene
-                self.screenplay?.act1.sceneSet.insert(scene)
+                self.screenplay?.act1ScenesSet.insert(scene)
             }
         case .two:
-            if let highestSceneNumber = screenplay.act2.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
+            if let highestSceneNumber = screenplay.act2ScenesArray.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
                 let scene = Scene(title: "New Scene".localized,
                                   sceneNumber: highestSceneNumber+1)
                 self.scene = scene
-                self.screenplay?.act2.sceneSet.insert(scene)
+                self.screenplay?.act2ScenesSet.insert(scene)
             } else {
                 let scene = Scene(title: "New Scene".localized,
                                   sceneNumber: 1)
                 self.scene = scene
-                self.screenplay?.act2.sceneSet.insert(scene)
+                self.screenplay?.act2ScenesSet.insert(scene)
             }
         case .three:
-            if let highestSceneNumber = screenplay.act3.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
+            if let highestSceneNumber = screenplay.act3ScenesArray.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
                 let scene = Scene(title: "New Scene".localized,
                                   sceneNumber: highestSceneNumber+1)
                 self.scene = scene
-                self.screenplay?.act3.sceneSet.insert(scene)
+                self.screenplay?.act3ScenesSet.insert(scene)
             } else {
                 let scene = Scene(title: "New Scene".localized,
                                   sceneNumber: 1)
                 self.scene = scene
-                self.screenplay?.act3.sceneSet.insert(scene)
+                self.screenplay?.act3ScenesSet.insert(scene)
             }
         default:
             break
@@ -192,11 +192,11 @@ class SceneDetailTableViewController: UITableViewController {
                                                       with: screenplay)
             switch self.act {
             case .one:
-                self.screenplay?.act1.scenes.sort(by: {$0.sceneNumber < $1.sceneNumber })
+                self.screenplay?.act1ScenesArray.sort(by: {$0.sceneNumber < $1.sceneNumber })
             case .two:
-                self.screenplay?.act2.scenes.sort(by: {$0.sceneNumber < $1.sceneNumber })
+                self.screenplay?.act2ScenesArray.sort(by: {$0.sceneNumber < $1.sceneNumber })
             case .three:
-                self.screenplay?.act3.scenes.sort(by: {$0.sceneNumber < $1.sceneNumber })
+                self.screenplay?.act3ScenesArray.sort(by: {$0.sceneNumber < $1.sceneNumber })
             default:
                 break
             }
@@ -421,11 +421,11 @@ extension SceneDetailTableViewController: SceneActSelected {
         // Remove scene from old act
         switch self.act {
         case .one:
-            self.screenplay?.act1.sceneSet.remove(scene)
+            self.screenplay?.act1ScenesSet.remove(scene)
         case .two:
-            self.screenplay?.act2.sceneSet.remove(scene)
+            self.screenplay?.act2ScenesSet.remove(scene)
         case .three:
-            self.screenplay?.act3.sceneSet.remove(scene)
+            self.screenplay?.act3ScenesSet.remove(scene)
         default:
             break
         }
@@ -433,32 +433,32 @@ extension SceneDetailTableViewController: SceneActSelected {
         // Add scene into newAct and make scene number last in newAct
         switch newAct {
         case .one:
-            if let highestSceneNumber = self.screenplay?.act1.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
+            if let highestSceneNumber = self.screenplay?.act1ScenesArray.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
                 scene.sceneNumber = highestSceneNumber+1
-                self.screenplay?.act1.sceneSet.insert(scene)
+                self.screenplay?.act1ScenesSet.insert(scene)
             } else {
                 // If no scenes are in act just insert and make sceneNumber = 1
                 scene.sceneNumber = 1
-                self.screenplay?.act1.sceneSet.insert(scene)
+                self.screenplay?.act1ScenesSet.insert(scene)
             }
             
         case .two:
-            if let highestSceneNumber = self.screenplay?.act2.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
+            if let highestSceneNumber = self.screenplay?.act2ScenesArray.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
                 scene.sceneNumber = highestSceneNumber+1
-                self.screenplay?.act2.sceneSet.insert(scene)
+                self.screenplay?.act2ScenesSet.insert(scene)
             } else {
                 // If no scenes are in act just insert and make sceneNumber = 1
                 scene.sceneNumber = 1
-                self.screenplay?.act2.sceneSet.insert(scene)
+                self.screenplay?.act2ScenesSet.insert(scene)
             }
         case .three:
-            if let highestSceneNumber = self.screenplay?.act3.scenes.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
+            if let highestSceneNumber = self.screenplay?.act3ScenesArray.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
                 scene.sceneNumber = highestSceneNumber+1
-                self.screenplay?.act3.sceneSet.insert(scene)
+                self.screenplay?.act3ScenesSet.insert(scene)
             } else {
                 // If no scenes are in act just insert and make sceneNumber = 1
                 scene.sceneNumber = 1
-                self.screenplay?.act3.sceneSet.insert(scene)
+                self.screenplay?.act3ScenesSet.insert(scene)
             }
         default:
             break

@@ -67,16 +67,16 @@ class PdfHelper {
 
             // Act 1//
             formatAndAdd(sectionSubtitle: "\(Act.one.title) " + "Scenes".localized, with: context)
-            createSceneSection(for: screenplay.act1.scenes, in: context)
+            createSceneSection(for: screenplay.act1ScenesArray, in: context)
             
            
             // Act 2 //
             formatAndAdd(sectionSubtitle: "\(Act.two.title) " + "Scenes".localized, with: context)
-            createSceneSection(for: screenplay.act2.scenes, in: context)
+            createSceneSection(for: screenplay.act2ScenesArray, in: context)
             
             // Act 3 //
             formatAndAdd(sectionSubtitle: "\(Act.three.title) " + "Scenes".localized, with: context)
-            createSceneSection(for: screenplay.act3.scenes, in: context)
+            createSceneSection(for: screenplay.act3ScenesArray, in: context)
         }
         
         return data

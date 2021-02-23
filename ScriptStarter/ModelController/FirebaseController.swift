@@ -18,6 +18,9 @@ let actTwoKey: String = "actTwo"
 let actThreeKey: String = "actThree"
 let scenesKey: String = "scenes"
 let charactersKey: String = "characters"
+let act1ScenesKey = "actOneScenes"
+let act2ScenesKey = "actTwoScenes"
+let act3ScenesKey = "actThreeScenes"
 
 class FirebaseController {
     
@@ -98,8 +101,8 @@ class FirebaseController {
                     return
                 }
                 // ACT 1 SCENES
-                self?.save(scenes: screenplay.act1.scenes,
-                           for: actOneKey,
+                self?.save(scenes: screenplay.act1ScenesArray,
+                           for: act1ScenesKey,
                            in: screenplay,
                            with: user, completion: { (error) in
                             if let _ = error {
@@ -107,8 +110,8 @@ class FirebaseController {
                                 return
                             }
                             // ACT 2 SCENES
-                            self?.save(scenes: screenplay.act2.scenes,
-                                       for: actTwoKey,
+                            self?.save(scenes: screenplay.act2ScenesArray,
+                                       for: act2ScenesKey,
                                        in: screenplay,
                                        with: user, completion: { (error) in
                                 if let _ = error {
@@ -116,8 +119,8 @@ class FirebaseController {
                                     return
                                 }
                                 // ACT 3 SCENES
-                                self?.save(scenes: screenplay.act3.scenes,
-                                           for: actThreeKey,
+                                self?.save(scenes: screenplay.act3ScenesArray,
+                                           for: act3ScenesKey,
                                            in: screenplay,
                                            with: user, completion: { (error) in
                                     if let _ = error {
@@ -150,18 +153,18 @@ class FirebaseController {
         self.saveCharacters(in: screenplay, with: user) { (_) in }
         
         // Act 1
-        self.save(scenes: screenplay.act1.scenes,
-                  for: actOneKey,
+        self.save(scenes: screenplay.act1ScenesArray,
+                  for: act1ScenesKey,
                   in: screenplay,
                   with: user, completion: { (_) in })
         // Act 2
-        self.save(scenes: screenplay.act2.scenes,
-                  for: actTwoKey,
+        self.save(scenes: screenplay.act2ScenesArray,
+                  for: act2ScenesKey,
                   in: screenplay,
                   with: user, completion: { (_) in })
         // Act 3
-        self.save(scenes: screenplay.act3.scenes,
-                  for: actThreeKey,
+        self.save(scenes: screenplay.act3ScenesArray,
+                  for: act3ScenesKey,
                   in: screenplay,
                   with: user, completion: { (_) in })
     }
@@ -205,7 +208,7 @@ class FirebaseController {
     
     // Save Scenes by specifying the scenes and act number
     func save(scenes: [Scene],
-              for act: String,
+              for actKey: String,
               in screenplay: Screenplay,
               with user: User,
               completion: @escaping (_ error: Error?) -> Void) {
@@ -217,8 +220,7 @@ class FirebaseController {
                              .child(user.uid)
                              .child(screenplaysKey)
                              .child(screenplay.uuid)
-                             .child(act)
-                             .child(scenesKey)
+                             .child(actKey)
         for scene in scenes {
             dispatchGroup.enter()
             dispatchEnterCount += 1
@@ -270,15 +272,26 @@ class FirebaseController {
     func delete(scene: Scene, withScreenplay: Screenplay, inAct: Act) {
         guard let user = user else { return }
         
-        let sceneRef = self.ref.child(usersKey)
-            .child(user.uid)
-            .child(screenplaysKey)
-            .child(withScreenplay.uuid)
-            .child(inAct.firebaseTitle)
-            .child(scenesKey)
-            .child(scene.uuid)
+        var sceneActKey: String = ""
+        switch inAct {
+        case .one:
+            sceneActKey = act1ScenesKey
+        case .two:
+            sceneActKey = act2ScenesKey
+        case .three:
+            sceneActKey = act3ScenesKey
+        default:
+            break
+        }
         
-        sceneRef.removeValue()
+        let scenesRef = self.ref.child(usersKey)
+                             .child(user.uid)
+                             .child(screenplaysKey)
+                             .child(withScreenplay.uuid)
+                             .child(sceneActKey)
+                             .child(scene.uuid)
+        
+        scenesRef.removeValue()
     }
     
     func getScreenplays(completion: @escaping ([Screenplay])->Void) {
