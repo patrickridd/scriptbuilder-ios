@@ -132,17 +132,16 @@ class Screenplay: Equatable {
         self.act2 = Act2(actTwoDict: actTwoDict) ?? Act2()
         self.act3 = Act3(actThreeDict: actThreeDict) ?? Act3()
         
-        guard let charactersDictionaryArray = screenplayDictionary[charactersKey] as? [String:Any] else {
-            return
-        }
-        for characterKeyPair in charactersDictionaryArray {
-            guard let characterDictionary = characterKeyPair.value as? [String:Any],
-             let character = Character(uuid: characterKeyPair.key, characterDictionary:characterDictionary) else {
-                continue
+        if let charactersDictionaryArray = screenplayDictionary[charactersKey] as? [String:Any] {
+            
+            for characterKeyPair in charactersDictionaryArray {
+                guard let characterDictionary = characterKeyPair.value as? [String:Any],
+                      let character = Character(uuid: characterKeyPair.key, characterDictionary:characterDictionary) else {
+                    continue
+                }
+                self.characters.insert(character)
             }
-            self.characters.insert(character)
         }
-        print(title)
         // Copy Scenes from old act1,act2,act3 object scenes into the new Scenes Set and Array
         for scene in act1.scenes {
             act1ScenesSet.insert(scene)
