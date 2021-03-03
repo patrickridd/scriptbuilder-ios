@@ -17,6 +17,12 @@ class PdfHelper {
     
     var currentPageHeight: Int = 0
 
+    func getHeight(for attributedString: NSAttributedString) -> CGFloat {
+        let frameSetter = CTFramesetterCreateWithAttributedString(attributedString)
+        let largestSize = CGSize(width: pageWidth, height: .greatestFiniteMagnitude)
+        let textSize = CTFramesetterSuggestFrameSizeWithConstraints(frameSetter, CFRange(), nil, largestSize, nil)
+        return textSize.height
+    }
     
     func createPdf(with screenplay: Screenplay) -> Data {
         // 1
@@ -49,37 +55,50 @@ class PdfHelper {
             createIdeaSection(with: screenplay, with: context)
             
             // Act 1 Section
+            addNewLine(context: context)
             createAct1Section(with: screenplay, in: context)
             
             // Act 2
+            addNewLine(context: context)
             createAct2Section(with: screenplay, in: context)
             
             // Act 3
+            addNewLine(context: context)
             createAct3Section(with: screenplay, in: context)
             
             // Characters Section //
+            addNewLine(context: context)
             formatAndAdd(sectionTitle: "Characters".localized, with: context)
             createCharacterSection(with: screenplay, in: context)
             
             
             // Scenes //
+            addNewLine(context: context)
             formatAndAdd(sectionTitle: "Scenes".localized, with: context)
 
             // Act 1//
+            addNewLine(context: context)
             formatAndAdd(sectionSubtitle: "\(Act.one.title) " + "Scenes".localized, with: context)
             createSceneSection(for: screenplay.act1ScenesArray, in: context)
             
            
             // Act 2 //
+            addNewLine(context: context)
             formatAndAdd(sectionSubtitle: "\(Act.two.title) " + "Scenes".localized, with: context)
             createSceneSection(for: screenplay.act2ScenesArray, in: context)
             
             // Act 3 //
+            addNewLine(context: context)
             formatAndAdd(sectionSubtitle: "\(Act.three.title) " + "Scenes".localized, with: context)
             createSceneSection(for: screenplay.act3ScenesArray, in: context)
         }
         
         return data
+    }
+    
+    func addNewLine(context: UIGraphicsPDFRendererContext) {
+        let newlineAttributedString =  NSAttributedString(string: "\n")
+        add(content: newlineAttributedString, in: context)
     }
     
     // Screenplay Title
@@ -144,8 +163,9 @@ class PdfHelper {
     
     // Formats all user input
     func formatAndAdd(content: String, with context: UIGraphicsPDFRendererContext) {
+
         if content == "" {
-            add(content: NSAttributedString(string: "\n"), in: context)
+            addNewLine(context: context)
         } else {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .natural
@@ -155,6 +175,8 @@ class PdfHelper {
                               NSAttributedString.Key.paragraphStyle: paragraphStyle]
             let attributedString = NSAttributedString(string: content + "\n\n\n\n", attributes: attributes)
             add(content: attributedString, in: context)
+            addNewLine(context: context)
+
         }
     }
     
@@ -182,7 +204,7 @@ class PdfHelper {
     
     func formatAndAdd(sceneHeading: String, with context: UIGraphicsPDFRendererContext) {
         if sceneHeading == "" {
-            add(content: NSAttributedString(string: "\n"), in: context)
+            addNewLine(context: context)
         } else {
             let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .light)]
             let attributedTitle = NSAttributedString(string: sceneHeading + "\n\n", attributes: attributes)
@@ -198,10 +220,10 @@ class PdfHelper {
             • Add content to new page
             • Reset and update currentPageHeight
          */
-        if currentPageHeight + Int(content.size().height) >= Int(pageHeight) {
+        if currentPageHeight + Int(getHeight(for: content)) >= Int(pageHeight) {
             context.beginPage()
             content.draw(in: newScreenplayRect)
-            currentPageHeight = Int(content.size().height)+50
+            currentPageHeight = Int(getHeight(for: content))+50
             
         /* Else we need to
           • Create rect with y value the height of the currentpageHeight
@@ -209,9 +231,12 @@ class PdfHelper {
           • Update current page height
         */
         } else {
-            let newScreenplayRect = CGRect(x: 50, y: currentPageHeight, width: Int(pageWidth)-100, height: Int(pageHeight))
+            let newScreenplayRect = CGRect(x: 50,
+                                           y: currentPageHeight,
+                                           width: Int(pageWidth)-100,
+                                           height: Int(pageHeight))
             content.draw(in: newScreenplayRect)
-            currentPageHeight += Int(content.size().height)
+            currentPageHeight += Int(getHeight(for: content))
         }
         
     }
@@ -224,31 +249,37 @@ class PdfHelper {
         
         // overall description
         formatOverAllDescriptionAndAdd(in: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.idea, with: context)
         
         // logLine
         formatAndAdd(questionTitle: Act.idea.sectionsTitles[0], with: context)
         formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[0], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.logLine, with: context)
         
         // intention
         formatAndAdd(questionTitle: Act.idea.sectionsTitles[1], with: context)
         formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[1], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.centralIntention, with: context)
         
         // obstacle
         formatAndAdd(questionTitle: Act.idea.sectionsTitles[2], with: context)
         formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[2], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.mainObstacle, with: context)
         
         // themes
         formatAndAdd(questionTitle: Act.idea.sectionsTitles[3], with: context)
         formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[3], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.theme, with: context)
         
         // notes
         formatAndAdd(questionTitle: Act.idea.sectionsTitles[4], with: context)
         formatAndAdd(questionSubtitle: Act.idea.sectionSubTitles[4], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.notes, with: context)
     }
     
@@ -259,46 +290,55 @@ class PdfHelper {
                
         // overall description
         formatOverAllDescriptionAndAdd(in: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.actOneDescription, with: context)
         
         // old world
         formatAndAdd(questionTitle: Act.one.sectionsTitles[0], with: context)
         formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[0], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act1.oldWorldDescription, with: context)
               
         // inciting incident
         formatAndAdd(questionTitle: Act.one.sectionsTitles[1], with: context)
         formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[1], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act1.incitingIncident, with: context)
         
         // call to action
         formatAndAdd(questionTitle: Act.one.sectionsTitles[2], with: context)
         formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[2], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act1.callToAdventure, with: context)
         
         // meet your mentor
         formatAndAdd(questionTitle: Act.one.sectionsTitles[3], with: context)
         formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[3], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act1.meetingMentor, with: context)
         
         // themes introduced
         formatAndAdd(questionTitle: Act.one.sectionsTitles[4], with: context)
         formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[4], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act1.theme, with: context)
         
         // analysis paralysis
         formatAndAdd(questionTitle: Act.one.sectionsTitles[5], with: context)
         formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[5], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act1.refusal, with: context)
         
         // i must go
         formatAndAdd(questionTitle: Act.one.sectionsTitles[6], with: context)
         formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[6], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act1.reasonToAdventure, with: context)
         
         // we won't let you go
         formatAndAdd(questionTitle: Act.one.sectionsTitles[7], with: context)
         formatAndAdd(questionSubtitle: Act.one.sectionSubTitles[7], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act1.enemyAtTheGates, with: context)
     }
     
@@ -309,51 +349,61 @@ class PdfHelper {
                
         // overall description
         formatOverAllDescriptionAndAdd(in: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.actTwoDescription, with: context)
 
         // Strange new world
         formatAndAdd(questionTitle: Act.two.sectionsTitles[0], with: context)
         formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[0], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act2.newWorldDescription, with: context)
         
         // friends / foes / frenemies
         formatAndAdd(questionTitle: Act.two.sectionsTitles[1], with: context)
         formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[1], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act2.enemiesFriends, with: context)
         
         // test resolve
         formatAndAdd(questionTitle: Act.two.sectionsTitles[2], with: context)
         formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[2], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act2.obstacles, with: context)
         
         // sharpening the sword
         formatAndAdd(questionTitle: Act.two.sectionsTitles[3], with: context)
         formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[3], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act2.sharpeningTheSword, with: context)
        
         // burn the boats
         formatAndAdd(questionTitle: Act.two.sectionsTitles[4], with: context)
         formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[4], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act2.burnTheBoats, with: context)
         
         // supreme sacrifice
         formatAndAdd(questionTitle: Act.two.sectionsTitles[5], with: context)
         formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[5], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act2.theDeadlyEncounter, with: context)
         
         // celebrate good times
         formatAndAdd(questionTitle: Act.two.sectionsTitles[6], with: context)
         formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[6], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act2.celebrate, with: context)
         
         // empires strikes back
         formatAndAdd(questionTitle: Act.two.sectionsTitles[7], with: context)
         formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[7], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act2.badGuysStrikeBack, with: context)
         
         // darkest before the dawn
         formatAndAdd(questionTitle: Act.two.sectionsTitles[8], with: context)
         formatAndAdd(questionSubtitle: Act.two.sectionSubTitles[8], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act2.allIsLost, with: context)
       
     }
@@ -365,26 +415,31 @@ class PdfHelper {
         
         // overall description
         formatOverAllDescriptionAndAdd(in: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.actThreeDescription, with: context)
 
         // the ultimate answer
         formatAndAdd(questionTitle: Act.three.sectionsTitles[0], with: context)
         formatAndAdd(questionSubtitle: Act.three.sectionSubTitles[0], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act3.theUltimateAnswer, with: context)
         
         // reap rewards
         formatAndAdd(questionTitle: Act.three.sectionsTitles[1], with: context)
         formatAndAdd(questionSubtitle: Act.three.sectionSubTitles[1], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act3.rewards, with: context)
         
         // questions that need answering
         formatAndAdd(questionTitle: Act.three.sectionsTitles[2], with: context)
         formatAndAdd(questionSubtitle: Act.three.sectionSubTitles[2], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act3.untangleStory, with: context)
         
         // brand new world
         formatAndAdd(questionTitle: Act.three.sectionsTitles[3], with: context)
         formatAndAdd(questionSubtitle: Act.three.sectionSubTitles[3], with: context)
+        addNewLine(context: context)
         formatAndAdd(content: screenplay.act3.brandNewWorld, with: context)
     }
 
@@ -401,51 +456,61 @@ class PdfHelper {
             // intention
             formatAndAdd(questionTitle: CharacterSection.sectionTitles[0], with: context)
             formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[0], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: character.intention, with: context)
                    
             // why
             formatAndAdd(questionTitle: CharacterSection.sectionTitles[1], with: context)
             formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[1], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: character.whyIntention, with: context)
                               
             // what
             formatAndAdd(questionTitle: CharacterSection.sectionTitles[2], with: context)
             formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[2], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: character.whatToDo, with: context)
                               
             // how
             formatAndAdd(questionTitle: CharacterSection.sectionTitles[3], with: context)
             formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[3], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: character.howDoesCharacterDoIt, with: context)
                               
             // obstacles
             formatAndAdd(questionTitle: CharacterSection.sectionTitles[4], with: context)
             formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[4], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: character.obstacles, with: context)
                               
             // flaws
             formatAndAdd(questionTitle: CharacterSection.sectionTitles[5], with: context)
             formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[5], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: character.flaws, with: context)
                               
             // problem solved?
             formatAndAdd(questionTitle: CharacterSection.sectionTitles[6], with: context)
             formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[6], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: character.intentionFix, with: context)
                               
             // need
             formatAndAdd(questionTitle: CharacterSection.sectionTitles[7], with: context)
             formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[7], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: character.need, with: context)
             
             // changed
             formatAndAdd(questionTitle: CharacterSection.sectionTitles[8], with: context)
             formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[8], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: character.howCharacterChanged, with: context)
             
             // notes
             formatAndAdd(questionTitle: CharacterSection.sectionTitles[9], with: context)
             formatAndAdd(questionSubtitle: CharacterSection.sectionSubtitles[9], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: character.notes, with: context)
         }
     }
@@ -464,31 +529,37 @@ class PdfHelper {
             // scene description
             formatAndAdd(questionTitle: Scene.sceneTitles[0], with: context)
             formatAndAdd(questionSubtitle: Scene.sceneSubtitles[0], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: scene.sceneDescription, with: context)
             
             // characters
             formatAndAdd(questionTitle: Scene.sceneTitles[1], with: context)
             formatAndAdd(questionSubtitle: Scene.sceneSubtitles[1], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: scene.characters, with: context)
             
             // dialogue
             formatAndAdd(questionTitle: Scene.sceneTitles[2], with: context)
             formatAndAdd(questionSubtitle: Scene.sceneSubtitles[2], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: scene.dialogue, with: context)
             
             // action
             formatAndAdd(questionTitle: Scene.sceneTitles[3], with: context)
             formatAndAdd(questionSubtitle: Scene.sceneSubtitles[3], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: scene.action, with: context)
            
             // story progression
             formatAndAdd(questionTitle: Scene.sceneTitles[4], with: context)
             formatAndAdd(questionSubtitle: Scene.sceneSubtitles[4], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: scene.howPushesStory, with: context)
             
             // notes
             formatAndAdd(questionTitle: Scene.sceneTitles[5], with: context)
             formatAndAdd(questionSubtitle: Scene.sceneSubtitles[5], with: context)
+            addNewLine(context: context)
             formatAndAdd(content: scene.notes, with: context)
             
             sceneNumber += 1
