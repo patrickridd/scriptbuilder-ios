@@ -73,9 +73,9 @@ class PersonalInfoTableViewCell: UITableViewCell {
         
         var sceneCount = 0
         for screenplay in screenplays {
-            sceneCount += screenplay.act1.scenes.count
-            sceneCount += screenplay.act2.scenes.count
-            sceneCount += screenplay.act3.scenes.count
+            sceneCount += screenplay.act1ScenesArray.count
+            sceneCount += screenplay.act2ScenesArray.count
+            sceneCount += screenplay.act3ScenesArray.count
         }
         
         self.scenesCountLabel.text = "\(sceneCount)"

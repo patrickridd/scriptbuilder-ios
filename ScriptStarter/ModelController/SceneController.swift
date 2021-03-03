@@ -16,7 +16,7 @@ class SceneController {
 
         switch act {
         case .one:
-            for otherScene in screenplay.act1.scenes {
+            for otherScene in screenplay.act1ScenesArray {
                 if scene.uuid == otherScene.uuid { continue }
                 if otherScene.sceneNumber == scene.sceneNumber {
                     otherScene.sceneNumber = scene.sceneNumber+1
@@ -24,7 +24,7 @@ class SceneController {
                 }
             }
         case .two:
-            for otherScene in screenplay.act2.scenes {
+            for otherScene in screenplay.act2ScenesArray {
                 if scene.uuid == otherScene.uuid { continue }
                 if otherScene.sceneNumber == scene.sceneNumber {
                     otherScene.sceneNumber = scene.sceneNumber+1
@@ -32,7 +32,7 @@ class SceneController {
                 }
             }
         case .three:
-            for otherScene in screenplay.act3.scenes {
+            for otherScene in screenplay.act3ScenesArray {
                 if scene.uuid == otherScene.uuid { continue }
                 if otherScene.sceneNumber == scene.sceneNumber {
                     otherScene.sceneNumber = scene.sceneNumber+1

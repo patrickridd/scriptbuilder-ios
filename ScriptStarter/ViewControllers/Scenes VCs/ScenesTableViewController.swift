@@ -164,24 +164,24 @@ class ScenesTableViewController: UITableViewController {
             switch indexPath.section {
             case 0: // Act 1
                 if (indexPath != initialIndexPath) {
-                    swap(&screenplay.act1.scenes[indexPath.row],
-                         &screenplay.act1.scenes[initialIndexPath.row])
+                    swap(&screenplay.act1ScenesArray[indexPath.row],
+                         &screenplay.act1ScenesArray[initialIndexPath.row])
                     tableView.moveRow(at: initialIndexPath,
                                       to: indexPath)
                     Path.initialIndexPath = indexPath
                 }
             case 1: // Act 2
                 if (indexPath != initialIndexPath) {
-                    swap(&screenplay.act2.scenes[indexPath.row],
-                         &screenplay.act2.scenes[initialIndexPath.row])
+                    swap(&screenplay.act2ScenesArray[indexPath.row],
+                         &screenplay.act2ScenesArray[initialIndexPath.row])
                     tableView.moveRow(at: initialIndexPath,
                                       to: indexPath)
                     Path.initialIndexPath = indexPath
                 }
             case 2: // Act 3
                 if (indexPath != initialIndexPath) {
-                    swap(&screenplay.act3.scenes[indexPath.row],
-                         &screenplay.act3.scenes[initialIndexPath.row])
+                    swap(&screenplay.act3ScenesArray[indexPath.row],
+                         &screenplay.act3ScenesArray[initialIndexPath.row])
                     tableView.moveRow(at: initialIndexPath,
                                       to: indexPath)
                     Path.initialIndexPath = indexPath
@@ -407,22 +407,22 @@ class ScenesTableViewController: UITableViewController {
         // Return the amount scenes for each Act
         switch section {
         case 0: // Act 1
-            if screenplay.act1.scenes.count == 0 {
+            if screenplay.act1ScenesArray.count == 0 {
                 return 1
             } else {
-                return screenplay.act1.scenes.count
+                return screenplay.act1ScenesArray.count
             }
         case 1: // Act 2
-            if screenplay.act2.scenes.count == 0 {
+            if screenplay.act2ScenesArray.count == 0 {
                 return 1
             } else {
-                return screenplay.act2.scenes.count
+                return screenplay.act2ScenesArray.count
             }
         case 2: // Act 3
-            if screenplay.act3.scenes.count == 0 {
+            if screenplay.act3ScenesArray.count == 0 {
                 return 1
             } else {
-                return screenplay.act3.scenes.count
+                return screenplay.act3ScenesArray.count
             }
         default:
             return 0
@@ -441,7 +441,7 @@ class ScenesTableViewController: UITableViewController {
         // Find sceneCell or noSceneCell for each Act section
         switch indexPath.section {
         case 0: // Act 1
-            let scenesCount = screenplay.act1.scenes.count
+            let scenesCount = screenplay.act1ScenesArray.count
            
             // If no scenes in this act return the noSceneCell
             if scenesCount == 0 {
@@ -453,12 +453,12 @@ class ScenesTableViewController: UITableViewController {
             let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell",
                                                           for: indexPath) as? SceneTableViewCell
            // Find scene for this act and update sceneCell
-            let scene = screenplay.act1.scenes[indexPath.row]
+            let scene = screenplay.act1ScenesArray[indexPath.row]
             sceneCell?.update(with: scene)
             return sceneCell ?? UITableViewCell()
         
         case 1: // Act 2
-            let scenesCount = screenplay.act2.scenes.count
+            let scenesCount = screenplay.act2ScenesArray.count
             
             // If no scenes in this act return the noSceneCell
             if scenesCount == 0 {
@@ -471,11 +471,11 @@ class ScenesTableViewController: UITableViewController {
             let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell",
                                                           for: indexPath) as? SceneTableViewCell
             // Find scene for this act and update sceneCell
-            let scene = screenplay.act2.scenes[indexPath.row]
+            let scene = screenplay.act2ScenesArray[indexPath.row]
             sceneCell?.update(with: scene)
             return sceneCell ?? UITableViewCell()
         case 2: // Act 3
-            let scenesCount = screenplay.act3.scenes.count
+            let scenesCount = screenplay.act3ScenesArray.count
             
             // If no scenes in this act return the noSceneCell
             if scenesCount == 0 {
@@ -489,7 +489,7 @@ class ScenesTableViewController: UITableViewController {
             let sceneCell = tableView.dequeueReusableCell(withIdentifier: "sceneCell",
                                                           for: indexPath) as? SceneTableViewCell
             // Find scene for this act and update sceneCell
-            let scene = screenplay.act3.scenes[indexPath.row]
+            let scene = screenplay.act3ScenesArray[indexPath.row]
             sceneCell?.update(with: scene)
             return sceneCell ?? UITableViewCell()
         default:
@@ -545,32 +545,32 @@ class ScenesTableViewController: UITableViewController {
         var scene: Scene?
         switch indexPath.section {
         case 0:
-            guard let scenes = self.screenplay?.act1.scenes, scenes.count != 0 else {
+            guard let scenes = self.screenplay?.act1ScenesArray, scenes.count != 0 else {
                 self.pushToSceneDetailView(act: .one,
                                            scene: nil)
                 return
             }
-            scene = self.screenplay?.act1.scenes[indexPath.row]
+            scene = self.screenplay?.act1ScenesArray[indexPath.row]
             self.pushToSceneDetailView(act: .one,
                                        scene: scene)
         case 1:
-            guard let scenes = self.screenplay?.act2.scenes, scenes.count != 0 else {
+            guard let scenes = self.screenplay?.act2ScenesArray, scenes.count != 0 else {
                 self.pushToSceneDetailView(act: .two,
                                            scene: nil)
                 return
             }
             
-            scene = self.screenplay?.act2.scenes[indexPath.row]
+            scene = self.screenplay?.act2ScenesArray[indexPath.row]
             self.pushToSceneDetailView(act: .two,
                                        scene: scene)
         case 2:
-            guard let scenes = self.screenplay?.act3.scenes, scenes.count != 0 else {
+            guard let scenes = self.screenplay?.act3ScenesArray, scenes.count != 0 else {
                 self.pushToSceneDetailView(act: .three,
                                            scene: nil)
                 return
             }
             
-            scene = self.screenplay?.act3.scenes[indexPath.row]
+            scene = self.screenplay?.act3ScenesArray[indexPath.row]
             self.pushToSceneDetailView(act: .three,
                                        scene: scene)
         default:
@@ -597,31 +597,31 @@ class ScenesTableViewController: UITableViewController {
         
         switch indexPath.section {
         case 0: // Act 1
-            if let scene = self.screenplay?.act1.scenes[indexPath.row],
+            if let scene = self.screenplay?.act1ScenesArray[indexPath.row],
                 let screenplay = self.screenplay, editingStyle == .delete {
                FirebaseController.shared.delete(scene: scene,
                                                 withScreenplay: screenplay,
                                                 inAct: .one)
-                self.screenplay?.act1.scenes.remove(at: indexPath.row)
+                self.screenplay?.act1ScenesArray.remove(at: indexPath.row)
                 
                 self.reloadTableView()
             }
         case 1: // Act 2
-            if let scene = self.screenplay?.act2.scenes[indexPath.row],
+            if let scene = self.screenplay?.act2ScenesArray[indexPath.row],
                 let screenplay = self.screenplay, editingStyle == .delete {
                 FirebaseController.shared.delete(scene: scene,
                                                  withScreenplay: screenplay,
                                                  inAct: .two)
-                self.screenplay?.act2.scenes.remove(at: indexPath.row)
+                self.screenplay?.act2ScenesArray.remove(at: indexPath.row)
                 self.reloadTableView()
             }
         case 2: // Act 3
-            if let scene = self.screenplay?.act3.scenes[indexPath.row],
+            if let scene = self.screenplay?.act3ScenesArray[indexPath.row],
                 let screenplay = self.screenplay, editingStyle == .delete {
                   FirebaseController.shared.delete(scene: scene,
                                                    withScreenplay: screenplay,
                                                    inAct: .three)
-                self.screenplay?.act3.scenes.remove(at: indexPath.row)
+                self.screenplay?.act3ScenesArray.remove(at: indexPath.row)
                 self.reloadTableView()
             }
         default:
@@ -634,11 +634,11 @@ class ScenesTableViewController: UITableViewController {
         // We don't want cells with "Tap + to create a new Scene!" to be editable
         switch indexPath.section {
         case 0:
-            if screenplay?.act1.scenes.count == 0 { return false }
+            if screenplay?.act1ScenesArray.count == 0 { return false }
         case 1:
-            if screenplay?.act2.scenes.count == 0 { return false }
+            if screenplay?.act2ScenesArray.count == 0 { return false }
         case 2:
-            if screenplay?.act3.scenes.count == 0 { return false }
+            if screenplay?.act3ScenesArray.count == 0 { return false }
         default:
             break
         }
