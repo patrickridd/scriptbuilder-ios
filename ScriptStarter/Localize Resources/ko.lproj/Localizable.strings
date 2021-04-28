@@ -1,0 +1,491 @@
+/* (No Comment) */
+"-" = "-";
+
+/* (No Comment) */
+"+" = "+";
+
+/* (No Comment) */
+"$0.99 😎" = "$ 0.99 😎";
+
+/* (No Comment) */
+"A logline is a one to two sentence description of your screenplay. Think about how you pitch movies you want to see to your friends/family." = "로그 라인은 각본의 1 ~ 2 문장 설명입니다. 친구 / 가족에게보고 싶은 영화를 어떻게 투구할지 생각해보십시오.";
+
+/* (No Comment) */
+"About a ..." = "에 관하여 ...";
+
+/* (No Comment) */
+"Act 1" = "행위 1";
+
+/* (No Comment) */
+"Act 2" = "법 2";
+
+/* (No Comment) */
+"Act 3" = "법 3";
+
+/* (No Comment) */
+"Act Beats" = "법 집행";
+
+/* (No Comment) */
+"Action" = "동작";
+
+/* (No Comment) */
+"All is lost moment. What major fears are realized and what hopes are dashed?" = "모든 것이 잃어버린 순간입니다. 어떤 두려움이 현실화되고 희망이 파탄입니까?";
+
+/* (No Comment) */
+"Ally" = "동맹국";
+
+/* (No Comment) */
+"Analysis Paralysis" = "분석 마비";
+
+/* (No Comment) */
+"Answering these questions can help you develop the plot points in your acts and push the story forward. Although not required, they can help you escape writer's block." = "이 질문에 답하면 행동에서 줄거리를 개발하고 이야기를 앞당길 수 있습니다. 필수는 아니지만 작가의 블록을 벗어날 수 있습니다.";
+
+/* (No Comment) */
+"Antagonist" = "길항근";
+
+/* (No Comment) */
+"Any beliefs or premises you want to test in your story" = "이야기에서 테스트하고 싶은 모든 신념 또는 전제";
+
+/* (No Comment) */
+"Any other pertinent details about the character?" = "그 캐릭터에 관한 다른 모든 관련 세부 사항?";
+
+/* (No Comment) */
+"Are there any friends, enemies, and/or mysterious characters that your hero(s) meet?" = "영웅 (들)이 만나는 친구, 적, 신비한 캐릭터가 있습니까?";
+
+/* (No Comment) */
+"Are there any obstacles/enemies/friends trying to prevent the adventure from being started?" = "모험이 시작되는 것을 막으려는 장애물 / 적 / 친구가 있습니까?";
+
+/* (No Comment) */
+"Are there any unanswered questions that need to be untangled?" = "미해결 된 질문이 풀리지 않아도됩니까?";
+
+/* (No Comment) */
+"Are there events that prevent your hero(s) from turning back?" = "영웅이 되돌아 가지 못하게하는 사건이 있습니까?";
+
+/* (No Comment) */
+"Are there premises, beliefs, or ideas that can be tested in the adventure?" = "모험에서 테스트 할 수있는 전제, 신념 또는 아이디어가 있습니까?";
+
+/* (No Comment) */
+"Are you sure you want to delete %@?" = "%@ 을 (를) 삭제 하시겠습니까?";
+
+/* (No Comment) */
+"Are you sure you want to delete your account?" = "계정을 삭제 하시겠습니까?";
+
+/* (No Comment) */
+"Basic Idea (Log Line)" = "기본 아이디어 (로그 라인)";
+
+/* (No Comment) */
+"Basic Info" = "기본 정보";
+
+/* (No Comment) */
+"Because of the adventure, how is the world and the characters in it different from the start of the story?" = "모험 때문에 세상과 인물이 이야기의 시작과 어떻게 다른가요?";
+
+/* (No Comment) */
+"Brand New World" = "새로운 세계";
+
+/* (No Comment) */
+"Build your Screenplay outline" = "각본 개요 만들기";
+
+/* (No Comment) */
+"Burn The Boats" = "보트 타기";
+
+/* (No Comment) */
+"Call To Action" = "행동을 요구하다";
+
+/* (No Comment) */
+"Cancel" = "취소";
+
+/* (No Comment) */
+"Celebrate Good Times" = "축하합니다.";
+
+/* (No Comment) */
+"Central goal your hero(s) are trying to accomplish" = "영웅 (들)이 달성하려고하는 중앙 목표";
+
+/* (No Comment) */
+"Change Password - if signed up via email & password" = "비밀번호 변경 - 이메일 및 비밀번호를 통해 가입 한 경우";
+
+/* (No Comment) */
+"Changed" = "변경됨";
+
+/* MARK: Character Builder Strings */
+"Character" = "캐릭터";
+
+/* (No Comment) */
+"Character Arc" = "문자 호";
+
+/* (No Comment) */
+"Character Builder disabled 😥" = "문자 작성기 사용 중지됨 😥";
+
+/* (No Comment) */
+"Characters" = "문자";
+
+/* (No Comment) */
+"Check %@ inbox for a link to create your new password." = "%@ inbox에 링크가 있는지 확인하여 새 비밀번호를 만드십시오.";
+
+/* (No Comment) */
+"Check out Script Builder" = "스크립트 빌더 확인";
+
+/* (No Comment) */
+"Complete both fields" = "두 필드를 모두 완료하십시오.";
+
+/* (No Comment) */
+"Confrontation" = "직면";
+
+/* (No Comment) */
+"Custom" = "관습";
+
+/* (No Comment) */
+"Darkest Before the Dawn" = "새벽이 오기 전에 가장 어둡다.";
+
+/* (No Comment) */
+"Delete" = "지우다";
+
+/* (No Comment) */
+"Delete Account" = "계정 삭제";
+
+/* (No Comment) */
+"Delete Screenplay" = "각본 삭제";
+
+/* (No Comment) */
+"Details you don't want to forget" = "잊지 않으려는 세부 정보";
+
+/* (No Comment) */
+"Dialogue" = "대화";
+
+/* (No Comment) */
+"Didn't work!" = "일하지 않았어!";
+
+/* (No Comment) */
+"Discard" = "포기";
+
+/* (No Comment) */
+"Does acheiving their intention solve their problem?" = "그들의 의도를 파악하면 문제를 해결할 수 있습니까?";
+
+/* (No Comment) */
+"Does your hero(s) have doubts about the adventure ahead?" = "당신의 영웅 (들)은 모험에 대한 의구심을 가지고 있습니까?";
+
+/* (No Comment) */
+"Does your hero(s) meet a mentor to help them through their journey" = "당신의 영웅 (들)이 그들의 여행을 통해 그들을 돕기 위해 멘토를 만납니 까?";
+
+/* (No Comment) */
+"Does your hero(s) risk their life for the cause?" = "영웅이 원인으로 인해 목숨을 잃을까요?";
+
+/* MARK: Button Strings */
+"Done" = "끝난";
+
+/* (No Comment) */
+"email" = "이메일";
+
+/* (No Comment) */
+"Empire Strikes Back" = "제국은 뒤로 물러납니다.";
+
+/* (No Comment) */
+"Enemy" = "적";
+
+/* (No Comment) */
+"Error" = "오류";
+
+/* MARK: Loading Indicator */
+"failed" = "실패한";
+
+/* (No Comment) */
+"Flaws" = "하자";
+
+/* MARK: UIAlertController Strings */
+"Forgot password?" = "비밀번호를 잊으 셨나요?";
+
+/* (No Comment) */
+"Friend" = "친구";
+
+/* (No Comment) */
+"Friends / Foes / Frenemies" = "친구 / Foes / Frenemies";
+
+/* (No Comment) */
+"Home" = "집";
+
+/* (No Comment) */
+"How" = "방법";
+
+/* (No Comment) */
+"How do the antagonists defeat your hero(s) temporarily?" = "길항근은 어떻게 당신의 영웅을 임시적으로 격파합니까?";
+
+/* (No Comment) */
+"How does the scene move the story forward?" = "장면은 어떻게 스토리를 앞으로 나아갈 것입니까?";
+
+/* (No Comment) */
+"How does your character get what they want?" = "당신의 캐릭터는 그들이 원하는 것을 어떻게 얻습니까?";
+
+/* (No Comment) */
+"How is the character changed through the story?" = "캐릭터는 스토리를 통해 어떻게 바뀌 었습니까?";
+
+/* (No Comment) */
+"I Must Go" = "나는 가야 해.";
+
+/* (No Comment) */
+"Idea" = "생각";
+
+/* (No Comment) */
+"Inciting Incident" = "인시던트 사건";
+
+/* (No Comment) */
+"Intention" = "의향";
+
+/* (No Comment) */
+"Intention - What does your character want?" = "의도 - 당신의 캐릭터는 무엇을 원합니까?";
+
+/* (No Comment) */
+"Is there something the character \"needs\" to do but is avoiding that would fix their problem?" = "캐릭터가 \"필요\"하고는 있지만 문제를 피할 수있는 것이 있습니까?";
+
+/* (No Comment) */
+"It worked!" = "그것은 효과가있다!";
+
+/* (No Comment) */
+"Jester" = "광대";
+
+/* (No Comment) */
+"loading" = "로딩";
+
+/* (No Comment) */
+"Log line" = "로그 라인";
+
+/* (No Comment) */
+"Lover" = "연인";
+
+/* (No Comment) */
+"Main obstacle preventing your hero(s) from getting what they want" = "영웅이 원하는 것을 얻지 못하게하는 주된 장애물";
+
+/* (No Comment) */
+"Meet Your Mentor" = "멘토와 만나십시오.";
+
+/* (No Comment) */
+"Mentor" = "멘토르";
+
+/* (No Comment) */
+"Mysterious" = "신비한";
+
+/* (No Comment) */
+"Need" = "필요한 것";
+
+/* (No Comment) */
+"New Character" = "새로운 캐릭터";
+
+/* MARK: Scene Builder Strings */
+"New Scene" = "새로운 장면";
+
+/* (No Comment) */
+"Nope" = "아니";
+
+/* (No Comment) */
+"Notes" = "노트";
+
+/* (No Comment) */
+"Obstacle" = "장애물";
+
+/* (No Comment) */
+"Obstacles" = "장애물";
+
+/* (No Comment) */
+"OK" = "승인";
+
+/* (No Comment) */
+"Old World" = "오래된 세계";
+
+/* (No Comment) */
+"One to two sentence description of your movie" = "영화에 대한 1-2 문장의 설명";
+
+/* (No Comment) */
+"Overall description" = "전반적인 설명";
+
+/* (No Comment) */
+"Overall idea of what happens and the feeling the scene brings" = "무슨 일이 일어나고 장면이 가져 오는 느낌에 대한 전반적인 생각";
+
+/* (No Comment) */
+"Please complete all fields" = "모든 입력란을 작성하십시오.";
+
+/* (No Comment) */
+"Please enter your email" = "이메일을 입력하십시오.";
+
+/* (No Comment) */
+"Please enter your email and tap \"OK\" to reset your password" = "이메일을 입력하고 \"확인\"을 탭하여 비밀번호를 재설정하십시오.";
+
+/* (No Comment) */
+"Problem Solved?" = "문제 해결됨?";
+
+/* (No Comment) */
+"Protagonist" = "주역";
+
+/* (No Comment) */
+"Questions That Need Answering" = "응답이 필요한 질문";
+
+/* (No Comment) */
+"Reap Rewards" = "수확 보상";
+
+/* (No Comment) */
+"Remove Banner & Interstitial Ads" = "배너 및 삽입 광고 제거";
+
+/* (No Comment) */
+"Resolution" = "해결";
+
+/* (No Comment) */
+"Restore" = "복원";
+
+/* (No Comment) */
+"Save" = "구하다";
+
+/* (No Comment) */
+"saving" = "절약";
+
+/* (No Comment) */
+"Scene Builder disabled 😥" = "장면 작성기 사용 중지됨 😥";
+
+/* (No Comment) */
+"Scene Description" = "장면 설명";
+
+/* MARK: Login/Signup Strings */
+"Script Builder" = "스크립트 빌더";
+
+/* MARK: Setting Strings */
+"Settings" = "설정";
+
+/* (No Comment) */
+"Setup" = "설정";
+
+/* (No Comment) */
+"Share with family & friends" = "가족 및 친구와 공유";
+
+"Share Script Builder" = "스크립트 빌더 공유";
+
+/* (No Comment) */
+"Sharpening the Sword" = "검을 예리하게";
+
+/* (No Comment) */
+"Story Progression" = "이야기 진행";
+
+/* (No Comment) */
+"Strange New World" = "이상한 신세계";
+
+/* (No Comment) */
+"success" = "성공";
+
+/* (No Comment) */
+"Supreme Sacrifice" = "최극 희생";
+
+/* (No Comment) */
+"Tap + to create a new Scene!" = "+를 탭하여 새 장면을 만듭니다!";
+
+/* (No Comment) */
+"Tap + to create your first character" = "+을 탭하여 첫 번째 캐릭터를 만듭니다.";
+
+/* (No Comment) */
+"Test Resolve" = "테스트 해결";
+
+/* (No Comment) */
+"The Character Builder feature requires a one time purchase." = "문자 작성 도구 기능을 사용하려면 한 번만 구입하면됩니다.";
+
+/* (No Comment) */
+"The conflict" = "갈등";
+
+/* (No Comment) */
+"The resolution" = "해상도";
+
+/* (No Comment) */
+"The Scene Builder feature requires a one time purchase." = "씬 빌더 기능을 사용하려면 한 번만 구입해야합니다.";
+
+/* (No Comment) */
+"The setup" = "설정";
+
+/* (No Comment) */
+"The Ultimate Answer" = "궁극적 인 대답";
+
+/* (No Comment) */
+"Themes" = "테마";
+
+/* (No Comment) */
+"Themes Introduced" = "도입 된 테마";
+
+/* (No Comment) */
+"this screenplay" = "이 시나리오";
+
+/* (No Comment) */
+"This will remove all information in database" = "그러면 데이터베이스의 모든 정보가 제거됩니다.";
+
+/* (No Comment) */
+"Try by watching Ad 🎥" = "광고 watching보기";
+
+/* (No Comment) */
+"Uh oh" = "어 오";
+
+/* (No Comment) */
+"Unable to delete account, please check your network settings and try again." = "계정을 삭제할 수 없습니다. 네트워크 설정을 확인하고 다시 시도하십시오.";
+
+/* (No Comment) */
+"Unnamed" = "이름없는";
+
+/* MARK: Outline Builder Strings */
+"Untitled" = "제목 없음";
+
+/* (No Comment) */
+"We Won't Let You Go" = "우리는 너를 놓아주지 않을 것이다.";
+
+/* (No Comment) */
+"What" = "뭐";
+
+/* (No Comment) */
+"What are your characters doing?" = "당신의 캐릭터는 무엇을하고 있습니까?";
+
+/* (No Comment) */
+"What convinces your hero(s) to make the decision to go on the adventure?" = "당신의 영웅 (들)이 모험을 떠나기로 결심하게하는 계기는 무엇입니까?";
+
+/* (No Comment) */
+"What do the characters want and what are they feeling?" = "캐릭터는 무엇을 원하고 느끼는가?";
+
+/* (No Comment) */
+"What does your character need to do to get what they want?" = "당신의 캐릭터는 그들이 원하는 것을 얻기 위해 무엇을해야합니까?";
+
+/* (No Comment) */
+"What event, person, or thing creates disharmony in the old world?" = "어떤 사건, 사람 또는 물건이 구시대에 불일치를 창출합니까?";
+
+/* (No Comment) */
+"What flaws or fears does your character have?" = "당신의 성격에는 어떤 결함이나 두려움이 있습니까?";
+
+/* (No Comment) */
+"What is life like before the story begins?" = "이야기가 시작되기 전에 삶은 어떻습니까?";
+
+/* (No Comment) */
+"What is your hero(s) ultimate answer(s) in making things right?" = "일을 올바르게하는 데있어 영웅 (들)의 궁극적 인 대답은 무엇입니까?";
+
+/* (No Comment) */
+"What must the hero or group do to bring harmony?" = "영웅이나 단체는 조화를 이루기 위해 무엇을해야합니까?";
+
+/* (No Comment) */
+"What obstacles are in your characters's way?" = "캐릭터의 길은 어떤 장애물입니까?";
+
+/* (No Comment) */
+"What obstacles/opponents test your hero's resolve to attain their goal?" = "영웅이 목표를 달성하기위한 결심을 테스트하기 위해 어떤 장애물 / 반대자가 있습니까?";
+
+/* (No Comment) */
+"What skills/knowledge does your hero(s) acquire?" = "영웅 (들)은 어떤 기술 / 지식을 습득합니까?";
+
+/* (No Comment) */
+"What snappy dialogue and/or information is said?" = "어떤 탁월한 대화 및 / 또는 정보가 무엇입니까?";
+
+/* (No Comment) */
+"What temporary wins and successes does your hero(s) experience?" = "영웅 (들)은 어떤 일시적인 승리와 성공을 경험합니까?";
+
+/* (No Comment) */
+"What type of reward does your hero(s) gain through the journey (wisdom, wealth, love)?" = "주인공은 여행 (지혜, 부, 사랑)을 통해 어떤 보상을 얻습니까?";
+
+/* (No Comment) */
+"Why" = "왜";
+
+/* (No Comment) */
+"Why does your character want this?" = "왜 당신의 성격이 이것을 원하니?";
+
+/* (No Comment) */
+"Would you like to save your work?" = "당신의 일을 저장 하시겠습니까?";
+
+/* (No Comment) */
+"Your account has been deleted" = "귀하의 계정이 삭제되었습니다.";
+
+/* (No Comment) */
+"Your hero(s) started the adventure, is the new world different, dangerous, and/or difficult?" = "당신의 영웅이 모험을 시작했고, 새로운 세계가 다른, 위험하고, 그리고 / 또는 힘들었습니까?";
+

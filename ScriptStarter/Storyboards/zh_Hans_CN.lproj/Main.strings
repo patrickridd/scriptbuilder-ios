@@ -1,0 +1,132 @@
+/* Class = "UIButton"; normalTitle = "already have account"; ObjectID = "0es-Xi-5cd"; */
+"0es-Xi-5cd.normalTitle" = "已经有帐户";
+
+/* Class = "UIButton"; normalTitle = "Delete Account"; ObjectID = "1vU-dU-rgj"; */
+"1vU-dU-rgj.normalTitle" = "删除帐户";
+
+/* Class = "UILabel"; text = "Scenes"; ObjectID = "3bE-HG-OYl"; */
+"3bE-HG-OYl.text" = "场景";
+
+/* Class = "UILabel"; text = "Share Script Builder"; ObjectID = "3d6-Mh-K4t"; */
+"3d6-Mh-K4t.text" = "共享脚本生成器";
+
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "3U6-uP-T4P"; */
+"3U6-uP-T4P.placeholder" = "密码";
+
+/* Class = "UILabel"; text = "Characters"; ObjectID = "3Yv-We-PHn"; */
+"3Yv-We-PHn.text" = "人物";
+
+/* Class = "UITextField"; placeholder = "Untitled"; ObjectID = "4MR-wb-F71"; */
+"4MR-wb-F71.placeholder" = "无标题";
+
+/* Class = "UILabel"; text = "If already purchased, tap \"Restore\""; ObjectID = "5Jf-73-Rqh"; */
+"5Jf-73-Rqh.text" = "如果已购买，请点按“恢复”";
+
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "13Q-eR-o9O"; */
+"13Q-eR-o9O.placeholder" = "密码";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "22b-nd-Oat"; */
+"22b-nd-Oat.title" = "项目";
+
+/* Class = "UIBarButtonItem"; title = "Log Out"; ObjectID = "BdL-zr-FoL"; */
+"BdL-zr-FoL.title" = "登出";
+
+/* Class = "UIButton"; normalTitle = "→"; ObjectID = "bN9-GH-ear"; */
+"bN9-GH-ear.normalTitle" = "→";
+
+/* Class = "UIButton"; normalTitle = "forgot password"; ObjectID = "cUa-kL-YaK"; */
+"cUa-kL-YaK.normalTitle" = "忘记密码";
+
+/* Class = "UITextField"; placeholder = "new password"; ObjectID = "CVX-9T-1Be"; */
+"CVX-9T-1Be.placeholder" = "新密码";
+
+/* Class = "UILabel"; text = "Screenplays"; ObjectID = "EpR-aK-F1Y"; */
+"EpR-aK-F1Y.text" = "剧本";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "flj-yl-qjQ"; */
+"flj-yl-qjQ.normalTitle" = "保存";
+
+/* Class = "UILabel"; text = "From your screen to the silver screen"; ObjectID = "Fsi-jX-bWD"; */
+"Fsi-jX-bWD.text" = "从屏幕到银幕";
+
+/* Class = "UILabel"; text = "From your screen to the silver screen"; ObjectID = "Fyo-d4-jYt"; */
+"Fyo-d4-jYt.text" = "从屏幕到银幕";
+
+/* Class = "UIButton"; normalTitle = "sign-up"; ObjectID = "GAk-aX-w1R"; */
+"GAk-aX-w1R.normalTitle" = "注册";
+
+/* Class = "UITextField"; placeholder = "email"; ObjectID = "GIJ-PI-6y0"; */
+"GIJ-PI-6y0.placeholder" = "电子邮件";
+
+/* Class = "UILabel"; text = "Untitled"; ObjectID = "ho6-1A-xJQ"; */
+"ho6-1A-xJQ.text" = "无标题";
+
+/* Class = "UILabel"; text = "or"; ObjectID = "hpR-ym-C8z"; */
+"hpR-ym-C8z.text" = "要么";
+
+/* Class = "UILabel"; text = "Script Builder"; ObjectID = "jCA-v7-B4N"; */
+"jCA-v7-B4N.text" = "脚本生成器";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "JdU-iq-7Rv"; */
+"JdU-iq-7Rv.title" = "项目";
+
+/* Class = "UILabel"; text = "by"; ObjectID = "NOP-aH-Q5V"; */
+"NOP-aH-Q5V.text" = "通过";
+
+/* Class = "UITextField"; placeholder = "email"; ObjectID = "NXQ-VX-hUz"; */
+"NXQ-VX-hUz.placeholder" = "电子邮件";
+
+/* Class = "UILabel"; text = "Login"; ObjectID = "OB7-Zb-xeT"; */
+"OB7-Zb-xeT.text" = "登录";
+
+/* Class = "UITextField"; placeholder = "first name"; ObjectID = "odC-YR-ugF"; */
+"odC-YR-ugF.placeholder" = "名字";
+
+/* Class = "UILabel"; text = "Sign up"; ObjectID = "OZi-bc-Ajs"; */
+"OZi-bc-Ajs.text" = "注册";
+
+/* Class = "UIButton"; normalTitle = "Change"; ObjectID = "Qh4-OM-un7"; */
+"Qh4-OM-un7.normalTitle" = "更改";
+
+/* Class = "UIButton"; normalTitle = "sign up"; ObjectID = "Rhn-Gv-AT6"; */
+"Rhn-Gv-AT6.normalTitle" = "注册";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "RlF-25-Daw"; */
+"RlF-25-Daw.normalTitle" = "完成";
+
+/* Class = "UITabBarItem"; title = "scenes"; ObjectID = "rLt-tS-b6P"; */
+"rLt-tS-b6P.title" = "场景";
+
+/* Class = "UILabel"; text = "Login"; ObjectID = "RWi-Lf-leN"; */
+"RWi-Lf-leN.text" = "登录";
+
+/* Class = "UINavigationItem"; title = "Scripts"; ObjectID = "Tuv-JO-Xdu"; */
+"Tuv-JO-Xdu.title" = "脚本";
+
+/* Class = "UILabel"; text = "or"; ObjectID = "txz-jU-gZ3"; */
+"txz-jU-gZ3.text" = "要么";
+
+/* Class = "UILabel"; text = "by"; ObjectID = "Vag-Lh-c30"; */
+"Vag-Lh-c30.text" = "通过";
+
+/* Class = "UILabel"; text = "Sign up"; ObjectID = "w4F-WL-orr"; */
+"w4F-WL-orr.text" = "注册";
+
+/* Class = "UITextField"; placeholder = "last name"; ObjectID = "WQ1-YE-raf"; */
+"WQ1-YE-raf.placeholder" = "姓";
+
+/* Class = "UIButton"; normalTitle = "login"; ObjectID = "X5g-g7-BpV"; */
+"X5g-g7-BpV.normalTitle" = "登录";
+
+/* Class = "UILabel"; text = "Screenplay Planner"; ObjectID = "yBv-n3-fZh"; */
+"yBv-n3-fZh.text" = "编剧策划人";
+
+/* Class = "UILabel"; text = "+"; ObjectID = "YTy-Aw-S9O"; */
+"YTy-Aw-S9O.text" = "+";
+
+/* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "YWe-Ul-gnu"; */
+"YWe-Ul-gnu.normalTitle" = "恢复";
+
+/* Class = "UIButton"; normalTitle = "$1.99"; ObjectID = "zPB-uI-KGa"; */
+"zPB-uI-KGa.normalTitle" = "$ 1.99";
+

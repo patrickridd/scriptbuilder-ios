@@ -1,0 +1,491 @@
+/* (No Comment) */
+"-" = "-";
+
+/* (No Comment) */
+"+" = "+";
+
+/* (No Comment) */
+"$0.99 😎" = "$ 0.99 😎";
+
+/* (No Comment) */
+"A logline is a one to two sentence description of your screenplay. Think about how you pitch movies you want to see to your friends/family." = "Un logline es una descripción de una o dos frases de su guión. Piensa en cómo lanzar películas que quieres ver a tus amigos / familiares.";
+
+/* (No Comment) */
+"About a ..." = "Acerca de una ...";
+
+/* (No Comment) */
+"Act 1" = "acto 1";
+
+/* (No Comment) */
+"Act 2" = "Acto 2";
+
+/* (No Comment) */
+"Act 3" = "Acto 3";
+
+/* (No Comment) */
+"Act Beats" = "Ley Beats";
+
+/* (No Comment) */
+"Action" = "Acción";
+
+/* (No Comment) */
+"All is lost moment. What major fears are realized and what hopes are dashed?" = "Todo es momento perdido. ¿Qué grandes temores se realizan y qué esperanzas se desvanecen?";
+
+/* (No Comment) */
+"Ally" = "Aliado";
+
+/* (No Comment) */
+"Analysis Paralysis" = "Análisis parálisis";
+
+/* (No Comment) */
+"Answering these questions can help you develop the plot points in your acts and push the story forward. Although not required, they can help you escape writer's block." = "Responder a estas preguntas puede ayudarlo a desarrollar los puntos de la trama en sus actos y hacer avanzar la historia. Aunque no es obligatorio, pueden ayudarte a escapar del bloqueo del escritor.";
+
+/* (No Comment) */
+"Antagonist" = "Antagonista";
+
+/* (No Comment) */
+"Any beliefs or premises you want to test in your story" = "Cualquier creencia o premisa que quieras probar en tu historia.";
+
+/* (No Comment) */
+"Any other pertinent details about the character?" = "¿Algún otro detalle pertinente sobre el personaje?";
+
+/* (No Comment) */
+"Are there any friends, enemies, and/or mysterious characters that your hero(s) meet?" = "¿Hay amigos, enemigos y / o personajes misteriosos que tus héroes se encuentran?";
+
+/* (No Comment) */
+"Are there any obstacles/enemies/friends trying to prevent the adventure from being started?" = "¿Hay algún obstáculo / enemigo / amigo que intente evitar que la aventura comience?";
+
+/* (No Comment) */
+"Are there any unanswered questions that need to be untangled?" = "¿Hay alguna pregunta sin respuesta que deba ser desenredada?";
+
+/* (No Comment) */
+"Are there events that prevent your hero(s) from turning back?" = "¿Hay eventos que eviten que tu (s) héroe (s) retroceda?";
+
+/* (No Comment) */
+"Are there premises, beliefs, or ideas that can be tested in the adventure?" = "¿Hay premisas, creencias o ideas que puedan ser probadas en la aventura?";
+
+/* (No Comment) */
+"Are you sure you want to delete %@?" = "¿Estás seguro de que quieres eliminar %@ ?";
+
+/* (No Comment) */
+"Are you sure you want to delete your account?" = "¿Estás seguro de que quieres eliminar tu cuenta?";
+
+/* (No Comment) */
+"Basic Idea (Log Line)" = "Idea Básica (Log Line)";
+
+/* (No Comment) */
+"Basic Info" = "Información básica";
+
+/* (No Comment) */
+"Because of the adventure, how is the world and the characters in it different from the start of the story?" = "Debido a la aventura, ¿en qué se diferencian el mundo y los personajes del principio de la historia?";
+
+/* (No Comment) */
+"Brand New World" = "Mundo totalmente nuevo";
+
+/* (No Comment) */
+"Build your Screenplay outline" = "Construye tu esquema de guión";
+
+/* (No Comment) */
+"Burn The Boats" = "Quemar los barcos";
+
+/* (No Comment) */
+"Call To Action" = "Llamada a la acción";
+
+/* (No Comment) */
+"Cancel" = "Cancelar";
+
+/* (No Comment) */
+"Celebrate Good Times" = "Celebrar buenos tiempos";
+
+/* (No Comment) */
+"Central goal your hero(s) are trying to accomplish" = "Objetivo central que tu héroe (s) está tratando de lograr";
+
+/* (No Comment) */
+"Change Password - if signed up via email & password" = "Cambiar contraseña - si se registró por correo electrónico y contraseña";
+
+/* (No Comment) */
+"Changed" = "Cambiado";
+
+/* MARK: Character Builder Strings */
+"Character" = "Personaje";
+
+/* (No Comment) */
+"Character Arc" = "Arco de personajes";
+
+/* (No Comment) */
+"Character Builder disabled 😥" = "Generador de caracteres desactivado 😥";
+
+/* (No Comment) */
+"Characters" = "Caracteres";
+
+/* (No Comment) */
+"Check %@ inbox for a link to create your new password." = "Verifica en %@ bandeja de entrada un enlace para crear tu nueva contraseña.";
+
+/* (No Comment) */
+"Check out Script Builder" = "Echa un vistazo a Script Builder";
+
+/* (No Comment) */
+"Complete both fields" = "Completar ambos campos";
+
+/* (No Comment) */
+"Confrontation" = "Confrontación";
+
+/* (No Comment) */
+"Custom" = "Personalizado";
+
+/* (No Comment) */
+"Darkest Before the Dawn" = "Más oscuro antes del amanecer";
+
+/* (No Comment) */
+"Delete" = "Borrar";
+
+/* (No Comment) */
+"Delete Account" = "Borrar cuenta";
+
+/* (No Comment) */
+"Delete Screenplay" = "Eliminar guión";
+
+/* (No Comment) */
+"Details you don't want to forget" = "Detalles que no quieres olvidar.";
+
+/* (No Comment) */
+"Dialogue" = "Diálogo";
+
+/* (No Comment) */
+"Didn't work!" = "¡No funcionó!";
+
+/* (No Comment) */
+"Discard" = "Descarte";
+
+/* (No Comment) */
+"Does acheiving their intention solve their problem?" = "¿Acaso su intención resuelve su problema?";
+
+/* (No Comment) */
+"Does your hero(s) have doubts about the adventure ahead?" = "¿Tu (s) héroe (s) tiene dudas sobre la aventura por delante?";
+
+/* (No Comment) */
+"Does your hero(s) meet a mentor to help them through their journey" = "¿Sus héroes (s) se encuentran con un mentor para ayudarlos en su viaje?";
+
+/* (No Comment) */
+"Does your hero(s) risk their life for the cause?" = "¿Tu héroe (s) arriesga su vida por la causa?";
+
+/* MARK: Button Strings */
+"Done" = "Hecho";
+
+/* (No Comment) */
+"email" = "correo electrónico";
+
+/* (No Comment) */
+"Empire Strikes Back" = "El imperio contraataca";
+
+/* (No Comment) */
+"Enemy" = "Enemigo";
+
+/* (No Comment) */
+"Error" = "Error";
+
+/* MARK: Loading Indicator */
+"failed" = "ha fallado";
+
+/* (No Comment) */
+"Flaws" = "Defectos";
+
+/* MARK: UIAlertController Strings */
+"Forgot password?" = "¿Se te olvidó tu contraseña?";
+
+/* (No Comment) */
+"Friend" = "Amigo";
+
+/* (No Comment) */
+"Friends / Foes / Frenemies" = "Amigos / Enemigos / Frenemies";
+
+/* (No Comment) */
+"Home" = "Casa";
+
+/* (No Comment) */
+"How" = "Cómo";
+
+/* (No Comment) */
+"How do the antagonists defeat your hero(s) temporarily?" = "¿Cómo los antagonistas derrotan a tu héroe (s) temporalmente?";
+
+/* (No Comment) */
+"How does the scene move the story forward?" = "¿Cómo avanza la escena la historia?";
+
+/* (No Comment) */
+"How does your character get what they want?" = "¿Cómo consigue tu personaje lo que quiere?";
+
+/* (No Comment) */
+"How is the character changed through the story?" = "¿Cómo se cambia el personaje a través de la historia?";
+
+/* (No Comment) */
+"I Must Go" = "Tengo que irme";
+
+/* (No Comment) */
+"Idea" = "Idea";
+
+/* (No Comment) */
+"Inciting Incident" = "Incidente incitar";
+
+/* (No Comment) */
+"Intention" = "Intención";
+
+/* (No Comment) */
+"Intention - What does your character want?" = "Intención - ¿Qué quiere tu personaje?";
+
+/* (No Comment) */
+"Is there something the character \"needs\" to do but is avoiding that would fix their problem?" = "¿Hay algo que el personaje \"necesite\" hacer pero es evitar que eso solucione su problema?";
+
+/* (No Comment) */
+"It worked!" = "¡Funcionó!";
+
+/* (No Comment) */
+"Jester" = "Bufón";
+
+/* (No Comment) */
+"loading" = "cargando";
+
+/* (No Comment) */
+"Log line" = "Línea de registro";
+
+/* (No Comment) */
+"Lover" = "Amante";
+
+/* (No Comment) */
+"Main obstacle preventing your hero(s) from getting what they want" = "Obstáculo principal que impide que tu héroe (s) obtenga lo que quiere";
+
+/* (No Comment) */
+"Meet Your Mentor" = "Conoce a tu mentor";
+
+/* (No Comment) */
+"Mentor" = "Mentor";
+
+/* (No Comment) */
+"Mysterious" = "Misterioso";
+
+/* (No Comment) */
+"Need" = "Necesitar";
+
+/* (No Comment) */
+"New Character" = "Nuevo personaje";
+
+/* MARK: Scene Builder Strings */
+"New Scene" = "Nueva escena";
+
+/* (No Comment) */
+"Nope" = "No";
+
+/* (No Comment) */
+"Notes" = "Notas";
+
+/* (No Comment) */
+"Obstacle" = "Obstáculo";
+
+/* (No Comment) */
+"Obstacles" = "Obstáculos";
+
+/* (No Comment) */
+"OK" = "DE ACUERDO";
+
+/* (No Comment) */
+"Old World" = "Viejo Mundo";
+
+/* (No Comment) */
+"One to two sentence description of your movie" = "Descripción de una o dos frases de tu película.";
+
+/* (No Comment) */
+"Overall description" = "Descripción general";
+
+/* (No Comment) */
+"Overall idea of what happens and the feeling the scene brings" = "Idea general de lo que sucede y del sentimiento que trae la escena.";
+
+/* (No Comment) */
+"Please complete all fields" = "Porfavor complete todos los campos";
+
+/* (No Comment) */
+"Please enter your email" = "Por favor introduzca su correo electrónico";
+
+/* (No Comment) */
+"Please enter your email and tap \"OK\" to reset your password" = "Ingrese su correo electrónico y pulse \"OK\" para restablecer su contraseña";
+
+/* (No Comment) */
+"Problem Solved?" = "¿Problema resuelto?";
+
+/* (No Comment) */
+"Protagonist" = "Protagonista";
+
+/* (No Comment) */
+"Questions That Need Answering" = "Preguntas que necesitan respuesta";
+
+/* (No Comment) */
+"Reap Rewards" = "Cosechar recompensas";
+
+/* (No Comment) */
+"Remove Banner & Interstitial Ads" = "Eliminar banners y anuncios intersticiales";
+
+/* (No Comment) */
+"Resolution" = "Resolución";
+
+/* (No Comment) */
+"Restore" = "Restaurar";
+
+/* (No Comment) */
+"Save" = "Salvar";
+
+/* (No Comment) */
+"saving" = "ahorro";
+
+/* (No Comment) */
+"Scene Builder disabled 😥" = "Constructor de escena desactivado 😥";
+
+/* (No Comment) */
+"Scene Description" = "Descripción de la escena";
+
+/* MARK: Login/Signup Strings */
+"Script Builder" = "Generador de scripts";
+
+/* MARK: Setting Strings */
+"Settings" = "Ajustes";
+
+/* (No Comment) */
+"Setup" = "Preparar";
+
+/* (No Comment) */
+"Share with family & friends" = "Compartir con la familia y amigos";
+
+"Share Script Builder" = "Compartir Script Builder";
+
+/* (No Comment) */
+"Sharpening the Sword" = "Afilando la espada";
+
+/* (No Comment) */
+"Story Progression" = "Progreso de la historia";
+
+/* (No Comment) */
+"Strange New World" = "Extraño nuevo mundo";
+
+/* (No Comment) */
+"success" = "éxito";
+
+/* (No Comment) */
+"Supreme Sacrifice" = "Sacrificio supremo";
+
+/* (No Comment) */
+"Tap + to create a new Scene!" = "Toca + para crear una nueva escena!";
+
+/* (No Comment) */
+"Tap + to create your first character" = "Toca + para crear tu primer personaje.";
+
+/* (No Comment) */
+"Test Resolve" = "Prueba de resolución";
+
+/* (No Comment) */
+"The Character Builder feature requires a one time purchase." = "La característica del generador de caracteres requiere una compra de una sola vez.";
+
+/* (No Comment) */
+"The conflict" = "El conflicto";
+
+/* (No Comment) */
+"The resolution" = "La resolución";
+
+/* (No Comment) */
+"The Scene Builder feature requires a one time purchase." = "La función Scene Builder requiere una compra única.";
+
+/* (No Comment) */
+"The setup" = "La puesta en marcha";
+
+/* (No Comment) */
+"The Ultimate Answer" = "La respuesta definitiva";
+
+/* (No Comment) */
+"Themes" = "Temas";
+
+/* (No Comment) */
+"Themes Introduced" = "Temas introducidos";
+
+/* (No Comment) */
+"this screenplay" = "este guion";
+
+/* (No Comment) */
+"This will remove all information in database" = "Esto eliminará toda la información en la base de datos.";
+
+/* (No Comment) */
+"Try by watching Ad 🎥" = "Intenta viendo el anuncio 🎥";
+
+/* (No Comment) */
+"Uh oh" = "UH oh";
+
+/* (No Comment) */
+"Unable to delete account, please check your network settings and try again." = "No se puede eliminar la cuenta, verifique la configuración de su red y vuelva a intentarlo.";
+
+/* (No Comment) */
+"Unnamed" = "Sin nombre";
+
+/* MARK: Outline Builder Strings */
+"Untitled" = "Intitulado";
+
+/* (No Comment) */
+"We Won't Let You Go" = "No te dejaremos ir";
+
+/* (No Comment) */
+"What" = "Qué";
+
+/* (No Comment) */
+"What are your characters doing?" = "¿Qué están haciendo tus personajes?";
+
+/* (No Comment) */
+"What convinces your hero(s) to make the decision to go on the adventure?" = "¿Qué convence a tu (s) héroe (s) a tomar la decisión de ir a la aventura?";
+
+/* (No Comment) */
+"What do the characters want and what are they feeling?" = "¿Qué quieren los personajes y qué sienten?";
+
+/* (No Comment) */
+"What does your character need to do to get what they want?" = "¿Qué debe hacer tu personaje para obtener lo que quiere?";
+
+/* (No Comment) */
+"What event, person, or thing creates disharmony in the old world?" = "¿Qué evento, persona o cosa crea desarmonía en el viejo mundo?";
+
+/* (No Comment) */
+"What flaws or fears does your character have?" = "¿Qué defectos o temores tiene tu personaje?";
+
+/* (No Comment) */
+"What is life like before the story begins?" = "¿Cómo es la vida antes de que comience la historia?";
+
+/* (No Comment) */
+"What is your hero(s) ultimate answer(s) in making things right?" = "¿Cuál es la (s) última (s) respuesta (s) de tu (s) héroe (s) para hacer las cosas bien?";
+
+/* (No Comment) */
+"What must the hero or group do to bring harmony?" = "¿Qué debe hacer el héroe o grupo para traer armonía?";
+
+/* (No Comment) */
+"What obstacles are in your characters's way?" = "¿Qué obstáculos hay en el camino de tus personajes?";
+
+/* (No Comment) */
+"What obstacles/opponents test your hero's resolve to attain their goal?" = "¿Qué obstáculos / oponentes ponen a prueba la resolución de tu héroe para alcanzar su objetivo?";
+
+/* (No Comment) */
+"What skills/knowledge does your hero(s) acquire?" = "¿Qué habilidades / conocimiento adquieren tus héroes?";
+
+/* (No Comment) */
+"What snappy dialogue and/or information is said?" = "¿Qué rápido diálogo y / o información se dice?";
+
+/* (No Comment) */
+"What temporary wins and successes does your hero(s) experience?" = "¿Qué triunfos y éxitos temporales experimentan tus héroes?";
+
+/* (No Comment) */
+"What type of reward does your hero(s) gain through the journey (wisdom, wealth, love)?" = "¿Qué tipo de recompensa gana tu héroe (s) a través del viaje (sabiduría, riqueza, amor)?";
+
+/* (No Comment) */
+"Why" = "Por qué";
+
+/* (No Comment) */
+"Why does your character want this?" = "¿Por qué tu personaje quiere esto?";
+
+/* (No Comment) */
+"Would you like to save your work?" = "¿Te gustaría guardar tu trabajo?";
+
+/* (No Comment) */
+"Your account has been deleted" = "Tu cuenta ha sido eliminada";
+
+/* (No Comment) */
+"Your hero(s) started the adventure, is the new world different, dangerous, and/or difficult?" = "Su (s) héroe (s) comenzaron la aventura, ¿el nuevo mundo es diferente, peligroso y / o difícil?";
+

@@ -7,123 +7,223 @@
 //
 
 import UIKit
-import GoogleMobileAds
+import Firebase
+import FBAudienceNetwork
+import MoPub
 
-class EnlargedDescriptionTableViewController: UITableViewController, GADBannerViewDelegate {
+class EnlargedDescriptionTableViewController: UITableViewController {
     
-    var screenplay: Screenplay? {
-        return ScreenplayController.shared.currentScreenplay
-    }
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
-    
-    var text: String?
+    var viewController: ViewController = .outline
     var section: Int = 0
+    var act: Act?
+    var scene: Scene?
+    var character: Character?
+    
+    var interstitial: MPInterstitialAdController?
+    var adService: MoPubAdServiceLogic?
+    var adView: MPAdView?
+    var facebookAdService: FacebookAdService?
+
+    var text: String?
+    
     weak var delegate: DescriptionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        facebookAdService = FacebookAdService()
+        adService = MoPubAdService()
+
         self.tableView.backgroundColor = .screenLightGray
         setupNavigationBar()
+        
+        self.tableView.backgroundColor = UIColor.screenLightGray
+        self.tableView.separatorColor = self.tableView.backgroundColor
     }
+    
+    lazy var descriptionCell: DescriptionTableViewCell? = {
+        let indexPath = IndexPath(row: 0, section: 0)
+        return tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
+    }()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        adBannerView.load(GADRequest())
+        
+//        if InAppPurchases.shouldDisplayAds {
+//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
+////                facebookAdView.delegate = self
+//                facebookAdView.loadAd()
+//                tableView.tableFooterView?.frame = facebookAdView.frame
+//                tableView.tableFooterView = facebookAdView
+//            }
+//        }
+        
+        if InAppPurchases.shouldDisplayAds {
+            if let adView = self.adService?.loadBannerAd() {
+                self.adView = adView
+                adView.delegate = self
+                tableView.tableFooterView?.frame = adView.frame
+                tableView.tableFooterView = adView
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        // If interstitial is not ready load one
+        if !interstitialIsReady(interstitial: interstitial) {
+            interstitial = adService?.loadInterstitial(for: self)
+        }
+        
+        // Display ad if we have one loaded and we have interstitial ads enabled
+        display(interstitial: interstitial)
+        
+        // Make sure the keyboard is visible at all times on this screen
+        guard let descriptionCell = descriptionCell else { return }
+        descriptionCell.descriptionTextView.becomeFirstResponder()
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+      
+        guard
+            let descriptionCell = descriptionCell,
+            let text = descriptionCell.descriptionTextView.text
+        else {
+            return
+        }
+        
+        delegate?.updatedText(text,
+                              in: self.section)
     }
 
     // MARK: - IBAction Methods
 
     @IBAction func reduceScreenButtonTapped(_ sender: Any) {
-        let indexPath = IndexPath(row: 0, section: 0)
-        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell, let text = descriptionCell.descriptionTextView.text else { return }
-        delegate?.updatedText(text, in: self.section)
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true,
+                     completion: nil)
+    }
+    
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        saveButton.isEnabled = false
+        guard
+            let descriptionCell = descriptionCell,
+            let text = descriptionCell.descriptionTextView.text
+        else {
+            self.saveScreenplay {
+                DispatchQueue.main.async {
+                    self.saveButton.isEnabled = true
+                }
+            }
+            return
+        }
+        
+        delegate?.updatedText(text,
+                              in: self.section)
+        self.saveScreenplay {
+            DispatchQueue.main.async {
+                self.saveButton.isEnabled = true
+            }
+        }
     }
     
     // MARK: - UI Methods
     
     func setupNavigationBar() {
-        
+        var title: String = screenplay?.title ?? ""
+        var font = UIFont.systemFont(ofSize: 20,
+                                     weight: .semibold)
+        switch viewController {
+        case .actDetail:
+            title = act?.title ?? title
+            font = UIFont.systemFont(ofSize: 20,
+                                     weight: .light)
+        case .characterDetail:
+            title = character?.name ?? title
+            font = UIFont.systemFont(ofSize: 20,
+                                     weight: .light)
+        case .outline, .sceneDetail:
+            break
+        }
         // Remove Navigation bar shadow and borderline
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.topItem?.title = "Untitled"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
-        self.navigationController?.navigationBar.tintColor = .screenLightBlue
-        self.navigationController?.navigationBar.barTintColor = .white
-    }
-    
-    // MARK: GADBannerViewDelegate Methods
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Banner loaded successfully")
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("Fail to receive ads")
-        print(error)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.topItem?.title = title
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
+                          NSAttributedString.Key.font: font]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+           
+        navigationController?.navigationBar.tintColor = .screenLightBlue
+        navigationController?.navigationBar.barTintColor = .white
     }
     
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 1
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell") as? DescriptionTableViewCell else { return UITableViewCell() }
         
-    
-        descriptionCell.update(section: section)
+        descriptionCell.update(viewController: self.viewController,
+                               section: section,
+                               act: self.act,
+                               character: self.character,
+                               scene: self.scene)
         descriptionCell.backgroundColor = .screenLightGray
+        addToolBar(textView: descriptionCell.descriptionTextView)
+        
         return descriptionCell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderSubtitle ?? SectionHeaderSubtitle(reuseIdentifier: "header")
         
-        switch self.section {
-        case 0:
-            return "  Basic Idea (Log Line)"
-        case 1:
-            return "  Act 1"
-        case 2:
-            return "  Act 2"
-        case 3:
-            return "  Act 3"
-        default:
-            return ""
+        switch viewController {
+        case .outline:
+            sectionHeader.subtitleLabel.text = "Overall description".localized
+            switch self.section {
+            case 0: // "Basic Idea (Log Line)"
+                sectionHeader.sectionLabel.text = "Idea".localized
+            default: // "Acts"
+                sectionHeader.sectionLabel.text = act?.title
+            }
+            
+        case .actDetail:
+            guard let act = act else { break }
+            if self.section == 0 {
+                sectionHeader.sectionLabel.text = act.title
+                sectionHeader.subtitleLabel.text = "Overall description".localized
+            } else {
+                sectionHeader.sectionLabel.text = act.sectionsTitles[self.section-2]
+                sectionHeader.subtitleLabel.text = act.sectionSubTitles[self.section-2]
+            }
+        case .characterDetail:
+            sectionHeader.sectionLabel.text = CharacterSection.sectionTitles[self.section-2]
+            sectionHeader.subtitleLabel.text = CharacterSection.sectionSubtitles[self.section-2]
+        case .sceneDetail:
+            sectionHeader.sectionLabel.text = Scene.sceneTitles[self.section]
         }
+        return sectionHeader
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.height * (4/5)
+        let noBannerAdConstant: CGFloat = InAppPurchases.shouldDisplayAds ? 0 : adView?.frame.height ?? 0
+        
+        return self.view.frame.height * (1/3) + noBannerAdConstant
     }
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    
 
 }

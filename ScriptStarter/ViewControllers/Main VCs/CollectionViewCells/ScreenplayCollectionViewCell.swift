@@ -7,19 +7,18 @@
 //
 
 import UIKit
-import Hero
 
 class ScreenplayCollectionViewCell: UICollectionViewCell {
     
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     
     override func awakeFromNib() {
-        self.contentView.heroID = "screenplay"
     }
     
-    func update(title: String, heroId: String) {
+    func update(title: String, name: String) {
         self.titleLabel.text = title
-        self.contentView.heroID = heroId
+        self.nameLabel.text = name
     }
 }

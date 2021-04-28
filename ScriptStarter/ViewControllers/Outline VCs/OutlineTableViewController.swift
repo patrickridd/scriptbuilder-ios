@@ -7,31 +7,37 @@
 //
 
 import UIKit
-import GoogleMobileAds
+import MBProgressHUD
+import Firebase
+import FBAudienceNetwork
+import MoPub
 
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftInTabBar"
 let swipeRightNotificationKey = "com.scriptstarter.swipedRightInTabBar"
 
-class OutlineTableViewController: UITableViewController, DescriptionDelegate, GADBannerViewDelegate {
-    
-    var screenplay: Screenplay? {
-        return ScreenplayController.shared.currentScreenplay
-    }
-    
-    lazy var adBannerView: GADBannerView = {
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = "ca-app-pub-1297096402264538/3462578381"
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
+protocol DescriptionDelegate: class {
+    func updatedText(_ text: String, in section: Int)
+}
 
+class OutlineTableViewController: UITableViewController {
+    
     @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var saveButton: SaveBarButtonItem!
+    
+    var facebookAdService: FacebookAdService?
+    var interstitial: MPInterstitialAdController?
+    var adService: MoPubAdServiceLogic!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleRightSwipe(sender:)))
+        
+        //amazonAdService = AmazonAdService()
+        facebookAdService = FacebookAdService()
+        adService = MoPubAdService()
+        facebookAdService = FacebookAdService()
+        saveButton.view = self
+        let rightSwipe = UISwipeGestureRecognizer(target: self,
+                                                  action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
     }
@@ -39,36 +45,82 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.backgroundColor = UIColor.screenLightGray
+        self.tableView.separatorColor = self.tableView.backgroundColor
+        
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableView.automaticDimension
         setupNavigationBar()
+        self.tableView.reloadData()
         setupTabBar()
-        adBannerView.load(GADRequest())
+        
+        if InAppPurchases.shouldDisplayAds {
+            if let adView = self.adService?.loadBannerAd() {
+                adView.delegate = self
+                tableView.tableFooterView?.frame = adView.frame
+                tableView.tableFooterView = adView
+            }
+        }
+        
+        // If RewardBased Ad is not ready, load one
+        if !adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId) && !InAppPurchases.sceneFeatureEnabled {
+            adService.loadRewardedAd(with: MoPubAdService.sceneBuilderRewardedVideoId, delegate: self)
+        }
+        
+        // If RewardBased Ad is not ready, load one
+        if !adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) && !InAppPurchases.characterFeatureEnabled {
+            adService.loadRewardedAd(with: MoPubAdService.characterRewardedVideoId, delegate: self)
+        }
+    
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // If interstitial is not ready load one
+        if !interstitialIsReady(interstitial: interstitial) {
+            interstitial = adService?.loadInterstitial(for: self)
+        }
+        
+        // Display ad if we have one loaded and we have interstitial ads enabled
+        display(interstitial: interstitial)
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.view.endEditing(true)
     }
     
     // MARK: IBActions/Target Methods
     
     @objc func expandButtonTapped(sender: UIButton) {
         let indexPath = IndexPath(row: 0, section: sender.tag)
-        guard let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController, let enlargedVC = enlargedNavigationController.childViewControllers[0] as? EnlargedDescriptionTableViewController, let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
+        guard
+            let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController,
+            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController,
+            let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
+        else {
+            return
+        }
         
+        enlargedVC.viewController = .outline
         enlargedVC.text = descriptionCell.descriptionTextView.text
         enlargedVC.section = sender.tag
         enlargedVC.delegate = self
-        
-        self.present(enlargedNavigationController, animated: true, completion: nil)
-    }
-    
-    @IBAction func saveButtonTapped(_ sender: Any) {
-        if let screenplay = screenplay {
-            FirebaseController.shared.save(screenplay: screenplay)
+        switch sender.tag {
+        case 1:
+            enlargedVC.act = .one
+        case 2:
+            enlargedVC.act = .two
+        case 3:
+            enlargedVC.act = .three
+        default:
+            enlargedVC.act = nil
         }
-    }
-    
-    // MARK: DescriptionDelegate Methods
-    
-    func updatedText(_ text: String, in section: Int) {
-        let indexPath = IndexPath(row: 0, section: section)
-        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
-        descriptionCell.descriptionTextView.text = text
+        enlargedNavigationController.modalPresentationStyle = .fullScreen
+        self.present(enlargedNavigationController,
+                     animated: true,
+                     completion: nil)
     }
     
     // MARK: Swipe gestures
@@ -79,20 +131,49 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         NotificationCenter.default.post(swipeNotification)
     }
     
+    @objc func informationButtonTapped(sender: UIButton) {
+        guard let informationPopTVC = self.storyboard?.instantiateViewController(withIdentifier: "informationPopTVC") as? InformationPopTableViewController else { return }
+        informationPopTVC.modalPresentationStyle = .popover
+        let popController = informationPopTVC.popoverPresentationController
+        popController?.delegate = self
+        popController?.backgroundColor = .white // Makes the arrow white
+        popController?.permittedArrowDirections = [.up,
+                                                   .down] // allow arrow to go both .up and .down
+        popController?.sourceView = sender
+        popController?.sourceRect = sender.bounds
+        let contentHeightSize = InformationNote.logline.contentHeight
+        informationPopTVC.informationNote = .logline
+        informationPopTVC.preferredContentSize = CGSize(width: self.view.bounds.width,
+                                                        height: CGFloat(contentHeightSize))
+        informationPopTVC.view.layer.cornerRadius = 0 // Unround the view's corner.
+        self.present(informationPopTVC,
+                     animated: true,
+                     completion: nil)
+    }
+    
     // MARK: UI Methods
     
     func setupNavigationBar() {
         
        // Remove Navigation bar shadow and borderline
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.screenDark, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
-        self.navigationController?.navigationBar.tintColor = .screenLightBlue
-        self.navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = false
+        if self.screenplay?.title == "" {
+            screenplay?.title = "Untitled".localized
+        }
+        navigationController?.navigationBar.topItem?.title = self.screenplay?.title
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
+                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
+                                                                          weight: .semibold)]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+        navigationController?.navigationBar.tintColor = .screenLightBlue
+        navigationController?.navigationBar.barTintColor = .white
         
-        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backButtonAsset"), style: .plain, target: self, action: #selector(handleRightSwipe(sender:)))
-        self.navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backButtonAsset"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(handleRightSwipe(sender:)))
+        navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
     func setupTabBar() {
@@ -100,19 +181,6 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
         self.tabBarController?.tabBar.tintColor = UIColor.screenLightBlue
     }
     
-    
-    // MARK: GADBannerViewDelegate Methods
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Banner loaded successfully")
-        tableView.tableFooterView?.frame = bannerView.frame
-        tableView.tableFooterView = bannerView
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("Fail to receive ads")
-        print(error)
-    }
     
     // MARK: UITableView DataSource
     
@@ -131,83 +199,131 @@ class OutlineTableViewController: UITableViewController, DescriptionDelegate, GA
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
-        guard let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionTableViewCell else {
-            return UITableViewCell() }
+        guard let _ = self.screenplay else {
+            reloadScreenplaysWithAnimation {
+                self.tableView.reloadData()
+            }
+            return UITableViewCell()
+        }
+        let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell",
+                                                            for: indexPath) as? DescriptionTableViewCell
+        descriptionCell?.delegate = self
+        descriptionCell?.defaultHeight = self.getDefaultHeightOfCell()
+        descriptionCell?.update(viewController: .outline,
+                               section: indexPath.section,
+                               act: nil)
+        descriptionCell?.contentView.backgroundColor = UIColor.screenLightGray
+        descriptionCell?.expandButton.tag = indexPath.section
+        descriptionCell?.expandButton.addTarget(self,
+                                               action: #selector(expandButtonTapped(sender:)),
+                                               for: .touchUpInside)
         
-        descriptionCell.update(section: indexPath.section)
-        descriptionCell.contentView.backgroundColor = UIColor.screenLightGray
-        descriptionCell.descriptionTextView.heroID = "descriptionTextView"
-        descriptionCell.expandButton.tag = indexPath.section
-        descriptionCell.expandButton.addTarget(self, action: #selector(expandButtonTapped(sender:)), for: .touchUpInside)
-        
-        return descriptionCell
+        return descriptionCell ?? UITableViewCell()
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
+        
+        var sectionName = String()
         switch section {
         case 0:
-            return "  Basic Idea (Log Line)"
+            sectionName = "Idea".localized
         case 1:
-            return "  Act 1"
+            sectionName = "Act 1".localized
+            sectionHeader.moreButton.isHidden = false
+            sectionHeader.navigationButton.isEnabled = true
         case 2:
-            return "  Act 2"
+            sectionName = "Act 2".localized
+            sectionHeader.moreButton.isHidden = false
+            sectionHeader.navigationButton.isEnabled = true
         case 3:
-            return "  Act 3"
+            sectionName = "Act 3".localized
+            sectionHeader.moreButton.isHidden = false
+            sectionHeader.navigationButton.isEnabled = true
         default:
-            return ""
+            break
         }
-    }
+        
+        sectionHeader.navigationButton.tag = section
+        sectionHeader.navigationButton.addTarget(self,
+                                                 action: #selector(pushToDetailView(sender:)),
+                                                 for: .touchUpInside)
+        sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
+        sectionHeader.sectionLabel.textColor = UIColor.screenDark
+
+        sectionHeader.sectionLabel.text = sectionName
+        return sectionHeader
+   }
     
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection: Int) {
-        if let headerTitle = view as? UITableViewHeaderFooterView {
-            headerTitle.textLabel?.textColor = UIColor.screenDark
-            let font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-            headerTitle.textLabel?.font = font
-        }
-    }
     
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let rect = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
-//        let sectionHeader = SectionHeaderView(frame: rect)
-//
-//        var sectionName = String()
-//        switch section {
-//        case 0:
-//            sectionName = "Basic Idea - Log line"
-//        case 1:
-//            sectionName = " Act 1"
-//        case 2:
-//            sectionName = "Act 2"
-//        case 3:
-//            sectionName = "Act 3"
-//        default:
-//            break
-//        }
-//        sectionHeader.sectionLabel.text = sectionName
-//        return sectionHeader
-//   }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 45
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.view.frame.height >= 670 {
-            return self.view.frame.height * (1/8)
-        } else {
-            return self.view.frame.height * (1/9)
-        }
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "footer")
+        sectionHeader.contentView.backgroundColor = UIColor.athensGray
+        sectionHeader.moreButton.isHidden = true
+        sectionHeader.sectionLabel.isHidden = true
+        return sectionHeader
     }
-    
+
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1
+    }
+
     func adjustUITextViewHeight(arg : UITextView) {
         arg.translatesAutoresizingMaskIntoConstraints = true
         arg.sizeToFit()
         arg.isScrollEnabled = false
     }
+    
+    
+    // MARK: Navigation
+    
+    @objc func pushToDetailView(sender: UIButton) {
+        
+        if let actDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "actDetailVC") as? ActDetailTableViewController {
+            
+            // Switch on the Act to segue to based on button tag
+            switch sender.tag {
+            case 0:
+                actDetailVC.act = .idea
+            case 1:
+                actDetailVC.act = .one
+            case 2:
+                actDetailVC.act = .two
+            case 3:
+                actDetailVC.act = .three
+            default:
+                break
+            }
+            self.navigationController?.pushViewController(actDetailVC,
+                                                          animated: true)
+        }
+    }
 }
 
+extension OutlineTableViewController: DescriptionDelegate {
+    
+    func updatedText(_ text: String, in section: Int) {
+        let indexPath = IndexPath(row: 0, section: section)
+       
+        guard
+            let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
+        else {
+            return
+        }
+        
+        descriptionCell.descriptionTextView.text = text
+        descriptionCell.textViewDidChange(descriptionCell.descriptionTextView)
+    }
+}
 
-
-protocol DescriptionDelegate: class {
-    func updatedText(_ text: String, in section: Int)
+extension OutlineTableViewController: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
 }

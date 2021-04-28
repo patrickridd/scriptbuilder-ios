@@ -1,0 +1,22 @@
+/* InfoPlist.strings
+  ScriptStarter
+
+  Created by Patrick Ridd (patrick.ridd@stgconsulting.com) on 2/8/19.
+  Copyright © 2019 patrickridd. All rights reserved. */
+"CFBundleDisplayName" = "ScriptBuilder";
+
+/* Bundle name */
+"CFBundleName" = "$（PRODUCT_NAME）";
+
+/* (No Comment) */
+"New Character" = "新しいキャラクター";
+
+/* (No Comment) */
+"New Scene" = "新しいシーン";
+
+/* (No Comment) */
+"New Script Idea" = "新しいスクリプトのアイデア";
+
+/* (No Comment) */
+"NSHumanReadableCopyright" = "著作権©2019 patrickridd。全著作権所有。";
+

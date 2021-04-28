@@ -12,10 +12,14 @@ target 'ScriptStarter' do
   pod 'GoogleSignIn'
   pod 'FBSDKLoginKit'
   pod 'FacebookLogin'
-  pod 'KMPlaceholderTextView'
-  pod 'Hero'
-  pod 'Google-Mobile-Ads-SDK'
-  
+  pod 'FBAudienceNetwork'
+  pod 'MBProgressHUD', '~> 1.1.0'
+  pod 'Firebase/DynamicLinks'
+  pod 'KMPlaceholderTextView', '~> 1.4.0'
+  pod 'mopub-ios-sdk'
+  pod 'MoPub-FacebookAudienceNetwork-Adapters'
+  pod 'MoPub-AdMob-Adapters'
+
   target 'ScriptStarterTests' do
     inherit! :search_paths
     # Pods for testing
