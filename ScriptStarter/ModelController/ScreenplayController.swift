@@ -73,8 +73,9 @@ class ScreenplayController {
             completion(nil, nil)
             return
         }
+        let pdfScreenplay = Screenplay(unalteredScreenplay: screenplay)
         let pdfHelper = PdfHelper()
-        let data = pdfHelper.createPdf(with: screenplay)
+        let data = pdfHelper.createPdf(with: pdfScreenplay)
         
         completion(nil, data)
     }
