@@ -10,8 +10,6 @@ PODS:
     - FacebookCore (~> 0.9.0)
     - FBSDKCoreKit (~> 5.0)
     - FBSDKLoginKit (~> 5.0)
-  - FBAudienceNetwork (5.10.1):
-    - FBSDKCoreKit/Basics (>= 5.6.0)
   - FBSDKCoreKit (5.15.1):
     - FBSDKCoreKit/Basics (= 5.15.1)
     - FBSDKCoreKit/Core (= 5.15.1)
@@ -69,9 +67,6 @@ PODS:
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
     - PromisesObjC (~> 1.2)
-  - Google-Mobile-Ads-SDK (7.68.0):
-    - GoogleAppMeasurement (~> 7.0)
-    - GoogleUserMessagingPlatform (~> 1.1)
   - GoogleAppMeasurement (7.1.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/MethodSwizzler (~> 7.0)
@@ -84,7 +79,6 @@ PODS:
     - AppAuth (~> 1.2)
     - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleUserMessagingPlatform (1.4.0)
   - GoogleUtilities/AppDelegateSwizzler (7.1.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -115,34 +109,6 @@ PODS:
   - KMPlaceholderTextView (1.4.0)
   - leveldb-library (1.22)
   - MBProgressHUD (1.1.0)
-  - MoPub-AdMob-Adapters (7.68.0.2):
-    - MoPub-AdMob-Adapters/MoPub (= 7.68.0.2)
-    - MoPub-AdMob-Adapters/Network (= 7.68.0.2)
-  - MoPub-AdMob-Adapters/MoPub (7.68.0.2):
-    - mopub-ios-sdk/Core (~> 5.15)
-    - mopub-ios-sdk/NativeAds (~> 5.15)
-  - MoPub-AdMob-Adapters/Network (7.68.0.2):
-    - Google-Mobile-Ads-SDK (= 7.68.0)
-    - mopub-ios-sdk/Core (~> 5.15)
-    - mopub-ios-sdk/NativeAds (~> 5.15)
-  - MoPub-FacebookAudienceNetwork-Adapters (5.10.1.1):
-    - MoPub-FacebookAudienceNetwork-Adapters/MoPub (= 5.10.1.1)
-    - MoPub-FacebookAudienceNetwork-Adapters/Network (= 5.10.1.1)
-  - MoPub-FacebookAudienceNetwork-Adapters/MoPub (5.10.1.1):
-    - mopub-ios-sdk/Core (~> 5.13)
-    - mopub-ios-sdk/NativeAds (~> 5.13)
-  - MoPub-FacebookAudienceNetwork-Adapters/Network (5.10.1.1):
-    - FBAudienceNetwork (= 5.10.1)
-    - mopub-ios-sdk/Core (~> 5.13)
-    - mopub-ios-sdk/NativeAds (~> 5.13)
-  - mopub-ios-sdk (5.15.0):
-    - mopub-ios-sdk/MoPubSDK (= 5.15.0)
-  - mopub-ios-sdk/Core (5.15.0)
-  - mopub-ios-sdk/MoPubSDK (5.15.0):
-    - mopub-ios-sdk/Core
-    - mopub-ios-sdk/NativeAds
-  - mopub-ios-sdk/NativeAds (5.15.0):
-    - mopub-ios-sdk/Core
   - nanopb (2.30906.0):
     - nanopb/decode (= 2.30906.0)
     - nanopb/encode (= 2.30906.0)
@@ -152,7 +118,6 @@ PODS:
 
 DEPENDENCIES:
   - FacebookLogin
-  - FBAudienceNetwork
   - FBSDKLoginKit
   - Firebase/Auth
   - Firebase/Core
@@ -161,16 +126,12 @@ DEPENDENCIES:
   - GoogleSignIn
   - KMPlaceholderTextView (~> 1.4.0)
   - MBProgressHUD (~> 1.1.0)
-  - MoPub-AdMob-Adapters
-  - MoPub-FacebookAudienceNetwork-Adapters
-  - mopub-ios-sdk
 
 SPEC REPOS:
   trunk:
     - AppAuth
     - FacebookCore
     - FacebookLogin
-    - FBAudienceNetwork
     - FBSDKCoreKit
     - FBSDKLoginKit
     - Firebase
@@ -181,20 +142,15 @@ SPEC REPOS:
     - FirebaseDatabase
     - FirebaseDynamicLinks
     - FirebaseInstallations
-    - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleSignIn
-    - GoogleUserMessagingPlatform
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
     - KMPlaceholderTextView
     - leveldb-library
     - MBProgressHUD
-    - MoPub-AdMob-Adapters
-    - MoPub-FacebookAudienceNetwork-Adapters
-    - mopub-ios-sdk
     - nanopb
     - PromisesObjC
 
@@ -202,7 +158,6 @@ SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
   FacebookLogin: 6cee9fd6e1fe976fe8f7eec199e27b28b14f5d63
-  FBAudienceNetwork: 6cdcc40aa475e8045ab14398e181a3dc90a5014e
   FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
   FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
   Firebase: 78e8dd2e39d653de6270432ad84fe8b59f7bf4e8
@@ -213,23 +168,18 @@ SPEC CHECKSUMS:
   FirebaseDatabase: bf02ea57590aaab4e72b9b12b412a4c881ee81e2
   FirebaseDynamicLinks: dadf4564851de0ecdad2dab7fc2d1c401dcaa406
   FirebaseInstallations: 3de38553e86171b5f81d83cdeef63473d37bfdb0
-  Google-Mobile-Ads-SDK: 29bbdb182d69ff606cc0301da1590b40be8d2205
   GoogleAppMeasurement: 89e1a64593f968713b0506ba1b53b38a154bf9a5
   GoogleDataTransport: e4085e6762f36a6141738f46b0153473ce57fb18
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
-  GoogleUserMessagingPlatform: b168e8c46cd8f92aa3e34b584c4ca78a411ce367
   GoogleUtilities: f734da554aade8cc7928a31c2f3311897933a1bd
   GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   KMPlaceholderTextView: 2206c3df39979e9396e2d96fa9f427a8951121b0
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
-  MoPub-AdMob-Adapters: f334ad755b9fdc70d84dced5b3a0f118aebe736c
-  MoPub-FacebookAudienceNetwork-Adapters: 15bc25263a11f5a094c05ae16dd99b64991859a1
-  mopub-ios-sdk: a21098174b9420a291aca9fcdae832d0f2e2a368
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
 
-PODFILE CHECKSUM: a1121b1172f1f8f0fbd602afc5298b7bfbe6716c
+PODFILE CHECKSUM: 2ba20600af8cc945756b14510d5b43943faa6cf0
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.14.3

@@ -8,8 +8,6 @@
 
 import UIKit
 import Firebase
-import FBAudienceNetwork
-import MoPub
 
 class EnlargedDescriptionTableViewController: UITableViewController {
     
@@ -20,11 +18,6 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     var act: Act?
     var scene: Scene?
     var character: Character?
-    
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic?
-    var adView: MPAdView?
-    var facebookAdService: FacebookAdService?
 
     var text: String?
     
@@ -32,9 +25,6 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        facebookAdService = FacebookAdService()
-        adService = MoPubAdService()
 
         self.tableView.backgroundColor = .screenLightGray
         setupNavigationBar()
@@ -48,39 +38,9 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         return tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        if InAppPurchases.shouldDisplayAds {
-//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
-////                facebookAdView.delegate = self
-//                facebookAdView.loadAd()
-//                tableView.tableFooterView?.frame = facebookAdView.frame
-//                tableView.tableFooterView = facebookAdView
-//            }
-//        }
-        
-        if InAppPurchases.shouldDisplayAds {
-            if let adView = self.adService?.loadBannerAd() {
-                self.adView = adView
-                adView.delegate = self
-                tableView.tableFooterView?.frame = adView.frame
-                tableView.tableFooterView = adView
-            }
-        }
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
-        
+
         // Make sure the keyboard is visible at all times on this screen
         guard let descriptionCell = descriptionCell else { return }
         descriptionCell.descriptionTextView.becomeFirstResponder()
@@ -156,9 +116,13 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
                           NSAttributedString.Key.font: font]
         navigationController?.navigationBar.titleTextAttributes = attributes
-           
         navigationController?.navigationBar.tintColor = .screenLightBlue
-        navigationController?.navigationBar.barTintColor = .white
+        let appearance = UINavigationBarAppearance()
+        appearance.titleTextAttributes = attributes
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
     }
     
     // MARK: - Table view data source
@@ -221,9 +185,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let noBannerAdConstant: CGFloat = InAppPurchases.shouldDisplayAds ? 0 : adView?.frame.height ?? 0
-        
-        return self.view.frame.height * (1/3) + noBannerAdConstant
+        return self.view.frame.height * (1/3)
     }
 
 }

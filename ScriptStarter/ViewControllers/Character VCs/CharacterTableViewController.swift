@@ -10,19 +10,12 @@ import UIKit
 import Firebase
 import MBProgressHUD
 import StoreKit
-import FBAudienceNetwork
-import MoPub
 
 class CharacterTableViewController: UITableViewController {
-    
-    
+
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     @IBOutlet weak var addCharacterButton: UIBarButtonItem!
-    
-    var facebookAdService: FacebookAdService?
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic!
-    
+
     var products: [SKProduct]?
     var loadingNotification = MBProgressHUD()
     
@@ -37,8 +30,6 @@ class CharacterTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        facebookAdService = FacebookAdService()
-        adService = MoPubAdService()
         saveButton.view = self
 
         let rightSwipe = UISwipeGestureRecognizer(target: self,
@@ -50,15 +41,6 @@ class CharacterTableViewController: UITableViewController {
             self.performSegue(withIdentifier: "newCharacterSegue",
                               sender: nil)
         }
-    
-   //      If RewardBased Ad is not ready load one
-//        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-//            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
-//            rewardBasedAd?.delegate = self
-//            rewardBasedAd?.load(GADRequest(),
-//                                withAdUnitID: GoogleAds.characterBuilderRewardAdId)
-//        }
-        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(checkForCharacterFeatureEnabled),
                                                name: .CheckIfCharacterBuilderIsEnabled,
@@ -73,35 +55,6 @@ class CharacterTableViewController: UITableViewController {
         setupNavigationBar()
         setupRoleSections()
         
-        if !adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) && !InAppPurchases.characterFeatureEnabled {
-            adService.loadRewardedAd(with: MoPubAdService.characterRewardedVideoId, delegate: self)
-        }
-        
-        // If RewardBased Ad is not ready load one
-//        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-//            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
-//            rewardBasedAd?.delegate = self
-//            rewardBasedAd?.load(GADRequest(),
-//                                withAdUnitID: GoogleAds.characterBuilderRewardAdId)
-//        }
-
-//        if InAppPurchases.shouldDisplayAds {
-//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
-//                //   facebookAdView.delegate = self
-//                facebookAdView.loadAd()
-//                tableView.tableFooterView?.frame = facebookAdView.frame
-//                tableView.tableFooterView = facebookAdView
-//            }
-//        }
-        
-        if InAppPurchases.shouldDisplayAds {
-            if let adView = self.adService?.loadBannerAd() {
-                adView.delegate = self
-                tableView.tableFooterView?.frame = adView.frame
-                tableView.tableFooterView = adView
-            }
-        }
-        
         // Retrieves in app purchases from apple
         InAppPurchases.store.requestProducts { (_, products) in
             self.products = products
@@ -111,15 +64,7 @@ class CharacterTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
-        
+
         checkForCharacterFeatureEnabled()
     }
     
@@ -141,9 +86,16 @@ class CharacterTableViewController: UITableViewController {
         let attributes =  [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
                            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
                                                                           weight: .semibold)]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+        navigationController?.navigationBar.tintColor = .screenLightBlue
+        let appearance = UINavigationBarAppearance()
+        appearance.titleTextAttributes = attributes
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationController?.navigationBar.tintColor = .screenLightBlue
-        self.navigationController?.navigationBar.barTintColor = .white
         let backButton = UIBarButtonItem(title: "Home".localized,
                                          style: .plain,
                                          target: self,
@@ -152,20 +104,20 @@ class CharacterTableViewController: UITableViewController {
     }
     
     @objc func checkForCharacterFeatureEnabled() {
-        if InAppPurchases.characterFeatureEnabled || self.characterBuilderRewarded() {
+        if InAppPurchases.characterFeatureEnabled {
             enableView()
         } else {
             disableView()
             presentIapAlert()
         }
     }
-    
+
     func disableView() {
         self.view.alpha = 0.8
         self.view.isUserInteractionEnabled = false
         self.addCharacterButton.isEnabled = false
     }
-    
+
     func enableView() {
         self.view.alpha = 1.0
         self.view.isUserInteractionEnabled = true
@@ -191,22 +143,6 @@ class CharacterTableViewController: UITableViewController {
             InAppPurchases.store.restorePurchases()
         }
         alert.addAction(restoreAction)
-      
-        let tryAction = UIAlertAction(title: "Try by watching Ad 🎥".localized,
-                                      style: .default) { [weak self] (_) in
-                                        
-            guard let strongSelf = self else { return }
-            if strongSelf.adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) {
-                strongSelf.rewardUserWithCharacterBuilder()
-                strongSelf.adService.presentRewardedVideo(using: MoPubAdService.characterRewardedVideoId, with: strongSelf)
-            }
-            
-        }
-        
-        if adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) {
-            alert.addAction(tryAction)
-        }
-        
         let cancelAction = UIAlertAction(title: "Cancel".localized,
                                          style: .default,
                                          handler: nil)

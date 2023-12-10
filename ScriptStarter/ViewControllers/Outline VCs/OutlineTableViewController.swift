@@ -9,8 +9,6 @@
 import UIKit
 import MBProgressHUD
 import Firebase
-import FBAudienceNetwork
-import MoPub
 
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftInTabBar"
 let swipeRightNotificationKey = "com.scriptstarter.swipedRightInTabBar"
@@ -24,17 +22,9 @@ class OutlineTableViewController: UITableViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     
-    var facebookAdService: FacebookAdService?
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //amazonAdService = AmazonAdService()
-        facebookAdService = FacebookAdService()
-        adService = MoPubAdService()
-        facebookAdService = FacebookAdService()
+
         saveButton.view = self
         let rightSwipe = UISwipeGestureRecognizer(target: self,
                                                   action: #selector(handleRightSwipe(sender:)))
@@ -52,40 +42,9 @@ class OutlineTableViewController: UITableViewController {
         setupNavigationBar()
         self.tableView.reloadData()
         setupTabBar()
-        
-        if InAppPurchases.shouldDisplayAds {
-            if let adView = self.adService?.loadBannerAd() {
-                adView.delegate = self
-                tableView.tableFooterView?.frame = adView.frame
-                tableView.tableFooterView = adView
-            }
-        }
-        
-        // If RewardBased Ad is not ready, load one
-        if !adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId) && !InAppPurchases.sceneFeatureEnabled {
-            adService.loadRewardedAd(with: MoPubAdService.sceneBuilderRewardedVideoId, delegate: self)
-        }
-        
-        // If RewardBased Ad is not ready, load one
-        if !adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) && !InAppPurchases.characterFeatureEnabled {
-            adService.loadRewardedAd(with: MoPubAdService.characterRewardedVideoId, delegate: self)
-        }
     
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
-    }
-    
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.view.endEditing(true)
@@ -167,7 +126,12 @@ class OutlineTableViewController: UITableViewController {
                                                                           weight: .semibold)]
         navigationController?.navigationBar.titleTextAttributes = attributes
         navigationController?.navigationBar.tintColor = .screenLightBlue
-        navigationController?.navigationBar.barTintColor = .white
+        let appearance = UINavigationBarAppearance()
+        appearance.titleTextAttributes = attributes
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backButtonAsset"),
                                          style: .plain,

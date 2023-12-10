@@ -8,8 +8,6 @@
 
 import UIKit
 import Firebase
-import FBAudienceNetwork
-import MoPub
 
 class ActDetailTableViewController: UITableViewController {
     
@@ -18,21 +16,12 @@ class ActDetailTableViewController: UITableViewController {
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .idea
     var sectionBesidesBeats: Int = 2
-    
-    var facebookAdService: FacebookAdService?
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic?
-    
+
     var isExpandingCell: Bool = false
     var isCollapsingCell: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-      //  amazonAdService = AmazonAdService()
-        facebookAdService = FacebookAdService()
-        adService = MoPubAdService()
-
         saveButton.view = self
         
         setupExpandableSections()
@@ -44,37 +33,8 @@ class ActDetailTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        if InAppPurchases.shouldDisplayAds {
-//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
-//             //   facebookAdView.delegate = self
-//                facebookAdView.loadAd()
-//                tableView.tableFooterView?.frame = facebookAdView.frame
-//                tableView.tableFooterView = facebookAdView
-//            }
-//        }
-        
-        if InAppPurchases.shouldDisplayAds {
-            if let adView = self.adService?.loadBannerAd() {
-                adView.delegate = self
-                tableView.tableFooterView?.frame = adView.frame
-                tableView.tableFooterView = adView
-            }
-        }
-        
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
     }
     
     @objc func expandButtonTapped(sender: UIButton) {

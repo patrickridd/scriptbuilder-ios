@@ -10,14 +10,10 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 import Firebase
-import MoPub
 
 class ScreenplayCollectionViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic?
 
     var screenplays: [Screenplay] = [] {
         didSet {
@@ -29,20 +25,9 @@ class ScreenplayCollectionViewController: UIViewController {
         return Auth.auth().currentUser
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        adService = MoPubAdService()
-        setShouldDisplayInterstitial(state: false)
-        
-        // Set timer to enable interstitial ads
-        scheduleInterstitialStateToTrue()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.backgroundColor = .white
         let strokeTextAttributes: [NSAttributedString.Key : Any] = [
             NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
             NSAttributedString.Key.foregroundColor : UIColor.white,
@@ -50,28 +35,17 @@ class ScreenplayCollectionViewController: UIViewController {
             NSAttributedString.Key.font: UIFont(name: "Avenir-Light",
                                                 size: 20) ?? UIFont.systemFont(ofSize: 20,
                                                                                weight: .regular)]
-        
-        self.navigationController?.navigationBar.titleTextAttributes = strokeTextAttributes
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.screenDark
+        appearance.titleTextAttributes = strokeTextAttributes
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         self.navigationItem.title = "Script Builder".localized
     
         self.collectionView.reloadData()
 
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
-        
         getScreenplays()
-        
-        // Load Banner Add
-//        let amazonAdView = AmazonAdService().loadBannerAd(with: AmazonAdSize_320x50)
-//        amazonAdView?.delegate = self
-//        if let adView = amazonAdView {
-//            self.collectionView.addSubview(adView)
-//        }
     }
    
     // MARK: IBActions

@@ -8,8 +8,6 @@
 
 import UIKit
 import Firebase
-import FBAudienceNetwork
-import MoPub
 
 protocol NameChangedDelegate: class {
     func nameChanged(name: String)
@@ -32,17 +30,10 @@ class CharacterDetailTableViewController: UITableViewController {
     var isCollapsingCell: Bool = false
     
     var customSelected: Bool = false // RoleCellSelected
-    
-    var facebookAdService: FacebookAdService?
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        facebookAdService = FacebookAdService()
-        adService = MoPubAdService()
-
         saveButton.view = self
         
         let font = UIFont.systemFont(ofSize: 20,
@@ -70,34 +61,6 @@ class CharacterDetailTableViewController: UITableViewController {
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
         
-//        if InAppPurchases.shouldDisplayAds {
-//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
-//              //  facebookAdView.delegate = self
-//                facebookAdView.loadAd()
-//                tableView.tableFooterView?.frame = facebookAdView.frame
-//                tableView.tableFooterView = facebookAdView
-//            }
-//        }
-        
-        if InAppPurchases.shouldDisplayAds {
-            if let adView = self.adService?.loadBannerAd() {
-                adView.delegate = self
-                tableView.tableFooterView?.frame = adView.frame
-                tableView.tableFooterView = adView
-            }
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

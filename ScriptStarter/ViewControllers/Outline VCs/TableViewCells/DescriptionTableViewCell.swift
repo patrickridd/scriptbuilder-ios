@@ -426,34 +426,12 @@ class DescriptionTableViewCell: UITableViewCell {
         }
     }
     
-//    func checkForResize(textView: UITextView) {
-//        if descriptionTextViewHeightConstraint == nil { return }
-//
-//        // Get descriptionTextView size that fits in view
-//        let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width,
-//                                                height: CGFloat.greatestFiniteMagnitude))
-//        if size.height > self.defaultHeight {
-//            if descriptionTextViewHeightConstraint.constant != size.height {
-//                descriptionTextViewHeightConstraint.constant = size.height
-//                delegate?.resizeCell(in: self.section)
-//            }
-//        } else {
-//            if descriptionTextViewHeightConstraint.constant != defaultHeight-10 {
-//                descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
-//                delegate?.resizeCell(in: self.section)
-//            }
-//
-//        }
-//    }
-    
     func checkForResize(textView: UITextView) {
         if self.descriptionTextViewHeightConstraint == nil { return }
     
         // Get self.descriptionTextView size that fits in view
         let size = textView.sizeThatFits(CGSize(width: textView.bounds.size.width,
                                                 height: CGFloat.greatestFiniteMagnitude))
-    
-    
         if size.height > self.descriptionTextViewHeightConstraint.constant {
             print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
             print("Size Height: \(size.height)")

@@ -10,7 +10,6 @@ import UIKit
 import MBProgressHUD
 import StoreKit
 import Firebase
-import MoPub
 
 protocol InAppPurchaseDelegate: class {
     func didCompleteTransaction(for productIdentifier: String,
@@ -20,9 +19,7 @@ protocol InAppPurchaseDelegate: class {
 }
 
 class SettingsTableViewController: UITableViewController {
-    
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic?
+
     var loadingNotification = MBProgressHUD()
     var screenplays: [Screenplay] = []
     
@@ -33,24 +30,10 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        adService = MoPubAdService()
         setupNavigationBar()
         self.view.backgroundColor = UIColor.screenLightGray
         self.tableView.backgroundColor = UIColor.screenLightGray
         self.tableView.separatorColor = UIColor.screenLightGray
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
     }
     
     // MARK: UI Methods
@@ -63,9 +46,16 @@ class SettingsTableViewController: UITableViewController {
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
                           NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
                                                                          weight: UIFont.Weight.light)]
-        self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.navigationController?.navigationBar.tintColor = .screenLightBlue
-        self.navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.tintColor = .screenLightBlue
+        navigationController?.navigationBar.topItem?.title = self.screenplay?.title
+        navigationController?.navigationBar.titleTextAttributes = attributes
+        navigationController?.navigationBar.tintColor = .screenLightBlue
+        let appearance = UINavigationBarAppearance()
+        appearance.titleTextAttributes = attributes
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         self.title = "Settings".localized
     }
     

@@ -12,13 +12,9 @@ target 'ScriptStarter' do
   pod 'GoogleSignIn'
   pod 'FBSDKLoginKit'
   pod 'FacebookLogin'
-  pod 'FBAudienceNetwork'
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'Firebase/DynamicLinks'
   pod 'KMPlaceholderTextView', '~> 1.4.0'
-  pod 'mopub-ios-sdk'
-  pod 'MoPub-FacebookAudienceNetwork-Adapters'
-  pod 'MoPub-AdMob-Adapters'
 
   target 'ScriptStarterTests' do
     inherit! :search_paths
@@ -30,4 +26,15 @@ target 'ScriptStarter' do
     # Pods for testing
   end
 
+end
+
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
+      config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
+      config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+    end
+  end
 end
