@@ -63,7 +63,6 @@ class SettingsTableViewController: UITableViewController {
     
     func showActivityIndicator() {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             self.loadingNotification =
                 MBProgressHUD.showAdded(to: self.view,
                                         animated: true)
@@ -75,8 +74,6 @@ class SettingsTableViewController: UITableViewController {
     
     func hideActivityIndicator(success: Bool, displayImage: Bool = true, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            
             if !displayImage {
                 self.loadingNotification.hide(animated: true)
                 completion?()
