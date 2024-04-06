@@ -616,13 +616,21 @@
 		21E661C22017F955006A14AF /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				2101F34D20619442003A90A4 /* Cork_closeup.jpg */,
+				21E952E02BC1BCD800A73D7F /* Images */,
 				2101F34F2061E6A2003A90A4 /* Structs */,
 				210C7612202B83D3003EEC16 /* Classes */,
 				210C7613202B83FF003EEC16 /* Enums */,
 				210C7611202B83BC003EEC16 /* Extensions */,
 			);
 			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		21E952E02BC1BCD800A73D7F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				2101F34D20619442003A90A4 /* Cork_closeup.jpg */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		378CF65633F81B2638728212 /* Frameworks */ = {
