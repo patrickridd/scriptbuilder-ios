@@ -81,18 +81,13 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
              NSAttributedString.Key.strokeWidth: 1]
         self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder".localized,
                                                                     attributes: strokeTextAttributes)
-        if #available(iOS 13.0, *) {
-            setupProviderLoginView()
-        } else {
-            // Fallback on earlier versions
-        }
+        setupProviderLoginView()
     }
     
     // MARK: UI Methods
 
     func showActivityIndicator() {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             self.loadingNotification =
                 MBProgressHUD.showAdded(to: self.view, animated: true)
             self.loadingNotification.mode = MBProgressHUDMode.indeterminate
@@ -103,7 +98,6 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
     
     func hideActivityIndicator(success: Bool, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.loadingNotification.mode = .customView
             if success {    
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
@@ -189,7 +183,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
     @IBAction func newAccountButtonTapped(_ sender: Any) {
         DispatchQueue.main.async {
             guard let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "signUpVC") as? SignUpViewController else { return }
-            UIApplication.shared.keyWindow?.rootViewController = signUpVC
+            UIApplication.shared.mainWindow?.rootViewController = signUpVC
         }
     }
     
@@ -349,7 +343,6 @@ extension LoginViewController: GIDSignInDelegate {
     
 }
 
-@available(iOS 13.0, *)
 extension LoginViewController: ASAuthorizationControllerDelegate {
     
     func setupProviderLoginView() {

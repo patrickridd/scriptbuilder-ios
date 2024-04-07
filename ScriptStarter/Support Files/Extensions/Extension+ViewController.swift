@@ -26,7 +26,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     @objc func saveCurrentScreenplay() {
         if let screenplay = screenplay {
             FirebaseController.shared.save(screenplay: screenplay) { (_) in
-                print("Saved...✅")
+                
             }
         }
     }
@@ -208,13 +208,13 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         DispatchQueue.main.async {
             let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
             if let loginViewController = mainStoryboard.instantiateViewController(withIdentifier: "loginVC") as? LoginViewController {
-                UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                UIApplication.shared.mainWindow?.rootViewController = loginViewController
                 self.dismiss(animated: false,
                              completion: nil)
             }
         }
     }
-    
+
     func navigateToScreenplayCollectionView() {
         DispatchQueue.main.async {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -222,7 +222,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
             guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else {
                 return
             }
-            UIApplication.shared.keyWindow?.rootViewController = mainNavigationController
+            UIApplication.shared.mainWindow?.rootViewController = mainNavigationController
             self.dismiss(animated: true,
                          completion: nil)
         }

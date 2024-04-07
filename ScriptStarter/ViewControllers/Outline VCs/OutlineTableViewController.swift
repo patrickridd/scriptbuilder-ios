@@ -141,11 +141,20 @@ class OutlineTableViewController: UITableViewController {
     }
     
     func setupTabBar() {
-        self.tabBarController?.tabBar.barTintColor = UIColor.white
-        self.tabBarController?.tabBar.tintColor = UIColor.screenLightBlue
+        let appearance = UITabBarAppearance()
+        let selectedColor = UIColor.screenLightBlue
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        appearance.inlineLayoutAppearance.selected.iconColor = selectedColor
+        appearance.compactInlineLayoutAppearance.selected.iconColor = selectedColor
+        appearance.stackedLayoutAppearance.selected.iconColor = selectedColor
+        appearance.inlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : selectedColor]
+        appearance.compactInlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : selectedColor]
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : selectedColor]
+        tabBarController?.tabBar.standardAppearance = appearance
+        tabBarController?.tabBar.scrollEdgeAppearance = tabBarController?.tabBar.standardAppearance
     }
-    
-    
+
     // MARK: UITableView DataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {

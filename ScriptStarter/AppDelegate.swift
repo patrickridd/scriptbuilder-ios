@@ -216,3 +216,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 }
 
+
+extension UIApplication {
+    
+    var mainWindow: UIWindow? {
+        UIApplication
+            .shared
+            .connectedScenes
+            .compactMap { ($0 as? UIWindowScene)?.keyWindow }
+            .last
+    }
+
+    var interfaceStyle: UIUserInterfaceStyle? {
+        mainWindow?.overrideUserInterfaceStyle
+    }
+}
