@@ -42,9 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Initialize Google sign-in            
             GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
 
-            // Reset Ad Rewarded features
-            resetAdRewardedFeatures()
-            
             if isLoggedIn {
                 // User is logged in so present their screenplays
                 self.presentScreenplayCollectionView()
@@ -192,16 +189,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = screenplayCoverVC
             self.window?.makeKeyAndVisible()
         }
-    }
-    
-    func resetAdRewardedFeatures() {
-        // If user terminates app expire Character builder trial
-        UserDefaults.standard.set(false,
-                                  forKey: Constants.characterBuilderRewardEnabled)
-       
-        // If user terminates app expire Scene builder trial
-        UserDefaults.standard.set(false,
-                                  forKey: Constants.sceneBuilderTrialType)
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
