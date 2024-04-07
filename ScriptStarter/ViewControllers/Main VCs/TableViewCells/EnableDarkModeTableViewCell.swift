@@ -24,10 +24,10 @@ class EnableDarkModeTableViewCell: UITableViewCell {
     @IBAction func switchChanged(_ sender: UISwitch) {
         userDefaults.setValue(sender.isOn, forKey: Constants.darkModeEnabled.rawValue)
 
-        if sender.isOn {
-            UIApplication.shared.mainWindow?.overrideUserInterfaceStyle = .dark
-        } else {
-            UIApplication.shared.mainWindow?.overrideUserInterfaceStyle = .light
+        if let window = UIApplication.shared.mainWindow {
+            UIView.transition (with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                window.overrideUserInterfaceStyle = sender.isOn ? .dark : .light
+            }, completion: nil)
         }
     }
     
