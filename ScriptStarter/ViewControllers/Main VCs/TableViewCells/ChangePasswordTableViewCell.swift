@@ -21,6 +21,7 @@ class ChangePasswordTableViewCell: UITableViewCell {
         self.newPasswordTextField.addToolBar()
         self.newPasswordTextField.delegate = self
         self.newPasswordTextField.tag = 1
+        self.newPasswordTextField.textColor = Theme.descriptionTextColor
     }
     
     

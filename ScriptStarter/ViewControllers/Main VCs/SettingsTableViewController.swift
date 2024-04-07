@@ -31,9 +31,18 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         setupNavigationBar()
-        self.view.backgroundColor = UIColor.screenLightGray
-        self.tableView.backgroundColor = UIColor.screenLightGray
-        self.tableView.separatorColor = UIColor.screenLightGray
+        self.view.backgroundColor = Theme.tableViewBackgroundColor
+        self.tableView.backgroundColor = Theme.tableViewBackgroundColor
+        self.tableView.separatorColor = Theme.tableViewBackgroundColor
+        tableView.tableHeaderView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 0.0, height: CGFloat.leastNormalMagnitude)))
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        view.backgroundColor = Theme.tableViewBackgroundColor
+        tableView.backgroundColor = Theme.tableViewBackgroundColor
+        tableView.separatorColor = Theme.tableViewBackgroundColor
+        tableView.reloadData()
     }
     
     // MARK: UI Methods
@@ -43,17 +52,16 @@ class SettingsTableViewController: UITableViewController {
         // Remove Navigation bar shadow and borderline
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.label,
                           NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
                                                                          weight: UIFont.Weight.light)]
         navigationController?.navigationBar.tintColor = .screenLightBlue
         navigationController?.navigationBar.topItem?.title = self.screenplay?.title
         navigationController?.navigationBar.titleTextAttributes = attributes
-        navigationController?.navigationBar.tintColor = .screenLightBlue
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = attributes
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
+        appearance.backgroundColor = .systemBackground
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         self.title = "Settings".localized
@@ -214,7 +222,7 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = UIView()
-        footer.backgroundColor = UIColor.screenLightGray
+        footer.backgroundColor = Theme.tableViewBackgroundColor
         return footer
     }
     
@@ -224,7 +232,7 @@ class SettingsTableViewController: UITableViewController {
         sectionHeader.sectionLabel.font = UIFont.systemFont(ofSize: 14,
                                                             weight: .light)
         sectionHeader.moreButton.isHidden = true
-        sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
+        sectionHeader.contentView.backgroundColor = Theme.tableViewBackgroundColor
         sectionHeader.sectionLabel.trailingAnchor.constraint(equalTo: sectionHeader.trailingAnchor,
                                                              constant: -10).isActive = true
         switch section {

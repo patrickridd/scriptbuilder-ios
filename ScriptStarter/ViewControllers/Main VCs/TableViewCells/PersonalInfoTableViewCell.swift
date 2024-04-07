@@ -45,7 +45,7 @@ class PersonalInfoTableViewCell: UITableViewCell {
         
         nameLabel.font = UIFont.systemFont(ofSize: 28,
                                            weight: .regular)
-        nameLabel.textColor = UIColor.screenDarkGray
+        nameLabel.textColor = UIColor.label
         
         emailLabel.font = UIFont.systemFont(ofSize: 14,
                                             weight: .light)

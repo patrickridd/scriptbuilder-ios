@@ -49,7 +49,7 @@ class SectionHeaderView: UITableViewHeaderFooterView {
                                               constant: 20).isActive = true
         sectionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor,
                                               constant: 0).isActive = true
-        sectionLabel.textColor = UIColor.screenDark
+        sectionLabel.textColor = .label
         sectionLabel.font = font
         sectionLabel.numberOfLines = 0
     }
