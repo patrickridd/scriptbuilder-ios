@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -574,74 +574,33 @@
                                     <outlet property="shareLabel" destination="3d6-Mh-K4t" id="sqt-F9-2b5"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="inAppPurchaseCell" rowHeight="120" id="xX3-6a-Rh3" userLabel="inAppPurchaseCell" customClass="IAPTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="enableDarkModeTableViewCell" rowHeight="120" id="xX3-6a-Rh3" userLabel="EnableDarkModeTableViewCell" customClass="EnableDarkModeTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="280.33333206176758" width="414" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xX3-6a-Rh3" id="bdz-Ot-AqX">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bsA-tJ-KQJ">
-                                            <rect key="frame" x="20" y="27.666666666666671" width="374" height="65"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bsA-tJ-KQJ">
+                                            <rect key="frame" x="28" y="11" width="358" height="98"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="J9l-QQ-5Mc">
-                                                    <rect key="frame" x="59.666666666666686" y="0.0" width="255" height="40"/>
-                                                    <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPB-uI-KGa">
-                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
-                                                            <color key="backgroundColor" red="0.58823529409999997" green="0.70980392160000005" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="40" id="EN8-FV-Ne1"/>
-                                                            </constraints>
-                                                            <state key="normal" title="$1.99">
-                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </state>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                    <integer key="value" value="4"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                            <connections>
-                                                                <action selector="purchaseButtonTapped:" destination="xX3-6a-Rh3" eventType="touchUpInside" id="SEn-tv-xfc"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWe-Ul-gnu">
-                                                            <rect key="frame" x="135" y="0.0" width="120" height="40"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="8dT-ev-hgr"/>
-                                                                <constraint firstAttribute="height" constant="40" id="ad8-js-guq"/>
-                                                            </constraints>
-                                                            <state key="normal" title="Restore">
-                                                                <color key="titleColor" red="0.58823529409999997" green="0.70980392160000005" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                            </state>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                    <integer key="value" value="4"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                            <connections>
-                                                                <action selector="restoreButtonTapped:" destination="xX3-6a-Rh3" eventType="touchUpInside" id="3Ep-9n-0IF"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="zPB-uI-KGa" firstAttribute="width" secondItem="YWe-Ul-gnu" secondAttribute="width" id="7j3-XJ-2pg"/>
-                                                    </constraints>
-                                                </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If already purchased, tap &quot;Restore&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="5Jf-73-Rqh">
-                                                    <rect key="frame" x="75.666666666666686" y="48" width="223" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Dark Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hrt-wv-pbw">
+                                                    <rect key="frame" x="0.0" y="39" width="301" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Kh-g9-T5k">
+                                                    <rect key="frame" x="309" y="33.666666666666664" width="51" height="30.999999999999993"/>
+                                                </switch>
                                             </subviews>
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="bsA-tJ-KQJ" firstAttribute="centerY" secondItem="bdz-Ot-AqX" secondAttribute="centerY" id="7gL-sH-ROl"/>
-                                        <constraint firstItem="bsA-tJ-KQJ" firstAttribute="centerX" secondItem="bdz-Ot-AqX" secondAttribute="centerX" id="DIO-HT-Bbs"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="bsA-tJ-KQJ" secondAttribute="trailing" id="J38-t6-cgr"/>
-                                        <constraint firstItem="bsA-tJ-KQJ" firstAttribute="leading" secondItem="bdz-Ot-AqX" secondAttribute="leadingMargin" id="SNa-bk-fPi"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="bsA-tJ-KQJ" secondAttribute="trailing" constant="8" id="1fQ-tk-nkj"/>
+                                        <constraint firstItem="bsA-tJ-KQJ" firstAttribute="leading" secondItem="bdz-Ot-AqX" secondAttribute="leadingMargin" constant="8" id="2mo-NN-cyA"/>
+                                        <constraint firstItem="bsA-tJ-KQJ" firstAttribute="top" secondItem="bdz-Ot-AqX" secondAttribute="topMargin" id="DpK-TP-Drf"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="bsA-tJ-KQJ" secondAttribute="bottom" id="bcn-fk-huW"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <userDefinedRuntimeAttributes>
@@ -650,8 +609,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="purchaseButton" destination="zPB-uI-KGa" id="Bi5-6e-e3v"/>
-                                    <outlet property="restoreButton" destination="YWe-Ul-gnu" id="o0Z-FY-VZi"/>
+                                    <outlet property="darkModeSwitch" destination="4Kh-g9-T5k" id="Sfr-uE-5xQ"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="deleteAccountCell" rowHeight="90" id="6vT-9y-M6K" customClass="DeleteAccountTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
@@ -1314,7 +1272,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="7JA-Om-VUS" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lcO-oo-iI7">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

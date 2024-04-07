@@ -157,12 +157,13 @@
 
 // MARK: Setting Strings
 "Settings" = "Settings";
-"Remove Banner & Interstitial Ads" = "Remove Banner & Interstitial Ads";
+"Dark Mode" = "Dark Mode";
 "Change Password - if signed up via email & password" = "Change Password - if signed up via email & password";
 "Share with family & friends" = "Share with family & friends";
 "This will remove all information in database" = "This will remove all information in database";
 "Check out Script Builder" = "Check out Script Builder";
 "Build your Screenplay outline" = "Build your Screenplay outline";
+"Interface Style" = "Interface Style";
 
 // MARK: Button Strings
 "Done" = "Done";

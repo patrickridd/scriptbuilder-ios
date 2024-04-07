@@ -164,20 +164,9 @@ class SettingsTableViewController: UITableViewController {
             personalInfoCell?.updateCell(with: user, and: screenplays)
             return personalInfoCell ?? UITableViewCell()
         case 1:
-           let inAppPurchaseCell = tableView.dequeueReusableCell(withIdentifier:"inAppPurchaseCell",
-                                                                        for: indexPath) as? IAPTableViewCell
-           inAppPurchaseCell?.purchaseButtonHandler = { [weak self] product in
-                InAppPurchases.store.delegate = self
-                InAppPurchases.store.buyProduct(product)
-           }
-           
-           inAppPurchaseCell?.restoreButtonHandler = { [weak self] product in
-                InAppPurchases.store.delegate = self
-                InAppPurchases.store.restorePurchases()
-           }
-           
-            inAppPurchaseCell?.setPurchasedUI()
-            return inAppPurchaseCell ?? UITableViewCell()
+           let enableDarkModeTableViewCell = tableView.dequeueReusableCell(withIdentifier:"enableDarkModeTableViewCell",
+                                                                        for: indexPath) as? EnableDarkModeTableViewCell
+            return enableDarkModeTableViewCell ?? UITableViewCell()
         case 2:
             let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell",
                                                                    for: indexPath) as? ChangePasswordTableViewCell
@@ -217,7 +206,7 @@ class SettingsTableViewController: UITableViewController {
         case 0:
             return 130
         case 1:
-            return 90
+            return 60
         default:
             return 60
         }
@@ -242,7 +231,7 @@ class SettingsTableViewController: UITableViewController {
         case 0:
             sectionHeader.sectionLabel.text = ""
         case 1:
-            sectionHeader.sectionLabel.text = "Remove Banner & Interstitial Ads".localized
+            sectionHeader.sectionLabel.text = "Interface Style".localized
         case 2:
             sectionHeader.sectionLabel.text = "Change Password - if signed up via email & password".localized
         case 3:
