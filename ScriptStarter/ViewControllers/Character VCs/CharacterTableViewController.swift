@@ -157,7 +157,6 @@ class CharacterTableViewController: UITableViewController {
     
     func showActivityIndicator() {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             self.loadingNotification =
                 MBProgressHUD.showAdded(to: self.view,
                                         animated: true)
@@ -169,7 +168,6 @@ class CharacterTableViewController: UITableViewController {
     
     func hideActivityIndicator(success: Bool, displayImage: Bool, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.loadingNotification.mode = .customView
             
             if !displayImage {

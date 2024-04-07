@@ -95,7 +95,6 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     
     func showActivityIndicator() {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             self.loadingNotification =
                 MBProgressHUD.showAdded(to: self.view, animated: true)
             self.loadingNotification.mode = MBProgressHUDMode.indeterminate
@@ -106,7 +105,6 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     
     func hideActivityIndicator(success: Bool) {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.loadingNotification.mode = .customView
             if success {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
