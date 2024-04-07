@@ -16,14 +16,9 @@ class EnableDarkModeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        darkModeSwitch.onTintColor = UIColor.screenLightBlue
         let isOn = userDefaults.bool(forKey: Constants.darkModeEnabled.rawValue)
         darkModeSwitch.isOn = isOn
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
     @IBAction func switchChanged(_ sender: UISwitch) {

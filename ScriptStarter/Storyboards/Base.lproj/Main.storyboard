@@ -586,12 +586,15 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Dark Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hrt-wv-pbw">
                                                     <rect key="frame" x="0.0" y="39" width="301" height="20.333333333333329"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Kh-g9-T5k">
                                                     <rect key="frame" x="309" y="33.666666666666664" width="51" height="30.999999999999993"/>
+                                                    <connections>
+                                                        <action selector="switchChanged:" destination="xX3-6a-Rh3" eventType="valueChanged" id="gd9-w0-nnH"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                         </stackView>
