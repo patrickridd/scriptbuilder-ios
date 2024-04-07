@@ -39,7 +39,7 @@ class ActBeatSectionHeader: UITableViewHeaderFooterView {
                                             constant:0).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor,
                                            constant: 10).isActive = true
-        titleLabel.textColor = UIColor.screenDark
+        titleLabel.textColor = Theme.navTitleColor
         titleLabel.font = font
     }
     

@@ -34,8 +34,8 @@ class OutlineTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.backgroundColor = UIColor.screenLightGray
-        self.tableView.separatorColor = self.tableView.backgroundColor
+        self.tableView.backgroundColor = Theme.tableViewBackgroundColor
+        self.tableView.separatorColor = tableView.backgroundColor
         
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
@@ -121,7 +121,7 @@ class OutlineTableViewController: UITableViewController {
             screenplay?.title = "Untitled".localized
         }
         navigationController?.navigationBar.topItem?.title = self.screenplay?.title
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
+        let attributes = [NSAttributedString.Key.foregroundColor: Theme.navTitleColor,
                           NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
                                                                           weight: .semibold)]
         navigationController?.navigationBar.titleTextAttributes = attributes
@@ -129,7 +129,7 @@ class OutlineTableViewController: UITableViewController {
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = attributes
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
+        appearance.backgroundColor = Theme.navigationBarBackground
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         
@@ -144,13 +144,13 @@ class OutlineTableViewController: UITableViewController {
         let appearance = UITabBarAppearance()
         let selectedColor = UIColor.screenLightBlue
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
+        appearance.backgroundColor = Theme.navigationBarBackground
         appearance.inlineLayoutAppearance.selected.iconColor = selectedColor
         appearance.compactInlineLayoutAppearance.selected.iconColor = selectedColor
         appearance.stackedLayoutAppearance.selected.iconColor = selectedColor
-        appearance.inlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : selectedColor]
-        appearance.compactInlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : selectedColor]
-        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : selectedColor]
+        appearance.inlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : UIColor.white]
+        appearance.compactInlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : UIColor.white]
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : UIColor.white]
         tabBarController?.tabBar.standardAppearance = appearance
         tabBarController?.tabBar.scrollEdgeAppearance = tabBarController?.tabBar.standardAppearance
     }
@@ -185,7 +185,7 @@ class OutlineTableViewController: UITableViewController {
         descriptionCell?.update(viewController: .outline,
                                section: indexPath.section,
                                act: nil)
-        descriptionCell?.contentView.backgroundColor = UIColor.screenLightGray
+        descriptionCell?.contentView.backgroundColor = Theme.tableViewBackgroundColor
         descriptionCell?.expandButton.tag = indexPath.section
         descriptionCell?.expandButton.addTarget(self,
                                                action: #selector(expandButtonTapped(sender:)),
@@ -221,8 +221,8 @@ class OutlineTableViewController: UITableViewController {
         sectionHeader.navigationButton.addTarget(self,
                                                  action: #selector(pushToDetailView(sender:)),
                                                  for: .touchUpInside)
-        sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
-        sectionHeader.sectionLabel.textColor = UIColor.screenDark
+        sectionHeader.contentView.backgroundColor = Theme.tableViewBackgroundColor
+        sectionHeader.sectionLabel.textColor = Theme.navTitleColor
 
         sectionHeader.sectionLabel.text = sectionName
         return sectionHeader
@@ -235,7 +235,7 @@ class OutlineTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "footer")
-        sectionHeader.contentView.backgroundColor = UIColor.athensGray
+        sectionHeader.contentView.backgroundColor = Theme.sectionHeaderSeparatorColor
         sectionHeader.moreButton.isHidden = true
         sectionHeader.sectionLabel.isHidden = true
         return sectionHeader

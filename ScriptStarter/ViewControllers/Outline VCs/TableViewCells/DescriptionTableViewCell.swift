@@ -23,9 +23,9 @@ class DescriptionTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
     @IBOutlet weak var expandButton: UIButton!
     @IBOutlet weak var descriptionTextViewHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var expandView: UIView?
+
     var textViewBecomesFirstResponder: Bool = false
-   
     var screenplay: Screenplay? {
         return ScreenplayController.shared.currentScreenplay
     }
@@ -41,8 +41,10 @@ class DescriptionTableViewCell: UITableViewCell {
         
         let isIpad = UIDevice.current.userInterfaceIdiom == .pad
         
-        self.descriptionTextView.textColor = UIColor.screenHaitiBlack
-        self.descriptionTextView.placeholderColor = UIColor.lightGray
+        self.descriptionTextView.textColor = Theme.descriptionTextColor
+        self.expandView?.backgroundColor = Theme.descriptionTextViewBackground
+        descriptionTextView.backgroundColor = Theme.descriptionTextViewBackground
+        self.descriptionTextView.placeholderColor = Theme.descriptionPlaceholderTextColor
         let font = UIFont.systemFont(ofSize: isIpad ? 24: 14,
                                      weight: .regular)
         

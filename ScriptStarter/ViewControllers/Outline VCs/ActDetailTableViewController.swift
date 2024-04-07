@@ -26,8 +26,8 @@ class ActDetailTableViewController: UITableViewController {
         
         setupExpandableSections()
         title = act.title
-        tableView.backgroundColor = UIColor.screenLightGray
-        tableView.separatorColor = self.tableView.backgroundColor
+        tableView.backgroundColor = Theme.tableViewBackgroundColor
+        tableView.separatorColor = tableView.backgroundColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,7 +98,7 @@ class ActDetailTableViewController: UITableViewController {
             return 1 // Overall Act Description
         case 1:
             return 0 // Act Beats Section Header
-            
+         
         default:     // Act Beats
             return expandableSections[section-self.sectionBesidesBeats].collapsed ? 0 : 1
         }
@@ -107,9 +107,8 @@ class ActDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell",
                                                             for: indexPath) as? DescriptionTableViewCell
-        
         // Configure the cell...
-        descriptionCell?.contentView.backgroundColor = UIColor.screenLightGray
+        descriptionCell?.contentView.backgroundColor = Theme.tableViewBackgroundColor
         descriptionCell?.delegate = self
         descriptionCell?.defaultHeight = self.getDefaultHeightOfCell()
         descriptionCell?.update(viewController: .actDetail,
@@ -119,14 +118,13 @@ class ActDetailTableViewController: UITableViewController {
         descriptionCell?.expandButton.addTarget(self,
                                                 action: #selector(expandButtonTapped(sender:)),
                                                 for: .touchUpInside)
-        
         return descriptionCell ?? UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
             guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
-            
+
             if self.isExpandingCell {
                 descriptionCell.descriptionTextView.becomeFirstResponder()
                 descriptionCell.descriptionTextView.isHidden = false
@@ -138,12 +136,12 @@ class ActDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
             guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
-                  
-                  if self.isCollapsingCell {
-                      descriptionCell.descriptionTextView.resignFirstResponder()
-                      descriptionCell.resignFirstResponder()
-                      self.isCollapsingCell = false
-                  }
+
+            if self.isCollapsingCell {
+                descriptionCell.descriptionTextView.resignFirstResponder()
+                descriptionCell.resignFirstResponder()
+                self.isCollapsingCell = false
+            }
         }
     }
 
@@ -153,12 +151,13 @@ class ActDetailTableViewController: UITableViewController {
         case 0:
             // Overall Description
             let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
-            sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
+            sectionHeader.contentView.backgroundColor = Theme.tableViewBackgroundColor
             sectionHeader.moreButton.isHidden = true
             sectionHeader.navigationButton.isEnabled = false
             let font = UIFont.systemFont(ofSize: 16,
                                          weight: .bold)
             sectionHeader.sectionLabel.font = font
+            sectionHeader.sectionLabel.textColor = Theme.navTitleColor
             sectionHeader.sectionLabel.text = "Overall description".localized
             return sectionHeader
         case 1:
@@ -170,6 +169,7 @@ class ActDetailTableViewController: UITableViewController {
                 return nil
             default:
                 header.titleLabel.text = "Act Beats".localized
+                header.titleLabel.textColor = Theme.navTitleColor
                 header.infoButton.addTarget(self,
                                             action: #selector(informationButtonTapped),
                                             for: .touchUpInside)
@@ -179,7 +179,7 @@ class ActDetailTableViewController: UITableViewController {
         default:
             // Create Collapsible Header for Act Beats
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
-            header.contentView.backgroundColor = expandableSections[section-self.sectionBesidesBeats].collapsed ? .white : UIColor.screenLightGray
+            header.contentView.backgroundColor = expandableSections[section-self.sectionBesidesBeats].collapsed ? Theme.tableViewSectionCollapsedColor : Theme.tableViewSectionExpandedColor
             header.titleLabel.text = act.sectionsTitles[section-self.sectionBesidesBeats]
             header.subtitleLabel.text = act.sectionSubTitles[section-self.sectionBesidesBeats]
             header.setCollapsed(expandableSections[section-self.sectionBesidesBeats].collapsed)
@@ -198,7 +198,7 @@ class ActDetailTableViewController: UITableViewController {
         case 1:
             // Act Beats Header
             if self.act == .idea { return 0.0001 }
-            return 25
+            return 15
         default:
             // Act Beat Expandable sections
             return 60

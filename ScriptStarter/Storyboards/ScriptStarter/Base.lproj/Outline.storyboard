@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="C6K-v0-Xhf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="C6K-v0-Xhf">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -68,6 +68,7 @@
                                     <outlet property="descriptionTextView" destination="Qyo-BN-hxh" id="pmb-UE-iRP"/>
                                     <outlet property="descriptionTextViewHeightConstraint" destination="KdW-zN-ZWc" id="WiH-1D-zRe"/>
                                     <outlet property="expandButton" destination="OoG-mU-OaH" id="kXS-iI-fAY"/>
+                                    <outlet property="expandView" destination="Ejy-l3-4Uu" id="Jxc-5a-NMV"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -255,6 +256,7 @@
                                     <outlet property="descriptionTextView" destination="M2q-6h-tdl" id="Eke-2K-c3y"/>
                                     <outlet property="descriptionTextViewHeightConstraint" destination="JHK-rs-O04" id="non-CK-33f"/>
                                     <outlet property="expandButton" destination="b93-dJ-4ek" id="L5E-rV-Vgq"/>
+                                    <outlet property="expandView" destination="ZPg-pn-mpR" id="j5D-QK-cg9"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -288,7 +290,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="informationPopCell" rowHeight="310" id="aKw-pa-GgF" customClass="InformationPopTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="310"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="310"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aKw-pa-GgF" id="7e3-Ow-V1V">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="310"/>
@@ -395,10 +397,10 @@
     </scenes>
     <designables>
         <designable name="M2q-6h-tdl">
-            <size key="intrinsicContentSize" width="10" height="30"/>
+            <size key="intrinsicContentSize" width="0.0" height="30"/>
         </designable>
         <designable name="Qyo-BN-hxh">
-            <size key="intrinsicContentSize" width="10" height="36.333333333333336"/>
+            <size key="intrinsicContentSize" width="0.0" height="36.333333333333336"/>
         </designable>
     </designables>
     <resources>
