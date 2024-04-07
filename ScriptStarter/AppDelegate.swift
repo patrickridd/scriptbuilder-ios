@@ -28,17 +28,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
         -> Bool {
-            
+
             // Configure Firebase
             FirebaseApp.configure()
-            
+
             // Enable offline persistence
             Database.database().isPersistenceEnabled = true
-            
+
             // Initialize Facebook sign-in
             ApplicationDelegate.shared.application(application,
                                                    didFinishLaunchingWithOptions: launchOptions)
-            
+
             // Initialize Google sign-in            
             GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
 
@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 self.presentLoginScreen()
             }
-            
+
             return true
     }
         
@@ -102,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "loginVC") as? LoginViewController {
             self.window?.rootViewController = loginVC
         }
-        self.window?.makeKeyAndVisible()
+        makeKeyAndVisible()
     }
     
     func presentScreenplayCollectionView() {
@@ -114,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         self.window?.rootViewController = mainNavigationController
-        self.window?.makeKeyAndVisible()
+        makeKeyAndVisible()
     }
     
     func presentNewScreenplayIdea() {
@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         self.window?.rootViewController = mainNavigationController
-        self.window?.makeKeyAndVisible()
+        makeKeyAndVisible()
     }
     
     func presentNewCharacter() {
@@ -144,18 +144,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         screenplayCoverVC.swipedLeft()
         screenplayTabBar.selectedIndex = 1
         characterTableViewController.newCharacter = true
-        FirebaseController.shared.getScreenplays { (screenplays) in
+        FirebaseController.shared.getScreenplays { [weak self] (screenplays) in
             if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays) {
                 ScreenplayController.shared.set(currentScreenplay: screenplay)
-                self.window?.rootViewController = screenplayCoverVC
-                self.window?.makeKeyAndVisible()
+                self?.window?.rootViewController = screenplayCoverVC
+                self?.window?.makeKeyAndVisible()
                 return
             }
             let name = Auth.auth().currentUser?.displayName ?? "Name"
             let screenplay = Screenplay(title: "Untitled", authorName: name)
             ScreenplayController.shared.set(currentScreenplay: screenplay)
-            self.window?.rootViewController = screenplayCoverVC
-            self.window?.makeKeyAndVisible()
+            self?.window?.rootViewController = screenplayCoverVC
+            self?.makeKeyAndVisible()
         }
     }
     
@@ -175,45 +175,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         screenplayCoverVC.swipedLeft()
         screenplayTabBar.selectedIndex = 2
         scenesTableViewController.newScene = true
-        FirebaseController.shared.getScreenplays { (screenplays) in
+        FirebaseController.shared.getScreenplays { [weak self] (screenplays) in
             if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays) {
                 ScreenplayController.shared.set(currentScreenplay: screenplay)
-                self.window?.rootViewController = screenplayCoverVC
-                self.window?.makeKeyAndVisible()
+                self?.window?.rootViewController = screenplayCoverVC
+                self?.window?.makeKeyAndVisible()
                 return
             }
             
             let name = Auth.auth().currentUser?.displayName ?? "Name"
             let screenplay = Screenplay(title: "Untitled".localized, authorName: name)
             ScreenplayController.shared.set(currentScreenplay: screenplay)
-            self.window?.rootViewController = screenplayCoverVC
-            self.window?.makeKeyAndVisible()
+            self?.window?.rootViewController = screenplayCoverVC
+            self?.makeKeyAndVisible()
         }
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        
         // Handles both Facebook and Google
-
         let handled = ApplicationDelegate.shared.application(application,
                                                              open: url,
                                                              sourceApplication: sourceApplication,
-                                                             annotation: annotation) ||   GIDSignIn.sharedInstance().handle(url)
-        
-
+                                                             annotation: annotation) || GIDSignIn.sharedInstance().handle(url)
         return handled
     }
     
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
-            
             let handled = ApplicationDelegate.shared.application(application,
                                                                  open: url,
                                                                  options: options) || GIDSignIn.sharedInstance().handle(url)
             return handled
     }
     
+    func makeKeyAndVisible() {
+        self.window?.makeKeyAndVisible()
+        determineInterfaceStyle()
+    }
+
+    func determineInterfaceStyle() {
+        let darkModeEnabled = UserDefaults().bool(forKey: Constants.darkModeEnabled.rawValue)
+        UIApplication.shared.set(style: darkModeEnabled ? .dark : .light)
+    }
 }
 
 
@@ -229,5 +233,9 @@ extension UIApplication {
 
     var interfaceStyle: UIUserInterfaceStyle? {
         mainWindow?.overrideUserInterfaceStyle
+    }
+    
+    func set(style: UIUserInterfaceStyle) {
+        mainWindow?.overrideUserInterfaceStyle = style
     }
 }

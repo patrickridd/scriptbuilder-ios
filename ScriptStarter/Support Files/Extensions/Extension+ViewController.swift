@@ -16,13 +16,6 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         return ScreenplayController.shared.currentScreenplay
     }
     
-    var shouldDisplayInterstitials: Bool {
-        let shouldDisplayInterstitial = UserDefaults.standard.bool(forKey: Constants.shouldDisplayInterstitial)
-        
-        // Should display interstitial if user defaults is stored as true and if they havent purchased the IAP
-        return (shouldDisplayInterstitial && InAppPurchases.shouldDisplayAds)
-    }
-    
     @objc func saveCurrentScreenplay() {
         if let screenplay = screenplay {
             FirebaseController.shared.save(screenplay: screenplay) { (_) in
@@ -30,7 +23,6 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
             }
         }
     }
-    
     
     func saveScreenplay(completion: @escaping () -> Void) {
         let loadingNotification = MBProgressHUD.showAdded(to: self.view,

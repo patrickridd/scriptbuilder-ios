@@ -8,15 +8,7 @@
 
 import Foundation
 
-struct Constants {
-    
-    // Keys
-    static let shouldDisplayInterstitial: String = "shouldScheduleAd"
-    static let characterBuilderRewardEnabled: String = "characterBuilderRewardEnabled"
-    
-    
-    // Reward Based Ad Types
-    
-    static let characterBuilderTrialType = "Character Builder Trial"
-    static let sceneBuilderTrialType = "Scene Builder Trial"
+enum Constants: String {
+    // MARK: User Default Constants
+    case darkModeEnabled
 }
