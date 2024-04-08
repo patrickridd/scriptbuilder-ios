@@ -39,6 +39,7 @@ class SectionHeaderSubtitle: UITableViewHeaderFooterView {
                                              constant: 0).isActive = true
         sectionLabel.textColor = UIColor.screenDark
         sectionLabel.font = font
+        sectionLabel.textColor = .label
     }
     
     func setupSubtitleLabel() {

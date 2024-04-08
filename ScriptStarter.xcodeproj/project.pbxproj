@@ -21,6 +21,8 @@
 		211215D6203B5DC30039D6E8 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215D5203B5DC30039D6E8 /* Role.swift */; };
 		211215D8203B5E680039D6E8 /* RoleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215D7203B5E680039D6E8 /* RoleTableViewCell.swift */; };
 		211800DA20238A1200F33924 /* ScreenplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211800D920238A1200F33924 /* ScreenplayCollectionViewCell.swift */; };
+		2122BE6A2BC38BF700CBC2ED /* bokehBackground.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2122BE692BC38BF700CBC2ED /* bokehBackground.jpeg */; };
+		2122BE6C2BC38DE500CBC2ED /* spiraling_stars.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2122BE6B2BC38DE500CBC2ED /* spiraling_stars.jpg */; };
 		2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */; };
 		212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212DEA732012746500FE9C3F /* AppDelegate.swift */; };
 		212DEA792012746500FE9C3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA772012746500FE9C3F /* Main.storyboard */; };
@@ -131,6 +133,8 @@
 		211215D5203B5DC30039D6E8 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		211215D7203B5E680039D6E8 /* RoleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleTableViewCell.swift; sourceTree = "<group>"; };
 		211800D920238A1200F33924 /* ScreenplayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayCollectionViewCell.swift; sourceTree = "<group>"; };
+		2122BE692BC38BF700CBC2ED /* bokehBackground.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = bokehBackground.jpeg; path = ../../../../ImageAssets/bokehBackground.jpeg; sourceTree = "<group>"; };
+		2122BE6B2BC38DE500CBC2ED /* spiraling_stars.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = spiraling_stars.jpg; path = ../../../../ImageAssets/spiraling_stars.jpg; sourceTree = "<group>"; };
 		2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargedDescriptionTableViewController.swift; sourceTree = "<group>"; };
 		212DEA702012746500FE9C3F /* ScriptStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		212DEA732012746500FE9C3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -634,7 +638,9 @@
 		21E952E02BC1BCD800A73D7F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2122BE692BC38BF700CBC2ED /* bokehBackground.jpeg */,
 				2101F34D20619442003A90A4 /* Cork_closeup.jpg */,
+				2122BE6B2BC38DE500CBC2ED /* spiraling_stars.jpg */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -802,6 +808,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				212DEA7E2012746500FE9C3F /* LaunchScreen.storyboard in Resources */,
+				2122BE6A2BC38BF700CBC2ED /* bokehBackground.jpeg in Resources */,
 				21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */,
 				215DDCD321EFD30800C52B6C /* GoogleService-Info.plist in Resources */,
 				2135777F201292E100C5EADC /* Character.storyboard in Resources */,
@@ -809,6 +816,7 @@
 				2136852E220CB9990019A9A8 /* Localizable.strings in Resources */,
 				212DEA7B2012746500FE9C3F /* Assets.xcassets in Resources */,
 				2101F34E20619442003A90A4 /* Cork_closeup.jpg in Resources */,
+				2122BE6C2BC38DE500CBC2ED /* spiraling_stars.jpg in Resources */,
 				212DEA792012746500FE9C3F /* Main.storyboard in Resources */,
 				21368536220E0C090019A9A8 /* InfoPlist.strings in Resources */,
 				21A84F4A2016988600CE4149 /* Storyboard.storyboard in Resources */,

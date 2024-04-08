@@ -36,14 +36,14 @@ class ScreenplayCollectionViewController: UIViewController {
     fileprivate func setupNavigationBarUI() {
         let strokeTextAttributes: [NSAttributedString.Key : Any] = [
             NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
-            NSAttributedString.Key.foregroundColor : UIColor.white,
+            NSAttributedString.Key.foregroundColor : Theme.navTitleColor,
             NSAttributedString.Key.strokeWidth : -2.0,
             NSAttributedString.Key.font: UIFont(name: "Avenir-Light",
                                                 size: 20) ?? UIFont.systemFont(ofSize: 20,
                                                                                weight: .regular)]
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.screenDark
+        appearance.backgroundColor = Theme.navigationBarBackground
         appearance.titleTextAttributes = strokeTextAttributes
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance

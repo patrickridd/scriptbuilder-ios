@@ -26,11 +26,11 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.backgroundColor = .screenLightGray
+        self.tableView.backgroundColor = Theme.tableViewBackgroundColor
         setupNavigationBar()
         
-        self.tableView.backgroundColor = UIColor.screenLightGray
-        self.tableView.separatorColor = self.tableView.backgroundColor
+        self.tableView.backgroundColor = Theme.tableViewBackgroundColor
+        self.tableView.separatorColor = tableView.backgroundColor
     }
     
     lazy var descriptionCell: DescriptionTableViewCell? = {
@@ -49,7 +49,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-      
+
         guard
             let descriptionCell = descriptionCell,
             let text = descriptionCell.descriptionTextView.text
@@ -113,14 +113,14 @@ class EnlargedDescriptionTableViewController: UITableViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.topItem?.title = title
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
+        let attributes = [NSAttributedString.Key.foregroundColor: Theme.navTitleColor,
                           NSAttributedString.Key.font: font]
         navigationController?.navigationBar.titleTextAttributes = attributes
         navigationController?.navigationBar.tintColor = .screenLightBlue
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = attributes
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
+        appearance.backgroundColor = Theme.navigationBarBackground
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
     }
@@ -143,7 +143,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
                                act: self.act,
                                character: self.character,
                                scene: self.scene)
-        descriptionCell.backgroundColor = .screenLightGray
+        descriptionCell.backgroundColor = Theme.descriptionTextViewBackground
         addToolBar(textView: descriptionCell.descriptionTextView)
         
         return descriptionCell
