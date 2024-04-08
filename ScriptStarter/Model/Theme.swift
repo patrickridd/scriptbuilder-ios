@@ -45,7 +45,7 @@ class Theme {
     static var lineSeparatorcolor: UIColor {
         switch interfaceStyle {
         case .unspecified, .none, .light:
-            return .lightGray
+            return .screenLightGray
         case .dark:
             return UIColor.screenMidnightExpressBlack
         }
