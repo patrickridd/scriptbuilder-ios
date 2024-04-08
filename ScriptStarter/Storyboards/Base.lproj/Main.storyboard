@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -626,7 +627,7 @@
                                             <rect key="frame" x="147" y="28.666666666666671" width="120" height="33"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                             <state key="normal" title="Delete Account">
-                                                <color key="titleColor" red="0.75618135929999997" green="0.25167006250000001" blue="0.24701988699999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="titleColor" systemColor="systemPinkColor"/>
                                             </state>
                                         </button>
                                     </subviews>
@@ -635,6 +636,11 @@
                                         <constraint firstItem="1vU-dU-rgj" firstAttribute="centerX" secondItem="2Eo-Ui-hTQ" secondAttribute="centerX" id="JRx-bL-dDr"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="personalCell" rowHeight="150" id="oEa-0l-DIG" customClass="PersonalInfoTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="490.33333206176758" width="414" height="150"/>
@@ -727,6 +733,11 @@
                                         <constraint firstItem="sda-RX-A6e" firstAttribute="centerY" secondItem="EUf-WU-lsy" secondAttribute="centerY" id="kfD-pM-81Y"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="charactersCountLabel" destination="bh2-G0-xtc" id="0yf-lX-rHa"/>
                                     <outlet property="charactersHeaderLabel" destination="3Yv-We-PHn" id="GFy-Ap-WNF"/>
@@ -1310,6 +1321,9 @@
         <image name="shareArrowAsset 1" width="30" height="25"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

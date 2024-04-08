@@ -15,10 +15,14 @@ class ScreenplayCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     
     override func awakeFromNib() {
+        super.awakeFromNib()
+        titleLabel.textColor = .label
+        nameLabel.textColor = .label
     }
     
     func update(title: String, name: String) {
         self.titleLabel.text = title
         self.nameLabel.text = name
+        contentView.backgroundColor = Theme.secondarySystemBackground
     }
 }

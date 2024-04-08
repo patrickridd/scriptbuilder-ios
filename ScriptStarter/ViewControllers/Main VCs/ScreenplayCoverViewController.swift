@@ -22,7 +22,7 @@ class ScreenplayCoverViewController: UIViewController {
         saveButton.view = self
         titleTextField.delegate = self
         nameTextField.delegate = self
-        
+        view.backgroundColor = Theme.systemBackground
         let name = Auth.auth().currentUser?.displayName ?? "Name"
 
         if let screenplay = self.screenplay {

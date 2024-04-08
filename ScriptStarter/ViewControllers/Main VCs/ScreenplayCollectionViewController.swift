@@ -20,7 +20,7 @@ class ScreenplayCollectionViewController: UIViewController {
             self.collectionView.reloadData()
         }
     }
-    
+
     var user: Firebase.User? {
         return Auth.auth().currentUser
     }
@@ -28,6 +28,12 @@ class ScreenplayCollectionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        setupNavigationBarUI()
+        collectionView.reloadData()
+        getScreenplays()
+    }
+    
+    fileprivate func setupNavigationBarUI() {
         let strokeTextAttributes: [NSAttributedString.Key : Any] = [
             NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
             NSAttributedString.Key.foregroundColor : UIColor.white,
@@ -42,10 +48,6 @@ class ScreenplayCollectionViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         self.navigationItem.title = "Script Builder".localized
-    
-        self.collectionView.reloadData()
-
-        getScreenplays()
     }
    
     // MARK: IBActions
@@ -126,6 +128,7 @@ extension ScreenplayCollectionViewController: UICollectionViewDataSource {
         case 0:
             // Create the Add '+' screenplay cell
             guard let addScreenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "addScreenplayCell", for: indexPath) as? AddScreenplayCollectionViewCell else { return UICollectionViewCell() }
+            addScreenplayCell.contentView.backgroundColor = Theme.secondarySystemBackground
             return addScreenplayCell
         default:
             // TODO: Create a cell for an existing screenplay

@@ -29,7 +29,7 @@ class Theme {
         case .unspecified, .none, .light:
             return .white
         case .dark:
-            return UIColor.black
+            return UIColor.darkGray
         }
     }
     
@@ -38,7 +38,7 @@ class Theme {
         case .unspecified, .none, .light:
             return .white
         case .dark:
-            return UIColor.black
+            return UIColor.darkGray
         }
     }
 
@@ -47,16 +47,16 @@ class Theme {
         case .unspecified, .none, .light:
             return UIColor.screenLightGray
         case .dark:
-            return UIColor.screenMidnightExpressBlack
+            return UIColor.black
         }
     }
     
     static var secondarySystemBackground: UIColor {
         switch interfaceStyle {
         case .unspecified, .none, .light:
-            return UIColor.screenLightGray
+            return UIColor.white
         case .dark:
-            return UIColor.screenDarkGray
+            return UIColor.darkGray
         }
     }
     
@@ -65,7 +65,7 @@ class Theme {
         case .unspecified, .none, .light:
             return UIColor.athensGray
         case .dark:
-            return UIColor.screenDarkMediumGray
+            return UIColor.black
         }
     }
     

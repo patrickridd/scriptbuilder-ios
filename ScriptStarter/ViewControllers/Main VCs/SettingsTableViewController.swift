@@ -170,10 +170,12 @@ class SettingsTableViewController: UITableViewController {
             let personalInfoCell = tableView.dequeueReusableCell(withIdentifier: "personalCell",
                                                                  for: indexPath) as? PersonalInfoTableViewCell
             personalInfoCell?.updateCell(with: user, and: screenplays)
+            personalInfoCell?.backgroundColor = Theme.secondarySystemBackground
             return personalInfoCell ?? UITableViewCell()
         case 1:
            let enableDarkModeTableViewCell = tableView.dequeueReusableCell(withIdentifier:"enableDarkModeTableViewCell",
                                                                         for: indexPath) as? EnableDarkModeTableViewCell
+            enableDarkModeTableViewCell?.backgroundColor = Theme.secondarySystemBackground
             return enableDarkModeTableViewCell ?? UITableViewCell()
         case 2:
             let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell",
@@ -182,14 +184,17 @@ class SettingsTableViewController: UITableViewController {
             changePasswordCell?.changeButton.addTarget(self,
                                                       action: #selector(changePasswordButtonTapped),
                                                       for: .touchUpInside)
+            changePasswordCell?.backgroundColor = Theme.secondarySystemBackground
             return changePasswordCell ?? UITableViewCell()
         case 3:
             let shareAppCell = tableView.dequeueReusableCell(withIdentifier: "shareAppCell",
                                                              for: indexPath) as? ShareTableViewCell
+            shareAppCell?.backgroundColor = Theme.secondarySystemBackground
             return shareAppCell ?? UITableViewCell()
         case 4:
             let deleteCell = tableView.dequeueReusableCell(withIdentifier: "deleteAccountCell",
                                                            for: indexPath) as? DeleteAccountTableViewCell
+            deleteCell?.backgroundColor = Theme.secondarySystemBackground
             return deleteCell ?? UITableViewCell()
         default:
             return UITableViewCell()
