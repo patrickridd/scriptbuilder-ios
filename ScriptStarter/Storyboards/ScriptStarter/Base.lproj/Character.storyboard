@@ -244,6 +244,7 @@
                                     <outlet property="nameTextField" destination="136-1D-puI" id="peY-TD-JHJ"/>
                                     <outlet property="roleButton" destination="0YF-DI-8EN" id="vLt-yA-M2N"/>
                                     <outlet property="roleTextField" destination="5Vg-o2-u3g" id="oL1-Ct-caP"/>
+                                    <outlet property="separatorLineView" destination="zmL-cU-anf" id="6W2-qy-WUz"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="96" id="LHz-iG-wIy" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">

@@ -41,6 +41,15 @@ class Theme {
             return UIColor.darkGray
         }
     }
+    
+    static var lineSeparatorcolor: UIColor {
+        switch interfaceStyle {
+        case .unspecified, .none, .light:
+            return .lightGray
+        case .dark:
+            return UIColor.screenMidnightExpressBlack
+        }
+    }
 
     static var tableViewBackgroundColor: UIColor {
         switch interfaceStyle {
@@ -99,5 +108,15 @@ class Theme {
             return UIColor.white
         }
     }
+    
+    static var characterNameTextFieldColor: UIColor {
+        switch interfaceStyle {
+        case .unspecified, .none, .light:
+            return UIColor.screenDarkMediumGray
+        case .dark:
+            return UIColor.white
+        }
+    }
+
     
 }

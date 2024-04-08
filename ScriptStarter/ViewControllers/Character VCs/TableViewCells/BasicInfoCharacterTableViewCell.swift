@@ -13,6 +13,7 @@ class BasicInfoCharacterTableViewCell: UITableViewCell {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var roleTextField: UITextField!
     @IBOutlet weak var roleButton: UIButton!
+    @IBOutlet weak var separatorLineView: UIView!
     
     var character: Character?
     weak var delegate: NameChangedDelegate?
@@ -23,9 +24,12 @@ class BasicInfoCharacterTableViewCell: UITableViewCell {
         nameTextField.delegate = self
         roleTextField.delegate = self
         
-        self.nameTextField.textColor = UIColor.screenDarkMediumGray
+        self.nameTextField.textColor = Theme.characterNameTextFieldColor
         self.roleTextField.textColor = UIColor.screenLightBlue
-        
+        self.nameTextField.backgroundColor = Theme.descriptionTextViewBackground
+        self.roleTextField.backgroundColor = Theme.descriptionTextViewBackground
+        self.contentView.backgroundColor = Theme.descriptionTextViewBackground
+        separatorLineView.backgroundColor = Theme.lineSeparatorcolor
         self.addToolBar(textField: self.nameTextField)
         self.addToolBar(textField: self.roleTextField)
     }

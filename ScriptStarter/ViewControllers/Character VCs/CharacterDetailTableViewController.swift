@@ -39,13 +39,12 @@ class CharacterDetailTableViewController: UITableViewController {
         let font = UIFont.systemFont(ofSize: 20,
                                      weight: UIFont.Weight.light)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font:font]
-        self.tableView.backgroundColor = UIColor.screenLightGray
+        self.tableView.backgroundColor = Theme.tableViewBackgroundColor
+        self.tableView.separatorColor = Theme.tableViewBackgroundColor
         self.setupExpandableSections()
       
         self.title = self.character?.name ?? "New Character".localized
       
-        self.tableView.backgroundColor = UIColor.screenLightGray
-        self.tableView.separatorColor = self.tableView.backgroundColor
        
         guard let _ = self.character else {
             let character = Character(name: "")
@@ -171,7 +170,6 @@ class CharacterDetailTableViewController: UITableViewController {
         default:
             let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell",
                                                                 for: indexPath) as? DescriptionTableViewCell
-            descriptionCell?.contentView.backgroundColor = UIColor.screenLightGray
             descriptionCell?.delegate = self
             descriptionCell?.defaultHeight = self.getDefaultHeightOfCell()
             descriptionCell?.update(viewController: .characterDetail,
@@ -215,7 +213,7 @@ class CharacterDetailTableViewController: UITableViewController {
         case 0,1:
             
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
-            header.contentView.backgroundColor = UIColor.screenLightGray
+            header.contentView.backgroundColor = Theme.tableViewBackgroundColor
             header.moreButton.isHidden = true
             header.sectionLabel.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: 5).isActive = true
             header.navigationButton.isEnabled = false
@@ -227,7 +225,7 @@ class CharacterDetailTableViewController: UITableViewController {
             return header
         default:
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
-            header.contentView.backgroundColor = expandableSections[section-2].collapsed ? .white : UIColor.screenLightGray
+            header.contentView.backgroundColor = expandableSections[section-2].collapsed ? Theme.tableViewSectionCollapsedColor : Theme.tableViewSectionExpandedColor
             header.titleLabel.text = CharacterSection.sectionTitles[section-2]
             header.subtitleLabel.text = CharacterSection.sectionSubtitles[section-2]
             header.setCollapsed(expandableSections[section-2].collapsed)

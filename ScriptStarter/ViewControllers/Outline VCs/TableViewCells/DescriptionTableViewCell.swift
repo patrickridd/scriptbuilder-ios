@@ -40,11 +40,12 @@ class DescriptionTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         let isIpad = UIDevice.current.userInterfaceIdiom == .pad
-        
-        self.descriptionTextView.textColor = Theme.descriptionTextColor
-        self.expandView?.backgroundColor = Theme.descriptionTextViewBackground
+
+        descriptionTextView.textColor = Theme.descriptionTextColor
+        expandView?.backgroundColor = Theme.descriptionTextViewBackground
         descriptionTextView.backgroundColor = Theme.descriptionTextViewBackground
-        self.descriptionTextView.placeholderColor = Theme.descriptionPlaceholderTextColor
+        descriptionTextView.placeholderColor = Theme.descriptionPlaceholderTextColor
+        contentView.backgroundColor = Theme.tableViewBackgroundColor
         let font = UIFont.systemFont(ofSize: isIpad ? 24: 14,
                                      weight: .regular)
         
