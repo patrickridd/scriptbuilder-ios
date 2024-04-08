@@ -49,7 +49,7 @@ class CharacterTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.backgroundColor = UIColor.screenLightGray
+        self.tableView.backgroundColor = Theme.tableViewBackgroundColor
         
         self.tableView.reloadData()
         setupNavigationBar()
@@ -83,7 +83,7 @@ class CharacterTableViewController: UITableViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
-        let attributes =  [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
+        let attributes =  [NSAttributedString.Key.foregroundColor: Theme.navTitleColor,
                            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
                                                                           weight: .semibold)]
         navigationController?.navigationBar.titleTextAttributes = attributes
@@ -91,7 +91,7 @@ class CharacterTableViewController: UITableViewController {
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = attributes
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
+        appearance.backgroundColor = Theme.navigationBarBackground
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         self.navigationController?.navigationBar.titleTextAttributes = attributes
@@ -293,14 +293,14 @@ class CharacterTableViewController: UITableViewController {
       
         if self.roleCharacterSections.count == 0 {
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
-            header.contentView.backgroundColor = UIColor.screenLightGray
+            header.contentView.backgroundColor = Theme.tableViewBackgroundColor
             header.moreButton.isHidden = true
             header.sectionLabel.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: 5).isActive = true
             header.navigationButton.isEnabled = false
             let font = UIFont.systemFont(ofSize: 16, weight: .bold)
             header.sectionLabel.font = font
             header.sectionLabel.text = "Characters".localized
-            header.sectionLabel.textColor = UIColor.screenDarkGray
+            header.sectionLabel.textColor = Theme.navTitleColor
             //header.subtitleLabel.text = "Character Arc"
             
             return header
@@ -309,13 +309,13 @@ class CharacterTableViewController: UITableViewController {
             // Get Role title section
             let roleTitle = self.roleCharacterSections[section].roleTitle.localized
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
-            header.contentView.backgroundColor = UIColor.screenLightGray
+            header.contentView.backgroundColor = Theme.tableViewBackgroundColor
             header.moreButton.isHidden = true
             header.sectionLabel.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: 5).isActive = true
-            header.sectionLabel.textColor = UIColor.screenDarkGray
+            header.sectionLabel.textColor = Theme.navTitleColor
             header.navigationButton.isEnabled = false
             let font = UIFont.systemFont(ofSize: 16, weight: .bold)
-            
+
             header.sectionLabel.font = font
             header.sectionLabel.text = roleTitle
             return header

@@ -18,18 +18,18 @@ class NoCharacterTableViewCell: UITableViewCell {
         noCharacterLabel.numberOfLines = 1
         noCharacterLabel.adjustsFontSizeToFitWidth = true
         noCharacterLabel.lineBreakMode = .byClipping
+        
+        backgroundColor = Theme.descriptionTextViewBackground
     }
     
     func update(with text: String) {
         let plusButton = "+"
         let range = (text as NSString).range(of: plusButton)
-        
         let attributedText = NSMutableAttributedString.init(string: text)
-       
         attributedText.addAttribute(NSAttributedString.Key.foregroundColor,
                                     value: UIColor.screenLightBlue,
                                     range: range)
-        
+        noCharacterLabel.textColor = .label
         noCharacterLabel.attributedText = attributedText
     }
     
