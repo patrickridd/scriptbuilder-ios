@@ -33,10 +33,11 @@ class ScreenplayCoverViewController: UIViewController {
             // Create new screenplay
             let newScreenplay = Screenplay(title: "",
                                            authorName: name)
+            self.nameTextField.text = name
             ScreenplayController.shared.set(currentScreenplay: newScreenplay)
             self.titleTextField.becomeFirstResponder()
         }
-        
+        nameTextField.textColor = Theme.descriptionPlaceholderTextColor
         // Setup Tap Gesture to dismiss keyboard
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(dismissKeyboard))

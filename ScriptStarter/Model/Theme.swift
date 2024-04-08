@@ -88,12 +88,7 @@ class Theme {
     }
 
     static var descriptionPlaceholderTextColor: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return UIColor.lightGray
-        case .dark:
-            return UIColor.lightGray
-        }
+        UIColor.lightGray
     }
     
     static var navTitleColor: UIColor {
