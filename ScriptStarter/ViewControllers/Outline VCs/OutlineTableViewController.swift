@@ -148,9 +148,9 @@ class OutlineTableViewController: UITableViewController {
         appearance.inlineLayoutAppearance.selected.iconColor = selectedColor
         appearance.compactInlineLayoutAppearance.selected.iconColor = selectedColor
         appearance.stackedLayoutAppearance.selected.iconColor = selectedColor
-        appearance.inlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : UIColor.white]
-        appearance.compactInlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : UIColor.white]
-        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : UIColor.white]
+        appearance.inlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : selectedColor]
+        appearance.compactInlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : selectedColor]
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : selectedColor]
         tabBarController?.tabBar.standardAppearance = appearance
         tabBarController?.tabBar.scrollEdgeAppearance = tabBarController?.tabBar.standardAppearance
     }
