@@ -119,16 +119,10 @@ extension IAPHelper: SKPaymentTransactionObserver {
     
     public func paymentQueue(_ queue: SKPaymentQueue,
                              restoreCompletedTransactionsFailedWithError error: Error) {
-        
-        if let productIdentifier = queue.transactions.first?.payment.productIdentifier {
-            self.delegate?.didCompleteTransaction(for: productIdentifier,
-                                                  with: nil,
-                                                  displayLoadingImage: false)
-        } else {
-            self.delegate?.didCompleteTransaction(for: "",
-                                                  with: nil,
-                                                  displayLoadingImage: false)
-        }
+        let productIdentifier = queue.transactions.first?.payment.productIdentifier
+        self.delegate?.didCompleteTransaction(for: productIdentifier,
+                                              with: nil,
+                                              displayLoadingImage: false)
     }
     
     private func complete(transaction: SKPaymentTransaction) {
@@ -141,7 +135,7 @@ extension IAPHelper: SKPaymentTransactionObserver {
     }
    
     private func restore(transaction: SKPaymentTransaction) {
-        guard let productIdentifier = transaction.original?.payment.productIdentifier else { return }
+        let productIdentifier = transaction.original?.payment.productIdentifier
 
         deliverPurchaseNotificationFor(identifier: productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
@@ -151,7 +145,7 @@ extension IAPHelper: SKPaymentTransactionObserver {
     }
     
     private func fail(transaction: SKPaymentTransaction) {
-        guard let productIdentifier = transaction.original?.payment.productIdentifier else { return }
+        let productIdentifier = transaction.original?.payment.productIdentifier
         
         if let transactionError = transaction.error as Error? {
             delegate?.didCompleteTransaction(for: productIdentifier,

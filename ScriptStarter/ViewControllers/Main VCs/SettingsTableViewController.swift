@@ -12,7 +12,7 @@ import StoreKit
 import Firebase
 
 protocol InAppPurchaseDelegate: class {
-    func didCompleteTransaction(for productIdentifier: String,
+    func didCompleteTransaction(for productIdentifier: String?,
                                 with error: Error?,
                                 displayLoadingImage: Bool)
     func startingTransaction()
@@ -306,7 +306,7 @@ class SettingsTableViewController: UITableViewController {
 
 extension SettingsTableViewController: InAppPurchaseDelegate {
 
-    func didCompleteTransaction(for productIdentifier: String,
+    func didCompleteTransaction(for productIdentifier: String?,
                                 with error: Error?,
                                 displayLoadingImage: Bool = true) {
         tableView.reloadData()

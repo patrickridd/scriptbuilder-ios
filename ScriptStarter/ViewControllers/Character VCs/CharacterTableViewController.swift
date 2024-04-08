@@ -388,7 +388,7 @@ extension CharacterTableViewController: InAppPurchaseDelegate {
         self.showActivityIndicator()
     }
     
-    func didCompleteTransaction(for productIdentifier: String,
+    func didCompleteTransaction(for productIdentifier: String?,
                                 with error: Error?,
                                 displayLoadingImage: Bool = true) {
         
@@ -398,7 +398,7 @@ extension CharacterTableViewController: InAppPurchaseDelegate {
             present(error: error)
         }
         if productIdentifier == InAppPurchases.characterFeatureIdentifier ||
-           productIdentifier.isEmpty {
+           productIdentifier == nil {
             checkForCharacterFeatureEnabled()
         }
     }

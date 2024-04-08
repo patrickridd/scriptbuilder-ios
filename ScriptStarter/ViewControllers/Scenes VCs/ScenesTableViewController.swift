@@ -600,10 +600,9 @@ extension ScenesTableViewController: InAppPurchaseDelegate {
         self.showActivityIndicator()
     }
     
-    func didCompleteTransaction(for productIdentifier: String,
+    func didCompleteTransaction(for productIdentifier: String?,
                                 with error: Error?,
                                 displayLoadingImage: Bool = true) {
-        
         self.hideActivityIndicator(success: error == nil,
                                    displayImage: displayLoadingImage)
         if let error = error {
@@ -611,7 +610,7 @@ extension ScenesTableViewController: InAppPurchaseDelegate {
         }
         
         if productIdentifier == InAppPurchases.sceneFeatureIdentifier ||
-           productIdentifier.isEmpty {
+           productIdentifier == nil {
             checkForSceneFeatureEnabled()
         }
     }
