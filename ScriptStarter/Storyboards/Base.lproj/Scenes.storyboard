@@ -384,11 +384,16 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="actTitleLabel" destination="8zT-qv-MY7" id="qq7-sw-34G"/>
+                        <outlet property="headerContainerView" destination="dzw-cy-knb" id="J2W-UA-hhu"/>
                         <outlet property="saveButton" destination="Rpp-MH-4tY" id="JTM-hc-OqK"/>
                         <outlet property="sceneActNumberTextField" destination="C4Z-ew-bdb" id="nPQ-3h-okt"/>
                         <outlet property="sceneHeaderTextField" destination="c4A-qY-A83" id="SQj-oV-i8i"/>
+                        <outlet property="sceneHeadingLabel" destination="qsB-nH-dXA" id="UiE-5V-hbw"/>
+                        <outlet property="sceneNumberLabel" destination="GKn-PD-liA" id="ykE-nU-rxz"/>
                         <outlet property="sceneNumberTextField" destination="e6O-QO-QeF" id="4sy-1c-aen"/>
                         <outlet property="sceneTitleTextField" destination="3To-7T-LVO" id="Qlf-4A-a11"/>
+                        <outlet property="topHorizontalStackView" destination="f37-Vo-qRp" id="fQF-AF-Mah"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ea8-8V-esE" userLabel="First Responder" sceneMemberID="firstResponder"/>

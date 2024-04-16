@@ -30,14 +30,14 @@ class ScenesTableViewController: UITableViewController {
         view.addGestureRecognizer(rightSwipe)
 
         setupNavigationBar()
-        self.tableView.backgroundColor = UIColor.screenLightGray
-        self.tableView.separatorColor = self.tableView.backgroundColor
+        self.tableView.backgroundColor = Theme.tableViewBackgroundColor
+        self.tableView.separatorColor = Theme.tableViewBackgroundColor
         
         if newScene, InAppPurchases.sceneFeatureEnabled {
             self.pushToSceneDetailView(act: .one,
                                        scene: nil)
         }
-        
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(checkForSceneFeatureEnabled),
                                                name: .CheckIfSceneBuilderIsEnabled,
@@ -206,7 +206,7 @@ class ScenesTableViewController: UITableViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
-        let attributes =  [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
+        let attributes =  [NSAttributedString.Key.foregroundColor: Theme.navTitleColor,
                            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
                                                                           weight: .semibold)]
         navigationController?.navigationBar.titleTextAttributes = attributes
@@ -214,7 +214,7 @@ class ScenesTableViewController: UITableViewController {
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = attributes
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
+        appearance.backgroundColor = Theme.navigationBarBackground
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         self.navigationController?.navigationBar.titleTextAttributes = attributes

@@ -40,7 +40,7 @@ class SceneHeader: UITableViewHeaderFooterView {
                                             constant:0).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo: marginGuide.centerYAnchor,
                                             constant: 0).isActive = true
-        titleLabel.textColor = UIColor.screenDark
+        titleLabel.textColor = Theme.navTitleColor
         titleLabel.font = font
     }
     

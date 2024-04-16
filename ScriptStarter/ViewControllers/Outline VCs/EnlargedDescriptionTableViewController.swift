@@ -176,10 +176,11 @@ class EnlargedDescriptionTableViewController: UITableViewController {
             sectionHeader.subtitleLabel.text = CharacterSection.sectionSubtitles[self.section-2]
         case .sceneDetail:
             sectionHeader.sectionLabel.text = Scene.sceneTitles[self.section]
+            sectionHeader.subtitleLabel.text = Scene.sceneSubtitles[self.section]
         }
         return sectionHeader
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
     }

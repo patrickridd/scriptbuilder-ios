@@ -17,6 +17,9 @@ class SceneTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        backgroundColor = Theme.descriptionTextViewBackground
+        sceneTitleLabel.textColor = Theme.descriptionTextColor
+        sceneNumberLabel.textColor = Theme.descriptionTextColor
     }
     
     func update(with scene: Scene) {

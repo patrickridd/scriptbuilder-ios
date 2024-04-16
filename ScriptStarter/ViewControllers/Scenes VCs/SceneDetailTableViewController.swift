@@ -19,9 +19,13 @@ class SceneDetailTableViewController: UITableViewController {
     @IBOutlet weak var sceneTitleTextField: UITextField!
     @IBOutlet weak var sceneNumberTextField: UITextField!
     @IBOutlet weak var sceneHeaderTextField: UITextField!
-    
     @IBOutlet weak var sceneActNumberTextField: UITextField!
-    
+    @IBOutlet weak var topHorizontalStackView: UIStackView!
+    @IBOutlet weak var actTitleLabel: UILabel!
+    @IBOutlet weak var sceneNumberLabel: UILabel!
+    @IBOutlet weak var sceneHeadingLabel: UILabel!
+    @IBOutlet weak var headerContainerView: UIView!
+
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
     var scene: Scene?
@@ -34,10 +38,19 @@ class SceneDetailTableViewController: UITableViewController {
         
         saveButton.view = self
         setupExpandableSections()
+        headerContainerView.backgroundColor = Theme.tableViewBackgroundColor
+        tableView.backgroundColor = Theme.tableViewBackgroundColor
+        tableView.separatorColor = tableView.backgroundColor
+        sceneActNumberTextField.backgroundColor = Theme.descriptionTextViewBackground
+        sceneNumberTextField.backgroundColor = Theme.descriptionTextViewBackground
+        sceneHeaderTextField.backgroundColor = Theme.descriptionTextViewBackground
+        sceneActNumberTextField.textColor = Theme.descriptionTextColor
+        sceneNumberTextField.textColor = Theme.descriptionTextColor
+        sceneHeaderTextField.textColor = Theme.descriptionTextColor
+        actTitleLabel.textColor = Theme.navTitleColor
+        sceneNumberLabel.textColor = Theme.navTitleColor
+        sceneHeadingLabel.textColor = Theme.navTitleColor
         
-        self.tableView.backgroundColor = UIColor.screenLightGray
-        self.tableView.separatorColor = self.tableView.backgroundColor
-      
         self.sceneTitleTextField.delegate = self
         self.sceneHeaderTextField.delegate = self
         self.sceneHeaderTextField.addTarget(self,
@@ -251,7 +264,7 @@ class SceneDetailTableViewController: UITableViewController {
                                                                 for: indexPath) as? DescriptionTableViewCell
             descriptionCell?.delegate = self
             descriptionCell?.defaultHeight = self.getDefaultHeightOfCell()
-            descriptionCell?.contentView.backgroundColor = .screenLightGray
+            descriptionCell?.contentView.backgroundColor = Theme.descriptionTextViewBackground
             descriptionCell?.update(viewController: .sceneDetail,
                                     section: indexPath.section,
                                     act: self.act,
@@ -268,7 +281,7 @@ class SceneDetailTableViewController: UITableViewController {
       
         // Create Collapsible Header for Scene details
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
-        header.contentView.backgroundColor = expandableSections[section].collapsed ? .white : UIColor.screenLightGray
+        header.contentView.backgroundColor = expandableSections[section].collapsed ? Theme.tableViewSectionCollapsedColor : Theme.tableViewSectionExpandedColor
         header.titleLabel.text = Scene.sceneTitles[section]
         header.subtitleLabel.text = Scene.sceneSubtitles[section]
         // header.subtitleLabel.text = act.sectionSubTitles[section-self.sectionBesidesBeats]
