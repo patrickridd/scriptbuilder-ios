@@ -47,6 +47,13 @@
 		215DDCD421EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		215DDCD521EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		217AD64B22A08B2E00E5ED41 /* SaveBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217AD64A22A08B2E00E5ED41 /* SaveBarButtonItem.swift */; };
+		2183378B2BCF62590086658C /* blueOcean.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 218337892BCF62590086658C /* blueOcean.jpg */; };
+		2183378C2BCF62590086658C /* whitePage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2183378A2BCF62590086658C /* whitePage.jpg */; };
+		2183378E2BCF75A00086658C /* beachDay.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2183378D2BCF75A00086658C /* beachDay.jpg */; };
+		218337902BCF788A0086658C /* typewriter.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2183378F2BCF788A0086658C /* typewriter.jpg */; };
+		218337922BCF7A690086658C /* upward_trees.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 218337912BCF7A690086658C /* upward_trees.jpg */; };
+		218337942BCF7C150086658C /* blue_drops.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 218337932BCF7C150086658C /* blue_drops.jpg */; };
+		218337962BCF7E410086658C /* gray_blue_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 218337952BCF7E410086658C /* gray_blue_background.jpg */; };
 		21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21843CAC205AE3E900FAAE16 /* Scenes.storyboard */; };
 		2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2189FC8D2057187400A69DC1 /* StoreKit.framework */; };
 		2189FC902057199300A69DC1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189FC8F2057199300A69DC1 /* IAPHelper.swift */; };
@@ -185,6 +192,13 @@
 		217DF0F422288FBB00C7A543 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ScriptStarter/en.lproj/Character.strings; sourceTree = "<group>"; };
 		217DF0F622288FBF00C7A543 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Scenes.strings; sourceTree = "<group>"; };
 		21814C8824C0B41A00853229 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonAd.framework; sourceTree = "<group>"; };
+		218337892BCF62590086658C /* blueOcean.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = blueOcean.jpg; path = ../../../../ImageAssets/blueOcean.jpg; sourceTree = "<group>"; };
+		2183378A2BCF62590086658C /* whitePage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = whitePage.jpg; path = ../../../../ImageAssets/whitePage.jpg; sourceTree = "<group>"; };
+		2183378D2BCF75A00086658C /* beachDay.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = beachDay.jpg; path = ../../../../ImageAssets/beachDay.jpg; sourceTree = "<group>"; };
+		2183378F2BCF788A0086658C /* typewriter.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = typewriter.jpg; path = ../../../../ImageAssets/typewriter.jpg; sourceTree = "<group>"; };
+		218337912BCF7A690086658C /* upward_trees.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = upward_trees.jpg; path = ../../../../ImageAssets/upward_trees.jpg; sourceTree = "<group>"; };
+		218337932BCF7C150086658C /* blue_drops.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = blue_drops.jpg; path = ../../../../ImageAssets/blue_drops.jpg; sourceTree = "<group>"; };
+		218337952BCF7E410086658C /* gray_blue_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = gray_blue_background.jpg; path = ../../../../ImageAssets/gray_blue_background.jpg; sourceTree = "<group>"; };
 		21843CAB205AE3E900FAAE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Scenes.storyboard; sourceTree = "<group>"; };
 		2189FC8D2057187400A69DC1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2189FC8F2057199300A69DC1 /* IAPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
@@ -641,6 +655,13 @@
 				2122BE692BC38BF700CBC2ED /* bokehBackground.jpeg */,
 				2101F34D20619442003A90A4 /* Cork_closeup.jpg */,
 				2122BE6B2BC38DE500CBC2ED /* spiraling_stars.jpg */,
+				218337892BCF62590086658C /* blueOcean.jpg */,
+				2183378D2BCF75A00086658C /* beachDay.jpg */,
+				2183378A2BCF62590086658C /* whitePage.jpg */,
+				218337932BCF7C150086658C /* blue_drops.jpg */,
+				2183378F2BCF788A0086658C /* typewriter.jpg */,
+				218337912BCF7A690086658C /* upward_trees.jpg */,
+				218337952BCF7E410086658C /* gray_blue_background.jpg */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -809,17 +830,24 @@
 			files = (
 				212DEA7E2012746500FE9C3F /* LaunchScreen.storyboard in Resources */,
 				2122BE6A2BC38BF700CBC2ED /* bokehBackground.jpeg in Resources */,
+				218337922BCF7A690086658C /* upward_trees.jpg in Resources */,
 				21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */,
 				215DDCD321EFD30800C52B6C /* GoogleService-Info.plist in Resources */,
 				2135777F201292E100C5EADC /* Character.storyboard in Resources */,
 				2135777C201292AE00C5EADC /* Outline.storyboard in Resources */,
 				2136852E220CB9990019A9A8 /* Localizable.strings in Resources */,
+				218337962BCF7E410086658C /* gray_blue_background.jpg in Resources */,
+				218337942BCF7C150086658C /* blue_drops.jpg in Resources */,
 				212DEA7B2012746500FE9C3F /* Assets.xcassets in Resources */,
 				2101F34E20619442003A90A4 /* Cork_closeup.jpg in Resources */,
 				2122BE6C2BC38DE500CBC2ED /* spiraling_stars.jpg in Resources */,
+				2183378B2BCF62590086658C /* blueOcean.jpg in Resources */,
+				2183378C2BCF62590086658C /* whitePage.jpg in Resources */,
+				2183378E2BCF75A00086658C /* beachDay.jpg in Resources */,
 				212DEA792012746500FE9C3F /* Main.storyboard in Resources */,
 				21368536220E0C090019A9A8 /* InfoPlist.strings in Resources */,
 				21A84F4A2016988600CE4149 /* Storyboard.storyboard in Resources */,
+				218337902BCF788A0086658C /* typewriter.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

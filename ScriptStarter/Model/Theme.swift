@@ -117,6 +117,15 @@ class Theme {
             return UIColor.white
         }
     }
+    
+    static var backgroundImage: UIImage {
+        switch interfaceStyle {
+        case .unspecified, .none, .light:
+            return UIImage(named: "gray_blue_background.jpg") ?? UIImage()
+        case .dark:
+            return UIImage(named: "spiraling_stars.jpg") ?? UIImage()
+        }
+    }
 
     
 }

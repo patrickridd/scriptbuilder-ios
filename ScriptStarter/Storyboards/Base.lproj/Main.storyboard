@@ -467,6 +467,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="Poz-sJ-et2" id="baH-XP-qF7"/>
+                        <outlet property="imageView" destination="iQR-W5-PGv" id="7TE-K2-ebo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4kN-cj-Ycs" sceneMemberID="firstResponder"/>

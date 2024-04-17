@@ -15,6 +15,7 @@ class ScreenplayCollectionViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
 
+    @IBOutlet weak var imageView: UIImageView!
     var screenplays: [Screenplay] = [] {
         didSet {
             self.collectionView.reloadData()
@@ -28,6 +29,8 @@ class ScreenplayCollectionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
+        imageView.image = Theme.backgroundImage
         setupNavigationBarUI()
         collectionView.reloadData()
         getScreenplays()
@@ -44,6 +47,7 @@ class ScreenplayCollectionViewController: UIViewController {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = Theme.navigationBarBackground
+        appearance.shadowImage = UIImage()
         appearance.titleTextAttributes = strokeTextAttributes
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
