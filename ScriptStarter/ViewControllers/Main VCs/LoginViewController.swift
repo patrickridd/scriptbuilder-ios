@@ -19,6 +19,7 @@ import CryptoKit
 
 class LoginViewController: UIViewController, ASAuthorizationControllerPresentationContextProviding {
     
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var authenticationStackView: UIStackView!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
@@ -82,6 +83,11 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
         self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder".localized,
                                                                     attributes: strokeTextAttributes)
         setupProviderLoginView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        backgroundImageView.image = Theme.backgroundImage
     }
     
     // MARK: UI Methods

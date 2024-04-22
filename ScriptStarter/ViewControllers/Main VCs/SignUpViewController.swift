@@ -19,18 +19,15 @@ import CryptoKit
 
 class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorizationControllerPresentationContextProviding {
 
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
-    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var activityIndicatorContainerView: UIView!
     @IBOutlet weak var authenticationStackView: UIStackView!
-    
-    @IBOutlet weak var textFieldStackCenterYConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var orViewCenterYConstraint: NSLayoutConstraint!
     @IBOutlet weak var topView: UIView!
     
@@ -55,6 +52,8 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorization
         
         // Google Sign-in
         GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+
         googleSignInButton.style = .standard
         googleSignInButton.colorScheme = .light
         
@@ -92,7 +91,12 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorization
             // Fallback on earlier versions
         }
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        backgroundImageView.image = Theme.backgroundImage
+    }
+
     func showActivityIndicator() {
         DispatchQueue.main.async {
             self.loadingNotification =

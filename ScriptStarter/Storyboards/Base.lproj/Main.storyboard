@@ -17,6 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bokehBackground.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="u86-sB-8BV">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="On9-Sm-Shv">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
@@ -44,7 +47,7 @@
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="Mot-zI-rXh" secondAttribute="trailing" constant="30" id="JXo-Sy-uKr"/>
                                                     <constraint firstItem="Mot-zI-rXh" firstAttribute="centerY" secondItem="9GI-Oi-34J" secondAttribute="centerY" id="Y3W-JZ-vhG"/>
@@ -155,7 +158,6 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="hpR-ym-C8z" firstAttribute="centerX" secondItem="1Gc-l0-R2B" secondAttribute="centerX" id="NSn-r9-bRm"/>
                                                     <constraint firstItem="sao-83-NJs" firstAttribute="centerY" secondItem="1Gc-l0-R2B" secondAttribute="centerY" id="PPK-yS-KYJ"/>
@@ -238,7 +240,7 @@
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="UhN-dH-roq" firstAttribute="centerY" secondItem="42I-NO-dhN" secondAttribute="centerY" constant="-20" id="4vd-UT-9FN"/>
                                                     <constraint firstItem="UhN-dH-roq" firstAttribute="centerX" secondItem="42I-NO-dhN" secondAttribute="centerX" id="rWI-JH-nc9"/>
@@ -249,7 +251,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="AFc-37-b2h" firstAttribute="leading" secondItem="vEl-1M-Ofy" secondAttribute="leading" constant="50" id="1dO-Wa-VRd">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="200"/>
@@ -298,17 +300,23 @@
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="On9-Sm-Shv" secondAttribute="trailing" id="4oA-VW-hcj"/>
+                            <constraint firstItem="u86-sB-8BV" firstAttribute="trailing" secondItem="On9-Sm-Shv" secondAttribute="trailing" id="Dnx-gs-rH0"/>
+                            <constraint firstItem="u86-sB-8BV" firstAttribute="top" secondItem="On9-Sm-Shv" secondAttribute="top" id="TO9-TT-1Ka"/>
                             <constraint firstItem="On9-Sm-Shv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Tv8-WR-32G"/>
+                            <constraint firstItem="u86-sB-8BV" firstAttribute="leading" secondItem="On9-Sm-Shv" secondAttribute="leading" id="VVi-cC-J3z"/>
+                            <constraint firstItem="u86-sB-8BV" firstAttribute="bottom" secondItem="On9-Sm-Shv" secondAttribute="bottom" id="ZP6-JY-WNB"/>
                             <constraint firstItem="On9-Sm-Shv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bQ4-OW-cqM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="On9-Sm-Shv" secondAttribute="bottom" id="piV-eA-XSH"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="a83-UA-ePQ"/>
                     <connections>
                         <outlet property="activityIndicatorContainerView" destination="H6O-qY-3Oj" id="M2L-QF-C5j"/>
                         <outlet property="authenticationStackView" destination="Abz-4c-WrR" id="dNP-32-3XT"/>
+                        <outlet property="backgroundImageView" destination="u86-sB-8BV" id="Rpv-f9-VVq"/>
                         <outlet property="emailTextField" destination="NXQ-VX-hUz" id="zJz-ID-nZy"/>
                         <outlet property="facebookButton" destination="40D-85-d5s" id="5Kd-Yn-wUW"/>
                         <outlet property="googleSignInButton" destination="eWX-4p-hY8" id="lno-ne-JMr"/>
@@ -320,7 +328,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="152.17391304347828" y="-179.34782608695653"/>
+            <point key="canvasLocation" x="151" y="-161"/>
         </scene>
         <!--Scripts-->
         <scene sceneID="vVh-n2-cKQ">
@@ -977,6 +985,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upward_trees.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ciN-4t-yxU">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCD-8k-Ani">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
@@ -1004,7 +1015,7 @@
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="nts-N2-lty" firstAttribute="centerX" secondItem="o1c-LO-Qc6" secondAttribute="centerX" id="N0V-mi-t7c"/>
                                                     <constraint firstItem="nts-N2-lty" firstAttribute="centerY" secondItem="o1c-LO-Qc6" secondAttribute="centerY" constant="-10" id="cVy-vP-YuW"/>
@@ -1115,7 +1126,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="sBV-Wu-GrQ" firstAttribute="trailing" secondItem="txz-jU-gZ3" secondAttribute="leading" constant="-20" id="J4a-dw-c45"/>
                                                     <constraint firstAttribute="height" constant="20" id="Wnc-WQ-ABA"/>
@@ -1201,7 +1212,7 @@
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="8fq-3T-4HR" firstAttribute="top" secondItem="OcY-67-UtK" secondAttribute="top" constant="30" id="JUb-OA-aa4"/>
                                                     <constraint firstItem="8fq-3T-4HR" firstAttribute="centerX" secondItem="OcY-67-UtK" secondAttribute="centerX" id="gPD-GO-lfP"/>
@@ -1212,7 +1223,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="OcY-67-UtK" firstAttribute="leading" secondItem="vZP-JF-Wf7" secondAttribute="leading" id="6Er-MB-Bse"/>
                                             <constraint firstItem="eue-WF-dAO" firstAttribute="centerX" secondItem="vZP-JF-Wf7" secondAttribute="centerX" id="7m3-z1-NGF"/>
@@ -1262,14 +1273,19 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="WCD-8k-Ani" firstAttribute="top" secondItem="fcj-TS-my0" secondAttribute="top" id="33j-Uh-dsf"/>
+                            <constraint firstItem="ciN-4t-yxU" firstAttribute="leading" secondItem="WCD-8k-Ani" secondAttribute="leading" id="6eQ-24-Pmj"/>
                             <constraint firstItem="WCD-8k-Ani" firstAttribute="leading" secondItem="fcj-TS-my0" secondAttribute="leading" id="HUH-2A-qX8"/>
                             <constraint firstItem="fcj-TS-my0" firstAttribute="trailing" secondItem="WCD-8k-Ani" secondAttribute="trailing" id="MIV-FU-qRo"/>
+                            <constraint firstItem="ciN-4t-yxU" firstAttribute="trailing" secondItem="WCD-8k-Ani" secondAttribute="trailing" id="T1a-OM-RQs"/>
                             <constraint firstItem="fcj-TS-my0" firstAttribute="bottom" secondItem="WCD-8k-Ani" secondAttribute="bottom" id="W0J-4m-3Vi"/>
+                            <constraint firstItem="ciN-4t-yxU" firstAttribute="bottom" secondItem="WCD-8k-Ani" secondAttribute="bottom" id="oOM-if-oDx"/>
+                            <constraint firstItem="ciN-4t-yxU" firstAttribute="top" secondItem="WCD-8k-Ani" secondAttribute="top" id="x4s-4B-D82"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="activityIndicatorContainerView" destination="RHT-LI-AB0" id="oH9-0t-EEy"/>
                         <outlet property="authenticationStackView" destination="Lv8-MW-6uY" id="Xuz-5y-MYO"/>
+                        <outlet property="backgroundImageView" destination="ciN-4t-yxU" id="qHV-cg-y8Q"/>
                         <outlet property="emailTextField" destination="GIJ-PI-6y0" id="af6-1l-3lM"/>
                         <outlet property="facebookButton" destination="OqA-x9-qc6" id="lgg-2H-Cnu"/>
                         <outlet property="firstNameTextField" destination="odC-YR-ugF" id="dum-WH-95L"/>
@@ -1284,7 +1300,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xRR-WN-xm4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="152.17391304347828" y="465.48913043478262"/>
+            <point key="canvasLocation" x="152" y="522"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KLA-Ab-80s">
@@ -1320,11 +1336,13 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="blueTrashCanAsset 1" width="21.333333969116211" height="27.333333969116211"/>
+        <image name="bokehBackground.jpeg" width="6016" height="4000"/>
         <image name="downArrowButtonAsset 1" width="20" height="12.666666984558105"/>
         <image name="facebookButtonIcon" width="100" height="100"/>
         <image name="profileIconAsset 1" width="24" height="24"/>
         <image name="shareArrowAsset 1" width="30" height="25"/>
         <image name="spiraling_stars.jpg" width="6144" height="4096"/>
+        <image name="upward_trees.jpg" width="5979" height="3986"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
