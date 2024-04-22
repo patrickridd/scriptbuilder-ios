@@ -79,15 +79,10 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
         let strokeTextAttributes: [NSAttributedString.Key : Any] =
             [NSAttributedString.Key.strokeColor: UIColor.screenLightBlue,
              NSAttributedString.Key.foregroundColor: UIColor.white,
-             NSAttributedString.Key.strokeWidth: 1]
+             NSAttributedString.Key.strokeWidth: 3]
         self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder".localized,
                                                                     attributes: strokeTextAttributes)
         setupProviderLoginView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        backgroundImageView.image = Theme.backgroundImage
     }
     
     // MARK: UI Methods

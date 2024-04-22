@@ -22,6 +22,8 @@ class ScreenplayCoverViewController: UIViewController {
         saveButton.view = self
         titleTextField.delegate = self
         nameTextField.delegate = self
+        titleTextField.addToolBar()
+        nameTextField.addToolBar()
         view.backgroundColor = Theme.systemBackground
         let name = Auth.auth().currentUser?.displayName ?? "Name"
 

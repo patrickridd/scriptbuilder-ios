@@ -133,9 +133,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.screenLightBlue
-        let image = UIImage(contentsOfFile: "downArrowButtonAsset 1")
-        let doneButton = UIBarButtonItem(image: image,
-                                         landscapeImagePhone: nil,
+        let doneButton = UIBarButtonItem(title: "Done".localized,
                                          style: .done,
                                          target: self,
                                          action: #selector(donePressed))
@@ -155,7 +153,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     // UITextField UITextView
     func addToolBar(textView: UITextView) {
         let toolBar = UIToolbar()
-        toolBar.barStyle = .black
+        toolBar.barStyle = .default
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.screenLightBlue
         
@@ -163,16 +161,14 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
                                          style: .done,
                                          target: self,
                                          action: #selector(donePressed))
+        doneButton.tintColor = Theme.descriptionTextColor
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
                                           target: nil,
                                           action: nil)
         toolBar.setItems([spaceButton, doneButton],
                          animated: false)
-        
-        
         toolBar.isUserInteractionEnabled = true
         toolBar.sizeToFit()
-        
         textView.delegate = self
         textView.inputAccessoryView = toolBar
     }
