@@ -23,16 +23,10 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
     @IBOutlet weak var authenticationStackView: UIStackView!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
-    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var loginButton: UIButton!
-    
     @IBOutlet weak var activityIndicatorContainerView: UIView!
-    
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     @IBOutlet weak var scriptBuilderLabel: UILabel!
     @IBOutlet weak var textFieldStackCenterYConstraint: NSLayoutConstraint!
     
@@ -67,9 +61,9 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
         self.addKeyBoardObservers()
         
         // Add toolbars to be able to dismiss keyboard manually
-        self.addToolBar(textField: self.emailTextField)
-        self.addToolBar(textField: self.passwordTextField)
-        
+        addToolBar(textField: self.emailTextField)
+        addToolBar(textField: self.passwordTextField)
+
         // Setup Tap Gesture to dismiss keyboard
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(self.dismissKeyboard))
