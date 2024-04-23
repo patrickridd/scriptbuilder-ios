@@ -40,7 +40,7 @@ class ScreenplayCollectionViewController: UIViewController {
         let strokeTextAttributes: [NSAttributedString.Key : Any] = [
             NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
             NSAttributedString.Key.foregroundColor : Theme.navTitleColor,
-            NSAttributedString.Key.strokeWidth : -2.0,
+            NSAttributedString.Key.strokeWidth : -3,
             NSAttributedString.Key.font: UIFont(name: "Avenir-Light",
                                                 size: 20) ?? UIFont.systemFont(ofSize: 20,
                                                                                weight: .regular)]
