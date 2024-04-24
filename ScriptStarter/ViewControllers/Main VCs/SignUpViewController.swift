@@ -17,7 +17,7 @@ import MBProgressHUD
 import AuthenticationServices
 import CryptoKit
 
-class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorizationControllerPresentationContextProviding {
+class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, ASAuthorizationControllerPresentationContextProviding {
 
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var facebookButton: UIButton!
@@ -52,7 +52,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorization
         
         // Google Sign-in
         GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance()?.uiDelegate = self
 
         googleSignInButton.style = .standard
         googleSignInButton.colorScheme = .light

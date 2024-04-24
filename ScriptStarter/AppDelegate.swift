@@ -196,17 +196,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let handled = ApplicationDelegate.shared.application(application,
                                                              open: url,
                                                              sourceApplication: sourceApplication,
-                                                             annotation: annotation) || GIDSignIn.sharedInstance().handle(url)
+                                                             annotation: annotation) || GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
         return handled
-    }
-    
-    @available(iOS 9.0, *)
-    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
-        -> Bool {
-            let handled = ApplicationDelegate.shared.application(application,
-                                                                 open: url,
-                                                                 options: options) || GIDSignIn.sharedInstance().handle(url)
-            return handled
     }
     
     func makeKeyAndVisible() {

@@ -17,7 +17,7 @@ import MBProgressHUD
 import AuthenticationServices
 import CryptoKit
 
-class LoginViewController: UIViewController, ASAuthorizationControllerPresentationContextProviding {
+class LoginViewController: UIViewController, ASAuthorizationControllerPresentationContextProviding, GIDSignInUIDelegate {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var authenticationStackView: UIStackView!
@@ -49,7 +49,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                                       for: .touchUpInside)
         // Google Sign-in
         GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance()?.uiDelegate = self
         self.googleSignInButton.style = .standard
         self.googleSignInButton.colorScheme = .light
         
