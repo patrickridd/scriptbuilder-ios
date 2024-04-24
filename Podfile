@@ -5,15 +5,17 @@ target 'ScriptStarter' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
+  $FirebaseSDKVersion = '7.1.0'
+
   # Pods for ScriptStarter
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Database'
+  pod 'Firebase/Core', $FirebaseSDKVersion
+  pod 'Firebase/Auth', $FirebaseSDKVersion
+  pod 'Firebase/Database', $FirebaseSDKVersion
+  pod 'Firebase/DynamicLinks', $FirebaseSDKVersion
   pod 'GoogleSignIn', '~> 4.4.0'
   pod 'FBSDKLoginKit'
   pod 'FacebookLogin'
   pod 'MBProgressHUD', '~> 1.1.0'
-  pod 'Firebase/DynamicLinks'
   pod 'KMPlaceholderTextView', '~> 1.4.0'
 
   target 'ScriptStarterTests' do
