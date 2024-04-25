@@ -23,6 +23,7 @@
 		2122BE6A2BC38BF700CBC2ED /* bokehBackground.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2122BE692BC38BF700CBC2ED /* bokehBackground.jpeg */; };
 		2122BE6C2BC38DE500CBC2ED /* spiraling_stars.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2122BE6B2BC38DE500CBC2ED /* spiraling_stars.jpg */; };
 		2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */; };
+		212BDE452BD9F6E3009C0FFE /* EnlargedDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212BDE442BD9F6E3009C0FFE /* EnlargedDescriptionViewController.swift */; };
 		212DEA742012746500FE9C3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212DEA732012746500FE9C3F /* AppDelegate.swift */; };
 		212DEA792012746500FE9C3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA772012746500FE9C3F /* Main.storyboard */; };
 		212DEA7B2012746500FE9C3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA7A2012746500FE9C3F /* Assets.xcassets */; };
@@ -141,6 +142,7 @@
 		2122BE692BC38BF700CBC2ED /* bokehBackground.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = bokehBackground.jpeg; path = ../../../../ImageAssets/bokehBackground.jpeg; sourceTree = "<group>"; };
 		2122BE6B2BC38DE500CBC2ED /* spiraling_stars.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = spiraling_stars.jpg; path = ../../../../ImageAssets/spiraling_stars.jpg; sourceTree = "<group>"; };
 		2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargedDescriptionTableViewController.swift; sourceTree = "<group>"; };
+		212BDE442BD9F6E3009C0FFE /* EnlargedDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargedDescriptionViewController.swift; sourceTree = "<group>"; };
 		212DEA702012746500FE9C3F /* ScriptStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		212DEA732012746500FE9C3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		212DEA782012746500FE9C3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -559,6 +561,7 @@
 				21E661BE2017C236006A14AF /* OutlineTableViewController.swift */,
 				21A7CF532028E60D00D97394 /* ActDetailTableViewController.swift */,
 				2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */,
+				212BDE442BD9F6E3009C0FFE /* EnlargedDescriptionViewController.swift */,
 				21D727F9202E329E00861C2D /* PopControllers */,
 				21A84F512017AC2A00CE4149 /* TableViewCells */,
 			);
@@ -1060,6 +1063,7 @@
 				21D727F4202E0D1A00861C2D /* SectionHeaderSubtitle.swift in Sources */,
 				21E661C820192E66006A14AF /* SignUpViewController.swift in Sources */,
 				21D727FB202E32D500861C2D /* InformationPopTableViewController.swift in Sources */,
+				212BDE452BD9F6E3009C0FFE /* EnlargedDescriptionViewController.swift in Sources */,
 				21B0272F2BC23B7D00687C52 /* EnableDarkModeTableViewCell.swift in Sources */,
 				21A7CF6A202A6D3A00D97394 /* Act.swift in Sources */,
 				2104ADD9205C7F270086CC9F /* SceneController.swift in Sources */,

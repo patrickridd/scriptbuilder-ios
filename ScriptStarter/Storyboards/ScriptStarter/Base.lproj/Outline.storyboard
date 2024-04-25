@@ -4,6 +4,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -154,6 +156,107 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ApB-qt-Jd0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4738" y="-672"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="sNu-Ip-Ufp">
+            <objects>
+                <navigationController storyboardIdentifier="enlargedNavigationController" id="33e-KE-lUF" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uyE-ZH-Vzf">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="rN9-DQ-fnm" kind="relationship" relationship="rootViewController" id="HZf-hK-QJg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OvM-n4-Xob" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5520" y="-672"/>
+        </scene>
+        <!--Enlarged Description View Controller-->
+        <scene sceneID="smb-Fm-XIK">
+            <objects>
+                <viewController id="rN9-DQ-fnm" customClass="EnlargedDescriptionViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gQa-e0-Sg1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="YLh-ck-DMM">
+                                <rect key="frame" x="20" y="88" width="394" height="64"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioA-i4-W9B">
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="20"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="aUi-jP-xxf"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M80-3i-Kd3">
+                                        <rect key="frame" x="0.0" y="22" width="394" height="20"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2hh-vo-naT">
+                                        <rect key="frame" x="0.0" y="44" width="394" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eg3-7a-OaW" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
+                                <rect key="frame" x="8" y="164" width="398" height="649"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="649" id="Ytn-GN-1zy"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dji-7L-asX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dji-7L-asX" firstAttribute="trailing" secondItem="YLh-ck-DMM" secondAttribute="trailing" id="Kmd-Zg-OxY"/>
+                            <constraint firstItem="dji-7L-asX" firstAttribute="trailing" secondItem="eg3-7a-OaW" secondAttribute="trailing" constant="8" id="Oo2-RE-JWH"/>
+                            <constraint firstItem="YLh-ck-DMM" firstAttribute="top" secondItem="dji-7L-asX" secondAttribute="top" id="UOm-de-u1r"/>
+                            <constraint firstItem="dji-7L-asX" firstAttribute="bottom" secondItem="eg3-7a-OaW" secondAttribute="bottom" priority="250" id="YGY-vp-4UC"/>
+                            <constraint firstItem="YLh-ck-DMM" firstAttribute="leading" secondItem="dji-7L-asX" secondAttribute="leading" constant="20" id="kPG-lQ-QiC"/>
+                            <constraint firstItem="eg3-7a-OaW" firstAttribute="leading" secondItem="dji-7L-asX" secondAttribute="leading" constant="8" id="tDt-HZ-ELK"/>
+                            <constraint firstItem="eg3-7a-OaW" firstAttribute="top" secondItem="YLh-ck-DMM" secondAttribute="bottom" constant="12" id="wOG-Ml-KTq"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Xa4-5b-VhM">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Save" id="FJJ-oR-MVC">
+                                <color key="tintColor" red="0.53333333329999999" green="0.71764705880000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="rN9-DQ-fnm" id="oYG-NW-RXo"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="reduceScreenButtonAsset" id="pxE-8k-2gM">
+                                <connections>
+                                    <action selector="reduceScreenButtonTapped:" destination="rN9-DQ-fnm" id="41K-OY-j5p"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="descriptionTextView" destination="eg3-7a-OaW" id="enp-8g-AZr"/>
+                        <outlet property="descriptionTextViewHeightConstraint" destination="Ytn-GN-1zy" id="HVe-Fc-PX3"/>
+                        <outlet property="saveButton" destination="FJJ-oR-MVC" id="4Sx-y1-Be6"/>
+                        <outlet property="sectionTitleLabel" destination="M80-3i-Kd3" id="Lcc-s4-bsX"/>
+                        <outlet property="subtitleLabel" destination="2hh-vo-naT" id="OI0-tJ-lrs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yHR-Ou-2A4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6321.739130434783" y="-673.66071428571422"/>
         </scene>
         <!--outline-->
         <scene sceneID="QuI-Nw-bJH">
@@ -409,6 +512,12 @@
         <image name="reduceScreenButtonAsset" width="15" height="15"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

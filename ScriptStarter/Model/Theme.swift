@@ -85,6 +85,24 @@ class Theme {
     static var tableViewSectionExpandedColor: UIColor {
         tableViewBackgroundColor
     }
+    
+    static var enlargedNavigationBarBackground: UIColor {
+        switch interfaceStyle {
+        case .unspecified, .none, .light:
+            return UIColor.screenLightGray
+        case .dark:
+            return UIColor.darkGray
+        }
+    }
+    
+    static var enlargedNavigationDescriptionBackground: UIColor {
+        switch interfaceStyle {
+        case .unspecified, .none, .light:
+            return UIColor.white
+        case .dark:
+            return UIColor.black
+        }
+    }
 
     // MARK: TextColors
     static var descriptionTextColor: UIColor {
