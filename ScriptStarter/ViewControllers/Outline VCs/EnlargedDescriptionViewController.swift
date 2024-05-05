@@ -540,26 +540,14 @@ class EnlargedDescriptionViewController: UIViewController {
     }
     
     func checkForResize(textView: UITextView) {
-//        if self.descriptionTextViewHeightConstraint == nil { return }
-//        
-//        
-//        // Get self.descriptionTextView size that fits in view
-//        let size = textView.sizeThatFits(CGSize(width: textView.bounds.size.width,
-//                                                height: CGFloat.greatestFiniteMagnitude))
-//        if size.height > self.descriptionTextViewHeightConstraint.constant {
-//            print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
-//            print("Size Height: \(size.height)")
-//            if self.descriptionTextViewHeightConstraint.constant != size.height {
-//                self.descriptionTextViewHeightConstraint.constant = size.height
-//            }
-//        }
-//        else if size.height < self.descriptionTextViewHeightConstraint.constant {
-//            print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
-//            print("Size Height: \(size.height)")
-//            if size.height >= 100 {
-//                self.descriptionTextViewHeightConstraint.constant = self.defaultTextViewHeight-10
-//            }
-//        }
+        if self.descriptionTextViewHeightConstraint == nil { return }
+
+        // Get self.descriptionTextView size that fits in view
+        let size = textView.sizeThatFits(CGSize(width: textView.bounds.size.width,
+                                                height: CGFloat.greatestFiniteMagnitude))
+        if size.height > textView.bounds.height {
+            self.descriptionTextViewHeightConstraint.constant = 500
+        }
     }
 
 }
