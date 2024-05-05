@@ -40,7 +40,9 @@ class EnlargedDescriptionViewController: UIViewController {
         descriptionTextView.textColor = Theme.descriptionTextColor
         descriptionTextView.placeholderColor = Theme.descriptionPlaceholderTextColor
         addToolBar(textView: descriptionTextView)
-
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         update(viewController: self.viewController,
                section: self.section,
                act: self.act,
@@ -82,6 +84,26 @@ class EnlargedDescriptionViewController: UIViewController {
     
     // MARK: - UI Methods
     
+    @objc func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        let padding: CGFloat = 20.0
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+        
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            descriptionTextView.contentInset = .zero
+        } else {
+            descriptionTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height + padding - view.safeAreaInsets.bottom, right: 0)
+        }
+
+        descriptionTextView.scrollIndicatorInsets = descriptionTextView.contentInset
+        
+        let selectedRange = descriptionTextView.selectedRange
+        descriptionTextView.scrollRangeToVisible(selectedRange)
+//        descriptionTextViewHeightConstraint.constant = notification.name == UIResponder.keyboardWillHideNotification ? 0 : keyboardViewEndFrame.height
+    }
+
     func setupNavigationBar() {
         var title: String = screenplay?.title ?? ""
         var font = UIFont.systemFont(ofSize: 20,
@@ -518,25 +540,26 @@ class EnlargedDescriptionViewController: UIViewController {
     }
     
     func checkForResize(textView: UITextView) {
-        if self.descriptionTextViewHeightConstraint == nil { return }
-    
-        // Get self.descriptionTextView size that fits in view
-        let size = textView.sizeThatFits(CGSize(width: textView.bounds.size.width,
-                                                height: CGFloat.greatestFiniteMagnitude))
-        if size.height > self.descriptionTextViewHeightConstraint.constant {
-            print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
-            print("Size Height: \(size.height)")
-            if self.descriptionTextViewHeightConstraint.constant != size.height {
-                self.descriptionTextViewHeightConstraint.constant = size.height
-            }
-        }
-        else if size.height < self.descriptionTextViewHeightConstraint.constant {
-            print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
-            print("Size Height: \(size.height)")
-            if size.height >= 100 {
-                self.descriptionTextViewHeightConstraint.constant = self.defaultTextViewHeight-10
-            }
-        }
+//        if self.descriptionTextViewHeightConstraint == nil { return }
+//        
+//        
+//        // Get self.descriptionTextView size that fits in view
+//        let size = textView.sizeThatFits(CGSize(width: textView.bounds.size.width,
+//                                                height: CGFloat.greatestFiniteMagnitude))
+//        if size.height > self.descriptionTextViewHeightConstraint.constant {
+//            print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
+//            print("Size Height: \(size.height)")
+//            if self.descriptionTextViewHeightConstraint.constant != size.height {
+//                self.descriptionTextViewHeightConstraint.constant = size.height
+//            }
+//        }
+//        else if size.height < self.descriptionTextViewHeightConstraint.constant {
+//            print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
+//            print("Size Height: \(size.height)")
+//            if size.height >= 100 {
+//                self.descriptionTextViewHeightConstraint.constant = self.defaultTextViewHeight-10
+//            }
+//        }
     }
-    
+
 }

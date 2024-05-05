@@ -244,13 +244,6 @@ class OutlineTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1
     }
-
-    func adjustUITextViewHeight(arg : UITextView) {
-        arg.translatesAutoresizingMaskIntoConstraints = true
-        arg.sizeToFit()
-        arg.isScrollEnabled = false
-    }
-    
     
     // MARK: Navigation
     
