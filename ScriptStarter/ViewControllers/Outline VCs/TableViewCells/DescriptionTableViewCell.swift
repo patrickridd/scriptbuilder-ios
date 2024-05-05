@@ -436,21 +436,19 @@ class DescriptionTableViewCell: UITableViewCell {
         let size = textView.sizeThatFits(CGSize(width: textView.bounds.size.width,
                                                 height: CGFloat.greatestFiniteMagnitude))
         if size.height > self.descriptionTextViewHeightConstraint.constant {
-            print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
-            print("Size Height: \(size.height)")
-            if self.descriptionTextViewHeightConstraint.constant != size.height {
+            if size.height >= defaultHeight * 2 {
+                self.descriptionTextViewHeightConstraint.constant = defaultHeight * 2
+            } else {
                 self.descriptionTextViewHeightConstraint.constant = size.height
-                delegate?.resizeCell(in: self.section)
             }
+            delegate?.resizeCell(in: self.section)
         }
         else if size.height < self.descriptionTextViewHeightConstraint.constant {
-            print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
-            print("Size Height: \(size.height)")
-            if size.height >= 100 {
-                self.descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
-                delegate?.resizeCell(in: self.section)
-            }
+            self.descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
+            delegate?.resizeCell(in: self.section)
         }
+        
+        descriptionTextView.isScrollEnabled = (descriptionTextViewHeightConstraint.constant == defaultHeight * 2)
     }
 
 }
