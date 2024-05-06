@@ -11,6 +11,7 @@ import UIKit
 
 class EnlargedDescriptionViewController: UIViewController {
 
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var sectionTitleLabel: UILabel!
@@ -41,8 +42,7 @@ class EnlargedDescriptionViewController: UIViewController {
         descriptionTextView.placeholderColor = Theme.descriptionPlaceholderTextColor
         addToolBar(textView: descriptionTextView)
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(keyboardDisplayed), name: UIResponder.keyboardWillShowNotification, object: nil)
         update(viewController: self.viewController,
                section: self.section,
                act: self.act,
@@ -84,24 +84,8 @@ class EnlargedDescriptionViewController: UIViewController {
     
     // MARK: - UI Methods
     
-    @objc func adjustForKeyboard(notification: Notification) {
-        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        
-        let padding: CGFloat = 20.0
-        let keyboardScreenEndFrame = keyboardValue.cgRectValue
-        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
-        
-        if notification.name == UIResponder.keyboardWillHideNotification {
-            descriptionTextView.contentInset = .zero
-        } else {
-            descriptionTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height + padding - view.safeAreaInsets.bottom, right: 0)
-        }
-
-        descriptionTextView.scrollIndicatorInsets = descriptionTextView.contentInset
-        
-        let selectedRange = descriptionTextView.selectedRange
-        descriptionTextView.scrollRangeToVisible(selectedRange)
-//        descriptionTextViewHeightConstraint.constant = notification.name == UIResponder.keyboardWillHideNotification ? 0 : keyboardViewEndFrame.height
+    @objc func keyboardDisplayed(notification: Notification) {
+        scrollView.scrollRectToVisible(descriptionTextView.frame, animated: true)
     }
 
     func setupNavigationBar() {
@@ -545,7 +529,7 @@ class EnlargedDescriptionViewController: UIViewController {
         // Get self.descriptionTextView size that fits in view
         let size = textView.sizeThatFits(CGSize(width: textView.bounds.size.width,
                                                 height: CGFloat.greatestFiniteMagnitude))
-        if size.height > textView.bounds.height {
+        if size.height >= textView.bounds.height {
             self.descriptionTextViewHeightConstraint.constant = 500
         }
     }

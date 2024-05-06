@@ -181,39 +181,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="YLh-ck-DMM">
-                                <rect key="frame" x="20" y="88" width="394" height="64"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="YLh-ck-DMM">
+                                <rect key="frame" x="20" y="88" width="374" height="47.666666666666657"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioA-i4-W9B">
-                                        <rect key="frame" x="0.0" y="0.0" width="394" height="20"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="aUi-jP-xxf"/>
-                                        </constraints>
-                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M80-3i-Kd3">
-                                        <rect key="frame" x="0.0" y="22" width="394" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="21.666666666666668"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2hh-vo-naT">
-                                        <rect key="frame" x="0.0" y="44" width="394" height="20"/>
+                                        <rect key="frame" x="0.0" y="25.666666666666671" width="374" height="17"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s81-q4-Quo" userLabel="lineSeparator">
+                                        <rect key="frame" x="0.0" y="46.666666666666657" width="374" height="1"/>
+                                        <color key="backgroundColor" systemColor="tableSeparatorDarkColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="ZV8-Q3-ora"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="edz-Qt-yzj">
-                                <rect key="frame" x="8" y="164" width="398" height="649"/>
+                                <rect key="frame" x="8" y="147.66666666666669" width="398" height="665.33333333333326"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ru1-hW-z1I" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="398" height="654"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="398" height="670.33333333333337"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xN1-G9-3xK" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                                <rect key="frame" x="0.0" y="0.0" width="398" height="654"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="398" height="670.33333333333337"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -245,10 +245,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="edz-Qt-yzj" firstAttribute="top" secondItem="YLh-ck-DMM" secondAttribute="bottom" constant="12" id="8IQ-7Z-Qrm"/>
-                            <constraint firstItem="dji-7L-asX" firstAttribute="trailing" secondItem="YLh-ck-DMM" secondAttribute="trailing" id="Kmd-Zg-OxY"/>
+                            <constraint firstItem="dji-7L-asX" firstAttribute="trailing" secondItem="YLh-ck-DMM" secondAttribute="trailing" constant="20" id="Kmd-Zg-OxY"/>
                             <constraint firstItem="edz-Qt-yzj" firstAttribute="leading" secondItem="dji-7L-asX" secondAttribute="leading" constant="8" id="RCg-Hg-74U"/>
                             <constraint firstItem="dji-7L-asX" firstAttribute="trailing" secondItem="edz-Qt-yzj" secondAttribute="trailing" constant="8" id="Sd1-BQ-6cJ"/>
-                            <constraint firstItem="YLh-ck-DMM" firstAttribute="top" secondItem="dji-7L-asX" secondAttribute="top" id="UOm-de-u1r"/>
+                            <constraint firstItem="YLh-ck-DMM" firstAttribute="top" secondItem="dji-7L-asX" secondAttribute="top" constant="20" id="UOm-de-u1r"/>
                             <constraint firstItem="dji-7L-asX" firstAttribute="bottom" secondItem="edz-Qt-yzj" secondAttribute="bottom" id="hvQ-ms-IFq"/>
                             <constraint firstItem="YLh-ck-DMM" firstAttribute="leading" secondItem="dji-7L-asX" secondAttribute="leading" constant="20" id="kPG-lQ-QiC"/>
                         </constraints>
@@ -274,6 +274,7 @@
                         <outlet property="descriptionTextView" destination="xN1-G9-3xK" id="WCA-n1-bCs"/>
                         <outlet property="descriptionTextViewHeightConstraint" destination="TB3-mn-A6Q" id="4Dj-Y4-O57"/>
                         <outlet property="saveButton" destination="FJJ-oR-MVC" id="4Sx-y1-Be6"/>
+                        <outlet property="scrollView" destination="edz-Qt-yzj" id="qa4-UJ-ZqN"/>
                         <outlet property="sectionTitleLabel" destination="M80-3i-Kd3" id="Lcc-s4-bsX"/>
                         <outlet property="subtitleLabel" destination="2hh-vo-naT" id="OI0-tJ-lrs"/>
                     </connections>
@@ -545,6 +546,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tableSeparatorDarkColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
