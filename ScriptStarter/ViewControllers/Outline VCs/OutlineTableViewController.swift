@@ -55,8 +55,8 @@ class OutlineTableViewController: UITableViewController {
     @objc func expandButtonTapped(sender: UIButton) {
         let indexPath = IndexPath(row: 0, section: sender.tag)
         guard
-            let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController,
-            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController,
+            let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigationController") as? UINavigationController,
+            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionViewController,
             let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
         else {
             return
