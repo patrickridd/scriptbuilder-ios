@@ -273,7 +273,7 @@
                                             </constraints>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PWT-Lw-fOu" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="10" y="0.0" width="364" height="86"/>
+                                            <rect key="frame" x="10" y="0.0" width="371" height="86"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="iep-MS-FXl"/>
@@ -291,7 +291,7 @@
                                         <constraint firstItem="PWT-Lw-fOu" firstAttribute="top" secondItem="Wbp-Fc-7ks" secondAttribute="top" id="dwx-TN-awG"/>
                                         <constraint firstItem="FpU-23-W2J" firstAttribute="leading" secondItem="PWT-Lw-fOu" secondAttribute="leading" id="q0b-WO-eh1"/>
                                         <constraint firstItem="FpU-23-W2J" firstAttribute="top" secondItem="PWT-Lw-fOu" secondAttribute="top" id="qRF-rG-ZrN"/>
-                                        <constraint firstItem="FpU-23-W2J" firstAttribute="trailing" secondItem="PWT-Lw-fOu" secondAttribute="trailing" constant="30" id="qXM-tg-xio"/>
+                                        <constraint firstItem="FpU-23-W2J" firstAttribute="trailing" secondItem="PWT-Lw-fOu" secondAttribute="trailing" constant="23" id="qXM-tg-xio"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

@@ -53,7 +53,6 @@ class EnlargedDescriptionViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
-        // Make sure the keyboard is visible at all times on this screen
         descriptionTextView.becomeFirstResponder()
     }
     

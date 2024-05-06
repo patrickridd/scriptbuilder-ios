@@ -45,7 +45,7 @@
                                             </constraints>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-BN-hxh" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="10" y="0.0" width="364" height="86"/>
+                                            <rect key="frame" x="10" y="0.0" width="371" height="86"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="86" id="KdW-zN-ZWc"/>
@@ -59,7 +59,7 @@
                                         <constraint firstItem="Ejy-l3-4Uu" firstAttribute="bottom" secondItem="Qyo-BN-hxh" secondAttribute="bottom" id="8Wk-Sm-Vub"/>
                                         <constraint firstAttribute="bottom" secondItem="Qyo-BN-hxh" secondAttribute="bottom" constant="10" id="Mu8-d2-Exo"/>
                                         <constraint firstItem="Ejy-l3-4Uu" firstAttribute="leading" secondItem="Qyo-BN-hxh" secondAttribute="leading" id="Rlb-kz-7pN"/>
-                                        <constraint firstItem="Ejy-l3-4Uu" firstAttribute="trailing" secondItem="Qyo-BN-hxh" secondAttribute="trailing" constant="30" id="qNI-gy-Ld5"/>
+                                        <constraint firstItem="Ejy-l3-4Uu" firstAttribute="trailing" secondItem="Qyo-BN-hxh" secondAttribute="trailing" constant="23" id="qNI-gy-Ld5"/>
                                         <constraint firstAttribute="trailing" secondItem="Ejy-l3-4Uu" secondAttribute="trailing" constant="10" id="vAx-DR-ywK"/>
                                         <constraint firstItem="Qyo-BN-hxh" firstAttribute="leading" secondItem="pIk-pI-vdS" secondAttribute="leading" constant="10" id="yut-ig-fTU"/>
                                         <constraint firstItem="Ejy-l3-4Uu" firstAttribute="top" secondItem="Qyo-BN-hxh" secondAttribute="top" id="zHZ-6e-bd4"/>
@@ -92,7 +92,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JVP-l1-oah" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3222" y="-660"/>
+            <point key="canvasLocation" x="3222" y="-672"/>
         </scene>
         <!--Enlarged Description Table View Controller-->
         <scene sceneID="hNO-DE-81Y">
@@ -374,7 +374,7 @@
                                             </constraints>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsVerticalScrollIndicator="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M2q-6h-tdl" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="10" y="0.0" width="364" height="86"/>
+                                            <rect key="frame" x="10" y="0.0" width="371" height="86"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="JHK-rs-O04"/>
@@ -386,7 +386,7 @@
                                     <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="ZPg-pn-mpR" secondAttribute="trailing" constant="10" id="07B-HY-eK1"/>
-                                        <constraint firstItem="ZPg-pn-mpR" firstAttribute="trailing" secondItem="M2q-6h-tdl" secondAttribute="trailing" constant="30" id="W9v-Th-egc"/>
+                                        <constraint firstItem="ZPg-pn-mpR" firstAttribute="trailing" secondItem="M2q-6h-tdl" secondAttribute="trailing" constant="23" id="W9v-Th-egc"/>
                                         <constraint firstItem="ZPg-pn-mpR" firstAttribute="leading" secondItem="M2q-6h-tdl" secondAttribute="leading" id="YH2-Rw-PLD"/>
                                         <constraint firstItem="ZPg-pn-mpR" firstAttribute="top" secondItem="M2q-6h-tdl" secondAttribute="top" id="jKR-UQ-1vy"/>
                                         <constraint firstItem="M2q-6h-tdl" firstAttribute="leading" secondItem="8cz-VY-lR0" secondAttribute="leading" constant="10" id="jUh-s3-OwE"/>
