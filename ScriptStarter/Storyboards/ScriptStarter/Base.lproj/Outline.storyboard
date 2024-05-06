@@ -203,7 +203,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s81-q4-Quo" userLabel="lineSeparator">
-                                        <rect key="frame" x="12" y="70.666666666666657" width="390" height="1"/>
+                                        <rect key="frame" x="8" y="70.666666666666657" width="398" height="1"/>
                                         <color key="backgroundColor" systemColor="tableSeparatorDarkColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="ZV8-Q3-ora"/>
@@ -215,8 +215,8 @@
                                     <constraint firstItem="s81-q4-Quo" firstAttribute="top" secondItem="YLh-ck-DMM" secondAttribute="bottom" constant="8" id="968-iT-3pb"/>
                                     <constraint firstItem="YLh-ck-DMM" firstAttribute="top" secondItem="BK2-3a-M42" secondAttribute="top" constant="20" id="9Sf-vg-f4X"/>
                                     <constraint firstAttribute="trailing" secondItem="YLh-ck-DMM" secondAttribute="trailing" constant="12" id="ACy-ZV-OUE"/>
-                                    <constraint firstAttribute="trailing" secondItem="s81-q4-Quo" secondAttribute="trailing" constant="12" id="AGp-Ja-5fP"/>
-                                    <constraint firstItem="s81-q4-Quo" firstAttribute="leading" secondItem="BK2-3a-M42" secondAttribute="leading" constant="12" id="P7v-c6-4jZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="s81-q4-Quo" secondAttribute="trailing" constant="8" id="AGp-Ja-5fP"/>
+                                    <constraint firstItem="s81-q4-Quo" firstAttribute="leading" secondItem="BK2-3a-M42" secondAttribute="leading" constant="8" id="P7v-c6-4jZ"/>
                                     <constraint firstAttribute="bottom" secondItem="s81-q4-Quo" secondAttribute="bottom" id="gfb-20-zih"/>
                                     <constraint firstItem="YLh-ck-DMM" firstAttribute="leading" secondItem="BK2-3a-M42" secondAttribute="leading" constant="12" id="lTp-5K-XcJ"/>
                                 </constraints>
