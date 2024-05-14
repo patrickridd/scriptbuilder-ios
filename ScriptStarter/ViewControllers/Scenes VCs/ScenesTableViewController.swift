@@ -32,7 +32,7 @@ class ScenesTableViewController: UITableViewController {
         setupNavigationBar()
         self.tableView.backgroundColor = Theme.tableViewBackgroundColor
         self.tableView.separatorColor = Theme.tableViewBackgroundColor
-        
+        self.tableView.showsVerticalScrollIndicator = false
         if newScene, InAppPurchases.sceneFeatureEnabled {
             self.pushToSceneDetailView(act: .one,
                                        scene: nil)

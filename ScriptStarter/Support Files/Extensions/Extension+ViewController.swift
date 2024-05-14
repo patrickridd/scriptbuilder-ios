@@ -177,7 +177,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         self.view.endEditing(true)
         self.navigationController?.view.endEditing(true)
         switch self {
-        case is EnlargedDescriptionTableViewController:
+        case is EnlargedDescriptionViewController:
             dismiss(animated: true,
                     completion: nil)
         default:
@@ -215,7 +215,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
                          completion: nil)
         }
     }
-    
+
     // MARK: UIAlertControllers
     func present(error: Error) {
         let alert = UIAlertController(title: "Error".localized,

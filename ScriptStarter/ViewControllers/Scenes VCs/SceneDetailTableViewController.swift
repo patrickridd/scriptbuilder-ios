@@ -41,6 +41,7 @@ class SceneDetailTableViewController: UITableViewController {
         headerContainerView.backgroundColor = Theme.tableViewBackgroundColor
         tableView.backgroundColor = Theme.tableViewBackgroundColor
         tableView.separatorColor = tableView.backgroundColor
+        tableView.showsVerticalScrollIndicator = false
         sceneActNumberTextField.backgroundColor = Theme.descriptionTextViewBackground
         sceneNumberTextField.backgroundColor = Theme.descriptionTextViewBackground
         sceneHeaderTextField.backgroundColor = Theme.descriptionTextViewBackground

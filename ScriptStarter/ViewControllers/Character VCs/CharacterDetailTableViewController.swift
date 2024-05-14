@@ -41,6 +41,8 @@ class CharacterDetailTableViewController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font:font]
         self.tableView.backgroundColor = Theme.tableViewBackgroundColor
         self.tableView.separatorColor = Theme.tableViewBackgroundColor
+        self.tableView.showsVerticalScrollIndicator = false
+
         self.setupExpandableSections()
       
         self.title = self.character?.name ?? "New Character".localized

@@ -14,7 +14,7 @@ class SceneActNumberPopTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.backgroundColor = Theme.systemBackground
     }
     
     // MARK: - Table view data source
