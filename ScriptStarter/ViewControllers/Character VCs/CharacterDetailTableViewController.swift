@@ -75,13 +75,13 @@ class CharacterDetailTableViewController: UITableViewController {
         let storyboard = UIStoryboard(name: "Outline", bundle: nil)
         let indexPath = IndexPath(row: 0, section: sender.tag)
         guard
-            let enlargedNavigationController = storyboard.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController,
-            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController,
+            let enlargedNavigationController = storyboard.instantiateViewController(withIdentifier: "enlargedNavigationController") as? UINavigationController,
+            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionViewController,
             let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
         else {
             return
         }
-        
+        enlargedNavigationController.modalPresentationStyle = .fullScreen
         enlargedVC.act = nil
         enlargedVC.character = self.character
         enlargedVC.text = descriptionCell.descriptionTextView.text

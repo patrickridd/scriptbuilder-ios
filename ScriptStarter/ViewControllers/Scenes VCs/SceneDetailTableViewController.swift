@@ -224,13 +224,13 @@ class SceneDetailTableViewController: UITableViewController {
         let storyboard = UIStoryboard(name: "Outline",
                                       bundle: nil)
         guard
-            let enlargedNavigationController = storyboard.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController,
-            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController,
+            let enlargedNavigationController = storyboard.instantiateViewController(withIdentifier: "enlargedNavigationController") as? UINavigationController,
+            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionViewController,
             let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
         else {
             return
         }
-        
+        enlargedNavigationController.modalPresentationStyle = .fullScreen
         enlargedVC.viewController = .sceneDetail
         enlargedVC.text = descriptionCell.descriptionTextView.text
         enlargedVC.section = sender.tag
