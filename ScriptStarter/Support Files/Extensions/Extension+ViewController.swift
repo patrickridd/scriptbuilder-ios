@@ -97,7 +97,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         }
     }
     
-    func getDescriptionCellHeight(with text:String) -> CGFloat {
+    func getDescriptionCellHeight(with text: String) -> CGFloat {
         let aproximateWidthOfCell = self.view.frame.width // Minus 50 for the leading and trailing margins
         let descriptionSize = CGSize(width: aproximateWidthOfCell,
                                      height: 1000)

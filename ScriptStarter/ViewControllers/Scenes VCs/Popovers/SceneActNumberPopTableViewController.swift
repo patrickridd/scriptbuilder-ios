@@ -27,7 +27,6 @@ class SceneActNumberPopTableViewController: UITableViewController {
         return 3
     }
     
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let actNumberPopCell = tableView.dequeueReusableCell(withIdentifier: "actNumberCell",
                                                              for: indexPath) as? ActNumberPopTableViewCell
