@@ -61,6 +61,7 @@
 		218E8460203E3D9500D0D652 /* NoCharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */; };
 		218E8462203F379000D0D652 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8461203F379000D0D652 /* Scene.swift */; };
 		218E8464203F841400D0D652 /* SceneHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8463203F841400D0D652 /* SceneHeader.swift */; };
+		219019422C2736BE008FFFAE /* ScriptBuilderStore.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 219019412C2736BE008FFFAE /* ScriptBuilderStore.storekit */; };
 		21916C6821FBCD2E00C6F024 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21916C6721FBCD2E00C6F024 /* Constants.swift */; };
 		21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF482023B00000D97394 /* CharacterTableViewController.swift */; };
 		21A7CF4B2023B02D00D97394 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF4A2023B02D00D97394 /* Character.swift */; };
@@ -211,6 +212,7 @@
 		218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCharacterTableViewCell.swift; sourceTree = "<group>"; };
 		218E8461203F379000D0D652 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		218E8463203F841400D0D652 /* SceneHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneHeader.swift; sourceTree = "<group>"; };
+		219019412C2736BE008FFFAE /* ScriptBuilderStore.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ScriptBuilderStore.storekit; sourceTree = SOURCE_ROOT; };
 		21916C6721FBCD2E00C6F024 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2196A6672B96119C6604CBF4 /* Pods_ScriptStarterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScriptStarterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21A7CF482023B00000D97394 /* CharacterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewController.swift; sourceTree = "<group>"; };
@@ -648,6 +650,7 @@
 				210C7612202B83D3003EEC16 /* Classes */,
 				210C7613202B83FF003EEC16 /* Enums */,
 				210C7611202B83BC003EEC16 /* Extensions */,
+				219019412C2736BE008FFFAE /* ScriptBuilderStore.storekit */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -831,6 +834,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				219019422C2736BE008FFFAE /* ScriptBuilderStore.storekit in Resources */,
 				212DEA7E2012746500FE9C3F /* LaunchScreen.storyboard in Resources */,
 				2122BE6A2BC38BF700CBC2ED /* bokehBackground.jpeg in Resources */,
 				218337922BCF7A690086658C /* upward_trees.jpg in Resources */,
