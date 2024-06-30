@@ -73,6 +73,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
         
+        if !InAppPurchases.allAccessEnabled {
+            self.presentScreenplayCollectionView()
+            return false
+        }
+        
         var quickActionHandled = false
         let type = shortcutItem.type.components(separatedBy: ".").last!
         if let shortcutType = Shortcut.init(rawValue: type) {
