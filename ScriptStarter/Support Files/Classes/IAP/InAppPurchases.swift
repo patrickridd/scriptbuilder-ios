@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import StoreKit
 
-public struct InAppPurchases {
+public class InAppPurchases {
     
     public static let noAdsIdentifier = "com.patrickridd.ScriptStarter.NoAds"
     public static let characterFeatureIdentifier = "com.patrickridd.ScriptStarter.Character.Builder"
@@ -16,6 +17,14 @@ public struct InAppPurchases {
     public static let unlimitedMonthly = "unlimited_monthly"
     public static let unlimitedYearly = "unlimited_yearly"
     public static let unlimitedForever = "unlimited_forever"
+    var productsPurchased: [SKProduct]?
+
+    init() {
+        // Retrieves in app purchases from apple
+        InAppPurchases.store.requestProducts { [weak self] (_, products) in
+            self?.productsPurchased = products
+        }
+    }
 
     private static let productIdentifiers: Set<ProductIdentifier> = [InAppPurchases.noAdsIdentifier,
                                                                      InAppPurchases.characterFeatureIdentifier,

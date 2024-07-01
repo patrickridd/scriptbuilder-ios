@@ -115,9 +115,20 @@ class ScreenplayCollectionViewController: UIViewController {
             }
             settingsTableViewController.screenplays = self.screenplays
         }
-       
     }
-    
+
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        switch identifier {
+        case "screenplaySegue":
+            // Users get 1 screenplay by default
+            if screenplays.count < 1 || InAppPurchases.allAccessEnabled {
+                return true
+            }
+            return false
+        default:
+            return true
+        }
+    }
 }
 
 extension ScreenplayCollectionViewController: UICollectionViewDataSource {
