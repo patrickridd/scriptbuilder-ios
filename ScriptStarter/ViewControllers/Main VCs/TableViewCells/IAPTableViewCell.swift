@@ -24,8 +24,8 @@ class IAPTableViewCell: UITableViewCell {
        
         restoreButton.layer.borderWidth = 1.0
         // Disable Purchase and Restore buttons until In App Purchase is available
-        restoreButton.layer.borderColor = UIColor.screenLightBlue.cgColor
-        restoreButton.setTitleColor(UIColor.screenLightBlue,
+        restoreButton.layer.borderColor = Theme.scriptBuilderUIColor.cgColor
+        restoreButton.setTitleColor(Theme.scriptBuilderUIColor,
                                     for: .normal)
         purchaseButton.backgroundColor = UIColor.screenDarkGray
         
@@ -35,9 +35,9 @@ class IAPTableViewCell: UITableViewCell {
                     self?.inAppPurchase = product
                     self?.restoreButton.isEnabled = true
                     self?.purchaseButton.isEnabled = true
-                    self?.purchaseButton.backgroundColor = UIColor.screenLightBlue
-                    self?.restoreButton.layer.borderColor = UIColor.screenLightBlue.cgColor
-                    self?.restoreButton.setTitleColor(UIColor.screenLightBlue,
+                    self?.purchaseButton.backgroundColor = Theme.scriptBuilderUIColor
+                    self?.restoreButton.layer.borderColor = Theme.scriptBuilderUIColor.cgColor
+                    self?.restoreButton.setTitleColor(Theme.scriptBuilderUIColor,
                                                       for: .normal)
                     self?.setPurchasedUI()
                 }
@@ -50,7 +50,7 @@ class IAPTableViewCell: UITableViewCell {
         if !InAppPurchases.shouldDisplayAds {
             self.accessoryType = .checkmark
             self.purchaseButton.isHidden = true
-            restoreButton.backgroundColor = UIColor.screenLightBlue
+            restoreButton.backgroundColor = Theme.scriptBuilderUIColor
             restoreButton.setTitleColor(.white, for: .normal)
         } else {
             self.accessoryType = .none

@@ -25,8 +25,7 @@ class RoleTableViewCell: UITableViewCell {
     
     func setupCustomLabel() {
         let attributedText = NSAttributedString(string: "Custom".localized,
-                                                attributes: [NSAttributedString.Key.foregroundColor:
-                                                    UIColor.screenLightBlue])
+                                                attributes: [NSAttributedString.Key.foregroundColor: Theme.scriptBuilderUIColor])
         roleLabel.attributedText = attributedText
     }
 }

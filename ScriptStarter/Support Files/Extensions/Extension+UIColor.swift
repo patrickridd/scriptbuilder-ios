@@ -37,6 +37,14 @@ extension UIColor {
         return UIColor(red: 0.53, green: 0.72, blue: 0.85, alpha: 1.0)
     }
     
+    static var screenMediumBlue: UIColor {
+        return UIColor(red: 0.53, green: 0.72, blue: 0.90, alpha: 1.0)
+    }
+    
+    static var screenDarkBlue: UIColor {
+        return UIColor(red: 0.53, green: 0.72, blue: 0.99, alpha: 1.0)
+    }
+    
     static var screenLightGreen: UIColor {
         return UIColor(red: 0.83, green: 0.89, blue: 0.88, alpha: 1.0)
     }

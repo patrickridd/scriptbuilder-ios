@@ -6,12 +6,21 @@
 //  Copyright © 2024 patrickridd. All rights reserved.
 //
 
+import SwiftUI
 import UIKit
 
 class Theme {
    
     static var interfaceStyle: UIUserInterfaceStyle? {
         UIApplication.shared.interfaceStyle
+    }
+    
+    static var scriptBuilderUIColor: UIColor {
+        interfaceStyle == .dark ? .systemCyan : .screenMediumBlue
+    }
+    
+    static var scriptBuilderColor: Color {
+        Color(scriptBuilderUIColor)
     }
     
     // MARK: Backgrounds

@@ -80,7 +80,7 @@ class CollapsibleHeader: UITableViewHeaderFooterView {
         let font = UIFont.systemFont(ofSize: 24,
                                      weight: .semibold)
         plusButtonLabel.font = font
-        plusButtonLabel.textColor = .screenLightBlue
+        plusButtonLabel.textColor = Theme.scriptBuilderUIColor
         plusButtonLabel.text = "+"
         
         plusButtonLabel.contentMode = .scaleAspectFill

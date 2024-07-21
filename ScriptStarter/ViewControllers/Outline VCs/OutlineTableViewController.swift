@@ -125,7 +125,7 @@ class OutlineTableViewController: UITableViewController {
                           NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
                                                                           weight: .semibold)]
         navigationController?.navigationBar.titleTextAttributes = attributes
-        navigationController?.navigationBar.tintColor = .screenLightBlue
+        navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = attributes
         appearance.configureWithOpaqueBackground()
@@ -142,7 +142,7 @@ class OutlineTableViewController: UITableViewController {
     
     func setupTabBar() {
         let appearance = UITabBarAppearance()
-        let selectedColor = UIColor.screenLightBlue
+        let selectedColor = Theme.scriptBuilderUIColor
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = Theme.navigationBarBackground
         appearance.inlineLayoutAppearance.selected.iconColor = selectedColor

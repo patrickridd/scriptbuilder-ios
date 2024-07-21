@@ -16,7 +16,7 @@ class EnableDarkModeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        darkModeSwitch.onTintColor = UIColor.screenLightBlue
+        darkModeSwitch.onTintColor = Theme.scriptBuilderUIColor
         let isOn = userDefaults.bool(forKey: Constants.darkModeEnabled.rawValue)
         darkModeSwitch.isOn = isOn
     }

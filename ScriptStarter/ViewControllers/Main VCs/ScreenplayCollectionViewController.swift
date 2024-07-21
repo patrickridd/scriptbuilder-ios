@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 import Firebase
+import SwiftUI
 
 class ScreenplayCollectionViewController: UIViewController {
     
@@ -38,7 +39,7 @@ class ScreenplayCollectionViewController: UIViewController {
     
     fileprivate func setupNavigationBarUI() {
         let strokeTextAttributes: [NSAttributedString.Key : Any] = [
-            NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
+            NSAttributedString.Key.strokeColor : Theme.scriptBuilderUIColor,
             NSAttributedString.Key.foregroundColor : Theme.navTitleColor,
             NSAttributedString.Key.strokeWidth : -3,
             NSAttributedString.Key.font: UIFont(name: "Avenir-Light",
@@ -97,7 +98,7 @@ class ScreenplayCollectionViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "screenplaySegue" {
             self.navigationController?.navigationBar.topItem?.title = ""
-            self.navigationController?.navigationBar.tintColor = UIColor.screenLightBlue
+            self.navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
             self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
             
             guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
@@ -124,6 +125,8 @@ class ScreenplayCollectionViewController: UIViewController {
             if screenplays.count < 1 || InAppPurchases.allAccessEnabled {
                 return true
             }
+            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(viewModel: .init()))
+            present(iapSubscriptionViewController, animated: true)
             return false
         default:
             return true

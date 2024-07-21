@@ -25,7 +25,7 @@ class BasicInfoCharacterTableViewCell: UITableViewCell {
         roleTextField.delegate = self
         
         self.nameTextField.textColor = Theme.characterNameTextFieldColor
-        self.roleTextField.textColor = UIColor.screenLightBlue
+        self.roleTextField.textColor = Theme.scriptBuilderUIColor
         self.nameTextField.backgroundColor = Theme.descriptionTextViewBackground
         self.roleTextField.backgroundColor = Theme.descriptionTextViewBackground
         self.contentView.backgroundColor = Theme.descriptionTextViewBackground

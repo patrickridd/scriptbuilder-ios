@@ -132,7 +132,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         let toolBar = UIToolbar()
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.screenLightBlue
+        toolBar.tintColor = Theme.scriptBuilderUIColor
         let doneButton = UIBarButtonItem(title: "Done".localized,
                                          style: .done,
                                          target: self,
@@ -155,7 +155,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         let toolBar = UIToolbar()
         toolBar.barStyle = .default
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.screenLightBlue
+        toolBar.tintColor = Theme.scriptBuilderUIColor
         
         let doneButton = UIBarButtonItem(title: "Done".localized,
                                          style: .done,

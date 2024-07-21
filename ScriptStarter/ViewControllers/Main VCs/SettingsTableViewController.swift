@@ -55,7 +55,7 @@ class SettingsTableViewController: UITableViewController {
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.label,
                           NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
                                                                          weight: UIFont.Weight.light)]
-        navigationController?.navigationBar.tintColor = .screenLightBlue
+        navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
         navigationController?.navigationBar.topItem?.title = self.screenplay?.title
         navigationController?.navigationBar.titleTextAttributes = attributes
         let appearance = UINavigationBarAppearance()

@@ -110,7 +110,7 @@ class EnlargedDescriptionViewController: UIViewController {
         let attributes = [NSAttributedString.Key.foregroundColor: Theme.navTitleColor,
                           NSAttributedString.Key.font: font]
         navigationController?.navigationBar.titleTextAttributes = attributes
-        navigationController?.navigationBar.tintColor = .screenLightBlue
+        navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = attributes
         appearance.configureWithOpaqueBackground()

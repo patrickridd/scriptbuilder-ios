@@ -9,7 +9,7 @@
 import UIKit
 
 class SaveBarButtonItem: UIBarButtonItem {
-    
+
     weak var view: UIViewController?
     
     let button: UIButton = UIButton()
@@ -23,7 +23,7 @@ class SaveBarButtonItem: UIBarButtonItem {
         
         button.setTitle("Save",
                         for: .normal)
-        button.setTitleColor(.screenLightBlue,
+        button.setTitleColor(Theme.scriptBuilderUIColor,
                              for: .normal)
         button.setTitleColor(UIColor.screenLightGray,
                              for: .disabled)

@@ -87,7 +87,7 @@ class CharacterTableViewController: UITableViewController {
                            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
                                                                           weight: .semibold)]
         navigationController?.navigationBar.titleTextAttributes = attributes
-        navigationController?.navigationBar.tintColor = .screenLightBlue
+        navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = attributes
         appearance.configureWithOpaqueBackground()
@@ -95,7 +95,7 @@ class CharacterTableViewController: UITableViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.navigationController?.navigationBar.tintColor = .screenLightBlue
+        self.navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
         let backButton = UIBarButtonItem(title: "Home".localized,
                                          style: .plain,
                                          target: self,
@@ -104,12 +104,12 @@ class CharacterTableViewController: UITableViewController {
     }
     
     @objc func checkForCharacterFeatureEnabled() {
-        if InAppPurchases.characterFeatureEnabled {
+        //if InAppPurchases.characterFeatureEnabled {
             enableView()
-        } else {
-            disableView()
-            presentIapAlert()
-        }
+//        } else {
+//            disableView()
+//            presentIapAlert()
+//        }
     }
 
     func disableView() {

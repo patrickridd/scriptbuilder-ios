@@ -43,6 +43,7 @@
 		2153C349207586EA00C08B73 /* ShareTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C348207586EA00C08B73 /* ShareTableViewCell.swift */; };
 		2153C34B207587B500C08B73 /* DeleteAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */; };
 		215829CB20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */; };
+		2159D2322C339C9800642DAC /* IAPSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2159D2312C339C9800642DAC /* IAPSubscriptionView.swift */; };
 		215DDCD321EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		215DDCD421EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		215DDCD521EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
@@ -186,6 +187,7 @@
 		2153C348207586EA00C08B73 /* ShareTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTableViewCell.swift; sourceTree = "<group>"; };
 		2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountTableViewCell.swift; sourceTree = "<group>"; };
 		215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
+		2159D2312C339C9800642DAC /* IAPSubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPSubscriptionView.swift; sourceTree = "<group>"; };
 		215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		217AD64A22A08B2E00E5ED41 /* SaveBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveBarButtonItem.swift; sourceTree = "<group>"; };
 		217DF0F022288FAF00C7A543 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -501,9 +503,18 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
+		2159D2302C339C7800642DAC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2159D2312C339C9800642DAC /* IAPSubscriptionView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		215DDD3621F7CB6E00C52B6C /* IAP */ = {
 			isa = PBXGroup;
 			children = (
+				2159D2302C339C7800642DAC /* Views */,
 				2189FC91205719F900A69DC1 /* InAppPurchases.swift */,
 				2189FC8F2057199300A69DC1 /* IAPHelper.swift */,
 			);
@@ -1036,6 +1047,7 @@
 				21D727F2202CFD2400861C2D /* Extension+ViewController.swift in Sources */,
 				2189FC902057199300A69DC1 /* IAPHelper.swift in Sources */,
 				211215D8203B5E680039D6E8 /* RoleTableViewCell.swift in Sources */,
+				2159D2322C339C9800642DAC /* IAPSubscriptionView.swift in Sources */,
 				21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */,
 				21A7CF542028E60D00D97394 /* ActDetailTableViewController.swift in Sources */,
 				2153C3452075608300C08B73 /* Extension+UITextField.swift in Sources */,

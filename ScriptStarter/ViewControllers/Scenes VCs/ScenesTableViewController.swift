@@ -210,7 +210,7 @@ class ScenesTableViewController: UITableViewController {
                            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
                                                                           weight: .semibold)]
         navigationController?.navigationBar.titleTextAttributes = attributes
-        navigationController?.navigationBar.tintColor = .screenLightBlue
+        navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = attributes
         appearance.configureWithOpaqueBackground()
@@ -227,14 +227,14 @@ class ScenesTableViewController: UITableViewController {
     
     @objc func checkForSceneFeatureEnabled() {
         
-        if InAppPurchases.sceneFeatureEnabled {
+       // if InAppPurchases.sceneFeatureEnabled {
             enableView()
             hideActivityIndicator(success: true,
                                   displayImage: false)
-        } else {
-            disableView()
-            presentIapAlert()
-        }
+//        } else {
+//            disableView()
+//            presentIapAlert()
+//        }
     }
     
     func disableView() {

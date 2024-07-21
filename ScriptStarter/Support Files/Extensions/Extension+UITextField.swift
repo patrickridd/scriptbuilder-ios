@@ -23,7 +23,7 @@ extension UITextField {
         let toolBar = UIToolbar()
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.screenLightBlue
+        toolBar.tintColor = Theme.scriptBuilderUIColor
         toolBar.setItems([spaceButton, doneButton],
                          animated: false)
         toolBar.isUserInteractionEnabled = true

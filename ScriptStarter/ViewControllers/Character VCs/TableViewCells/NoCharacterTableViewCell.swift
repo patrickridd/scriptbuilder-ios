@@ -27,7 +27,7 @@ class NoCharacterTableViewCell: UITableViewCell {
         let range = (text as NSString).range(of: plusButton)
         let attributedText = NSMutableAttributedString.init(string: text)
         attributedText.addAttribute(NSAttributedString.Key.foregroundColor,
-                                    value: UIColor.screenLightBlue,
+                                    value: Theme.scriptBuilderUIColor,
                                     range: range)
         noCharacterLabel.textColor = .label
         noCharacterLabel.attributedText = attributedText

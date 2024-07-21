@@ -78,7 +78,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         tapGesture.cancelsTouchesInView = false // This way the google button will work
        
         let strokeTextAttributes: [NSAttributedString.Key : Any] = [
-            NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
+            NSAttributedString.Key.strokeColor : Theme.scriptBuilderUIColor,
             NSAttributedString.Key.foregroundColor : UIColor.white,
             NSAttributedString.Key.strokeWidth : 3,
         ]

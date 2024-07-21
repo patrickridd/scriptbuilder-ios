@@ -71,7 +71,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
         tapGesture.cancelsTouchesInView = false // This way the google button will work
         
         let strokeTextAttributes: [NSAttributedString.Key : Any] =
-            [NSAttributedString.Key.strokeColor: UIColor.screenLightBlue,
+            [NSAttributedString.Key.strokeColor: Theme.scriptBuilderUIColor,
              NSAttributedString.Key.foregroundColor: UIColor.white,
              NSAttributedString.Key.strokeWidth: 3]
         self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder".localized,
@@ -99,7 +99,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                 self.loadingNotification.label.text = "success".localized
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
                 let strokeTextAttributes: [NSAttributedString.Key:Any] =
-                    [NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
+                [NSAttributedString.Key.strokeColor : Theme.scriptBuilderUIColor,
                      NSAttributedString.Key.foregroundColor : UIColor.white,
                      NSAttributedString.Key.strokeWidth : -2.0]
                 self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder".localized,
