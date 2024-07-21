@@ -125,7 +125,7 @@ class ScreenplayCollectionViewController: UIViewController {
             if screenplays.count < 1 || InAppPurchases.allAccessEnabled {
                 return true
             }
-            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(viewModel: .init()))
+            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView())
             present(iapSubscriptionViewController, animated: true)
             return false
         default:

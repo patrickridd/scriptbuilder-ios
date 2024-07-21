@@ -11,7 +11,15 @@ import StoreKit
 
 struct IAPSubscriptionView: View {
     @StateObject var viewModel: ViewModel
-    
+
+    init() {
+        _viewModel = StateObject(wrappedValue: ViewModel())
+        // Large Navigation Title
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.screenDark, NSAttributedString.Key.font: UIFont(name: "Avenir-Light", size: 28) as Any, NSAttributedString.Key.strokeColor: UIColor.systemCyan, NSAttributedString.Key.strokeWidth: -3]
+         // Inline Navigation Title
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.screenDark, NSAttributedString.Key.font: UIFont(name: "Avenir-Light", size: 28) as Any, NSAttributedString.Key.strokeColor: UIColor.systemCyan, NSAttributedString.Key.strokeWidth: -3]
+    }
+
     var body: some View {
         NavigationStack {
             GeometryReader { reader in
@@ -52,6 +60,8 @@ struct IAPSubscriptionView: View {
                 }
                 .frame(width: reader.size.width)
                 .navigationTitle(Text(viewModel.title))
+                .foregroundStyle(.black)
+                .background(.white)
             }
         }
     }
@@ -114,7 +124,7 @@ struct IAPSubscriptionView: View {
                 .foregroundStyle(.white)
                 .frame(width: UIScreen.main.bounds.width - 40.0, height: 50)
                 .background {
-                    Theme.scriptBuilderColor
+                    Color(.systemCyan)
                 }
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: UIScreen.main.bounds.width - 40.0, height: 50)))
         }
@@ -160,7 +170,7 @@ struct IAPSubscriptionView: View {
 }
 
 #Preview {
-    IAPSubscriptionView(viewModel: IAPSubscriptionView.ViewModel())
+    IAPSubscriptionView()
 }
 
 
@@ -218,7 +228,7 @@ extension IAPSubscriptionView {
         }
         
         func backgroundColor(for subscription: SelectedSubscription) -> Color {
-            Color(uiColor: subscription == self.selectedSubscription ? Theme.scriptBuilderUIColor : .white)
+            Color(uiColor: subscription == self.selectedSubscription ? .systemCyan : .white)
         }
      
         func subscriptionTitleColor(for subscription: SelectedSubscription) -> Color {
@@ -226,7 +236,7 @@ extension IAPSubscriptionView {
         }
         
         func priceColor(for subscription: SelectedSubscription) -> Color {
-            Color(uiColor: subscription == self.selectedSubscription ? .white : Theme.scriptBuilderUIColor)
+            Color(uiColor: subscription == self.selectedSubscription ? .white : .systemCyan)
         }
         
         func subtitleColor(for subscription: SelectedSubscription) -> Color {
