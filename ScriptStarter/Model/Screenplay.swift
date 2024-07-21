@@ -20,6 +20,7 @@ class Screenplay: Equatable {
     let actTwoKey = "actTwo"
     let actThreeKey = "actThree"
     let titleKey = "title"
+    let dateKey = "dateKey"
     let authorNameKey = "authorNameKey"
     let uuidKey = "uuid"
     let ideaKey = "idea"
@@ -35,6 +36,7 @@ class Screenplay: Equatable {
     var title: String
     var uuid: String
     var authorName: String?
+    var lastUpdated: Date?
     
     var idea: String = ""
     var logLine: String = ""
@@ -85,6 +87,7 @@ class Screenplay: Equatable {
         return lhs.title == rhs.title &&
                lhs.uuid == rhs.uuid &&
                lhs.idea == rhs.idea &&
+               lhs.lastUpdated == rhs.lastUpdated &&
                lhs.logLine == rhs.logLine &&
                lhs.notes == rhs.notes &&
                lhs.theme == rhs.theme &&
@@ -106,6 +109,7 @@ class Screenplay: Equatable {
         self.title = title
         self.authorName = authorName
         self.uuid = UUID().uuidString
+        self.lastUpdated = Date()
     }
     
     init?(uuid: String, screenplayDictionary: [String:Any]) {
@@ -119,6 +123,11 @@ class Screenplay: Equatable {
         self.mainObstacle = screenplayDictionary[mainObstacleKey] as? String ?? ""
         self.uuid = uuid
         self.title = title
+        if let dateCreatedInterval = screenplayDictionary[dateKey] as? Double {
+            self.lastUpdated = Date(timeIntervalSince1970: dateCreatedInterval)
+        } else {
+            self.lastUpdated = nil
+        }
         self.logLine = screenplayDictionary[logLineKey] as? String ?? ""
         self.idea = screenplayDictionary[ideaKey] as? String ?? ""
         self.actOneDescription = screenplayDictionary[actOneDescriptionKey] as? String ?? ""
@@ -201,6 +210,7 @@ class Screenplay: Equatable {
     init(unalteredScreenplay: Screenplay) {
         title = unalteredScreenplay.title
         uuid = unalteredScreenplay.uuid
+        lastUpdated = unalteredScreenplay.lastUpdated
         authorName = unalteredScreenplay.authorName
         idea = unalteredScreenplay.idea
         logLine = unalteredScreenplay.logLine
@@ -235,6 +245,7 @@ class Screenplay: Equatable {
                 authorNameKey:self.authorName ?? Auth.auth().currentUser?.displayName ?? "Name",
                 logLineKey:self.logLine,
                 ideaKey:self.idea,
+                dateKey: Date().timeIntervalSince1970,
                 themeKey:self.theme,
                 notesKey:self.notes,
                 centralIntentionKey:self.centralIntention,

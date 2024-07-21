@@ -40,7 +40,14 @@ class ScreenplayController {
     
     func sort(screenplays: [Screenplay]) -> [Screenplay] {
         return screenplays.sorted { (screenplay1, screenplay2) -> Bool in
-            return screenplay1.title < screenplay2.title
+            guard let screenplayLastUpdated1 = screenplay1.lastUpdated else {
+                return false
+            }
+            
+            guard let screenplayLastUpdated2 = screenplay2.lastUpdated else {
+                return true
+            }
+            return screenplayLastUpdated1.timeIntervalSince1970 > screenplayLastUpdated2.timeIntervalSince1970
         }
     }
     
