@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import MBProgressHUD
 import StoreKit
+import SwiftUI
 
 class CharacterTableViewController: UITableViewController {
 
@@ -104,12 +105,13 @@ class CharacterTableViewController: UITableViewController {
     }
     
     @objc func checkForCharacterFeatureEnabled() {
-        //if InAppPurchases.characterFeatureEnabled {
+        if InAppPurchases.allAccessEnabled {
             enableView()
-//        } else {
-//            disableView()
-//            presentIapAlert()
-//        }
+        } else {
+            disableView()
+            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView())
+            present(iapSubscriptionViewController, animated: true)
+        }
     }
 
     func disableView() {

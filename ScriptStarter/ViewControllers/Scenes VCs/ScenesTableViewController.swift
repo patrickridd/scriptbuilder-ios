@@ -9,6 +9,7 @@
 import UIKit
 import MBProgressHUD
 import StoreKit
+import SwiftUI
 
 class ScenesTableViewController: UITableViewController {
     
@@ -226,15 +227,13 @@ class ScenesTableViewController: UITableViewController {
     }
     
     @objc func checkForSceneFeatureEnabled() {
-        
-       // if InAppPurchases.sceneFeatureEnabled {
+        if InAppPurchases.allAccessEnabled {
             enableView()
-            hideActivityIndicator(success: true,
-                                  displayImage: false)
-//        } else {
-//            disableView()
-//            presentIapAlert()
-//        }
+        } else {
+            disableView()
+            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView())
+            present(iapSubscriptionViewController, animated: true)
+        }
     }
     
     func disableView() {
