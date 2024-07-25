@@ -41,13 +41,13 @@ struct IAPSubscriptionView: View {
                                 Spacer()
                                 VStack(alignment: .center, spacing: 15) {
                                     if let monthlyAllAccessProduct = viewModel.monthlyAllAccessProduct {
-                                        iapButtonView(selectedSubscription: .monthly, with: monthlyAllAccessProduct, subscripton: .monthly)
+                                        iapButtonView(selectedSubscription: .monthly, with: monthlyAllAccessProduct, subscripton: .monthly(viewModel.monthlyAllAccessProduct))
                                     }
                                     if let yearlyAllAccessProduct = viewModel.yearlyAllAccessProduct {
-                                        iapButtonView(selectedSubscription: .yearly, with: yearlyAllAccessProduct, subscripton: .yearly)
+                                        iapButtonView(selectedSubscription: .yearly, with: yearlyAllAccessProduct, subscripton: .yearly(viewModel.yearlyAllAccessProduct))
                                     }
                                     if let foreverAllAccessProduct = viewModel.foreverAllAccessProduct {
-                                        iapButtonView(selectedSubscription: .lifetime, with: foreverAllAccessProduct, subscripton: .lifetime)
+                                        iapButtonView(selectedSubscription: .lifetime, with: foreverAllAccessProduct, subscripton: .lifetime(viewModel.foreverAllAccessProduct))
                                     }
                                 }
                                 .frame(width: reader.size.width, height: 200)
@@ -118,8 +118,8 @@ struct IAPSubscriptionView: View {
         Button {
             
         } label: {
-            Text("Let's Go")
-                .font(.body)
+            Text(viewModel.confirmButtonTitle)
+                .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundStyle(.white)
                 .frame(width: UIScreen.main.bounds.width - 40.0, height: 50)
@@ -205,6 +205,31 @@ extension IAPSubscriptionView {
         
         var imageIcon: UIImage {
             #imageLiteral(resourceName: "screenplayAppIconAsset")
+        }
+
+        var confirmButtonTitle: String {
+            let currencySymbol = products?.first?.priceLocale.currencySymbol ?? ""
+            switch selectedSubscription {
+            case .monthly:
+                if let localPrice = monthlyAllAccessProduct?.price {
+                    return "Get 1 month for \(currencySymbol)\(localPrice)"
+                } else {
+                    return "Get 1 month for $2.99"
+                }
+               
+            case .yearly:
+                if let localPrice = yearlyAllAccessProduct?.price {
+                    return "Get 1 year for \(currencySymbol)\(localPrice)"
+                } else {
+                    return "Get 1 year for $19.99"
+                }
+            case .lifetime:
+                if let localPrice = foreverAllAccessProduct?.price {
+                    return "Get Lifetime for \(currencySymbol)\(localPrice)"
+                } else {
+                    return "Get Lifetime for $74.99"
+                }
+            }
         }
         
         var monthlyAllAccessProduct: SKProduct? {

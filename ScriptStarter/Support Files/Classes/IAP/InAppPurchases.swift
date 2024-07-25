@@ -64,9 +64,9 @@ func resourceNameForProductIdentifier(_ productIdentifier: String) -> String? {
 }
 
 enum InAppSubscription {
-    case monthly
-    case yearly
-    case lifetime
+    case monthly(_ product: SKProduct?)
+    case yearly(_ product: SKProduct?)
+    case lifetime(_ product: SKProduct?)
     
     var title: String {
         switch self {
@@ -81,12 +81,30 @@ enum InAppSubscription {
     
     var price: String {
         switch self {
-        case .monthly:
-            return "$0.68/week"
-        case .yearly:
-            return "$0.38/week"
-        case .lifetime:
-            return "$89.99"
+        case .monthly(let product):
+            if let monthlyPriceString = product?.price, let currency = product?.priceLocale.currencySymbol {
+                let monthlyPrice = Double(truncating: monthlyPriceString)
+                let weeklyPrice = (monthlyPrice/30.43) * 7
+                let formattedPrice = weeklyPrice.truncate(places: 2)
+                return "\(currency)\(formattedPrice)/\("week".localized)"
+            } else {
+                return "$0.68/week"
+            }
+        case .yearly(let product):
+            if let yearlyPriceString = product?.price, let currency = product?.priceLocale.currencySymbol {
+                let yearlyPrice = Double(truncating: yearlyPriceString)
+                let weeklyPrice = (yearlyPrice/365.0) * 7.0
+                let formattedPrice = weeklyPrice.truncate(places: 2)
+                return "\(currency)\(formattedPrice)/\("week".localized)"
+            } else {
+                return "$0.38/week"
+            }
+        case .lifetime(let product):
+            if let price = product?.price, let currency = product?.priceLocale.currencySymbol {
+                return "\(currency)\(price)"
+            } else {
+                return "$89.99"
+            }
         }
     }
     
@@ -101,4 +119,10 @@ enum InAppSubscription {
         }
     }
     
+}
+
+extension Double {
+    func truncate(places : Int) -> Double {
+        return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
+    }
 }
