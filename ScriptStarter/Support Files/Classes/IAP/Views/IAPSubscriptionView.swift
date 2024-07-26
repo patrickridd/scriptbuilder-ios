@@ -72,7 +72,7 @@ struct IAPSubscriptionView: View {
                 .resizable()
                 .frame(width: 32.0, height: 32.0)
                 .foregroundStyle(Color(uiColor: .screenDark))
-            Text("Unlimited Screenplays")
+            Text("Unlimited Screenplays".localized)
                 .font(.callout)
                 .fontWeight(.medium)
                 .frame(alignment: .leading)
@@ -88,7 +88,7 @@ struct IAPSubscriptionView: View {
                 .resizable()
                 .frame(width: 32.0, height: 32.0)
                 .foregroundStyle(Color(uiColor: .screenDark))
-            Text("Character Builder")
+            Text("Character Builder".localized)
                 .font(.callout)
                 .fontWeight(.medium)
                 .frame(alignment: .leading)
@@ -192,11 +192,11 @@ extension IAPSubscriptionView {
         }
         
         var title: String {
-            "\("ScriptBuilder Pro".localized) ✔️"
+            "\("ScriptBuilder Pro".localized) ✔️".localized
         }
         
         var subtitle: String {
-            "Unlimited ScriptBuilder Screenplays and ALL Access to Character Builder and Scene Builder"
+            "Unlimited ScriptBuilder Screenplays and ALL Access to Character Builder and Scene Builder".localized
         }
         
         var imageIcon: UIImage {
@@ -208,22 +208,22 @@ extension IAPSubscriptionView {
             switch selectedSubscription {
             case .monthly:
                 if let localPrice = monthlyAllAccessProduct?.price {
-                    return "Get 1 month for \(currencySymbol)\(localPrice)"
+                    return "Get 1 month for \(currencySymbol)\(localPrice)".localized
                 } else {
                     return "Get 1 month for $2.99"
                 }
                
             case .yearly:
                 if let localPrice = yearlyAllAccessProduct?.price {
-                    return "Get 1 year for \(currencySymbol)\(localPrice)"
+                    return "Get 1 year for \(currencySymbol)\(localPrice)".localized
                 } else {
-                    return "Get 1 year for $19.99"
+                    return "Get 1 year for $19.99".localized
                 }
             case .lifetime:
                 if let localPrice = foreverAllAccessProduct?.price {
-                    return "Get Lifetime for \(currencySymbol)\(localPrice)"
+                    return "Get Lifetime for \(currencySymbol)\(localPrice)".localized
                 } else {
-                    return "Get Lifetime for $74.99"
+                    return "Get Lifetime for $69.99".localized
                 }
             default:
                 return ""
