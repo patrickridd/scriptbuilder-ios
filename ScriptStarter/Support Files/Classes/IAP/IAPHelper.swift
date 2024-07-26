@@ -161,12 +161,10 @@ extension IAPHelper: SKPaymentTransactionObserver {
     
     private func deliverPurchaseNotificationFor(identifier: String?) {
         guard let identifier = identifier else { return }
-        
+
         purchasedProductIdentifiers.insert(identifier)
-        UserDefaults.standard.set(true,
-                                  forKey: identifier)
-        NotificationCenter.default.post(name: Notification.Name.IAPHelperPurchaseNotification,
-                                        object: identifier)
+        UserDefaults.standard.set(true, forKey: identifier)
+        NotificationCenter.default.post(name: Notification.Name.IAPHelperPurchaseNotification, object: identifier)
     }
 }
 

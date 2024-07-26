@@ -178,8 +178,10 @@ extension IAPSubscriptionView {
 
         @Published var products: [SKProduct]?
         @Published var selectedSubscription: InAppSubscription?
-        let iapHelper = IAPHelper
+
         init() {
+            InAppPurchases.store.delegate = self
+
             // Retrieves in app purchases from apple
             InAppPurchases.store.requestProducts { [weak self] (_, products) in
                 DispatchQueue.main.async {
@@ -263,14 +265,29 @@ extension IAPSubscriptionView {
         func confirmButtonTapped() {
             switch selectedSubscription {
             case .monthly(let product):
-                print(product?.productIdentifier)
+                guard let monthlyProduct = product else { return }
+                InAppPurchases.store.buyProduct(monthlyProduct)
             case .yearly(let product):
-                print(product?.productIdentifier)
+                guard let yearlyProduct = product else { return }
+                InAppPurchases.store.buyProduct(yearlyProduct)
             case .lifetime(let product):
-                print(product?.productIdentifier)
+                guard let lifetimeProduct = product else { return }
+                InAppPurchases.store.buyProduct(lifetimeProduct)
             default:
                 break
             }
         }
     }
+}
+
+extension IAPSubscriptionView.ViewModel: InAppPurchaseDelegate {
+    
+    func didCompleteTransaction(for productIdentifier: String?, with error: (any Error)?, displayLoadingImage: Bool) {
+        
+    }
+    
+    func startingTransaction() {
+        
+    }
+    
 }
