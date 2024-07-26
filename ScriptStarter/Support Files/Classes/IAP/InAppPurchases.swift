@@ -63,7 +63,7 @@ func resourceNameForProductIdentifier(_ productIdentifier: String) -> String? {
     return productIdentifier.components(separatedBy: ".").last
 }
 
-enum InAppSubscription {
+enum InAppSubscription: Equatable {
     case monthly(_ product: SKProduct?)
     case yearly(_ product: SKProduct?)
     case lifetime(_ product: SKProduct?)

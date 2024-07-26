@@ -41,13 +41,13 @@ struct IAPSubscriptionView: View {
                                 Spacer()
                                 VStack(alignment: .center, spacing: 15) {
                                     if let monthlyAllAccessProduct = viewModel.monthlyAllAccessProduct {
-                                        iapButtonView(selectedSubscription: .monthly, with: monthlyAllAccessProduct, subscripton: .monthly(viewModel.monthlyAllAccessProduct))
+                                        iapButtonView(subscripton: .monthly(viewModel.monthlyAllAccessProduct))
                                     }
                                     if let yearlyAllAccessProduct = viewModel.yearlyAllAccessProduct {
-                                        iapButtonView(selectedSubscription: .yearly, with: yearlyAllAccessProduct, subscripton: .yearly(viewModel.yearlyAllAccessProduct))
+                                        iapButtonView(subscripton: .yearly(viewModel.yearlyAllAccessProduct))
                                     }
                                     if let foreverAllAccessProduct = viewModel.foreverAllAccessProduct {
-                                        iapButtonView(selectedSubscription: .lifetime, with: foreverAllAccessProduct, subscripton: .lifetime(viewModel.foreverAllAccessProduct))
+                                        iapButtonView(subscripton: .lifetime(viewModel.foreverAllAccessProduct))
                                     }
                                 }
                                 .frame(width: reader.size.width, height: 200)
@@ -116,7 +116,7 @@ struct IAPSubscriptionView: View {
     
     var confirmButton: some View {
         Button {
-            
+            viewModel.confirmButtonTapped()
         } label: {
             Text(viewModel.confirmButtonTitle)
                 .font(.subheadline)
@@ -131,39 +131,38 @@ struct IAPSubscriptionView: View {
     }
 
     @ViewBuilder
-    func iapButtonView(selectedSubscription: ViewModel.SelectedSubscription, with product: SKProduct, subscripton: InAppSubscription) -> some View {
+    func iapButtonView(subscripton: InAppSubscription) -> some View {
             VStack(spacing: 4) {
                 Spacer()
                 Text(subscripton.title)
                     .font(.headline)
-                    .foregroundStyle(viewModel.subscriptionTitleColor(for: selectedSubscription))
+                    .foregroundStyle(viewModel.subscriptionTitleColor(for: subscripton))
                 Text(subscripton.price)
                     .font(.title3)
                     .fontWeight(.semibold)
-                    .foregroundStyle(viewModel.priceColor(for: selectedSubscription))
+                    .foregroundStyle(viewModel.priceColor(for: subscripton))
                 if let subtitle = subscripton.subtitle {
                     Text(subtitle)
                         .font(.caption)
                         .fontWeight(.semibold)
-                        .foregroundStyle(viewModel.subtitleColor(for: selectedSubscription))
+                        .foregroundStyle(viewModel.subtitleColor(for: subscripton))
                 }
                 Spacer()
             }
             .frame(minWidth: 200, minHeight: 100)
             .background {
-                viewModel.backgroundColor(for: selectedSubscription)
+                viewModel.backgroundColor(for: subscripton)
                     .opacity(0.99)
             }
             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 16, height: 16)))
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(viewModel.borderColor(for: selectedSubscription), lineWidth: 5)
+                    .stroke(viewModel.borderColor(for: subscripton), lineWidth: 5)
             )
             .onTapGesture {
                 let impactMed = UIImpactFeedbackGenerator(style: .medium)
                 impactMed.impactOccurred()
-                viewModel.selectedSubscription = selectedSubscription
-                viewModel.purchaseTapped(for: product)
+                viewModel.selectedSubscription = subscripton
             }
     }
 
@@ -176,21 +175,16 @@ struct IAPSubscriptionView: View {
 
 extension IAPSubscriptionView {
     class ViewModel: ObservableObject {
-        
-        enum SelectedSubscription {
-            case monthly
-            case yearly
-            case lifetime
-        }
 
         @Published var products: [SKProduct]?
-        @Published var selectedSubscription: SelectedSubscription = .monthly
-        
+        @Published var selectedSubscription: InAppSubscription?
+        let iapHelper = IAPHelper
         init() {
             // Retrieves in app purchases from apple
-            InAppPurchases.store.requestProducts { (_, products) in
+            InAppPurchases.store.requestProducts { [weak self] (_, products) in
                 DispatchQueue.main.async {
-                    self.products = products
+                    self?.products = products
+                    self?.selectedSubscription = .monthly(self?.monthlyAllAccessProduct)
                 }
             }
         }
@@ -229,6 +223,8 @@ extension IAPSubscriptionView {
                 } else {
                     return "Get Lifetime for $74.99"
                 }
+            default:
+                return ""
             }
         }
         
@@ -244,29 +240,37 @@ extension IAPSubscriptionView {
             products?.filter({$0.productIdentifier == InAppPurchases.unlimitedForeverIdentifier}).first
         }
         
-        func purchaseTapped(for product: SKProduct) {
-            print("\(product.productIdentifier) tapped")
-        }
-        
-        func borderColor(for subscription: SelectedSubscription) -> Color {
+        func borderColor(for subscription: InAppSubscription) -> Color {
             Color(uiColor: subscription == self.selectedSubscription ? .screenDark : .lightGray)
         }
         
-        func backgroundColor(for subscription: SelectedSubscription) -> Color {
+        func backgroundColor(for subscription: InAppSubscription) -> Color {
             Color(uiColor: subscription == self.selectedSubscription ? .systemCyan : .white)
         }
      
-        func subscriptionTitleColor(for subscription: SelectedSubscription) -> Color {
+        func subscriptionTitleColor(for subscription: InAppSubscription) -> Color {
             Color(uiColor: subscription == self.selectedSubscription ? .black : .black)
         }
         
-        func priceColor(for subscription: SelectedSubscription) -> Color {
+        func priceColor(for subscription: InAppSubscription) -> Color {
             Color(uiColor: subscription == self.selectedSubscription ? .white : .systemCyan)
         }
         
-        func subtitleColor(for subscription: SelectedSubscription) -> Color {
+        func subtitleColor(for subscription: InAppSubscription) -> Color {
             Color(uiColor: subscription == self.selectedSubscription ? .black : .screenDark)
         }
-        
+
+        func confirmButtonTapped() {
+            switch selectedSubscription {
+            case .monthly(let product):
+                print(product?.productIdentifier)
+            case .yearly(let product):
+                print(product?.productIdentifier)
+            case .lifetime(let product):
+                print(product?.productIdentifier)
+            default:
+                break
+            }
+        }
     }
 }
