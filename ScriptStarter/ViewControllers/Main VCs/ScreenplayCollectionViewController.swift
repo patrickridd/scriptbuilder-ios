@@ -15,8 +15,8 @@ import SwiftUI
 class ScreenplayCollectionViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
-
     @IBOutlet weak var imageView: UIImageView!
+
     var screenplays: [Screenplay] = [] {
         didSet {
             self.collectionView.reloadData()
@@ -27,9 +27,24 @@ class ScreenplayCollectionViewController: UIViewController {
         return Auth.auth().currentUser
     }
     
+    var shouldPerformSegue: Bool {
+//        return true
+        guard let indexSelected = indexSelected else { return false }
+        
+        // If subscribed or has yet to create a screenplay return TRUE
+        if InAppPurchases.allAccessEnabled || screenplays.count == 0 { return true }
+       
+        // If not enabled and screenplay.count > 0 and they are trying to create new screenplay present paywall
+        if indexSelected == 0 { return false }
+        
+        // Let user select their last created Screenplay
+        return indexSelected == 1
+    }
+
+    var indexSelected: Int?
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         
         imageView.image = Theme.backgroundImage
         setupNavigationBarUI()
@@ -85,7 +100,8 @@ class ScreenplayCollectionViewController: UIViewController {
         FirebaseController.shared.getScreenplays { (screenplays) in
             DispatchQueue.main.async {
                 self.screenplays = ScreenplayController.shared.sort(screenplays: screenplays)
-                if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: self.screenplays) {
+                if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: self.screenplays), InAppPurchases.allAccessEnabled
+                {
                     self.segueTo(screenplay: screenplay)
                 }
             }
@@ -121,13 +137,12 @@ class ScreenplayCollectionViewController: UIViewController {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         switch identifier {
         case "screenplaySegue":
-            // Users get 1 screenplay by default
-            if screenplays.count < 1 || InAppPurchases.allAccessEnabled {
-                return true
+            guard shouldPerformSegue else {
+                let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView())
+                present(iapSubscriptionViewController, animated: true)
+                return false
             }
-            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView())
-            present(iapSubscriptionViewController, animated: true)
-            return false
+            return true
         default:
             return true
         }
@@ -155,6 +170,10 @@ extension ScreenplayCollectionViewController: UICollectionViewDataSource {
             screenplayCell.update(title: screenplay.title, name: screenplay.authorName ?? self.user?.displayName ?? "Name")
             return screenplayCell
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        indexSelected = indexPath.row
     }
 }
 
