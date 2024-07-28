@@ -10,7 +10,6 @@ import UIKit
 
 class ScreenplayCollectionViewCell: UICollectionViewCell {
     
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -20,9 +19,9 @@ class ScreenplayCollectionViewCell: UICollectionViewCell {
         nameLabel.textColor = .label
     }
     
-    func update(title: String, name: String) {
+    func update(title: String, name: String, restricted: Bool) {
         self.titleLabel.text = title
         self.nameLabel.text = name
-        contentView.backgroundColor = Theme.secondarySystemBackground
+        contentView.backgroundColor = restricted ? .lightGray : Theme.secondarySystemBackground
     }
 }

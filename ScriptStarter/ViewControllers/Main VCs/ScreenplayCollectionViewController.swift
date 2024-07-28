@@ -28,7 +28,6 @@ class ScreenplayCollectionViewController: UIViewController {
     }
     
     var shouldPerformSegue: Bool {
-//        return true
         guard let indexSelected = indexSelected else { return false }
         
         // If subscribed or has yet to create a screenplay return TRUE
@@ -42,6 +41,12 @@ class ScreenplayCollectionViewController: UIViewController {
     }
 
     var indexSelected: Int?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        InAppPurchases.store.delegate = self
+        InAppPurchases.store.restorePurchases()
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -164,10 +169,10 @@ extension ScreenplayCollectionViewController: UICollectionViewDataSource {
             addScreenplayCell.contentView.backgroundColor = Theme.secondarySystemBackground
             return addScreenplayCell
         default:
-            // TODO: Create a cell for an existing screenplay
             guard let screenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "screenplayCell", for: indexPath) as? ScreenplayCollectionViewCell else { return UICollectionViewCell() }
             let screenplay = self.screenplays[indexPath.row-1]
-            screenplayCell.update(title: screenplay.title, name: screenplay.authorName ?? self.user?.displayName ?? "Name")
+            screenplayCell.update(title: screenplay.title, name: screenplay.authorName ?? self.user?.displayName ?? "Name", restricted: indexPath.row > 1 && !InAppPurchases.allAccessEnabled)
+            
             return screenplayCell
         }
     }
@@ -188,4 +193,15 @@ extension ScreenplayCollectionViewController: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
+}
+
+extension ScreenplayCollectionViewController: InAppPurchaseDelegate {
+    func didCompleteTransaction(for productIdentifier: String?, with error: (any Error)?, displayLoadingImage: Bool) {
+        
+    }
+
+    func startingTransaction() {
+        
+    }
+    
 }
