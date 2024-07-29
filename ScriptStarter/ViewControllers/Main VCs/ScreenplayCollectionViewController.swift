@@ -26,21 +26,6 @@ class ScreenplayCollectionViewController: UIViewController {
     var user: Firebase.User? {
         return Auth.auth().currentUser
     }
-    
-    var shouldPerformSegue: Bool {
-        guard let indexSelected = indexSelected else { return false }
-        
-        // If subscribed or has yet to create a screenplay return TRUE
-        if InAppPurchases.allAccessEnabled || screenplays.count == 0 { return true }
-       
-        // If not enabled and screenplay.count > 0 and they are trying to create new screenplay present paywall
-        if indexSelected == 0 { return false }
-        
-        // Let user select their last created Screenplay
-        return indexSelected == 1
-    }
-
-    var indexSelected: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +59,12 @@ class ScreenplayCollectionViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         self.navigationItem.title = "Script Builder".localized
     }
-   
+
+    private func cellRestricted(index: Int) -> Bool {
+        if index == 0 && screenplays.count == 0 { return false }
+        return !InAppPurchases.allAccessEnabled && (index > 1 || index == 0)
+    }
+
     // MARK: IBActions
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
@@ -117,18 +107,7 @@ class ScreenplayCollectionViewController: UIViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "screenplaySegue" {
-            self.navigationController?.navigationBar.topItem?.title = ""
-            self.navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
-            self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
-            
-            guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
-            
-            if indexPath.row == 0 { return } // Users tapped on "+" screenplay so return
-            
-            let screenplay = screenplays[indexPath.row-1]
-            ScreenplayController.shared.set(currentScreenplay: screenplay)
-        } else if segue.identifier == "settingsSegue" {
+        if segue.identifier == "settingsSegue" {
             guard
                 let navController = segue.destination as? UINavigationController,
                 let settingsTableViewController = navController.viewControllers.first as? SettingsTableViewController
@@ -141,15 +120,10 @@ class ScreenplayCollectionViewController: UIViewController {
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         switch identifier {
-        case "screenplaySegue":
-            guard shouldPerformSegue else {
-                let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView())
-                present(iapSubscriptionViewController, animated: true)
-                return false
-            }
+        case "settingsSegue":
             return true
         default:
-            return true
+            return false
         }
     }
 }
@@ -166,19 +140,38 @@ extension ScreenplayCollectionViewController: UICollectionViewDataSource {
         case 0:
             // Create the Add '+' screenplay cell
             guard let addScreenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "addScreenplayCell", for: indexPath) as? AddScreenplayCollectionViewCell else { return UICollectionViewCell() }
-            addScreenplayCell.contentView.backgroundColor = Theme.secondarySystemBackground
+            addScreenplayCell.updateCell(isRestricted: cellRestricted(index: indexPath.row))
             return addScreenplayCell
         default:
             guard let screenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "screenplayCell", for: indexPath) as? ScreenplayCollectionViewCell else { return UICollectionViewCell() }
             let screenplay = self.screenplays[indexPath.row-1]
-            screenplayCell.update(title: screenplay.title, name: screenplay.authorName ?? self.user?.displayName ?? "Name", restricted: indexPath.row > 1 && !InAppPurchases.allAccessEnabled)
+            screenplayCell.update(title: screenplay.title, name: screenplay.authorName ?? self.user?.displayName ?? "Name", restricted: cellRestricted(index: indexPath.row))
             
             return screenplayCell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        indexSelected = indexPath.row
+        if cellRestricted(index: indexPath.row) {
+            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView())
+            present(iapSubscriptionViewController, animated: true)
+            return
+        }
+
+        guard let screenplayPageVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else { return }
+        
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
+        self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
+        
+        // If user's didn't tap "+" for new screenplay, we set the selected screenplay to currentScreenplay
+        if indexPath.row != 0 {
+            let screenplay = screenplays[indexPath.row-1]
+            ScreenplayController.shared.set(currentScreenplay: screenplay)
+        }
+
+        screenplayPageVC.modalPresentationStyle = .fullScreen
+        self.present(screenplayPageVC, animated: true, completion: nil)
     }
 }
 

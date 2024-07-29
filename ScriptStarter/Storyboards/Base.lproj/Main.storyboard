@@ -3,7 +3,7 @@
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -387,8 +387,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YTy-Aw-S9O">
-                                                    <rect key="frame" x="59" y="68.666666666666671" width="22" height="43"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                                    <rect key="frame" x="55.333333333333336" y="61.333333333333329" width="29.666666666666664" height="57.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                                     <color key="textColor" red="0.58896142240000005" green="0.71160560849999999" blue="0.84707981349999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -401,7 +401,7 @@
                                         </constraints>
                                         <size key="customSize" width="140" height="180"/>
                                         <connections>
-                                            <segue destination="3mL-up-QOC" kind="presentation" identifier="screenplaySegue" id="IF0-MN-C4P"/>
+                                            <outlet property="addButtonLabel" destination="YTy-Aw-S9O" id="uv1-IR-oy7"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="screenplayCell" id="ZBL-Z5-wgF" customClass="ScreenplayCollectionViewCell" customModule="ScriptStarter" customModuleProvider="target">
@@ -1371,9 +1371,6 @@
             <point key="canvasLocation" x="4416" y="168"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="1JM-p9-a5Z"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="blueTrashCanAsset 1" width="21.333333969116211" height="27.333333969116211"/>
         <image name="downArrowButtonAsset 1" width="20" height="12.666666984558105"/>
