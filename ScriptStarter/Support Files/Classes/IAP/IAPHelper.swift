@@ -66,10 +66,13 @@ extension IAPHelper {
     }
     
     public func restorePurchases() {
-        delegate?.startingTransaction()
+//        SKPaymentQueue.default().add(self)
+//        let request = SKReceiptRefreshRequest(receiptProperties: nil)
+//        request.delegate = self
+//        request.start()
         SKPaymentQueue.default().restoreCompletedTransactions()
+        delegate?.startingTransaction()
     }
-    
 }
 
 // MARK: - SKProductsRequestDelegate

@@ -27,12 +27,6 @@ class ScreenplayCollectionViewController: UIViewController {
         return Auth.auth().currentUser
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        InAppPurchases.store.delegate = self
-        InAppPurchases.store.restorePurchases()
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -131,7 +125,7 @@ class ScreenplayCollectionViewController: UIViewController {
 extension ScreenplayCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return screenplays.count + 1
+        screenplays.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -184,17 +178,6 @@ extension ScreenplayCollectionViewController: UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        20
     }
-}
-
-extension ScreenplayCollectionViewController: InAppPurchaseDelegate {
-    func didCompleteTransaction(for productIdentifier: String?, with error: (any Error)?, displayLoadingImage: Bool) {
-        
-    }
-
-    func startingTransaction() {
-        
-    }
-    
 }

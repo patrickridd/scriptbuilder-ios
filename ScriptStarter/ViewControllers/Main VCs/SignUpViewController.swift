@@ -313,6 +313,9 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
     // MARK: Navigation
     
     func presentScreenPlayCollection() {
+        InAppPurchases.store.delegate = self
+        InAppPurchases.store.restorePurchases()
+
         DispatchQueue.main.async {
             guard let screenplayCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else { return }
             screenplayCollectionVC.modalPresentationStyle = .fullScreen
@@ -434,4 +437,9 @@ extension SignUpViewController: ASAuthorizationControllerDelegate {
         // Handle error.
         print("Sign in with Apple errored: \(error)")
     }
+}
+
+extension LoginViewController: InAppPurchaseDelegate {
+    func didCompleteTransaction(for productIdentifier: String?, with error: (any Error)?, displayLoadingImage: Bool) {}
+    func startingTransaction() {}
 }

@@ -113,7 +113,6 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                 completion?()
             }
         }
-        
     }
     
     // MARK: IBActions/Target methods
@@ -294,6 +293,9 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
     // MARK: Navigation
     
     func presentScreenPlayCollection() {
+        InAppPurchases.store.delegate = self
+        InAppPurchases.store.restorePurchases()
+
         DispatchQueue.main.async {
             guard let screenplayCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else { return }
             screenplayCollectionVC.modalPresentationStyle = .fullScreen
@@ -411,7 +413,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     
     
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return self.view.window!
+        view.window!
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
@@ -451,4 +453,9 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         // Handle error.
         print("Sign in with Apple errored: \(error)")
     }
+}
+
+extension SignUpViewController: InAppPurchaseDelegate {
+    func didCompleteTransaction(for productIdentifier: String?, with error: (any Error)?, displayLoadingImage: Bool) {}
+    func startingTransaction() {}
 }
