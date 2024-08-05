@@ -40,15 +40,9 @@ struct IAPSubscriptionView: View {
                                 Spacer()
                                 Spacer()
                                 VStack(alignment: .center, spacing: 15) {
-                                    if let monthlyAllAccessProduct = viewModel.monthlyAllAccessProduct {
-                                        iapButtonView(subscripton: .monthly(viewModel.monthlyAllAccessProduct))
-                                    }
-                                    if let yearlyAllAccessProduct = viewModel.yearlyAllAccessProduct {
-                                        iapButtonView(subscripton: .yearly(viewModel.yearlyAllAccessProduct))
-                                    }
-                                    if let foreverAllAccessProduct = viewModel.foreverAllAccessProduct {
-                                        iapButtonView(subscripton: .lifetime(viewModel.foreverAllAccessProduct))
-                                    }
+                                    iapButtonView(subscripton: .monthly(viewModel.monthlyAllAccessProduct))
+                                    iapButtonView(subscripton: .yearly(viewModel.yearlyAllAccessProduct))
+                                    iapButtonView(subscripton: .lifetime(viewModel.foreverAllAccessProduct))
                                 }
                                 .frame(width: reader.size.width, height: 200)
                                 Spacer()
@@ -290,7 +284,11 @@ extension IAPSubscriptionView {
 extension IAPSubscriptionView.ViewModel: InAppPurchaseDelegate {
     
     func didCompleteTransaction(for productIdentifier: String?, with error: (any Error)?, displayLoadingImage: Bool) {
-        dismissView()
+        if let error = error {
+            
+        } else {
+            dismissView()
+        }
     }
     
     func startingTransaction() {}
