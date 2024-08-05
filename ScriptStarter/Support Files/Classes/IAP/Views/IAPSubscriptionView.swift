@@ -12,8 +12,8 @@ import StoreKit
 struct IAPSubscriptionView: View {
     @StateObject var viewModel: ViewModel
 
-    init() {
-        _viewModel = StateObject(wrappedValue: ViewModel())
+    init(presentingViewController: UIViewController) {
+        _viewModel = StateObject(wrappedValue: ViewModel(presentingViewController: presentingViewController))
         // Large Navigation Title
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.screenDark, NSAttributedString.Key.font: UIFont(name: "Avenir-Light", size: 28) as Any, NSAttributedString.Key.strokeColor: UIColor.systemCyan, NSAttributedString.Key.strokeWidth: -3]
          // Inline Navigation Title
@@ -169,7 +169,7 @@ struct IAPSubscriptionView: View {
 }
 
 #Preview {
-    IAPSubscriptionView()
+    IAPSubscriptionView(presentingViewController: UIViewController())
 }
 
 
@@ -178,8 +178,11 @@ extension IAPSubscriptionView {
 
         @Published var products: [SKProduct]?
         @Published var selectedSubscription: InAppSubscription?
+        
+        weak var presentingViewController: UIViewController?
 
-        init() {
+        init(presentingViewController: UIViewController) {
+            self.presentingViewController = presentingViewController
             InAppPurchases.store.delegate = self
 
             // Retrieves in app purchases from apple
@@ -277,17 +280,18 @@ extension IAPSubscriptionView {
                 break
             }
         }
+
+        func dismissView() {
+            presentingViewController?.presentedViewController?.dismiss(animated: true)
+        }
     }
 }
 
 extension IAPSubscriptionView.ViewModel: InAppPurchaseDelegate {
     
     func didCompleteTransaction(for productIdentifier: String?, with error: (any Error)?, displayLoadingImage: Bool) {
-        
+        dismissView()
     }
     
-    func startingTransaction() {
-        
-    }
-    
+    func startingTransaction() {}
 }

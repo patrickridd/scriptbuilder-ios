@@ -147,7 +147,7 @@ extension ScreenplayCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if cellRestricted(index: indexPath.row) {
-            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView())
+            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
             present(iapSubscriptionViewController, animated: true)
             return
         }

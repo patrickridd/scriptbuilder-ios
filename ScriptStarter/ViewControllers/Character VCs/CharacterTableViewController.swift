@@ -109,7 +109,7 @@ class CharacterTableViewController: UITableViewController {
             enableView()
         } else {
             disableView()
-            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView())
+            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
             present(iapSubscriptionViewController, animated: true)
         }
     }
