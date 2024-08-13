@@ -44,7 +44,7 @@ class CharacterTableViewController: UITableViewController {
         }
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(checkForCharacterFeatureEnabled),
-                                               name: .CheckIfCharacterBuilderIsEnabled,
+                                               name: .IAPHelperPurchaseNotification,
                                                object: nil)
     }
     
@@ -104,7 +104,8 @@ class CharacterTableViewController: UITableViewController {
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
-    @objc func checkForCharacterFeatureEnabled() {
+    @objc 
+    func checkForCharacterFeatureEnabled() {
         if InAppPurchases.allAccessEnabled {
             enableView()
         } else {

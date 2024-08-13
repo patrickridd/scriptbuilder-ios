@@ -41,7 +41,7 @@ class ScenesTableViewController: UITableViewController {
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(checkForSceneFeatureEnabled),
-                                               name: .CheckIfSceneBuilderIsEnabled,
+                                               name: .IAPHelperPurchaseNotification,
                                                object: nil)
     }
     
@@ -226,7 +226,8 @@ class ScenesTableViewController: UITableViewController {
         navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
-    @objc func checkForSceneFeatureEnabled() {
+    @objc 
+    func checkForSceneFeatureEnabled() {
         if InAppPurchases.allAccessEnabled {
             enableView()
         } else {

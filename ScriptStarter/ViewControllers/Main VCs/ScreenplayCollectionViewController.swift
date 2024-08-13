@@ -19,7 +19,7 @@ class ScreenplayCollectionViewController: UIViewController {
 
     var screenplays: [Screenplay] = [] {
         didSet {
-            self.collectionView.reloadData()
+            reloadCollectionView()
         }
     }
 
@@ -27,12 +27,20 @@ class ScreenplayCollectionViewController: UIViewController {
         return Auth.auth().currentUser
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reloadCollectionView),
+                                               name: .IAPHelperPurchaseNotification,
+                                               object: nil)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         imageView.image = Theme.backgroundImage
+        
         setupNavigationBarUI()
-        collectionView.reloadData()
         getScreenplays()
     }
     
@@ -95,6 +103,12 @@ class ScreenplayCollectionViewController: UIViewController {
                 }
             }
         }
+    }
+
+    @objc
+    @MainActor
+    func reloadCollectionView() {
+        collectionView.reloadData()
     }
     
     // MARK: - Navigation
