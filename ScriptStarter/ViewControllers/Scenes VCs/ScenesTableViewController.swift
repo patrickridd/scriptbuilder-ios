@@ -248,35 +248,6 @@ class ScenesTableViewController: UITableViewController {
         self.addSceneButton.isEnabled = true
     }
     
-    func presentIapAlert() {
-        let alert = UIAlertController(title: "Scene Builder disabled 😥".localized,
-                                      message: "The Scene Builder feature requires a one time purchase.".localized,
-                                      preferredStyle: .alert)
-        let purchaseAction = UIAlertAction(title: "$0.99 😎".localized, style: .default) { [weak self] (_) in
-            if let sceneFeatureProduct = self?.products?.filter({$0.productIdentifier == InAppPurchases.sceneFeatureIdentifier}).first {
-                InAppPurchases.store.delegate = self
-                InAppPurchases.store.buyProduct(sceneFeatureProduct)
-            }
-        }
-        
-        alert.addAction(purchaseAction)
-        
-        let restoreAction = UIAlertAction(title: "Restore".localized,
-                                          style: .default) { [weak self] (_) in
-            InAppPurchases.store.delegate = self
-            InAppPurchases.store.restorePurchases()
-        }
-        alert.addAction(restoreAction)
-        let cancelAction = UIAlertAction(title: "Cancel".localized,
-                                         style: .default,
-                                         handler: nil)
-        alert.addAction(cancelAction)
-        alert.view.layoutIfNeeded() // Avoids snapshot error
-        present(alert,
-                animated: true,
-                completion: nil)
-    }
-    
     func showActivityIndicator() {
         DispatchQueue.main.async {
             self.loadingNotification =
@@ -591,27 +562,4 @@ class ScenesTableViewController: UITableViewController {
         return true
     }
 
-}
-
-extension ScenesTableViewController: InAppPurchaseDelegate {
-    
-    func startingTransaction() {
-        self.showActivityIndicator()
-    }
-    
-    func didCompleteTransaction(for productIdentifier: String?,
-                                with error: Error?,
-                                displayLoadingImage: Bool = true) {
-        self.hideActivityIndicator(success: error == nil,
-                                   displayImage: displayLoadingImage)
-        if let error = error {
-            present(error: error)
-        }
-        
-        if productIdentifier == InAppPurchases.sceneFeatureIdentifier ||
-           productIdentifier == nil {
-            checkForSceneFeatureEnabled()
-        }
-    }
-    
 }

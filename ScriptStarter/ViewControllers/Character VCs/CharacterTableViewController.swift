@@ -126,35 +126,6 @@ class CharacterTableViewController: UITableViewController {
         self.addCharacterButton.isEnabled = true
     }
     
-    func presentIapAlert() {
-        let alert = UIAlertController(title: "Character Builder disabled 😥".localized,
-                                      message: "The Character Builder feature requires a one time purchase.".localized,
-                                      preferredStyle: .alert)
-        let purchaseAction = UIAlertAction(title: "$0.99 😎".localized,
-                                           style: .default) { [weak self] (_) in
-            if let characterFeatureProduct = self?.products?.filter({$0.productIdentifier == InAppPurchases.characterFeatureIdentifier}).first {
-                InAppPurchases.store.delegate = self
-                InAppPurchases.store.buyProduct(characterFeatureProduct)
-            }
-        }
-        alert.addAction(purchaseAction)
-        
-        let restoreAction = UIAlertAction(title: "Restore".localized,
-                                          style: .default) { [weak self] (_) in
-            InAppPurchases.store.delegate = self
-            InAppPurchases.store.restorePurchases()
-        }
-        alert.addAction(restoreAction)
-        let cancelAction = UIAlertAction(title: "Cancel".localized,
-                                         style: .default,
-                                         handler: nil)
-        alert.addAction(cancelAction)
-        alert.view.layoutIfNeeded()
-        present(alert,
-                animated: true,
-                completion: nil)
-    }
-    
     // MARK: UI Methods
     
     func showActivityIndicator() {
@@ -382,26 +353,4 @@ class CharacterTableViewController: UITableViewController {
     }
     
 
-}
-
-extension CharacterTableViewController: InAppPurchaseDelegate {
-    
-    func startingTransaction() {
-        self.showActivityIndicator()
-    }
-    
-    func didCompleteTransaction(for productIdentifier: String?,
-                                with error: Error?,
-                                displayLoadingImage: Bool = true) {
-        
-        self.hideActivityIndicator(success: error == nil,
-                                   displayImage: displayLoadingImage)
-        if let error = error {
-            present(error: error)
-        }
-        if productIdentifier == InAppPurchases.characterFeatureIdentifier ||
-           productIdentifier == nil {
-            checkForCharacterFeatureEnabled()
-        }
-    }
 }

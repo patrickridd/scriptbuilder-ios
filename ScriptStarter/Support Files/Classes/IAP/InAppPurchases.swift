@@ -26,10 +26,6 @@ public struct InAppPurchases {
                                                                      InAppPurchases.unlimitedForeverIdentifier]
 
     public static let store = IAPHelper(productIds: InAppPurchases.productIdentifiers)
-    
-    public static var shouldDisplayAds: Bool {
-        !InAppPurchases.store.isProductPurchased(InAppPurchases.noAdsIdentifier)
-    }
 
     public static var characterFeatureEnabled: Bool {
         InAppPurchases.store.isProductPurchased(InAppPurchases.characterFeatureIdentifier)

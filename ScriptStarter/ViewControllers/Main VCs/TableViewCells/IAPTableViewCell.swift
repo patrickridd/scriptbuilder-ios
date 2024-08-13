@@ -39,27 +39,8 @@ class IAPTableViewCell: UITableViewCell {
                     self?.restoreButton.layer.borderColor = Theme.scriptBuilderUIColor.cgColor
                     self?.restoreButton.setTitleColor(Theme.scriptBuilderUIColor,
                                                       for: .normal)
-                    self?.setPurchasedUI()
                 }
             }
-        }
-    }
-    
-    func setPurchasedUI() {
-        // If no Ads IAP has been purchased, place check mark next to box
-        if !InAppPurchases.shouldDisplayAds {
-            self.accessoryType = .checkmark
-            self.purchaseButton.isHidden = true
-            restoreButton.backgroundColor = Theme.scriptBuilderUIColor
-            restoreButton.setTitleColor(.white, for: .normal)
-        } else {
-            self.accessoryType = .none
-            self.purchaseButton.isHidden = false
-            restoreButton.layer.borderWidth = 1.0
-            // Disable Purchase and Restore buttons until In App Purchase is available
-            restoreButton.layer.borderColor = UIColor.screenDarkGray.cgColor
-            restoreButton.setTitleColor(UIColor.screenDarkGray,
-                                        for: .normal)
         }
     }
     
