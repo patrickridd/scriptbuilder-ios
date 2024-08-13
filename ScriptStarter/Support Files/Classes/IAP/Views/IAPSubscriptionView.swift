@@ -285,7 +285,7 @@ extension IAPSubscriptionView.ViewModel: InAppPurchaseDelegate {
     
     func didCompleteTransaction(for productIdentifier: String?, with error: (any Error)?, displayLoadingImage: Bool) {
         if let error = error {
-            
+            presentingViewController?.presentedViewController?.present(error: error)
         } else {
             dismissView()
         }
