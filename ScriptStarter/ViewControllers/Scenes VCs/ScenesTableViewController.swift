@@ -228,7 +228,7 @@ class ScenesTableViewController: UITableViewController {
     
     @objc 
     func checkForSceneFeatureEnabled() {
-        if InAppPurchases.allAccessEnabled {
+        if InAppPurchases.allAccessEnabled || InAppPurchases.sceneFeatureEnabled {
             enableView()
         } else {
             disableView()

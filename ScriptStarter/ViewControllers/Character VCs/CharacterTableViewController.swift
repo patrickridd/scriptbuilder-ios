@@ -106,7 +106,7 @@ class CharacterTableViewController: UITableViewController {
     
     @objc 
     func checkForCharacterFeatureEnabled() {
-        if InAppPurchases.allAccessEnabled {
+        if InAppPurchases.allAccessEnabled || InAppPurchases.characterFeatureEnabled {
             enableView()
         } else {
             disableView()
