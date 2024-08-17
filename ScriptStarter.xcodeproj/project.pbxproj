@@ -39,7 +39,6 @@
 		21526C9D20409EE100B14402 /* SceneDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */; };
 		2153C34320755F2300C08B73 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C34220755F2300C08B73 /* SettingsTableViewController.swift */; };
 		2153C3452075608300C08B73 /* Extension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C3442075608300C08B73 /* Extension+UITextField.swift */; };
-		2153C34720757CB900C08B73 /* IAPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C34620757CB900C08B73 /* IAPTableViewCell.swift */; };
 		2153C349207586EA00C08B73 /* ShareTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C348207586EA00C08B73 /* ShareTableViewCell.swift */; };
 		2153C34B207587B500C08B73 /* DeleteAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */; };
 		215829CB20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */; };
@@ -57,7 +56,7 @@
 		218337962BCF7E410086658C /* gray_blue_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 218337952BCF7E410086658C /* gray_blue_background.jpg */; };
 		21843CAA205AE3E900FAAE16 /* Scenes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21843CAC205AE3E900FAAE16 /* Scenes.storyboard */; };
 		2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2189FC8D2057187400A69DC1 /* StoreKit.framework */; };
-		2189FC902057199300A69DC1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189FC8F2057199300A69DC1 /* IAPHelper.swift */; };
+		2189FC902057199300A69DC1 /* PaymentTransactionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189FC8F2057199300A69DC1 /* PaymentTransactionObserver.swift */; };
 		2189FC92205719F900A69DC1 /* InAppPurchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189FC91205719F900A69DC1 /* InAppPurchases.swift */; };
 		218E8460203E3D9500D0D652 /* NoCharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E845F203E3D9500D0D652 /* NoCharacterTableViewCell.swift */; };
 		218E8462203F379000D0D652 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E8461203F379000D0D652 /* Scene.swift */; };
@@ -183,7 +182,6 @@
 		21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDetailTableViewController.swift; sourceTree = "<group>"; };
 		2153C34220755F2300C08B73 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2153C3442075608300C08B73 /* Extension+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITextField.swift"; sourceTree = "<group>"; };
-		2153C34620757CB900C08B73 /* IAPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPTableViewCell.swift; sourceTree = "<group>"; };
 		2153C348207586EA00C08B73 /* ShareTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTableViewCell.swift; sourceTree = "<group>"; };
 		2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountTableViewCell.swift; sourceTree = "<group>"; };
 		215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewCell.swift; sourceTree = "<group>"; };
@@ -204,7 +202,7 @@
 		218337952BCF7E410086658C /* gray_blue_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = gray_blue_background.jpg; path = ../../../../ImageAssets/gray_blue_background.jpg; sourceTree = "<group>"; };
 		21843CAB205AE3E900FAAE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Scenes.storyboard; sourceTree = "<group>"; };
 		2189FC8D2057187400A69DC1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		2189FC8F2057199300A69DC1 /* IAPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
+		2189FC8F2057199300A69DC1 /* PaymentTransactionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTransactionObserver.swift; sourceTree = "<group>"; };
 		2189FC91205719F900A69DC1 /* InAppPurchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchases.swift; sourceTree = "<group>"; };
 		218CDC4A2228AD5E004419D1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = zh_CN.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		218CDC4B2228AD5E004419D1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -495,7 +493,6 @@
 			children = (
 				215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */,
 				2153C348207586EA00C08B73 /* ShareTableViewCell.swift */,
-				2153C34620757CB900C08B73 /* IAPTableViewCell.swift */,
 				21B0272E2BC23B7D00687C52 /* EnableDarkModeTableViewCell.swift */,
 				2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */,
 				2138F8A322207A0900881F4C /* PersonalInfoTableViewCell.swift */,
@@ -516,7 +513,7 @@
 			children = (
 				2159D2302C339C7800642DAC /* Views */,
 				2189FC91205719F900A69DC1 /* InAppPurchases.swift */,
-				2189FC8F2057199300A69DC1 /* IAPHelper.swift */,
+				2189FC8F2057199300A69DC1 /* PaymentTransactionObserver.swift */,
 			);
 			path = IAP;
 			sourceTree = "<group>";
@@ -1038,14 +1035,13 @@
 				211215D4203B5D200039D6E8 /* RolePopoverTableViewController.swift in Sources */,
 				21B0272D2BC22BFC00687C52 /* Theme.swift in Sources */,
 				2138F8A422207A0900881F4C /* PersonalInfoTableViewCell.swift in Sources */,
-				2153C34720757CB900C08B73 /* IAPTableViewCell.swift in Sources */,
 				21A7CF5A202A622000D97394 /* ExpandableTableViewSection.swift in Sources */,
 				21D72801202E6A6C00861C2D /* CharacterSection.swift in Sources */,
 				21C903D82016528A0017D626 /* LoginViewController.swift in Sources */,
 				21E661C12017DBAE006A14AF /* FirebaseController.swift in Sources */,
 				2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */,
 				21D727F2202CFD2400861C2D /* Extension+ViewController.swift in Sources */,
-				2189FC902057199300A69DC1 /* IAPHelper.swift in Sources */,
+				2189FC902057199300A69DC1 /* PaymentTransactionObserver.swift in Sources */,
 				211215D8203B5E680039D6E8 /* RoleTableViewCell.swift in Sources */,
 				2159D2322C339C9800642DAC /* IAPSubscriptionView.swift in Sources */,
 				21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */,

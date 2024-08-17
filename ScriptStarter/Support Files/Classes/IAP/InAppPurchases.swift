@@ -25,26 +25,26 @@ public struct InAppPurchases {
                                                                      InAppPurchases.unlimitedYearlyIdentifier,
                                                                      InAppPurchases.unlimitedForeverIdentifier]
 
-    public static let store = IAPHelper(productIds: InAppPurchases.productIdentifiers)
+    public static let transactionObserver = PaymentTransactionObserver(productIds: InAppPurchases.productIdentifiers)
 
     public static var characterFeatureEnabled: Bool {
-        InAppPurchases.store.isProductPurchased(InAppPurchases.characterFeatureIdentifier)
+        InAppPurchases.transactionObserver.isProductPurchased(InAppPurchases.characterFeatureIdentifier)
     }
 
     public static var sceneFeatureEnabled: Bool {
-        InAppPurchases.store.isProductPurchased(InAppPurchases.sceneFeatureIdentifier)
+        InAppPurchases.transactionObserver.isProductPurchased(InAppPurchases.sceneFeatureIdentifier)
     }
 
     public static var unlimitedMonthlyEnabled: Bool {
-        InAppPurchases.store.isProductPurchased(InAppPurchases.unlimitedMonthlyIdentifier)
+        InAppPurchases.transactionObserver.isProductPurchased(InAppPurchases.unlimitedMonthlyIdentifier)
     }
 
     public static var unlimitedYearlyEnabled: Bool {
-        InAppPurchases.store.isProductPurchased(InAppPurchases.unlimitedYearlyIdentifier)
+        InAppPurchases.transactionObserver.isProductPurchased(InAppPurchases.unlimitedYearlyIdentifier)
     }
 
     public static var unlimitedForeverEnabled: Bool {
-        InAppPurchases.store.isProductPurchased(InAppPurchases.unlimitedForeverIdentifier)
+        InAppPurchases.transactionObserver.isProductPurchased(InAppPurchases.unlimitedForeverIdentifier)
     }
 
     public static var allAccessEnabled: Bool {

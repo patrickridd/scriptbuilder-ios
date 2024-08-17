@@ -177,10 +177,10 @@ extension IAPSubscriptionView {
 
         init(presentingViewController: UIViewController) {
             self.presentingViewController = presentingViewController
-            InAppPurchases.store.delegate = self
+            InAppPurchases.transactionObserver.delegate = self
 
             // Retrieves in app purchases from apple
-            InAppPurchases.store.requestProducts { [weak self] (_, products) in
+            InAppPurchases.transactionObserver.requestProducts { [weak self] (_, products) in
                 DispatchQueue.main.async {
                     self?.products = products
                     self?.selectedSubscription = .monthly(self?.monthlyAllAccessProduct)
@@ -263,13 +263,13 @@ extension IAPSubscriptionView {
             switch selectedSubscription {
             case .monthly(let product):
                 guard let monthlyProduct = product else { return }
-                InAppPurchases.store.buyProduct(monthlyProduct)
+                InAppPurchases.transactionObserver.buyProduct(monthlyProduct)
             case .yearly(let product):
                 guard let yearlyProduct = product else { return }
-                InAppPurchases.store.buyProduct(yearlyProduct)
+                InAppPurchases.transactionObserver.buyProduct(yearlyProduct)
             case .lifetime(let product):
                 guard let lifetimeProduct = product else { return }
-                InAppPurchases.store.buyProduct(lifetimeProduct)
+                InAppPurchases.transactionObserver.buyProduct(lifetimeProduct)
             default:
                 break
             }

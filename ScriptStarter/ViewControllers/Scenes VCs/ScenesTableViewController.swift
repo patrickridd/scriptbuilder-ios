@@ -17,7 +17,6 @@ class ScenesTableViewController: UITableViewController {
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     
     var newScene: Bool = false
-    var products: [SKProduct]?
     var loadingNotification = MBProgressHUD()
     
     override func viewDidLoad() {
@@ -48,12 +47,6 @@ class ScenesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reloadTableView()
-
-
-        // Retrieves in app purchases from apple
-        InAppPurchases.store.requestProducts { (_, products) in
-            self.products = products
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

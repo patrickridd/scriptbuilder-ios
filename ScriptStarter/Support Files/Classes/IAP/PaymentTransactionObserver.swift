@@ -11,10 +11,10 @@ import StoreKit
 public typealias ProductIdentifier = String
 public typealias ProductsRequestCompletionHandler = (_ success: Bool, _ products: [SKProduct]?) -> ()
 
-open class IAPHelper: NSObject  {
+open class PaymentTransactionObserver: NSObject  {
     
     private let productIdentifiers: Set<ProductIdentifier>
-    private var purchasedProductIdentifiers = Set<ProductIdentifier>()
+    var purchasedProductIdentifiers = Set<ProductIdentifier>()
     private var productsRequest: SKProductsRequest?
     private var productsRequestCompletionHandler: ProductsRequestCompletionHandler?
     weak var delegate: InAppPurchaseDelegate?
@@ -28,15 +28,13 @@ open class IAPHelper: NSObject  {
             }
         }
         super.init()
-        SKPaymentQueue.default().add(self)
     }
-    
-    
+
 }
 
 // MARK: - StoreKit API
 
-extension IAPHelper {
+extension PaymentTransactionObserver {
     
     public func requestProducts(completionHandler: @escaping ProductsRequestCompletionHandler) {
         productsRequest?.cancel()
@@ -63,18 +61,37 @@ extension IAPHelper {
     }
     
     public func restorePurchases() {
-//        SKPaymentQueue.default().add(self)
-//        let request = SKReceiptRefreshRequest(receiptProperties: nil)
-//        request.delegate = self
-//        request.start()
+        SKPaymentQueue.default().add(self)
+        let request = SKReceiptRefreshRequest(receiptProperties: nil)
+        request.delegate = self
+        request.start()
         SKPaymentQueue.default().restoreCompletedTransactions()
         delegate?.startingTransaction()
+    }
+
+    func refreshPurchasedProducts() async {
+        // Iterate through the user's purchased products.
+        for await verificationResult in Transaction.all {
+            switch verificationResult {
+            case .verified(let transaction):
+                // Check the type of product for the transaction
+                // and provide access to the content as appropriate.
+                purchasedProductIdentifiers.insert(transaction.productID)
+                UserDefaults.standard.set(true, forKey: transaction.productID)
+            case .unverified(let unverifiedTransaction, _):
+                // Handle unverified transactions based on your
+                // business model.
+                purchasedProductIdentifiers.remove(unverifiedTransaction.productID)
+                UserDefaults.standard.set(false, forKey: unverifiedTransaction.productID)
+            }
+        }
+        
     }
 }
 
 // MARK: - SKProductsRequestDelegate
 
-extension IAPHelper: SKProductsRequestDelegate {
+extension PaymentTransactionObserver: SKProductsRequestDelegate {
     
     public func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         
@@ -96,7 +113,7 @@ extension IAPHelper: SKProductsRequestDelegate {
 
 // MARK: - SKPaymentTransactionObserver
 
-extension IAPHelper: SKPaymentTransactionObserver {
+extension PaymentTransactionObserver: SKPaymentTransactionObserver {
     
     public func paymentQueue(_ queue: SKPaymentQueue,
                              updatedTransactions transactions: [SKPaymentTransaction]) {
@@ -116,13 +133,23 @@ extension IAPHelper: SKPaymentTransactionObserver {
             }
         }
     }
-    
+
+    public func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+//            purchasedProductIdentifiers.remove(transaction)
+        }
+    }
+
     public func paymentQueue(_ queue: SKPaymentQueue,
                              restoreCompletedTransactionsFailedWithError error: Error) {
         let productIdentifier = queue.transactions.first?.payment.productIdentifier
         self.delegate?.didCompleteTransaction(for: productIdentifier,
                                               with: nil,
                                               displayLoadingImage: false)
+    }
+    
+    public func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        
     }
     
     private func complete(transaction: SKPaymentTransaction) {
@@ -166,5 +193,6 @@ extension IAPHelper: SKPaymentTransactionObserver {
         UserDefaults.standard.set(true, forKey: identifier)
         NotificationCenter.default.post(name: Notification.Name.IAPHelperPurchaseNotification, object: identifier)
     }
+
 }
 

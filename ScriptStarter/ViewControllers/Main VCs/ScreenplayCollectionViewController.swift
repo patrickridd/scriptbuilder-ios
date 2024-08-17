@@ -29,6 +29,7 @@ class ScreenplayCollectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        InAppPurchases.transactionObserver.restorePurchases()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadCollectionView),
                                                name: .IAPHelperPurchaseNotification,

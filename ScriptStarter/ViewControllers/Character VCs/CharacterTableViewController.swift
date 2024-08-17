@@ -17,7 +17,6 @@ class CharacterTableViewController: UITableViewController {
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     @IBOutlet weak var addCharacterButton: UIBarButtonItem!
 
-    var products: [SKProduct]?
     var loadingNotification = MBProgressHUD()
     
     var roleCharacterSections: [CharacterTableViewSection] = [] {
@@ -55,12 +54,6 @@ class CharacterTableViewController: UITableViewController {
         self.tableView.reloadData()
         setupNavigationBar()
         setupRoleSections()
-        
-        // Retrieves in app purchases from apple
-        InAppPurchases.store.requestProducts { (_, products) in
-            self.products = products
-        }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
