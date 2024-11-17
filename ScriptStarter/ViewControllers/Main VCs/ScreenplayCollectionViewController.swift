@@ -45,6 +45,11 @@ class ScreenplayCollectionViewController: UIViewController {
         getScreenplays()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+    }
+
     fileprivate func setupNavigationBarUI() {
         let strokeTextAttributes: [NSAttributedString.Key : Any] = [
             NSAttributedString.Key.strokeColor : Theme.scriptBuilderUIColor,
