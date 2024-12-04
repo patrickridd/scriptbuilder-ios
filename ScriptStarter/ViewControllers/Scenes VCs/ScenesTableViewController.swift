@@ -10,18 +10,21 @@ import UIKit
 import MBProgressHUD
 import StoreKit
 import SwiftUI
+import Combine
 
 class ScenesTableViewController: UITableViewController {
     
     @IBOutlet weak var addSceneButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     
+    private var cancellables: Set<AnyCancellable> = []
     var newScene: Bool = false
     var loadingNotification = MBProgressHUD()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        subscribeToStore()
         saveButton.view = self
 
         let rightSwipe = UISwipeGestureRecognizer(target: self,
@@ -210,7 +213,24 @@ class ScenesTableViewController: UITableViewController {
         navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
-    @objc 
+    private func subscribeToStore() {
+        Store.shared.$purchasedSubscriptions
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.checkForSceneFeatureEnabled()
+            }
+            .store(in: &cancellables)
+        Store.shared.$purchasedNonConsumables
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.checkForSceneFeatureEnabled()
+            }
+            .store(in: &cancellables)
+    }
+    
+    @objc
     func checkForSceneFeatureEnabled() {
         if Store.shared.allAccessEnabled {
             view(enabled: true)

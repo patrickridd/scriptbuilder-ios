@@ -6,6 +6,7 @@
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
 
+import Combine
 import UIKit
 import Firebase
 import MBProgressHUD
@@ -16,7 +17,8 @@ class CharacterTableViewController: UITableViewController {
 
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     @IBOutlet weak var addCharacterButton: UIBarButtonItem!
-
+    
+    private var cancellables: Set<AnyCancellable> = []
     var loadingNotification = MBProgressHUD()
     
     var roleCharacterSections: [CharacterTableViewSection] = [] {
@@ -30,6 +32,7 @@ class CharacterTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        subscribeToStore()
         saveButton.view = self
 
         let rightSwipe = UISwipeGestureRecognizer(target: self,
@@ -88,7 +91,23 @@ class CharacterTableViewController: UITableViewController {
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
-    @objc 
+    private func subscribeToStore() {
+        Store.shared.$purchasedSubscriptions
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.checkForCharacterFeatureEnabled()
+            }
+            .store(in: &cancellables)
+        Store.shared.$purchasedNonConsumables
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.checkForCharacterFeatureEnabled()
+            }
+            .store(in: &cancellables)
+    }
+    
     func checkForCharacterFeatureEnabled() {
         if Store.shared.allAccessEnabled {
             view(enabled: true)
