@@ -50,11 +50,6 @@ class CharacterTableViewController: UITableViewController {
         self.tableView.reloadData()
         setupNavigationBar()
         setupRoleSections()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
         checkForCharacterFeatureEnabled()
     }
     
@@ -96,24 +91,18 @@ class CharacterTableViewController: UITableViewController {
     @objc 
     func checkForCharacterFeatureEnabled() {
         if Store.shared.allAccessEnabled {
-            enableView()
+            view(enabled: true)
         } else {
-            disableView()
             let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
             present(iapSubscriptionViewController, animated: true)
+            view(enabled: false)
         }
     }
-
-    func disableView() {
-        self.view.alpha = 0.8
-        self.view.isUserInteractionEnabled = false
-        self.addCharacterButton.isEnabled = false
-    }
-
-    func enableView() {
-        self.view.alpha = 1.0
-        self.view.isUserInteractionEnabled = true
-        self.addCharacterButton.isEnabled = true
+    
+    func view(enabled: Bool) {
+        view.alpha = enabled ? 1.0 : 0.5
+        view.isUserInteractionEnabled = enabled
+        addCharacterButton.isEnabled = enabled
     }
     
     // MARK: UI Methods

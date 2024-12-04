@@ -213,24 +213,18 @@ class ScenesTableViewController: UITableViewController {
     @objc 
     func checkForSceneFeatureEnabled() {
         if Store.shared.allAccessEnabled {
-            enableView()
+            view(enabled: true)
         } else {
-            disableView()
+            view(enabled: false)
             let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
             present(iapSubscriptionViewController, animated: true)
         }
     }
     
-    func disableView() {
-        self.view.alpha = 0.8
-        self.view.isUserInteractionEnabled = false
-        self.addSceneButton.isEnabled = false
-    }
-    
-    func enableView() {
-        self.view.alpha = 1.0
-        self.view.isUserInteractionEnabled = true
-        self.addSceneButton.isEnabled = true
+    func view(enabled: Bool) {
+        view.alpha = enabled ? 1.0 : 0.5
+        view.isUserInteractionEnabled = enabled
+        addSceneButton.isEnabled = enabled
     }
     
     func showActivityIndicator() {
