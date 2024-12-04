@@ -41,10 +41,6 @@ class CharacterTableViewController: UITableViewController {
             self.performSegue(withIdentifier: "newCharacterSegue",
                               sender: nil)
         }
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(checkForCharacterFeatureEnabled),
-                                               name: .IAPHelperPurchaseNotification,
-                                               object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {

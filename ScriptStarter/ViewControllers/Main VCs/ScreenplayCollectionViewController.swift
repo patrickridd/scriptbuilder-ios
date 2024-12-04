@@ -32,10 +32,7 @@ class ScreenplayCollectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reloadCollectionView),
-                                               name: .IAPHelperPurchaseNotification,
-                                               object: nil)
+
         subscribeToStore()
     }
 

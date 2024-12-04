@@ -37,23 +37,14 @@ class ScenesTableViewController: UITableViewController {
             self.pushToSceneDetailView(act: .one,
                                        scene: nil)
         }
-
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(checkForSceneFeatureEnabled),
-                                               name: .IAPHelperPurchaseNotification,
-                                               object: nil)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reloadTableView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         checkForSceneFeatureEnabled()
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
