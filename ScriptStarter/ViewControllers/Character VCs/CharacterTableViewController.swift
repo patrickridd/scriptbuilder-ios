@@ -37,7 +37,7 @@ class CharacterTableViewController: UITableViewController {
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
         
-        if newCharacter, InAppPurchases.characterFeatureEnabled {
+        if newCharacter, Store.shared.allAccessEnabled {
             self.performSegue(withIdentifier: "newCharacterSegue",
                               sender: nil)
         }
@@ -99,7 +99,7 @@ class CharacterTableViewController: UITableViewController {
     
     @objc 
     func checkForCharacterFeatureEnabled() {
-        if InAppPurchases.allAccessEnabled || InAppPurchases.characterFeatureEnabled {
+        if Store.shared.allAccessEnabled {
             enableView()
         } else {
             disableView()

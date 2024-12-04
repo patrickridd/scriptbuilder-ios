@@ -293,9 +293,6 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
     // MARK: Navigation
     
     func presentScreenPlayCollection() {
-        InAppPurchases.transactionObserver.delegate = self
-        InAppPurchases.transactionObserver.restorePurchases()
-
         DispatchQueue.main.async {
             guard let screenplayCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else { return }
             screenplayCollectionVC.modalPresentationStyle = .fullScreen

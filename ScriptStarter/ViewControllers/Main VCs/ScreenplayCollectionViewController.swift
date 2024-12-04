@@ -6,6 +6,7 @@
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
 
+import Combine
 import UIKit
 import Firebase
 import FBSDKLoginKit
@@ -16,6 +17,8 @@ class ScreenplayCollectionViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var imageView: UIImageView!
+
+    private var cancellables: Set<AnyCancellable> = []
 
     var screenplays: [Screenplay] = [] {
         didSet {
@@ -29,11 +32,11 @@ class ScreenplayCollectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        InAppPurchases.transactionObserver.restorePurchases()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadCollectionView),
                                                name: .IAPHelperPurchaseNotification,
                                                object: nil)
+        subscribeToStore()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +51,23 @@ class ScreenplayCollectionViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+    }
+
+    private func subscribeToStore() {
+        Store.shared.$purchasedSubscriptions
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.reloadCollectionView()
+            }
+            .store(in: &cancellables)
+        Store.shared.$purchasedNonConsumables
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.reloadCollectionView()
+            }
+            .store(in: &cancellables)
     }
 
     fileprivate func setupNavigationBarUI() {
@@ -70,7 +90,7 @@ class ScreenplayCollectionViewController: UIViewController {
 
     private func cellRestricted(index: Int) -> Bool {
         if index == 0 && screenplays.count == 0 { return false }
-        return !InAppPurchases.allAccessEnabled && (index > 1 || index == 0)
+        return !Store.shared.allAccessEnabled && (index > 1 || index == 0)
     }
 
     // MARK: IBActions
@@ -103,7 +123,7 @@ class ScreenplayCollectionViewController: UIViewController {
         FirebaseController.shared.getScreenplays { (screenplays) in
             DispatchQueue.main.async {
                 self.screenplays = ScreenplayController.shared.sort(screenplays: screenplays)
-                if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: self.screenplays), InAppPurchases.allAccessEnabled
+                if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: self.screenplays), Store.shared.allAccessEnabled
                 {
                     self.segueTo(screenplay: screenplay)
                 }

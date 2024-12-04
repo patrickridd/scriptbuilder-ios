@@ -20,8 +20,6 @@ enum Shortcut: String {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    let paymentTransactionObserver = InAppPurchases.transactionObserver
 
     var isLoggedIn: Bool {
         return AccessToken.current != nil || Auth.auth().currentUser != nil
@@ -32,11 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
         -> Bool {
 
-            SKPaymentQueue.default().add(paymentTransactionObserver) // Add observer
-            
-            Task {
-                await InAppPurchases.transactionObserver.refreshPurchasedProducts()
-            }
             // Configure Firebase
             FirebaseApp.configure()
 
@@ -60,10 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
     }
 
-    func applicationWillTerminate(_ application: UIApplication) {
-        SKPaymentQueue.default().remove(paymentTransactionObserver)
-    }
-
     func applicationWillResignActive(_ application: UIApplication) {
         NotificationCenter.default.post(name: Notification.Name.AppWillEnterBackground,
                                         object: nil)
@@ -85,11 +74,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
         
-        if !InAppPurchases.allAccessEnabled {
+        if !Store.shared.allAccessEnabled {
             self.presentScreenplayCollectionView()
             return false
         }
-        
+
         var quickActionHandled = false
         let type = shortcutItem.type.components(separatedBy: ".").last!
         if let shortcutType = Shortcut.init(rawValue: type) {

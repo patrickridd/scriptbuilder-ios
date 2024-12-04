@@ -1,4 +1,14 @@
 {
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
   "identifier" : "691FFA79",
   "nonRenewingSubscriptions" : [
 
@@ -67,6 +77,9 @@
   ],
   "settings" : {
     "_applicationInternalID" : "1358448790",
+    "_compatibilityTimeRate" : {
+      "3" : 6
+    },
     "_developerTeamID" : "CVQEUYD92N",
     "_failTransactionsEnabled" : false,
     "_lastSynchronizedDate" : 743657711.68957102,
@@ -118,7 +131,8 @@
         "enabled" : false,
         "name" : "Offer Code Redeem Sheet"
       }
-    ]
+    ],
+    "_timeRate" : 1002
   },
   "subscriptionGroups" : [
     {
@@ -151,7 +165,10 @@
           "recurringSubscriptionPeriod" : "P1M",
           "referenceName" : "All Access (1 Month)",
           "subscriptionGroupID" : "21502813",
-          "type" : "RecurringSubscription"
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
         },
         {
           "adHocOffers" : [
@@ -176,13 +193,16 @@
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "All Access (1 Year)",
           "subscriptionGroupID" : "21502813",
-          "type" : "RecurringSubscription"
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
         }
       ]
     }
   ],
   "version" : {
-    "major" : 3,
+    "major" : 4,
     "minor" : 0
   }
 }

@@ -33,7 +33,7 @@ class ScenesTableViewController: UITableViewController {
         self.tableView.backgroundColor = Theme.tableViewBackgroundColor
         self.tableView.separatorColor = Theme.tableViewBackgroundColor
         self.tableView.showsVerticalScrollIndicator = false
-        if newScene, InAppPurchases.sceneFeatureEnabled {
+        if newScene, Store.shared.allAccessEnabled {
             self.pushToSceneDetailView(act: .one,
                                        scene: nil)
         }
@@ -221,7 +221,7 @@ class ScenesTableViewController: UITableViewController {
     
     @objc 
     func checkForSceneFeatureEnabled() {
-        if InAppPurchases.allAccessEnabled || InAppPurchases.sceneFeatureEnabled {
+        if Store.shared.allAccessEnabled {
             enableView()
         } else {
             disableView()

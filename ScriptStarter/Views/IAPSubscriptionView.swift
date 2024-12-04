@@ -57,6 +57,8 @@ struct IAPSubscriptionView: View {
                 .foregroundStyle(.black)
                 .background(.white)
             }
+        }.onAppear {
+            viewModel.selectedSubscription = .monthly(viewModel.monthlyAllAccessProduct)
         }
     }
     
@@ -110,7 +112,9 @@ struct IAPSubscriptionView: View {
     
     var confirmButton: some View {
         Button {
-            viewModel.confirmButtonTapped()
+            Task {
+                await viewModel.confirmButtonTapped()
+            }
         } label: {
             Text(viewModel.confirmButtonTitle)
                 .font(.subheadline)
@@ -166,26 +170,16 @@ struct IAPSubscriptionView: View {
     IAPSubscriptionView(presentingViewController: UIViewController())
 }
 
-
 extension IAPSubscriptionView {
     class ViewModel: ObservableObject {
 
-        @Published var products: [SKProduct]?
+        @Published private var store = Store.shared
         @Published var selectedSubscription: InAppSubscription?
         
         weak var presentingViewController: UIViewController?
 
         init(presentingViewController: UIViewController) {
             self.presentingViewController = presentingViewController
-            InAppPurchases.transactionObserver.delegate = self
-
-            // Retrieves in app purchases from apple
-            InAppPurchases.transactionObserver.requestProducts { [weak self] (_, products) in
-                DispatchQueue.main.async {
-                    self?.products = products
-                    self?.selectedSubscription = .monthly(self?.monthlyAllAccessProduct)
-                }
-            }
         }
         
         var title: String {
@@ -201,7 +195,7 @@ extension IAPSubscriptionView {
         }
 
         var confirmButtonTitle: String {
-            let currencySymbol = products?.first?.priceLocale.currencySymbol ?? ""
+            let currencySymbol = Locale.current.currencySymbol ?? ""
             switch selectedSubscription {
             case .monthly:
                 if let localPrice = monthlyAllAccessProduct?.price {
@@ -227,16 +221,16 @@ extension IAPSubscriptionView {
             }
         }
         
-        var monthlyAllAccessProduct: SKProduct? {
-            products?.filter({$0.productIdentifier == InAppPurchases.unlimitedMonthlyIdentifier}).first
+        var monthlyAllAccessProduct: Product? {
+            store.subscriptions.first { $0.id == store.unlimitedMonthlyIdentifier }
         }
 
-        var yearlyAllAccessProduct: SKProduct? {
-            products?.filter({$0.productIdentifier == InAppPurchases.unlimitedYearlyIdentifier}).first
+        var yearlyAllAccessProduct: Product? {
+            store.subscriptions.first { $0.id == store.unlimitedYearlyIdentifier }
         }
         
-        var foreverAllAccessProduct: SKProduct? {
-            products?.filter({$0.productIdentifier == InAppPurchases.unlimitedForeverIdentifier}).first
+        var foreverAllAccessProduct: Product? {
+            store.nonConsumables.first { $0.id == store.unlimitedForeverIdentifier }
         }
         
         func borderColor(for subscription: InAppSubscription) -> Color {
@@ -259,37 +253,26 @@ extension IAPSubscriptionView {
             Color(uiColor: subscription == self.selectedSubscription ? .black : .screenDark)
         }
 
-        func confirmButtonTapped() {
+        func confirmButtonTapped() async {
             switch selectedSubscription {
             case .monthly(let product):
                 guard let monthlyProduct = product else { return }
-                InAppPurchases.transactionObserver.buyProduct(monthlyProduct)
+                _ = try? await store.purchase(monthlyProduct)
             case .yearly(let product):
                 guard let yearlyProduct = product else { return }
-                InAppPurchases.transactionObserver.buyProduct(yearlyProduct)
+                _ = try? await store.purchase(yearlyProduct)
             case .lifetime(let product):
                 guard let lifetimeProduct = product else { return }
-                InAppPurchases.transactionObserver.buyProduct(lifetimeProduct)
+                _ = try? await store.purchase(lifetimeProduct)
             default:
                 break
             }
+            await dismissView()
         }
 
+        @MainActor
         func dismissView() {
             presentingViewController?.presentedViewController?.dismiss(animated: true)
         }
     }
-}
-
-extension IAPSubscriptionView.ViewModel: InAppPurchaseDelegate {
-    
-    func didCompleteTransaction(for productIdentifier: String?, with error: (any Error)?, displayLoadingImage: Bool) {
-        if let error = error {
-            presentingViewController?.presentedViewController?.present(error: error)
-        } else {
-            dismissView()
-        }
-    }
-    
-    func startingTransaction() {}
 }
