@@ -44,7 +44,7 @@ class ScreenplayCollectionViewController: UIViewController {
         setupNavigationBarUI()
         getScreenplays()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
@@ -82,7 +82,7 @@ class ScreenplayCollectionViewController: UIViewController {
         appearance.titleTextAttributes = strokeTextAttributes
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
-        self.navigationItem.title = "Script Builder".localized
+        navigationItem.title = "Script Builder".localized
     }
 
     private func cellRestricted(index: Int) -> Bool {
@@ -136,6 +136,12 @@ class ScreenplayCollectionViewController: UIViewController {
     
     // MARK: - Navigation
 
+    // Presents InAppPurchase screen to select Subscriptions or Lifetime purchase
+    func presentIAPSubscriptionsView() {
+        let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
+        present(iapSubscriptionViewController, animated: true)
+    }
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "settingsSegue" {
@@ -184,8 +190,7 @@ extension ScreenplayCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if cellRestricted(index: indexPath.row) {
-            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
-            present(iapSubscriptionViewController, animated: true)
+            presentIAPSubscriptionsView()
             return
         }
 

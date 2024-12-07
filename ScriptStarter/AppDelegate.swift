@@ -45,9 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             if isLoggedIn {
                 // User is logged in so present their screenplays
-                self.presentScreenplayCollectionView()
+                _ = presentScreenplayCollectionView()
             } else {
-                self.presentLoginScreen()
+                presentLoginScreen()
             }
 
             return true
@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         if !Store.shared.allAccessEnabled {
-            self.presentScreenplayCollectionView()
+            allAccessFeatureTriggered()
             return false
         }
 
@@ -111,16 +111,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         makeKeyAndVisible()
     }
     
-    func presentScreenplayCollectionView() {
+    func presentScreenplayCollectionView() -> UINavigationController? {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
         guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else {
-            return
+            return nil
         }
         
         self.window?.rootViewController = mainNavigationController
         makeKeyAndVisible()
+        return mainNavigationController
+    }
+
+    func allAccessFeatureTriggered() {
+        let collectionViewController = presentScreenplayCollectionView()
+        let screenplayCollectionView = collectionViewController?.viewControllers.first as? ScreenplayCollectionViewController
+        screenplayCollectionView?.presentIAPSubscriptionsView()
     }
     
     func presentNewScreenplayIdea() {
