@@ -9,8 +9,8 @@
 import UIKit
 import MBProgressHUD
 
-extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
-    
+extension UIViewController: @retroactive UIScrollViewDelegate {}
+extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITextViewDelegate {
     
     var screenplay: Screenplay? {
         return ScreenplayController.shared.currentScreenplay
