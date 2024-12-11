@@ -32,7 +32,6 @@ class ScenesTableViewController: UITableViewController {
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
 
-        setupNavigationBar()
         self.tableView.backgroundColor = Theme.tableViewBackgroundColor
         self.tableView.separatorColor = Theme.tableViewBackgroundColor
         self.tableView.showsVerticalScrollIndicator = false
@@ -46,6 +45,7 @@ class ScenesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.reloadTableView()
         checkForSceneFeatureEnabled()
+        setupNavigationBar()
     }
 
     deinit {
