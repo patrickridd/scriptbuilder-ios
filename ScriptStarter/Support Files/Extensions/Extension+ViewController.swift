@@ -25,8 +25,7 @@ extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITex
     }
     
     func saveScreenplay(completion: @escaping () -> Void) {
-        let loadingNotification = MBProgressHUD.showAdded(to: self.view,
-                                                          animated: true)
+        let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
         loadingNotification.mode = MBProgressHUDMode.indeterminate
         loadingNotification.animationType = .fade
         loadingNotification.label.text = "saving".localized

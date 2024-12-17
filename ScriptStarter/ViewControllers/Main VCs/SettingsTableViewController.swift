@@ -157,7 +157,7 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - UITableView DataSource and Delegate Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -196,6 +196,11 @@ class SettingsTableViewController: UITableViewController {
                                                            for: indexPath) as? DeleteAccountTableViewCell
             deleteCell?.backgroundColor = Theme.secondarySystemBackground
             return deleteCell ?? UITableViewCell()
+        case 5:
+            let privacyCell = tableView.dequeueReusableCell(withIdentifier: "privacyPolicyCell",
+                                                            for: indexPath) as? PrivacyPolicyTableViewCell
+            privacyCell?.backgroundColor = Theme.tableViewBackgroundColor
+            return privacyCell ?? UITableViewCell()
         default:
             return UITableViewCell()
         }
@@ -296,6 +301,11 @@ class SettingsTableViewController: UITableViewController {
             }
         }), animated: true,
             completion: nil)
+        case 5:
+            // Privacy Policy
+            if let privacyPolicyURL = URL(string: "https://www.scriptbuilderapp.com/private-policy") {
+                UIApplication.shared.open(privacyPolicyURL)
+            }
         default:
             break
         }

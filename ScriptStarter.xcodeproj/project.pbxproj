@@ -12,6 +12,7 @@
 		2104ADD5205C60080086CC9F /* SceneActNumberPopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD4205C60080086CC9F /* SceneActNumberPopTableViewController.swift */; };
 		2104ADD7205C60CB0086CC9F /* ActNumberPopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD6205C60CB0086CC9F /* ActNumberPopTableViewCell.swift */; };
 		2104ADD9205C7F270086CC9F /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104ADD8205C7F270086CC9F /* SceneController.swift */; };
+		2108EDE92D112EF4004A8FE7 /* PrivacyPolicyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2108EDE82D112EF4004A8FE7 /* PrivacyPolicyTableViewCell.swift */; };
 		21099166201F8E1600340124 /* AddScreenplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */; };
 		21099168201FD4CF00340124 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21099167201FD4CF00340124 /* SectionHeaderView.swift */; };
 		210C07DC22C81B2200F66D7B /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210C07DB22C81B2200F66D7B /* SaveButton.swift */; };
@@ -132,6 +133,7 @@
 		2104ADD4205C60080086CC9F /* SceneActNumberPopTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneActNumberPopTableViewController.swift; sourceTree = "<group>"; };
 		2104ADD6205C60CB0086CC9F /* ActNumberPopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActNumberPopTableViewCell.swift; sourceTree = "<group>"; };
 		2104ADD8205C7F270086CC9F /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
+		2108EDE82D112EF4004A8FE7 /* PrivacyPolicyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyTableViewCell.swift; sourceTree = "<group>"; };
 		21099165201F8E1600340124 /* AddScreenplayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScreenplayCollectionViewCell.swift; sourceTree = "<group>"; };
 		21099167201FD4CF00340124 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		210C07DB22C81B2200F66D7B /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
@@ -496,6 +498,7 @@
 				21B0272E2BC23B7D00687C52 /* EnableDarkModeTableViewCell.swift */,
 				2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */,
 				2138F8A322207A0900881F4C /* PersonalInfoTableViewCell.swift */,
+				2108EDE82D112EF4004A8FE7 /* PrivacyPolicyTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -1060,6 +1063,7 @@
 				21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */,
 				21D727FD202E332300861C2D /* InformationPopTableViewCell.swift in Sources */,
 				2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */,
+				2108EDE92D112EF4004A8FE7 /* PrivacyPolicyTableViewCell.swift in Sources */,
 				218E8462203F379000D0D652 /* Scene.swift in Sources */,
 				21A7CF4B2023B02D00D97394 /* Character.swift in Sources */,
 				218E8460203E3D9500D0D652 /* NoCharacterTableViewCell.swift in Sources */,

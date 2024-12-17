@@ -76,7 +76,7 @@ class FirebaseController {
         }
     }
     
-    func save(screenplay: Screenplay, completion: @escaping (_ success:Bool) -> Void) {
+    func save(screenplay: Screenplay, completion: @escaping (_ success: Bool) -> Void) {
         guard let user = user else {
             completion(false)
             return
