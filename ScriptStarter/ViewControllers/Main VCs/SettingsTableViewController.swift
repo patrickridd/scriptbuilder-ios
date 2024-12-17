@@ -256,6 +256,8 @@ class SettingsTableViewController: UITableViewController {
             sectionHeader.sectionLabel.text = "Share with family & friends".localized
         case 4:
             sectionHeader.sectionLabel.text = "This will remove all information in database".localized
+        case 5:
+            sectionHeader.sectionLabel.text = ""
         default:
             break
         }
