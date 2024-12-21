@@ -332,6 +332,11 @@ class Store: ObservableObject {
         return productIdentifier.components(separatedBy: ".").last
     }
 
+    func sync() async {
+        Task {
+            try? await AppStore.sync()
+        }
+    }
 }
 
 enum InAppSubscription: Equatable {

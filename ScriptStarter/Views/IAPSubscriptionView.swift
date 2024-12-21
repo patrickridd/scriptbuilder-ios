@@ -48,8 +48,11 @@ struct IAPSubscriptionView: View {
                                 Spacer()
                             }
                         }
-                        confirmButton
-                            .padding(.bottom)
+                        VStack(spacing: 4.0) {
+                            confirmButton
+                                .padding(.bottom)
+                            restoreButton
+                        }
                     }
                 }
                 .frame(width: reader.size.width)
@@ -124,7 +127,19 @@ struct IAPSubscriptionView: View {
                 .background {
                     Color(.systemCyan)
                 }
-                .clipShape(RoundedRectangle(cornerSize: CGSize(width: UIScreen.main.bounds.width - 40.0, height: 50)))
+                .clipShape(RoundedRectangle(cornerSize: CGSize(width: UIScreen.main.bounds.width - 40.0, height: 50))
+                )
+        }
+    }
+
+    var restoreButton: some View {
+        Button {
+            viewModel.restoreButtonTapped()
+        } label: {
+            Text("Restore Purchases")
+                .foregroundStyle(Color(uiColor: .screenDark))
+                .font(.caption)
+                .fontWeight(.semibold)
         }
     }
 
@@ -253,17 +268,39 @@ extension IAPSubscriptionView {
             Color(uiColor: subscription == self.selectedSubscription ? .black : .screenDark)
         }
 
+        func restoreButtonTapped() {
+            Task {
+                await store.sync()
+            }
+        }
+
         func confirmButtonTapped() async {
+            var transaction: Transaction?
             switch selectedSubscription {
             case .monthly(let product):
                 guard let monthlyProduct = product else { return }
-                _ = try? await store.purchase(monthlyProduct)
+                do {
+                    transaction = try await store.purchase(monthlyProduct)
+                    guard transaction != nil else { return }
+                } catch {
+                    return
+                }
             case .yearly(let product):
                 guard let yearlyProduct = product else { return }
-                _ = try? await store.purchase(yearlyProduct)
+                do {
+                    transaction = try await store.purchase(yearlyProduct)
+                    guard transaction != nil else { return }
+                } catch {
+                    return
+                }
             case .lifetime(let product):
                 guard let lifetimeProduct = product else { return }
-                _ = try? await store.purchase(lifetimeProduct)
+                do {
+                    transaction = try await store.purchase(lifetimeProduct)
+                    guard transaction != nil else { return }
+                } catch {
+                    return
+                }
             default:
                 break
             }
