@@ -119,28 +119,41 @@ struct IAPSubscriptionView: View {
                 await viewModel.confirmButtonTapped()
             }
         } label: {
-            Text(viewModel.confirmButtonTitle)
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundStyle(.white)
-                .frame(width: UIScreen.main.bounds.width - 40.0, height: 50)
-                .background {
-                    Color(.systemCyan)
+            ZStack {
+                if viewModel.isLoading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
                 }
-                .clipShape(RoundedRectangle(cornerSize: CGSize(width: UIScreen.main.bounds.width - 40.0, height: 50))
-                )
-        }
+                Text(viewModel.confirmButtonTitle)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.white)
+                    .frame(width: UIScreen.main.bounds.width - 40.0, height: 50)
+                    .background {
+                        Color(.systemCyan)
+                    }
+                    .clipShape(
+                        RoundedRectangle(cornerSize: CGSize(width: UIScreen.main.bounds.width - 40.0, height: 50))
+                    )
+            }
+        }.disabled(viewModel.isLoading)
     }
 
     var restoreButton: some View {
         Button {
             viewModel.restoreButtonTapped()
         } label: {
-            Text("Restore Purchases")
-                .foregroundStyle(Color(uiColor: .screenDark))
-                .font(.caption)
-                .fontWeight(.semibold)
-        }
+            HStack {
+                if viewModel.isLoading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                }
+                Text("Restore Purchases")
+                    .foregroundStyle(Color(uiColor: .screenDark))
+                    .font(.caption)
+                    .fontWeight(.semibold)
+            }
+        }.disabled(viewModel.isLoading)
     }
 
     @ViewBuilder
@@ -190,7 +203,8 @@ extension IAPSubscriptionView {
 
         @Published private var store = Store.shared
         @Published var selectedSubscription: InAppSubscription?
-        
+        @Published var isLoading: Bool = false
+
         weak var presentingViewController: UIViewController?
 
         init(presentingViewController: UIViewController) {
@@ -218,7 +232,6 @@ extension IAPSubscriptionView {
                 } else {
                     return "Get 1 month for $2.99"
                 }
-               
             case .yearly:
                 if let localPrice = yearlyAllAccessProduct?.price {
                     return "Get 1 year for \(currencySymbol)\(localPrice)".localized
@@ -275,12 +288,14 @@ extension IAPSubscriptionView {
         }
 
         func confirmButtonTapped() async {
+            isLoading.toggle()
             var transaction: Transaction?
             switch selectedSubscription {
             case .monthly(let product):
                 guard let monthlyProduct = product else { return }
                 do {
                     transaction = try await store.purchase(monthlyProduct)
+                    isLoading.toggle()
                     guard transaction != nil else { return }
                 } catch {
                     return
@@ -289,6 +304,7 @@ extension IAPSubscriptionView {
                 guard let yearlyProduct = product else { return }
                 do {
                     transaction = try await store.purchase(yearlyProduct)
+                    isLoading.toggle()
                     guard transaction != nil else { return }
                 } catch {
                     return
@@ -297,12 +313,14 @@ extension IAPSubscriptionView {
                 guard let lifetimeProduct = product else { return }
                 do {
                     transaction = try await store.purchase(lifetimeProduct)
+                    isLoading.toggle()
                     guard transaction != nil else { return }
                 } catch {
                     return
                 }
             default:
-                break
+                isLoading.toggle()
+                return
             }
             await dismissView()
         }
