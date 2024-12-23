@@ -418,6 +418,7 @@ class ScenesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard Store.shared.allAccessEnabled else {
             presentIAPSubscriptionView()
+            tableView.deselectRow(at: indexPath, animated: true)
             return
         }
 

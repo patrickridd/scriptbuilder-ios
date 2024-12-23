@@ -279,9 +279,8 @@ class CharacterTableViewController: UITableViewController {
         if roleCharacterSections[indexPath.section].characters.count == 0 {
             self.roleCharacterSections.remove(at: indexPath.section)
         }
-        
     }
-    
+
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if indexPath.row == 0 && self.roleCharacterSections.count == 0 {
             return .none
@@ -289,21 +288,24 @@ class CharacterTableViewController: UITableViewController {
             return .delete
         }
     }
-    
+
     func reloadTableView() {
         self.tableView.reloadData()
     }
-    
+
     // MARK: - Navigation
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         guard Store.shared.allAccessEnabled else {
             presentIAPSubscriptionView()
+            if let indexPath = tableView.indexPathForSelectedRow {
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
             return false
         }
         return true
     }
-    
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -315,11 +317,9 @@ class CharacterTableViewController: UITableViewController {
             guard let indexPath = self.tableView.indexPathForSelectedRow else {
                 return
             }
-            
             let character = self.roleCharacterSections[indexPath.section].characters[indexPath.row]
             characterDetailVC.character = character
         }
     }
-    
 
 }
