@@ -11,6 +11,7 @@ import StoreKit
 
 struct IAPSubscriptionView: View {
     @StateObject var viewModel: ViewModel
+    @Environment(\.dismiss) var dismiss
 
     init(presentingViewController: UIViewController) {
         _viewModel = StateObject(wrappedValue: ViewModel(presentingViewController: presentingViewController))
@@ -57,6 +58,11 @@ struct IAPSubscriptionView: View {
                 }
                 .frame(width: reader.size.width)
                 .navigationTitle(Text(viewModel.title))
+                .toolbar(content: {
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        closeButton
+                    }
+                })
                 .foregroundStyle(.black)
                 .background(.white)
             }
@@ -154,6 +160,17 @@ struct IAPSubscriptionView: View {
                     .fontWeight(.semibold)
             }
         }.disabled(viewModel.isLoading)
+    }
+
+    var closeButton: some View {
+        Button {
+            dismiss.callAsFunction()
+        } label: {
+            Text("Close")
+                .font(.headline)
+                .foregroundStyle(.cyan)
+        }
+
     }
 
     @ViewBuilder
@@ -288,14 +305,12 @@ extension IAPSubscriptionView {
         }
 
         func confirmButtonTapped() async {
-            isLoading.toggle()
             var transaction: Transaction?
             switch selectedSubscription {
             case .monthly(let product):
                 guard let monthlyProduct = product else { return }
                 do {
                     transaction = try await store.purchase(monthlyProduct)
-                    isLoading.toggle()
                     guard transaction != nil else { return }
                 } catch {
                     return
