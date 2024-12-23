@@ -6,7 +6,6 @@
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
 
-import Combine
 import UIKit
 import Firebase
 import MBProgressHUD
@@ -17,8 +16,7 @@ class CharacterTableViewController: UITableViewController {
 
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     @IBOutlet weak var addCharacterButton: UIBarButtonItem!
-    
-    private var cancellables: Set<AnyCancellable> = []
+
     var loadingNotification = MBProgressHUD()
     
     var roleCharacterSections: [CharacterTableViewSection] = [] {
@@ -31,8 +29,7 @@ class CharacterTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        subscribeToStore()
+
         saveButton.view = self
 
         let rightSwipe = UISwipeGestureRecognizer(target: self,
@@ -53,7 +50,6 @@ class CharacterTableViewController: UITableViewController {
         self.tableView.reloadData()
         setupNavigationBar()
         setupRoleSections()
-        checkForCharacterFeatureEnabled()
     }
     
     deinit {
@@ -89,42 +85,6 @@ class CharacterTableViewController: UITableViewController {
                                          target: self,
                                          action: #selector(handleRightSwipe(sender:)))
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
-    }
-    
-    private func subscribeToStore() {
-        Store.shared.$purchasedSubscriptions
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.checkForCharacterFeatureEnabled()
-            }
-            .store(in: &cancellables)
-        Store.shared.$purchasedNonConsumables
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.checkForCharacterFeatureEnabled()
-            }
-            .store(in: &cancellables)
-    }
-    
-    func checkForCharacterFeatureEnabled() {
-        if Store.shared.allAccessEnabled {
-            view(enabled: true)
-        } else {
-            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                iapSubscriptionViewController.modalPresentationStyle = .fullScreen
-            }
-            present(iapSubscriptionViewController, animated: true)
-            view(enabled: false)
-        }
-    }
-    
-    func view(enabled: Bool) {
-        view.alpha = enabled ? 1.0 : 0.5
-        view.isUserInteractionEnabled = enabled
-        addCharacterButton.isEnabled = enabled
     }
     
     // MARK: UI Methods
@@ -336,11 +296,19 @@ class CharacterTableViewController: UITableViewController {
     
     // MARK: - Navigation
 
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        guard Store.shared.allAccessEnabled else {
+            presentIAPSubscriptionView()
+            return false
+        }
+        return true
+    }
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-         guard let characterDetailVC = segue.destination as? CharacterDetailTableViewController else { return }
+        guard let characterDetailVC = segue.destination as? CharacterDetailTableViewController else { return }
         if segue.identifier == "newCharacterSegue" {
            
         } else if segue.identifier == "characterSegue" {

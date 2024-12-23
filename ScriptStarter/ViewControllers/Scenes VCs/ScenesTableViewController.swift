@@ -10,21 +10,18 @@ import UIKit
 import MBProgressHUD
 import StoreKit
 import SwiftUI
-import Combine
 
 class ScenesTableViewController: UITableViewController {
     
     @IBOutlet weak var addSceneButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     
-    private var cancellables: Set<AnyCancellable> = []
     var newScene: Bool = false
     var loadingNotification = MBProgressHUD()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        subscribeToStore()
         saveButton.view = self
 
         let rightSwipe = UISwipeGestureRecognizer(target: self,
@@ -44,7 +41,6 @@ class ScenesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reloadTableView()
-        checkForSceneFeatureEnabled()
         setupNavigationBar()
     }
 
@@ -213,43 +209,6 @@ class ScenesTableViewController: UITableViewController {
         navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
-    private func subscribeToStore() {
-        Store.shared.$purchasedSubscriptions
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.checkForSceneFeatureEnabled()
-            }
-            .store(in: &cancellables)
-        Store.shared.$purchasedNonConsumables
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.checkForSceneFeatureEnabled()
-            }
-            .store(in: &cancellables)
-    }
-    
-    @objc
-    func checkForSceneFeatureEnabled() {
-        if Store.shared.allAccessEnabled {
-            view(enabled: true)
-        } else {
-            view(enabled: false)
-            let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                iapSubscriptionViewController.modalPresentationStyle = .fullScreen
-            }
-            present(iapSubscriptionViewController, animated: true)
-        }
-    }
-    
-    func view(enabled: Bool) {
-        view.alpha = enabled ? 1.0 : 0.5
-        view.isUserInteractionEnabled = enabled
-        addSceneButton.isEnabled = enabled
-    }
-    
     func showActivityIndicator() {
         DispatchQueue.main.async {
             self.loadingNotification =
@@ -284,6 +243,10 @@ class ScenesTableViewController: UITableViewController {
     // MARK: - IBActions and Target Methods
   
     @IBAction func plusButtonTapped(_ sender: UIButton) {
+        guard Store.shared.allAccessEnabled else {
+            presentIAPSubscriptionView()
+            return
+        }
         if let act = Act(rawValue: sender.tag) {
             self.pushToSceneDetailView(act: act, scene: nil)
         } else {
@@ -453,14 +416,18 @@ class ScenesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        guard Store.shared.allAccessEnabled else {
+            presentIAPSubscriptionView()
+            return
+        }
+
         guard let _ = self.screenplay else {
             self.reloadScreenplaysWithAnimation {
                 self.reloadTableView()
             }
             return
         }
-        
+
         var scene: Scene?
         switch indexPath.section {
         case 0:
