@@ -237,6 +237,9 @@ class ScenesTableViewController: UITableViewController {
         } else {
             view(enabled: false)
             let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                iapSubscriptionViewController.modalPresentationStyle = .fullScreen
+            }
             present(iapSubscriptionViewController, animated: true)
         }
     }

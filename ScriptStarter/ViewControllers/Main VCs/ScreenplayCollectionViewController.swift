@@ -139,6 +139,9 @@ class ScreenplayCollectionViewController: UIViewController {
     // Presents InAppPurchase screen to select Subscriptions or Lifetime purchase
     func presentIAPSubscriptionsView() {
         let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            iapSubscriptionViewController.modalPresentationStyle = .fullScreen
+        }
         present(iapSubscriptionViewController, animated: true)
     }
 

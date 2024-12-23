@@ -113,6 +113,9 @@ class CharacterTableViewController: UITableViewController {
             view(enabled: true)
         } else {
             let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                iapSubscriptionViewController.modalPresentationStyle = .fullScreen
+            }
             present(iapSubscriptionViewController, animated: true)
             view(enabled: false)
         }
