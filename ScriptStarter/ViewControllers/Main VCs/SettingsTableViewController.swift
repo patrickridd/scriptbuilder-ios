@@ -305,7 +305,7 @@ class SettingsTableViewController: UITableViewController {
             completion: nil)
         case 5:
             // Privacy Policy
-            if let privacyPolicyURL = URL(string: "https://www.scriptbuilderapp.com/private-policy") {
+            if let privacyPolicyURL = URL(string: "https://www.scriptbuilderapp.com/_files/ugd/b622d0_f5722cd213394590bbd181559a0af540.pdf") {
                 UIApplication.shared.open(privacyPolicyURL)
             }
         default:
