@@ -17,6 +17,14 @@ extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITex
         return ScreenplayController.shared.currentScreenplay
     }
 
+    func setSaveTimer() {
+        _ = Timer.scheduledTimer(
+            withTimeInterval: 2.0,
+            repeats: false, block: { _ in
+                NotificationCenter.default.post(name: Notification.Name.ScreenplayUpdated, object: nil)
+            })
+    }
+
     @objc func saveCurrentScreenplay() {
         if let screenplay = screenplay {
             FirebaseController.shared.save(screenplay: screenplay)

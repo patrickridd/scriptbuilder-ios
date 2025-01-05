@@ -44,7 +44,6 @@ class ScreenplayCoverViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
-
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadScreenplays),
                                                name: .AppWillEnterForeground,
@@ -173,7 +172,7 @@ extension ScreenplayCoverViewController {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         titleTextField.resignFirstResponder()
         nameTextField.resignFirstResponder()
-        
+        saveCurrentScreenplay()
         return true
     }
     
@@ -183,6 +182,7 @@ extension ScreenplayCoverViewController {
             return
         }
         screenplay?.title = title
+        setSaveTimer()
     }
     
     @IBAction func nameTextFieldDidChange(_ sender: Any) {
@@ -193,6 +193,6 @@ extension ScreenplayCoverViewController {
             return
         }
         screenplay?.authorName = authorName
+        setSaveTimer()
     }
-    
 }

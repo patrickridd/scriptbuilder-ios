@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UITableViewController: ResizeCellProtocol {
+extension UITableViewController: @preconcurrency ResizeCellProtocol {
     
     @MainActor
     func resizeCell(in section: Int) {
