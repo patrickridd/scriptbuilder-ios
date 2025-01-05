@@ -91,7 +91,6 @@ extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITex
             if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays) {
                 DispatchQueue.main.async {
                     ScreenplayController.shared.set(currentScreenplay: screenplay)
-                    print("Screenplay reloaded ⬇︎")
                 }
             }
         }
