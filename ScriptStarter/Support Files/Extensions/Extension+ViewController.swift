@@ -233,7 +233,7 @@ extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITex
     // Presents InAppPurchase screen to select Subscriptions or Lifetime purchase
     func presentIAPSubscriptionView() {
         let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom != .phone {
             iapSubscriptionViewController.modalPresentationStyle = .fullScreen
         }
         present(iapSubscriptionViewController, animated: true)
