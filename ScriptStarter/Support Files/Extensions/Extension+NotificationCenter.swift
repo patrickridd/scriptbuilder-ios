@@ -14,5 +14,7 @@ extension Notification.Name {
         Notification.Name(rawValue:"appWillEnterBackgroundNotificationKey")
     static let AppWillEnterForeground =
         Notification.Name(rawValue:"appWillEnterForegroundNotificationKey")
-    
+    static let ScreenplayUpdated =
+        Notification.Name(rawValue: "SaveScreenplayUpdated")
+
 }

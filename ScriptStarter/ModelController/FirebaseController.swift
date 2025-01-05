@@ -25,7 +25,20 @@ let act3ScenesKey = "actThreeScenes"
 class FirebaseController {
 
     static let shared = FirebaseController()
-    
+
+    init() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(saveCurrentScreenplay),
+            name: .ScreenplayUpdated,
+            object: nil
+        )
+    }
+
+    var currentScreenplay: Screenplay? {
+        return ScreenplayController.shared.currentScreenplay
+    }
+
     var ref: DatabaseReference {
         return Database.database().reference()
     }
@@ -74,10 +87,16 @@ class FirebaseController {
                                 }
         }
     }
+
+    @objc func saveCurrentScreenplay() {
+        if let screenplay = currentScreenplay {
+            save(screenplay: screenplay)
+        }
+    }
     
-    func save(screenplay: Screenplay, completion: @escaping (_ success: Bool) -> Void) {
+    func save(screenplay: Screenplay, completion: ((_ success: Bool) -> Void)? = nil) {
         guard let user = user else {
-            completion(false)
+            completion?(false)
             return
         }
 
@@ -90,13 +109,13 @@ class FirebaseController {
             .child(screenplay.uuid)
         screenplayRef.updateChildValues(screenplay.firDictionary) { [weak self] (error, reference) in
             if let _ = error {
-                completion(false)
+                completion?(false)
                 return
             }
             // CHARACTERS
             self?.saveCharacters(in: screenplay, with: user) { (error) in
                 if let _ = error {
-                    completion(false)
+                    completion?(false)
                     return
                 }
                 // ACT 1 SCENES
@@ -105,7 +124,7 @@ class FirebaseController {
                            in: screenplay,
                            with: user, completion: { (error) in
                             if let _ = error {
-                                completion(false)
+                                completion?(false)
                                 return
                             }
                             // ACT 2 SCENES
@@ -114,7 +133,7 @@ class FirebaseController {
                                        in: screenplay,
                                        with: user, completion: { (error) in
                                 if let _ = error {
-                                    completion(false)
+                                    completion?(false)
                                     return
                                 }
                                 // ACT 3 SCENES
@@ -123,9 +142,9 @@ class FirebaseController {
                                            in: screenplay,
                                            with: user, completion: { (error) in
                                     if let _ = error {
-                                        completion(false)
+                                        completion?(false)
                                     } else {
-                                        completion(true)
+                                        completion?(true)
                                     }
                                 })
                             })
@@ -135,7 +154,7 @@ class FirebaseController {
         self.areWeOffline { (offline) in
             if offline {
                 // We want to perform an optimistic update if offline so return true
-                completion(true)
+                completion?(true)
                 self.saveScreenplayOffline(screenplay: screenplay, with: user)
             }
         }
