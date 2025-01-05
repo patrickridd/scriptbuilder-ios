@@ -362,10 +362,8 @@ class EnlargedDescriptionViewController: UIViewController {
         }
     }
     
-    
     func textViewDidChange(_ textView: UITextView) {
         DispatchQueue.main.async {
-            
             self.checkForResize(textView: textView)
             switch self.viewController {
             case .outline:

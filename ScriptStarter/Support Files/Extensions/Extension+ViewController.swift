@@ -16,7 +16,7 @@ extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITex
     var screenplay: Screenplay? {
         return ScreenplayController.shared.currentScreenplay
     }
-    
+
     @objc func saveCurrentScreenplay() {
         if let screenplay = screenplay {
             FirebaseController.shared.save(screenplay: screenplay) { (_) in
@@ -229,7 +229,8 @@ extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITex
                      animated: true,
                      completion: nil)
     }
-    
+
+    // Presents InAppPurchase screen to select Subscriptions or Lifetime purchase
     func presentIAPSubscriptionView() {
         let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
         if UIDevice.current.userInterfaceIdiom == .pad {

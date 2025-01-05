@@ -274,7 +274,6 @@ extension OutlineTableViewController: DescriptionDelegate {
     
     func updatedText(_ text: String, in section: Int) {
         let indexPath = IndexPath(row: 0, section: section)
-       
         guard
             let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
         else {

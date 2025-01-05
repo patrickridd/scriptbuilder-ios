@@ -155,15 +155,15 @@ class SettingsTableViewController: UITableViewController {
     
     
     // MARK: - UITableView DataSource and Delegate Methods
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 6
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:

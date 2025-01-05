@@ -96,12 +96,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 quickActionHandled = true
             }
         }
-        
+
         return quickActionHandled
     }
-    
+
     // MARK: - Navigation
-    
+
     func presentLoginScreen() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -127,9 +127,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func allAccessFeatureTriggered() {
         let collectionViewController = presentScreenplayCollectionView()
         let screenplayCollectionView = collectionViewController?.viewControllers.first as? ScreenplayCollectionViewController
-        screenplayCollectionView?.presentIAPSubscriptionsView()
+        screenplayCollectionView?.presentIAPSubscriptionView()
     }
-    
+
     func presentNewScreenplayIdea() {
         ScreenplayController.shared.resetCurrentScreenplay()
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -137,11 +137,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else {
             return
         }
-        
+
         self.window?.rootViewController = mainNavigationController
         makeKeyAndVisible()
     }
-    
+
     func presentNewCharacter() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)

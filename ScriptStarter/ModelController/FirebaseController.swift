@@ -23,17 +23,17 @@ let act2ScenesKey = "actTwoScenes"
 let act3ScenesKey = "actThreeScenes"
 
 class FirebaseController {
-    
+
     static let shared = FirebaseController()
     
     var ref: DatabaseReference {
         return Database.database().reference()
     }
-    
+
     var user: Firebase.User? {
         return Auth.auth().currentUser
     }
-    
+
     func areWeOffline(completion: @escaping (_ offline: Bool) -> Void) {
         let connectedRef = Database.database().reference(withPath: ".info/connected")
         connectedRef.observe(.value, with: { snapshot in
@@ -55,7 +55,6 @@ class FirebaseController {
     }
     
     func createAccount(firstName: String, lastName: String, withEmail: String, password: String, completion: @escaping (_ error: Error?, _ user: Firebase.User?) -> Void) {
-        
         Auth.auth().createUser(withEmail: withEmail,
                                password: password) { (result, error) in
                                 guard let createUser = result?.user else {
@@ -81,7 +80,7 @@ class FirebaseController {
             completion(false)
             return
         }
-        
+
         if screenplay.title == "" { screenplay.title = "Untitled" }
        
         // OUTLINE
@@ -141,7 +140,7 @@ class FirebaseController {
             }
         }
     }
-    
+
     // Save References without worrying about network calls
     func saveScreenplayOffline(screenplay: Screenplay, with user: User) {
         
@@ -249,7 +248,7 @@ class FirebaseController {
                            .child(user.uid)
                            .child(screenplaysKey)
                            .child(screenplay.uuid)
-        
+
         screenplayRef.removeValue { (_, _) in
             ScreenplayController.shared.resetCurrentScreenplay()
             completion()

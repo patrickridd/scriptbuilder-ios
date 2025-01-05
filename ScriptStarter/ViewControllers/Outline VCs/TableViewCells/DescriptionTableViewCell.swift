@@ -272,7 +272,6 @@ class DescriptionTableViewCell: UITableViewCell {
     
     func textViewDidChange(_ textView: UITextView) {
         DispatchQueue.main.async {
-            
         self.checkForResize(textView: textView)
             switch self.viewController {
         case .outline:
@@ -428,7 +427,7 @@ class DescriptionTableViewCell: UITableViewCell {
         }
         }
     }
-    
+
     func checkForResize(textView: UITextView) {
         if self.descriptionTextViewHeightConstraint == nil { return }
     
@@ -452,5 +451,4 @@ class DescriptionTableViewCell: UITableViewCell {
     }
 
 }
-
 
