@@ -271,9 +271,10 @@ class DescriptionTableViewCell: UITableViewCell {
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        setSaveTimer()
         DispatchQueue.main.async {
         self.checkForResize(textView: textView)
-            switch self.viewController {
+        switch self.viewController {
         case .outline:
             switch self.section {
             case 0:
