@@ -19,9 +19,7 @@ extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITex
 
     @objc func saveCurrentScreenplay() {
         if let screenplay = screenplay {
-            FirebaseController.shared.save(screenplay: screenplay) { (_) in
-                
-            }
+            FirebaseController.shared.save(screenplay: screenplay)
         }
     }
     

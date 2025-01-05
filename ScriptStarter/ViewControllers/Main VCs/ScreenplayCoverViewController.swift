@@ -44,11 +44,7 @@ class ScreenplayCoverViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(saveCurrentScreenplay),
-                                               name: .AppWillEnterBackground,
-                                               object: nil)
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadScreenplays),
                                                name: .AppWillEnterForeground,
