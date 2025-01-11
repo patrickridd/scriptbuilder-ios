@@ -324,7 +324,7 @@ extension CharacterDetailTableViewController: RoleCellSelected {
             } else {
                 self.customSelected = true
             }
-            self.tableView.reloadData()
+            self.tableView.reloadSections(.init(integer: 0), with: .none)
         }
     }
 }
