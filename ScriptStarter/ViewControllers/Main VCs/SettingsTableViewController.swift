@@ -197,10 +197,10 @@ class SettingsTableViewController: UITableViewController {
             deleteCell?.backgroundColor = Theme.secondarySystemBackground
             return deleteCell ?? UITableViewCell()
         case 5:
-            let privacyCell = tableView.dequeueReusableCell(withIdentifier: "privacyPolicyCell",
-                                                            for: indexPath) as? PrivacyPolicyTableViewCell
-            privacyCell?.backgroundColor = Theme.tableViewBackgroundColor
-            return privacyCell ?? UITableViewCell()
+            let legalCell = tableView.dequeueReusableCell(withIdentifier: "legalCell",
+                                                            for: indexPath) as? LegalTableViewCellCell
+            legalCell?.backgroundColor = Theme.tableViewBackgroundColor
+            return legalCell ?? UITableViewCell()
         default:
             return UITableViewCell()
         }
@@ -303,16 +303,10 @@ class SettingsTableViewController: UITableViewController {
             }
         }), animated: true,
             completion: nil)
-        case 5:
-            // Privacy Policy
-            if let privacyPolicyURL = URL(string: "https://www.scriptbuilderapp.com/_files/ugd/b622d0_f5722cd213394590bbd181559a0af540.pdf") {
-                UIApplication.shared.open(privacyPolicyURL)
-            }
         default:
             break
         }
     }
-    
 }
 
 

@@ -791,23 +791,42 @@
                                     <outlet property="screenplaysHeaderLabel" destination="EpR-aK-F1Y" id="sW3-hT-odj"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="privacyPolicyCell" id="sj2-Au-eVu" userLabel="Privacy Policy" customClass="PrivacyPolicyTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="640.33333206176758" width="414" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="legalCell" id="sj2-Au-eVu" customClass="LegalTableViewCellCell" customModule="ScriptStarter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="640.33333206176758" width="414" height="79"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sj2-Au-eVu" id="987-Wu-klx">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kXa-yA-9XU">
-                                            <rect key="frame" x="159.66666666666666" y="13" width="95" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" systemColor="linkColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="QD2-Va-R2Q">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="79"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3j-4z-ZKs">
+                                                    <rect key="frame" x="145" y="0.0" width="124.33333333333331" height="33.666666666666664"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Privacy Policy">
+                                                        <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
+                                                    </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="privacyPolicyTapped:" destination="sj2-Au-eVu" eventType="touchUpInside" id="mR5-Zg-ioW"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SyJ-SU-2hs" userLabel="Terms of Use">
+                                                    <rect key="frame" x="147" y="45.666666666666657" width="120.33333333333331" height="33.333333333333343"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Terms of Use">
+                                                        <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
+                                                    </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="termsOfUseTapped:" destination="sj2-Au-eVu" eventType="touchUpInside" id="Rzk-Sc-tNb"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="kXa-yA-9XU" firstAttribute="centerY" secondItem="987-Wu-klx" secondAttribute="centerY" id="Ul5-s4-pjy"/>
-                                        <constraint firstItem="kXa-yA-9XU" firstAttribute="centerX" secondItem="987-Wu-klx" secondAttribute="centerX" id="hZf-gi-6bk"/>
+                                        <constraint firstAttribute="bottom" secondItem="QD2-Va-R2Q" secondAttribute="bottom" id="5ga-Hw-W0w"/>
+                                        <constraint firstItem="QD2-Va-R2Q" firstAttribute="top" secondItem="987-Wu-klx" secondAttribute="top" id="SIq-lT-Tzy"/>
+                                        <constraint firstItem="QD2-Va-R2Q" firstAttribute="leading" secondItem="987-Wu-klx" secondAttribute="leading" id="dCR-4m-v9L"/>
+                                        <constraint firstAttribute="trailing" secondItem="QD2-Va-R2Q" secondAttribute="trailing" id="tfU-VS-Q4g"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -1401,9 +1420,6 @@
         <image name="spiraling_stars.jpg" width="6144" height="4096"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
