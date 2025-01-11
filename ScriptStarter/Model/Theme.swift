@@ -144,6 +144,15 @@ class Theme {
             return UIColor.white
         }
     }
+
+    static var characterTableViewSeparatorColor: UIColor {
+        switch interfaceStyle {
+        case .unspecified, .none, .light:
+            return .separator
+        case .dark:
+            return UIColor.screenMidnightExpressBlack
+        }
+    }
     
     static var backgroundImage: UIImage {
         switch interfaceStyle {

@@ -31,7 +31,7 @@ class CharacterTableViewController: UITableViewController {
         super.viewDidLoad()
 
         saveButton.view = self
-
+        tableView.separatorColor = Theme.characterTableViewSeparatorColor
         let rightSwipe = UISwipeGestureRecognizer(target: self,
                                                   action: #selector(handleRightSwipe(sender:)))
         rightSwipe.direction = .right

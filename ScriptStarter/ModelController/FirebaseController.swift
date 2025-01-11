@@ -227,7 +227,6 @@ class FirebaseController {
                 }
             }
         })
-        
     }
     
     func changePassword(to newPassword: String, completion: @escaping (_ success: Bool) -> ()) {
