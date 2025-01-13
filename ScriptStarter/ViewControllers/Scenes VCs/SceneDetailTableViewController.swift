@@ -52,11 +52,21 @@ class SceneDetailTableViewController: UITableViewController {
         sceneNumberLabel.textColor = Theme.navTitleColor
         sceneHeadingLabel.textColor = Theme.navTitleColor
         
-        self.sceneTitleTextField.delegate = self
-        self.sceneHeaderTextField.delegate = self
-        self.sceneHeaderTextField.addTarget(self,
-                                            action: #selector(textFieldDidChange(_:)),
-                                            for: .editingChanged)
+        sceneTitleTextField.delegate = self
+        sceneTitleTextField.tag = 0
+        sceneTitleTextField.addTarget(self,
+                                      action: #selector(textFieldDidChange(_:)),
+                                      for: .editingChanged)
+        sceneNumberTextField.delegate = self
+        sceneNumberTextField.tag = 1
+        sceneNumberTextField.addTarget(self,
+                                       action: #selector(textFieldDidChange(_:)),
+                                       for: .editingChanged)
+        sceneHeaderTextField.delegate = self
+        sceneHeaderTextField.tag = 2
+        sceneHeaderTextField.addTarget(self,
+                                       action: #selector(textFieldDidChange(_:)),
+                                       for: .editingChanged)
 
         addToolBar(textField: self.sceneTitleTextField)
         addToolBar(textField: self.sceneNumberTextField)
@@ -64,28 +74,18 @@ class SceneDetailTableViewController: UITableViewController {
         
         if let scene = self.scene {
             self.updateView(with: scene)
+        } else {
+            createNewScene()
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Resizes Cells Dynamically
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
 
-        guard let _ = self.scene else {
-            createNewScene()
-            self.sceneTitleTextField.becomeFirstResponder()
-            return
-        }
-      
-    }
-    
-    
     // MARK: UI Methods
     
     func updateView(with scene:Scene) {
@@ -107,7 +107,7 @@ class SceneDetailTableViewController: UITableViewController {
         case .one:
             if let highestSceneNumber = screenplay.act1ScenesArray.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
                 let scene = Scene(title: "New Scene".localized,
-                                  sceneNumber: highestSceneNumber+1)
+                                  sceneNumber: highestSceneNumber + 1)
                 self.scene = scene
                 self.screenplay?.act1ScenesSet.insert(scene)
             } else {
@@ -143,11 +143,14 @@ class SceneDetailTableViewController: UITableViewController {
         default:
             break
         }
-        if let scene = self.scene {
+        if let scene {
             self.sceneNumberTextField.text = "\(scene.sceneNumber)"
             self.sceneActNumberTextField.text = "\(self.act.rawValue+1)"
         }
-       
+        DispatchQueue.main.async {
+            self.sceneTitleTextField.becomeFirstResponder()
+        }
+        FirebaseController.shared.save(scene: scene, inAct: act)
     }
 
     @IBAction func sceneTitleTextFieldChanged(_ sender: UITextField) {
@@ -155,7 +158,7 @@ class SceneDetailTableViewController: UITableViewController {
     }
 
     @IBAction func sceneNumberTextFieldChanged(_ sender: UITextField) {
-        guard let screenplay = self.screenplay else {
+        guard let screenplay else {
             reloadScreenplaysWithAnimation {
                 self.tableView.reloadData()
             }
@@ -163,8 +166,7 @@ class SceneDetailTableViewController: UITableViewController {
         }
         guard let sceneNumberText = sender.text,
               let sceneNumber = Int(sceneNumberText) else { return }
-        
-        
+
         self.scene?.sceneNumber = sceneNumber
         
         if let scene = self.scene {
@@ -322,23 +324,32 @@ class SceneDetailTableViewController: UITableViewController {
      }
     
     // MARK: - UITextFieldDelegate
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        FirebaseController.shared.save(scene: scene, inAct: self.act)
         return true
     }
-    
- 
+
     @objc func textFieldDidChange(_ textField: UITextField) {
         switch textField.tag {
+        case 0:
+            self.scene?.title = textField.text ?? ""
+        case 1:
+            self.scene?.sceneNumber = Int(textField.text ?? "") ?? -1
         case 2:
             self.scene?.header = textField.text ?? ""
         default:
             break
         }
+        _ = Timer.scheduledTimer(
+            withTimeInterval: 2.0,
+            repeats: false, block: { [weak self] _ in
+                guard let self else { return }
+                FirebaseController.shared.save(scene: self.scene, inAct: self.act)
+            })
     }
-    
-    
+
 }
 
 extension SceneDetailTableViewController: CollapsibleHeaderDelegate {
@@ -398,7 +409,7 @@ extension SceneDetailTableViewController: SceneActSelected {
             return
         }
         guard let scene = self.scene, newAct != self.act else { return }
-        
+
         // Remove scene from old act
         switch self.act {
         case .one:
@@ -410,7 +421,8 @@ extension SceneDetailTableViewController: SceneActSelected {
         default:
             break
         }
-        
+        FirebaseController.shared.delete(scene: scene, inAct: act)
+
         // Add scene into newAct and make scene number last in newAct
         switch newAct {
         case .one:
@@ -422,7 +434,6 @@ extension SceneDetailTableViewController: SceneActSelected {
                 scene.sceneNumber = 1
                 self.screenplay?.act1ScenesSet.insert(scene)
             }
-            
         case .two:
             if let highestSceneNumber = self.screenplay?.act2ScenesArray.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
                 scene.sceneNumber = highestSceneNumber+1
@@ -450,9 +461,9 @@ extension SceneDetailTableViewController: SceneActSelected {
         
         // Set Act number in textField to reflect the user's selection
         self.sceneActNumberTextField.text = "\(act.rawValue+1)"
-        
         // Set Scene # in case it changed during the act change
         self.sceneNumberTextField.text = "\(scene.sceneNumber)"
+        FirebaseController.shared.save(scene: scene, inAct: newAct)
     }
     
 }
@@ -466,5 +477,5 @@ extension SceneDetailTableViewController: DescriptionDelegate {
         descriptionCell.descriptionTextView.text = text
         descriptionCell.textViewDidChange(descriptionCell.descriptionTextView)
     }
-    
+
 }

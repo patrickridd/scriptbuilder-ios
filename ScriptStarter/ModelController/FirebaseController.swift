@@ -165,9 +165,7 @@ class FirebaseController {
         characterRef?.removeValue()
     }
 
-    func delete(scene: Scene, withScreenplay: Screenplay, inAct: Act) {
-        guard let user = user else { return }
-        
+    func delete(scene: Scene, inAct: Act) {
         var sceneActKey: String = ""
         switch inAct {
         case .one:
@@ -182,6 +180,24 @@ class FirebaseController {
 
         let scenesRef = currentScreenplayReference?.child(sceneActKey).child(scene.uuid)
         scenesRef?.removeValue()
+    }
+
+    func save(scene: Scene?, inAct: Act) {
+        guard let scene else { return }
+        var sceneActKey: String = ""
+        switch inAct {
+        case .one:
+            sceneActKey = act1ScenesKey
+        case .two:
+            sceneActKey = act2ScenesKey
+        case .three:
+            sceneActKey = act3ScenesKey
+        default:
+            break
+        }
+
+        let sceneActRef = currentScreenplayReference?.child(sceneActKey)
+        sceneActRef?.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in }
     }
     
     func getScreenplays(completion: @escaping ([Screenplay])->Void) {

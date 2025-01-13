@@ -49,23 +49,11 @@ class ScreenplayCoverViewController: UIViewController {
                                                name: .AppWillEnterForeground,
                                                object: nil)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
+
     // MARK: IBActions
     
     @IBAction func doneButtonTapped(_ sender: Any) {
-        // We want to remind the user to save if the screenplay has changed
-        if ScreenplayController.shared.screenplayChanged {
-            remindUserToSave()
-        
-        // Else just dismiss the view
-        } else {
-            dismissView()
-        }
+        dismissScreenplayExperience()
     }
     
     @IBAction func arrowButtonTapped(_ sender: Any) {
@@ -91,7 +79,6 @@ class ScreenplayCoverViewController: UIViewController {
                                                                       width: self?.view.bounds.width ?? 50,
                                                                       height: 50)
             }
-            
             self?.present(vc, animated: true, completion: nil)
         }
     }
@@ -133,30 +120,7 @@ class ScreenplayCoverViewController: UIViewController {
         return alert
     }
     
-    func remindUserToSave() {
-        let saveReminderAlert = UIAlertController(title: "Save".localized,
-                                                  message: "Would you like to save your work?".localized,
-                                                  preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Save".localized,
-                                       style: .default) { [weak self] (_) in
-            self?.saveButton.save()
-            self?.dismissView()
-        }
-        let nopeAction = UIAlertAction(title: "Discard".localized,
-                                       style: .destructive) { [weak self] (_) in
-            ScreenplayController.shared.discardChangesInCurrentScreenplay()
-            self?.dismissView()
-        }
-        
-        
-        saveReminderAlert.addAction(saveAction)
-        saveReminderAlert.addAction(nopeAction)
-        self.present(saveReminderAlert,
-                     animated: true,
-                     completion: nil)
-    }
-    
-    func dismissView() {
+    func dismissScreenplayExperience() {
         ScreenplayController.shared.resetCurrentScreenplay()
         if let _ = self.presentingViewController {
             self.dismiss(animated: true, completion: nil)

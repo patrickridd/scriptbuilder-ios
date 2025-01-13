@@ -179,7 +179,6 @@ class Screenplay: Equatable {
         }
         
         if let act2ScenesDictionaryArray = screenplayDictionary[act2ScenesKey] as? [String:Any] {
-            
             for sceneKeyPair in act2ScenesDictionaryArray {
                 guard let sceneDictionary = sceneKeyPair.value as? [String:Any],
                       let scene = Scene(uuid: sceneKeyPair.key, sceneDictionary:sceneDictionary) else {
@@ -192,7 +191,6 @@ class Screenplay: Equatable {
         }
         
         if let act3ScenesDictionaryArray = screenplayDictionary[act3ScenesKey] as? [String:Any] {
-            
             for sceneKeyPair in act3ScenesDictionaryArray {
                 guard let sceneDictionary = sceneKeyPair.value as? [String:Any],
                       let scene = Scene(uuid: sceneKeyPair.key, sceneDictionary:sceneDictionary) else {
@@ -200,11 +198,9 @@ class Screenplay: Equatable {
                 }
                 self.act3ScenesSet.insert(scene)
             }
-            
             self.act3ScenesArray.append(contentsOf: act3ScenesSet)
             self.act3ScenesArray.sort(by: { $0.sceneNumber < $1.sceneNumber })
         }
-        
     }
     
     init(unalteredScreenplay: Screenplay) {
