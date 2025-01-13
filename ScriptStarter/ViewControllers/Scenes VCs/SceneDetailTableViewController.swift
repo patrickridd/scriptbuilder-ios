@@ -72,10 +72,12 @@ class SceneDetailTableViewController: UITableViewController {
         addToolBar(textField: self.sceneNumberTextField)
         addToolBar(textField: self.sceneHeaderTextField)
         
-        if let scene = self.scene {
+        if let scene {
             self.updateView(with: scene)
         } else {
-            createNewScene()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.sceneTitleTextField.becomeFirstResponder()
+            }
         }
     }
 
@@ -148,9 +150,6 @@ class SceneDetailTableViewController: UITableViewController {
             self.sceneActNumberTextField.text = "\(self.act.rawValue+1)"
         }
         FirebaseController.shared.save(scene: scene, inAct: act)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.sceneTitleTextField.becomeFirstResponder()
-        }
     }
 
     @IBAction func sceneTitleTextFieldChanged(_ sender: UITextField) {
@@ -326,12 +325,18 @@ class SceneDetailTableViewController: UITableViewController {
     // MARK: - UITextFieldDelegate
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if scene == nil {
+            createNewScene()
+        }
         textField.resignFirstResponder()
         FirebaseController.shared.save(scene: scene, inAct: self.act)
         return true
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
+        if scene == nil {
+            createNewScene()
+        }
         switch textField.tag {
         case 0:
             self.scene?.title = textField.text ?? ""
@@ -408,6 +413,12 @@ extension SceneDetailTableViewController: SceneActSelected {
             }
             return
         }
+        guard let scene else {
+            createNewScene()
+            selected(newAct: newAct)
+            return
+        }
+
         guard let scene = self.scene, newAct != self.act else { return }
 
         // Remove scene from old act
