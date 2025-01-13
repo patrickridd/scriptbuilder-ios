@@ -147,10 +147,10 @@ class SceneDetailTableViewController: UITableViewController {
             self.sceneNumberTextField.text = "\(scene.sceneNumber)"
             self.sceneActNumberTextField.text = "\(self.act.rawValue+1)"
         }
-        DispatchQueue.main.async {
+        FirebaseController.shared.save(scene: scene, inAct: act)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.sceneTitleTextField.becomeFirstResponder()
         }
-        FirebaseController.shared.save(scene: scene, inAct: act)
     }
 
     @IBAction func sceneTitleTextFieldChanged(_ sender: UITextField) {
