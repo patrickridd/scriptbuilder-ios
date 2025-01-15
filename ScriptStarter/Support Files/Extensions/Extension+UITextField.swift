@@ -19,7 +19,6 @@ extension UITextField {
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
                                           target: nil,
                                           action: nil)
-        
         let toolBar = UIToolbar()
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
