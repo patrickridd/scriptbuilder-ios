@@ -57,7 +57,7 @@ struct IAPSubscriptionView: View {
                     }
                 }
                 .frame(width: reader.size.width)
-                .navigationTitle(Text(viewModel.title))
+                .navigationTitle(viewModel.title)
                 .toolbar(content: {
                     if UIDevice.current.userInterfaceIdiom == .pad {
                         closeButton
@@ -82,6 +82,8 @@ struct IAPSubscriptionView: View {
                 .fontWeight(.medium)
                 .frame(alignment: .leading)
                 .foregroundStyle(Color(uiColor: .screenHaitiBlack))
+            loadingView
+            checkmarkView
             Spacer()
         }
         .padding(.leading)
@@ -98,6 +100,8 @@ struct IAPSubscriptionView: View {
                 .fontWeight(.medium)
                 .frame(alignment: .leading)
                 .foregroundStyle(Color(uiColor: .screenHaitiBlack))
+            loadingView
+            checkmarkView
             Spacer()
         }
         .padding(.leading)
@@ -114,9 +118,26 @@ struct IAPSubscriptionView: View {
                 .fontWeight(.medium)
                 .frame(alignment: .leading)
                 .foregroundStyle(Color(uiColor: .screenHaitiBlack))
+            loadingView
+            checkmarkView
             Spacer()
         }
         .padding(.leading)
+    }
+
+    @ViewBuilder
+    var loadingView: some View {
+        if viewModel.isLoading {
+            ProgressView()
+                .progressViewStyle(.circular)
+        }
+    }
+
+    @ViewBuilder
+    var checkmarkView: some View {
+        if viewModel.productPurchased {
+            Text("✅")
+        }
     }
     
     var confirmButton: some View {
@@ -125,23 +146,17 @@ struct IAPSubscriptionView: View {
                 await viewModel.confirmButtonTapped()
             }
         } label: {
-            ZStack {
-                if viewModel.isLoading {
-                    ProgressView()
-                        .progressViewStyle(.circular)
+            Text(viewModel.confirmButtonTitle)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundStyle(.white)
+                .frame(width: UIScreen.main.bounds.width - 40.0, height: 50)
+                .background {
+                    Color(.systemCyan)
                 }
-                Text(viewModel.confirmButtonTitle)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.white)
-                    .frame(width: UIScreen.main.bounds.width - 40.0, height: 50)
-                    .background {
-                        Color(.systemCyan)
-                    }
-                    .clipShape(
-                        RoundedRectangle(cornerSize: CGSize(width: UIScreen.main.bounds.width - 40.0, height: 50))
-                    )
-            }
+                .clipShape(
+                    RoundedRectangle(cornerSize: CGSize(width: UIScreen.main.bounds.width - 40.0, height: 50))
+                )
         }.disabled(viewModel.isLoading)
     }
 
@@ -150,10 +165,6 @@ struct IAPSubscriptionView: View {
             viewModel.restoreButtonTapped()
         } label: {
             HStack {
-                if viewModel.isLoading {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                }
                 Text("Restore Purchases")
                     .foregroundStyle(Color(uiColor: .screenDark))
                     .font(.caption)
@@ -221,6 +232,7 @@ extension IAPSubscriptionView {
         @Published private var store = Store.shared
         @Published var selectedSubscription: InAppSubscription?
         @Published var isLoading: Bool = false
+        @Published var productPurchased: Bool = false
 
         weak var presentingViewController: UIViewController?
 
@@ -297,21 +309,25 @@ extension IAPSubscriptionView {
         func subtitleColor(for subscription: InAppSubscription) -> Color {
             Color(uiColor: subscription == self.selectedSubscription ? .black : .screenDark)
         }
-
+        
         func restoreButtonTapped() {
             Task {
                 await store.sync()
             }
         }
 
+        @MainActor
         func confirmButtonTapped() async {
+            isLoading.toggle()
             var transaction: Transaction?
             switch selectedSubscription {
             case .monthly(let product):
                 guard let monthlyProduct = product else { return }
                 do {
                     transaction = try await store.purchase(monthlyProduct)
-                    guard transaction != nil else { return }
+                    isLoading.toggle()
+                    productPurchased = transaction != nil
+                    guard productPurchased else { return }
                 } catch {
                     return
                 }
@@ -320,7 +336,8 @@ extension IAPSubscriptionView {
                 do {
                     transaction = try await store.purchase(yearlyProduct)
                     isLoading.toggle()
-                    guard transaction != nil else { return }
+                    productPurchased = transaction != nil
+                    guard productPurchased else { return }
                 } catch {
                     return
                 }
@@ -329,7 +346,8 @@ extension IAPSubscriptionView {
                 do {
                     transaction = try await store.purchase(lifetimeProduct)
                     isLoading.toggle()
-                    guard transaction != nil else { return }
+                    productPurchased = transaction != nil
+                    guard productPurchased else { return }
                 } catch {
                     return
                 }
@@ -337,7 +355,10 @@ extension IAPSubscriptionView {
                 isLoading.toggle()
                 return
             }
-            await dismissView()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                self.dismissView()
+            }
+            
         }
 
         @MainActor
