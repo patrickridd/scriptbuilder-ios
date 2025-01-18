@@ -238,12 +238,11 @@ class SceneDetailTableViewController: UITableViewController {
         enlargedVC.delegate = self
         enlargedVC.scene = self.scene
         enlargedVC.act = self.act
-
         self.present(enlargedNavigationController,
                      animated: true,
                      completion: nil)
     }
-   
+
     // MARK: - TableView Data Source & Delegate Methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -280,7 +279,6 @@ class SceneDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-      
         // Create Collapsible Header for Scene details
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
         header.contentView.backgroundColor = expandableSections[section].collapsed ? Theme.tableViewSectionCollapsedColor : Theme.tableViewSectionExpandedColor
@@ -291,36 +289,35 @@ class SceneDetailTableViewController: UITableViewController {
         header.section = section
         header.delegate = self
         return header
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
     }
     
-       override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-         DispatchQueue.main.async {
-             guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
-             
-             if self.isExpandingCell {
-                 descriptionCell.descriptionTextView.becomeFirstResponder()
-                 descriptionCell.descriptionTextView.isHidden = false
-                 self.isExpandingCell = false
-             }
-         }
-     }
-     
-     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-         DispatchQueue.main.async {
-             guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
-                   
-                   if self.isCollapsingCell {
-                       descriptionCell.descriptionTextView.resignFirstResponder()
-                       descriptionCell.resignFirstResponder()
-                       self.isCollapsingCell = false
-                   }
-         }
-     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
+            
+            if self.isExpandingCell {
+                descriptionCell.descriptionTextView.becomeFirstResponder()
+                descriptionCell.descriptionTextView.isHidden = false
+                self.isExpandingCell = false
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
+            
+            if self.isCollapsingCell {
+                descriptionCell.descriptionTextView.resignFirstResponder()
+                descriptionCell.resignFirstResponder()
+                self.isCollapsingCell = false
+            }
+        }
+    }
     
     // MARK: - UITextFieldDelegate
 
