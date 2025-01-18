@@ -48,6 +48,7 @@ class EnlargedDescriptionViewController: UIViewController {
                act: self.act,
                character: self.character,
                scene: self.scene)
+        descriptionTextView.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -362,161 +363,179 @@ class EnlargedDescriptionViewController: UIViewController {
         }
     }
     
+    @MainActor
     func textViewDidChange(_ textView: UITextView) {
-        DispatchQueue.main.async {
-            self.checkForResize(textView: textView)
-            switch self.viewController {
-            case .outline:
+        self.checkForResize(textView: textView)
+        switch self.viewController {
+        case .outline:
+            switch self.section {
+            case 0:
+                self.screenplay?.idea = textView.text
+            case 1:
+                self.screenplay?.actOneDescription = textView.text
+            case 2:
+                self.screenplay?.actTwoDescription = textView.text
+            case 3:
+                self.screenplay?.actThreeDescription = textView.text
+            default:
+                break
+            }
+            _ = Timer.scheduledTimer(
+                withTimeInterval: 2.0,
+                repeats: false, block: { _ in
+                    FirebaseController.shared.saveScreenplayOutline()
+                })
+        case .actDetail:
+            guard let act = self.act else { break }
+            switch act {
+            case .idea:
                 switch self.section {
                 case 0:
                     self.screenplay?.idea = textView.text
-                case 1:
-                    self.screenplay?.actOneDescription = textView.text
                 case 2:
-                    self.screenplay?.actTwoDescription = textView.text
+                    self.screenplay?.logLine = textView.text
                 case 3:
-                    self.screenplay?.actThreeDescription = textView.text
-                default:
-                    break
-                }
-            case .actDetail:
-                guard let act = self.act else { break }
-                switch act {
-                case .idea:
-                    switch self.section {
-                    case 0:
-                        self.screenplay?.idea = textView.text
-                    case 2:
-                        self.screenplay?.logLine = textView.text
-                    case 3:
-                        self.screenplay?.centralIntention = textView.text
-                    case 4:
-                        self.screenplay?.mainObstacle = textView.text
-                    case 5:
-                        self.screenplay?.theme = textView.text
-                    case 6:
-                        self.screenplay?.notes = textView.text
-                    default:
-                        break
-                    }
-                case .one:
-                    switch self.section {
-                    case 0:
-                        self.screenplay?.actOneDescription = textView.text
-                    case 2:
-                        self.screenplay?.act1.oldWorldDescription = textView.text
-                    case 3:
-                        self.screenplay?.act1.incitingIncident = textView.text
-                    case 4:
-                        self.screenplay?.act1.callToAdventure = textView.text
-                    case 5:
-                        self.screenplay?.act1.meetingMentor = textView.text
-                    case 6:
-                        self.screenplay?.act1.theme = textView.text
-                    case 7:
-                        self.screenplay?.act1.refusal = textView.text
-                    case 8:
-                        self.screenplay?.act1.reasonToAdventure = textView.text
-                    case 9:
-                        self.screenplay?.act1.enemyAtTheGates = textView.text
-                    default:
-                        break
-                    }
-                    
-                case .two:
-                    switch self.section {
-                    case 0:
-                        // General description
-                        self.screenplay?.actTwoDescription = self.descriptionTextView.text
-                    case 2:
-                        // Strange New World
-                        self.screenplay?.act2.newWorldDescription = self.descriptionTextView.text
-                    case 3:
-                        // Friends/Foes/Frenemies
-                        self.screenplay?.act2.enemiesFriends = self.descriptionTextView.text
-                    case 4:
-                        // Test Resolve
-                        self.screenplay?.act2.obstacles = self.descriptionTextView.text
-                    case 5:
-                        // Sharpening the sword
-                        self.screenplay?.act2.sharpeningTheSword = self.descriptionTextView.text
-                    case 6:
-                        // Burn the Boats
-                        self.screenplay?.act2.burnTheBoats = self.descriptionTextView.text
-                    case 7:
-                        // Supreme Sacrifice
-                        self.screenplay?.act2.theDeadlyEncounter = self.descriptionTextView.text
-                    case 8:
-                        // Celebrate Good Times
-                        self.screenplay?.act2.celebrate = self.descriptionTextView.text
-                    case 9:
-                        // Bad Guys Strike back
-                        self.screenplay?.act2.badGuysStrikeBack = self.descriptionTextView.text
-                    case 10:
-                        // Darkness Before the Dawn
-                        self.screenplay?.act2.allIsLost = self.descriptionTextView.text
-                    default:
-                        break
-                    }
-                case .three:
-                    switch self.section {
-                    case 0:
-                        self.screenplay?.actThreeDescription = textView.text
-                    case 2:
-                        self.screenplay?.act3.theUltimateAnswer = textView.text
-                    case 3:
-                        self.screenplay?.act3.rewards = textView.text
-                    case 4:
-                        self.screenplay?.act3.untangleStory = textView.text
-                    case 5:
-                        self.screenplay?.act3.brandNewWorld = textView.text
-                    default:
-                        break
-                    }
-                }
-            case .characterDetail:
-                switch self.section {
-                case 2:
-                    self.character?.intention = self.descriptionTextView.text
-                case 3:
-                    self.character?.whyIntention = self.descriptionTextView.text
+                    self.screenplay?.centralIntention = textView.text
                 case 4:
-                    self.character?.whatToDo = self.descriptionTextView.text
+                    self.screenplay?.mainObstacle = textView.text
                 case 5:
-                    self.character?.howDoesCharacterDoIt = self.descriptionTextView.text
+                    self.screenplay?.theme = textView.text
                 case 6:
-                    self.character?.obstacles = self.descriptionTextView.text
-                case 7:
-                    self.character?.flaws = self.descriptionTextView.text
-                case 8:
-                    self.character?.intentionFix = self.descriptionTextView.text
-                case 9:
-                    self.character?.need = self.descriptionTextView.text
-                case 10:
-                    self.character?.howCharacterChanged = self.descriptionTextView.text
-                case 11:
-                    self.character?.notes = self.descriptionTextView.text
+                    self.screenplay?.notes = textView.text
                 default:
                     break
                 }
-            case .sceneDetail:
+            case .one:
                 switch self.section {
                 case 0:
-                    self.scene?.sceneDescription = self.descriptionTextView.text
-                case 1:
-                    self.scene?.characters = self.descriptionTextView.text
+                    self.screenplay?.actOneDescription = textView.text
                 case 2:
-                    self.scene?.dialogue = self.descriptionTextView.text
+                    self.screenplay?.act1.oldWorldDescription = textView.text
                 case 3:
-                    self.scene?.action = self.descriptionTextView.text
+                    self.screenplay?.act1.incitingIncident = textView.text
                 case 4:
-                    self.scene?.howPushesStory = self.descriptionTextView.text
+                    self.screenplay?.act1.callToAdventure = textView.text
                 case 5:
-                    self.scene?.notes = self.descriptionTextView.text
+                    self.screenplay?.act1.meetingMentor = textView.text
+                case 6:
+                    self.screenplay?.act1.theme = textView.text
+                case 7:
+                    self.screenplay?.act1.refusal = textView.text
+                case 8:
+                    self.screenplay?.act1.reasonToAdventure = textView.text
+                case 9:
+                    self.screenplay?.act1.enemyAtTheGates = textView.text
+                default:
+                    break
+                }
+            case .two:
+                switch self.section {
+                case 0:
+                    // General description
+                    self.screenplay?.actTwoDescription = self.descriptionTextView.text
+                case 2:
+                    // Strange New World
+                    self.screenplay?.act2.newWorldDescription = self.descriptionTextView.text
+                case 3:
+                    // Friends/Foes/Frenemies
+                    self.screenplay?.act2.enemiesFriends = self.descriptionTextView.text
+                case 4:
+                    // Test Resolve
+                    self.screenplay?.act2.obstacles = self.descriptionTextView.text
+                case 5:
+                    // Sharpening the sword
+                    self.screenplay?.act2.sharpeningTheSword = self.descriptionTextView.text
+                case 6:
+                    // Burn the Boats
+                    self.screenplay?.act2.burnTheBoats = self.descriptionTextView.text
+                case 7:
+                    // Supreme Sacrifice
+                    self.screenplay?.act2.theDeadlyEncounter = self.descriptionTextView.text
+                case 8:
+                    // Celebrate Good Times
+                    self.screenplay?.act2.celebrate = self.descriptionTextView.text
+                case 9:
+                    // Bad Guys Strike back
+                    self.screenplay?.act2.badGuysStrikeBack = self.descriptionTextView.text
+                case 10:
+                    // Darkness Before the Dawn
+                    self.screenplay?.act2.allIsLost = self.descriptionTextView.text
+                default:
+                    break
+                }
+            case .three:
+                switch self.section {
+                case 0:
+                    self.screenplay?.actThreeDescription = textView.text
+                case 2:
+                    self.screenplay?.act3.theUltimateAnswer = textView.text
+                case 3:
+                    self.screenplay?.act3.rewards = textView.text
+                case 4:
+                    self.screenplay?.act3.untangleStory = textView.text
+                case 5:
+                    self.screenplay?.act3.brandNewWorld = textView.text
                 default:
                     break
                 }
             }
+            _ = Timer.scheduledTimer(
+                withTimeInterval: 2.0,
+                repeats: false, block: { _ in
+                    FirebaseController.shared.saveScreenplayOutline()
+                })
+        case .characterDetail:
+            switch self.section {
+            case 2:
+                self.character?.intention = self.descriptionTextView.text
+            case 3:
+                self.character?.whyIntention = self.descriptionTextView.text
+            case 4:
+                self.character?.whatToDo = self.descriptionTextView.text
+            case 5:
+                self.character?.howDoesCharacterDoIt = self.descriptionTextView.text
+            case 6:
+                self.character?.obstacles = self.descriptionTextView.text
+            case 7:
+                self.character?.flaws = self.descriptionTextView.text
+            case 8:
+                self.character?.intentionFix = self.descriptionTextView.text
+            case 9:
+                self.character?.need = self.descriptionTextView.text
+            case 10:
+                self.character?.howCharacterChanged = self.descriptionTextView.text
+            case 11:
+                self.character?.notes = self.descriptionTextView.text
+            default:
+                break
+            }
+            _ = Timer.scheduledTimer(
+                withTimeInterval: 2.0,
+                repeats: false, block: { [weak self] _ in
+                    FirebaseController.shared.save(character: self?.character)
+                })
+        case .sceneDetail:
+            switch self.section {
+            case 0:
+                self.scene?.sceneDescription = self.descriptionTextView.text
+            case 1:
+                self.scene?.characters = self.descriptionTextView.text
+            case 2:
+                self.scene?.dialogue = self.descriptionTextView.text
+            case 3:
+                self.scene?.action = self.descriptionTextView.text
+            case 4:
+                self.scene?.howPushesStory = self.descriptionTextView.text
+            case 5:
+                self.scene?.notes = self.descriptionTextView.text
+            default:
+                break
+            }
+            _ = Timer.scheduledTimer(
+                withTimeInterval: 2.0,
+                repeats: false, block: { [weak self] _ in
+                    FirebaseController.shared.save(scene: self?.scene, inAct: self?.act)
+                })
         }
     }
     

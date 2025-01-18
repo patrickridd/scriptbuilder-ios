@@ -105,7 +105,6 @@ class SceneDetailTableViewController: UITableViewController {
             return
         }
         switch self.act {
-            
         case .one:
             if let highestSceneNumber = screenplay.act1ScenesArray.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
                 let scene = Scene(title: "New Scene".localized,
@@ -238,7 +237,8 @@ class SceneDetailTableViewController: UITableViewController {
         enlargedVC.section = sender.tag
         enlargedVC.delegate = self
         enlargedVC.scene = self.scene
-        
+        enlargedVC.act = self.act
+
         self.present(enlargedNavigationController,
                      animated: true,
                      completion: nil)
@@ -413,13 +413,13 @@ extension SceneDetailTableViewController: SceneActSelected {
             }
             return
         }
-        guard let scene else {
+        guard let scene = self.scene else {
             createNewScene()
             selected(newAct: newAct)
             return
         }
 
-        guard let scene = self.scene, newAct != self.act else { return }
+        guard newAct != self.act else { return }
 
         // Remove scene from old act
         switch self.act {
@@ -466,25 +466,26 @@ extension SceneDetailTableViewController: SceneActSelected {
         default:
             break
         }
-        
+
         // Set selected newAct
         self.act = newAct
-        
+
         // Set Act number in textField to reflect the user's selection
         self.sceneActNumberTextField.text = "\(act.rawValue+1)"
         // Set Scene # in case it changed during the act change
         self.sceneNumberTextField.text = "\(scene.sceneNumber)"
         FirebaseController.shared.save(scene: scene, inAct: newAct)
     }
-    
+
 }
 
 extension SceneDetailTableViewController: DescriptionDelegate {
     
     func updatedText(_ text: String, in section: Int) {
         let indexPath = IndexPath(row: 0, section: section)
-        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
-        
+        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
+        else { return }
+
         descriptionCell.descriptionTextView.text = text
         descriptionCell.textViewDidChange(descriptionCell.descriptionTextView)
     }

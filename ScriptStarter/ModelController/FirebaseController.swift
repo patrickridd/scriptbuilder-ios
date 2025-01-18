@@ -121,6 +121,12 @@ class FirebaseController {
         save(scenes: screenplay.act3ScenesArray, for: act3ScenesKey, in: screenplay)
         completion?(true)
     }
+
+    func saveScreenplayOutline() {
+        if let currentScreenplay {
+            currentScreenplayReference?.updateChildValues(currentScreenplay.firDictionary) { (_, _) in }
+        }
+    }
     
     func saveCharacters(in screenplay: Screenplay,
                         completion: ((_ error: Error?) -> Void)? = nil) {
@@ -136,7 +142,12 @@ class FirebaseController {
             }
         }
     }
-    
+
+    func save(character: Character?) {
+        guard let character else { return }
+        charactersReference?.updateChildValues([character.uuid: character.characterDictionary]) {_,_ in }
+    }
+
     // Save Scenes by specifying the scenes and act number
     func save(scenes: [Scene],
               for actKey: String,
@@ -182,8 +193,8 @@ class FirebaseController {
         scenesRef?.removeValue()
     }
 
-    func save(scene: Scene?, inAct: Act) {
-        guard let scene else { return }
+    func save(scene: Scene?, inAct: Act?) {
+        guard let scene, let inAct else { return }
         var sceneActKey: String = ""
         switch inAct {
         case .one:
