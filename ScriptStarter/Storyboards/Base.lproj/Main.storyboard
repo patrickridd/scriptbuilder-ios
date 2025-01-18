@@ -617,28 +617,27 @@
                                     <outlet property="shareLabel" destination="3d6-Mh-K4t" id="sqt-F9-2b5"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="enableDarkModeTableViewCell" rowHeight="120" id="xX3-6a-Rh3" userLabel="EnableDarkModeTableViewCell" customClass="EnableDarkModeTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="280.33333206176758" width="414" height="120"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="InterfaceStyleTableViewCell" rowHeight="45" id="xX3-6a-Rh3" customClass="InterfaceStyleTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="280.33333206176758" width="414" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xX3-6a-Rh3" id="bdz-Ot-AqX">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bsA-tJ-KQJ">
-                                            <rect key="frame" x="28" y="11" width="358" height="98"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="bsA-tJ-KQJ">
+                                            <rect key="frame" x="28" y="11" width="358" height="23"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Dark Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hrt-wv-pbw">
-                                                    <rect key="frame" x="0.0" y="39" width="301" height="20.333333333333329"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Kh-g9-T5k">
-                                                    <rect key="frame" x="309" y="33.666666666666664" width="51" height="30.999999999999993"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cZ4-GJ-aoq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="358" height="24"/>
+                                                    <segments>
+                                                        <segment title="Default"/>
+                                                        <segment title="Light"/>
+                                                        <segment title="Dark"/>
+                                                    </segments>
                                                     <connections>
-                                                        <action selector="switchChanged:" destination="xX3-6a-Rh3" eventType="valueChanged" id="gd9-w0-nnH"/>
+                                                        <action selector="segmentControlChanged:" destination="xX3-6a-Rh3" eventType="valueChanged" id="eKV-d9-wOx"/>
                                                     </connections>
-                                                </switch>
+                                                </segmentedControl>
                                             </subviews>
                                         </stackView>
                                     </subviews>
@@ -655,11 +654,11 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="darkModeSwitch" destination="4Kh-g9-T5k" id="Sfr-uE-5xQ"/>
+                                    <outlet property="segmentControl" destination="cZ4-GJ-aoq" id="hHD-hA-HpS"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="deleteAccountCell" rowHeight="90" id="6vT-9y-M6K" customClass="DeleteAccountTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="400.33333206176758" width="414" height="90"/>
+                                <rect key="frame" x="0.0" y="325.33333206176758" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6vT-9y-M6K" id="2Eo-Ui-hTQ">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
@@ -685,7 +684,7 @@
                                 </userDefinedRuntimeAttributes>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="personalCell" rowHeight="150" id="oEa-0l-DIG" customClass="PersonalInfoTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="490.33333206176758" width="414" height="150"/>
+                                <rect key="frame" x="0.0" y="415.33333206176758" width="414" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oEa-0l-DIG" id="EUf-WU-lsy">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
@@ -792,7 +791,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="legalCell" id="sj2-Au-eVu" customClass="LegalTableViewCellCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="640.33333206176758" width="414" height="79"/>
+                                <rect key="frame" x="0.0" y="565.33333206176758" width="414" height="79"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sj2-Au-eVu" id="987-Wu-klx">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="79"/>

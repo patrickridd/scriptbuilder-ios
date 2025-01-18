@@ -63,7 +63,7 @@
 		218FF5C92CEADF5000D4A14D /* Products.plist in Resources */ = {isa = PBXBuildFile; fileRef = 218FF5C82CEADF5000D4A14D /* Products.plist */; };
 		218FF5CB2CEADFB000D4A14D /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218FF5CA2CEADFB000D4A14D /* Store.swift */; };
 		219019422C2736BE008FFFAE /* ScriptBuilderStore.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 219019412C2736BE008FFFAE /* ScriptBuilderStore.storekit */; };
-		21916C6821FBCD2E00C6F024 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21916C6721FBCD2E00C6F024 /* Constants.swift */; };
+		21916C6821FBCD2E00C6F024 /* InterfaceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21916C6721FBCD2E00C6F024 /* InterfaceStyle.swift */; };
 		21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF482023B00000D97394 /* CharacterTableViewController.swift */; };
 		21A7CF4B2023B02D00D97394 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF4A2023B02D00D97394 /* Character.swift */; };
 		21A7CF4E2023B4D200D97394 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF4D2023B4D200D97394 /* CharacterTableViewCell.swift */; };
@@ -82,7 +82,7 @@
 		21A8C33D2391C296008AEB95 /* PdfHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A8C33C2391C296008AEB95 /* PdfHelper.swift */; };
 		21AE274F205ADA5300C44A52 /* ScenesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AE274E205ADA5300C44A52 /* ScenesTableViewController.swift */; };
 		21B0272D2BC22BFC00687C52 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B0272C2BC22BFC00687C52 /* Theme.swift */; };
-		21B0272F2BC23B7D00687C52 /* EnableDarkModeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B0272E2BC23B7D00687C52 /* EnableDarkModeTableViewCell.swift */; };
+		21B0272F2BC23B7D00687C52 /* InterfaceStyleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B0272E2BC23B7D00687C52 /* InterfaceStyleTableViewCell.swift */; };
 		21B287C924C0B6EA00355674 /* AmazonAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21814C8824C0B41A00853229 /* AmazonAd.framework */; };
 		21B2E6122047233A009E4788 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B2E6112047233A009E4788 /* AdSupport.framework */; };
 		21B8FB82201A922D000A8721 /* ScreenplayCoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB81201A922D000A8721 /* ScreenplayCoverViewController.swift */; };
@@ -215,7 +215,7 @@
 		218FF5C82CEADF5000D4A14D /* Products.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Products.plist; sourceTree = "<group>"; };
 		218FF5CA2CEADFB000D4A14D /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		219019412C2736BE008FFFAE /* ScriptBuilderStore.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ScriptBuilderStore.storekit; sourceTree = SOURCE_ROOT; };
-		21916C6721FBCD2E00C6F024 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		21916C6721FBCD2E00C6F024 /* InterfaceStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceStyle.swift; sourceTree = "<group>"; };
 		2196A6672B96119C6604CBF4 /* Pods_ScriptStarterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScriptStarterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21A7CF482023B00000D97394 /* CharacterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewController.swift; sourceTree = "<group>"; };
 		21A7CF4A2023B02D00D97394 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
@@ -235,7 +235,7 @@
 		21A8C33C2391C296008AEB95 /* PdfHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfHelper.swift; sourceTree = "<group>"; };
 		21AE274E205ADA5300C44A52 /* ScenesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenesTableViewController.swift; sourceTree = "<group>"; };
 		21B0272C2BC22BFC00687C52 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		21B0272E2BC23B7D00687C52 /* EnableDarkModeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableDarkModeTableViewCell.swift; sourceTree = "<group>"; };
+		21B0272E2BC23B7D00687C52 /* InterfaceStyleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceStyleTableViewCell.swift; sourceTree = "<group>"; };
 		21B255E822272A1700C8F147 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Scenes.strings; sourceTree = "<group>"; };
 		21B255EC22272A1C00C8F147 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Scenes.strings; sourceTree = "<group>"; };
 		21B255EE22272A1F00C8F147 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Scenes.strings; sourceTree = "<group>"; };
@@ -338,7 +338,6 @@
 			isa = PBXGroup;
 			children = (
 				2101F3522061E944003A90A4 /* CharacterTableViewSection.swift */,
-				21916C6721FBCD2E00C6F024 /* Constants.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -392,6 +391,7 @@
 		210C7613202B83FF003EEC16 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				21916C6721FBCD2E00C6F024 /* InterfaceStyle.swift */,
 				21A7CF69202A6D3A00D97394 /* Act.swift */,
 				21D727EF202CEB8500861C2D /* ViewController.swift */,
 				21D727FE202E41DD00861C2D /* InformationNotes.swift */,
@@ -495,7 +495,7 @@
 			children = (
 				215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */,
 				2153C348207586EA00C08B73 /* ShareTableViewCell.swift */,
-				21B0272E2BC23B7D00687C52 /* EnableDarkModeTableViewCell.swift */,
+				21B0272E2BC23B7D00687C52 /* InterfaceStyleTableViewCell.swift */,
 				2153C34A207587B500C08B73 /* DeleteAccountTableViewCell.swift */,
 				2138F8A322207A0900881F4C /* PersonalInfoTableViewCell.swift */,
 				2108EDE82D112EF4004A8FE7 /* LegalTableViewCellCell.swift */,
@@ -1057,7 +1057,7 @@
 				217AD64B22A08B2E00E5ED41 /* SaveBarButtonItem.swift in Sources */,
 				21A7CF502025039800D97394 /* CharacterDetailTableViewController.swift in Sources */,
 				21A84F482016840300CE4149 /* Screenplay.swift in Sources */,
-				21916C6821FBCD2E00C6F024 /* Constants.swift in Sources */,
+				21916C6821FBCD2E00C6F024 /* InterfaceStyle.swift in Sources */,
 				21A7CF582028EC8400D97394 /* Extension+UITableViewCell.swift in Sources */,
 				215829CB20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift in Sources */,
 				21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */,
@@ -1081,7 +1081,7 @@
 				21E661C820192E66006A14AF /* SignUpViewController.swift in Sources */,
 				21D727FB202E32D500861C2D /* InformationPopTableViewController.swift in Sources */,
 				212BDE452BD9F6E3009C0FFE /* EnlargedDescriptionViewController.swift in Sources */,
-				21B0272F2BC23B7D00687C52 /* EnableDarkModeTableViewCell.swift in Sources */,
+				21B0272F2BC23B7D00687C52 /* InterfaceStyleTableViewCell.swift in Sources */,
 				21A7CF6A202A6D3A00D97394 /* Act.swift in Sources */,
 				2104ADD9205C7F270086CC9F /* SceneController.swift in Sources */,
 				211215D6203B5DC30039D6E8 /* Role.swift in Sources */,

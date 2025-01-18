@@ -358,7 +358,6 @@ extension IAPSubscriptionView {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
                 self.dismissView()
             }
-            
         }
 
         @MainActor

@@ -214,8 +214,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func determineInterfaceStyle() {
-        let darkModeEnabled = UserDefaults().bool(forKey: Constants.darkModeEnabled.rawValue)
-        UIApplication.shared.set(style: darkModeEnabled ? .dark : .light)
+        let interfaceStyleRawValue = UserDefaults().integer(forKey: InterfaceStyle.userDefaultsKey)
+        let interfaceStyle = InterfaceStyle(rawValue: interfaceStyleRawValue) ?? .defaultSelected
+        UIApplication.shared.set(style: interfaceStyle)
     }
 }
 
@@ -234,7 +235,7 @@ extension UIApplication {
         mainWindow?.overrideUserInterfaceStyle
     }
     
-    func set(style: UIUserInterfaceStyle) {
-        mainWindow?.overrideUserInterfaceStyle = style
+    func set(style: InterfaceStyle) {
+        mainWindow?.overrideUserInterfaceStyle = style.systemInterfaceStyle
     }
 }

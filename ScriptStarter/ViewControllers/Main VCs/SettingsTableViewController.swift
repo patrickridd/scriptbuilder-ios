@@ -173,10 +173,10 @@ class SettingsTableViewController: UITableViewController {
             personalInfoCell?.backgroundColor = Theme.secondarySystemBackground
             return personalInfoCell ?? UITableViewCell()
         case 1:
-           let enableDarkModeTableViewCell = tableView.dequeueReusableCell(withIdentifier:"enableDarkModeTableViewCell",
-                                                                        for: indexPath) as? EnableDarkModeTableViewCell
-            enableDarkModeTableViewCell?.backgroundColor = Theme.secondarySystemBackground
-            return enableDarkModeTableViewCell ?? UITableViewCell()
+           let interfaceStyleTableViewCell = tableView.dequeueReusableCell(withIdentifier:"InterfaceStyleTableViewCell",
+                                                                        for: indexPath) as? InterfaceStyleTableViewCell
+            interfaceStyleTableViewCell?.backgroundColor = Theme.secondarySystemBackground
+            return interfaceStyleTableViewCell ?? UITableViewCell()
         case 2:
             let changePasswordCell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell",
                                                                    for: indexPath) as? ChangePasswordTableViewCell
@@ -212,7 +212,7 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case 0:
+        case 0,5:
             return 15
         default:
             return 45
