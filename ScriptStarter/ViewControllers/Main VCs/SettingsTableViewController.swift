@@ -274,6 +274,15 @@ class SettingsTableViewController: UITableViewController {
                     let objectsToShare = [message,link] as [Any]
                     let activityVC = UIActivityViewController(activityItems: objectsToShare,
                                                               applicationActivities: nil)
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        activityVC.popoverPresentationController?.sourceView = self.view
+                        activityVC.popoverPresentationController?.sourceRect = CGRect(
+                            x: (self.view.bounds.width)/2,
+                            y: (self.view.bounds.height)/2,
+                            width: self.view.bounds.width,
+                            height: 50
+                        )
+                    }
                     self.present(activityVC, animated: true) {
                                     self.tableView.deselectRow(at: indexPath,
                                                                animated: true)
