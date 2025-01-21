@@ -355,27 +355,25 @@ enum InAppSubscription: Equatable {
         }
     }
     
-    var price: String {
+    var totalPrice: String {
         switch self {
         case .monthly(let product):
             if let priceString = product?.price as? NSNumber,
                let currencySymbol = Locale.current.currencySymbol {
                 let monthlyPrice = Double(truncating: priceString)
-                let weeklyPrice = (monthlyPrice/30.43) * 7
-                let formattedPrice = weeklyPrice.truncate(places: 2)
-                return "\(currencySymbol)\(formattedPrice)/\("week".localized)"
+                let formattedPrice = monthlyPrice.truncate(places: 2)
+                return "\(currencySymbol)\(formattedPrice)"
             } else {
-                return "$0.68/week"
+                return "$2.99"
             }
         case .yearly(let product):
             if let priceString = product?.price as? NSNumber,
                let currencySymbol = Locale.current.currencySymbol {
                 let yearlyPrice = Double(truncating: priceString)
-                let weeklyPrice = (yearlyPrice/365.0) * 7.0
-                let formattedPrice = weeklyPrice.truncate(places: 2)
-                return "\(currencySymbol)\(formattedPrice)/\("week".localized)"
+                let formattedPrice = yearlyPrice.truncate(places: 2)
+                return "\(currencySymbol)\(formattedPrice)"
             } else {
-                return "$0.38/week"
+                return "$19.99"
             }
         case .lifetime(let product):
             if let priceString = product?.price as? NSNumber,
@@ -389,8 +387,16 @@ enum InAppSubscription: Equatable {
     
     var subtitle: String? {
         switch self {
-        case .monthly:
-            return nil
+        case .monthly(let product):
+            if let priceString = product?.price as? NSNumber,
+               let currencySymbol = Locale.current.currencySymbol {
+                let monthlyPrice = Double(truncating: priceString)
+                let weeklyPrice = (monthlyPrice/30.43) * 7
+                let formattedPrice = weeklyPrice.truncate(places: 2)
+                return "\(currencySymbol)\(formattedPrice)/\("week".localized)"
+            } else {
+                return "$0.68/week"
+            }
         case .yearly:
             return "56.6% savings"
         case .lifetime:

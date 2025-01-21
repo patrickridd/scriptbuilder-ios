@@ -191,7 +191,7 @@ struct IAPSubscriptionView: View {
                 Text(subscripton.title)
                     .font(.headline)
                     .foregroundStyle(viewModel.subscriptionTitleColor(for: subscripton))
-                Text(subscripton.price)
+                Text(subscripton.totalPrice)
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundStyle(viewModel.priceColor(for: subscripton))
