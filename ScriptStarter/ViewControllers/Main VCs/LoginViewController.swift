@@ -50,7 +50,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
         // Google Sign-in
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance()?.uiDelegate = self
-        self.googleSignInButton.style = .standard
+        self.googleSignInButton.style = .wide
         self.googleSignInButton.colorScheme = .light
         
         // Set TextFields Delegate
@@ -345,7 +345,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         authorizationButton.addTarget(self,
                                       action: #selector(handleAuthorizationAppleIDButtonPress),
                                       for: .touchUpInside)
-        self.authenticationStackView.addArrangedSubview(authorizationButton)
+        self.authenticationStackView.insertArrangedSubview(authorizationButton, at: 0)
     }
     
     @objc
