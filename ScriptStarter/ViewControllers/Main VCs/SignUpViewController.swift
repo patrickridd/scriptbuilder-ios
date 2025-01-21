@@ -327,17 +327,17 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
 extension SignUpViewController: ASAuthorizationControllerDelegate {
 
     func setupProviderLoginView() {
-        let authorizationButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn,
-                                                               authorizationButtonStyle: .whiteOutline)
+        let authorizationButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signUp,
+                                                               authorizationButtonStyle: .white)
         authorizationButton.addTarget(self,
                                       action: #selector(handleAuthorizationAppleIDButtonPress),
                                       for: .touchUpInside)
         authorizationButton.translatesAutoresizingMaskIntoConstraints = false
         authorizationButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        authorizationButton.cornerRadius = 8.0
+        authorizationButton.cornerRadius = 16.0
         self.authenticationStackView.insertArrangedSubview(authorizationButton, at: 0)
     }
-    
+
     @objc
     func handleAuthorizationAppleIDButtonPress() {
         let nonce = randomNonceString()
