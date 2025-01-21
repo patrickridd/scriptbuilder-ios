@@ -128,7 +128,7 @@ DEPENDENCIES:
   - Firebase/Core (= 7.1.0)
   - Firebase/Database (= 7.1.0)
   - Firebase/DynamicLinks (= 7.1.0)
-  - GoogleSignIn (~> 4.4.0)
+  - GoogleSignIn
   - KMPlaceholderTextView (~> 1.4.0)
   - MBProgressHUD (~> 1.1.0)
 
@@ -183,6 +183,6 @@ SPEC CHECKSUMS:
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
-PODFILE CHECKSUM: f1e3f5010208e1fe399f46de59357a298672e958
+PODFILE CHECKSUM: 17f327b96c59dd45225e6ec7d00a70743247db49
 
 COCOAPODS: 1.14.3

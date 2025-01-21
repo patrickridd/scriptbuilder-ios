@@ -55,7 +55,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         GIDSignIn.sharedInstance()?.uiDelegate = self
 
         googleSignInButton.style = .wide
-        googleSignInButton.colorScheme = .light
+        googleSignInButton.colorScheme = .dark
         
         // Set TextFields Delegate
         emailTextField.delegate = self
@@ -328,13 +328,12 @@ extension SignUpViewController: ASAuthorizationControllerDelegate {
 
     func setupProviderLoginView() {
         let authorizationButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signUp,
-                                                               authorizationButtonStyle: .white)
+                                                               authorizationButtonStyle: .whiteOutline)
         authorizationButton.addTarget(self,
                                       action: #selector(handleAuthorizationAppleIDButtonPress),
                                       for: .touchUpInside)
         authorizationButton.translatesAutoresizingMaskIntoConstraints = false
         authorizationButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        authorizationButton.cornerRadius = 16.0
         self.authenticationStackView.insertArrangedSubview(authorizationButton, at: 0)
     }
 

@@ -12,7 +12,7 @@ target 'ScriptStarter' do
   pod 'Firebase/Auth', $FirebaseSDKVersion
   pod 'Firebase/Database', $FirebaseSDKVersion
   pod 'Firebase/DynamicLinks', $FirebaseSDKVersion
-  pod 'GoogleSignIn', '~> 4.4.0'
+  pod 'GoogleSignIn'
   pod 'FBSDKLoginKit'
   pod 'FacebookLogin'
   pod 'MBProgressHUD', '~> 1.1.0'

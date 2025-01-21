@@ -52,7 +52,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
         GIDSignIn.sharedInstance()?.uiDelegate = self
 
         self.googleSignInButton.style = .wide
-        self.googleSignInButton.colorScheme = .light
+        self.googleSignInButton.colorScheme = .dark
 
         // Set TextFields Delegate
         self.emailTextField.delegate = self
@@ -342,16 +342,15 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     
     func setupProviderLoginView() {
         let authorizationButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn,
-                                                               authorizationButtonStyle: .white)
+                                                               authorizationButtonStyle: .whiteOutline)
         authorizationButton.addTarget(self,
                                       action: #selector(handleAuthorizationAppleIDButtonPress),
                                       for: .touchUpInside)
         authorizationButton.translatesAutoresizingMaskIntoConstraints = false
         authorizationButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        authorizationButton.cornerRadius = 16
         self.authenticationStackView.insertArrangedSubview(authorizationButton, at: 0)
     }
-    
+
     @objc
     func handleAuthorizationAppleIDButtonPress() {
         let nonce = randomNonceString()
