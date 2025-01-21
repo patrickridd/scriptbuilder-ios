@@ -325,13 +325,16 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
 
 @available(iOS 13.0, *)
 extension SignUpViewController: ASAuthorizationControllerDelegate {
-    
+
     func setupProviderLoginView() {
         let authorizationButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn,
                                                                authorizationButtonStyle: .whiteOutline)
         authorizationButton.addTarget(self,
                                       action: #selector(handleAuthorizationAppleIDButtonPress),
                                       for: .touchUpInside)
+        authorizationButton.translatesAutoresizingMaskIntoConstraints = false
+        authorizationButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        authorizationButton.cornerRadius = 8.0
         self.authenticationStackView.insertArrangedSubview(authorizationButton, at: 0)
     }
     

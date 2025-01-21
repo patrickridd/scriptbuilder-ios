@@ -83,13 +83,11 @@ class ScreenplayCoverViewController: UIViewController {
         }
     }
     
-    
     // MARK: Tap Gesture Recognizer
     
     @objc func dismissKeyboard() {
         titleTextField.resignFirstResponder()
     }
-    
     
     // MARK: Helper Methods
     

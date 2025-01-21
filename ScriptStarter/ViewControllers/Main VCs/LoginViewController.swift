@@ -29,8 +29,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
     @IBOutlet weak var activityIndicatorContainerView: UIView!
     @IBOutlet weak var scriptBuilderLabel: UILabel!
     @IBOutlet weak var textFieldStackCenterYConstraint: NSLayoutConstraint!
-    
-    
+
     var loadingNotification = MBProgressHUD()
    
     // Unhashed nonce.
@@ -47,19 +46,21 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
         self.facebookButton.addTarget(self,
                                       action: #selector(self.facebookButtonTapped),
                                       for: .touchUpInside)
+
         // Google Sign-in
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance()?.uiDelegate = self
+
         self.googleSignInButton.style = .wide
         self.googleSignInButton.colorScheme = .light
-        
+
         // Set TextFields Delegate
         self.emailTextField.delegate = self
         self.passwordTextField.delegate = self
-        
+
         // Sets keyboard observers so we can adjust the textfields
         self.addKeyBoardObservers()
-        
+
         // Add toolbars to be able to dismiss keyboard manually
         addToolBar(textField: self.emailTextField)
         addToolBar(textField: self.passwordTextField)
@@ -345,6 +346,9 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         authorizationButton.addTarget(self,
                                       action: #selector(handleAuthorizationAppleIDButtonPress),
                                       for: .touchUpInside)
+        authorizationButton.translatesAutoresizingMaskIntoConstraints = false
+        authorizationButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        authorizationButton.cornerRadius = 8.0
         self.authenticationStackView.insertArrangedSubview(authorizationButton, at: 0)
     }
     
