@@ -1379,6 +1379,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DAF8643C774890482219A4E /* Pods-ScriptStarter.debug.xcconfig */;
 			buildSettings = {
+				"ARCHS[sdk=iphonesimulator*]" = x86_64;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = ScriptStarter/ScriptStarter.entitlements;
@@ -1386,7 +1387,6 @@
 				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = CVQEUYD92N;
 				ENABLE_BITCODE = NO;
-				EXCLUDED_ARCHS = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1436,6 +1436,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C9EEDF1973DE0E8448C34B8B /* Pods-ScriptStarter.release.xcconfig */;
 			buildSettings = {
+				"ARCHS[sdk=iphonesimulator*]" = x86_64;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = ScriptStarter/ScriptStarter.entitlements;
@@ -1443,7 +1444,6 @@
 				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = CVQEUYD92N;
 				ENABLE_BITCODE = NO;
-				EXCLUDED_ARCHS = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
