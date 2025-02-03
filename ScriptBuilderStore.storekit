@@ -1,0 +1,208 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "691FFA79",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "69.99",
+      "familyShareable" : false,
+      "internalID" : "6504840668",
+      "localizations" : [
+        {
+          "description" : "Lifetime Unlimited Access",
+          "displayName" : "All Access (Lifetime)",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "unlimited_forever",
+      "referenceName" : "All Access (Lifetime)",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "1451128066",
+      "localizations" : [
+        {
+          "description" : "Access to Character Builder feature",
+          "displayName" : "Character Builder",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.patrickridd.ScriptStarter.Character.Builder",
+      "referenceName" : "Character Builder",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "1450567597",
+      "localizations" : [
+        {
+          "description" : "Removes all Ads",
+          "displayName" : "No Ads",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.patrickridd.ScriptStarter.NoAds",
+      "referenceName" : "NoAds",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "1451128247",
+      "localizations" : [
+        {
+          "description" : "Access to Scene Builder feature",
+          "displayName" : "Scene Builder",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.patrickridd.ScriptStarter.Scene.Builder",
+      "referenceName" : "Scene Builder",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1358448790",
+    "_compatibilityTimeRate" : {
+      "3" : 6
+    },
+    "_developerTeamID" : "CVQEUYD92N",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 743657711.68957102,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ],
+    "_timeRate" : 1002
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21502813",
+      "localizations" : [
+
+      ],
+      "name" : "Auto-Renewable Subscriptions",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "2.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6504771770",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "1 Month Unlimited Access",
+              "displayName" : "All Access (1 Month)",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "unlimited_monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "All Access (1 Month)",
+          "subscriptionGroupID" : "21502813",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "19.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "6504771675",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "1 Year Unlimited Access",
+              "displayName" : "All Access (1 year)",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "unlimited_yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "All Access (1 Year)",
+          "subscriptionGroupID" : "21502813",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

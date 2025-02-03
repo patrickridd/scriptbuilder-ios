@@ -8,14 +8,15 @@
 
 import UIKit
 
-extension UITableViewCell: UITextViewDelegate, UITextFieldDelegate {
+extension UITableViewCell: @retroactive UIScrollViewDelegate {}
+extension UITableViewCell: @retroactive UITextViewDelegate, @retroactive UITextFieldDelegate {
     
     // UITextField UITextView
     func addToolBar(textView: UITextView) {
         let toolBar = UIToolbar()
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.screenLightBlue// UIColor(red: 76 / 255, green: 217 / 255, blue: 100 / 255, alpha: 1)
+        toolBar.tintColor = Theme.scriptBuilderUIColor
         let doneButton = UIBarButtonItem(title: "Done".localized,
                                          style: .done,
                                          target: self,
@@ -25,11 +26,8 @@ extension UITableViewCell: UITextViewDelegate, UITextFieldDelegate {
                                           action: nil)
         toolBar.setItems([spaceButton, doneButton],
                          animated: false)
-        
-        
         toolBar.isUserInteractionEnabled = true
         toolBar.sizeToFit()
-        
         textView.delegate = self
         textView.inputAccessoryView = toolBar
     }
@@ -39,7 +37,7 @@ extension UITableViewCell: UITextViewDelegate, UITextFieldDelegate {
         let toolBar = UIToolbar()
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.screenLightBlue
+        toolBar.tintColor = Theme.scriptBuilderUIColor
         let doneButton = UIBarButtonItem(title: "Done".localized,
                                          style: .done,
                                          target: self,
@@ -49,7 +47,6 @@ extension UITableViewCell: UITextViewDelegate, UITextFieldDelegate {
                                           action: nil)
         toolBar.setItems([spaceButton, doneButton],
                          animated: false)
-        
         toolBar.isUserInteractionEnabled = true
         toolBar.sizeToFit()
         
@@ -65,4 +62,23 @@ extension UITableViewCell: UITextViewDelegate, UITextFieldDelegate {
         self.endEditing(true) // or do something
     }
     
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
+        setSaveTimer()
+    }
+
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+        NotificationCenter.default.post(name: Notification.Name.ScreenplayUpdated, object: nil)
+    }
+    
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        NotificationCenter.default.post(name: Notification.Name.ScreenplayUpdated, object: nil)
+    }
+    
+    func setSaveTimer() {
+        _ = Timer.scheduledTimer(
+            withTimeInterval: 2.0,
+            repeats: false, block: { _ in
+            NotificationCenter.default.post(name: Notification.Name.ScreenplayUpdated, object: nil)
+        })
+    }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="inr-fv-bvf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="inr-fv-bvf">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,10 +12,10 @@
         <scene sceneID="Mxo-cB-LAf">
             <objects>
                 <tableViewController modalPresentationStyle="fullScreen" id="Dkg-JQ-QIE" customClass="CharacterTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="hbG-6G-bl0">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="hbG-6G-bl0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="characterCell" rowHeight="80" id="w7u-E9-g5a" customClass="CharacterTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="80"/>
@@ -144,7 +144,7 @@
         <scene sceneID="Elw-Yr-uOD">
             <objects>
                 <tableViewController storyboardIdentifier="outlineVC" extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="fullScreen" id="40X-hD-gqv" customClass="CharacterDetailTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="QNt-P3-gIl">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="QNt-P3-gIl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.41568627450000001" green="0.41568627450000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -204,7 +204,7 @@
                                                                 <action selector="roleTextFieldChanged:" destination="b89-Rk-iAk" eventType="editingChanged" id="ZFK-1y-3ZO"/>
                                                             </connections>
                                                         </textField>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YF-DI-8EN" userLabel="roleButton">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YF-DI-8EN" userLabel="roleButton">
                                                             <rect key="frame" x="0.0" y="0.0" width="344" height="48"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </button>
@@ -244,6 +244,7 @@
                                     <outlet property="nameTextField" destination="136-1D-puI" id="peY-TD-JHJ"/>
                                     <outlet property="roleButton" destination="0YF-DI-8EN" id="vLt-yA-M2N"/>
                                     <outlet property="roleTextField" destination="5Vg-o2-u3g" id="oL1-Ct-caP"/>
+                                    <outlet property="separatorLineView" destination="zmL-cU-anf" id="6W2-qy-WUz"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="96" id="LHz-iG-wIy" userLabel="Description Table View Cell" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
@@ -272,7 +273,7 @@
                                             </constraints>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PWT-Lw-fOu" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="10" y="0.0" width="364" height="86"/>
+                                            <rect key="frame" x="10" y="0.0" width="371" height="86"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="iep-MS-FXl"/>
@@ -290,13 +291,14 @@
                                         <constraint firstItem="PWT-Lw-fOu" firstAttribute="top" secondItem="Wbp-Fc-7ks" secondAttribute="top" id="dwx-TN-awG"/>
                                         <constraint firstItem="FpU-23-W2J" firstAttribute="leading" secondItem="PWT-Lw-fOu" secondAttribute="leading" id="q0b-WO-eh1"/>
                                         <constraint firstItem="FpU-23-W2J" firstAttribute="top" secondItem="PWT-Lw-fOu" secondAttribute="top" id="qRF-rG-ZrN"/>
-                                        <constraint firstItem="FpU-23-W2J" firstAttribute="trailing" secondItem="PWT-Lw-fOu" secondAttribute="trailing" constant="30" id="qXM-tg-xio"/>
+                                        <constraint firstItem="FpU-23-W2J" firstAttribute="trailing" secondItem="PWT-Lw-fOu" secondAttribute="trailing" constant="23" id="qXM-tg-xio"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="descriptionTextView" destination="PWT-Lw-fOu" id="Xcg-4T-acq"/>
                                     <outlet property="descriptionTextViewHeightConstraint" destination="iep-MS-FXl" id="Buc-OF-2DM"/>
                                     <outlet property="expandButton" destination="u2A-Jr-k9W" id="TCT-gZ-0ED"/>
+                                    <outlet property="expandView" destination="FpU-23-W2J" id="05R-5X-DHr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -330,7 +332,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="roleTableViewCell" rowHeight="84" id="otB-ro-4IX" customClass="RoleTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="84"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="84"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="otB-ro-4IX" id="0gb-9A-TAG">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
@@ -371,7 +373,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Xdv-6a-RhU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="278" id="w76-NJ-ATX" customClass="DescriptionTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="278"/>
@@ -459,6 +461,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="BeJ-3m-ayD"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="nch-sb-HUh" firstAttribute="leading" secondItem="yM2-Dn-Wud" secondAttribute="leading" id="Bbn-Cj-H9u"/>
@@ -466,7 +469,6 @@
                             <constraint firstItem="BeJ-3m-ayD" firstAttribute="bottom" secondItem="nch-sb-HUh" secondAttribute="bottom" constant="389" id="Nx8-02-5M9"/>
                             <constraint firstAttribute="trailing" secondItem="nch-sb-HUh" secondAttribute="trailing" id="cPy-sj-3Xr"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="BeJ-3m-ayD"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPv-q9-a6T" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -474,13 +476,21 @@
             <point key="canvasLocation" x="5060" y="990.85457271364328"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="PWT-Lw-fOu">
+            <size key="intrinsicContentSize" width="0.0" height="30"/>
+        </designable>
+    </designables>
+    <inferredMetricsTieBreakers>
+        <segue reference="Pbs-hF-h3M"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="charactersTabAsset" width="37.666667938232422" height="20.666666030883789"/>
         <image name="expandButtonAsset 3" width="15" height="15"/>
         <image name="reduceScreenButtonAsset" width="15" height="15"/>
         <image name="rightArrowButtonAsset 1" width="11.333333015441895" height="18"/>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Pbs-hF-h3M"/>
-    </inferredMetricsTieBreakers>
 </document>

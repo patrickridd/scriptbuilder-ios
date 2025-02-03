@@ -23,9 +23,9 @@ class DescriptionTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
     @IBOutlet weak var expandButton: UIButton!
     @IBOutlet weak var descriptionTextViewHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var expandView: UIView?
+
     var textViewBecomesFirstResponder: Bool = false
-   
     var screenplay: Screenplay? {
         return ScreenplayController.shared.currentScreenplay
     }
@@ -40,9 +40,12 @@ class DescriptionTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         let isIpad = UIDevice.current.userInterfaceIdiom == .pad
-        
-        self.descriptionTextView.textColor = UIColor.screenHaitiBlack
-        self.descriptionTextView.placeholderColor = UIColor.lightGray
+
+        descriptionTextView.textColor = Theme.descriptionTextColor
+        expandView?.backgroundColor = Theme.descriptionTextViewBackground
+        descriptionTextView.backgroundColor = Theme.descriptionTextViewBackground
+        descriptionTextView.placeholderColor = Theme.descriptionPlaceholderTextColor
+        contentView.backgroundColor = Theme.tableViewBackgroundColor
         let font = UIFont.systemFont(ofSize: isIpad ? 24: 14,
                                      weight: .regular)
         
@@ -102,7 +105,6 @@ class DescriptionTableViewCell: UITableViewCell {
                 self.descriptionTextView.text = ""
                 self.descriptionTextView.placeholder = ""
             }
-            
         case .actDetail:
             guard let act = act else { break }
             switch act {
@@ -267,15 +269,14 @@ class DescriptionTableViewCell: UITableViewCell {
         }
     }
     
+    @MainActor
     func textViewDidChange(_ textView: UITextView) {
-        DispatchQueue.main.async {
-            
         self.checkForResize(textView: textView)
-            switch self.viewController {
+        switch self.viewController {
         case .outline:
             switch self.section {
             case 0:
-               self.screenplay?.idea = textView.text
+                self.screenplay?.idea = textView.text
             case 1:
                 self.screenplay?.actOneDescription = textView.text
             case 2:
@@ -285,101 +286,110 @@ class DescriptionTableViewCell: UITableViewCell {
             default:
                 break
             }
+            _ = Timer.scheduledTimer(
+                withTimeInterval: 2.0,
+                repeats: false, block: { _ in
+                    FirebaseController.shared.saveScreenplayOutline()
+            })
         case .actDetail:
             guard let act = self.act else { break }
             switch act {
             case .idea:
                 switch self.section {
                 case 0:
-                   self.screenplay?.idea = textView.text
+                    self.screenplay?.idea = textView.text
                 case 2:
-                   self.screenplay?.logLine = textView.text
+                    self.screenplay?.logLine = textView.text
                 case 3:
-                   self.screenplay?.centralIntention = textView.text
+                    self.screenplay?.centralIntention = textView.text
                 case 4:
-                   self.screenplay?.mainObstacle = textView.text
+                    self.screenplay?.mainObstacle = textView.text
                 case 5:
-                   self.screenplay?.theme = textView.text
+                    self.screenplay?.theme = textView.text
                 case 6:
-                   self.screenplay?.notes = textView.text
+                    self.screenplay?.notes = textView.text
                 default:
                     break
                 }
             case .one:
                 switch self.section {
                 case 0:
-                   self.screenplay?.actOneDescription = textView.text
+                    self.screenplay?.actOneDescription = textView.text
                 case 2:
-                   self.screenplay?.act1.oldWorldDescription = textView.text
+                    self.screenplay?.act1.oldWorldDescription = textView.text
                 case 3:
-                   self.screenplay?.act1.incitingIncident = textView.text
+                    self.screenplay?.act1.incitingIncident = textView.text
                 case 4:
-                   self.screenplay?.act1.callToAdventure = textView.text
+                    self.screenplay?.act1.callToAdventure = textView.text
                 case 5:
-                   self.screenplay?.act1.meetingMentor = textView.text
+                    self.screenplay?.act1.meetingMentor = textView.text
                 case 6:
-                   self.screenplay?.act1.theme = textView.text
+                    self.screenplay?.act1.theme = textView.text
                 case 7:
-                   self.screenplay?.act1.refusal = textView.text
+                    self.screenplay?.act1.refusal = textView.text
                 case 8:
-                   self.screenplay?.act1.reasonToAdventure = textView.text
+                    self.screenplay?.act1.reasonToAdventure = textView.text
                 case 9:
-                   self.screenplay?.act1.enemyAtTheGates = textView.text
+                    self.screenplay?.act1.enemyAtTheGates = textView.text
                 default:
                     break
                 }
-                
             case .two:
                 switch self.section {
-                    case 0:
+                case 0:
                     // General description
                     self.screenplay?.actTwoDescription = self.descriptionTextView.text
-                    case 2:
+                case 2:
                     // Strange New World
                     self.screenplay?.act2.newWorldDescription = self.descriptionTextView.text
-                    case 3:
+                case 3:
                     // Friends/Foes/Frenemies
                     self.screenplay?.act2.enemiesFriends = self.descriptionTextView.text
-                    case 4:
+                case 4:
                     // Test Resolve
                     self.screenplay?.act2.obstacles = self.descriptionTextView.text
-                    case 5:
+                case 5:
                     // Sharpening the sword
-                   self.screenplay?.act2.sharpeningTheSword = self.descriptionTextView.text
-                    case 6:
+                    self.screenplay?.act2.sharpeningTheSword = self.descriptionTextView.text
+                case 6:
                     // Burn the Boats
-                   self.screenplay?.act2.burnTheBoats = self.descriptionTextView.text
-                    case 7:
+                    self.screenplay?.act2.burnTheBoats = self.descriptionTextView.text
+                case 7:
                     // Supreme Sacrifice
-                   self.screenplay?.act2.theDeadlyEncounter = self.descriptionTextView.text
-                    case 8:
+                    self.screenplay?.act2.theDeadlyEncounter = self.descriptionTextView.text
+                case 8:
                     // Celebrate Good Times
                     self.screenplay?.act2.celebrate = self.descriptionTextView.text
-                    case 9:
+                case 9:
                     // Bad Guys Strike back
                     self.screenplay?.act2.badGuysStrikeBack = self.descriptionTextView.text
-                    case 10:
+                case 10:
                     // Darkness Before the Dawn
-                   self.screenplay?.act2.allIsLost = self.descriptionTextView.text
-                    default:
-                        break
-                    }
+                    self.screenplay?.act2.allIsLost = self.descriptionTextView.text
+                default:
+                    break
+                }
             case .three:
                 switch self.section {
                 case 0:
-                   self.screenplay?.actThreeDescription = textView.text
+                    self.screenplay?.actThreeDescription = textView.text
                 case 2:
-                   self.screenplay?.act3.theUltimateAnswer = textView.text
+                    self.screenplay?.act3.theUltimateAnswer = textView.text
                 case 3:
-                   self.screenplay?.act3.rewards = textView.text
+                    self.screenplay?.act3.rewards = textView.text
                 case 4:
-                   self.screenplay?.act3.untangleStory = textView.text
+                    self.screenplay?.act3.untangleStory = textView.text
                 case 5:
-                   self.screenplay?.act3.brandNewWorld = textView.text
+                    self.screenplay?.act3.brandNewWorld = textView.text
                 default:
                     break
                 }
             }
+            _ = Timer.scheduledTimer(
+                withTimeInterval: 2.0,
+                repeats: false, block: { _ in
+                    FirebaseController.shared.saveScreenplayOutline()
+            })
         case .characterDetail:
             switch self.section {
             case 2:
@@ -405,6 +415,11 @@ class DescriptionTableViewCell: UITableViewCell {
             default:
                 break
             }
+            _ = Timer.scheduledTimer(
+                withTimeInterval: 2.0,
+                repeats: false, block: { [weak self] _ in
+                    FirebaseController.shared.save(character: self?.character)
+            })
         case .sceneDetail:
             switch self.section {
             case 0:
@@ -422,56 +437,35 @@ class DescriptionTableViewCell: UITableViewCell {
             default:
                 break
             }
-        }
+            _ = Timer.scheduledTimer(
+                withTimeInterval: 2.0,
+                repeats: false, block: { [weak self] _ in
+                    FirebaseController.shared.save(scene: self?.scene, inAct: self?.act)
+            })
         }
     }
-    
-//    func checkForResize(textView: UITextView) {
-//        if descriptionTextViewHeightConstraint == nil { return }
-//
-//        // Get descriptionTextView size that fits in view
-//        let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width,
-//                                                height: CGFloat.greatestFiniteMagnitude))
-//        if size.height > self.defaultHeight {
-//            if descriptionTextViewHeightConstraint.constant != size.height {
-//                descriptionTextViewHeightConstraint.constant = size.height
-//                delegate?.resizeCell(in: self.section)
-//            }
-//        } else {
-//            if descriptionTextViewHeightConstraint.constant != defaultHeight-10 {
-//                descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
-//                delegate?.resizeCell(in: self.section)
-//            }
-//
-//        }
-//    }
-    
+
     func checkForResize(textView: UITextView) {
         if self.descriptionTextViewHeightConstraint == nil { return }
     
         // Get self.descriptionTextView size that fits in view
         let size = textView.sizeThatFits(CGSize(width: textView.bounds.size.width,
                                                 height: CGFloat.greatestFiniteMagnitude))
-    
-    
         if size.height > self.descriptionTextViewHeightConstraint.constant {
-            print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
-            print("Size Height: \(size.height)")
-            if self.descriptionTextViewHeightConstraint.constant != size.height {
+            if size.height >= defaultHeight * 2 {
+                self.descriptionTextViewHeightConstraint.constant = defaultHeight * 2
+            } else {
                 self.descriptionTextViewHeightConstraint.constant = size.height
-                delegate?.resizeCell(in: self.section)
             }
+            delegate?.resizeCell(in: self.section)
         }
         else if size.height < self.descriptionTextViewHeightConstraint.constant {
-            print("Constraint constant: \(self.descriptionTextViewHeightConstraint.constant)")
-            print("Size Height: \(size.height)")
-            if size.height >= 100 {
-                self.descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
-                delegate?.resizeCell(in: self.section)
-            }
+            self.descriptionTextViewHeightConstraint.constant = self.defaultHeight-10
+            delegate?.resizeCell(in: self.section)
         }
+        
+        descriptionTextView.isScrollEnabled = (descriptionTextViewHeightConstraint.constant == defaultHeight * 2)
     }
 
 }
-
 

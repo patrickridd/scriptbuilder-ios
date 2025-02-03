@@ -8,35 +8,31 @@
 
 import UIKit
 import MBProgressHUD
-import FBAudienceNetwork
-import MoPub
+import SwiftUI
 
-extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
-    
+extension UIViewController: @retroactive UIScrollViewDelegate {}
+extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITextViewDelegate {
     
     var screenplay: Screenplay? {
         return ScreenplayController.shared.currentScreenplay
     }
-    
-    var shouldDisplayInterstitials: Bool {
-        let shouldDisplayInterstitial = UserDefaults.standard.bool(forKey: Constants.shouldDisplayInterstitial)
-        
-        // Should display interstitial if user defaults is stored as true and if they havent purchased the IAP
-        return (shouldDisplayInterstitial && InAppPurchases.shouldDisplayAds)
+
+    func setSaveTimer() {
+        _ = Timer.scheduledTimer(
+            withTimeInterval: 2.0,
+            repeats: false, block: { _ in
+                NotificationCenter.default.post(name: Notification.Name.ScreenplayUpdated, object: nil)
+            })
     }
-    
+
     @objc func saveCurrentScreenplay() {
         if let screenplay = screenplay {
-            FirebaseController.shared.save(screenplay: screenplay) { (_) in
-                print("Saved...✅")
-            }
+            FirebaseController.shared.save(screenplay: screenplay)
         }
     }
     
-    
     func saveScreenplay(completion: @escaping () -> Void) {
-        let loadingNotification = MBProgressHUD.showAdded(to: self.view,
-                                                          animated: true)
+        let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
         loadingNotification.mode = MBProgressHUDMode.indeterminate
         loadingNotification.animationType = .fade
         loadingNotification.label.text = "saving".localized
@@ -101,13 +97,12 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
             if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays) {
                 DispatchQueue.main.async {
                     ScreenplayController.shared.set(currentScreenplay: screenplay)
-                    print("Screenplay reloaded ⬇︎")
                 }
             }
         }
     }
     
-    func getDescriptionCellHeight(with text:String) -> CGFloat {
+    func getDescriptionCellHeight(with text: String) -> CGFloat {
         let aproximateWidthOfCell = self.view.frame.width // Minus 50 for the leading and trailing margins
         let descriptionSize = CGSize(width: aproximateWidthOfCell,
                                      height: 1000)
@@ -142,10 +137,8 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         let toolBar = UIToolbar()
         toolBar.barStyle = .black
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.screenLightBlue
-        let image = UIImage(contentsOfFile: "downArrowButtonAsset 1")
-        let doneButton = UIBarButtonItem(image: image,
-                                         landscapeImagePhone: nil,
+        toolBar.tintColor = Theme.scriptBuilderUIColor
+        let doneButton = UIBarButtonItem(title: "Done".localized,
                                          style: .done,
                                          target: self,
                                          action: #selector(donePressed))
@@ -165,24 +158,22 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
     // UITextField UITextView
     func addToolBar(textView: UITextView) {
         let toolBar = UIToolbar()
-        toolBar.barStyle = .black
+        toolBar.barStyle = .default
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.screenLightBlue
+        toolBar.tintColor = Theme.scriptBuilderUIColor
         
         let doneButton = UIBarButtonItem(title: "Done".localized,
                                          style: .done,
                                          target: self,
                                          action: #selector(donePressed))
+        doneButton.tintColor = Theme.descriptionTextColor
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
                                           target: nil,
                                           action: nil)
         toolBar.setItems([spaceButton, doneButton],
                          animated: false)
-        
-        
         toolBar.isUserInteractionEnabled = true
         toolBar.sizeToFit()
-        
         textView.delegate = self
         textView.inputAccessoryView = toolBar
     }
@@ -191,7 +182,7 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         self.view.endEditing(true)
         self.navigationController?.view.endEditing(true)
         switch self {
-        case is EnlargedDescriptionTableViewController:
+        case is EnlargedDescriptionViewController:
             dismiss(animated: true,
                     completion: nil)
         default:
@@ -210,13 +201,13 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
         DispatchQueue.main.async {
             let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
             if let loginViewController = mainStoryboard.instantiateViewController(withIdentifier: "loginVC") as? LoginViewController {
-                UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                UIApplication.shared.mainWindow?.rootViewController = loginViewController
                 self.dismiss(animated: false,
                              completion: nil)
             }
         }
     }
-    
+
     func navigateToScreenplayCollectionView() {
         DispatchQueue.main.async {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -224,12 +215,12 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
             guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else {
                 return
             }
-            UIApplication.shared.keyWindow?.rootViewController = mainNavigationController
+            UIApplication.shared.mainWindow?.rootViewController = mainNavigationController
             self.dismiss(animated: true,
                          completion: nil)
         }
     }
-    
+
     // MARK: UIAlertControllers
     func present(error: Error) {
         let alert = UIAlertController(title: "Error".localized,
@@ -243,198 +234,13 @@ extension UIViewController: UITextFieldDelegate, UITextViewDelegate {
                      animated: true,
                      completion: nil)
     }
-}
 
-extension UIViewController: AmazonAdInterstitialDelegate {
-
-    public func interstitialDidDismiss(_ interstitial: AmazonAdInterstitial!) {
-        setShouldDisplayInterstitial(state: false)
-        scheduleInterstitialStateToTrue()
-    }
-    
-    func display(interstitial: AmazonAdInterstitial?) {
-        if shouldDisplayInterstitials, InAppPurchases.shouldDisplayAds {
-            if let interstitial = interstitial {
-                if interstitial.isReady {
-                    DispatchQueue.main.async {
-                        interstitial.present(from: self)
-                    }
-                }
-            }
+    // Presents InAppPurchase screen to select Subscriptions or Lifetime purchase
+    func presentIAPSubscriptionView() {
+        let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            iapSubscriptionViewController.modalPresentationStyle = .fullScreen
         }
+        present(iapSubscriptionViewController, animated: true)
     }
-    
-}
-
-extension UIViewController: MPInterstitialAdControllerDelegate {
-    
-    public func interstitialDidDisappear(_ interstitial: MPInterstitialAdController!) {
-        setShouldDisplayInterstitial(state: false)
-        scheduleInterstitialStateToTrue()
-    }
-    
-    func display(interstitial: MPInterstitialAdController?) {
-        if shouldDisplayInterstitials, InAppPurchases.shouldDisplayAds {
-            if let interstitial = interstitial {
-                if interstitial.ready {
-                    self.setShouldDisplayInterstitial(state: false)
-                    self.scheduleInterstitialStateToTrue()
-                    DispatchQueue.main.async {
-                        interstitial.show(from: self)
-                    }
-                }
-            }
-        }
-    }
-}
-
-
-// MARK: Interstitial Ad State methods
-extension UIViewController {
-    
-    func setShouldDisplayInterstitial(state: Bool) {
-        UserDefaults.standard.set(state,
-                                  forKey: Constants.shouldDisplayInterstitial)
-    }
-    
-    func interstitialIsReady(interstitial: MPInterstitialAdController?) -> Bool {
-        if let interstitial = interstitial {
-            return interstitial.ready
-        } else {
-            return false
-        }
-    }
-    
-//    func rewardBasedAdReady(rewardBasedAd: GADRewardBasedVideoAd?) -> Bool {
-//        if let rewardBasedAd = rewardBasedAd {
-//            return rewardBasedAd.isReady
-//        } else {
-//            return false
-//        }
-//    }
-    
-    @objc func enableInterstitialDisplay() {
-        setShouldDisplayInterstitial(state: true)
-    }
-    
-    func scheduleInterstitialStateToTrue() {
-        // Set timer to change enable interstitial ads every 5 minutes
-        Timer.scheduledTimer(timeInterval:60*4,
-                             target: self,
-                             selector: #selector(enableInterstitialDisplay),
-                             userInfo: nil,
-                             repeats: false)
-    }
-}
-
-
-extension UIViewController {
-    
-//    public func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
-//                            didRewardUserWith reward: GADAdReward) {
-//        switch reward.type {
-//        case "Character Builder Trial":
-//            self.rewardUserWithCharacterBuilder()
-//        case "Scene Builder Trial":
-//            self.rewardUserWithSceneBuilder()
-//        default:
-//            self.rewardUserWithSceneBuilder()
-//            self.rewardUserWithCharacterBuilder()
-//        }
-//
-//    }
-//
-    // Reward Based Ad - Character Builder helper methods
-    
-    func scheduleTimerForCharacterBuilderReward() {
-        Timer.scheduledTimer(timeInterval: 10*60,
-                             target: self,
-                             selector: #selector(expireCharacterBuilderReward),
-                             userInfo: nil,
-                             repeats: false)
-    }
-    
-    @objc func expireCharacterBuilderReward() {
-        UserDefaults.standard.set(false,
-                                  forKey: Constants.characterBuilderRewardEnabled)
-    }
-    
-    func rewardUserWithCharacterBuilder() {
-        UserDefaults.standard.set(true, forKey: Constants.characterBuilderRewardEnabled)
-        NotificationCenter.default.post(name: Notification.Name.CheckIfCharacterBuilderIsEnabled, object: nil)
-        scheduleTimerForCharacterBuilderReward()
-    }
-    
-    func characterBuilderRewarded() -> Bool {
-        return UserDefaults.standard.bool(forKey: Constants.characterBuilderRewardEnabled)
-    }
-    
-    // Reward Based Ad - Scene Builder helper methods
-    
-    func scheduleTimerForSceneBuilderReward() {
-        Timer.scheduledTimer(timeInterval: 10*60,
-                             target: self,
-                             selector: #selector(expireSceneBuilderReward),
-                             userInfo: nil,
-                             repeats: false)
-    }
-    
-    @objc func expireSceneBuilderReward() {
-        UserDefaults.standard.set(false,
-                                  forKey: Constants.sceneBuilderTrialType)
-    }
-    
-    func rewardUserWithSceneBuilder() {
-        UserDefaults.standard.set(true, forKey: Constants.sceneBuilderTrialType)
-        NotificationCenter.default.post(name: Notification.Name.CheckIfSceneBuilderIsEnabled, object: nil)
-        scheduleTimerForSceneBuilderReward()
-    }
-    
-    func sceneBuilderRewardEnabled() -> Bool {
-        return UserDefaults.standard.bool(forKey: Constants.sceneBuilderTrialType)
-    }
-}
-
-//extension UIViewController: FBAdViewDelegate {
-//    
-//    private func adViewDidLoad(_ adView: FBAdView) {
-//        print(adView)
-//    }
-//    
-//    public func adView(_ adView: FBAdView, didFailWithError error: Error) {
-//        print(error)
-//    }
-//
-//    
-//}
-
-extension UIViewController: MPAdViewDelegate {
-  
-    public func viewControllerForPresentingModalView() -> UIViewController! {
-        return self
-    }
-    
-    public func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
-        print(error)
-    }
-    
-    public func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
-        print("Successfully loaded ad from MoPub")
-    }
-}
-
-extension UIViewController: MPRewardedVideoDelegate {
-    
-    public func rewardedVideoAdDidLoad(forAdUnitID adUnitID: String!) {
-        switch adUnitID {
-        case MoPubAdService.characterRewardedVideoId:
-            self.rewardUserWithCharacterBuilder()
-        case MoPubAdService.sceneBuilderRewardedVideoId:
-            self.rewardUserWithSceneBuilder()
-        default:
-            self.rewardUserWithCharacterBuilder()
-            self.rewardUserWithSceneBuilder()
-        }
-    }
-    
 }

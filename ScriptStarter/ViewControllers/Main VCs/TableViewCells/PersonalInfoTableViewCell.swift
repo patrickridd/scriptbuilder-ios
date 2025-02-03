@@ -31,21 +31,21 @@ class PersonalInfoTableViewCell: UITableViewCell {
                                                         weight: .light)
         screenplaysCountLabel.font = UIFont.systemFont(ofSize: 16,
                                                        weight: .light)
-        screenplaysCountLabel.textColor = .screenLightBlue
+        screenplaysCountLabel.textColor = Theme.scriptBuilderUIColor
         charactersHeaderLabel.font = UIFont.systemFont(ofSize: 14,
                                                        weight: .light)
         charactersCountLabel.font =  UIFont.systemFont(ofSize: 16,
                                                        weight: .light)
-        charactersCountLabel.textColor = .screenLightBlue
+        charactersCountLabel.textColor = Theme.scriptBuilderUIColor
         scenesHeaderLabel.font = UIFont.systemFont(ofSize: 14,
                                                    weight: .light)
         scenesCountLabel.font = UIFont.systemFont(ofSize: 16,
                                                   weight: .light)
-        scenesCountLabel.textColor = .screenLightBlue
+        scenesCountLabel.textColor = Theme.scriptBuilderUIColor
         
         nameLabel.font = UIFont.systemFont(ofSize: 28,
                                            weight: .regular)
-        nameLabel.textColor = UIColor.screenDarkGray
+        nameLabel.textColor = UIColor.label
         
         emailLabel.font = UIFont.systemFont(ofSize: 14,
                                             weight: .light)

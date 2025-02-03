@@ -8,13 +8,16 @@
 
 import UIKit
 
-extension UITableViewController: ResizeCellProtocol {
+extension UITableViewController: @preconcurrency ResizeCellProtocol {
     
+    @MainActor
     func resizeCell(in section: Int) {
         // Reload section tapped
-        self.tableView.performBatchUpdates(nil, completion: nil)
+        Task {
+            self.tableView.performBatchUpdates(nil, completion: nil)
+        }
     }
-    
+
 }
 
 protocol ResizeCellProtocol: class {

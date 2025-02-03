@@ -17,25 +17,19 @@ import MBProgressHUD
 import AuthenticationServices
 import CryptoKit
 
-class LoginViewController: UIViewController, ASAuthorizationControllerPresentationContextProviding {
+class LoginViewController: UIViewController, ASAuthorizationControllerPresentationContextProviding, GIDSignInUIDelegate {
     
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var authenticationStackView: UIStackView!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
-    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var loginButton: UIButton!
-    
     @IBOutlet weak var activityIndicatorContainerView: UIView!
-    
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     @IBOutlet weak var scriptBuilderLabel: UILabel!
     @IBOutlet weak var textFieldStackCenterYConstraint: NSLayoutConstraint!
-    
-    
+
     var loadingNotification = MBProgressHUD()
    
     // Unhashed nonce.
@@ -52,23 +46,25 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
         self.facebookButton.addTarget(self,
                                       action: #selector(self.facebookButtonTapped),
                                       for: .touchUpInside)
+
         // Google Sign-in
         GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-        self.googleSignInButton.style = .standard
-        self.googleSignInButton.colorScheme = .light
-        
+        GIDSignIn.sharedInstance()?.uiDelegate = self
+
+        self.googleSignInButton.style = .wide
+        self.googleSignInButton.colorScheme = .dark
+
         // Set TextFields Delegate
         self.emailTextField.delegate = self
         self.passwordTextField.delegate = self
-        
+
         // Sets keyboard observers so we can adjust the textfields
         self.addKeyBoardObservers()
-        
+
         // Add toolbars to be able to dismiss keyboard manually
-        self.addToolBar(textField: self.emailTextField)
-        self.addToolBar(textField: self.passwordTextField)
-        
+        addToolBar(textField: self.emailTextField)
+        addToolBar(textField: self.passwordTextField)
+
         // Setup Tap Gesture to dismiss keyboard
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(self.dismissKeyboard))
@@ -76,23 +72,18 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
         tapGesture.cancelsTouchesInView = false // This way the google button will work
         
         let strokeTextAttributes: [NSAttributedString.Key : Any] =
-            [NSAttributedString.Key.strokeColor: UIColor.screenLightBlue,
+            [NSAttributedString.Key.strokeColor: Theme.scriptBuilderUIColor,
              NSAttributedString.Key.foregroundColor: UIColor.white,
-             NSAttributedString.Key.strokeWidth: 1]
+             NSAttributedString.Key.strokeWidth: 3]
         self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder".localized,
                                                                     attributes: strokeTextAttributes)
-        if #available(iOS 13.0, *) {
-            setupProviderLoginView()
-        } else {
-            // Fallback on earlier versions
-        }
+        setupProviderLoginView()
     }
     
     // MARK: UI Methods
 
     func showActivityIndicator() {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             self.loadingNotification =
                 MBProgressHUD.showAdded(to: self.view, animated: true)
             self.loadingNotification.mode = MBProgressHUDMode.indeterminate
@@ -103,14 +94,13 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
     
     func hideActivityIndicator(success: Bool, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.loadingNotification.mode = .customView
             if success {    
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
                 self.loadingNotification.label.text = "success".localized
                 self.loadingNotification.hide(animated: true, afterDelay: 1)
                 let strokeTextAttributes: [NSAttributedString.Key:Any] =
-                    [NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
+                [NSAttributedString.Key.strokeColor : Theme.scriptBuilderUIColor,
                      NSAttributedString.Key.foregroundColor : UIColor.white,
                      NSAttributedString.Key.strokeWidth : -2.0]
                 self.scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder".localized,
@@ -124,7 +114,6 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                 completion?()
             }
         }
-        
     }
     
     // MARK: IBActions/Target methods
@@ -189,7 +178,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
     @IBAction func newAccountButtonTapped(_ sender: Any) {
         DispatchQueue.main.async {
             guard let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "signUpVC") as? SignUpViewController else { return }
-            UIApplication.shared.keyWindow?.rootViewController = signUpVC
+            UIApplication.shared.mainWindow?.rootViewController = signUpVC
         }
     }
     
@@ -349,7 +338,6 @@ extension LoginViewController: GIDSignInDelegate {
     
 }
 
-@available(iOS 13.0, *)
 extension LoginViewController: ASAuthorizationControllerDelegate {
     
     func setupProviderLoginView() {
@@ -358,9 +346,11 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         authorizationButton.addTarget(self,
                                       action: #selector(handleAuthorizationAppleIDButtonPress),
                                       for: .touchUpInside)
-        self.authenticationStackView.addArrangedSubview(authorizationButton)
+        authorizationButton.translatesAutoresizingMaskIntoConstraints = false
+        authorizationButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        self.authenticationStackView.insertArrangedSubview(authorizationButton, at: 0)
     }
-    
+
     @objc
     func handleAuthorizationAppleIDButtonPress() {
         let nonce = randomNonceString()
@@ -420,10 +410,9 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         
         return result
     }
-    
-    
+
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return self.view.window!
+        view.window!
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
@@ -463,4 +452,9 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         // Handle error.
         print("Sign in with Apple errored: \(error)")
     }
+}
+
+extension SignUpViewController: InAppPurchaseDelegate {
+    func didCompleteTransaction(for productIdentifier: String?, with error: (any Error)?, displayLoadingImage: Bool) {}
+    func startingTransaction() {}
 }

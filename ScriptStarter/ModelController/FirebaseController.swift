@@ -23,17 +23,44 @@ let act2ScenesKey = "actTwoScenes"
 let act3ScenesKey = "actThreeScenes"
 
 class FirebaseController {
-    
+
     static let shared = FirebaseController()
-    
-    var ref: DatabaseReference {
+
+    init() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(saveCurrentScreenplay),
+            name: .ScreenplayUpdated,
+            object: nil
+        )
+    }
+
+    var currentScreenplay: Screenplay? {
+        return ScreenplayController.shared.currentScreenplay
+    }
+
+    var dataBaseReference: DatabaseReference {
         return Database.database().reference()
     }
-    
+
+    var currentScreenplayReference: DatabaseReference? {
+        guard let user = user, let currentScreenplay = currentScreenplay else {
+            return nil
+        }
+        return dataBaseReference.child(usersKey)
+            .child(user.uid)
+            .child(screenplaysKey)
+            .child(currentScreenplay.uuid)
+    }
+
+    var charactersReference: DatabaseReference? {
+        currentScreenplayReference?.child(charactersKey)
+    }
+
     var user: Firebase.User? {
         return Auth.auth().currentUser
     }
-    
+
     func areWeOffline(completion: @escaping (_ offline: Bool) -> Void) {
         let connectedRef = Database.database().reference(withPath: ".info/connected")
         connectedRef.observe(.value, with: { snapshot in
@@ -55,7 +82,6 @@ class FirebaseController {
     }
     
     func createAccount(firstName: String, lastName: String, withEmail: String, password: String, completion: @escaping (_ error: Error?, _ user: Firebase.User?) -> Void) {
-        
         Auth.auth().createUser(withEmail: withEmail,
                                password: password) { (result, error) in
                                 guard let createUser = result?.user else {
@@ -75,203 +101,82 @@ class FirebaseController {
                                 }
         }
     }
-    
-    func save(screenplay: Screenplay, completion: @escaping (_ success:Bool) -> Void) {
-        guard let user = user else {
-            completion(false)
-            return
-        }
-        
-        if screenplay.title == "" { screenplay.title = "Untitled" }
-       
-        // OUTLINE
-        let screenplayRef = self.ref.child(usersKey)
-            .child(user.uid)
-            .child(screenplaysKey)
-            .child(screenplay.uuid)
-        screenplayRef.updateChildValues(screenplay.firDictionary) { [weak self] (error, reference) in
-            if let _ = error {
-                completion(false)
-                return
-            }
-            // CHARACTERS
-            self?.saveCharacters(in: screenplay, with: user) { (error) in
-                if let _ = error {
-                    completion(false)
-                    return
-                }
-                // ACT 1 SCENES
-                self?.save(scenes: screenplay.act1ScenesArray,
-                           for: act1ScenesKey,
-                           in: screenplay,
-                           with: user, completion: { (error) in
-                            if let _ = error {
-                                completion(false)
-                                return
-                            }
-                            // ACT 2 SCENES
-                            self?.save(scenes: screenplay.act2ScenesArray,
-                                       for: act2ScenesKey,
-                                       in: screenplay,
-                                       with: user, completion: { (error) in
-                                if let _ = error {
-                                    completion(false)
-                                    return
-                                }
-                                // ACT 3 SCENES
-                                self?.save(scenes: screenplay.act3ScenesArray,
-                                           for: act3ScenesKey,
-                                           in: screenplay,
-                                           with: user, completion: { (error) in
-                                    if let _ = error {
-                                        completion(false)
-                                    } else {
-                                        completion(true)
-                                    }
-                                })
-                            })
-                })
-            }
-        }
-        self.areWeOffline { (offline) in
-            if offline {
-                // We want to perform an optimistic update if offline so return true
-                completion(true)
-                self.saveScreenplayOffline(screenplay: screenplay, with: user)
-            }
+
+    @objc func saveCurrentScreenplay() {
+        if let screenplay = currentScreenplay {
+            save(screenplay: screenplay)
         }
     }
     
-    // Save References without worrying about network calls
-    func saveScreenplayOffline(screenplay: Screenplay, with user: User) {
-        
+    func save(screenplay: Screenplay, completion: ((_ success: Bool) -> Void)? = nil) {
         // Save Outline
-        let screenplayRef = self.ref.child(usersKey).child(user.uid).child(screenplaysKey).child(screenplay.uuid)
-        screenplayRef.updateChildValues(screenplay.firDictionary) { (_, _) in }
-        
+        currentScreenplayReference?.updateChildValues(screenplay.firDictionary) { (_, _) in }
         // Save Characters
-        self.saveCharacters(in: screenplay, with: user) { (_) in }
-        
+        saveCharacters(in: screenplay)
         // Act 1
-        self.save(scenes: screenplay.act1ScenesArray,
-                  for: act1ScenesKey,
-                  in: screenplay,
-                  with: user, completion: { (_) in })
+        save(scenes: screenplay.act1ScenesArray, for: act1ScenesKey, in: screenplay)
         // Act 2
-        self.save(scenes: screenplay.act2ScenesArray,
-                  for: act2ScenesKey,
-                  in: screenplay,
-                  with: user, completion: { (_) in })
+        save(scenes: screenplay.act2ScenesArray, for: act2ScenesKey, in: screenplay)
         // Act 3
-        self.save(scenes: screenplay.act3ScenesArray,
-                  for: act3ScenesKey,
-                  in: screenplay,
-                  with: user, completion: { (_) in })
+        save(scenes: screenplay.act3ScenesArray, for: act3ScenesKey, in: screenplay)
+        completion?(true)
+    }
+
+    func saveScreenplayOutline() {
+        if let currentScreenplay {
+            currentScreenplayReference?.updateChildValues(currentScreenplay.firDictionary) { (_, _) in }
+        }
     }
     
     func saveCharacters(in screenplay: Screenplay,
-                        with user: User,
-                        completion: @escaping (_ error: Error?) -> Void) {
-        
-        let dispatchGroup: DispatchGroup = DispatchGroup()
-        var dispatchEnterCount: Int = 0
-        
+                        completion: ((_ error: Error?) -> Void)? = nil) {
         // Update characters
-        let characterRef = self.ref.child(usersKey)
-                          .child(user.uid)
-                          .child(screenplaysKey)
-                          .child(screenplay.uuid)
-                          .child(charactersKey)
         for character in screenplay.characters {
-            dispatchGroup.enter()
-            dispatchEnterCount += 1
-            
             if character.name == "" {
                 character.name = "Unnamed"
             }
-            characterRef.updateChildValues([character.uuid:character.characterDictionary]) { (error,reference) in
+            charactersReference?.updateChildValues([character.uuid: character.characterDictionary]) { (error,reference) in
                 if let _ = error {
-                    completion(error)
-                }
-                
-                if dispatchEnterCount > 0 {
-                    dispatchGroup.leave()
-                    dispatchEnterCount -= 1
+                    completion?(error)
                 }
             }
         }
-        
-        dispatchGroup.notify(queue: .main) {
-            completion(nil)
-        }
     }
-    
+
+    func save(character: Character?) {
+        guard let character else { return }
+        charactersReference?.updateChildValues([character.uuid: character.characterDictionary]) {_,_ in }
+    }
+
     // Save Scenes by specifying the scenes and act number
     func save(scenes: [Scene],
               for actKey: String,
               in screenplay: Screenplay,
-              with user: User,
-              completion: @escaping (_ error: Error?) -> Void) {
-       
-        let dispatchGroup: DispatchGroup = DispatchGroup()
-        var dispatchEnterCount: Int = 0
-        
-        let scenesRef = self.ref.child(usersKey)
-                             .child(user.uid)
-                             .child(screenplaysKey)
-                             .child(screenplay.uuid)
-                             .child(actKey)
+              completion: ((_ error: Error?) -> Void)? = nil) {
+        let scenesRef = currentScreenplayReference?.child(actKey)
         for scene in scenes {
-            dispatchGroup.enter()
-            dispatchEnterCount += 1
-            
-            scenesRef.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
+            scenesRef?.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
                 if let error = error {
-                    completion(error)
-                }
-                if dispatchEnterCount > 0 {
-                    dispatchGroup.leave()
-                    dispatchEnterCount -= 1
+                    completion?(error)
                 }
             }
-        }
-        dispatchGroup.notify(queue: .main) {
-            completion(nil)
         }
     }
     
     func delete(screenplay: Screenplay, completion: @escaping () -> Void) {
-        guard let user = user else {
-            completion()
-            return
-        }
-        let screenplayRef = self.ref.child(usersKey)
-                           .child(user.uid)
-                           .child(screenplaysKey)
-                           .child(screenplay.uuid)
-        
-        screenplayRef.removeValue { (_, _) in
+        currentScreenplayReference?.removeValue { (_, _) in
             ScreenplayController.shared.resetCurrentScreenplay()
             completion()
         }
     }
     
     func delete(character: Character, withScreenplay: Screenplay) {
-        guard let user = user else { return }
-        // Update characters
-        let characterRef = self.ref.child(usersKey)
-            .child(user.uid)
-            .child(screenplaysKey)
-            .child(withScreenplay.uuid)
-            .child(charactersKey)
-            .child(character.uuid)
-        
-        characterRef.removeValue()
+        // delete character
+        let characterRef = charactersReference?.child(character.uuid)
+        characterRef?.removeValue()
     }
-    
-    func delete(scene: Scene, withScreenplay: Screenplay, inAct: Act) {
-        guard let user = user else { return }
-        
+
+    func delete(scene: Scene, inAct: Act) {
         var sceneActKey: String = ""
         switch inAct {
         case .one:
@@ -283,15 +188,27 @@ class FirebaseController {
         default:
             break
         }
-        
-        let scenesRef = self.ref.child(usersKey)
-                             .child(user.uid)
-                             .child(screenplaysKey)
-                             .child(withScreenplay.uuid)
-                             .child(sceneActKey)
-                             .child(scene.uuid)
-        
-        scenesRef.removeValue()
+
+        let scenesRef = currentScreenplayReference?.child(sceneActKey).child(scene.uuid)
+        scenesRef?.removeValue()
+    }
+
+    func save(scene: Scene?, inAct: Act?) {
+        guard let scene, let inAct else { return }
+        var sceneActKey: String = ""
+        switch inAct {
+        case .one:
+            sceneActKey = act1ScenesKey
+        case .two:
+            sceneActKey = act2ScenesKey
+        case .three:
+            sceneActKey = act3ScenesKey
+        default:
+            break
+        }
+
+        let sceneActRef = currentScreenplayReference?.child(sceneActKey)
+        sceneActRef?.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in }
     }
     
     func getScreenplays(completion: @escaping ([Screenplay])->Void) {
@@ -299,15 +216,14 @@ class FirebaseController {
             completion([])
             return
         }
-        self.ref.child(usersKey)
+        self.dataBaseReference.child(usersKey)
             .child(user.uid)
             .child(screenplaysKey)
-            .observe(.value) { (snapshot) in
+            .observeSingleEvent(of: .value) { (snapshot) in
             guard let screenplayDictionaryArray = snapshot.value as? [String:Any] else {
                 completion([])
                 return
             }
-            
             var screenplays: [Screenplay] = []
             for screenplayKeyValuePair in screenplayDictionaryArray {
                 let uuid = screenplayKeyValuePair.key
@@ -315,7 +231,6 @@ class FirebaseController {
                     let screenplayDictionary = screenplayKeyValuePair.value as? [String:Any],
                     let screenplay = Screenplay(uuid: uuid, screenplayDictionary: screenplayDictionary)
                 else { continue }
-                
                 screenplays.append(screenplay)
             }
             completion(screenplays)
@@ -327,7 +242,7 @@ class FirebaseController {
             completion(false)
             return
         }
-        let userRef = self.ref.child(usersKey).child(user.uid)
+        let userRef = self.dataBaseReference.child(usersKey).child(user.uid)
         
         user.delete(completion: { (error) in
             if let _ = error { completion( false) }
@@ -339,7 +254,6 @@ class FirebaseController {
                 }
             }
         })
-        
     }
     
     func changePassword(to newPassword: String, completion: @escaping (_ success: Bool) -> ()) {

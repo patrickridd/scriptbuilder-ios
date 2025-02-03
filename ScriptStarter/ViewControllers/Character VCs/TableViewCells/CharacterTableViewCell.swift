@@ -16,6 +16,9 @@ class CharacterTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        backgroundColor = Theme.descriptionTextViewBackground
+        nameLabel.textColor = .label
+        intentionLabel.textColor = .label
     }
     
     func updateCell(with character: Character) {

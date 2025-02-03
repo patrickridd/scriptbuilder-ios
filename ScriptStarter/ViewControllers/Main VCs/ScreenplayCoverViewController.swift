@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 import MBProgressHUD
 import Firebase
-import MoPub
 
 class ScreenplayCoverViewController: UIViewController {
 
@@ -18,18 +17,14 @@ class ScreenplayCoverViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
     
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic?
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        adService = MoPubAdService()
         saveButton.view = self
         titleTextField.delegate = self
         nameTextField.delegate = self
-        
+        titleTextField.addToolBar()
+        nameTextField.addToolBar()
+        view.backgroundColor = Theme.systemBackground
         let name = Auth.auth().currentUser?.displayName ?? "Name"
 
         if let screenplay = self.screenplay {
@@ -40,48 +35,25 @@ class ScreenplayCoverViewController: UIViewController {
             // Create new screenplay
             let newScreenplay = Screenplay(title: "",
                                            authorName: name)
+            self.nameTextField.text = name
             ScreenplayController.shared.set(currentScreenplay: newScreenplay)
             self.titleTextField.becomeFirstResponder()
         }
-        
+        nameTextField.textColor = Theme.descriptionPlaceholderTextColor
         // Setup Tap Gesture to dismiss keyboard
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(saveCurrentScreenplay),
-                                               name: .AppWillEnterBackground,
-                                               object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadScreenplays),
                                                name: .AppWillEnterForeground,
                                                object: nil)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
-    }
-    
+
     // MARK: IBActions
     
     @IBAction func doneButtonTapped(_ sender: Any) {
-        // We want to remind the user to save if the screenplay has changed
-        if ScreenplayController.shared.screenplayChanged {
-            remindUserToSave()
-        
-        // Else just dismiss the view
-        } else {
-            dismissView()
-        }
+        dismissScreenplayExperience()
     }
     
     @IBAction func arrowButtonTapped(_ sender: Any) {
@@ -107,18 +79,15 @@ class ScreenplayCoverViewController: UIViewController {
                                                                       width: self?.view.bounds.width ?? 50,
                                                                       height: 50)
             }
-            
             self?.present(vc, animated: true, completion: nil)
         }
     }
-    
     
     // MARK: Tap Gesture Recognizer
     
     @objc func dismissKeyboard() {
         titleTextField.resignFirstResponder()
     }
-    
     
     // MARK: Helper Methods
     
@@ -149,30 +118,7 @@ class ScreenplayCoverViewController: UIViewController {
         return alert
     }
     
-    func remindUserToSave() {
-        let saveReminderAlert = UIAlertController(title: "Save".localized,
-                                                  message: "Would you like to save your work?".localized,
-                                                  preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Save".localized,
-                                       style: .default) { [weak self] (_) in
-            self?.saveButton.save()
-            self?.dismissView()
-        }
-        let nopeAction = UIAlertAction(title: "Discard".localized,
-                                       style: .destructive) { [weak self] (_) in
-            ScreenplayController.shared.discardChangesInCurrentScreenplay()
-            self?.dismissView()
-        }
-        
-        
-        saveReminderAlert.addAction(saveAction)
-        saveReminderAlert.addAction(nopeAction)
-        self.present(saveReminderAlert,
-                     animated: true,
-                     completion: nil)
-    }
-    
-    func dismissView() {
+    func dismissScreenplayExperience() {
         ScreenplayController.shared.resetCurrentScreenplay()
         if let _ = self.presentingViewController {
             self.dismiss(animated: true, completion: nil)
@@ -188,7 +134,7 @@ extension ScreenplayCoverViewController {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         titleTextField.resignFirstResponder()
         nameTextField.resignFirstResponder()
-        
+        saveCurrentScreenplay()
         return true
     }
     
@@ -198,6 +144,7 @@ extension ScreenplayCoverViewController {
             return
         }
         screenplay?.title = title
+        setSaveTimer()
     }
     
     @IBAction func nameTextFieldDidChange(_ sender: Any) {
@@ -208,6 +155,6 @@ extension ScreenplayCoverViewController {
             return
         }
         screenplay?.authorName = authorName
+        setSaveTimer()
     }
-    
 }

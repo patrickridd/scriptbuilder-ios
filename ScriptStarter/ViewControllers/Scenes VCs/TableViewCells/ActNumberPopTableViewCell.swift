@@ -15,6 +15,8 @@ class ActNumberPopTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        actNumberLabel.textColor = Theme.descriptionTextColor
+        contentView.backgroundColor = Theme.systemBackground
     }
     
     func update(with actNumber: Int) {

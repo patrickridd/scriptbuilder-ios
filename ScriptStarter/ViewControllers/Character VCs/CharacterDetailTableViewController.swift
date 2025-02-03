@@ -8,8 +8,6 @@
 
 import UIKit
 import Firebase
-import FBAudienceNetwork
-import MoPub
 
 protocol NameChangedDelegate: class {
     func nameChanged(name: String)
@@ -32,29 +30,23 @@ class CharacterDetailTableViewController: UITableViewController {
     var isCollapsingCell: Bool = false
     
     var customSelected: Bool = false // RoleCellSelected
-    
-    var facebookAdService: FacebookAdService?
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        facebookAdService = FacebookAdService()
-        adService = MoPubAdService()
-
         saveButton.view = self
         
         let font = UIFont.systemFont(ofSize: 20,
                                      weight: UIFont.Weight.light)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font:font]
-        self.tableView.backgroundColor = UIColor.screenLightGray
+        self.tableView.backgroundColor = Theme.tableViewBackgroundColor
+        self.tableView.separatorColor = Theme.tableViewBackgroundColor
+        self.tableView.showsVerticalScrollIndicator = false
+
         self.setupExpandableSections()
       
         self.title = self.character?.name ?? "New Character".localized
       
-        self.tableView.backgroundColor = UIColor.screenLightGray
-        self.tableView.separatorColor = self.tableView.backgroundColor
        
         guard let _ = self.character else {
             let character = Character(name: "")
@@ -70,34 +62,6 @@ class CharacterDetailTableViewController: UITableViewController {
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
         
-//        if InAppPurchases.shouldDisplayAds {
-//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
-//              //  facebookAdView.delegate = self
-//                facebookAdView.loadAd()
-//                tableView.tableFooterView?.frame = facebookAdView.frame
-//                tableView.tableFooterView = facebookAdView
-//            }
-//        }
-        
-        if InAppPurchases.shouldDisplayAds {
-            if let adView = self.adService?.loadBannerAd() {
-                adView.delegate = self
-                tableView.tableFooterView?.frame = adView.frame
-                tableView.tableFooterView = adView
-            }
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -113,13 +77,13 @@ class CharacterDetailTableViewController: UITableViewController {
         let storyboard = UIStoryboard(name: "Outline", bundle: nil)
         let indexPath = IndexPath(row: 0, section: sender.tag)
         guard
-            let enlargedNavigationController = storyboard.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController,
-            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController,
+            let enlargedNavigationController = storyboard.instantiateViewController(withIdentifier: "enlargedNavigationController") as? UINavigationController,
+            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionViewController,
             let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
         else {
             return
         }
-        
+        enlargedNavigationController.modalPresentationStyle = .fullScreen
         enlargedVC.act = nil
         enlargedVC.character = self.character
         enlargedVC.text = descriptionCell.descriptionTextView.text
@@ -208,7 +172,6 @@ class CharacterDetailTableViewController: UITableViewController {
         default:
             let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell",
                                                                 for: indexPath) as? DescriptionTableViewCell
-            descriptionCell?.contentView.backgroundColor = UIColor.screenLightGray
             descriptionCell?.delegate = self
             descriptionCell?.defaultHeight = self.getDefaultHeightOfCell()
             descriptionCell?.update(viewController: .characterDetail,
@@ -252,7 +215,7 @@ class CharacterDetailTableViewController: UITableViewController {
         case 0,1:
             
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "header")
-            header.contentView.backgroundColor = UIColor.screenLightGray
+            header.contentView.backgroundColor = Theme.tableViewBackgroundColor
             header.moreButton.isHidden = true
             header.sectionLabel.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: 5).isActive = true
             header.navigationButton.isEnabled = false
@@ -264,7 +227,7 @@ class CharacterDetailTableViewController: UITableViewController {
             return header
         default:
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
-            header.contentView.backgroundColor = expandableSections[section-2].collapsed ? .white : UIColor.screenLightGray
+            header.contentView.backgroundColor = expandableSections[section-2].collapsed ? Theme.tableViewSectionCollapsedColor : Theme.tableViewSectionExpandedColor
             header.titleLabel.text = CharacterSection.sectionTitles[section-2]
             header.subtitleLabel.text = CharacterSection.sectionSubtitles[section-2]
             header.setCollapsed(expandableSections[section-2].collapsed)
@@ -361,7 +324,7 @@ extension CharacterDetailTableViewController: RoleCellSelected {
             } else {
                 self.customSelected = true
             }
-            self.tableView.reloadData()
+            self.tableView.reloadSections(.init(integer: 0), with: .none)
         }
     }
 }

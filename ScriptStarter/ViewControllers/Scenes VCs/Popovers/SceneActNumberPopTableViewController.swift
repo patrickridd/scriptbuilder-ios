@@ -14,7 +14,7 @@ class SceneActNumberPopTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.backgroundColor = Theme.systemBackground
     }
     
     // MARK: - Table view data source
@@ -26,7 +26,6 @@ class SceneActNumberPopTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let actNumberPopCell = tableView.dequeueReusableCell(withIdentifier: "actNumberCell",

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rz7-tI-DoV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rz7-tI-DoV">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,10 +11,10 @@
         <scene sceneID="YzT-Yv-LFN">
             <objects>
                 <tableViewController modalPresentationStyle="fullScreen" id="a7m-0h-Cqv" customClass="ScenesTableViewController" customModule="ScriptStarter" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="dci-CH-Jui">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="dci-CH-Jui">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sceneCell" rowHeight="60" id="B2v-p3-uVj" customClass="SceneTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="60"/>
@@ -23,21 +23,21 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="DeC-iF-lMQ">
+                                        <stackView opaque="NO" contentMode="left" semanticContentAttribute="forceLeftToRight" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="DeC-iF-lMQ">
                                             <rect key="frame" x="20" y="10" width="349" height="40"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="sVr-xV-pDK">
-                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="sVr-xV-pDK">
+                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="fTC-YO-3X5"/>
-                                                        <constraint firstAttribute="width" constant="30" id="kWD-0P-yLP"/>
+                                                        <constraint firstAttribute="width" priority="999" constant="40" id="kWD-0P-yLP"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="w2v-6U-MQk">
-                                                    <rect key="frame" x="35" y="0.0" width="314" height="40"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="w2v-6U-MQk">
+                                                    <rect key="frame" x="45" y="0.0" width="304" height="40"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -117,7 +117,6 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="addSceneButton" destination="4xh-Gq-0Q4" id="OBd-cX-A4e"/>
                         <outlet property="saveButton" destination="xVJ-li-atB" id="yXQ-DL-2qq"/>
                     </connections>
                 </tableViewController>
@@ -150,7 +149,7 @@
         <scene sceneID="QBr-aw-4of">
             <objects>
                 <tableViewController storyboardIdentifier="sceneDetailVC" extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="fullScreen" id="SYB-4i-W3C" customClass="SceneDetailTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="2mP-mA-sNJ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="2mP-mA-sNJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.41568627450000001" green="0.41568627450000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -186,7 +185,7 @@
                                                                 <action selector="sceneNumberTextField:" destination="I2G-hi-Ukd" eventType="editingDidEnd" id="roK-XL-KdR"/>
                                                             </connections>
                                                         </textField>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2F7-4I-AXp">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2F7-4I-AXp">
                                                             <rect key="frame" x="0.0" y="0.0" width="66.666666666666671" height="30"/>
                                                             <connections>
                                                                 <action selector="sceneActNumberButtonTapped:" destination="SYB-4i-W3C" eventType="touchUpInside" id="fQZ-Bj-Jzz"/>
@@ -225,7 +224,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Avy-4A-bDX" userLabel="sceneNumberContainer">
                                                     <rect key="frame" x="0.0" y="32" width="87.333333333333329" height="30"/>
                                                     <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e6O-QO-QeF">
+                                                        <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e6O-QO-QeF">
                                                             <rect key="frame" x="0.0" y="0.0" width="87.333333333333329" height="30"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -332,7 +331,7 @@
                                             </constraints>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VpH-V4-QuB" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="10" y="0.0" width="364" height="86"/>
+                                            <rect key="frame" x="10" y="0.0" width="371" height="86"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="Adn-zO-xFb"/>
@@ -350,13 +349,14 @@
                                         <constraint firstItem="VpH-V4-QuB" firstAttribute="leading" secondItem="9ok-1I-rWB" secondAttribute="leading" constant="10" id="QxL-f9-vln"/>
                                         <constraint firstItem="QH2-cp-5as" firstAttribute="leading" secondItem="VpH-V4-QuB" secondAttribute="leading" id="gDZ-Cy-nLX"/>
                                         <constraint firstItem="QH2-cp-5as" firstAttribute="top" secondItem="VpH-V4-QuB" secondAttribute="top" id="jFi-a6-7CM"/>
-                                        <constraint firstItem="QH2-cp-5as" firstAttribute="trailing" secondItem="VpH-V4-QuB" secondAttribute="trailing" constant="30" id="yuX-F7-nMP"/>
+                                        <constraint firstItem="QH2-cp-5as" firstAttribute="trailing" secondItem="VpH-V4-QuB" secondAttribute="trailing" constant="23" id="yuX-F7-nMP"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="descriptionTextView" destination="VpH-V4-QuB" id="Bw9-jk-ern"/>
                                     <outlet property="descriptionTextViewHeightConstraint" destination="Adn-zO-xFb" id="dSW-Py-mFm"/>
                                     <outlet property="expandButton" destination="Dgv-Ch-ZDl" id="Lws-8f-Fm1"/>
+                                    <outlet property="expandView" destination="QH2-cp-5as" id="iLC-Cp-cJY"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -383,11 +383,16 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="actTitleLabel" destination="8zT-qv-MY7" id="qq7-sw-34G"/>
+                        <outlet property="headerContainerView" destination="dzw-cy-knb" id="J2W-UA-hhu"/>
                         <outlet property="saveButton" destination="Rpp-MH-4tY" id="JTM-hc-OqK"/>
                         <outlet property="sceneActNumberTextField" destination="C4Z-ew-bdb" id="nPQ-3h-okt"/>
                         <outlet property="sceneHeaderTextField" destination="c4A-qY-A83" id="SQj-oV-i8i"/>
+                        <outlet property="sceneHeadingLabel" destination="qsB-nH-dXA" id="UiE-5V-hbw"/>
+                        <outlet property="sceneNumberLabel" destination="GKn-PD-liA" id="ykE-nU-rxz"/>
                         <outlet property="sceneNumberTextField" destination="e6O-QO-QeF" id="4sy-1c-aen"/>
                         <outlet property="sceneTitleTextField" destination="3To-7T-LVO" id="Qlf-4A-a11"/>
+                        <outlet property="topHorizontalStackView" destination="f37-Vo-qRp" id="fQF-AF-Mah"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ea8-8V-esE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -405,7 +410,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="actNumberCell" id="hfJ-qt-lfN" customClass="ActNumberPopTableViewCell" customModule="ScriptStarter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="60" height="44"/>
+                                <rect key="frame" x="0.0" y="50" width="60" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hfJ-qt-lfN" id="8Su-4e-2qd">
                                     <rect key="frame" x="0.0" y="0.0" width="60" height="44"/>
@@ -444,5 +449,8 @@
         <image name="expandButtonAsset 3" width="15" height="15"/>
         <image name="filmStripTabIconBlackAsset 2" width="16" height="18"/>
         <image name="rightArrowButtonAsset 1" width="11.333333015441895" height="18"/>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

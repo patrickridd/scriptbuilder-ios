@@ -17,20 +17,17 @@ import MBProgressHUD
 import AuthenticationServices
 import CryptoKit
 
-class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorizationControllerPresentationContextProviding {
+class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, ASAuthorizationControllerPresentationContextProviding {
 
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
-    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var activityIndicatorContainerView: UIView!
     @IBOutlet weak var authenticationStackView: UIStackView!
-    
-    @IBOutlet weak var textFieldStackCenterYConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var orViewCenterYConstraint: NSLayoutConstraint!
     @IBOutlet weak var topView: UIView!
     
@@ -55,8 +52,10 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorization
         
         // Google Sign-in
         GIDSignIn.sharedInstance().delegate = self
-        googleSignInButton.style = .standard
-        googleSignInButton.colorScheme = .light
+        GIDSignIn.sharedInstance()?.uiDelegate = self
+
+        googleSignInButton.style = .wide
+        googleSignInButton.colorScheme = .dark
         
         // Set TextFields Delegate
         emailTextField.delegate = self
@@ -79,10 +78,10 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorization
         tapGesture.cancelsTouchesInView = false // This way the google button will work
        
         let strokeTextAttributes: [NSAttributedString.Key : Any] = [
-            NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
+            NSAttributedString.Key.strokeColor : Theme.scriptBuilderUIColor,
             NSAttributedString.Key.foregroundColor : UIColor.white,
-            NSAttributedString.Key.strokeWidth : 1,
-            ]
+            NSAttributedString.Key.strokeWidth : 3,
+        ]
         
         scriptBuilderLabel.attributedText = NSAttributedString(string: "Script Builder".localized, attributes: strokeTextAttributes)
         
@@ -92,10 +91,9 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorization
             // Fallback on earlier versions
         }
     }
-    
+
     func showActivityIndicator() {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             self.loadingNotification =
                 MBProgressHUD.showAdded(to: self.view, animated: true)
             self.loadingNotification.mode = MBProgressHUDMode.indeterminate
@@ -106,7 +104,6 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     
     func hideActivityIndicator(success: Bool) {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.loadingNotification.mode = .customView
             if success {
                 self.loadingNotification.customView = UIImageView(image: #imageLiteral(resourceName: "blueCheckMarkAsset 1"))
@@ -223,7 +220,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     @IBAction func haveAccountButtonTapped(_ sender: Any) {
         DispatchQueue.main.async {
             guard let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as? LoginViewController else { return }
-            UIApplication.shared.keyWindow?.rootViewController = loginVC
+            UIApplication.shared.mainWindow?.rootViewController = loginVC
         }
     }
 
@@ -316,6 +313,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     // MARK: Navigation
     
     func presentScreenPlayCollection() {
+
         DispatchQueue.main.async {
             guard let screenplayCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else { return }
             screenplayCollectionVC.modalPresentationStyle = .fullScreen
@@ -327,16 +325,18 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, ASAuthorization
 
 @available(iOS 13.0, *)
 extension SignUpViewController: ASAuthorizationControllerDelegate {
-    
+
     func setupProviderLoginView() {
-        let authorizationButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn,
+        let authorizationButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signUp,
                                                                authorizationButtonStyle: .whiteOutline)
         authorizationButton.addTarget(self,
                                       action: #selector(handleAuthorizationAppleIDButtonPress),
                                       for: .touchUpInside)
-        self.authenticationStackView.addArrangedSubview(authorizationButton)
+        authorizationButton.translatesAutoresizingMaskIntoConstraints = false
+        authorizationButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        self.authenticationStackView.insertArrangedSubview(authorizationButton, at: 0)
     }
-    
+
     @objc
     func handleAuthorizationAppleIDButtonPress() {
         let nonce = randomNonceString()
@@ -437,4 +437,9 @@ extension SignUpViewController: ASAuthorizationControllerDelegate {
         // Handle error.
         print("Sign in with Apple errored: \(error)")
     }
+}
+
+extension LoginViewController: InAppPurchaseDelegate {
+    func didCompleteTransaction(for productIdentifier: String?, with error: (any Error)?, displayLoadingImage: Bool) {}
+    func startingTransaction() {}
 }

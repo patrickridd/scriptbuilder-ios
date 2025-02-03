@@ -9,8 +9,6 @@
 import UIKit
 import MBProgressHUD
 import Firebase
-import FBAudienceNetwork
-import MoPub
 
 let swipeLeftNotificationKey = "com.scriptstarter.swipedleftInTabBar"
 let swipeRightNotificationKey = "com.scriptstarter.swipedRightInTabBar"
@@ -24,17 +22,9 @@ class OutlineTableViewController: UITableViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     
-    var facebookAdService: FacebookAdService?
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //amazonAdService = AmazonAdService()
-        facebookAdService = FacebookAdService()
-        adService = MoPubAdService()
-        facebookAdService = FacebookAdService()
+
         saveButton.view = self
         let rightSwipe = UISwipeGestureRecognizer(target: self,
                                                   action: #selector(handleRightSwipe(sender:)))
@@ -44,48 +34,17 @@ class OutlineTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.backgroundColor = UIColor.screenLightGray
-        self.tableView.separatorColor = self.tableView.backgroundColor
+        self.tableView.backgroundColor = Theme.tableViewBackgroundColor
+        self.tableView.separatorColor = tableView.backgroundColor
         
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
         setupNavigationBar()
         self.tableView.reloadData()
         setupTabBar()
-        
-        if InAppPurchases.shouldDisplayAds {
-            if let adView = self.adService?.loadBannerAd() {
-                adView.delegate = self
-                tableView.tableFooterView?.frame = adView.frame
-                tableView.tableFooterView = adView
-            }
-        }
-        
-        // If RewardBased Ad is not ready, load one
-        if !adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId) && !InAppPurchases.sceneFeatureEnabled {
-            adService.loadRewardedAd(with: MoPubAdService.sceneBuilderRewardedVideoId, delegate: self)
-        }
-        
-        // If RewardBased Ad is not ready, load one
-        if !adService.hasRewardedVideoReady(id: MoPubAdService.characterRewardedVideoId) && !InAppPurchases.characterFeatureEnabled {
-            adService.loadRewardedAd(with: MoPubAdService.characterRewardedVideoId, delegate: self)
-        }
     
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
-    }
-    
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.view.endEditing(true)
@@ -96,8 +55,8 @@ class OutlineTableViewController: UITableViewController {
     @objc func expandButtonTapped(sender: UIButton) {
         let indexPath = IndexPath(row: 0, section: sender.tag)
         guard
-            let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController,
-            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController,
+            let enlargedNavigationController = self.storyboard?.instantiateViewController(withIdentifier: "enlargedNavigationController") as? UINavigationController,
+            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionViewController,
             let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
         else {
             return
@@ -162,12 +121,17 @@ class OutlineTableViewController: UITableViewController {
             screenplay?.title = "Untitled".localized
         }
         navigationController?.navigationBar.topItem?.title = self.screenplay?.title
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
+        let attributes = [NSAttributedString.Key.foregroundColor: Theme.navTitleColor,
                           NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
                                                                           weight: .semibold)]
         navigationController?.navigationBar.titleTextAttributes = attributes
-        navigationController?.navigationBar.tintColor = .screenLightBlue
-        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
+        let appearance = UINavigationBarAppearance()
+        appearance.titleTextAttributes = attributes
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = Theme.navigationBarBackground
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backButtonAsset"),
                                          style: .plain,
@@ -177,11 +141,20 @@ class OutlineTableViewController: UITableViewController {
     }
     
     func setupTabBar() {
-        self.tabBarController?.tabBar.barTintColor = UIColor.white
-        self.tabBarController?.tabBar.tintColor = UIColor.screenLightBlue
+        let appearance = UITabBarAppearance()
+        let selectedColor = Theme.scriptBuilderUIColor
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = Theme.navigationBarBackground
+        appearance.inlineLayoutAppearance.selected.iconColor = selectedColor
+        appearance.compactInlineLayoutAppearance.selected.iconColor = selectedColor
+        appearance.stackedLayoutAppearance.selected.iconColor = selectedColor
+        appearance.inlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : selectedColor]
+        appearance.compactInlineLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : selectedColor]
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor : selectedColor]
+        tabBarController?.tabBar.standardAppearance = appearance
+        tabBarController?.tabBar.scrollEdgeAppearance = tabBarController?.tabBar.standardAppearance
     }
-    
-    
+
     // MARK: UITableView DataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -212,7 +185,7 @@ class OutlineTableViewController: UITableViewController {
         descriptionCell?.update(viewController: .outline,
                                section: indexPath.section,
                                act: nil)
-        descriptionCell?.contentView.backgroundColor = UIColor.screenLightGray
+        descriptionCell?.contentView.backgroundColor = Theme.tableViewBackgroundColor
         descriptionCell?.expandButton.tag = indexPath.section
         descriptionCell?.expandButton.addTarget(self,
                                                action: #selector(expandButtonTapped(sender:)),
@@ -248,8 +221,8 @@ class OutlineTableViewController: UITableViewController {
         sectionHeader.navigationButton.addTarget(self,
                                                  action: #selector(pushToDetailView(sender:)),
                                                  for: .touchUpInside)
-        sectionHeader.contentView.backgroundColor = UIColor.screenLightGray
-        sectionHeader.sectionLabel.textColor = UIColor.screenDark
+        sectionHeader.contentView.backgroundColor = Theme.tableViewBackgroundColor
+        sectionHeader.sectionLabel.textColor = Theme.navTitleColor
 
         sectionHeader.sectionLabel.text = sectionName
         return sectionHeader
@@ -262,7 +235,7 @@ class OutlineTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as? SectionHeaderView ?? SectionHeaderView(reuseIdentifier: "footer")
-        sectionHeader.contentView.backgroundColor = UIColor.athensGray
+        sectionHeader.contentView.backgroundColor = Theme.sectionHeaderSeparatorColor
         sectionHeader.moreButton.isHidden = true
         sectionHeader.sectionLabel.isHidden = true
         return sectionHeader
@@ -271,13 +244,6 @@ class OutlineTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1
     }
-
-    func adjustUITextViewHeight(arg : UITextView) {
-        arg.translatesAutoresizingMaskIntoConstraints = true
-        arg.sizeToFit()
-        arg.isScrollEnabled = false
-    }
-    
     
     // MARK: Navigation
     
@@ -308,7 +274,6 @@ extension OutlineTableViewController: DescriptionDelegate {
     
     func updatedText(_ text: String, in section: Int) {
         let indexPath = IndexPath(row: 0, section: section)
-       
         guard
             let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
         else {

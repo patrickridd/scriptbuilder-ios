@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>unlimitedForeverIdentifier</key>
+	<string>unlimited_forever</string>
+	<key>unlimitedYearlyIdentifier</key>
+	<string>unlimited_yearly</string>
+	<key>unlimitedMonthlyIdentifier</key>
+	<string>unlimited_monthly</string>
+	<key>sceneFeatureIdentifier</key>
+	<string>com.patrickridd.ScriptStarter.Scene.Builder</string>
+	<key>characterFeatureIdentifier</key>
+	<string>com.patrickridd.ScriptStarter.Character.Builder</string>
+	<key>noAdsIdentifier</key>
+	<string>com.patrickridd.ScriptStarter.NoAds</string>
+</dict>
+</plist>

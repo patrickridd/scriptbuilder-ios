@@ -9,28 +9,17 @@
 import UIKit
 import MBProgressHUD
 import StoreKit
-import FBAudienceNetwork
-import MoPub
+import SwiftUI
 
 class ScenesTableViewController: UITableViewController {
     
-    @IBOutlet weak var addSceneButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     
     var newScene: Bool = false
-    var products: [SKProduct]?
-
-    var facebookAdService: FacebookAdService?
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic!
-    
     var loadingNotification = MBProgressHUD()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        facebookAdService = FacebookAdService()
-        adService = MoPubAdService()
 
         saveButton.view = self
 
@@ -39,73 +28,21 @@ class ScenesTableViewController: UITableViewController {
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
 
-        setupNavigationBar()
-        self.tableView.backgroundColor = UIColor.screenLightGray
-        self.tableView.separatorColor = self.tableView.backgroundColor
-        
-        if newScene, InAppPurchases.sceneFeatureEnabled {
+        self.tableView.backgroundColor = Theme.tableViewBackgroundColor
+        self.tableView.separatorColor = Theme.tableViewBackgroundColor
+        self.tableView.showsVerticalScrollIndicator = false
+        if newScene, Store.shared.allAccessEnabled {
             self.pushToSceneDetailView(act: .one,
                                        scene: nil)
         }
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(checkForSceneFeatureEnabled),
-                                               name: .CheckIfSceneBuilderIsEnabled,
-                                               object: nil)
-        
-        // If RewardBased Ad is not ready, load one
-//        if !rewardBasedAdReady(rewardBasedAd: rewardBasedAd) {
-//            rewardBasedAd = GADRewardBasedVideoAd.sharedInstance()
-//            rewardBasedAd?.delegate = self
-//            rewardBasedAd?.load(GADRequest(),
-//                                withAdUnitID: GoogleAds.sceneBuilderRewardAdId)
-//        }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reloadTableView()
-        
-        // If RewardBased Ad is not ready, load one
-        if !adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId) && !InAppPurchases.sceneFeatureEnabled {
-            adService.loadRewardedAd(with: MoPubAdService.sceneBuilderRewardedVideoId, delegate: self)
-        }
+        setupNavigationBar()
+    }
 
-        // Retrieves in app purchases from apple
-        InAppPurchases.store.requestProducts { (_, products) in
-            self.products = products
-        }
-        
-//        if InAppPurchases.shouldDisplayAds {
-//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
-////                facebookAdView.delegate = self
-//                facebookAdView.loadAd()
-//                tableView.tableFooterView?.frame = facebookAdView.frame
-//                tableView.tableFooterView = facebookAdView
-//            }
-//        }
-        if InAppPurchases.shouldDisplayAds {
-            if let adView = self.adService?.loadBannerAd() {
-                adView.delegate = self
-                tableView.tableFooterView?.frame = adView.frame
-                tableView.tableFooterView = adView
-            }
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
-        checkForSceneFeatureEnabled()
-    }
-    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -248,12 +185,22 @@ class ScenesTableViewController: UITableViewController {
             screenplay?.title = "Untitled".localized
         }
         navigationController?.navigationBar.topItem?.title = self.screenplay?.title
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.screenDark,
-                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
-                                                                         weight: .semibold)]
+        // Remove Navigation bar shadow and borderline
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.topItem?.title = self.screenplay?.title
+        let attributes =  [NSAttributedString.Key.foregroundColor: Theme.navTitleColor,
+                           NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20,
+                                                                          weight: .semibold)]
         navigationController?.navigationBar.titleTextAttributes = attributes
-        navigationController?.navigationBar.tintColor = .screenLightBlue
-        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
+        let appearance = UINavigationBarAppearance()
+        appearance.titleTextAttributes = attributes
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = Theme.navigationBarBackground
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
         let backButton = UIBarButtonItem(title: "Home".localized,
                                          style: .plain,
                                          target: self,
@@ -261,77 +208,8 @@ class ScenesTableViewController: UITableViewController {
         navigationController?.navigationBar.topItem?.leftBarButtonItem = backButton
     }
     
-    @objc func checkForSceneFeatureEnabled() {
-        
-        if InAppPurchases.sceneFeatureEnabled || self.sceneBuilderRewardEnabled() {
-            enableView()
-            hideActivityIndicator(success: true,
-                                  displayImage: false)
-        } else {
-            disableView()
-            presentIapAlert()
-        }
-    }
-    
-    func disableView() {
-        self.view.alpha = 0.8
-        self.view.isUserInteractionEnabled = false
-        self.addSceneButton.isEnabled = false
-    }
-    
-    func enableView() {
-        self.view.alpha = 1.0
-        self.view.isUserInteractionEnabled = true
-        self.addSceneButton.isEnabled = true
-    }
-    
-    func presentIapAlert() {
-        let alert = UIAlertController(title: "Scene Builder disabled 😥".localized,
-                                      message: "The Scene Builder feature requires a one time purchase.".localized,
-                                      preferredStyle: .alert)
-        let purchaseAction = UIAlertAction(title: "$0.99 😎".localized, style: .default) { [weak self] (_) in
-            if let sceneFeatureProduct = self?.products?.filter({$0.productIdentifier == InAppPurchases.sceneFeatureIdentifier}).first {
-                InAppPurchases.store.delegate = self
-                InAppPurchases.store.buyProduct(sceneFeatureProduct)
-            }
-        }
-        
-        alert.addAction(purchaseAction)
-        
-        let restoreAction = UIAlertAction(title: "Restore".localized,
-                                          style: .default) { [weak self] (_) in
-            InAppPurchases.store.delegate = self
-            InAppPurchases.store.restorePurchases()
-        }
-        alert.addAction(restoreAction)
-        
-        
-        let tryAction = UIAlertAction(title: "Try by watching Ad 🎥".localized,
-                                      style: .default) { [weak self] (_) in
-            guard let strongSelf = self else { return }
-            if strongSelf.adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId){
-                strongSelf.rewardUserWithSceneBuilder()
-                strongSelf.adService.presentRewardedVideo(using: MoPubAdService.sceneBuilderRewardedVideoId, with: strongSelf)
-            }
-        }
-        
-        if adService.hasRewardedVideoReady(id: MoPubAdService.sceneBuilderRewardedVideoId) {
-            alert.addAction(tryAction)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel".localized,
-                                         style: .default,
-                                         handler: nil)
-        alert.addAction(cancelAction)
-        alert.view.layoutIfNeeded() // Avoids snapshot error
-        present(alert,
-                animated: true,
-                completion: nil)
-    }
-    
     func showActivityIndicator() {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             self.loadingNotification =
                 MBProgressHUD.showAdded(to: self.view, animated: true)
             self.loadingNotification.mode = MBProgressHUDMode.indeterminate
@@ -342,7 +220,6 @@ class ScenesTableViewController: UITableViewController {
     
     func hideActivityIndicator(success: Bool, displayImage: Bool) {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.loadingNotification.mode = .customView
             if !displayImage {
                 self.loadingNotification.hide(animated: true)
@@ -365,6 +242,10 @@ class ScenesTableViewController: UITableViewController {
     // MARK: - IBActions and Target Methods
   
     @IBAction func plusButtonTapped(_ sender: UIButton) {
+        guard Store.shared.allAccessEnabled else {
+            presentIAPSubscriptionView()
+            return
+        }
         if let act = Act(rawValue: sender.tag) {
             self.pushToSceneDetailView(act: act, scene: nil)
         } else {
@@ -377,7 +258,7 @@ class ScenesTableViewController: UITableViewController {
         let swipeNotification = Notification(name: swipeNotificationName)
         NotificationCenter.default.post(swipeNotification)
     }
-    
+
     func pushToSceneDetailView(act: Act, scene: Scene?) {
         
         guard let sceneDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "sceneDetailVC") as? SceneDetailTableViewController else { return }
@@ -396,8 +277,7 @@ class ScenesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        guard let screenplay = self.screenplay else {
+        guard let screenplay else {
             reloadScreenplaysWithAnimation {
                 self.reloadTableView()
             }
@@ -407,23 +287,11 @@ class ScenesTableViewController: UITableViewController {
         // Return the amount scenes for each Act
         switch section {
         case 0: // Act 1
-            if screenplay.act1ScenesArray.count == 0 {
-                return 1
-            } else {
-                return screenplay.act1ScenesArray.count
-            }
+            return screenplay.act1ScenesArray.count == 0 ? 1 : screenplay.act1ScenesArray.count
         case 1: // Act 2
-            if screenplay.act2ScenesArray.count == 0 {
-                return 1
-            } else {
-                return screenplay.act2ScenesArray.count
-            }
+            return screenplay.act2ScenesArray.count == 0 ? 1 : screenplay.act2ScenesArray.count
         case 2: // Act 3
-            if screenplay.act3ScenesArray.count == 0 {
-                return 1
-            } else {
-                return screenplay.act3ScenesArray.count
-            }
+            return screenplay.act3ScenesArray.count == 0 ? 1 : screenplay.act3ScenesArray.count
         default:
             return 0
         }
@@ -446,7 +314,7 @@ class ScenesTableViewController: UITableViewController {
             // If no scenes in this act return the noSceneCell
             if scenesCount == 0 {
                 let noSceneCell = tableView.dequeueReusableCell(withIdentifier: "noSceneIdentifier",
-                                                                      for: indexPath) as?NoCharacterTableViewCell
+                                                                      for: indexPath) as? NoCharacterTableViewCell
                 noSceneCell?.update(with: "Tap + to create a new Scene!".localized)
                 return noSceneCell ?? UITableViewCell()
             }
@@ -534,14 +402,19 @@ class ScenesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        guard Store.shared.allAccessEnabled else {
+            presentIAPSubscriptionView()
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
+
         guard let _ = self.screenplay else {
             self.reloadScreenplaysWithAnimation {
                 self.reloadTableView()
             }
             return
         }
-        
+
         var scene: Scene?
         switch indexPath.section {
         case 0:
@@ -594,38 +467,32 @@ class ScenesTableViewController: UITableViewController {
             }
             return
         }
-        
-        switch indexPath.section {
-        case 0: // Act 1
-            if let scene = self.screenplay?.act1ScenesArray[indexPath.row],
-                let screenplay = self.screenplay, editingStyle == .delete {
-               FirebaseController.shared.delete(scene: scene,
-                                                withScreenplay: screenplay,
-                                                inAct: .one)
-                self.screenplay?.act1ScenesArray.remove(at: indexPath.row)
-                
-                self.reloadTableView()
+
+        if editingStyle == .delete {
+            let indexSet = IndexSet(integer: indexPath.section)
+            switch indexPath.section {
+            case 0: // Act 1
+                if let scene = self.screenplay?.act1ScenesArray[indexPath.row] {
+                    FirebaseController.shared.delete(scene: scene,
+                                                     inAct: .one)
+                    self.screenplay?.act1ScenesSet.remove(scene)
+                }
+            case 1: // Act 2
+                if let scene = self.screenplay?.act2ScenesArray[indexPath.row] {
+                    FirebaseController.shared.delete(scene: scene, inAct: .two)
+                    self.screenplay?.act2ScenesSet.remove(scene)
+                }
+            case 2: // Act 3
+                if let scene = self.screenplay?.act3ScenesArray[indexPath.row] {
+                    FirebaseController.shared.delete(scene: scene, inAct: .three)
+                    self.screenplay?.act3ScenesSet.remove(scene)
+                }
+            default:
+                break
             }
-        case 1: // Act 2
-            if let scene = self.screenplay?.act2ScenesArray[indexPath.row],
-                let screenplay = self.screenplay, editingStyle == .delete {
-                FirebaseController.shared.delete(scene: scene,
-                                                 withScreenplay: screenplay,
-                                                 inAct: .two)
-                self.screenplay?.act2ScenesArray.remove(at: indexPath.row)
-                self.reloadTableView()
+            DispatchQueue.main.async {
+                self.tableView.reloadSections(indexSet, with: .automatic)
             }
-        case 2: // Act 3
-            if let scene = self.screenplay?.act3ScenesArray[indexPath.row],
-                let screenplay = self.screenplay, editingStyle == .delete {
-                  FirebaseController.shared.delete(scene: scene,
-                                                   withScreenplay: screenplay,
-                                                   inAct: .three)
-                self.screenplay?.act3ScenesArray.remove(at: indexPath.row)
-                self.reloadTableView()
-            }
-        default:
-            break
         }
     }
 
@@ -645,28 +512,4 @@ class ScenesTableViewController: UITableViewController {
         return true
     }
 
-}
-
-extension ScenesTableViewController: InAppPurchaseDelegate {
-    
-    func startingTransaction() {
-        self.showActivityIndicator()
-    }
-    
-    func didCompleteTransaction(for productIdentifier: String,
-                                with error: Error?,
-                                displayLoadingImage: Bool = true) {
-        
-        self.hideActivityIndicator(success: error == nil,
-                                   displayImage: displayLoadingImage)
-        if let error = error {
-            present(error: error)
-        }
-        
-        if productIdentifier == InAppPurchases.sceneFeatureIdentifier ||
-           productIdentifier.isEmpty {
-            checkForSceneFeatureEnabled()
-        }
-    }
-    
 }

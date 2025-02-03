@@ -19,7 +19,7 @@ class SaveButton: UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        setTitleColor(.screenLightBlue,
+        setTitleColor(Theme.scriptBuilderUIColor,
                       for: .normal)
         setTitleColor(UIColor.screenLightGray,
                       for: .disabled)

@@ -10,4 +10,10 @@ import UIKit
 
 class AddScreenplayCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var addButtonLabel: UILabel!
+    
+    func updateCell(isRestricted: Bool) {
+        contentView.backgroundColor = Theme.secondarySystemBackground
+        addButtonLabel.textColor = isRestricted ? .lightGray : .screenMediumBlue
+    }
 }

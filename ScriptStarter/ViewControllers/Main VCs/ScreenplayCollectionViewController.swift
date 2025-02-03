@@ -6,74 +6,90 @@
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
 
+import Combine
 import UIKit
 import Firebase
 import FBSDKLoginKit
 import Firebase
-import MoPub
+import SwiftUI
 
 class ScreenplayCollectionViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic?
+    @IBOutlet weak var imageView: UIImageView!
+
+    private var cancellables: Set<AnyCancellable> = []
 
     var screenplays: [Screenplay] = [] {
         didSet {
-            self.collectionView.reloadData()
+            reloadCollectionView()
         }
     }
-    
+
     var user: Firebase.User? {
         return Auth.auth().currentUser
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        adService = MoPubAdService()
-        setShouldDisplayInterstitial(state: false)
-        
-        // Set timer to enable interstitial ads
-        scheduleInterstitialStateToTrue()
+
+        subscribeToStore()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        imageView.image = Theme.backgroundImage
         
-        self.navigationController?.navigationBar.backgroundColor = .white
+        setupNavigationBarUI()
+        getScreenplays()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+    }
+
+    private func subscribeToStore() {
+        Store.shared.$purchasedSubscriptions
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.reloadCollectionView()
+            }
+            .store(in: &cancellables)
+        Store.shared.$purchasedNonConsumables
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.reloadCollectionView()
+            }
+            .store(in: &cancellables)
+    }
+
+    fileprivate func setupNavigationBarUI() {
         let strokeTextAttributes: [NSAttributedString.Key : Any] = [
-            NSAttributedString.Key.strokeColor : UIColor.screenLightBlue,
-            NSAttributedString.Key.foregroundColor : UIColor.white,
-            NSAttributedString.Key.strokeWidth : -2.0,
+            NSAttributedString.Key.strokeColor : Theme.scriptBuilderUIColor,
+            NSAttributedString.Key.foregroundColor : Theme.navTitleColor,
+            NSAttributedString.Key.strokeWidth : -3,
             NSAttributedString.Key.font: UIFont(name: "Avenir-Light",
                                                 size: 20) ?? UIFont.systemFont(ofSize: 20,
                                                                                weight: .regular)]
-        
-        self.navigationController?.navigationBar.titleTextAttributes = strokeTextAttributes
-        self.navigationItem.title = "Script Builder".localized
-    
-        self.collectionView.reloadData()
-
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
-        
-        getScreenplays()
-        
-        // Load Banner Add
-//        let amazonAdView = AmazonAdService().loadBannerAd(with: AmazonAdSize_320x50)
-//        amazonAdView?.delegate = self
-//        if let adView = amazonAdView {
-//            self.collectionView.addSubview(adView)
-//        }
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = Theme.navigationBarBackground
+        appearance.shadowImage = UIImage()
+        appearance.titleTextAttributes = strokeTextAttributes
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
+        navigationItem.title = "Script Builder".localized
     }
-   
+
+    private func cellRestricted(index: Int) -> Bool {
+        if index == 0 && screenplays.count == 0 { return false }
+        return !Store.shared.allAccessEnabled && (index > 1 || index == 0)
+    }
+
     // MARK: IBActions
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
@@ -104,29 +120,25 @@ class ScreenplayCollectionViewController: UIViewController {
         FirebaseController.shared.getScreenplays { (screenplays) in
             DispatchQueue.main.async {
                 self.screenplays = ScreenplayController.shared.sort(screenplays: screenplays)
-                if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: self.screenplays) {
+                if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: self.screenplays), Store.shared.allAccessEnabled
+                {
                     self.segueTo(screenplay: screenplay)
                 }
             }
         }
+    }
+
+    @objc
+    @MainActor
+    func reloadCollectionView() {
+        collectionView.reloadData()
     }
     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "screenplaySegue" {
-            self.navigationController?.navigationBar.topItem?.title = ""
-            self.navigationController?.navigationBar.tintColor = UIColor.screenLightBlue
-            self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
-            
-            guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
-            
-            if indexPath.row == 0 { return } // Users tapped on "+" screenplay so return
-            
-            let screenplay = screenplays[indexPath.row-1]
-            ScreenplayController.shared.set(currentScreenplay: screenplay)
-        } else if segue.identifier == "settingsSegue" {
+        if segue.identifier == "settingsSegue" {
             guard
                 let navController = segue.destination as? UINavigationController,
                 let settingsTableViewController = navController.viewControllers.first as? SettingsTableViewController
@@ -135,15 +147,22 @@ class ScreenplayCollectionViewController: UIViewController {
             }
             settingsTableViewController.screenplays = self.screenplays
         }
-       
     }
-    
+
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        switch identifier {
+        case "settingsSegue":
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 extension ScreenplayCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return screenplays.count + 1
+        screenplays.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -152,14 +171,37 @@ extension ScreenplayCollectionViewController: UICollectionViewDataSource {
         case 0:
             // Create the Add '+' screenplay cell
             guard let addScreenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "addScreenplayCell", for: indexPath) as? AddScreenplayCollectionViewCell else { return UICollectionViewCell() }
+            addScreenplayCell.updateCell(isRestricted: cellRestricted(index: indexPath.row))
             return addScreenplayCell
         default:
-            // TODO: Create a cell for an existing screenplay
             guard let screenplayCell = collectionView.dequeueReusableCell(withReuseIdentifier: "screenplayCell", for: indexPath) as? ScreenplayCollectionViewCell else { return UICollectionViewCell() }
             let screenplay = self.screenplays[indexPath.row-1]
-            screenplayCell.update(title: screenplay.title, name: screenplay.authorName ?? self.user?.displayName ?? "Name")
+            screenplayCell.update(title: screenplay.title, name: screenplay.authorName ?? self.user?.displayName ?? "Name", restricted: cellRestricted(index: indexPath.row))
+            
             return screenplayCell
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if cellRestricted(index: indexPath.row) {
+            presentIAPSubscriptionView()
+            return
+        }
+
+        guard let screenplayPageVC = self.storyboard?.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else { return }
+        
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
+        self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
+        
+        // If user's didn't tap "+" for new screenplay, we set the selected screenplay to currentScreenplay
+        if indexPath.row != 0 {
+            let screenplay = screenplays[indexPath.row-1]
+            ScreenplayController.shared.set(currentScreenplay: screenplay)
+        }
+
+        screenplayPageVC.modalPresentationStyle = .fullScreen
+        self.present(screenplayPageVC, animated: true, completion: nil)
     }
 }
 
@@ -172,6 +214,6 @@ extension ScreenplayCollectionViewController: UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        20
     }
 }

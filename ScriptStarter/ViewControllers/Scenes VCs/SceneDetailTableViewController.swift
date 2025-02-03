@@ -8,8 +8,6 @@
 
 import UIKit
 import Firebase
-import FBAudienceNetwork
-import MoPub
 
 protocol SceneActSelected: class {
     func selected(newAct:Act)
@@ -21,13 +19,13 @@ class SceneDetailTableViewController: UITableViewController {
     @IBOutlet weak var sceneTitleTextField: UITextField!
     @IBOutlet weak var sceneNumberTextField: UITextField!
     @IBOutlet weak var sceneHeaderTextField: UITextField!
-    
     @IBOutlet weak var sceneActNumberTextField: UITextField!
-    
-    var facebookAdService: FacebookAdService?
-    var interstitial: MPInterstitialAdController?
-    var adService: MoPubAdServiceLogic?
-    
+    @IBOutlet weak var topHorizontalStackView: UIStackView!
+    @IBOutlet weak var actTitleLabel: UILabel!
+    @IBOutlet weak var sceneNumberLabel: UILabel!
+    @IBOutlet weak var sceneHeadingLabel: UILabel!
+    @IBOutlet weak var headerContainerView: UIView!
+
     var expandableSections: [ExpandableTableViewSection] = []
     var act: Act = .one
     var scene: Scene?
@@ -38,73 +36,58 @@ class SceneDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        facebookAdService = FacebookAdService()
-        adService = MoPubAdService()
-
         saveButton.view = self
         setupExpandableSections()
+        headerContainerView.backgroundColor = Theme.tableViewBackgroundColor
+        tableView.backgroundColor = Theme.tableViewBackgroundColor
+        tableView.separatorColor = tableView.backgroundColor
+        tableView.showsVerticalScrollIndicator = false
+        sceneActNumberTextField.backgroundColor = Theme.descriptionTextViewBackground
+        sceneNumberTextField.backgroundColor = Theme.descriptionTextViewBackground
+        sceneHeaderTextField.backgroundColor = Theme.descriptionTextViewBackground
+        sceneActNumberTextField.textColor = Theme.descriptionTextColor
+        sceneNumberTextField.textColor = Theme.descriptionTextColor
+        sceneHeaderTextField.textColor = Theme.descriptionTextColor
+        actTitleLabel.textColor = Theme.navTitleColor
+        sceneNumberLabel.textColor = Theme.navTitleColor
+        sceneHeadingLabel.textColor = Theme.navTitleColor
         
-        self.tableView.backgroundColor = UIColor.screenLightGray
-        self.tableView.separatorColor = self.tableView.backgroundColor
-      
-        self.sceneTitleTextField.delegate = self
-        self.sceneHeaderTextField.delegate = self
-        self.sceneHeaderTextField.addTarget(self,
-                                            action: #selector(textFieldDidChange(_:)),
-                                            for: .editingChanged)
+        sceneTitleTextField.delegate = self
+        sceneTitleTextField.tag = 0
+        sceneTitleTextField.addTarget(self,
+                                      action: #selector(textFieldDidChange(_:)),
+                                      for: .editingChanged)
+        sceneNumberTextField.delegate = self
+        sceneNumberTextField.tag = 1
+        sceneNumberTextField.addTarget(self,
+                                       action: #selector(textFieldDidChange(_:)),
+                                       for: .editingChanged)
+        sceneHeaderTextField.delegate = self
+        sceneHeaderTextField.tag = 2
+        sceneHeaderTextField.addTarget(self,
+                                       action: #selector(textFieldDidChange(_:)),
+                                       for: .editingChanged)
 
         addToolBar(textField: self.sceneTitleTextField)
         addToolBar(textField: self.sceneNumberTextField)
         addToolBar(textField: self.sceneHeaderTextField)
         
-        if let scene = self.scene {
+        if let scene {
             self.updateView(with: scene)
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.sceneTitleTextField.becomeFirstResponder()
+            }
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Resizes Cells Dynamically
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableView.automaticDimension
-        
-//        if InAppPurchases.shouldDisplayAds {
-//            if let facebookAdView = self.facebookAdService?.loadBannerAd(for: self, with: kFBAdSizeHeight50Banner) {
-////                facebookAdView.delegate = self
-//                facebookAdView.loadAd()
-//                tableView.tableFooterView?.frame = facebookAdView.frame
-//                tableView.tableFooterView = facebookAdView
-//            }
-//        }
-        if InAppPurchases.shouldDisplayAds {
-            if let adView = self.adService?.loadBannerAd() {
-                adView.delegate = self
-                tableView.tableFooterView?.frame = adView.frame
-                tableView.tableFooterView = adView
-            }
-        }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-       
-        // If interstitial is not ready load one
-        if !interstitialIsReady(interstitial: interstitial) {
-            interstitial = adService?.loadInterstitial(for: self)
-        }
-        
-        // Display ad if we have one loaded and we have interstitial ads enabled
-        display(interstitial: interstitial)
-        
-        guard let _ = self.scene else {
-            createNewScene()
-            self.sceneTitleTextField.becomeFirstResponder()
-            return
-        }
-      
-    }
-    
-    
+
     // MARK: UI Methods
     
     func updateView(with scene:Scene) {
@@ -122,11 +105,10 @@ class SceneDetailTableViewController: UITableViewController {
             return
         }
         switch self.act {
-            
         case .one:
             if let highestSceneNumber = screenplay.act1ScenesArray.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
                 let scene = Scene(title: "New Scene".localized,
-                                  sceneNumber: highestSceneNumber+1)
+                                  sceneNumber: highestSceneNumber + 1)
                 self.scene = scene
                 self.screenplay?.act1ScenesSet.insert(scene)
             } else {
@@ -162,11 +144,11 @@ class SceneDetailTableViewController: UITableViewController {
         default:
             break
         }
-        if let scene = self.scene {
+        if let scene {
             self.sceneNumberTextField.text = "\(scene.sceneNumber)"
             self.sceneActNumberTextField.text = "\(self.act.rawValue+1)"
         }
-       
+        FirebaseController.shared.save(scene: scene, inAct: act)
     }
 
     @IBAction func sceneTitleTextFieldChanged(_ sender: UITextField) {
@@ -174,7 +156,7 @@ class SceneDetailTableViewController: UITableViewController {
     }
 
     @IBAction func sceneNumberTextFieldChanged(_ sender: UITextField) {
-        guard let screenplay = self.screenplay else {
+        guard let screenplay else {
             reloadScreenplaysWithAnimation {
                 self.tableView.reloadData()
             }
@@ -182,8 +164,7 @@ class SceneDetailTableViewController: UITableViewController {
         }
         guard let sceneNumberText = sender.text,
               let sceneNumber = Int(sceneNumberText) else { return }
-        
-        
+
         self.scene?.sceneNumber = sceneNumber
         
         if let scene = self.scene {
@@ -244,24 +225,24 @@ class SceneDetailTableViewController: UITableViewController {
         let storyboard = UIStoryboard(name: "Outline",
                                       bundle: nil)
         guard
-            let enlargedNavigationController = storyboard.instantiateViewController(withIdentifier: "enlargedNavigation") as? UINavigationController,
-            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionTableViewController,
+            let enlargedNavigationController = storyboard.instantiateViewController(withIdentifier: "enlargedNavigationController") as? UINavigationController,
+            let enlargedVC = enlargedNavigationController.children[0] as? EnlargedDescriptionViewController,
             let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
         else {
             return
         }
-        
+        enlargedNavigationController.modalPresentationStyle = .fullScreen
         enlargedVC.viewController = .sceneDetail
         enlargedVC.text = descriptionCell.descriptionTextView.text
         enlargedVC.section = sender.tag
         enlargedVC.delegate = self
         enlargedVC.scene = self.scene
-        
+        enlargedVC.act = self.act
         self.present(enlargedNavigationController,
                      animated: true,
                      completion: nil)
     }
-   
+
     // MARK: - TableView Data Source & Delegate Methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -284,7 +265,7 @@ class SceneDetailTableViewController: UITableViewController {
                                                                 for: indexPath) as? DescriptionTableViewCell
             descriptionCell?.delegate = self
             descriptionCell?.defaultHeight = self.getDefaultHeightOfCell()
-            descriptionCell?.contentView.backgroundColor = .screenLightGray
+            descriptionCell?.contentView.backgroundColor = Theme.descriptionTextViewBackground
             descriptionCell?.update(viewController: .sceneDetail,
                                     section: indexPath.section,
                                     act: self.act,
@@ -298,10 +279,9 @@ class SceneDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-      
         // Create Collapsible Header for Scene details
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleHeader ?? CollapsibleHeader(reuseIdentifier: "header")
-        header.contentView.backgroundColor = expandableSections[section].collapsed ? .white : UIColor.screenLightGray
+        header.contentView.backgroundColor = expandableSections[section].collapsed ? Theme.tableViewSectionCollapsedColor : Theme.tableViewSectionExpandedColor
         header.titleLabel.text = Scene.sceneTitles[section]
         header.subtitleLabel.text = Scene.sceneSubtitles[section]
         // header.subtitleLabel.text = act.sectionSubTitles[section-self.sectionBesidesBeats]
@@ -309,55 +289,69 @@ class SceneDetailTableViewController: UITableViewController {
         header.section = section
         header.delegate = self
         return header
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
     }
     
-       override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-         DispatchQueue.main.async {
-             guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
-             
-             if self.isExpandingCell {
-                 descriptionCell.descriptionTextView.becomeFirstResponder()
-                 descriptionCell.descriptionTextView.isHidden = false
-                 self.isExpandingCell = false
-             }
-         }
-     }
-     
-     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-         DispatchQueue.main.async {
-             guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
-                   
-                   if self.isCollapsingCell {
-                       descriptionCell.descriptionTextView.resignFirstResponder()
-                       descriptionCell.resignFirstResponder()
-                       self.isCollapsingCell = false
-                   }
-         }
-     }
-    
-    // MARK: - UITextFieldDelegate
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
+            
+            if self.isExpandingCell {
+                descriptionCell.descriptionTextView.becomeFirstResponder()
+                descriptionCell.descriptionTextView.isHidden = false
+                self.isExpandingCell = false
+            }
+        }
     }
     
- 
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            guard let descriptionCell = cell as? DescriptionTableViewCell else { return }
+            
+            if self.isCollapsingCell {
+                descriptionCell.descriptionTextView.resignFirstResponder()
+                descriptionCell.resignFirstResponder()
+                self.isCollapsingCell = false
+            }
+        }
+    }
+    
+    // MARK: - UITextFieldDelegate
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if scene == nil {
+            createNewScene()
+        }
+        textField.resignFirstResponder()
+        FirebaseController.shared.save(scene: scene, inAct: self.act)
+        return true
+    }
+
     @objc func textFieldDidChange(_ textField: UITextField) {
+        if scene == nil {
+            createNewScene()
+        }
         switch textField.tag {
+        case 0:
+            self.scene?.title = textField.text ?? ""
+        case 1:
+            self.scene?.sceneNumber = Int(textField.text ?? "") ?? -1
         case 2:
             self.scene?.header = textField.text ?? ""
         default:
             break
         }
+        _ = Timer.scheduledTimer(
+            withTimeInterval: 2.0,
+            repeats: false, block: { [weak self] _ in
+                guard let self else { return }
+                FirebaseController.shared.save(scene: self.scene, inAct: self.act)
+            })
     }
-    
-    
+
 }
 
 extension SceneDetailTableViewController: CollapsibleHeaderDelegate {
@@ -416,8 +410,14 @@ extension SceneDetailTableViewController: SceneActSelected {
             }
             return
         }
-        guard let scene = self.scene, newAct != self.act else { return }
-        
+        guard let scene = self.scene else {
+            createNewScene()
+            selected(newAct: newAct)
+            return
+        }
+
+        guard newAct != self.act else { return }
+
         // Remove scene from old act
         switch self.act {
         case .one:
@@ -429,7 +429,8 @@ extension SceneDetailTableViewController: SceneActSelected {
         default:
             break
         }
-        
+        FirebaseController.shared.delete(scene: scene, inAct: act)
+
         // Add scene into newAct and make scene number last in newAct
         switch newAct {
         case .one:
@@ -441,7 +442,6 @@ extension SceneDetailTableViewController: SceneActSelected {
                 scene.sceneNumber = 1
                 self.screenplay?.act1ScenesSet.insert(scene)
             }
-            
         case .two:
             if let highestSceneNumber = self.screenplay?.act2ScenesArray.sorted(by: {$0.sceneNumber > $1.sceneNumber }).first?.sceneNumber {
                 scene.sceneNumber = highestSceneNumber+1
@@ -463,27 +463,28 @@ extension SceneDetailTableViewController: SceneActSelected {
         default:
             break
         }
-        
+
         // Set selected newAct
         self.act = newAct
-        
+
         // Set Act number in textField to reflect the user's selection
         self.sceneActNumberTextField.text = "\(act.rawValue+1)"
-        
         // Set Scene # in case it changed during the act change
         self.sceneNumberTextField.text = "\(scene.sceneNumber)"
+        FirebaseController.shared.save(scene: scene, inAct: newAct)
     }
-    
+
 }
 
 extension SceneDetailTableViewController: DescriptionDelegate {
     
     func updatedText(_ text: String, in section: Int) {
         let indexPath = IndexPath(row: 0, section: section)
-        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell else { return }
-        
+        guard let descriptionCell = tableView.cellForRow(at: indexPath) as? DescriptionTableViewCell
+        else { return }
+
         descriptionCell.descriptionTextView.text = text
         descriptionCell.textViewDidChange(descriptionCell.descriptionTextView)
     }
-    
+
 }

@@ -10,9 +10,7 @@ import UIKit
 import Firebase
 import FBSDKCoreKit
 import GoogleSignIn
-import MoPub
-import FBAudienceNetwork
-import MoPub_FacebookAudienceNetwork_Adapters
+import StoreKit
 
 enum Shortcut: String {
     case newIdea = "newIdea"
@@ -22,7 +20,7 @@ enum Shortcut: String {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+
     var isLoggedIn: Bool {
         return AccessToken.current != nil || Auth.auth().currentUser != nil
     }
@@ -31,77 +29,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
         -> Bool {
-            
-            // Set AmazonAd AppKey
-            AmazonAdRegistration.shared()?.setAppKey("e5b3fc2981db4d93be80a670f7cae363")
-            
+
             // Configure Firebase
             FirebaseApp.configure()
-            
+
             // Enable offline persistence
             Database.database().isPersistenceEnabled = true
-            
+
             // Initialize Facebook sign-in
             ApplicationDelegate.shared.application(application,
                                                    didFinishLaunchingWithOptions: launchOptions)
-            
+
             // Initialize Google sign-in            
             GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-            
-            // Facebook Audience Network
-            facebookAdsControl()
-        
-            // Reset Ad Rewarded features
-            resetAdRewardedFeatures()
-            
-            // Initialize MoPub
-            let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "db12acb01a204aa8bd15d88017ee921b")
-            MoPub.sharedInstance().initializeSdk(with: sdkConfig, completion: nil)
 
-            let settings = MPStaticNativeAdRendererSettings()
-            if let config = FacebookNativeAdRenderer(rendererSettings: settings) {
-                _ = MPNativeAdRequest(adUnitIdentifier: "", rendererConfigurations: [config])
-            }
-            
             if isLoggedIn {
                 // User is logged in so present their screenplays
-                self.presentScreenplayCollectionView()
+                _ = presentScreenplayCollectionView()
             } else {
-                self.presentLoginScreen()
+                presentLoginScreen()
             }
-            
+
             return true
     }
-        
-    func applicationWillResignActive(_ application: UIApplication) {
-        NotificationCenter.default.post(name: Notification.Name.AppWillEnterBackground,
-                                        object: nil)
-    }
-    
+
     func applicationWillEnterForeground(_ application: UIApplication) {
         NotificationCenter.default.post(name: Notification.Name.AppWillEnterForeground,
                                         object: nil)
-    }
-    
-    private func facebookAdsControl() {
-        #if DEBUG
-            self.addTestDevicesForFacebookAds()
-        #else
-            self.clearTestDevicesForFacebookAds()
-        #endif
-    }
-
-    ///remove for live mode
-    private func addTestDevicesForFacebookAds(){
-        let key = FBAdSettings.testDeviceHash()
-        FBAdSettings.setLogLevel(FBAdLogLevel.log)
-      //  FBAdSettings.isTestMode()
-        FBAdSettings.addTestDevice(key)
-    }
-
-    ///add for live mode
-    private func clearTestDevicesForFacebookAds() {
-        FBAdSettings.clearTestDevices()
     }
     
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
@@ -115,6 +69,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
         
+        if !Store.shared.allAccessEnabled {
+            allAccessFeatureTriggered()
+            return false
+        }
+
         var quickActionHandled = false
         let type = shortcutItem.type.components(separatedBy: ".").last!
         if let shortcutType = Shortcut.init(rawValue: type) {
@@ -132,33 +91,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 quickActionHandled = true
             }
         }
-        
+
         return quickActionHandled
     }
-    
+
     // MARK: - Navigation
-    
+
     func presentLoginScreen() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
         if let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "loginVC") as? LoginViewController {
             self.window?.rootViewController = loginVC
         }
-        self.window?.makeKeyAndVisible()
+        makeKeyAndVisible()
     }
     
-    func presentScreenplayCollectionView() {
+    func presentScreenplayCollectionView() -> UINavigationController? {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
         guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else {
-            return
+            return nil
         }
         
         self.window?.rootViewController = mainNavigationController
-        self.window?.makeKeyAndVisible()
+        makeKeyAndVisible()
+        return mainNavigationController
     }
-    
+
+    func allAccessFeatureTriggered() {
+        let collectionViewController = presentScreenplayCollectionView()
+        let screenplayCollectionView = collectionViewController?.viewControllers.first as? ScreenplayCollectionViewController
+        screenplayCollectionView?.presentIAPSubscriptionView()
+    }
+
     func presentNewScreenplayIdea() {
         ScreenplayController.shared.resetCurrentScreenplay()
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -166,11 +132,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else {
             return
         }
-        
+
         self.window?.rootViewController = mainNavigationController
-        self.window?.makeKeyAndVisible()
+        makeKeyAndVisible()
     }
-    
+
     func presentNewCharacter() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -186,18 +152,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         screenplayCoverVC.swipedLeft()
         screenplayTabBar.selectedIndex = 1
         characterTableViewController.newCharacter = true
-        FirebaseController.shared.getScreenplays { (screenplays) in
+        FirebaseController.shared.getScreenplays { [weak self] (screenplays) in
             if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays) {
                 ScreenplayController.shared.set(currentScreenplay: screenplay)
-                self.window?.rootViewController = screenplayCoverVC
-                self.window?.makeKeyAndVisible()
+                self?.window?.rootViewController = screenplayCoverVC
+                self?.window?.makeKeyAndVisible()
                 return
             }
             let name = Auth.auth().currentUser?.displayName ?? "Name"
             let screenplay = Screenplay(title: "Untitled", authorName: name)
             ScreenplayController.shared.set(currentScreenplay: screenplay)
-            self.window?.rootViewController = screenplayCoverVC
-            self.window?.makeKeyAndVisible()
+            self?.window?.rootViewController = screenplayCoverVC
+            self?.makeKeyAndVisible()
         }
     }
     
@@ -217,54 +183,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         screenplayCoverVC.swipedLeft()
         screenplayTabBar.selectedIndex = 2
         scenesTableViewController.newScene = true
-        FirebaseController.shared.getScreenplays { (screenplays) in
+        FirebaseController.shared.getScreenplays { [weak self] (screenplays) in
             if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays) {
                 ScreenplayController.shared.set(currentScreenplay: screenplay)
-                self.window?.rootViewController = screenplayCoverVC
-                self.window?.makeKeyAndVisible()
+                self?.window?.rootViewController = screenplayCoverVC
+                self?.window?.makeKeyAndVisible()
                 return
             }
             
             let name = Auth.auth().currentUser?.displayName ?? "Name"
             let screenplay = Screenplay(title: "Untitled".localized, authorName: name)
             ScreenplayController.shared.set(currentScreenplay: screenplay)
-            self.window?.rootViewController = screenplayCoverVC
-            self.window?.makeKeyAndVisible()
+            self?.window?.rootViewController = screenplayCoverVC
+            self?.makeKeyAndVisible()
         }
     }
     
-    func resetAdRewardedFeatures() {
-        // If user terminates app expire Character builder trial
-        UserDefaults.standard.set(false,
-                                  forKey: Constants.characterBuilderRewardEnabled)
-       
-        // If user terminates app expire Scene builder trial
-        UserDefaults.standard.set(false,
-                                  forKey: Constants.sceneBuilderTrialType)
-    }
-    
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        
         // Handles both Facebook and Google
-
         let handled = ApplicationDelegate.shared.application(application,
                                                              open: url,
                                                              sourceApplication: sourceApplication,
-                                                             annotation: annotation) ||   GIDSignIn.sharedInstance().handle(url)
-        
-
+                                                             annotation: annotation) || GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
         return handled
     }
     
-    @available(iOS 9.0, *)
-    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
-        -> Bool {
-            
-            let handled = ApplicationDelegate.shared.application(application,
-                                                                 open: url,
-                                                                 options: options) || GIDSignIn.sharedInstance().handle(url)
-            return handled
+    func makeKeyAndVisible() {
+        self.window?.makeKeyAndVisible()
+        determineInterfaceStyle()
     }
-    
+
+    func determineInterfaceStyle() {
+        let interfaceStyleRawValue = UserDefaults().integer(forKey: InterfaceStyle.userDefaultsKey)
+        let interfaceStyle = InterfaceStyle(rawValue: interfaceStyleRawValue) ?? .defaultSelected
+        UIApplication.shared.set(style: interfaceStyle)
+    }
 }
 
+
+extension UIApplication {
+    
+    var mainWindow: UIWindow? {
+        UIApplication
+            .shared
+            .connectedScenes
+            .compactMap { ($0 as? UIWindowScene)?.keyWindow }
+            .last
+    }
+
+    var interfaceStyle: UIUserInterfaceStyle? {
+        mainWindow?.overrideUserInterfaceStyle
+    }
+    
+    func set(style: InterfaceStyle) {
+        mainWindow?.overrideUserInterfaceStyle = style.systemInterfaceStyle
+    }
+}
