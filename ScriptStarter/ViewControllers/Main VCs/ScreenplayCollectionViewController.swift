@@ -86,8 +86,11 @@ class ScreenplayCollectionViewController: UIViewController {
     }
 
     private func cellRestricted(index: Int) -> Bool {
-        if index == 0 && screenplays.count == 0 { return false }
-        return !Store.shared.allAccessEnabled && (index > 1 || index == 0)
+        if Store.shared.allAccessEnabled {
+            return false
+        } else {
+            return index == 0
+        }
     }
 
     // MARK: IBActions
