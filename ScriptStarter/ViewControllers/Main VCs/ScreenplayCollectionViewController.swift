@@ -86,9 +86,11 @@ class ScreenplayCollectionViewController: UIViewController {
     }
 
     private func cellRestricted(index: Int) -> Bool {
+        guard screenplays.count > 0 else { return false } // Allow access for 1 screenplay creation
         if Store.shared.allAccessEnabled {
             return false
         } else {
+            // If .allAccessEnabled false, and tapping on create new screenplay - restrict cell
             return index == 0
         }
     }
