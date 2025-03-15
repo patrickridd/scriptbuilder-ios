@@ -94,6 +94,9 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     // MARK: - UI Methods
     
     func setupNavigationBar() {
+        guard Thread.isMainThread else {
+            return DispatchQueue.main.async { self.setupNavigationBar() }
+        }
         var title: String = screenplay?.title ?? ""
         var font = UIFont.systemFont(ofSize: 20,
                                      weight: .semibold)

@@ -15,8 +15,8 @@ class Theme {
         UIApplication.shared.interfaceStyle
     }
 
-    static var scriptBuilderUIColor: UIColor? {
-        UIColor(named: "scriptBuilderUIColor")
+    static var scriptBuilderUIColor: UIColor {
+        UIColor(named: "scriptBuilderUIColor") ?? .systemCyan
     }
 
     static var scriptBuilderColor: Color {
@@ -69,24 +69,24 @@ class Theme {
     }
 
     // MARK: TextColors
-    static var descriptionTextColor: UIColor? {
-        UIColor(named: "descriptionTextColor")
+    static var descriptionTextColor: UIColor {
+        UIColor(named: "descriptionTextColor") ?? .label
     }
 
     static var descriptionPlaceholderTextColor: UIColor {
         UIColor(named: "descriptionPlaceholderTextColor") ?? .separator
     }
 
-    static var navTitleColor: UIColor? {
-        UIColor(named: "navTitleColor")
+    static var navTitleColor: UIColor {
+        UIColor(named: "navTitleColor") ?? .label
     }
 
-    static var characterNameTextFieldColor: UIColor? {
-        UIColor(named: "characterNameTextFieldColor")
+    static var characterNameTextFieldColor: UIColor {
+        UIColor(named: "characterNameTextFieldColor") ?? .label
     }
 
-    static var characterTableViewSeparatorColor: UIColor? {
-        UIColor(named: "characterTableViewSeparatorColor")
+    static var characterTableViewSeparatorColor: UIColor {
+        UIColor(named: "characterTableViewSeparatorColor") ?? .separator
     }
 
     static var backgroundImage: UIImage {

@@ -113,7 +113,9 @@ class OutlineTableViewController: UITableViewController {
     // MARK: UI Methods
     
     func setupNavigationBar() {
-        
+        guard Thread.isMainThread else {
+            return DispatchQueue.main.async { self.setupNavigationBar() }
+        }
        // Remove Navigation bar shadow and borderline
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
@@ -141,6 +143,9 @@ class OutlineTableViewController: UITableViewController {
     }
     
     func setupTabBar() {
+        guard Thread.isMainThread else {
+            return DispatchQueue.main.async { self.setupTabBar() }
+        }
         let appearance = UITabBarAppearance()
         let selectedColor = Theme.scriptBuilderUIColor
         appearance.configureWithOpaqueBackground()

@@ -68,23 +68,24 @@ class ScreenplayCollectionViewController: UIViewController {
     }
 
     fileprivate func setupNavigationBarUI() {
-        DispatchQueue.main.async {
-            let strokeTextAttributes: [NSAttributedString.Key : Any] = [
-                NSAttributedString.Key.strokeColor : Theme.scriptBuilderUIColor,
-                NSAttributedString.Key.foregroundColor : Theme.navTitleColor,
-                NSAttributedString.Key.strokeWidth : -3,
-                NSAttributedString.Key.font: UIFont(name: "Avenir-Light",
-                                                    size: 20) ?? UIFont.systemFont(ofSize: 20,
-                                                                                   weight: .regular)]
-            let appearance = UINavigationBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = Theme.navigationBarBackground
-            appearance.shadowImage = UIImage()
-            appearance.titleTextAttributes = strokeTextAttributes
-            self.navigationController?.navigationBar.standardAppearance = appearance
-            self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
-            self.navigationItem.title = "Script Builder".localized
+        guard Thread.isMainThread else {
+            return DispatchQueue.main.async { self.setupNavigationBarUI() }
         }
+        let strokeTextAttributes: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.strokeColor : Theme.scriptBuilderUIColor,
+            NSAttributedString.Key.foregroundColor : Theme.navTitleColor,
+            NSAttributedString.Key.strokeWidth : -3,
+            NSAttributedString.Key.font: UIFont(name: "Avenir-Light",
+                                                size: 20) ?? UIFont.systemFont(ofSize: 20,
+                                                                               weight: .regular)]
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = Theme.navigationBarBackground
+        appearance.shadowImage = UIImage()
+        appearance.titleTextAttributes = strokeTextAttributes
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
+        self.navigationItem.title = "Script Builder".localized
     }
 
     private func cellRestricted(index: Int) -> Bool {
