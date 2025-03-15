@@ -10,158 +10,86 @@ import SwiftUI
 import UIKit
 
 class Theme {
-   
+
     static var interfaceStyle: UIUserInterfaceStyle? {
         UIApplication.shared.interfaceStyle
     }
-    
-    static var scriptBuilderUIColor: UIColor {
-        interfaceStyle == .dark ? .systemCyan : .screenMediumBlue
-    }
-    
-    static var scriptBuilderColor: Color {
-        Color(scriptBuilderUIColor)
-    }
-    
-    // MARK: Backgrounds
-    static var systemBackground: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return .white
-        case .dark:
-            return UIColor.screenDark
-        }
-    }
-    
-    static var navigationBarBackground: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return .white
-        case .dark:
-            return UIColor.darkGray
-        }
-    }
-    
-    static var descriptionTextViewBackground: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return .white
-        case .dark:
-            return UIColor.darkGray
-        }
-    }
-    
-    static var lineSeparatorcolor: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return .screenLightGray
-        case .dark:
-            return UIColor.screenMidnightExpressBlack
-        }
+
+    static var scriptBuilderUIColor: UIColor? {
+        UIColor(named: "scriptBuilderUIColor")
     }
 
-    static var tableViewBackgroundColor: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return UIColor.screenLightGray
-        case .dark:
-            return UIColor.black
-        }
+    static var scriptBuilderColor: Color {
+        Color("scriptBuilderColor")
     }
-    
-    static var secondarySystemBackground: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return UIColor.white
-        case .dark:
-            return UIColor.darkGray
-        }
+
+    // MARK: Backgrounds
+    static var systemBackground: UIColor? {
+        UIColor(named: "systemBackground")
     }
-    
-    static var sectionHeaderSeparatorColor: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return UIColor.athensGray
-        case .dark:
-            return UIColor.black
-        }
+
+    static var navigationBarBackground: UIColor? {
+        UIColor(named: "navigationBarBackground")
     }
-    
-    static var tableViewSectionCollapsedColor: UIColor {
+
+    static var descriptionTextViewBackground: UIColor? {
+        UIColor(named: "descriptionTextViewBackground")
+    }
+
+    static var lineSeparatorcolor: UIColor? {
+        UIColor(named: "lineSeparatorcolor")
+    }
+
+    static var tableViewBackgroundColor: UIColor? {
+        UIColor(named: "tableViewBackgroundColor")
+    }
+
+    static var secondarySystemBackground: UIColor? {
+        UIColor(named: "secondarySystemBackground")
+    }
+
+    static var sectionHeaderSeparatorColor: UIColor? {
+        UIColor(named: "sectionHeaderSeparatorColor")
+    }
+
+    static var tableViewSectionCollapsedColor: UIColor? {
        navigationBarBackground
     }
-    
-    static var tableViewSectionExpandedColor: UIColor {
+
+    static var tableViewSectionExpandedColor: UIColor? {
         tableViewBackgroundColor
     }
-    
-    static var enlargedNavigationBarBackground: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return UIColor.screenLightGray
-        case .dark:
-            return UIColor.darkGray
-        }
+
+    static var enlargedNavigationBarBackground: UIColor? {
+        UIColor(named: "enlargedNavigationBarBackground")
     }
-    
-    static var enlargedNavigationDescriptionBackground: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return UIColor.white
-        case .dark:
-            return UIColor.black
-        }
+
+    static var enlargedNavigationDescriptionBackground: UIColor? {
+        UIColor(named: "enlargedNavigationDescriptionBackground")
     }
 
     // MARK: TextColors
-    static var descriptionTextColor: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return UIColor.screenHaitiBlack
-        case .dark:
-            return UIColor.white
-        }
+    static var descriptionTextColor: UIColor? {
+        UIColor(named: "descriptionTextColor")
     }
 
     static var descriptionPlaceholderTextColor: UIColor {
-        UIColor.lightGray
-    }
-    
-    static var navTitleColor: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return UIColor.screenDark
-        case .dark:
-            return UIColor.white
-        }
-    }
-    
-    static var characterNameTextFieldColor: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return UIColor.screenDarkMediumGray
-        case .dark:
-            return UIColor.white
-        }
+        UIColor(named: "descriptionPlaceholderTextColor") ?? .separator
     }
 
-    static var characterTableViewSeparatorColor: UIColor {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return .separator
-        case .dark:
-            return UIColor.screenMidnightExpressBlack
-        }
+    static var navTitleColor: UIColor? {
+        UIColor(named: "navTitleColor")
     }
-    
+
+    static var characterNameTextFieldColor: UIColor? {
+        UIColor(named: "characterNameTextFieldColor")
+    }
+
+    static var characterTableViewSeparatorColor: UIColor? {
+        UIColor(named: "characterTableViewSeparatorColor")
+    }
+
     static var backgroundImage: UIImage {
-        switch interfaceStyle {
-        case .unspecified, .none, .light:
-            return UIImage(named: "gray_blue_background.jpg") ?? UIImage()
-        case .dark:
-            return UIImage(named: "spiraling_stars.jpg") ?? UIImage()
-        }
+        UIImage(named: "screenplayCollectionViewBackground") ?? UIImage()
     }
-
-    
 }

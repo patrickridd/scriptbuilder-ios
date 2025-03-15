@@ -68,21 +68,23 @@ class ScreenplayCollectionViewController: UIViewController {
     }
 
     fileprivate func setupNavigationBarUI() {
-        let strokeTextAttributes: [NSAttributedString.Key : Any] = [
-            NSAttributedString.Key.strokeColor : Theme.scriptBuilderUIColor,
-            NSAttributedString.Key.foregroundColor : Theme.navTitleColor,
-            NSAttributedString.Key.strokeWidth : -3,
-            NSAttributedString.Key.font: UIFont(name: "Avenir-Light",
-                                                size: 20) ?? UIFont.systemFont(ofSize: 20,
-                                                                               weight: .regular)]
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = Theme.navigationBarBackground
-        appearance.shadowImage = UIImage()
-        appearance.titleTextAttributes = strokeTextAttributes
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
-        navigationItem.title = "Script Builder".localized
+        DispatchQueue.main.async {
+            let strokeTextAttributes: [NSAttributedString.Key : Any] = [
+                NSAttributedString.Key.strokeColor : Theme.scriptBuilderUIColor,
+                NSAttributedString.Key.foregroundColor : Theme.navTitleColor,
+                NSAttributedString.Key.strokeWidth : -3,
+                NSAttributedString.Key.font: UIFont(name: "Avenir-Light",
+                                                    size: 20) ?? UIFont.systemFont(ofSize: 20,
+                                                                                   weight: .regular)]
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = Theme.navigationBarBackground
+            appearance.shadowImage = UIImage()
+            appearance.titleTextAttributes = strokeTextAttributes
+            self.navigationController?.navigationBar.standardAppearance = appearance
+            self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
+            self.navigationItem.title = "Script Builder".localized
+        }
     }
 
     private func cellRestricted(index: Int) -> Bool {
@@ -197,7 +199,7 @@ extension ScreenplayCollectionViewController: UICollectionViewDataSource {
         
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = Theme.scriptBuilderUIColor
-        self.navigationController?.navigationBar.backgroundColor = UIColor.screenDark
+        self.navigationController?.navigationBar.backgroundColor = Theme.systemBackground
         
         // If user's didn't tap "+" for new screenplay, we set the selected screenplay to currentScreenplay
         if indexPath.row != 0 {
