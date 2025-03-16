@@ -361,10 +361,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spiraling_stars.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="iQR-W5-PGv" userLabel="spiraling_stars">
-                                <rect key="frame" x="0.0" y="103" width="430" height="795"/>
+                                <rect key="frame" x="0.0" y="103" width="430" height="829"/>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Poz-sJ-et2">
-                                <rect key="frame" x="20" y="103" width="390" height="795"/>
+                                <rect key="frame" x="20" y="103" width="390" height="829"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uHu-ae-2aW">
                                     <size key="itemSize" width="70" height="90"/>
@@ -473,12 +473,12 @@
                         <constraints>
                             <constraint firstItem="iQR-W5-PGv" firstAttribute="leading" secondItem="wYn-3u-p0b" secondAttribute="leading" id="8Vg-n7-Imz"/>
                             <constraint firstItem="Poz-sJ-et2" firstAttribute="top" secondItem="wYn-3u-p0b" secondAttribute="top" id="C2X-yN-wDh"/>
-                            <constraint firstItem="wYn-3u-p0b" firstAttribute="bottom" secondItem="iQR-W5-PGv" secondAttribute="bottom" id="F1O-zb-lsc"/>
+                            <constraint firstItem="wYn-3u-p0b" firstAttribute="bottom" secondItem="iQR-W5-PGv" secondAttribute="bottom" constant="-34" id="F1O-zb-lsc"/>
                             <constraint firstItem="wYn-3u-p0b" firstAttribute="trailing" secondItem="iQR-W5-PGv" secondAttribute="trailing" id="Iab-Xr-Slv"/>
                             <constraint firstItem="iQR-W5-PGv" firstAttribute="top" secondItem="wYn-3u-p0b" secondAttribute="top" id="RYy-Fs-lyJ"/>
                             <constraint firstItem="Poz-sJ-et2" firstAttribute="leading" secondItem="wYn-3u-p0b" secondAttribute="leading" constant="20" id="aHG-VH-PXv"/>
+                            <constraint firstAttribute="bottom" secondItem="Poz-sJ-et2" secondAttribute="bottom" id="dZW-Tq-PXV"/>
                             <constraint firstItem="wYn-3u-p0b" firstAttribute="trailing" secondItem="Poz-sJ-et2" secondAttribute="trailing" constant="20" id="dwZ-l5-t0S"/>
-                            <constraint firstItem="wYn-3u-p0b" firstAttribute="bottom" secondItem="Poz-sJ-et2" secondAttribute="bottom" id="m4H-Ld-Yqz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Scripts" id="Tuv-JO-Xdu">
@@ -502,7 +502,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4kN-cj-Ycs" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1546" y="134"/>
+            <point key="canvasLocation" x="1544.6511627906978" y="133.90557939914163"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="znh-ln-Tbl">
