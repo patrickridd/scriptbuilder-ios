@@ -10,6 +10,14 @@ import UIKit
 
 class LegalTableViewCellCell: UITableViewCell {
 
+    @IBOutlet weak var versionLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        versionLabel.text = "Version \(Bundle.main.releaseVersionNumber ?? "")"
+    }
+
     @IBAction func privacyPolicyTapped(_ sender: Any) {
         // Open Privacy Policy
         if let privacyPolicyURL = URL(string: "https://www.scriptbuilderapp.com/_files/ugd/b622d0_f5722cd213394590bbd181559a0af540.pdf") {

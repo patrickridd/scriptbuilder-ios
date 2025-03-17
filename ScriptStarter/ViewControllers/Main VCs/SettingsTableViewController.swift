@@ -208,12 +208,15 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 15
+        
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case 0,5:
+        case 0:
             return 15
+        case 5:
+            return 5
         default:
             return 45
         }
@@ -225,6 +228,9 @@ class SettingsTableViewController: UITableViewController {
             return 130
         case 1:
             return 60
+        case 5:
+            // LegalTableViewCellCell
+            return 80
         default:
             return 60
         }
