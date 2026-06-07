@@ -44,6 +44,7 @@
 		2158DA842FD5017D003B5619 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2158DA832FD5017D003B5619 /* FirebaseAuth */; };
 		2158DA862FD502D9003B5619 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 2158DA852FD502D9003B5619 /* FirebaseDatabase */; };
 		2158DA892FD50737003B5619 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 2158DA882FD50737003B5619 /* GoogleSignIn */; };
+		2158DA8F2FD51183003B5619 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2158DA8E2FD51183003B5619 /* MBProgressHUD */; };
 		2159D2322C339C9800642DAC /* IAPSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2159D2312C339C9800642DAC /* IAPSubscriptionView.swift */; };
 		215DDCD321EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		215DDCD421EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
@@ -302,6 +303,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2158DA8F2FD51183003B5619 /* MBProgressHUD in Frameworks */,
 				2158DA892FD50737003B5619 /* GoogleSignIn in Frameworks */,
 				2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */,
 				2158DA842FD5017D003B5619 /* FirebaseAuth in Frameworks */,
@@ -827,6 +829,7 @@
 			packageReferences = (
 				21B167232FD4FD2B00E49A3E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				2158DA872FD50700003B5619 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				2158DA8D2FD5114C003B5619 /* XCRemoteSwiftPackageReference "mbprogresshud" */,
 			);
 			productRefGroup = 212DEA712012746500FE9C3F /* Products */;
 			projectDirPath = "";
@@ -957,7 +960,6 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/KMPlaceholderTextView/KMPlaceholderTextView.framework",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -966,7 +968,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KMPlaceholderTextView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1579,6 +1580,14 @@
 				minimumVersion = 9.1.0;
 			};
 		};
+		2158DA8D2FD5114C003B5619 /* XCRemoteSwiftPackageReference "mbprogresshud" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jdg/mbprogresshud.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 		21B167232FD4FD2B00E49A3E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1604,6 +1613,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2158DA872FD50700003B5619 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
+		};
+		2158DA8E2FD51183003B5619 /* MBProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2158DA8D2FD5114C003B5619 /* XCRemoteSwiftPackageReference "mbprogresshud" */;
+			productName = MBProgressHUD;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

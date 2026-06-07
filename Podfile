@@ -10,7 +10,6 @@ target 'ScriptStarter' do
   # Pods for ScriptStarter
   pod 'FBSDKLoginKit'
   pod 'FacebookLogin'
-  pod 'MBProgressHUD', '~> 1.1.0'
   pod 'KMPlaceholderTextView', '~> 1.4.0'
 
   target 'ScriptStarterTests' do
