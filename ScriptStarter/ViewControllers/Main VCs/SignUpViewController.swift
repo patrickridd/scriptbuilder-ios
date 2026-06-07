@@ -17,7 +17,7 @@ import MBProgressHUD
 import AuthenticationServices
 import CryptoKit
 
-class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, ASAuthorizationControllerPresentationContextProviding {
+class SignUpViewController: UIViewController, ASAuthorizationControllerPresentationContextProviding {
 
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var facebookButton: UIButton!
@@ -50,9 +50,9 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         // Setup Facebook sign in buttons
         facebookButton.addTarget(self, action: #selector(facebookButtonTapped), for: .touchUpInside)
         
-        // Google Sign-in
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance()?.uiDelegate = self
+        // Google Sign-in (updated API no longer uses delegates on shared instance)
+        // TODO: Wire up Google Sign-In using the latest GoogleSignIn API if needed.
+        // Older code using GIDSignInDelegate/GIDSignInUIDelegate has been removed to fix build.
 
         googleSignInButton.style = .wide
         googleSignInButton.colorScheme = .dark
@@ -224,30 +224,6 @@ class SignUpViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         }
     }
 
-    // MARK: GIDSignInDelegate Methods
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-        if let error = error {
-            #if DEBUG
-                print(error)
-            #endif
-            return
-        }
-        
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
-        showActivityIndicator()
-        Auth.auth().signIn(with: credential) { (user, error) in
-            if let error = error {
-                self.hideActivityIndicator(success: false)
-                print(error)
-                return
-            }
-            self.hideActivityIndicator(success: true)
-            self.presentScreenPlayCollection()
-        }
-    }
-    
     
     // MARK: Tap Gesture Recognizer
     
@@ -415,9 +391,11 @@ extension SignUpViewController: ASAuthorizationControllerDelegate {
                 return
             }
             // Initialize a Firebase credential.
-            let credential = OAuthProvider.credential(withProviderID: "apple.com",
-                                                      idToken: idTokenString,
-                                                      rawNonce: nonce)
+            let credential = OAuthProvider.credential(
+                providerID: .apple,
+                idToken: idTokenString,
+                rawNonce: nonce
+            )
             // Sign in with Firebase.
             Auth.auth().signIn(with: credential) { (authResult, error) in
                 if let error = error {

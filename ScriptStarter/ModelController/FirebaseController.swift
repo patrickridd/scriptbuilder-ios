@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
 import FirebaseDatabase
 
 
@@ -57,7 +58,7 @@ class FirebaseController {
         currentScreenplayReference?.child(charactersKey)
     }
 
-    var user: Firebase.User? {
+    var user: FirebaseAuth.User? {
         return Auth.auth().currentUser
     }
 
@@ -74,14 +75,14 @@ class FirebaseController {
         })
     }
     
-    func signIn(with email: String, password: String, completion: @escaping (_ error: Error?, _ user: Firebase.User?) -> Void) {
+    func signIn(with email: String, password: String, completion: @escaping (_ error: Error?, _ user: FirebaseAuth.User?) -> Void) {
         Auth.auth().signIn(withEmail: email,
                            password: password) { (result, error) in
                             completion(error, result?.user)
         }
     }
     
-    func createAccount(firstName: String, lastName: String, withEmail: String, password: String, completion: @escaping (_ error: Error?, _ user: Firebase.User?) -> Void) {
+    func createAccount(firstName: String, lastName: String, withEmail: String, password: String, completion: @escaping (_ error: Error?, _ user: FirebaseAuth.User?) -> Void) {
         Auth.auth().createUser(withEmail: withEmail,
                                password: password) { (result, error) in
                                 guard let createUser = result?.user else {

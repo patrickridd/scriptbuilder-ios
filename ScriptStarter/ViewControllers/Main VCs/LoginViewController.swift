@@ -17,7 +17,7 @@ import MBProgressHUD
 import AuthenticationServices
 import CryptoKit
 
-class LoginViewController: UIViewController, ASAuthorizationControllerPresentationContextProviding, GIDSignInUIDelegate {
+class LoginViewController: UIViewController, ASAuthorizationControllerPresentationContextProviding {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var authenticationStackView: UIStackView!
@@ -48,11 +48,9 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                                       for: .touchUpInside)
 
         // Google Sign-in
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance()?.uiDelegate = self
-
         self.googleSignInButton.style = .wide
         self.googleSignInButton.colorScheme = .dark
+        self.googleSignInButton.addTarget(self, action: #selector(self.googleButtonTapped), for: .touchUpInside)
 
         // Set TextFields Delegate
         self.emailTextField.delegate = self
@@ -148,6 +146,43 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                         self?.presentScreenPlayCollection()
                     })
                 }
+            }
+        }
+    }
+    
+    @objc private func googleButtonTapped() {
+        let presentingVC: UIViewController = self.presentedViewController ?? self
+        showActivityIndicator()
+        GIDSignIn.sharedInstance.signIn(withPresenting: presentingVC) { [weak self] result, error in
+            guard let self = self else { return }
+            if let error = error {
+                self.hideActivityIndicator(success: false)
+                #if DEBUG
+                print("Google sign-in error: \(error)")
+                #endif
+                return
+            }
+            guard let result = result else {
+                self.hideActivityIndicator(success: false)
+                return
+            }
+            let user = result.user
+            guard let idToken = user.idToken?.tokenString else {
+                self.hideActivityIndicator(success: false)
+                return
+            }
+            let accessToken = user.accessToken.tokenString
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+            Auth.auth().signIn(with: credential) { [weak self] (authResult, error) in
+                if let error = error {
+                    self?.hideActivityIndicator(success: false)
+                    #if DEBUG
+                    print("Firebase sign-in error: \(error)")
+                    #endif
+                    return
+                }
+                self?.hideActivityIndicator(success: true)
+                self?.presentScreenPlayCollection()
             }
         }
     }
@@ -304,40 +339,6 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
     }
 }
 
-extension LoginViewController: GIDSignInDelegate {
-    
-    func sign(_ signIn: GIDSignIn!,
-              didSignInFor user: GIDGoogleUser!,
-              withError error: Error?) {
-        
-        showActivityIndicator()
-        if let error = error {
-            hideActivityIndicator(success: false)
-            #if DEBUG
-            print(error)
-            #endif
-            return
-        }
-        
-        guard let authentication = user.authentication else {
-            self.hideActivityIndicator(success: false)
-            return
-        }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        Auth.auth().signIn(with: credential) { [weak self] (user, error) in
-            if let error = error {
-                self?.hideActivityIndicator(success: false)
-                print(error)
-                return
-            }
-            self?.hideActivityIndicator(success: true)
-            self?.presentScreenPlayCollection()
-        }
-    }
-    
-}
-
 extension LoginViewController: ASAuthorizationControllerDelegate {
     
     func setupProviderLoginView() {
@@ -429,9 +430,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 return
             }
             // Initialize a Firebase credential.
-            let credential = OAuthProvider.credential(withProviderID: "apple.com",
-                                                      idToken: idTokenString,
-                                                      rawNonce: nonce)
+            let credential = OAuthProvider.credential(providerID: .apple, idToken: idTokenString, rawNonce: nonce, accessToken: nil)
+
             // Sign in with Firebase.
             Auth.auth().signIn(with: credential) { (authResult, error) in
                 if let error = error {

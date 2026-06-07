@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 import StoreKit
-import Firebase
+import FirebaseAuth
 
 protocol InAppPurchaseDelegate: class {
     func didCompleteTransaction(for productIdentifier: String?,
@@ -23,7 +23,7 @@ class SettingsTableViewController: UITableViewController {
     var loadingNotification = MBProgressHUD()
     var screenplays: [Screenplay] = []
     
-    var user: Firebase.User? {
+    var user: FirebaseAuth.User? {
         return Auth.auth().currentUser
     }
     

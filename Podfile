@@ -8,11 +8,6 @@ target 'ScriptStarter' do
   $FirebaseSDKVersion = '7.1.0'
 
   # Pods for ScriptStarter
-  pod 'Firebase/Core', $FirebaseSDKVersion
-  pod 'Firebase/Auth', $FirebaseSDKVersion
-  pod 'Firebase/Database', $FirebaseSDKVersion
-  pod 'Firebase/DynamicLinks', $FirebaseSDKVersion
-  pod 'GoogleSignIn'
   pod 'FBSDKLoginKit'
   pod 'FacebookLogin'
   pod 'MBProgressHUD', '~> 1.1.0'

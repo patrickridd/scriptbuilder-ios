@@ -7,10 +7,12 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseAuth
 import FBSDKCoreKit
 import GoogleSignIn
 import StoreKit
+import FirebaseCore
+import FirebaseDatabaseInternal
 
 enum Shortcut: String {
     case newIdea = "newIdea"
@@ -40,8 +42,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ApplicationDelegate.shared.application(application,
                                                    didFinishLaunchingWithOptions: launchOptions)
 
-            // Initialize Google sign-in            
-            GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+            // Initialize Google sign-in
+            let clientId = FirebaseApp.app()!.options.clientID!
+            let config = GIDConfiguration(clientID: clientId)
+
+            GIDSignIn.sharedInstance.configuration = config
 
             if isLoggedIn {
                 // User is logged in so present their screenplays
@@ -199,13 +204,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         // Handles both Facebook and Google
-        let handled = ApplicationDelegate.shared.application(application,
-                                                             open: url,
-                                                             sourceApplication: sourceApplication,
-                                                             annotation: annotation) || GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
-        return handled
+        let handledByFB = ApplicationDelegate.shared.application(app, open: url, options: options)
+        let handledByGoogle = GIDSignIn.sharedInstance.handle(url)
+        return handledByFB || handledByGoogle
     }
     
     func makeKeyAndVisible() {

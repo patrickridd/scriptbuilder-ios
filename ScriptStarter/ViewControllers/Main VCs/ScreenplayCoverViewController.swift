@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import MBProgressHUD
-import Firebase
+import FirebaseAuth
 
 class ScreenplayCoverViewController: UIViewController {
 

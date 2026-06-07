@@ -10,7 +10,7 @@ import Combine
 import UIKit
 import Firebase
 import FBSDKLoginKit
-import Firebase
+import FirebaseAuth
 import SwiftUI
 
 class ScreenplayCollectionViewController: UIViewController {
@@ -26,7 +26,7 @@ class ScreenplayCollectionViewController: UIViewController {
         }
     }
 
-    var user: Firebase.User? {
+    var user: FirebaseAuth.User? {
         return Auth.auth().currentUser
     }
 
