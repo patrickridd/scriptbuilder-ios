@@ -6,8 +6,8 @@
 //  Copyright © 2019 patrickridd. All rights reserved.
 //
 
+import Domain
 import PDFKit
-
 
 class PdfHelper {
     

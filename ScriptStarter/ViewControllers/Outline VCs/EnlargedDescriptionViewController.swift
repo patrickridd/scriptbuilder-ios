@@ -6,6 +6,7 @@
 //  Copyright © 2024 patrickridd. All rights reserved.
 //
 
+import Domain
 import KMPlaceholderTextView
 import UIKit
 

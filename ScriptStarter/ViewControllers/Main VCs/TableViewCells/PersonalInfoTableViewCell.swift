@@ -6,6 +6,7 @@
 //  Copyright © 2019 patrickridd. All rights reserved.
 //
 
+import Domain
 import UIKit
 import FirebaseAuth
 

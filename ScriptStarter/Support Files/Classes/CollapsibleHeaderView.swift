@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Domain
 protocol CollapsibleHeaderDelegate {
   
     var expandableSections: [ExpandableTableViewSection] { get set }

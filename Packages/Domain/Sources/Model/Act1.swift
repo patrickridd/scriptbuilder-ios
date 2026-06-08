@@ -8,20 +8,20 @@
 
 import Foundation
 
-class Act1: Equatable {
+public class Act1: Equatable {
     
     // Keys
-    let oldWorldDescriptionKey = "oldWorldDescription"
-    let incitingIncidentKey = "incitingIncident"
-    let callToAdventureKey = "callToAdventure"
-    let meetingMentorKey = "meetingMentor"
-    let themeKey = "theme"
-    let refusalKey = "refusal"
-    let reasonToAdventureKey = "reasonToAdventure"
-    let enemyAtTheGatesKey = "enemyAtTheGates"
-    let scenesKey = "scenes"
+    public let oldWorldDescriptionKey = "oldWorldDescription"
+    public let incitingIncidentKey = "incitingIncident"
+    public let callToAdventureKey = "callToAdventure"
+    public let meetingMentorKey = "meetingMentor"
+    public let themeKey = "theme"
+    public let refusalKey = "refusal"
+    public let reasonToAdventureKey = "reasonToAdventure"
+    public let enemyAtTheGatesKey = "enemyAtTheGates"
+    public let scenesKey = "scenes"
     
-    var sceneSet: Set<Scene> = [] {
+    public var sceneSet: Set<Scene> = [] {
         didSet {
             self.scenes = []
             self.scenes.append(contentsOf: sceneSet)
@@ -29,18 +29,18 @@ class Act1: Equatable {
         }
     }
     
-    var scenes: [Scene] = []
+    public var scenes: [Scene] = []
     
-    var oldWorldDescription: String = "" // 1
-    var incitingIncident: String = "" // 2
-    var callToAdventure: String = "" // 3
-    var meetingMentor: String = "" // 4
-    var theme: String = "" // 5
-    var refusal: String = "" // 6
-    var reasonToAdventure: String = "" // 7
-    var enemyAtTheGates: String = "" // 8
+    public var oldWorldDescription: String = "" // 1
+    public var incitingIncident: String = "" // 2
+    public var callToAdventure: String = "" // 3
+    public var meetingMentor: String = "" // 4
+    public var theme: String = "" // 5
+    public var refusal: String = "" // 6
+    public var reasonToAdventure: String = "" // 7
+    public var enemyAtTheGates: String = "" // 8
     
-    static func == (lhs: Act1, rhs: Act1) -> Bool {
+    static public func == (lhs: Act1, rhs: Act1) -> Bool {
         return lhs.scenes == rhs.scenes &&
                lhs.oldWorldDescription == rhs.oldWorldDescription &&
                lhs.incitingIncident == rhs.incitingIncident &&
@@ -52,11 +52,11 @@ class Act1: Equatable {
                lhs.enemyAtTheGates == rhs.enemyAtTheGates
     }
     
-    init() {
+    public init() {
         self.sceneSet = []
     }
     
-    init?(actOneDict: [String:Any]) {
+    public init?(actOneDict: [String:Any]) {
         guard let oldWorldDescription = actOneDict[oldWorldDescriptionKey] as? String,
         let incitingIncident = actOneDict[incitingIncidentKey] as? String,
         let callToAdventure = actOneDict[callToAdventureKey] as? String,
@@ -93,7 +93,7 @@ class Act1: Equatable {
         self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
     }
     
-    init(act1: Act1) {
+    public init(act1: Act1) {
         self.meetingMentor = act1.meetingMentor
         self.oldWorldDescription = act1.oldWorldDescription
         self.incitingIncident = act1.incitingIncident
@@ -111,7 +111,7 @@ class Act1: Equatable {
         self.scenes = scenes
     }
     
-    var firActOneDictionary: [String:Any] {
+    public var firActOneDictionary: [String:Any] {
         return [self.oldWorldDescriptionKey:self.oldWorldDescription,
                 self.incitingIncidentKey:self.incitingIncident,
                 self.callToAdventureKey:callToAdventure,

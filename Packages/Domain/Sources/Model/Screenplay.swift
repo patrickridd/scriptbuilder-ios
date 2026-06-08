@@ -7,50 +7,49 @@
 //
 
 import Foundation
-import FirebaseAuth
 
-class Screenplay: Equatable {
+public class Screenplay: Equatable {
   
     // keys
-    let logLineKey = "logLineKey"
-    let actOneDescriptionKey = "actOneDescription"
-    let actTwoDescriptionKey = "actTwoDescription"
-    let actThreeDescriptionKey = "actThreeDescription"
-    let actOneKey = "actOne"
-    let actTwoKey = "actTwo"
-    let actThreeKey = "actThree"
-    let titleKey = "title"
-    let dateKey = "dateKey"
-    let authorNameKey = "authorNameKey"
-    let uuidKey = "uuid"
-    let ideaKey = "idea"
-    let notesKey = "notes"
-    let themeKey = "theme"
-    let centralIntentionKey = "centralIntention"
-    let mainObstacleKey = "mainObstacle"
-    let charactersKey = "characters"
-    let act1ScenesKey = "actOneScenes"
-    let act2ScenesKey = "actTwoScenes"
-    let act3ScenesKey = "actThreeScenes"
+    public let logLineKey = "logLineKey"
+    public let actOneDescriptionKey = "actOneDescription"
+    public let actTwoDescriptionKey = "actTwoDescription"
+    public let actThreeDescriptionKey = "actThreeDescription"
+    public let actOneKey = "actOne"
+    public let actTwoKey = "actTwo"
+    public let actThreeKey = "actThree"
+    public let titleKey = "title"
+    public let dateKey = "dateKey"
+    public let authorNameKey = "authorNameKey"
+    public let uuidKey = "uuid"
+    public let ideaKey = "idea"
+    public let notesKey = "notes"
+    public let themeKey = "theme"
+    public let centralIntentionKey = "centralIntention"
+    public let mainObstacleKey = "mainObstacle"
+    public let charactersKey = "characters"
+    public let act1ScenesKey = "actOneScenes"
+    public let act2ScenesKey = "actTwoScenes"
+    public let act3ScenesKey = "actThreeScenes"
 
-    var title: String
-    var uuid: String
-    var authorName: String?
-    var lastUpdated: Date?
+    public var title: String
+    public var uuid: String
+    public var authorName: String?
+    public var lastUpdated: Date?
     
-    var idea: String = ""
-    var logLine: String = ""
-    var notes: String = ""
-    var theme: String = ""
-    var centralIntention: String = ""
-    var mainObstacle: String = ""
+    public var idea: String = ""
+    public var logLine: String = ""
+    public var notes: String = ""
+    public var theme: String = ""
+    public var centralIntention: String = ""
+    public var mainObstacle: String = ""
     
-    var actOneDescription: String = ""
-    var actTwoDescription: String = ""
-    var actThreeDescription: String = ""
-    var characters: Set<Character> = []
+    public var actOneDescription: String = ""
+    public var actTwoDescription: String = ""
+    public var actThreeDescription: String = ""
+    public var characters: Set<Character> = []
     
-    var act1ScenesSet: Set<Scene> =  []
+    public var act1ScenesSet: Set<Scene> =  []
     {
         didSet {
             self.act1ScenesArray = []
@@ -59,7 +58,7 @@ class Screenplay: Equatable {
         }
     }
     
-    var act2ScenesSet: Set<Scene> =  [] {
+    public var act2ScenesSet: Set<Scene> =  [] {
         didSet {
             self.act2ScenesArray = []
             self.act2ScenesArray.append(contentsOf: act2ScenesSet)
@@ -67,7 +66,7 @@ class Screenplay: Equatable {
         }
     }
     
-    var act3ScenesSet: Set<Scene> = [] {
+    public var act3ScenesSet: Set<Scene> = [] {
         didSet {
             self.act3ScenesArray = []
             self.act3ScenesArray.append(contentsOf: act3ScenesSet)
@@ -75,15 +74,15 @@ class Screenplay: Equatable {
         }
     }
 
-    var act1ScenesArray: [Scene] = []
-    var act2ScenesArray: [Scene] = []
-    var act3ScenesArray: [Scene] = []
+    public var act1ScenesArray: [Scene] = []
+    public var act2ScenesArray: [Scene] = []
+    public var act3ScenesArray: [Scene] = []
     
-    var act1 = Act1()
-    var act2 = Act2()
-    var act3 = Act3()
+    public var act1 = Act1()
+    public var act2 = Act2()
+    public var act3 = Act3()
     
-    static func == (lhs: Screenplay, rhs: Screenplay) -> Bool {
+    static public func == (lhs: Screenplay, rhs: Screenplay) -> Bool {
         return lhs.title == rhs.title &&
                lhs.uuid == rhs.uuid &&
                lhs.idea == rhs.idea &&
@@ -105,14 +104,14 @@ class Screenplay: Equatable {
                lhs.act3ScenesSet == rhs.act3ScenesSet
     }
 
-    init(title: String, authorName: String) {
+    public init(title: String, authorName: String) {
         self.title = title
         self.authorName = authorName
         self.uuid = UUID().uuidString
         self.lastUpdated = Date()
     }
     
-    init?(uuid: String, screenplayDictionary: [String:Any]) {
+    public init?(uuid: String, screenplayDictionary: [String:Any]) {
         guard let title = screenplayDictionary[titleKey] as? String else
         { return nil }
         
@@ -203,7 +202,7 @@ class Screenplay: Equatable {
         }
     }
     
-    init(unalteredScreenplay: Screenplay) {
+    public init(unalteredScreenplay: Screenplay) {
         title = unalteredScreenplay.title
         uuid = unalteredScreenplay.uuid
         lastUpdated = unalteredScreenplay.lastUpdated
@@ -236,9 +235,9 @@ class Screenplay: Equatable {
         act3ScenesSet = unalteredScreenplay.act3ScenesSet
     }
     
-    var firDictionary: [String:Any] {
-        return [titleKey:self.title,
-                authorNameKey:self.authorName ?? Auth.auth().currentUser?.displayName ?? "Name",
+    public var firDictionary: [String:Any] {
+        [titleKey:self.title,
+                authorNameKey: self.authorName ?? "Name",
                 logLineKey:self.logLine,
                 ideaKey:self.idea,
                 dateKey: Date().timeIntervalSince1970,
@@ -254,7 +253,7 @@ class Screenplay: Equatable {
                 actThreeKey:self.act3.firActThreeDictionary]
     }
     
-    var characterDictionaryArray: [[String:Any]] {
+    public var characterDictionaryArray: [[String:Any]] {
         var characterDictionaryArray: [[String:Any]] = [[:]]
         for character in characters {
             characterDictionaryArray.append(character.characterDictionary)
@@ -263,7 +262,7 @@ class Screenplay: Equatable {
         return characterDictionaryArray
     }
     
-    var act1ScenesDictionaryArray : [[String:Any]] {
+    public var act1ScenesDictionaryArray : [[String:Any]] {
         var scenesDictionaryArray: [[String:Any]] = [[:]]
         for scene in act1ScenesSet {
             scenesDictionaryArray.append(scene.sceneDictionary)
@@ -272,7 +271,7 @@ class Screenplay: Equatable {
         return scenesDictionaryArray
     }
     
-    var act2ScenesDictionaryArray : [[String:Any]] {
+    public var act2ScenesDictionaryArray : [[String:Any]] {
         var scenesDictionaryArray: [[String:Any]] = [[:]]
         for scene in act2ScenesSet {
             scenesDictionaryArray.append(scene.sceneDictionary)
@@ -281,7 +280,7 @@ class Screenplay: Equatable {
         return scenesDictionaryArray
     }
     
-    var act3ScenesDictionaryArray : [[String:Any]] {
+    public var act3ScenesDictionaryArray : [[String:Any]] {
         var scenesDictionaryArray: [[String:Any]] = [[:]]
         for scene in act3ScenesSet {
             scenesDictionaryArray.append(scene.sceneDictionary)

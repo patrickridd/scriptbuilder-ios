@@ -8,40 +8,40 @@
 
 import UIKit
 
-class Character: Equatable, Hashable {
+public class Character: Equatable, Hashable {
     
     // Keys
-    let nameKey = "name"
-    let roleKey = "role"
-    let intentionKey = "intention"
-    let whyIntentionKey = "whyTheyWantThis"
-    let whatToDoKey = "physicalGoal"
-    let obstaclesKey = "obstacles"
-    let flawsKey = "flaws"
-    let intentionFixKey = "intentionFix"
-    let howCharacterChangedKey = "howCharacterChanged"
-    let notesKey = "notes"
-    let howDoesCharacterDoItKey = "howDoesCharacterDoIt"
-    let needKey = "need"
+    public let nameKey = "name"
+    public let roleKey = "role"
+    public let intentionKey = "intention"
+    public let whyIntentionKey = "whyTheyWantThis"
+    public let whatToDoKey = "physicalGoal"
+    public let obstaclesKey = "obstacles"
+    public let flawsKey = "flaws"
+    public let intentionFixKey = "intentionFix"
+    public let howCharacterChangedKey = "howCharacterChanged"
+    public let notesKey = "notes"
+    public let howDoesCharacterDoItKey = "howDoesCharacterDoIt"
+    public let needKey = "need"
     
     // Basic
-    var uuid: String
-    var name: String
-    var role: String?
+    public let uuid: String
+    public var name: String
+    public var role: String?
     
     // Character Arc
-    var intention: String = ""
-    var whyIntention: String = ""
-    var whatToDo: String = ""
-    var howDoesCharacterDoIt: String = ""
-    var obstacles: String = ""
-    var flaws: String = ""
-    var intentionFix: String = ""
-    var need: String = ""
-    var howCharacterChanged: String = ""
-    var notes: String = ""
+    public var intention: String = ""
+    public var whyIntention: String = ""
+    public var whatToDo: String = ""
+    public var howDoesCharacterDoIt: String = ""
+    public var obstacles: String = ""
+    public var flaws: String = ""
+    public var intentionFix: String = ""
+    public var need: String = ""
+    public var howCharacterChanged: String = ""
+    public var notes: String = ""
     
-    static func == (lhs: Character, rhs: Character) -> Bool {
+    static public func == (lhs: Character, rhs: Character) -> Bool {
         return lhs.uuid == rhs.uuid &&
                lhs.name == rhs.name &&
                lhs.role == rhs.role &&
@@ -57,16 +57,16 @@ class Character: Equatable, Hashable {
                lhs.notes == rhs.notes
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         self.uuid.hash(into: &hasher)
     }
     
-    init(name:String) {
+    public init(name:String) {
         self.name = name
         self.uuid = UUID().uuidString
     }
     
-    init?(uuid: String, characterDictionary: [String:Any]) {
+    public init?(uuid: String, characterDictionary: [String:Any]) {
         self.uuid = uuid
         self.name = characterDictionary[nameKey] as? String ?? ""
         self.role = characterDictionary[roleKey] as? String ?? ""
@@ -82,7 +82,7 @@ class Character: Equatable, Hashable {
         self.notes = characterDictionary[notesKey] as? String ?? ""
     }
     
-    init(character:Character) {
+    public init(character:Character) {
         self.uuid = character.uuid
         self.name = character.name
         self.role = character.role
@@ -99,7 +99,7 @@ class Character: Equatable, Hashable {
     }
     
     
-    var characterDictionary: [String:Any] {
+    public var characterDictionary: [String:Any] {
         return [self.nameKey:name,
                 self.roleKey:role ?? "",
                 self.intentionKey:intention,

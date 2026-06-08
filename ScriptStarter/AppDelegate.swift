@@ -6,6 +6,7 @@
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
 
+import Domain
 import UIKit
 import FirebaseAuth
 import FBSDKCoreKit
@@ -197,7 +198,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             let name = Auth.auth().currentUser?.displayName ?? "Name"
-            let screenplay = Screenplay(title: "Untitled".localized, authorName: name)
+            let screenplay = Domain.Screenplay(title: "Untitled".localized, authorName: name)
             ScreenplayController.shared.set(currentScreenplay: screenplay)
             self?.window?.rootViewController = screenplayCoverVC
             self?.makeKeyAndVisible()

@@ -5,7 +5,7 @@
 //  Created by Patrick Ridd (patrick.ridd@stgconsulting.com) on 1/25/18.
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
-
+import Domain
 import UIKit
 import Firebase
 import MBProgressHUD

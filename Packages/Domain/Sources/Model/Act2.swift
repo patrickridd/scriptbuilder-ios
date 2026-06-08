@@ -8,22 +8,22 @@
 
 import Foundation
 
-class Act2: Equatable {
+public class Act2: Equatable {
     
     // Keys
-    let newWorldDescriptionKey = "newWorldDescription"
-    let enemiesFriendsKey = "enemiesFriends"
-    let obstaclesKey = "obstacles"
-    let theDeadlyEncounterKey = "theDeadlyEncounter"
-    let celebrateKey = "celebrate"
-    let stormGathersKey = "stormGathers"
-    let badGuysStrikeBackKey = "badGuysStrikeBack"
-    let allIsLostKey = "allIsLost"
-    let burnTheBoatsKey = "burnTheBoats"
-    let sharpeningTheSwordKey = "sharpeningTheSword"
-    let scenesKey = "scenes"
+    public let newWorldDescriptionKey = "newWorldDescription"
+    public let enemiesFriendsKey = "enemiesFriends"
+    public let obstaclesKey = "obstacles"
+    public let theDeadlyEncounterKey = "theDeadlyEncounter"
+    public let celebrateKey = "celebrate"
+    public let stormGathersKey = "stormGathers"
+    public let badGuysStrikeBackKey = "badGuysStrikeBack"
+    public let allIsLostKey = "allIsLost"
+    public let burnTheBoatsKey = "burnTheBoats"
+    public let sharpeningTheSwordKey = "sharpeningTheSword"
+    public let scenesKey = "scenes"
     
-    var sceneSet: Set<Scene> = [] {
+    public var sceneSet: Set<Scene> = [] {
         didSet {
             self.scenes = []
             self.scenes.append(contentsOf: sceneSet)
@@ -31,20 +31,20 @@ class Act2: Equatable {
         }
     }
     
-    var scenes: [Scene] = []
+    public var scenes: [Scene] = []
     
-    var newWorldDescription: String = ""
-    var enemiesFriends: String = ""
-    var obstacles: String = ""
-    var sharpeningTheSword: String = ""
-    var burnTheBoats: String = ""
-    var theDeadlyEncounter: String = ""
-    var celebrate: String = ""
-    var stormGathers: String = ""
-    var badGuysStrikeBack: String = ""
-    var allIsLost: String = ""
+    public var newWorldDescription: String = ""
+    public var enemiesFriends: String = ""
+    public var obstacles: String = ""
+    public var sharpeningTheSword: String = ""
+    public var burnTheBoats: String = ""
+    public var theDeadlyEncounter: String = ""
+    public var celebrate: String = ""
+    public var stormGathers: String = ""
+    public var badGuysStrikeBack: String = ""
+    public var allIsLost: String = ""
     
-    static func == (lhs: Act2, rhs: Act2) -> Bool {
+    static public func == (lhs: Act2, rhs: Act2) -> Bool {
         return lhs.scenes == rhs.scenes &&
                lhs.newWorldDescription == rhs.newWorldDescription &&
                lhs.enemiesFriends == rhs.enemiesFriends &&
@@ -58,9 +58,9 @@ class Act2: Equatable {
                lhs.allIsLost == rhs.allIsLost
     }
     
-    init() {}
+    public init() {}
     
-    init?(actTwoDict: [String:Any]) {
+    public init?(actTwoDict: [String:Any]) {
         guard let newWorldDescription = actTwoDict[newWorldDescriptionKey] as? String,
         let enemiesFriends = actTwoDict[enemiesFriendsKey] as? String,
         let obstacles = actTwoDict[obstaclesKey] as? String,
@@ -101,7 +101,7 @@ class Act2: Equatable {
         self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
     }
     
-    init(act2: Act2) {
+    public init(act2: Act2) {
         self.burnTheBoats = act2.burnTheBoats
         self.sharpeningTheSword = act2.sharpeningTheSword
         self.newWorldDescription = act2.newWorldDescription
@@ -121,7 +121,7 @@ class Act2: Equatable {
         self.scenes = scenes
     }
     
-    var firActTwoDictionary: [String:Any] {
+    public var firActTwoDictionary: [String:Any] {
         return [self.newWorldDescriptionKey:self.newWorldDescription,
                 self.enemiesFriendsKey:self.enemiesFriends,
                 self.obstaclesKey:obstacles,

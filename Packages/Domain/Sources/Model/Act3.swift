@@ -8,16 +8,16 @@
 
 import Foundation
 
-class Act3: Equatable {
+public class Act3: Equatable {
     
     // Keys
-    let theUltimateAnswerKey = "theUltimateAnswer"
-    let rewardsKey = "rewards"
-    let untangleStoryKey = "untangleStory"
-    let brandNewWorldKey = "brandNewWorld"
-    let scenesKey = "scenes"
+    public let theUltimateAnswerKey = "theUltimateAnswer"
+    public let rewardsKey = "rewards"
+    public let untangleStoryKey = "untangleStory"
+    public let brandNewWorldKey = "brandNewWorld"
+    public let scenesKey = "scenes"
 
-    var sceneSet: Set<Scene> = [] {
+    public var sceneSet: Set<Scene> = [] {
         didSet {
             self.scenes = []
             self.scenes.append(contentsOf: sceneSet)
@@ -25,14 +25,14 @@ class Act3: Equatable {
         }
     }
     
-    var scenes: [Scene] = []
+    public var scenes: [Scene] = []
     
-    var theUltimateAnswer: String = ""
-    var rewards: String = ""
-    var untangleStory: String = ""
-    var brandNewWorld: String = ""
+    public var theUltimateAnswer: String = ""
+    public var rewards: String = ""
+    public var untangleStory: String = ""
+    public var brandNewWorld: String = ""
     
-    static func == (lhs: Act3, rhs: Act3) -> Bool {
+    static public func == (lhs: Act3, rhs: Act3) -> Bool {
         return lhs.scenes == rhs.scenes &&
                lhs.theUltimateAnswer == rhs.theUltimateAnswer &&
                lhs.rewards == rhs.rewards &&
@@ -40,9 +40,9 @@ class Act3: Equatable {
                lhs.brandNewWorld == rhs.brandNewWorld
     }
     
-    init() {}
+    public init() {}
     
-    init?(actThreeDict: [String:Any]) {
+    public init?(actThreeDict: [String:Any]) {
         guard let theUltimateAnswer = actThreeDict[theUltimateAnswerKey] as? String,
         let rewards = actThreeDict[rewardsKey] as? String,
         let untangleStory = actThreeDict[untangleStoryKey] as? String else {
@@ -68,7 +68,7 @@ class Act3: Equatable {
         self.scenes.sort(by: { $0.sceneNumber < $1.sceneNumber })
     }
     
-    init(act3: Act3) {
+    public init(act3: Act3) {
         self.brandNewWorld = act3.brandNewWorld
         self.theUltimateAnswer = act3.theUltimateAnswer
         self.rewards = act3.rewards
@@ -83,7 +83,7 @@ class Act3: Equatable {
         self.scenes = scenes
     }
     
-    var firActThreeDictionary: [String:Any] {
+    public var firActThreeDictionary: [String:Any] {
         return [self.theUltimateAnswerKey:self.theUltimateAnswer,
                 self.rewardsKey:self.rewards,
                 self.untangleStoryKey:self.untangleStory,

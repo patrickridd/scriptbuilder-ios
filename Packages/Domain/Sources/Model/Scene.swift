@@ -8,46 +8,46 @@
 
 import Foundation
 
-class Scene: Hashable, Equatable {
+public class Scene: Hashable, Equatable {
     
-    let uuidKey = "uuid"
-    let headerKey = "header"
-    let titleKey = "title"
-    let sceneNumberKey = "sceneNumber"
-    let sceneDescriptionKey = "sceneDescription"
-    let dialogueKey = "dialogue"
-    let actionKey = "action"
-    let charactersKey = "characters"
-    let howPushesStoryKey = "howPushesStory"
-    let notesKey = "notes"
+    public let uuidKey = "uuid"
+    public let headerKey = "header"
+    public let titleKey = "title"
+    public let sceneNumberKey = "sceneNumber"
+    public let sceneDescriptionKey = "sceneDescription"
+    public let dialogueKey = "dialogue"
+    public let actionKey = "action"
+    public let charactersKey = "characters"
+    public let howPushesStoryKey = "howPushesStory"
+    public let notesKey = "notes"
     
-    var uuid: String
-    var header: String = ""
-    var title: String
-    var sceneNumber: Int
+    public var uuid: String
+    public var header: String = ""
+    public var title: String
+    public var sceneNumber: Int
     
-    var sceneDescription: String = ""
-    var dialogue: String = ""
-    var action: String = ""
-    var characters: String = ""
-    var howPushesStory: String = ""
-    var notes: String = ""
+    public var sceneDescription: String = ""
+    public var dialogue: String = ""
+    public var action: String = ""
+    public var characters: String = ""
+    public var howPushesStory: String = ""
+    public var notes: String = ""
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         self.uuid.hash(into: &hasher)
     }
     
-    static func ==(lhs: Scene, rhs: Scene) -> Bool {
+    public static func ==(lhs: Scene, rhs: Scene) -> Bool {
         return lhs.uuid == rhs.uuid
     }
     
-    init(title: String, sceneNumber: Int) {
+    public init(title: String, sceneNumber: Int) {
         self.title = title
         self.sceneNumber = sceneNumber
         self.uuid = UUID().uuidString
     }
     
-    init?(uuid: String, sceneDictionary: [String:Any]) {
+    public init?(uuid: String, sceneDictionary: [String:Any]) {
         self.uuid = uuid
         self.title = sceneDictionary[self.titleKey] as? String ?? ""
         self.header = sceneDictionary[self.headerKey] as? String ?? ""
@@ -60,7 +60,7 @@ class Scene: Hashable, Equatable {
         self.notes = sceneDictionary[self.notesKey] as? String ?? ""
     }
     
-    init(scene: Scene) {
+    public init(scene: Scene) {
         self.uuid = scene.uuid
         self.title = scene.title
         self.header = scene.header
@@ -73,7 +73,7 @@ class Scene: Hashable, Equatable {
         self.notes = scene.notes
     }
     
-    static var sceneTitles: [String] {
+    static public var sceneTitles: [String] {
         return ["Scene Description".localized,
                 "Characters".localized,
                 "Dialogue".localized,
@@ -82,7 +82,7 @@ class Scene: Hashable, Equatable {
                 "Notes".localized]
     }
     
-    static var sceneSubtitles: [String] {
+    static public  var sceneSubtitles: [String] {
         return ["Overall idea of what happens and the feeling the scene brings".localized,
                 "What do the characters want and what are they feeling?".localized,
                 "What snappy dialogue and/or information is said?".localized,
@@ -91,15 +91,15 @@ class Scene: Hashable, Equatable {
                 "Details you don't want to forget".localized]
     }
     
-    var sceneDictionary: [String:Any] {
-        return [self.headerKey:self.header,
-                self.titleKey:self.title,
-                self.sceneNumberKey:self.sceneNumber,
-                self.sceneDescriptionKey:self.sceneDescription,
-                self.dialogueKey:self.dialogue,
-                self.actionKey:self.action,
-                self.charactersKey:self.characters,
-                self.howPushesStoryKey:self.howPushesStory,
-                self.notesKey:self.notes]
+    public var sceneDictionary: [String:Any] {
+        [self.headerKey:self.header,
+         self.titleKey:self.title,
+         self.sceneNumberKey:self.sceneNumber,
+         self.sceneDescriptionKey:self.sceneDescription,
+         self.dialogueKey:self.dialogue,
+         self.actionKey:self.action,
+         self.charactersKey:self.characters,
+         self.howPushesStoryKey:self.howPushesStory,
+         self.notesKey:self.notes]
     }
 }

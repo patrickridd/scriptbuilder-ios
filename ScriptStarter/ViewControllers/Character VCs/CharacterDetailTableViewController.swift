@@ -6,6 +6,7 @@
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
 
+import Domain
 import UIKit
 import Firebase
 
@@ -49,7 +50,7 @@ class CharacterDetailTableViewController: UITableViewController {
       
        
         guard let _ = self.character else {
-            let character = Character(name: "")
+            let character = Domain.Character(name: "")
             self.character = character
             ScreenplayController.shared.add(character: character)
             return

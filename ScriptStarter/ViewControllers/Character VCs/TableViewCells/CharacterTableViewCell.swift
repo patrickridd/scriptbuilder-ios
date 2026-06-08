@@ -6,6 +6,7 @@
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
 
+import Domain
 import UIKit
 
 class CharacterTableViewCell: UITableViewCell {

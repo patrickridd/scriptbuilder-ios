@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum InterfaceStyle: Int {
+public enum InterfaceStyle: Int {
     static var userDefaultsKey: String {
         "InterfaceStyle"
     }

@@ -6,6 +6,7 @@
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
 
+import Domain
 import UIKit
 import MBProgressHUD
 import StoreKit
@@ -259,7 +260,7 @@ class ScenesTableViewController: UITableViewController {
         NotificationCenter.default.post(swipeNotification)
     }
 
-    func pushToSceneDetailView(act: Act, scene: Scene?) {
+    func pushToSceneDetailView(act: Act, scene: Domain.Scene?) {
         
         guard let sceneDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "sceneDetailVC") as? SceneDetailTableViewController else { return }
         
@@ -415,7 +416,7 @@ class ScenesTableViewController: UITableViewController {
             return
         }
 
-        var scene: Scene?
+        var scene: Domain.Scene?
         switch indexPath.section {
         case 0:
             guard let scenes = self.screenplay?.act1ScenesArray, scenes.count != 0 else {
