@@ -808,6 +808,7 @@
 				2158DA872FD50700003B5619 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				2158DA8D2FD5114C003B5619 /* XCRemoteSwiftPackageReference "mbprogresshud" */,
 				2158DAA42FD703D3003B5619 /* XCLocalSwiftPackageReference "Packages/Domain" */,
+				21266A542FD711C800832347 /* XCLocalSwiftPackageReference "Packages/Data" */,
 			);
 			productRefGroup = 212DEA712012746500FE9C3F /* Products */;
 			projectDirPath = "";
@@ -1542,6 +1543,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		21266A542FD711C800832347 /* XCLocalSwiftPackageReference "Packages/Data" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Data;
+		};
 		2158DAA42FD703D3003B5619 /* XCLocalSwiftPackageReference "Packages/Domain" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Domain;
