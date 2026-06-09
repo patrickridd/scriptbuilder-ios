@@ -39,7 +39,7 @@ struct AuthTextField: View {
         .overlay(
             RoundedRectangle(cornerRadius: AuthTheme.cornerRadius, style: .continuous)
                 .stroke(isFocused ? AuthTheme.accent : AuthTheme.fieldGlassStroke,
-                        lineWidth: isFocused ? 1.5 : 1)
+                        lineWidth: 1.5)
         )
         .animation(.easeInOut(duration: 0.18), value: isFocused)
         .accessibilityElement(children: .combine)
@@ -161,7 +161,7 @@ struct SocialIconButton: View {
                             in: RoundedRectangle(cornerRadius: AuthTheme.cornerRadius, style: .continuous))
                 .overlay(
                     RoundedRectangle(cornerRadius: AuthTheme.cornerRadius, style: .continuous)
-                        .stroke(AuthTheme.socialStroke, lineWidth: 1)
+                        .stroke(AuthTheme.socialStroke, lineWidth: 1.5)
                 )
         }
         .accessibilityLabel(label)

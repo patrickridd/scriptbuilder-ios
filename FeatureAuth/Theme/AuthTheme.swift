@@ -106,7 +106,7 @@ enum AuthTheme {
     )
 
     static let fieldGlassStroke = dynamic(
-        light: Color(red: 0.80, green: 0.84, blue: 0.88),
+        light: Color(red: 0.62, green: 0.68, blue: 0.74),
         dark: Color.white.opacity(0.22)
     )
 
@@ -123,7 +123,7 @@ enum AuthTheme {
 
     /// Outline used around icon-only / outlined social buttons.
     static let socialStroke = dynamic(
-        light: Color(red: 0.82, green: 0.86, blue: 0.90),
+        light: Color(red: 0.62, green: 0.68, blue: 0.74),
         dark: Color.white.opacity(0.18)
     )
 
