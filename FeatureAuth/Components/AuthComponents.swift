@@ -20,13 +20,13 @@ struct AuthTextField: View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.body.weight(.semibold))
-                .foregroundStyle(AuthTheme.brandTeal)
+                .foregroundStyle(AuthTheme.accent)
                 .frame(width: 22)
 
             field
                 .font(.body.weight(.medium))
-                .foregroundStyle(.white)
-                .tint(AuthTheme.brandTeal)
+                .foregroundStyle(AuthTheme.textPrimary)
+                .tint(AuthTheme.accent)
                 .focused($isFocused)
                 .textContentType(textContentType)
                 .keyboardType(keyboardType)
@@ -38,7 +38,7 @@ struct AuthTextField: View {
         .background(AuthTheme.fieldGlass, in: RoundedRectangle(cornerRadius: AuthTheme.cornerRadius, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: AuthTheme.cornerRadius, style: .continuous)
-                .stroke(isFocused ? AuthTheme.brandTeal : AuthTheme.fieldGlassStroke,
+                .stroke(isFocused ? AuthTheme.accent : AuthTheme.fieldGlassStroke,
                         lineWidth: isFocused ? 1.5 : 1)
         )
         .animation(.easeInOut(duration: 0.18), value: isFocused)
@@ -110,7 +110,7 @@ struct SocialAuthButton: View {
             .background(background, in: RoundedRectangle(cornerRadius: AuthTheme.cornerRadius, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: AuthTheme.cornerRadius, style: .continuous)
-                    .stroke(Color.white.opacity(style == .apple ? 0 : 0.18), lineWidth: 1)
+                    .stroke(style == .apple ? Color.clear : AuthTheme.socialStroke, lineWidth: 1)
             )
         }
         .accessibilityLabel(title)
@@ -157,11 +157,11 @@ struct SocialIconButton: View {
             icon
                 .frame(maxWidth: .infinity)
                 .frame(height: AuthTheme.controlHeight)
-                .background(.white.opacity(0.10),
+                .background(AuthTheme.fieldGlass,
                             in: RoundedRectangle(cornerRadius: AuthTheme.cornerRadius, style: .continuous))
                 .overlay(
                     RoundedRectangle(cornerRadius: AuthTheme.cornerRadius, style: .continuous)
-                        .stroke(Color.white.opacity(0.18), lineWidth: 1)
+                        .stroke(AuthTheme.socialStroke, lineWidth: 1)
                 )
         }
         .accessibilityLabel(label)
@@ -173,7 +173,7 @@ struct SocialIconButton: View {
         case .apple:
             Image(systemName: "apple.logo")
                 .font(.title2)
-                .foregroundStyle(.white)
+                .foregroundStyle(AuthTheme.textPrimary)
         case .facebook:
             Image("FacebookLogo").resizable().scaledToFit().frame(width: 26, height: 26)
         case .google:
@@ -199,7 +199,7 @@ struct LabeledDivider: View {
     }
 
     private var line: some View {
-        Rectangle().fill(Color.white.opacity(0.25)).frame(height: 1)
+        Rectangle().fill(AuthTheme.separator).frame(height: 1)
     }
 }
 
@@ -215,12 +215,15 @@ struct AuthBrandHeader: View {
                 .resizable().scaledToFit()
                 .frame(width: compact ? 56 : 68, height: compact ? 56 : 68)
                 .padding(compact ? 12 : 16)
-                .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-                .shadow(color: AuthTheme.brandTeal.opacity(0.35), radius: 18, y: 8)
+                .background(AuthTheme.logoBadge, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 22, style: .continuous)
+                        .stroke(AuthTheme.socialStroke, lineWidth: 1)
+                )
 
             Text("Script Builder")
                 .font(.system(size: compact ? 30 : 36, weight: .bold, design: .rounded))
-                .foregroundStyle(.white)
+                .foregroundStyle(AuthTheme.textPrimary)
 
             Text(subtitle)
                 .font(.subheadline.weight(.medium))

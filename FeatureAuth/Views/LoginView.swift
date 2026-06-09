@@ -85,7 +85,7 @@ struct LoginView: View {
                 .foregroundStyle(AuthTheme.textMuted)
             Button("Sign up") { showSignUp = true }
                 .fontWeight(.bold)
-                .foregroundStyle(.white)
+                .foregroundStyle(AuthTheme.accent)
         }
         .font(.subheadline)
     }
