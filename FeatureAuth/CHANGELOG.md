@@ -3,6 +3,14 @@
 All notable changes to FeatureAuth are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-06-10
+
+### Added
+- `AuthConfiguration.signUpFooterPrompt` — the sign-up screen's
+  "Already have an account?" line is now white-labelable, matching the
+  existing `loginFooterPrompt` option. Fully backward compatible (defaults
+  to the previous copy).
+
 ## [1.0.0] - 2026-06-10
 
 ### Added

@@ -103,7 +103,7 @@ public struct SignUpView: View {
 
     private var footer: some View {
         HStack(spacing: 6) {
-            Text("Already have an account?")
+            Text(config.signUpFooterPrompt)
                 .foregroundStyle(AuthTheme.textMuted)
             Button("Log in") { dismiss() }
                 .fontWeight(.bold)

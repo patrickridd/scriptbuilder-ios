@@ -65,7 +65,8 @@ AuthFlowView(
         appName: "Your App",
         loginSubtitle: "Welcome back",
         signUpSubtitle: "Create your account",
-        loginFooterPrompt: "New here?"
+        loginFooterPrompt: "New here?",
+        signUpFooterPrompt: "Already registered?"
     )
 )
 ```

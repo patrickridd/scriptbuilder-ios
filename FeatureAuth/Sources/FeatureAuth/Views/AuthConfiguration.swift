@@ -8,17 +8,20 @@ public struct AuthConfiguration {
     public var loginSubtitle: String
     public var signUpSubtitle: String
     public var loginFooterPrompt: String
+    public var signUpFooterPrompt: String
 
     public init(
         appName: String = "Script Builder",
         loginSubtitle: String = "From your screen to the silver screen",
         signUpSubtitle: String = "Create your account to start writing",
-        loginFooterPrompt: String = "New to Script Builder?"
+        loginFooterPrompt: String = "New to Script Builder?",
+        signUpFooterPrompt: String = "Already have an account?"
     ) {
         self.appName = appName
         self.loginSubtitle = loginSubtitle
         self.signUpSubtitle = signUpSubtitle
         self.loginFooterPrompt = loginFooterPrompt
+        self.signUpFooterPrompt = signUpFooterPrompt
     }
 
     public static let `default` = AuthConfiguration()
