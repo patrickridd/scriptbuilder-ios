@@ -1,8 +1,10 @@
 import SwiftUI
 
-/// Drives the login and signup screens. UI-only for now — wire up to a
-/// real auth backend later. Validation messages are written to be clear
-/// and friendly for assistive technologies.
+/// Drives the login and signup screens.
+///
+/// The view model is **backend-agnostic**: it talks only to an injected
+/// `AuthService`. Swap in a `FirebaseAuthService`, `SupabaseAuthService`,
+/// or the built-in `MockAuthService` without changing any UI code.
 @MainActor
 public final class AuthViewModel: ObservableObject {
 
@@ -17,8 +19,23 @@ public final class AuthViewModel: ObservableObject {
     // MARK: - State
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String?
+    @Published public private(set) var currentUser: AuthUser?
 
-    public init() {}
+    // MARK: - Dependencies
+    private let service: AuthService
+    private let onAuthenticated: (AuthUser) -> Void
+
+    /// - Parameters:
+    ///   - service: the auth backend. Defaults to `MockAuthService` so the
+    ///     dev host and previews work with no configuration.
+    ///   - onAuthenticated: called on the main actor after a successful
+    ///     sign-in / sign-up. The composition root uses this to route the
+    ///     user into the app.
+    public init(service: AuthService = MockAuthService(),
+                onAuthenticated: @escaping (AuthUser) -> Void = { _ in }) {
+        self.service = service
+        self.onAuthenticated = onAuthenticated
+    }
 
     // MARK: - Validation
 
@@ -33,14 +50,14 @@ public final class AuthViewModel: ObservableObject {
             && password.count >= 6
     }
 
-    // MARK: - Actions (placeholder logic)
+    // MARK: - Actions
 
     public func login() {
         guard isLoginValid else {
             errorMessage = "Enter a valid email and a password of at least 6 characters."
             return
         }
-        runMockRequest()
+        perform { try await self.service.signIn(email: self.email, password: self.password) }
     }
 
     public func signUp() {
@@ -48,25 +65,54 @@ public final class AuthViewModel: ObservableObject {
             errorMessage = "Please fill in every field. Passwords need at least 6 characters."
             return
         }
-        runMockRequest()
+        perform {
+            try await self.service.signUp(firstName: self.firstName, lastName: self.lastName,
+                                          email: self.email, password: self.password)
+        }
     }
 
-    public func continueWithApple() { runMockRequest() }
-    public func continueWithFacebook() { runMockRequest() }
-    public func continueWithGoogle() { runMockRequest() }
+    public func continueWithApple() { social(.apple) }
+    public func continueWithFacebook() { social(.facebook) }
+    public func continueWithGoogle() { social(.google) }
 
     public func forgotPassword() {
-        errorMessage = "Password reset isn't connected yet."
+        guard isValidEmail(email) else {
+            errorMessage = "Enter your email above, then tap “Forgot password?” again."
+            return
+        }
+        let address = email
+        runTask {
+            try await self.service.sendPasswordReset(email: address)
+            self.errorMessage = "We've sent a password reset link to \(address)."
+        }
     }
 
     // MARK: - Helpers
 
-    private func runMockRequest() {
+    private func social(_ provider: SocialAuthProvider) {
+        perform { try await self.service.signIn(with: provider) }
+    }
+
+    /// Runs an authenticating request and routes the resulting user out.
+    private func perform(_ work: @escaping () async throws -> AuthUser) {
+        runTask {
+            let user = try await work()
+            self.currentUser = user
+            self.onAuthenticated(user)
+        }
+    }
+
+    /// Shared loading + error-handling wrapper for any async auth call.
+    private func runTask(_ work: @escaping () async throws -> Void) {
         errorMessage = nil
         isLoading = true
         Task {
-            try? await Task.sleep(nanoseconds: 800_000_000)
-            isLoading = false
+            defer { isLoading = false }
+            do {
+                try await work()
+            } catch {
+                errorMessage = error.localizedDescription
+            }
         }
     }
 

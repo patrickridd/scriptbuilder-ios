@@ -14,7 +14,14 @@ struct FeatureAuthDemoApp: App {
                 signUpSubtitle: "Create your account to start writing",
                 loginFooterPrompt: "New to Script Builder?"
             )
-            AuthFlowView(config: authConfiguration)
+            // Dev host injects the built-in MockAuthService. In ScriptBuilder
+            // you'd inject a real FirebaseAuthService from the Auth package.
+            AuthFlowView(
+                config: authConfiguration,
+                service: MockAuthService()
+            ) { user in
+                NSLog("FeatureAuth: authenticated as \(user.email ?? user.displayName ?? user.id)")
+            }
         }
     }
 }

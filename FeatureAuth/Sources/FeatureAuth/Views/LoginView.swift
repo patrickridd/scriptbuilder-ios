@@ -1,14 +1,22 @@
 import SwiftUI
 
 public struct LoginView: View {
-    @StateObject private var viewModel = AuthViewModel()
+    @StateObject private var viewModel: AuthViewModel
     @State private var showSignUp = false
     @ScaledMetric(relativeTo: .body) private var sectionGap: CGFloat = 24
 
     private let config: AuthConfiguration
+    private let service: AuthService
+    private let onAuthenticated: (AuthUser) -> Void
 
-    public init(config: AuthConfiguration = .default) {
+    public init(config: AuthConfiguration = .default,
+                service: AuthService = MockAuthService(),
+                onAuthenticated: @escaping (AuthUser) -> Void = { _ in }) {
         self.config = config
+        self.service = service
+        self.onAuthenticated = onAuthenticated
+        _viewModel = StateObject(wrappedValue: AuthViewModel(service: service,
+                                                             onAuthenticated: onAuthenticated))
     }
 
     public var body: some View {
@@ -34,7 +42,9 @@ public struct LoginView: View {
         } message: {
             Text(viewModel.errorMessage ?? "")
         }
-        .fullScreenCover(isPresented: $showSignUp) { SignUpView(config: config) }
+        .fullScreenCover(isPresented: $showSignUp) {
+            SignUpView(config: config, service: service, onAuthenticated: onAuthenticated)
+        }
     }
 
     private var alertBinding: Binding<Bool> {

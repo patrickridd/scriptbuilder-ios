@@ -1,14 +1,18 @@
 import SwiftUI
 
 public struct SignUpView: View {
-    @StateObject private var viewModel = AuthViewModel()
+    @StateObject private var viewModel: AuthViewModel
     @Environment(\.dismiss) private var dismiss
     @ScaledMetric(relativeTo: .body) private var sectionGap: CGFloat = 16
 
     private let config: AuthConfiguration
 
-    public init(config: AuthConfiguration = .default) {
+    public init(config: AuthConfiguration = .default,
+                service: AuthService = MockAuthService(),
+                onAuthenticated: @escaping (AuthUser) -> Void = { _ in }) {
         self.config = config
+        _viewModel = StateObject(wrappedValue: AuthViewModel(service: service,
+                                                             onAuthenticated: onAuthenticated))
     }
 
     public var body: some View {
