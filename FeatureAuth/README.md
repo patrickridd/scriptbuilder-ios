@@ -22,14 +22,14 @@ usable for people who are hard of seeing.
 In Xcode: **File ▸ Add Package Dependencies…** and paste the repo URL:
 
 ```
-https://github.com/<your-org>/FeatureAuth.git
+https://github.com/patrickridd/FeatureAuth.git
 ```
 
 Or add it to your own `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/<your-org>/FeatureAuth.git", from: "1.0.0")
+    .package(url: "https://github.com/patrickridd/FeatureAuth.git", from: "1.0.0")
 ],
 targets: [
     .target(
