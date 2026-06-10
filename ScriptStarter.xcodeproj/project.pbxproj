@@ -20,6 +20,7 @@
 		211215D4203B5D200039D6E8 /* RolePopoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215D3203B5D200039D6E8 /* RolePopoverTableViewController.swift */; };
 		211215D6203B5DC30039D6E8 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215D5203B5DC30039D6E8 /* Role.swift */; };
 		211215D8203B5E680039D6E8 /* RoleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211215D7203B5E680039D6E8 /* RoleTableViewCell.swift */; };
+		2112E78D2FD9B4CB00EE1DA8 /* FeatureAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2112E78C2FD9B4CB00EE1DA8 /* FeatureAuth */; };
 		211800DA20238A1200F33924 /* ScreenplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211800D920238A1200F33924 /* ScreenplayCollectionViewCell.swift */; };
 		2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */; };
 		212BDE452BD9F6E3009C0FFE /* EnlargedDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212BDE442BD9F6E3009C0FFE /* EnlargedDescriptionViewController.swift */; };
@@ -293,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2158DA8F2FD51183003B5619 /* MBProgressHUD in Frameworks */,
+				2112E78D2FD9B4CB00EE1DA8 /* FeatureAuth in Frameworks */,
 				2158DAA62FD70473003B5619 /* Domain in Frameworks */,
 				2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */,
 				2158DA842FD5017D003B5619 /* FirebaseAuth in Frameworks */,
@@ -808,8 +810,8 @@
 				2158DA8D2FD5114C003B5619 /* XCRemoteSwiftPackageReference "mbprogresshud" */,
 				2158DAA42FD703D3003B5619 /* XCLocalSwiftPackageReference "Packages/Domain" */,
 				21266A542FD711C800832347 /* XCLocalSwiftPackageReference "Packages/Data" */,
-				21D59CE02FD852DC00A964BF /* XCLocalSwiftPackageReference "Packages/FeatureAuth" */,
 				21D59CE12FD855F400A964BF /* XCLocalSwiftPackageReference "Packages/Auth" */,
+				2112E78B2FD9A73100EE1DA8 /* XCRemoteSwiftPackageReference "FeatureAuth" */,
 			);
 			productRefGroup = 212DEA712012746500FE9C3F /* Products */;
 			projectDirPath = "";
@@ -1552,10 +1554,6 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Domain;
 		};
-		21D59CE02FD852DC00A964BF /* XCLocalSwiftPackageReference "Packages/FeatureAuth" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/FeatureAuth;
-		};
 		21D59CE12FD855F400A964BF /* XCLocalSwiftPackageReference "Packages/Auth" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Auth;
@@ -1563,6 +1561,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2112E78B2FD9A73100EE1DA8 /* XCRemoteSwiftPackageReference "FeatureAuth" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/patrickridd/FeatureAuth.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		2158DA8D2FD5114C003B5619 /* XCRemoteSwiftPackageReference "mbprogresshud" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jdg/mbprogresshud.git";
@@ -1582,6 +1588,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2112E78C2FD9B4CB00EE1DA8 /* FeatureAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2112E78B2FD9A73100EE1DA8 /* XCRemoteSwiftPackageReference "FeatureAuth" */;
+			productName = FeatureAuth;
+		};
 		2158DA832FD5017D003B5619 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 21B167232FD4FD2B00E49A3E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

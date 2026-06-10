@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "screenplayAppIconAsset 3 copy.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "screenplayAppIconAsset 3@2x copy.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "screenplayAppIconAsset 3@3x copy.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
