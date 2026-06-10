@@ -3,7 +3,7 @@ import SwiftUI
 struct LoginView: View {
     @StateObject private var viewModel = AuthViewModel()
     @State private var showSignUp = false
-    @ScaledMetric(relativeTo: .body) private var sectionGap: CGFloat = 18
+    @ScaledMetric(relativeTo: .body) private var sectionGap: CGFloat = 24
 
     var body: some View {
         ZStack {
@@ -61,7 +61,7 @@ struct LoginView: View {
             AuthPrimaryButton(title: "Log In", isLoading: viewModel.isLoading) {
                 viewModel.login()
             }
-            .padding(.top, 2)
+            .padding(.top, 8)
         }
     }
 
