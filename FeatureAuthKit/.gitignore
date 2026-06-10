@@ -1,0 +1,12 @@
+# Xcode / SwiftPM build artifacts
+.build/
+.swiftpm/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# macOS
+.DS_Store
+
+# Resolved dependencies (libraries usually commit Package.resolved at the app level instead)
+Package.resolved
