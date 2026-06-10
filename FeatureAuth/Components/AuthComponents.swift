@@ -234,3 +234,119 @@ struct AuthBrandHeader: View {
         .accessibilityLabel("Script Builder. \(subtitle)")
     }
 }
+
+// MARK: - Previews
+
+#Preview("AuthTextField — Light") {
+    ComponentPreviewWrapper {
+        VStack(spacing: 16) {
+            AuthTextField(
+                title: "Email", placeholder: "you@example.com",
+                text: .constant(""), icon: "envelope.fill",
+                textContentType: .emailAddress, keyboardType: .emailAddress
+            )
+            AuthTextField(
+                title: "Password", placeholder: "At least 6 characters",
+                text: .constant("hunter2"), icon: "lock.fill",
+                isSecure: true, textContentType: .password
+            )
+            AuthTextField(
+                title: "Pre-filled email", placeholder: "you@example.com",
+                text: .constant("jane@example.com"), icon: "envelope.fill",
+                textContentType: .emailAddress, keyboardType: .emailAddress
+            )
+        }
+        .padding(.horizontal, 24)
+    }
+    .preferredColorScheme(.light)
+}
+
+#Preview("AuthTextField — Dark") {
+    ComponentPreviewWrapper {
+        VStack(spacing: 16) {
+            AuthTextField(
+                title: "Email", placeholder: "you@example.com",
+                text: .constant(""), icon: "envelope.fill",
+                textContentType: .emailAddress, keyboardType: .emailAddress
+            )
+            AuthTextField(
+                title: "Password", placeholder: "At least 6 characters",
+                text: .constant("hunter2"), icon: "lock.fill",
+                isSecure: true, textContentType: .password
+            )
+        }
+        .padding(.horizontal, 24)
+    }
+    .preferredColorScheme(.dark)
+}
+
+#Preview("AuthPrimaryButton") {
+    ComponentPreviewWrapper {
+        VStack(spacing: 16) {
+            AuthPrimaryButton(title: "Log In", isLoading: false) { }
+            AuthPrimaryButton(title: "Loading…", isLoading: true) { }
+        }
+        .padding(.horizontal, 24)
+    }
+}
+
+#Preview("SocialIconButton Row") {
+    ComponentPreviewWrapper {
+        VStack(spacing: 24) {
+            Text("Light mode").font(.caption).foregroundStyle(AuthTheme.textMuted)
+            HStack(spacing: 12) {
+                SocialIconButton(style: .apple, label: "Apple") { }
+                SocialIconButton(style: .google, label: "Google") { }
+                SocialIconButton(style: .facebook, label: "Facebook") { }
+            }
+            .padding(.horizontal, 24)
+        }
+    }
+    .preferredColorScheme(.light)
+}
+
+#Preview("SocialIconButton Row — Dark") {
+    ComponentPreviewWrapper {
+        HStack(spacing: 12) {
+            SocialIconButton(style: .apple, label: "Apple") { }
+            SocialIconButton(style: .google, label: "Google") { }
+            SocialIconButton(style: .facebook, label: "Facebook") { }
+        }
+        .padding(.horizontal, 24)
+    }
+    .preferredColorScheme(.dark)
+}
+
+#Preview("LabeledDivider") {
+    ComponentPreviewWrapper {
+        LabeledDivider(label: "or continue with")
+            .padding(.horizontal, 24)
+    }
+}
+
+#Preview("AuthBrandHeader") {
+    ComponentPreviewWrapper {
+        VStack(spacing: 32) {
+            AuthBrandHeader(subtitle: "From your screen to the silver screen", compact: true)
+            Divider()
+            AuthBrandHeader(subtitle: "Create your account to start writing", compact: false)
+        }
+        .padding(24)
+    }
+}
+
+// MARK: - Preview Helper
+
+/// Wraps a component in the standard app background so every preview
+/// shows it in context rather than against a plain white canvas.
+private struct ComponentPreviewWrapper<Content: View>: View {
+    @ViewBuilder let content: Content
+
+    var body: some View {
+        ZStack {
+            AuthTheme.backgroundGradient.ignoresSafeArea()
+            AuthTheme.accentGlow.ignoresSafeArea()
+            content
+        }
+    }
+}

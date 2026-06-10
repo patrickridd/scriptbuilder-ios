@@ -91,6 +91,12 @@ struct LoginView: View {
     }
 }
 
-#Preview {
+#Preview("Login — Light") {
     LoginView()
+        .preferredColorScheme(.light)
+}
+
+#Preview("Login — Dark") {
+    LoginView()
+        .preferredColorScheme(.dark)
 }

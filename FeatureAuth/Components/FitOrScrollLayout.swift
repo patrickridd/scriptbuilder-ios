@@ -17,3 +17,45 @@ struct FitOrScrollLayout<Content: View>: View {
         }
     }
 }
+
+// MARK: - Previews
+
+#Preview("FitOrScrollLayout — short content fits") {
+    ZStack {
+        AuthTheme.backgroundGradient.ignoresSafeArea()
+        FitOrScrollLayout {
+            VStack(spacing: 16) {
+                ForEach(0..<4, id: \.self) { i in
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(AuthTheme.fieldGlass)
+                        .frame(height: 54)
+                        .overlay(
+                            Text("Row \(i + 1)")
+                                .foregroundStyle(AuthTheme.textPrimary)
+                        )
+                }
+            }
+            .padding(24)
+        }
+    }
+}
+
+#Preview("FitOrScrollLayout — tall content scrolls") {
+    ZStack {
+        AuthTheme.backgroundGradient.ignoresSafeArea()
+        FitOrScrollLayout {
+            VStack(spacing: 16) {
+                ForEach(0..<14, id: \.self) { i in
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(AuthTheme.fieldGlass)
+                        .frame(height: 54)
+                        .overlay(
+                            Text("Row \(i + 1)")
+                                .foregroundStyle(AuthTheme.textPrimary)
+                        )
+                }
+            }
+            .padding(24)
+        }
+    }
+}

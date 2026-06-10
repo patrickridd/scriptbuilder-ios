@@ -107,6 +107,12 @@ struct SignUpView: View {
     }
 }
 
-#Preview {
+#Preview("Sign Up — Light") {
     SignUpView()
+        .preferredColorScheme(.light)
+}
+
+#Preview("Sign Up — Dark") {
+    SignUpView()
+        .preferredColorScheme(.dark)
 }
