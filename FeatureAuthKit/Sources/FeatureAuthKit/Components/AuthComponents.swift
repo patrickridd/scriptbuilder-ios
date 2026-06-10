@@ -4,19 +4,39 @@ import SwiftUI
 
 /// A sleek, glassy text field with an icon and a floating label. High contrast
 /// and large hit targets keep it usable for people who are hard of seeing.
-struct AuthTextField: View {
+public struct AuthTextField: View {
     let title: String
     let placeholder: String
     @Binding var text: String
-    var icon: String = "textformat"
-    var isSecure: Bool = false
-    var textContentType: UITextContentType? = nil
-    var keyboardType: UIKeyboardType = .default
-    var capitalization: TextInputAutocapitalization = .never
+    var icon: String
+    var isSecure: Bool
+    var textContentType: UITextContentType?
+    var keyboardType: UIKeyboardType
+    var capitalization: TextInputAutocapitalization
 
     @FocusState private var isFocused: Bool
 
-    var body: some View {
+    public init(
+        title: String,
+        placeholder: String,
+        text: Binding<String>,
+        icon: String = "textformat",
+        isSecure: Bool = false,
+        textContentType: UITextContentType? = nil,
+        keyboardType: UIKeyboardType = .default,
+        capitalization: TextInputAutocapitalization = .never
+    ) {
+        self.title = title
+        self.placeholder = placeholder
+        self._text = text
+        self.icon = icon
+        self.isSecure = isSecure
+        self.textContentType = textContentType
+        self.keyboardType = keyboardType
+        self.capitalization = capitalization
+    }
+
+    public var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.body.weight(.semibold))
@@ -59,12 +79,18 @@ struct AuthTextField: View {
 
 // MARK: - Primary Button
 
-struct AuthPrimaryButton: View {
+public struct AuthPrimaryButton: View {
     let title: String
-    var isLoading: Bool = false
+    var isLoading: Bool
     let action: () -> Void
 
-    var body: some View {
+    public init(title: String, isLoading: Bool = false, action: @escaping () -> Void) {
+        self.title = title
+        self.isLoading = isLoading
+        self.action = action
+    }
+
+    public var body: some View {
         Button(action: action) {
             ZStack {
                 if isLoading {
@@ -88,14 +114,20 @@ struct AuthPrimaryButton: View {
 
 // MARK: - Social Sign-In Button
 
-struct SocialAuthButton: View {
-    enum Style { case apple, facebook, google }
+public struct SocialAuthButton: View {
+    public enum Style { case apple, facebook, google }
 
     let style: Style
     let title: String
     let action: () -> Void
 
-    var body: some View {
+    public init(style: Style, title: String, action: @escaping () -> Void) {
+        self.style = style
+        self.title = title
+        self.action = action
+    }
+
+    public var body: some View {
         Button(action: action) {
             HStack(spacing: 12) {
                 leadingIcon
@@ -124,11 +156,11 @@ struct SocialAuthButton: View {
                 .font(.title3)
                 .foregroundStyle(.black)
         case .facebook:
-            Image("FacebookLogo")
+            AuthAssets.image("FacebookLogo")
                 .resizable().scaledToFit()
                 .frame(width: 24, height: 24)
         case .google:
-            Image("GoogleLogo")
+            AuthAssets.image("GoogleLogo")
                 .resizable().scaledToFit()
                 .frame(width: 22, height: 22)
         }
@@ -147,12 +179,18 @@ struct SocialAuthButton: View {
 
 // MARK: - Compact Social Row (icon-only, premium)
 
-struct SocialIconButton: View {
+public struct SocialIconButton: View {
     let style: SocialAuthButton.Style
     let label: String
     let action: () -> Void
 
-    var body: some View {
+    public init(style: SocialAuthButton.Style, label: String, action: @escaping () -> Void) {
+        self.style = style
+        self.label = label
+        self.action = action
+    }
+
+    public var body: some View {
         Button(action: action) {
             icon
                 .frame(maxWidth: .infinity)
@@ -175,19 +213,23 @@ struct SocialIconButton: View {
                 .font(.title2)
                 .foregroundStyle(AuthTheme.textPrimary)
         case .facebook:
-            Image("FacebookLogo").resizable().scaledToFit().frame(width: 26, height: 26)
+            AuthAssets.image("FacebookLogo").resizable().scaledToFit().frame(width: 26, height: 26)
         case .google:
-            Image("GoogleLogo").resizable().scaledToFit().frame(width: 24, height: 24)
+            AuthAssets.image("GoogleLogo").resizable().scaledToFit().frame(width: 24, height: 24)
         }
     }
 }
 
 // MARK: - Divider with label
 
-struct LabeledDivider: View {
+public struct LabeledDivider: View {
     let label: String
 
-    var body: some View {
+    public init(label: String) {
+        self.label = label
+    }
+
+    public var body: some View {
         HStack(spacing: 12) {
             line
             Text(label)
@@ -205,13 +247,20 @@ struct LabeledDivider: View {
 
 // MARK: - Brand Header
 
-struct AuthBrandHeader: View {
+public struct AuthBrandHeader: View {
+    let title: String
     let subtitle: String
-    var compact: Bool = false
+    var compact: Bool
 
-    var body: some View {
+    public init(title: String = "Script Builder", subtitle: String, compact: Bool = false) {
+        self.title = title
+        self.subtitle = subtitle
+        self.compact = compact
+    }
+
+    public var body: some View {
         VStack(spacing: compact ? 10 : 14) {
-            Image("AppLogo")
+            AuthAssets.image("AppLogo")
                 .resizable().scaledToFit()
                 .frame(width: compact ? 56 : 68, height: compact ? 56 : 68)
                 .padding(compact ? 12 : 16)
@@ -221,7 +270,7 @@ struct AuthBrandHeader: View {
                         .stroke(AuthTheme.socialStroke, lineWidth: 1)
                 )
 
-            Text("Script Builder")
+            Text(title)
                 .font(.system(size: compact ? 30 : 36, weight: .bold, design: .rounded))
                 .foregroundStyle(AuthTheme.textPrimary)
 
@@ -231,7 +280,7 @@ struct AuthBrandHeader: View {
                 .multilineTextAlignment(.center)
         }
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("Script Builder. \(subtitle)")
+        .accessibilityLabel("\(title). \(subtitle)")
     }
 }
 
@@ -250,11 +299,6 @@ struct AuthBrandHeader: View {
                 text: .constant("hunter2"), icon: "lock.fill",
                 isSecure: true, textContentType: .password
             )
-            AuthTextField(
-                title: "Pre-filled email", placeholder: "you@example.com",
-                text: .constant("jane@example.com"), icon: "envelope.fill",
-                textContentType: .emailAddress, keyboardType: .emailAddress
-            )
         }
         .padding(.horizontal, 24)
     }
@@ -268,11 +312,6 @@ struct AuthBrandHeader: View {
                 title: "Email", placeholder: "you@example.com",
                 text: .constant(""), icon: "envelope.fill",
                 textContentType: .emailAddress, keyboardType: .emailAddress
-            )
-            AuthTextField(
-                title: "Password", placeholder: "At least 6 characters",
-                text: .constant("hunter2"), icon: "lock.fill",
-                isSecure: true, textContentType: .password
             )
         }
         .padding(.horizontal, 24)
@@ -292,21 +331,6 @@ struct AuthBrandHeader: View {
 
 #Preview("SocialIconButton Row") {
     ComponentPreviewWrapper {
-        VStack(spacing: 24) {
-            Text("Light mode").font(.caption).foregroundStyle(AuthTheme.textMuted)
-            HStack(spacing: 12) {
-                SocialIconButton(style: .apple, label: "Apple") { }
-                SocialIconButton(style: .google, label: "Google") { }
-                SocialIconButton(style: .facebook, label: "Facebook") { }
-            }
-            .padding(.horizontal, 24)
-        }
-    }
-    .preferredColorScheme(.light)
-}
-
-#Preview("SocialIconButton Row — Dark") {
-    ComponentPreviewWrapper {
         HStack(spacing: 12) {
             SocialIconButton(style: .apple, label: "Apple") { }
             SocialIconButton(style: .google, label: "Google") { }
@@ -314,7 +338,6 @@ struct AuthBrandHeader: View {
         }
         .padding(.horizontal, 24)
     }
-    .preferredColorScheme(.dark)
 }
 
 #Preview("LabeledDivider") {
@@ -326,12 +349,8 @@ struct AuthBrandHeader: View {
 
 #Preview("AuthBrandHeader") {
     ComponentPreviewWrapper {
-        VStack(spacing: 32) {
-            AuthBrandHeader(subtitle: "From your screen to the silver screen", compact: true)
-            Divider()
-            AuthBrandHeader(subtitle: "Create your account to start writing", compact: false)
-        }
-        .padding(24)
+        AuthBrandHeader(subtitle: "From your screen to the silver screen", compact: true)
+            .padding(24)
     }
 }
 
@@ -339,7 +358,7 @@ struct AuthBrandHeader: View {
 
 /// Wraps a component in the standard app background so every preview
 /// shows it in context rather than against a plain white canvas.
-private struct ComponentPreviewWrapper<Content: View>: View {
+struct ComponentPreviewWrapper<Content: View>: View {
     @ViewBuilder let content: Content
 
     var body: some View {

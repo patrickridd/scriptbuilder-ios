@@ -1,18 +1,24 @@
 import SwiftUI
 
-struct SignUpView: View {
+public struct SignUpView: View {
     @StateObject private var viewModel = AuthViewModel()
     @Environment(\.dismiss) private var dismiss
     @ScaledMetric(relativeTo: .body) private var sectionGap: CGFloat = 16
 
-    var body: some View {
+    private let config: AuthConfiguration
+
+    public init(config: AuthConfiguration = .default) {
+        self.config = config
+    }
+
+    public var body: some View {
         ZStack(alignment: .topTrailing) {
             AuthTheme.backgroundGradient.ignoresSafeArea()
             AuthTheme.accentGlow.ignoresSafeArea()
 
             FitOrScrollLayout {
                 VStack(spacing: sectionGap) {
-                    AuthBrandHeader(subtitle: "Create your account to start writing", compact: true)
+                    AuthBrandHeader(title: config.appName, subtitle: config.signUpSubtitle, compact: true)
 
                     signUpForm
                     LabeledDivider(label: "or sign up with")

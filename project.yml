@@ -3,6 +3,10 @@ options:
   bundleIdPrefix: com.superapp
   developmentLanguage: en
 
+packages:
+  FeatureAuthKit:
+    path: FeatureAuthKit
+
 settings:
   base:
     PRODUCT_NAME: FeatureAuth
@@ -39,6 +43,9 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.superapp.featureauth
+    dependencies:
+      - package: FeatureAuthKit
+        product: FeatureAuthKit
     sources:
       - path: FeatureAuth
     info:

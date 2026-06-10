@@ -5,7 +5,7 @@ import SwiftUI
 /// dynamic `UIColor` providers, so a single token works everywhere.
 /// High-contrast values and generous sizing keep the screens accessible
 /// for people who are hard of seeing.
-enum AuthTheme {
+public enum AuthTheme {
 
     // MARK: - Dynamic color helper
 
@@ -20,35 +20,35 @@ enum AuthTheme {
 
     // MARK: - Brand Colors (stable across modes)
 
-    static let brandBlue = Color(red: 0.16, green: 0.50, blue: 0.92)
-    static let brandTeal = Color(red: 0.16, green: 0.78, blue: 0.84)
-    static let brandDeep = Color(red: 0.09, green: 0.27, blue: 0.45)
+    public static let brandBlue = Color(red: 0.16, green: 0.50, blue: 0.92)
+    public static let brandTeal = Color(red: 0.16, green: 0.78, blue: 0.84)
+    public static let brandDeep = Color(red: 0.09, green: 0.27, blue: 0.45)
 
     /// Accent used for field icons / focus — slightly deeper in light mode
     /// so it stays legible on the off-white surface.
-    static let accent = dynamic(
+    public static let accent = dynamic(
         light: Color(red: 0.05, green: 0.55, blue: 0.62),
         dark: brandTeal
     )
 
-    static let facebookBlue = Color(red: 0.23, green: 0.35, blue: 0.60)
-    static let googleBlue = Color(red: 0.26, green: 0.52, blue: 0.96)
+    public static let facebookBlue = Color(red: 0.23, green: 0.35, blue: 0.60)
+    public static let googleBlue = Color(red: 0.26, green: 0.52, blue: 0.96)
 
     // MARK: - Text
 
     /// Primary text — near-black on light, white on dark.
-    static let textPrimary = dynamic(
+    public static let textPrimary = dynamic(
         light: Color(red: 0.10, green: 0.14, blue: 0.20),
         dark: .white
     )
 
     /// Muted/secondary text.
-    static let textMuted = dynamic(
+    public static let textMuted = dynamic(
         light: Color(red: 0.36, green: 0.42, blue: 0.50),
         dark: Color.white.opacity(0.82)
     )
 
-    static let textOnLight = Color(red: 0.08, green: 0.12, blue: 0.18)
+    public static let textOnLight = Color(red: 0.08, green: 0.12, blue: 0.18)
 
     // MARK: - Gradient background
 
@@ -65,7 +65,7 @@ enum AuthTheme {
     private static let bgMid = dynamic(light: lightMid, dark: darkMid)
     private static let bgBottom = dynamic(light: lightBottom, dark: darkBottom)
 
-    static var backgroundGradient: LinearGradient {
+    public static var backgroundGradient: LinearGradient {
         LinearGradient(
             colors: [bgTop, bgMid, bgBottom],
             startPoint: .topLeading,
@@ -73,7 +73,7 @@ enum AuthTheme {
         )
     }
 
-    static var primaryButtonGradient: LinearGradient {
+    public static var primaryButtonGradient: LinearGradient {
         LinearGradient(
             colors: [brandBlue, brandTeal],
             startPoint: .leading,
@@ -83,7 +83,7 @@ enum AuthTheme {
 
     /// Soft glow accents layered behind the content for depth.
     /// Subtle in light mode so it reads as a gentle highlight, not a smudge.
-    static var accentGlow: RadialGradient {
+    public static var accentGlow: RadialGradient {
         RadialGradient(
             colors: [glowAccent, .clear],
             center: .topTrailing,
@@ -100,43 +100,43 @@ enum AuthTheme {
     // MARK: - Glassy field surface
 
     /// Frosted field fill — a soft white card on light, translucent on dark.
-    static let fieldGlass = dynamic(
+    public static let fieldGlass = dynamic(
         light: Color.white.opacity(0.85),
         dark: Color.white.opacity(0.10)
     )
 
-    static let fieldGlassStroke = dynamic(
+    public static let fieldGlassStroke = dynamic(
         light: Color(red: 0.62, green: 0.68, blue: 0.74),
         dark: Color.white.opacity(0.22)
     )
 
-    static let glassPlaceholder = dynamic(
+    public static let glassPlaceholder = dynamic(
         light: Color(red: 0.55, green: 0.59, blue: 0.65),
         dark: Color.white.opacity(0.55)
     )
 
     /// Hairline separators (dividers, social outlines).
-    static let separator = dynamic(
+    public static let separator = dynamic(
         light: Color(red: 0.78, green: 0.82, blue: 0.86),
         dark: Color.white.opacity(0.25)
     )
 
     /// Outline used around icon-only / outlined social buttons.
-    static let socialStroke = dynamic(
+    public static let socialStroke = dynamic(
         light: Color(red: 0.62, green: 0.68, blue: 0.74),
         dark: Color.white.opacity(0.18)
     )
 
     /// Fill behind the brand logo badge.
-    static let logoBadge = dynamic(
+    public static let logoBadge = dynamic(
         light: .white,
         dark: .white
     )
 
     // MARK: - Metrics
 
-    static let controlHeight: CGFloat = 54
-    static let cornerRadius: CGFloat = 14
-    static let horizontalPadding: CGFloat = 26
-    static let controlSpacing: CGFloat = 12
+    public static let controlHeight: CGFloat = 54
+    public static let cornerRadius: CGFloat = 14
+    public static let horizontalPadding: CGFloat = 26
+    public static let controlSpacing: CGFloat = 12
 }

@@ -4,27 +4,29 @@ import SwiftUI
 /// real auth backend later. Validation messages are written to be clear
 /// and friendly for assistive technologies.
 @MainActor
-final class AuthViewModel: ObservableObject {
+public final class AuthViewModel: ObservableObject {
 
     // MARK: - Shared inputs
-    @Published var email: String = ""
-    @Published var password: String = ""
+    @Published public var email: String = ""
+    @Published public var password: String = ""
 
     // MARK: - Sign up inputs
-    @Published var firstName: String = ""
-    @Published var lastName: String = ""
+    @Published public var firstName: String = ""
+    @Published public var lastName: String = ""
 
     // MARK: - State
-    @Published var isLoading: Bool = false
-    @Published var errorMessage: String?
+    @Published public var isLoading: Bool = false
+    @Published public var errorMessage: String?
+
+    public init() {}
 
     // MARK: - Validation
 
-    var isLoginValid: Bool {
+    public var isLoginValid: Bool {
         isValidEmail(email) && password.count >= 6
     }
 
-    var isSignUpValid: Bool {
+    public var isSignUpValid: Bool {
         !firstName.trimmingCharacters(in: .whitespaces).isEmpty
             && !lastName.trimmingCharacters(in: .whitespaces).isEmpty
             && isValidEmail(email)
@@ -33,7 +35,7 @@ final class AuthViewModel: ObservableObject {
 
     // MARK: - Actions (placeholder logic)
 
-    func login() {
+    public func login() {
         guard isLoginValid else {
             errorMessage = "Enter a valid email and a password of at least 6 characters."
             return
@@ -41,7 +43,7 @@ final class AuthViewModel: ObservableObject {
         runMockRequest()
     }
 
-    func signUp() {
+    public func signUp() {
         guard isSignUpValid else {
             errorMessage = "Please fill in every field. Passwords need at least 6 characters."
             return
@@ -49,11 +51,11 @@ final class AuthViewModel: ObservableObject {
         runMockRequest()
     }
 
-    func continueWithApple() { runMockRequest() }
-    func continueWithFacebook() { runMockRequest() }
-    func continueWithGoogle() { runMockRequest() }
+    public func continueWithApple() { runMockRequest() }
+    public func continueWithFacebook() { runMockRequest() }
+    public func continueWithGoogle() { runMockRequest() }
 
-    func forgotPassword() {
+    public func forgotPassword() {
         errorMessage = "Password reset isn't connected yet."
     }
 

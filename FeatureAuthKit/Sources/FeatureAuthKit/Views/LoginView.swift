@@ -1,18 +1,24 @@
 import SwiftUI
 
-struct LoginView: View {
+public struct LoginView: View {
     @StateObject private var viewModel = AuthViewModel()
     @State private var showSignUp = false
     @ScaledMetric(relativeTo: .body) private var sectionGap: CGFloat = 24
 
-    var body: some View {
+    private let config: AuthConfiguration
+
+    public init(config: AuthConfiguration = .default) {
+        self.config = config
+    }
+
+    public var body: some View {
         ZStack {
             AuthTheme.backgroundGradient.ignoresSafeArea()
             AuthTheme.accentGlow.ignoresSafeArea()
 
             FitOrScrollLayout {
                 VStack(spacing: sectionGap) {
-                    AuthBrandHeader(subtitle: "From your screen to the silver screen", compact: true)
+                    AuthBrandHeader(title: config.appName, subtitle: config.loginSubtitle, compact: true)
 
                     emailForm
                     LabeledDivider(label: "or continue with")
@@ -28,7 +34,7 @@ struct LoginView: View {
         } message: {
             Text(viewModel.errorMessage ?? "")
         }
-        .fullScreenCover(isPresented: $showSignUp) { SignUpView() }
+        .fullScreenCover(isPresented: $showSignUp) { SignUpView(config: config) }
     }
 
     private var alertBinding: Binding<Bool> {
@@ -81,7 +87,7 @@ struct LoginView: View {
 
     private var footer: some View {
         HStack(spacing: 6) {
-            Text("New to Script Builder?")
+            Text(config.loginFooterPrompt)
                 .foregroundStyle(AuthTheme.textMuted)
             Button("Sign up") { showSignUp = true }
                 .fontWeight(.bold)
