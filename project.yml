@@ -1,4 +1,4 @@
-name: FeatureAuth
+name: FeatureAuth-Dev
 options:
   bundleIdPrefix: com.superapp
   developmentLanguage: en
@@ -35,12 +35,13 @@ settings:
       COPY_PHASE_STRIP: NO
 
 targets:
-  FeatureAuthDemo:
+  FeatureAuth-Dev:
     type: application
     platform: iOS
     deploymentTarget: '17.0'
     settings:
       base:
+        PRODUCT_NAME: FeatureAuthDemo
         PRODUCT_BUNDLE_IDENTIFIER: com.superapp.featureauthdemo
     dependencies:
       - package: FeatureAuth
@@ -80,10 +81,10 @@ configFiles:
   Release: {}
 
 schemes:
-  FeatureAuthDemo:
+  FeatureAuth-Dev:
     build:
       targets:
-        FeatureAuthDemo: all
+        FeatureAuth-Dev: all
     run:
       config: Debug
     test:

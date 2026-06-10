@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "03C93334FE4BF0863798AE08"
-               BuildableName = "FeatureAuthDemo.app"
-               BlueprintName = "FeatureAuthDemo"
-               ReferencedContainer = "container:FeatureAuthDemo.xcodeproj">
+               BlueprintIdentifier = "ED99118B5E691D88C9A056C0"
+               BuildableName = "FeatureAuth-Dev.app"
+               BlueprintName = "FeatureAuth-Dev"
+               ReferencedContainer = "container:FeatureAuth-Dev.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "03C93334FE4BF0863798AE08"
-            BuildableName = "FeatureAuthDemo.app"
-            BlueprintName = "FeatureAuthDemo"
-            ReferencedContainer = "container:FeatureAuthDemo.xcodeproj">
+            BlueprintIdentifier = "ED99118B5E691D88C9A056C0"
+            BuildableName = "FeatureAuth-Dev.app"
+            BlueprintName = "FeatureAuth-Dev"
+            ReferencedContainer = "container:FeatureAuth-Dev.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -57,10 +57,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "03C93334FE4BF0863798AE08"
-            BuildableName = "FeatureAuthDemo.app"
-            BlueprintName = "FeatureAuthDemo"
-            ReferencedContainer = "container:FeatureAuthDemo.xcodeproj">
+            BlueprintIdentifier = "ED99118B5E691D88C9A056C0"
+            BuildableName = "FeatureAuth-Dev.app"
+            BlueprintName = "FeatureAuth-Dev"
+            ReferencedContainer = "container:FeatureAuth-Dev.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -76,10 +76,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "03C93334FE4BF0863798AE08"
-            BuildableName = "FeatureAuthDemo.app"
-            BlueprintName = "FeatureAuthDemo"
-            ReferencedContainer = "container:FeatureAuthDemo.xcodeproj">
+            BlueprintIdentifier = "ED99118B5E691D88C9A056C0"
+            BuildableName = "FeatureAuth-Dev.app"
+            BlueprintName = "FeatureAuth-Dev"
+            ReferencedContainer = "container:FeatureAuth-Dev.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
