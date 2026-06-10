@@ -16,8 +16,8 @@
 /* Begin PBXFileReference section */
 		64CC80C3088047540BCB9678 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B779146D38930C22CE64F58 /* FeatureAuthDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureAuthDemoApp.swift; sourceTree = "<group>"; };
-		D267A5FA8E4070E763ECE5E2 /* FeatureAuth-Package */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "FeatureAuth-Package"; path = "FeatureAuth-Package"; sourceTree = SOURCE_ROOT; };
 		DE7D206F1FFD9A044459409F /* FeatureAuth-Dev.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "FeatureAuth-Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF1B156BEFB1C39166FF0D8D /* FeatureAuth */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FeatureAuth; path = FeatureAuth; sourceTree = SOURCE_ROOT; };
 		EBA06635C55F60A3BE9F97D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F22DA9AD89FB6C46E6FE2690 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,7 +65,7 @@
 		AE5DBB8194610C7D77CF975A /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				D267A5FA8E4070E763ECE5E2 /* FeatureAuth-Package */,
+				DF1B156BEFB1C39166FF0D8D /* FeatureAuth */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -118,7 +118,7 @@
 			mainGroup = 26A039ED39F534144AD2E072;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				8DA3D41228323C88FBFE727A /* XCLocalSwiftPackageReference "FeatureAuth-Package" */,
+				F3190E76D564C54339A5C59D /* XCLocalSwiftPackageReference "FeatureAuth" */,
 			);
 			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
@@ -252,9 +252,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8DA3D41228323C88FBFE727A /* XCLocalSwiftPackageReference "FeatureAuth-Package" */ = {
+		F3190E76D564C54339A5C59D /* XCLocalSwiftPackageReference "FeatureAuth" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "FeatureAuth-Package";
+			relativePath = FeatureAuth;
 		};
 /* End XCLocalSwiftPackageReference section */
 

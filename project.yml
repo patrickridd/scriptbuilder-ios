@@ -5,7 +5,7 @@ options:
 
 packages:
   FeatureAuth:
-    path: FeatureAuth-Package
+    path: FeatureAuth
 
 settings:
   base:
