@@ -11,17 +11,17 @@ public struct AuthConfiguration {
     public var signUpFooterPrompt: String
 
     public init(
-        appName: String = "Your App Name",
-        loginSubtitle: String = "Your personal app subtitle here",
-        signUpSubtitle: String = "Create your account to start",
-        loginFooterPrompt: String = "New to [your app name]?",
-        signUpFooterPrompt: String = "Already have an account?"
+        appName: String? = nil,
+        loginSubtitle: String? = nil,
+        signUpSubtitle: String? = nil,
+        loginFooterPrompt: String? = nil,
+        signUpFooterPrompt: String? = nil
     ) {
-        self.appName = appName
-        self.loginSubtitle = loginSubtitle
-        self.signUpSubtitle = signUpSubtitle
-        self.loginFooterPrompt = loginFooterPrompt
-        self.signUpFooterPrompt = signUpFooterPrompt
+        self.appName = appName ?? L10n.Config.appName
+        self.loginSubtitle = loginSubtitle ?? L10n.Config.loginSubtitle
+        self.signUpSubtitle = signUpSubtitle ?? L10n.Config.signUpSubtitle
+        self.loginFooterPrompt = loginFooterPrompt ?? L10n.Config.loginFooterPrompt
+        self.signUpFooterPrompt = signUpFooterPrompt ?? L10n.Config.signUpFooterPrompt
     }
 
     public static let `default` = AuthConfiguration()

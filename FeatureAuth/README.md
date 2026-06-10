@@ -154,6 +154,20 @@ With no `service:` argument, `FeatureAuth` falls back to a built-in
 `MockAuthService` — perfect for the dev host and SwiftUI previews (no
 Firebase, no network, no config).
 
+## Localization
+
+FeatureAuth ships a String Catalog (`Localizable.xcstrings`) inside the
+package, so all built-in copy — labels, placeholders, buttons, accessibility
+labels, and validation messages — is fully localized. **English** and
+**Spanish** are included out of the box, and strings resolve from the package
+bundle (`.module`), so they work no matter which app embeds the package.
+
+To add a language, open `Sources/FeatureAuth/Resources/Localizable.xcstrings`
+in Xcode and add the locale — Xcode fills in every key automatically.
+
+Any copy you pass via `AuthConfiguration` is used verbatim, so you can also
+localize app-specific strings on your side and hand them in.
+
 ## Components
 
 If you want to compose your own screens, every building block is public:

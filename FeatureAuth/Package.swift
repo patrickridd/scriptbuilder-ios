@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "FeatureAuth",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v17)
     ],
@@ -14,7 +15,10 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "FeatureAuth"
+            name: "FeatureAuth",
+            resources: [
+                .process("Resources/Localizable.xcstrings")
+            ]
         ),
         .testTarget(
             name: "FeatureAuthTests",

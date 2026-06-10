@@ -56,7 +56,7 @@ public final class AuthViewModel: ObservableObject {
 
     public func login() {
         guard isLoginValid else {
-            errorMessage = "Enter a valid email and a password of at least 6 characters."
+            errorMessage = L10n.Message.loginInvalid
             return
         }
         perform { try await self.service.signIn(email: self.email, password: self.password) }
@@ -64,7 +64,7 @@ public final class AuthViewModel: ObservableObject {
 
     public func signUp() {
         guard isSignUpValid else {
-            errorMessage = "Please fill in every field. Passwords need at least 6 characters."
+            errorMessage = L10n.Message.signUpInvalid
             return
         }
         perform {
@@ -79,13 +79,13 @@ public final class AuthViewModel: ObservableObject {
 
     public func forgotPassword() {
         guard isValidEmail(email) else {
-            errorMessage = "Enter your email above, then tap “Forgot password?” again."
+            errorMessage = L10n.Message.resetNeedEmail
             return
         }
         let address = email
         runTask {
             try await self.service.sendPasswordReset(email: address)
-            self.errorMessage = "We've sent a password reset link to \(address)."
+            self.errorMessage = L10n.Message.resetSent(address)
         }
     }
 

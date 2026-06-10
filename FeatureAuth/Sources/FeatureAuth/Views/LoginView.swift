@@ -25,7 +25,7 @@ public struct LoginView: View {
                     AuthBrandHeader(title: config.appName, subtitle: config.loginSubtitle, compact: true)
 
                     emailForm
-                    LabeledDivider(label: "or continue with")
+                    LabeledDivider(label: L10n.Divider.continueWith)
                     socialRow
                     footer
                 }
@@ -33,8 +33,8 @@ public struct LoginView: View {
                 .padding(.vertical, 24)
             }
         }
-        .alert("Heads up", isPresented: alertBinding) {
-            Button("OK", role: .cancel) { }
+        .alert(L10n.Alert.title, isPresented: alertBinding) {
+            Button(L10n.Alert.ok, role: .cancel) { }
         } message: {
             Text(viewModel.errorMessage ?? "")
         }
@@ -55,24 +55,24 @@ public struct LoginView: View {
     private var emailForm: some View {
         VStack(spacing: AuthTheme.controlSpacing) {
             AuthTextField(
-                title: "Email", placeholder: "you@example.com",
+                title: L10n.Field.emailTitle, placeholder: L10n.Field.emailPlaceholder,
                 text: $viewModel.email, icon: "envelope.fill",
                 textContentType: .emailAddress, keyboardType: .emailAddress
             )
             AuthTextField(
-                title: "Password", placeholder: "Your password",
+                title: L10n.Field.passwordTitle, placeholder: L10n.Field.passwordPlaceholder,
                 text: $viewModel.password, icon: "lock.fill",
                 isSecure: true, textContentType: .password
             )
 
             HStack {
                 Spacer()
-                Button("Forgot password?") { viewModel.forgotPassword() }
+                Button(L10n.Action.forgotPassword) { viewModel.forgotPassword() }
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(AuthTheme.textMuted)
             }
 
-            AuthPrimaryButton(title: "Log In", isLoading: viewModel.isLoading) {
+            AuthPrimaryButton(title: L10n.Action.login, isLoading: viewModel.isLoading) {
                 viewModel.login()
             }
             .padding(.top, 8)
@@ -81,13 +81,13 @@ public struct LoginView: View {
 
     private var socialRow: some View {
         HStack(spacing: AuthTheme.controlSpacing) {
-            SocialIconButton(style: .apple, label: "Sign in with Apple") {
+            SocialIconButton(style: .apple, label: L10n.A11y.signInApple) {
                 viewModel.continueWithApple()
             }
-            SocialIconButton(style: .google, label: "Sign in with Google") {
+            SocialIconButton(style: .google, label: L10n.A11y.signInGoogle) {
                 viewModel.continueWithGoogle()
             }
-            SocialIconButton(style: .facebook, label: "Continue with Facebook") {
+            SocialIconButton(style: .facebook, label: L10n.A11y.continueFacebook) {
                 viewModel.continueWithFacebook()
             }
         }
@@ -97,7 +97,7 @@ public struct LoginView: View {
         HStack(spacing: 6) {
             Text(config.loginFooterPrompt)
                 .foregroundStyle(AuthTheme.textMuted)
-            Button("Sign up") { showSignUp = true }
+            Button(L10n.Action.signUp) { showSignUp = true }
                 .fontWeight(.bold)
                 .foregroundStyle(AuthTheme.accent)
         }

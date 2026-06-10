@@ -3,6 +3,21 @@
 All notable changes to FeatureAuth are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] - 2026-06-10
+
+### Added
+- **Full localization** via a String Catalog (`Localizable.xcstrings`) shipped
+  with the package. Every user-facing string — field labels, placeholders,
+  buttons, links, dividers, accessibility labels, alerts, and validation
+  messages — now resolves from the package bundle (`.module`).
+- English (`en`) and Spanish (`es`) translations included out of the box.
+- `defaultLocalization: "en"` declared in `Package.swift`.
+
+### Changed
+- `AuthConfiguration` defaults are now localized. Its initializer parameters
+  are optional (`nil` → localized fallback), so existing call sites that pass
+  explicit copy are unaffected.
+
 ## [1.2.0] - 2026-06-10
 
 ### Added

@@ -25,7 +25,7 @@ public struct SignUpView: View {
                     AuthBrandHeader(title: config.appName, subtitle: config.signUpSubtitle, compact: true)
 
                     signUpForm
-                    LabeledDivider(label: "or sign up with")
+                    LabeledDivider(label: L10n.Divider.signUpWith)
                     socialRow
                     footer
                 }
@@ -35,8 +35,8 @@ public struct SignUpView: View {
 
             closeButton
         }
-        .alert("Heads up", isPresented: alertBinding) {
-            Button("OK", role: .cancel) { }
+        .alert(L10n.Alert.title, isPresented: alertBinding) {
+            Button(L10n.Alert.ok, role: .cancel) { }
         } message: {
             Text(viewModel.errorMessage ?? "")
         }
@@ -56,35 +56,35 @@ public struct SignUpView: View {
                 .foregroundStyle(AuthTheme.textMuted)
                 .padding()
         }
-        .accessibilityLabel("Close sign up")
+        .accessibilityLabel(L10n.A11y.closeSignUp)
     }
 
     private var signUpForm: some View {
         VStack(spacing: AuthTheme.controlSpacing) {
             HStack(spacing: AuthTheme.controlSpacing) {
                 AuthTextField(
-                    title: "First name", placeholder: "Jane",
+                    title: L10n.Field.firstNameTitle, placeholder: L10n.Field.firstNamePlaceholder,
                     text: $viewModel.firstName, icon: "person.fill",
                     textContentType: .givenName, capitalization: .words
                 )
                 AuthTextField(
-                    title: "Last name", placeholder: "Doe",
+                    title: L10n.Field.lastNameTitle, placeholder: L10n.Field.lastNamePlaceholder,
                     text: $viewModel.lastName, icon: "person.fill",
                     textContentType: .familyName, capitalization: .words
                 )
             }
             AuthTextField(
-                title: "Email", placeholder: "you@example.com",
+                title: L10n.Field.emailTitle, placeholder: L10n.Field.emailPlaceholder,
                 text: $viewModel.email, icon: "envelope.fill",
                 textContentType: .emailAddress, keyboardType: .emailAddress
             )
             AuthTextField(
-                title: "Password", placeholder: "At least 6 characters",
+                title: L10n.Field.passwordTitle, placeholder: L10n.Field.passwordPlaceholderMin,
                 text: $viewModel.password, icon: "lock.fill",
                 isSecure: true, textContentType: .newPassword
             )
 
-            AuthPrimaryButton(title: "Create Account", isLoading: viewModel.isLoading) {
+            AuthPrimaryButton(title: L10n.Action.createAccount, isLoading: viewModel.isLoading) {
                 viewModel.signUp()
             }
             .padding(.top, 2)
@@ -93,13 +93,13 @@ public struct SignUpView: View {
 
     private var socialRow: some View {
         HStack(spacing: AuthTheme.controlSpacing) {
-            SocialIconButton(style: .apple, label: "Sign up with Apple") {
+            SocialIconButton(style: .apple, label: L10n.A11y.signUpApple) {
                 viewModel.continueWithApple()
             }
-            SocialIconButton(style: .google, label: "Sign up with Google") {
+            SocialIconButton(style: .google, label: L10n.A11y.signUpGoogle) {
                 viewModel.continueWithGoogle()
             }
-            SocialIconButton(style: .facebook, label: "Sign up with Facebook") {
+            SocialIconButton(style: .facebook, label: L10n.A11y.signUpFacebook) {
                 viewModel.continueWithFacebook()
             }
         }
@@ -109,7 +109,7 @@ public struct SignUpView: View {
         HStack(spacing: 6) {
             Text(config.signUpFooterPrompt)
                 .foregroundStyle(AuthTheme.textMuted)
-            Button("Log in") { dismiss() }
+            Button(L10n.Action.logIn) { dismiss() }
                 .fontWeight(.bold)
                 .foregroundStyle(AuthTheme.accent)
         }
