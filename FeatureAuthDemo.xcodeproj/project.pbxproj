@@ -1,0 +1,269 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3EDFF213DB6C964E00681815 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAC86A14444254DC1C27D4C9 /* Assets.xcassets */; };
+		5E6776612F51740CC2856CCC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40FC3EE977203B9C7F5DCA19 /* LaunchScreen.storyboard */; };
+		C3695095FCCE60273D21B094 /* FeatureAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D4221E3AEE299924A9DDADFC /* FeatureAuth */; };
+		D6C9E7088F68D8B037866A04 /* FeatureAuthDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1047518FF6F65DF5522E82F /* FeatureAuthDemoApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3B6700F2E30174E86363AA98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6106C514705C43C90FB5B3D1 /* FeatureAuthDemo.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = FeatureAuthDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1047518FF6F65DF5522E82F /* FeatureAuthDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureAuthDemoApp.swift; sourceTree = "<group>"; };
+		B915DCCB3468407BD146AB40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DC0DD6EDB3A1986861EAD8F0 /* FeatureAuth-Package */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "FeatureAuth-Package"; path = "FeatureAuth-Package"; sourceTree = SOURCE_ROOT; };
+		EAC86A14444254DC1C27D4C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3A003B29338A41E8FBFC0A35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3695095FCCE60273D21B094 /* FeatureAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0DF9BB1C37D149EC4F9C83BD = {
+			isa = PBXGroup;
+			children = (
+				4AFA6F40926D6613BCFF4625 /* FeatureAuthDemo */,
+				DE128CFF423A71B063FB0535 /* Packages */,
+				8AE95775002DE683A92E6A77 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4AFA6F40926D6613BCFF4625 /* FeatureAuthDemo */ = {
+			isa = PBXGroup;
+			children = (
+				EAC86A14444254DC1C27D4C9 /* Assets.xcassets */,
+				A1047518FF6F65DF5522E82F /* FeatureAuthDemoApp.swift */,
+				B915DCCB3468407BD146AB40 /* Info.plist */,
+				40FC3EE977203B9C7F5DCA19 /* LaunchScreen.storyboard */,
+			);
+			path = FeatureAuthDemo;
+			sourceTree = "<group>";
+		};
+		8AE95775002DE683A92E6A77 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6106C514705C43C90FB5B3D1 /* FeatureAuthDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DE128CFF423A71B063FB0535 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				DC0DD6EDB3A1986861EAD8F0 /* FeatureAuth-Package */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		03C93334FE4BF0863798AE08 /* FeatureAuthDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83474B97FBAF37A04FD2EBAC /* Build configuration list for PBXNativeTarget "FeatureAuthDemo" */;
+			buildPhases = (
+				B6F77613C733B6441BA27939 /* Sources */,
+				AA949901CF18CB27505E86AE /* Resources */,
+				3A003B29338A41E8FBFC0A35 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FeatureAuthDemo;
+			packageProductDependencies = (
+				D4221E3AEE299924A9DDADFC /* FeatureAuth */,
+			);
+			productName = FeatureAuthDemo;
+			productReference = 6106C514705C43C90FB5B3D1 /* FeatureAuthDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		969AA365CCB20A4CD299C3BD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					03C93334FE4BF0863798AE08 = {
+						DevelopmentTeam = CVQEUYD92N;
+					};
+				};
+			};
+			buildConfigurationList = 572D92A7B107FF22A1A96203 /* Build configuration list for PBXProject "FeatureAuthDemo" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 0DF9BB1C37D149EC4F9C83BD;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C2027D652FFB8F54E45C6A18 /* XCLocalSwiftPackageReference "FeatureAuth-Package" */,
+			);
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				03C93334FE4BF0863798AE08 /* FeatureAuthDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA949901CF18CB27505E86AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EDFF213DB6C964E00681815 /* Assets.xcassets in Resources */,
+				5E6776612F51740CC2856CCC /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B6F77613C733B6441BA27939 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6C9E7088F68D8B037866A04 /* FeatureAuthDemoApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		40FC3EE977203B9C7F5DCA19 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B6700F2E30174E86363AA98 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		11E4A6442FB3F50A770ED8A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = CVQEUYD92N;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = FeatureAuthDemo;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		4A054DD1E9681EDECF2151F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = CVQEUYD92N;
+				ENABLE_TESTABILITY = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = FeatureAuthDemo;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		559C3A379298DBAA112A1BFA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = FeatureAuthDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.superapp.featureauthdemo;
+			};
+			name = Debug;
+		};
+		9D605475E5A278FCCAFD4079 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = FeatureAuthDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.superapp.featureauthdemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		572D92A7B107FF22A1A96203 /* Build configuration list for PBXProject "FeatureAuthDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11E4A6442FB3F50A770ED8A5 /* Debug */,
+				4A054DD1E9681EDECF2151F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		83474B97FBAF37A04FD2EBAC /* Build configuration list for PBXNativeTarget "FeatureAuthDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				559C3A379298DBAA112A1BFA /* Debug */,
+				9D605475E5A278FCCAFD4079 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		C2027D652FFB8F54E45C6A18 /* XCLocalSwiftPackageReference "FeatureAuth-Package" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "FeatureAuth-Package";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D4221E3AEE299924A9DDADFC /* FeatureAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FeatureAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 969AA365CCB20A4CD299C3BD /* Project object */;
+}
