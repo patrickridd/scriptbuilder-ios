@@ -6,15 +6,11 @@ public struct LoginView: View {
     @ScaledMetric(relativeTo: .body) private var sectionGap: CGFloat = 24
 
     private let config: AuthConfiguration
-    private let service: AuthService
-    private let onAuthenticated: (AuthUser) -> Void
 
     public init(config: AuthConfiguration = .default,
                 service: AuthService = MockAuthService(),
                 onAuthenticated: @escaping (AuthUser) -> Void = { _ in }) {
         self.config = config
-        self.service = service
-        self.onAuthenticated = onAuthenticated
         _viewModel = StateObject(wrappedValue: AuthViewModel(service: service,
                                                              onAuthenticated: onAuthenticated))
     }
@@ -43,7 +39,9 @@ public struct LoginView: View {
             Text(viewModel.errorMessage ?? "")
         }
         .fullScreenCover(isPresented: $showSignUp) {
-            SignUpView(config: config, service: service, onAuthenticated: onAuthenticated)
+            SignUpView(config: config,
+                       service: viewModel.service,
+                       onAuthenticated: viewModel.onAuthenticated)
         }
     }
 

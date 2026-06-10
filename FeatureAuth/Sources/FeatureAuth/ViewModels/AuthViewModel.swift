@@ -22,8 +22,10 @@ public final class AuthViewModel: ObservableObject {
     @Published public private(set) var currentUser: AuthUser?
 
     // MARK: - Dependencies
-    private let service: AuthService
-    private let onAuthenticated: (AuthUser) -> Void
+    /// Exposed so a parent screen (e.g. Login presenting Sign Up) can hand the
+    /// same backend down to a child without re-storing it itself.
+    public let service: AuthService
+    public let onAuthenticated: (AuthUser) -> Void
 
     /// - Parameters:
     ///   - service: the auth backend. Defaults to `MockAuthService` so the
