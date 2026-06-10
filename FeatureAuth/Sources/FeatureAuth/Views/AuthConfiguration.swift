@@ -11,10 +11,10 @@ public struct AuthConfiguration {
     public var signUpFooterPrompt: String
 
     public init(
-        appName: String = "Script Builder",
-        loginSubtitle: String = "From your screen to the silver screen",
-        signUpSubtitle: String = "Create your account to start writing",
-        loginFooterPrompt: String = "New to Script Builder?",
+        appName: String = "Your App Name",
+        loginSubtitle: String = "Your personal app subtitle here",
+        signUpSubtitle: String = "Create your account to start",
+        loginFooterPrompt: String = "New to [your app name]?",
         signUpFooterPrompt: String = "Already have an account?"
     ) {
         self.appName = appName

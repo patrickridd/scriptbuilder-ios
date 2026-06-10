@@ -8,7 +8,13 @@ import FeatureAuth
 struct FeatureAuthDemoApp: App {
     var body: some Scene {
         WindowGroup {
-            AuthFlowView()
+            let authConfiguration = AuthConfiguration(
+                appName: "Script Builder",
+                loginSubtitle: "From your screen to the silver screen",
+                signUpSubtitle: "Create your account to start writing",
+                loginFooterPrompt: "New to Script Builder?"
+            )
+            AuthFlowView(config: authConfiguration)
         }
     }
 }
