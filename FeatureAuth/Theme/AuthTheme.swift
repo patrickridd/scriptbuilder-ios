@@ -56,10 +56,10 @@ enum AuthTheme {
     private static let darkMid = Color(red: 0.07, green: 0.20, blue: 0.36)
     private static let darkBottom = Color(red: 0.06, green: 0.13, blue: 0.24)
 
-    // Off-white, premium light background with a faint cool tint.
-    private static let lightTop = Color(red: 0.97, green: 0.98, blue: 0.99)
-    private static let lightMid = Color(red: 0.95, green: 0.97, blue: 0.98)
-    private static let lightBottom = Color(red: 0.93, green: 0.96, blue: 0.97)
+    // Soft sky-to-periwinkle gradient — visible color wash while staying clean & premium.
+    private static let lightTop    = Color(red: 0.84, green: 0.92, blue: 0.99)   // soft sky blue
+    private static let lightMid    = Color(red: 0.88, green: 0.90, blue: 0.98)   // periwinkle blush
+    private static let lightBottom = Color(red: 0.93, green: 0.91, blue: 0.97)   // pale lavender
 
     private static let bgTop = dynamic(light: lightTop, dark: darkTop)
     private static let bgMid = dynamic(light: lightMid, dark: darkMid)
@@ -93,7 +93,7 @@ enum AuthTheme {
     }
 
     private static let glowAccent = dynamic(
-        light: brandTeal.opacity(0.16),
+        light: brandBlue.opacity(0.28),
         dark: brandTeal.opacity(0.45)
     )
 
