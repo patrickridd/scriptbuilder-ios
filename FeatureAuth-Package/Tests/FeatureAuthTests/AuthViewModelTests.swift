@@ -1,5 +1,5 @@
 import XCTest
-@testable import FeatureAuthKit
+@testable import FeatureAuth
 
 @MainActor
 final class AuthViewModelTests: XCTestCase {

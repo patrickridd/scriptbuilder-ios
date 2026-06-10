@@ -1,7 +1,7 @@
-# FeatureAuthKit
+# FeatureAuth
 
-A sleek, accessible, drop-in authentication UI for SwiftUI apps. Premium
-login & sign-up screens with adaptive light/dark theming, large touch
+A sleek, accessible, drop-in authentication **feature module** for SwiftUI
+apps. Premium login & sign-up screens with adaptive light/dark theming, large touch
 targets, high-contrast colors, and Dynamic Type support — designed to be
 usable for people who are hard of seeing.
 
@@ -22,19 +22,19 @@ usable for people who are hard of seeing.
 In Xcode: **File ▸ Add Package Dependencies…** and paste the repo URL:
 
 ```
-https://github.com/<your-org>/FeatureAuthKit.git
+https://github.com/<your-org>/FeatureAuth.git
 ```
 
 Or add it to your own `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/<your-org>/FeatureAuthKit.git", from: "1.0.0")
+    .package(url: "https://github.com/<your-org>/FeatureAuth.git", from: "1.0.0")
 ],
 targets: [
     .target(
         name: "YourApp",
-        dependencies: ["FeatureAuthKit"]
+        dependencies: ["FeatureAuth"]
     )
 ]
 ```
@@ -46,7 +46,7 @@ login screen and presents sign-up as a full-screen sheet:
 
 ```swift
 import SwiftUI
-import FeatureAuthKit
+import FeatureAuth
 
 struct ContentView: View {
     var body: some View {
@@ -92,7 +92,7 @@ To load them from a different bundle (e.g. you ship them in your own
 module), set this once at launch:
 
 ```swift
-import FeatureAuthKit
+import FeatureAuth
 
 AuthAssets.bundle = .module   // or any Bundle you choose
 ```
@@ -116,4 +116,4 @@ If you want to compose your own screens, every building block is public:
 
 ## License
 
-FeatureAuthKit is available under the MIT license. See [LICENSE](LICENSE).
+FeatureAuth is available under the MIT license. See [LICENSE](LICENSE).

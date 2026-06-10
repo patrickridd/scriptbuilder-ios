@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to FeatureAuthKit are documented here. This project
+All notable changes to FeatureAuth are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
 ## [1.0.0] - 2026-06-10

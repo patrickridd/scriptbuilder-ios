@@ -4,7 +4,7 @@ import SwiftUI
 /// Presents the login screen, which itself presents sign-up as a sheet.
 ///
 /// ```swift
-/// import FeatureAuthKit
+/// import FeatureAuth
 ///
 /// struct ContentView: View {
 ///     var body: some View {

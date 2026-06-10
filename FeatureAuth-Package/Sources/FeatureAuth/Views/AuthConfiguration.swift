@@ -1,6 +1,6 @@
 import Foundation
 
-/// Branding/copy used by the FeatureAuthKit screens. Pass a customized
+/// Branding/copy used by the FeatureAuth screens. Pass a customized
 /// instance to `AuthFlowView`, `LoginView`, or `SignUpView` to white-label
 /// the experience without touching the kit's source.
 public struct AuthConfiguration {

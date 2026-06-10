@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C80260A69A17566DC99C0E89"
-               BuildableName = "FeatureAuth.app"
-               BlueprintName = "FeatureAuth"
+               BlueprintIdentifier = "B6EC6ABEC2EA7D28B7804B27"
+               BuildableName = "FeatureAuthDemo.app"
+               BlueprintName = "FeatureAuthDemo"
                ReferencedContainer = "container:FeatureAuth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C80260A69A17566DC99C0E89"
-            BuildableName = "FeatureAuth.app"
-            BlueprintName = "FeatureAuth"
+            BlueprintIdentifier = "B6EC6ABEC2EA7D28B7804B27"
+            BuildableName = "FeatureAuthDemo.app"
+            BlueprintName = "FeatureAuthDemo"
             ReferencedContainer = "container:FeatureAuth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -57,9 +57,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C80260A69A17566DC99C0E89"
-            BuildableName = "FeatureAuth.app"
-            BlueprintName = "FeatureAuth"
+            BlueprintIdentifier = "B6EC6ABEC2EA7D28B7804B27"
+            BuildableName = "FeatureAuthDemo.app"
+            BlueprintName = "FeatureAuthDemo"
             ReferencedContainer = "container:FeatureAuth.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -76,9 +76,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C80260A69A17566DC99C0E89"
-            BuildableName = "FeatureAuth.app"
-            BlueprintName = "FeatureAuth"
+            BlueprintIdentifier = "B6EC6ABEC2EA7D28B7804B27"
+            BuildableName = "FeatureAuthDemo.app"
+            BlueprintName = "FeatureAuthDemo"
             ReferencedContainer = "container:FeatureAuth.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

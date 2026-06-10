@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Configuration for where FeatureAuthKit loads its brand images from.
+/// Configuration for where FeatureAuth loads its brand images from.
 ///
 /// The kit references three named images:
 /// - `AppLogo`     — the product logo shown in the header

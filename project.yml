@@ -4,12 +4,12 @@ options:
   developmentLanguage: en
 
 packages:
-  FeatureAuthKit:
-    path: FeatureAuthKit
+  FeatureAuth:
+    path: FeatureAuth-Package
 
 settings:
   base:
-    PRODUCT_NAME: FeatureAuth
+    PRODUCT_NAME: FeatureAuthDemo
     SWIFT_VERSION: 5.0
     MARKETING_VERSION: 1.0
     CURRENT_PROJECT_VERSION: 1
@@ -36,20 +36,20 @@ settings:
       COPY_PHASE_STRIP: NO
 
 targets:
-  FeatureAuth:
+  FeatureAuthDemo:
     type: application
     platform: iOS
     deploymentTarget: '17.0'
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.superapp.featureauth
+        PRODUCT_BUNDLE_IDENTIFIER: com.superapp.featureauthdemo
     dependencies:
-      - package: FeatureAuthKit
-        product: FeatureAuthKit
+      - package: FeatureAuth
+        product: FeatureAuth
     sources:
-      - path: FeatureAuth
+      - path: FeatureAuthDemo
     info:
-      path: FeatureAuth/Info.plist
+      path: FeatureAuthDemo/Info.plist
       properties:
         CFBundleDevelopmentRegion: $(DEVELOPMENT_LANGUAGE)
         CFBundleDisplayName: $(PRODUCT_NAME)
@@ -81,10 +81,10 @@ configFiles:
   Release: {}
 
 schemes:
-  FeatureAuth:
+  FeatureAuthDemo:
     build:
       targets:
-        FeatureAuth: all
+        FeatureAuthDemo: all
     run:
       config: Debug
     test:

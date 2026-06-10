@@ -2,23 +2,23 @@
 import PackageDescription
 
 let package = Package(
-    name: "FeatureAuthKit",
+    name: "FeatureAuth",
     platforms: [
         .iOS(.v17)
     ],
     products: [
         .library(
-            name: "FeatureAuthKit",
-            targets: ["FeatureAuthKit"]
+            name: "FeatureAuth",
+            targets: ["FeatureAuth"]
         )
     ],
     targets: [
         .target(
-            name: "FeatureAuthKit"
+            name: "FeatureAuth"
         ),
         .testTarget(
-            name: "FeatureAuthKitTests",
-            dependencies: ["FeatureAuthKit"]
+            name: "FeatureAuthTests",
+            dependencies: ["FeatureAuth"]
         )
     ]
 )
