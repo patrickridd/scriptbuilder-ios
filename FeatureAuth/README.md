@@ -168,6 +168,30 @@ in Xcode and add the locale — Xcode fills in every key automatically.
 Any copy you pass via `AuthConfiguration` is used verbatim, so you can also
 localize app-specific strings on your side and hand them in.
 
+## Animation & Motion
+
+FeatureAuth adds tasteful motion that elevates the auth screens without
+distracting from the task:
+
+- **Drifting ambient background** (`AuthBackground`) — three soft, blurred
+  glow blobs (teal, blue, periwinkle) slowly drift and gently scale over the
+  gradient, creating a living, premium backdrop. It's the default background
+  for `LoginView` and `SignUpView`.
+- **Brand badge shimmer** (`Shimmer` / `authShimmer()`) — a faint diagonal
+  gleam sweeps slowly across the logo badge for a refined, high-end accent.
+
+Both effects **respect Reduce Motion**: when the accessibility setting is
+enabled, the background falls back to a static gradient and the shimmer is
+disabled automatically.
+
+You can apply the shimmer to your own views:
+
+```swift
+import FeatureAuth
+
+myView.authShimmer()
+```
+
 ## Components
 
 If you want to compose your own screens, every building block is public:

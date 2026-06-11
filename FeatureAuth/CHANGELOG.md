@@ -3,6 +3,24 @@
 All notable changes to FeatureAuth are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.4.0] - 2026-06-11
+
+### Added
+- **`AuthBackground`** — an ambient, living backdrop for the auth screens.
+  Three soft, blurred glow blobs (teal, blue, periwinkle) drift slowly on
+  independent looping animations over the sky-to-periwinkle gradient, gently
+  scaling for a calm, premium feel. Falls back to a static gradient + glow
+  when **Reduce Motion** is enabled. Wired into `LoginView`, `SignUpView`,
+  and the component preview.
+- **`Shimmer`** view modifier + `authShimmer()` extension — a subtle diagonal
+  gleam that sweeps slowly across a view. Tuned for a refined, luxury accent
+  (3.2s sweep, 2.4s pause, low-intensity highlight) and applied to the brand
+  badge in `AuthBrandHeader`. Respects **Reduce Motion**.
+
+### Changed
+- `blobTeal`, `blobBlue`, and `blobDeep` color tokens added to `AuthTheme`,
+  tuned for both light and dark mode.
+
 ## [1.3.0] - 2026-06-10
 
 ### Added
