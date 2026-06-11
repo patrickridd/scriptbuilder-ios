@@ -1,4 +1,5 @@
 import SwiftUI
+import AuthDomain
 
 /// Drives the login and signup screens.
 ///

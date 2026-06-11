@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1AE9F33C0AC7835D333CD023 /* FeatureAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BFC393A64A759EC30DD68B6D /* FeatureAuth */; };
+		3422F42DE3BECB1E4A9E04FB /* AuthDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAFDCE3F3BEE6C749D2C405 /* AuthDomain */; };
 		6148298D7C9342E4D37159CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64CC80C3088047540BCB9678 /* Assets.xcassets */; };
 		8F1F063FB583A6FEB7B064E7 /* FeatureAuthDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B779146D38930C22CE64F58 /* FeatureAuthDemoApp.swift */; };
 		B77359323B6E353021AB130A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1B5B818289B759027BECCB /* LaunchScreen.storyboard */; };
@@ -20,6 +21,7 @@
 		DF1B156BEFB1C39166FF0D8D /* FeatureAuth */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FeatureAuth; path = FeatureAuth; sourceTree = SOURCE_ROOT; };
 		EBA06635C55F60A3BE9F97D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F22DA9AD89FB6C46E6FE2690 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F8854B0C36034C7491FE80B6 /* AuthDomain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AuthDomain; path = AuthDomain; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +30,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AE9F33C0AC7835D333CD023 /* FeatureAuth in Frameworks */,
+				3422F42DE3BECB1E4A9E04FB /* AuthDomain in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +68,7 @@
 		AE5DBB8194610C7D77CF975A /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				F8854B0C36034C7491FE80B6 /* AuthDomain */,
 				DF1B156BEFB1C39166FF0D8D /* FeatureAuth */,
 			);
 			name = Packages;
@@ -88,6 +92,7 @@
 			name = "FeatureAuth-Dev";
 			packageProductDependencies = (
 				BFC393A64A759EC30DD68B6D /* FeatureAuth */,
+				4EAFDCE3F3BEE6C749D2C405 /* AuthDomain */,
 			);
 			productName = "FeatureAuth-Dev";
 			productReference = DE7D206F1FFD9A044459409F /* FeatureAuth-Dev.app */;
@@ -118,6 +123,7 @@
 			mainGroup = 26A039ED39F534144AD2E072;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				07FD3A1874D15EAC2755363C /* XCLocalSwiftPackageReference "AuthDomain" */,
 				F3190E76D564C54339A5C59D /* XCLocalSwiftPackageReference "FeatureAuth" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -252,6 +258,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		07FD3A1874D15EAC2755363C /* XCLocalSwiftPackageReference "AuthDomain" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = AuthDomain;
+		};
 		F3190E76D564C54339A5C59D /* XCLocalSwiftPackageReference "FeatureAuth" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = FeatureAuth;
@@ -259,6 +269,10 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4EAFDCE3F3BEE6C749D2C405 /* AuthDomain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AuthDomain;
+		};
 		BFC393A64A759EC30DD68B6D /* FeatureAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FeatureAuth;

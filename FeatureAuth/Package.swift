@@ -13,9 +13,15 @@ let package = Package(
             targets: ["FeatureAuth"]
         )
     ],
+    dependencies: [
+        .package(path: "../AuthDomain")
+    ],
     targets: [
         .target(
             name: "FeatureAuth",
+            dependencies: [
+                .product(name: "AuthDomain", package: "AuthDomain")
+            ],
             resources: [
                 .process("Resources/Localizable.xcstrings")
             ]

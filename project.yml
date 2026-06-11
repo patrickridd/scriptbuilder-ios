@@ -6,6 +6,8 @@ options:
 packages:
   FeatureAuth:
     path: FeatureAuth
+  AuthDomain:
+    path: AuthDomain
 
 settings:
   base:
@@ -46,6 +48,8 @@ targets:
     dependencies:
       - package: FeatureAuth
         product: FeatureAuth
+      - package: AuthDomain
+        product: AuthDomain
     sources:
       - path: FeatureAuthDemo
     info:

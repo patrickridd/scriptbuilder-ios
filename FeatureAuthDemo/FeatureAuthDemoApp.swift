@@ -1,5 +1,6 @@
 import SwiftUI
 import FeatureAuth
+import AuthDomain
 
 /// Dev/demo host for the FeatureAuth package. The shippable app
 /// (ScriptBuilder) lives in its own project and injects this package as a

@@ -1,4 +1,5 @@
 import SwiftUI
+import AuthDomain
 
 public struct LoginView: View {
     @StateObject private var viewModel: AuthViewModel

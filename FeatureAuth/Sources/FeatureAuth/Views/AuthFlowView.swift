@@ -1,4 +1,5 @@
 import SwiftUI
+import AuthDomain
 
 /// The simplest way to drop the whole FeatureAuth experience into an app.
 /// Presents the login screen, which itself presents sign-up as a sheet.
