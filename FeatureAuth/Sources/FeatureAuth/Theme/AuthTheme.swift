@@ -97,6 +97,26 @@ public enum AuthTheme {
         dark: brandTeal.opacity(0.45)
     )
 
+    // MARK: - Animated background blobs
+
+    /// Soft, translucent fills for the drifting blobs in `AuthBackground`.
+    /// Kept gentle in light mode so they read as an airy color wash,
+    /// and a touch richer in dark mode where they have room to glow.
+    public static let blobTeal = dynamic(
+        light: brandTeal.opacity(0.30),
+        dark: brandTeal.opacity(0.40)
+    )
+
+    public static let blobBlue = dynamic(
+        light: brandBlue.opacity(0.26),
+        dark: brandBlue.opacity(0.38)
+    )
+
+    public static let blobDeep = dynamic(
+        light: Color(red: 0.55, green: 0.50, blue: 0.92).opacity(0.24),
+        dark: brandDeep.opacity(0.55)
+    )
+
     // MARK: - Glassy field surface
 
     /// Frosted field fill — a soft white card on light, translucent on dark.

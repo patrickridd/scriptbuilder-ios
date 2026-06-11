@@ -17,8 +17,7 @@ public struct SignUpView: View {
 
     public var body: some View {
         ZStack(alignment: .topTrailing) {
-            AuthTheme.backgroundGradient.ignoresSafeArea()
-            AuthTheme.accentGlow.ignoresSafeArea()
+            AuthBackground()
 
             FitOrScrollLayout {
                 VStack(spacing: sectionGap) {

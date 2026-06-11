@@ -363,8 +363,7 @@ struct ComponentPreviewWrapper<Content: View>: View {
 
     var body: some View {
         ZStack {
-            AuthTheme.backgroundGradient.ignoresSafeArea()
-            AuthTheme.accentGlow.ignoresSafeArea()
+            AuthBackground()
             content
         }
     }

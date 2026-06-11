@@ -17,8 +17,7 @@ public struct LoginView: View {
 
     public var body: some View {
         ZStack {
-            AuthTheme.backgroundGradient.ignoresSafeArea()
-            AuthTheme.accentGlow.ignoresSafeArea()
+            AuthBackground()
 
             FitOrScrollLayout {
                 VStack(spacing: sectionGap) {
