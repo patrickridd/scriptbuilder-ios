@@ -3,7 +3,14 @@
 All notable changes to FeatureAuth are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.3.0] - 2026-06-11
+## [2.0.0] - 2026-06-11
+
+### Breaking
+- The brand color tokens were renamed to role-based, color-agnostic names so
+  they read correctly for any brand palette. Update any direct references:
+  - `AuthTheme.brandBlue` → `AuthTheme.brandPrimary`
+  - `AuthTheme.brandTeal` → `AuthTheme.brandSecondary`
+  - `AuthTheme.brandDeep` → `AuthTheme.brandTertiary`
 
 ### Added
 - **Client theming via `AuthPalette`** — a public, injectable struct holding
@@ -32,10 +39,6 @@ adheres to [Semantic Versioning](https://semver.org/).
 - `defaultLocalization: "en"` declared in `Package.swift`.
 
 ### Changed
-- The brand color tokens were renamed to role-based, color-agnostic names so
-  they read correctly for any brand palette:
-  `brandBlue` → `brandPrimary`, `brandTeal` → `brandSecondary`,
-  `brandDeep` → `brandTertiary`.
 - `blobTeal`, `blobBlue`, and `blobDeep` color tokens added to `AuthTheme`,
   tuned for both light and dark mode.
 - `AuthTheme` is now a thin accessor over the currently active `AuthPalette`,
