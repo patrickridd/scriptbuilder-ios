@@ -3,7 +3,7 @@
 All notable changes to FeatureAuth are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.4.0] - 2026-06-11
+## [1.3.0] - 2026-06-11
 
 ### Added
 - **Client theming via `AuthPalette`** — a public, injectable struct holding
@@ -24,6 +24,12 @@ adheres to [Semantic Versioning](https://semver.org/).
   gleam that sweeps slowly across a view. Tuned for a refined, luxury accent
   (3.2s sweep, 2.4s pause, low-intensity highlight) and applied to the brand
   badge in `AuthBrandHeader`. Respects **Reduce Motion**.
+- **Full localization** via a String Catalog (`Localizable.xcstrings`) shipped
+  with the package. Every user-facing string — field labels, placeholders,
+  buttons, links, dividers, accessibility labels, alerts, and validation
+  messages — now resolves from the package bundle (`.module`).
+- English (`en`) and Spanish (`es`) translations included out of the box.
+- `defaultLocalization: "en"` declared in `Package.swift`.
 
 ### Changed
 - The brand color tokens were renamed to role-based, color-agnostic names so
@@ -34,18 +40,6 @@ adheres to [Semantic Versioning](https://semver.org/).
   tuned for both light and dark mode.
 - `AuthTheme` is now a thin accessor over the currently active `AuthPalette`,
   so all existing `AuthTheme.x` token references reflect the injected theme.
-
-## [1.3.0] - 2026-06-10
-
-### Added
-- **Full localization** via a String Catalog (`Localizable.xcstrings`) shipped
-  with the package. Every user-facing string — field labels, placeholders,
-  buttons, links, dividers, accessibility labels, alerts, and validation
-  messages — now resolves from the package bundle (`.module`).
-- English (`en`) and Spanish (`es`) translations included out of the box.
-- `defaultLocalization: "en"` declared in `Package.swift`.
-
-### Changed
 - `AuthConfiguration` defaults are now localized. Its initializer parameters
   are optional (`nil` → localized fallback), so existing call sites that pass
   explicit copy are unaffected.
