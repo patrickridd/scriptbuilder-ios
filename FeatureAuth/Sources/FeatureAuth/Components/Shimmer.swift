@@ -18,7 +18,7 @@ public struct Shimmer: ViewModifier {
     /// Peak opacity of the highlight band.
     var intensity: Double
 
-    public init(duration: Double = 3.2, pause: Double = 2.4, intensity: Double = 0.55) {
+    public init(duration: Double = 3.2, pause: Double = 2.4, intensity: Double = 0.32) {
         self.duration = duration
         self.pause = pause
         self.intensity = intensity
@@ -69,7 +69,7 @@ public extension View {
     /// Adds a soft, periodic shimmer sweep across this view.
     func authShimmer(duration: Double = 3.2,
                      pause: Double = 2.4,
-                     intensity: Double = 0.55) -> some View {
+                     intensity: Double = 0.32) -> some View {
         modifier(Shimmer(duration: duration, pause: pause, intensity: intensity))
     }
 }
