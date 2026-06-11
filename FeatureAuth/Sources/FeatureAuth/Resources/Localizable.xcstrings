@@ -1,242 +1,595 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "auth.config.default.appName" : {
-      "comment" : "Fallback app name shown in the brand header when none is provided.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your App Name" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Nombre de tu app" } }
-      }
+    "" : {
+
     },
-    "auth.config.default.loginSubtitle" : {
-      "comment" : "Fallback subtitle under the title on the login screen.",
+    "%@. %@" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your personal app subtitle here" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "El subtítulo de tu app aquí" } }
-      }
-    },
-    "auth.config.default.signUpSubtitle" : {
-      "comment" : "Fallback subtitle on the sign-up screen.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create your account to start" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Crea tu cuenta para empezar" } }
-      }
-    },
-    "auth.config.default.loginFooterPrompt" : {
-      "comment" : "Fallback footer prompt before the Sign up link on login.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "New to [your app name]?" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Nuevo en [tu app]?" } }
-      }
-    },
-    "auth.config.default.signUpFooterPrompt" : {
-      "comment" : "Fallback footer prompt before the Log in link on sign-up.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Already have an account?" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Ya tienes una cuenta?" } }
-      }
-    },
-    "auth.field.email.title" : {
-      "comment" : "Email field label.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Email" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Correo electrónico" } }
-      }
-    },
-    "auth.field.email.placeholder" : {
-      "comment" : "Email field placeholder.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "you@example.com" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "tu@ejemplo.com" } }
-      }
-    },
-    "auth.field.password.title" : {
-      "comment" : "Password field label.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Password" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Contraseña" } }
-      }
-    },
-    "auth.field.password.placeholder" : {
-      "comment" : "Login password placeholder.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your password" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Tu contraseña" } }
-      }
-    },
-    "auth.field.password.placeholder.min" : {
-      "comment" : "Sign-up password placeholder noting the minimum length.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "At least 6 characters" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Al menos 6 caracteres" } }
-      }
-    },
-    "auth.field.firstName.title" : {
-      "comment" : "First name field label.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "First name" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Nombre" } }
-      }
-    },
-    "auth.field.firstName.placeholder" : {
-      "comment" : "First name placeholder.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Jane" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Ana" } }
-      }
-    },
-    "auth.field.lastName.title" : {
-      "comment" : "Last name field label.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Last name" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Apellido" } }
-      }
-    },
-    "auth.field.lastName.placeholder" : {
-      "comment" : "Last name placeholder.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Doe" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "García" } }
-      }
-    },
-    "auth.button.login" : {
-      "comment" : "Primary login button.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Log In" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Iniciar sesión" } }
-      }
-    },
-    "auth.button.createAccount" : {
-      "comment" : "Primary sign-up button.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create Account" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Crear cuenta" } }
-      }
-    },
-    "auth.link.forgotPassword" : {
-      "comment" : "Forgot password link.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Forgot password?" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Olvidaste tu contraseña?" } }
-      }
-    },
-    "auth.link.signUp" : {
-      "comment" : "Sign up link in the login footer.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign up" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Regístrate" } }
-      }
-    },
-    "auth.link.logIn" : {
-      "comment" : "Log in link in the sign-up footer.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Log in" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Inicia sesión" } }
-      }
-    },
-    "auth.divider.continueWith" : {
-      "comment" : "Divider label on the login screen.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "or continue with" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "o continúa con" } }
-      }
-    },
-    "auth.divider.signUpWith" : {
-      "comment" : "Divider label on the sign-up screen.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "or sign up with" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "o regístrate con" } }
-      }
-    },
-    "auth.a11y.signInApple" : {
-      "comment" : "Accessibility label for Apple sign-in.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign in with Apple" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Iniciar sesión con Apple" } }
-      }
-    },
-    "auth.a11y.signInGoogle" : {
-      "comment" : "Accessibility label for Google sign-in.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign in with Google" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Iniciar sesión con Google" } }
-      }
-    },
-    "auth.a11y.continueFacebook" : {
-      "comment" : "Accessibility label for Facebook sign-in.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Continue with Facebook" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Continuar con Facebook" } }
-      }
-    },
-    "auth.a11y.signUpApple" : {
-      "comment" : "Accessibility label for Apple sign-up.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign up with Apple" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Registrarse con Apple" } }
-      }
-    },
-    "auth.a11y.signUpGoogle" : {
-      "comment" : "Accessibility label for Google sign-up.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign up with Google" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Registrarse con Google" } }
-      }
-    },
-    "auth.a11y.signUpFacebook" : {
-      "comment" : "Accessibility label for Facebook sign-up.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign up with Facebook" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Registrarse con Facebook" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@. %2$@"
+          }
+        }
       }
     },
     "auth.a11y.closeSignUp" : {
       "comment" : "Accessibility label for the sign-up close button.",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Close sign up" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Cerrar registro" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close sign up"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerrar registro"
+          }
+        }
       }
     },
-    "auth.alert.title" : {
-      "comment" : "Title of the error alert.",
+    "auth.a11y.continueFacebook" : {
+      "comment" : "Accessibility label for Facebook sign-in.",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Heads up" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Atención" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue with Facebook"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar con Facebook"
+          }
+        }
+      }
+    },
+    "auth.a11y.signInApple" : {
+      "comment" : "Accessibility label for Apple sign-in.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in with Apple"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar sesión con Apple"
+          }
+        }
+      }
+    },
+    "auth.a11y.signInGoogle" : {
+      "comment" : "Accessibility label for Google sign-in.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in with Google"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar sesión con Google"
+          }
+        }
+      }
+    },
+    "auth.a11y.signUpApple" : {
+      "comment" : "Accessibility label for Apple sign-up.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up with Apple"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registrarse con Apple"
+          }
+        }
+      }
+    },
+    "auth.a11y.signUpFacebook" : {
+      "comment" : "Accessibility label for Facebook sign-up.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up with Facebook"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registrarse con Facebook"
+          }
+        }
+      }
+    },
+    "auth.a11y.signUpGoogle" : {
+      "comment" : "Accessibility label for Google sign-up.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up with Google"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registrarse con Google"
+          }
+        }
       }
     },
     "auth.alert.ok" : {
       "comment" : "Dismiss button on the error alert.",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "OK" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Aceptar" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aceptar"
+          }
+        }
+      }
+    },
+    "auth.alert.title" : {
+      "comment" : "Title of the error alert.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heads up"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atención"
+          }
+        }
+      }
+    },
+    "auth.button.createAccount" : {
+      "comment" : "Primary sign-up button.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Account"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear cuenta"
+          }
+        }
+      }
+    },
+    "auth.button.login" : {
+      "comment" : "Primary login button.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log In"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar sesión"
+          }
+        }
+      }
+    },
+    "auth.config.default.appName" : {
+      "comment" : "Fallback app name shown in the brand header when none is provided.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your App Name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre de tu app"
+          }
+        }
+      }
+    },
+    "auth.config.default.loginFooterPrompt" : {
+      "comment" : "Fallback footer prompt before the Sign up link on login.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New to [your app name]?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Nuevo en [tu app]?"
+          }
+        }
+      }
+    },
+    "auth.config.default.loginSubtitle" : {
+      "comment" : "Fallback subtitle under the title on the login screen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your personal app subtitle here"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El subtítulo de tu app aquí"
+          }
+        }
+      }
+    },
+    "auth.config.default.signUpFooterPrompt" : {
+      "comment" : "Fallback footer prompt before the Log in link on sign-up.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Already have an account?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Ya tienes una cuenta?"
+          }
+        }
+      }
+    },
+    "auth.config.default.signUpSubtitle" : {
+      "comment" : "Fallback subtitle on the sign-up screen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create your account to start"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea tu cuenta para empezar"
+          }
+        }
+      }
+    },
+    "auth.divider.continueWith" : {
+      "comment" : "Divider label on the login screen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "or continue with"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "o continúa con"
+          }
+        }
+      }
+    },
+    "auth.divider.signUpWith" : {
+      "comment" : "Divider label on the sign-up screen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "or sign up with"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "o regístrate con"
+          }
+        }
       }
     },
     "auth.error.login.invalid" : {
       "comment" : "Validation error when login fields are invalid.",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enter a valid email and a password of at least 6 characters." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Introduce un correo válido y una contraseña de al menos 6 caracteres." } }
-      }
-    },
-    "auth.error.signUp.invalid" : {
-      "comment" : "Validation error when sign-up fields are incomplete.",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Please fill in every field. Passwords need at least 6 characters." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Completa todos los campos. Las contraseñas necesitan al menos 6 caracteres." } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a valid email and a password of at least 6 characters."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduce un correo válido y una contraseña de al menos 6 caracteres."
+          }
+        }
       }
     },
     "auth.error.reset.needEmail" : {
       "comment" : "Prompt to enter an email before requesting a password reset.",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enter your email above, then tap “Forgot password?” again." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Introduce tu correo arriba y vuelve a tocar «¿Olvidaste tu contraseña?»." } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your email above, then tap “Forgot password?” again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduce tu correo arriba y vuelve a tocar «¿Olvidaste tu contraseña?»."
+          }
+        }
+      }
+    },
+    "auth.error.signUp.invalid" : {
+      "comment" : "Validation error when sign-up fields are incomplete.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please fill in every field. Passwords need at least 6 characters."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completa todos los campos. Las contraseñas necesitan al menos 6 caracteres."
+          }
+        }
+      }
+    },
+    "auth.field.email.placeholder" : {
+      "comment" : "Email field placeholder.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "you@example.com"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tu@ejemplo.com"
+          }
+        }
+      }
+    },
+    "auth.field.email.title" : {
+      "comment" : "Email field label.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correo electrónico"
+          }
+        }
+      }
+    },
+    "auth.field.firstName.placeholder" : {
+      "comment" : "First name placeholder.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jane"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ana"
+          }
+        }
+      }
+    },
+    "auth.field.firstName.title" : {
+      "comment" : "First name field label.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre"
+          }
+        }
+      }
+    },
+    "auth.field.lastName.placeholder" : {
+      "comment" : "Last name placeholder.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doe"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "García"
+          }
+        }
+      }
+    },
+    "auth.field.lastName.title" : {
+      "comment" : "Last name field label.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apellido"
+          }
+        }
+      }
+    },
+    "auth.field.password.placeholder" : {
+      "comment" : "Login password placeholder.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your password"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu contraseña"
+          }
+        }
+      }
+    },
+    "auth.field.password.placeholder.min" : {
+      "comment" : "Sign-up password placeholder noting the minimum length.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "At least 6 characters"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al menos 6 caracteres"
+          }
+        }
+      }
+    },
+    "auth.field.password.title" : {
+      "comment" : "Password field label.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contraseña"
+          }
+        }
+      }
+    },
+    "auth.link.forgotPassword" : {
+      "comment" : "Forgot password link.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forgot password?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Olvidaste tu contraseña?"
+          }
+        }
+      }
+    },
+    "auth.link.logIn" : {
+      "comment" : "Log in link in the sign-up footer.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log in"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inicia sesión"
+          }
+        }
+      }
+    },
+    "auth.link.signUp" : {
+      "comment" : "Sign up link in the login footer.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regístrate"
+          }
+        }
       }
     },
     "auth.reset.sent" : {
       "comment" : "Confirmation after a password reset email is sent. %@ is the email address.",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "We've sent a password reset link to %@." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Hemos enviado un enlace de restablecimiento a %@." } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We've sent a password reset link to %@."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hemos enviado un enlace de restablecimiento a %@."
+          }
+        }
       }
     }
   },

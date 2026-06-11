@@ -26,9 +26,9 @@ public enum AuthTheme {
 
     // MARK: - Brand Colors
 
-    public static var brandBlue: Color { current.brandBlue }
-    public static var brandTeal: Color { current.brandTeal }
-    public static var brandDeep: Color { current.brandDeep }
+    public static var brandPrimary: Color { current.brandPrimary }
+    public static var brandSecondary: Color { current.brandSecondary }
+    public static var brandTertiary: Color { current.brandTertiary }
     public static var accent: Color { current.accent }
     public static var facebookBlue: Color { current.facebookBlue }
     public static var googleBlue: Color { current.googleBlue }

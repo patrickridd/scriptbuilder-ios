@@ -9,8 +9,8 @@ import SwiftUI
 ///
 /// ```swift
 /// let brand = AuthPalette.default.with(
-///     brandBlue: .purple,
-///     brandTeal: .pink
+///     brandPrimary: .purple,
+///     brandSecondary: .pink
 /// )
 /// AuthFlowView(theme: brand)
 /// ```
@@ -21,9 +21,14 @@ import SwiftUI
 public struct AuthPalette: Sendable {
 
     // MARK: - Brand
-    public var brandBlue: Color
-    public var brandTeal: Color
-    public var brandDeep: Color
+    /// The main brand color. Drives the primary CTA gradient start, focus
+    /// accents, and key highlights. (FeatureAuth's default is a blue.)
+    public var brandPrimary: Color
+    /// The secondary brand color. Pairs with `brandPrimary` for the CTA
+    /// gradient and button glow. (FeatureAuth's default is a teal.)
+    public var brandSecondary: Color
+    /// A deeper brand shade used for ambient depth (e.g. dark-mode blobs).
+    public var brandTertiary: Color
     public var accent: Color
     public var facebookBlue: Color
     public var googleBlue: Color
@@ -59,9 +64,9 @@ public struct AuthPalette: Sendable {
     public var controlSpacing: CGFloat
 
     public init(
-        brandBlue: Color,
-        brandTeal: Color,
-        brandDeep: Color,
+        brandPrimary: Color,
+        brandSecondary: Color,
+        brandTertiary: Color,
         accent: Color,
         facebookBlue: Color,
         googleBlue: Color,
@@ -86,9 +91,9 @@ public struct AuthPalette: Sendable {
         horizontalPadding: CGFloat = 26,
         controlSpacing: CGFloat = 12
     ) {
-        self.brandBlue = brandBlue
-        self.brandTeal = brandTeal
-        self.brandDeep = brandDeep
+        self.brandPrimary = brandPrimary
+        self.brandSecondary = brandSecondary
+        self.brandTertiary = brandTertiary
         self.accent = accent
         self.facebookBlue = facebookBlue
         self.googleBlue = googleBlue
@@ -126,7 +131,7 @@ public struct AuthPalette: Sendable {
 
     public var primaryButtonGradient: LinearGradient {
         LinearGradient(
-            colors: [brandBlue, brandTeal],
+            colors: [brandPrimary, brandSecondary],
             startPoint: .leading,
             endPoint: .trailing
         )
@@ -153,9 +158,9 @@ public struct AuthPalette: Sendable {
     /// Returns a copy of this palette with the given tokens overridden.
     /// Handy for tweaking just a couple of colors off the default.
     public func with(
-        brandBlue: Color? = nil,
-        brandTeal: Color? = nil,
-        brandDeep: Color? = nil,
+        brandPrimary: Color? = nil,
+        brandSecondary: Color? = nil,
+        brandTertiary: Color? = nil,
         accent: Color? = nil,
         textPrimary: Color? = nil,
         textMuted: Color? = nil,
@@ -166,9 +171,9 @@ public struct AuthPalette: Sendable {
         controlHeight: CGFloat? = nil
     ) -> AuthPalette {
         var copy = self
-        if let brandBlue { copy.brandBlue = brandBlue }
-        if let brandTeal { copy.brandTeal = brandTeal }
-        if let brandDeep { copy.brandDeep = brandDeep }
+        if let brandPrimary { copy.brandPrimary = brandPrimary }
+        if let brandSecondary { copy.brandSecondary = brandSecondary }
+        if let brandTertiary { copy.brandTertiary = brandTertiary }
         if let accent { copy.accent = accent }
         if let textPrimary { copy.textPrimary = textPrimary }
         if let textMuted { copy.textMuted = textMuted }
@@ -187,17 +192,17 @@ public extension AuthPalette {
     /// The signature FeatureAuth palette — soft sky-to-periwinkle in light
     /// mode, premium navy-to-teal in dark mode.
     static let `default`: AuthPalette = {
-        let brandBlue = Color(red: 0.16, green: 0.50, blue: 0.92)
-        let brandTeal = Color(red: 0.16, green: 0.78, blue: 0.84)
-        let brandDeep = Color(red: 0.09, green: 0.27, blue: 0.45)
+        let brandPrimary = Color(red: 0.16, green: 0.50, blue: 0.92)
+        let brandSecondary = Color(red: 0.16, green: 0.78, blue: 0.84)
+        let brandTertiary = Color(red: 0.09, green: 0.27, blue: 0.45)
 
         return AuthPalette(
-            brandBlue: brandBlue,
-            brandTeal: brandTeal,
-            brandDeep: brandDeep,
+            brandPrimary: brandPrimary,
+            brandSecondary: brandSecondary,
+            brandTertiary: brandTertiary,
             accent: dynamic(
                 light: Color(red: 0.05, green: 0.55, blue: 0.62),
-                dark: brandTeal
+                dark: brandSecondary
             ),
             facebookBlue: Color(red: 0.23, green: 0.35, blue: 0.60),
             googleBlue: Color(red: 0.26, green: 0.52, blue: 0.96),
@@ -223,20 +228,20 @@ public extension AuthPalette {
                 dark: Color(red: 0.06, green: 0.13, blue: 0.24)
             ),
             glowAccent: dynamic(
-                light: brandBlue.opacity(0.28),
-                dark: brandTeal.opacity(0.45)
+                light: brandPrimary.opacity(0.28),
+                dark: brandSecondary.opacity(0.45)
             ),
             blobTeal: dynamic(
-                light: brandTeal.opacity(0.30),
-                dark: brandTeal.opacity(0.40)
+                light: brandSecondary.opacity(0.30),
+                dark: brandSecondary.opacity(0.40)
             ),
             blobBlue: dynamic(
-                light: brandBlue.opacity(0.26),
-                dark: brandBlue.opacity(0.38)
+                light: brandPrimary.opacity(0.26),
+                dark: brandPrimary.opacity(0.38)
             ),
             blobDeep: dynamic(
                 light: Color(red: 0.55, green: 0.50, blue: 0.92).opacity(0.24),
-                dark: brandDeep.opacity(0.55)
+                dark: brandTertiary.opacity(0.55)
             ),
             fieldGlass: dynamic(
                 light: Color.white.opacity(0.85),

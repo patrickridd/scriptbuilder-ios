@@ -105,7 +105,7 @@ public struct AuthPrimaryButton: View {
             .frame(minHeight: AuthTheme.controlHeight)
             .background(AuthTheme.primaryButtonGradient,
                         in: RoundedRectangle(cornerRadius: AuthTheme.cornerRadius, style: .continuous))
-            .shadow(color: AuthTheme.brandTeal.opacity(0.45), radius: 16, y: 8)
+            .shadow(color: AuthTheme.brandSecondary.opacity(0.45), radius: 16, y: 8)
         }
         .disabled(isLoading)
         .accessibilityLabel(title)
