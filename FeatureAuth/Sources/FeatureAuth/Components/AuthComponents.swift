@@ -269,6 +269,8 @@ public struct AuthBrandHeader: View {
                     RoundedRectangle(cornerRadius: 22, style: .continuous)
                         .stroke(AuthTheme.socialStroke, lineWidth: 1)
                 )
+                .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+                .authShimmer()
 
             Text(title)
                 .font(.system(size: compact ? 30 : 36, weight: .bold, design: .rounded))
