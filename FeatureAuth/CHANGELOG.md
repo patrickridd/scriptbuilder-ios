@@ -3,9 +3,17 @@
 All notable changes to FeatureAuth are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.4.0] - 2026-06-11
 
 ### Added
+- **Client theming via `AuthPalette`** — a public, injectable struct holding
+  every color and layout token. Pass your own palette to `AuthFlowView`,
+  `LoginView`, or `SignUpView` via the new `theme:` parameter to fully re-skin
+  the experience without touching the kit's source. `AuthPalette.default`
+  reproduces FeatureAuth's signature look, and a `with(...)` builder lets you
+  override just a few tokens (e.g. `AuthPalette.default.with(brandPrimary: .purple)`).
+  The active palette is also exposed through the SwiftUI environment
+  (`\.authPalette`) for custom components.
 - **`AuthBackground`** — an ambient, living backdrop for the auth screens.
   Three soft, blurred glow blobs (teal, blue, periwinkle) drift slowly on
   independent looping animations over the sky-to-periwinkle gradient, gently
@@ -18,8 +26,14 @@ adheres to [Semantic Versioning](https://semver.org/).
   badge in `AuthBrandHeader`. Respects **Reduce Motion**.
 
 ### Changed
+- The brand color tokens were renamed to role-based, color-agnostic names so
+  they read correctly for any brand palette:
+  `brandBlue` → `brandPrimary`, `brandTeal` → `brandSecondary`,
+  `brandDeep` → `brandTertiary`.
 - `blobTeal`, `blobBlue`, and `blobDeep` color tokens added to `AuthTheme`,
   tuned for both light and dark mode.
+- `AuthTheme` is now a thin accessor over the currently active `AuthPalette`,
+  so all existing `AuthTheme.x` token references reflect the injected theme.
 
 ## [1.3.0] - 2026-06-10
 

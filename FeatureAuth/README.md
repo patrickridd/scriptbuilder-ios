@@ -78,6 +78,45 @@ LoginView(config: .default)
 SignUpView(config: .default)
 ```
 
+## Custom theming
+
+Love the default look but want it in your brand colors? Pass your own
+`AuthPalette` via the `theme:` parameter on `AuthFlowView`, `LoginView`, or
+`SignUpView`. `AuthPalette.default` is FeatureAuth's signature palette, and a
+`with(...)` builder lets you override just a few tokens:
+
+```swift
+import FeatureAuth
+
+// Tweak a couple of tokens off the default
+let brand = AuthPalette.default.with(
+    brandPrimary: .purple,
+    brandSecondary: .pink
+)
+
+AuthFlowView(theme: brand)
+```
+
+Brand tokens are role-based (color-agnostic), so they read correctly for any
+palette:
+
+- `brandPrimary` — main brand color (CTA gradient start, focus accents)
+- `brandSecondary` — pairs with primary for the CTA gradient and button glow
+- `brandTertiary` — a deeper shade used for ambient depth
+
+For full control, build an `AuthPalette` from scratch — it holds every color
+(brand, text, surfaces, gradient stops, blobs) and layout metric
+(`cornerRadius`, `controlHeight`, …). Colors are plain `Color` values, so you
+can pass asset-catalog colors that adapt to light/dark automatically, or build
+dynamic ones with `AuthPalette.dynamic(light:dark:)`.
+
+The active palette is also published through the SwiftUI environment, so your
+own components can read it:
+
+```swift
+@Environment(\.authPalette) private var palette
+```
+
 ## Brand images
 
 The kit references three named images:
