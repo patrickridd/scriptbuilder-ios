@@ -3,7 +3,7 @@
 All notable changes to FeatureAuth are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.4.0] - 2026-06-11
+## [Unreleased]
 
 ### Added
 - **`AuthBackground`** — an ambient, living backdrop for the auth screens.

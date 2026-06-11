@@ -21,19 +21,22 @@ import SwiftUI
 /// and previews run with zero configuration.
 public struct AuthFlowView: View {
     private let config: AuthConfiguration
+    private let theme: AuthPalette
     private let service: AuthService
     private let onAuthenticated: (AuthUser) -> Void
 
     public init(config: AuthConfiguration = .default,
+                theme: AuthPalette = .default,
                 service: AuthService = MockAuthService(),
                 onAuthenticated: @escaping (AuthUser) -> Void = { _ in }) {
         self.config = config
+        self.theme = theme
         self.service = service
         self.onAuthenticated = onAuthenticated
     }
 
     public var body: some View {
-        LoginView(config: config, service: service, onAuthenticated: onAuthenticated)
+        LoginView(config: config, theme: theme, service: service, onAuthenticated: onAuthenticated)
     }
 }
 

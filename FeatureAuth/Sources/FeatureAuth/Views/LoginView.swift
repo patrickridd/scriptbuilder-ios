@@ -6,16 +6,26 @@ public struct LoginView: View {
     @ScaledMetric(relativeTo: .body) private var sectionGap: CGFloat = 24
 
     private let config: AuthConfiguration
+    private let theme: AuthPalette
 
     public init(config: AuthConfiguration = .default,
+                theme: AuthPalette = .default,
                 service: AuthService = MockAuthService(),
                 onAuthenticated: @escaping (AuthUser) -> Void = { _ in }) {
         self.config = config
+        self.theme = theme
+        AuthTheme.current = theme
         _viewModel = StateObject(wrappedValue: AuthViewModel(service: service,
                                                              onAuthenticated: onAuthenticated))
     }
 
     public var body: some View {
+        content
+            .environment(\.authPalette, theme)
+            .onAppear { AuthTheme.current = theme }
+    }
+
+    private var content: some View {
         ZStack {
             AuthBackground()
 
@@ -39,6 +49,7 @@ public struct LoginView: View {
         }
         .fullScreenCover(isPresented: $showSignUp) {
             SignUpView(config: config,
+                       theme: theme,
                        service: viewModel.service,
                        onAuthenticated: viewModel.onAuthenticated)
         }
