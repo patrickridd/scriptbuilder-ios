@@ -6,14 +6,18 @@
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
 
+import AuthDomain
 import Domain
 import UIKit
+import FeatureAuth
 import FirebaseAuth
+import FirebaseAuthData
+import FirebaseDatabase
 import FBSDKCoreKit
 import GoogleSignIn
 import StoreKit
 import FirebaseCore
-import FirebaseDatabaseInternal
+import SwiftUI
 
 enum Shortcut: String {
     case newIdea = "newIdea"
@@ -30,6 +34,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    lazy var loginView: UIHostingController<AuthFlowView> = {
+        let authConfiguration = AuthConfiguration(
+            appName: "Script Builder",
+            loginSubtitle: "From your screen to the silver screen",
+            signUpSubtitle: "Create your account to start writing",
+            loginFooterPrompt: "New to Script Builder?"
+        )
+        let firebaseAuthService = FirebaseAuthData.FirebaseAuthService()
+        let authFlowView = AuthFlowView(
+            config: authConfiguration,
+            service: firebaseAuthService
+        ) { [weak self] user in
+            self?.presentScreenplayCollectionView()
+        }
+        return UIHostingController(rootView: authFlowView)
+    }()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
         -> Bool {
 
@@ -37,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             FirebaseApp.configure()
 
             // Enable offline persistence
-            Database.database().isPersistenceEnabled = true
+            FirebaseDatabase.Database.database().isPersistenceEnabled = true
 
             // Initialize Facebook sign-in
             ApplicationDelegate.shared.application(application,
@@ -105,13 +126,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func presentLoginScreen() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
-        if let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "loginVC") as? LoginViewController {
-            self.window?.rootViewController = loginVC
-        }
+        self.window?.rootViewController = loginView
         makeKeyAndVisible()
     }
     
+    @discardableResult
     func presentScreenplayCollectionView() -> UINavigationController? {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -243,3 +262,4 @@ extension UIApplication {
         mainWindow?.overrideUserInterfaceStyle = style.systemInterfaceStyle
     }
 }
+

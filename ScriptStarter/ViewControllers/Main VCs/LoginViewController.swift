@@ -117,37 +117,37 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
     // MARK: IBActions/Target methods
     
     @objc func facebookButtonTapped() {
-        let loginManager = LoginManager()
-        
-        showActivityIndicator()
-        loginManager.logIn(permissions: [.publicProfile], viewController: self) { [weak self] loginResult in
-            switch loginResult {
-            case .failed:
-                self?.hideActivityIndicator(success: false,
-                                            completion: nil)
-            case .cancelled:
-                self?.hideActivityIndicator(success: false)
-                
-            case .success(granted: _, declined: _, token: _):
-                // Login with Firebase
-                guard let tokenString = AccessToken.current?.tokenString else {
-                    self?.hideActivityIndicator(success: false)
-                    print("Facebook Token String nil")
-                    return
-                }
-                let credential = FacebookAuthProvider.credential(withAccessToken: tokenString)
-                Auth.auth().signIn(with: credential) { [weak self] (user, error) in
-                    if let error = error {
-                        self?.hideActivityIndicator(success: false)
-                        print(error.localizedDescription)
-                        return
-                    }
-                    self?.hideActivityIndicator(success: true, completion: {
-                        self?.presentScreenPlayCollection()
-                    })
-                }
-            }
-        }
+//        let loginManager = LoginManager()
+//        
+//        showActivityIndicator()
+//        loginManager.logIn(permissions: [.publicProfile], viewController: self) { [weak self] loginResult in
+//            switch loginResult {
+//            case .failed:
+//                self?.hideActivityIndicator(success: false,
+//                                            completion: nil)
+//            case .cancelled:
+//                self?.hideActivityIndicator(success: false)
+//                
+//            case .success(granted: _, declined: _, token: _):
+//                // Login with Firebase
+//                guard let tokenString = AccessToken.current?.tokenString else {
+//                    self?.hideActivityIndicator(success: false)
+//                    print("Facebook Token String nil")
+//                    return
+//                }
+//                let credential = FacebookAuthProvider.credential(withAccessToken: tokenString)
+//                Auth.auth().signIn(with: credential) { [weak self] (user, error) in
+//                    if let error = error {
+//                        self?.hideActivityIndicator(success: false)
+//                        print(error.localizedDescription)
+//                        return
+//                    }
+//                    self?.hideActivityIndicator(success: true, completion: {
+//                        self?.presentScreenPlayCollection()
+//                    })
+//                }
+//            }
+//        }
     }
     
     @objc private func googleButtonTapped() {

@@ -5,7 +5,8 @@
 //  Created by Patrick Ridd (patrick.ridd@stgconsulting.com) on 2/8/18.
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
-
+import FeatureAuth
+import FirebaseAuthData
 import Domain
 import UIKit
 import MBProgressHUD
@@ -18,6 +19,29 @@ extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITex
         return ScreenplayController.shared.currentScreenplay
     }
 
+    func loginView() -> UIHostingController<AuthFlowView> {
+        let authConfiguration = AuthConfiguration(
+            appName: "Script Builder",
+            loginSubtitle: "From your screen to the silver screen",
+            signUpSubtitle: "Create your account to start writing",
+            loginFooterPrompt: "New to Script Builder?"
+        )
+        let firebaseAuthService = FirebaseAuthData.FirebaseAuthService()
+        let authFlowView = AuthFlowView(
+            config: authConfiguration,
+            service: firebaseAuthService
+        ) { [weak self] user in
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else {
+                return
+            }
+            UIApplication.shared.mainWindow?.rootViewController = mainNavigationController
+            self?.dismiss(animated: true,
+                         completion: nil)
+        }
+        return UIHostingController(rootView: authFlowView)
+    }
+    
     func setSaveTimer() {
         _ = Timer.scheduledTimer(
             withTimeInterval: 2.0,
@@ -198,15 +222,8 @@ extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITex
     // MARK: Navigation
     
     func navigateToLoginViewController() {
-        // Present the main view
-        DispatchQueue.main.async {
-            let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
-            if let loginViewController = mainStoryboard.instantiateViewController(withIdentifier: "loginVC") as? LoginViewController {
-                UIApplication.shared.mainWindow?.rootViewController = loginViewController
-                self.dismiss(animated: false,
-                             completion: nil)
-            }
-        }
+        UIApplication.shared.mainWindow?.rootViewController = loginView()
+        self.dismiss(animated: false)
     }
 
     func navigateToScreenplayCollectionView() {

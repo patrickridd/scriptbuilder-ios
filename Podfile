@@ -7,8 +7,6 @@ target 'ScriptStarter' do
   use_frameworks!
 
   # Pods for ScriptStarter
-  pod 'FBSDKLoginKit'
-  pod 'FacebookLogin'
   pod 'KMPlaceholderTextView', '~> 1.4.0'
 
   target 'ScriptStarterTests' do

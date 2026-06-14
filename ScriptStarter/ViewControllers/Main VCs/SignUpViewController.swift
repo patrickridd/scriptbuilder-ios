@@ -7,10 +7,7 @@
 //
 
 import UIKit
-import FirebaseAuth
-import FBSDKCoreKit
-import FacebookLogin
-import FBSDKLoginKit
+import FirebaseAuthData
 import GoogleSignIn
 import Firebase
 import MBProgressHUD
@@ -123,48 +120,48 @@ class SignUpViewController: UIViewController, ASAuthorizationControllerPresentat
     // MARK: IBActions/Target methods
     
     @objc func facebookButtonTapped() {
-        let loginManager = LoginManager()
-    
-        showActivityIndicator()
-        
-        loginManager.logIn(permissions: [.publicProfile], viewController: self) { (loginResult) in
-            switch loginResult {
-            case .failed(let error):
-                self.hideActivityIndicator(success: false)
-                #if DEBUG
-                print(error)
-                #endif
-            case .cancelled:
-                self.hideActivityIndicator(success: false)
-                #if DEBUG
-                print("User cancelled login.")
-                #endif
-            case .success( _, _, _):
-                #if DEBUG
-                print("Logged in!")
-                #endif
-                // Login with Firebase
-                guard let tokenString = AccessToken.current?.tokenString else {
-                    self.hideActivityIndicator(success: false)
-                    print("Facebook Token String nil")
-                    return
-                }
-
-                let credential = FacebookAuthProvider.credential(withAccessToken: tokenString)
-                Auth.auth().signIn(with: credential) { (user, error) in
-                    
-                    if let error = error {
-                        print(error.localizedDescription)
-                        self.hideActivityIndicator(success: false)
-                        
-                        return
-                    }
-                    self.hideActivityIndicator(success: true)
-                    self.presentScreenPlayCollection()
-                }
-            }
-
-        }
+//        let loginManager = LoginManager()
+//    
+//        showActivityIndicator()
+//        
+//        loginManager.logIn(permissions: [.publicProfile], viewController: self) { (loginResult) in
+//            switch loginResult {
+//            case .failed(let error):
+//                self.hideActivityIndicator(success: false)
+//                #if DEBUG
+//                print(error)
+//                #endif
+//            case .cancelled:
+//                self.hideActivityIndicator(success: false)
+//                #if DEBUG
+//                print("User cancelled login.")
+//                #endif
+//            case .success( _, _, _):
+//                #if DEBUG
+//                print("Logged in!")
+//                #endif
+//                // Login with Firebase
+//                guard let tokenString = AccessToken.current?.tokenString else {
+//                    self.hideActivityIndicator(success: false)
+//                    print("Facebook Token String nil")
+//                    return
+//                }
+//
+//                let credential = FacebookAuthProvider.credential(withAccessToken: tokenString)
+//                Auth.auth().signIn(with: credential) { (user, error) in
+//                    
+//                    if let error = error {
+//                        print(error.localizedDescription)
+//                        self.hideActivityIndicator(success: false)
+//                        
+//                        return
+//                    }
+//                    self.hideActivityIndicator(success: true)
+//                    self.presentScreenPlayCollection()
+//                }
+//            }
+//
+//        }
         
 //        loginManager.logIn(permissions: ["default"], from: self) { (loginResult, error) in
 //            switch loginResult {
@@ -378,37 +375,37 @@ extension SignUpViewController: ASAuthorizationControllerDelegate {
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let nonce = currentNonce else {
-                fatalError("Invalid state: A login callback was received, but no login request was sent.")
-            }
-            guard let appleIDToken = appleIDCredential.identityToken else {
-                print("Unable to fetch identity token")
-                return
-            }
-            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
-                return
-            }
-            // Initialize a Firebase credential.
-            let credential = OAuthProvider.credential(
-                providerID: .apple,
-                idToken: idTokenString,
-                rawNonce: nonce
-            )
-            // Sign in with Firebase.
-            Auth.auth().signIn(with: credential) { (authResult, error) in
-                if let error = error {
-                    // Error. If error.code == .MissingOrInvalidNonce, make sure
-                    // you're sending the SHA256-hashed nonce as a hex string with
-                    // your request to Apple.
-                    print(error.localizedDescription)
-                    return
-                }
-                self.hideActivityIndicator(success: true)
-                self.presentScreenPlayCollection()
-            }
-        }
+//        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+//            guard let nonce = currentNonce else {
+//                fatalError("Invalid state: A login callback was received, but no login request was sent.")
+//            }
+//            guard let appleIDToken = appleIDCredential.identityToken else {
+//                print("Unable to fetch identity token")
+//                return
+//            }
+//            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+//                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+//                return
+//            }
+//            // Initialize a Firebase credential.
+//            let credential = OAuthProvider.credential(
+//                providerID: .apple,
+//                idToken: idTokenString,
+//                rawNonce: nonce
+//            )
+//            // Sign in with Firebase.
+//            Auth.auth().signIn(with: credential) { (authResult, error) in
+//                if let error = error {
+//                    // Error. If error.code == .MissingOrInvalidNonce, make sure
+//                    // you're sending the SHA256-hashed nonce as a hex string with
+//                    // your request to Apple.
+//                    print(error.localizedDescription)
+//                    return
+//                }
+//                self.hideActivityIndicator(success: true)
+//                self.presentScreenPlayCollection()
+//            }
+//        }
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
