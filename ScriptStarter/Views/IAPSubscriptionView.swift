@@ -249,7 +249,7 @@ extension IAPSubscriptionView {
         }
         
         var imageIcon: UIImage {
-            #imageLiteral(resourceName: "screenplayAppIconAsset")
+            UIImage(named: "AppLogo") ?? UIImage()
         }
 
         var confirmButtonTitle: String {
