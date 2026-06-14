@@ -32,4 +32,8 @@ public final class MockAuthService: AuthService {
     public func sendPasswordReset(email: String) async throws {
         try await Task.sleep(nanoseconds: delay)
     }
+
+    public func signOut() throws {
+        // No backend session to clear in the mock — nothing to do.
+    }
 }

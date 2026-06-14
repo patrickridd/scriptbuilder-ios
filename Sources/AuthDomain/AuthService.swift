@@ -39,4 +39,20 @@ public protocol AuthService: Sendable {
 
     /// Begin a password reset for the given email.
     func sendPasswordReset(email: String) async throws
+
+    /// Sign the current user out.
+    ///
+    /// Implementations should clear **every** session the app holds — the
+    /// primary auth session (e.g. Firebase) as well as any social SDK
+    /// sessions (Google, Facebook). Otherwise a subsequent social sign-in may
+    /// silently reuse a cached account.
+    func signOut() throws
+}
+
+public extension AuthService {
+    /// Default implementation so existing conformers don't break when the
+    /// requirement is added. Override to provide real sign-out behaviour.
+    func signOut() throws {
+        throw AuthServiceError.notImplemented("Sign out")
+    }
 }
