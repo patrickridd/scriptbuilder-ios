@@ -3,6 +3,18 @@
 All notable changes to AuthDomain are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-06-14
+
+### Added
+- `signOut() throws` requirement on `AuthService`.
+  - A safe protocol-extension default (`throw .notImplemented("Sign out")`)
+    is provided so existing conformers outside this repository compile without
+    modification (backward-compatible minor bump).
+  - `MockAuthService` now overrides `signOut()` with a no-op (no backend
+    session to clear in the mock).
+
+---
+
 ## [1.0.0] - 2026-06-11
 
 ### Added
