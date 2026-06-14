@@ -3,6 +3,16 @@
 All notable changes to AuthDomain are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-06-14
+
+### Changed
+- `MockAuthService` default simulated latency increased from `0.8s` to `1.6s`,
+  so loading states (such as the FeatureAuth shimmering auth overlay) read
+  clearly in dev hosts and SwiftUI previews. The `delay:` initializer parameter
+  is unchanged — pass your own value to override.
+
+---
+
 ## [1.1.0] - 2026-06-14
 
 ### Added

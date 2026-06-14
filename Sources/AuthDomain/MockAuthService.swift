@@ -7,8 +7,10 @@ import Foundation
 public final class MockAuthService: AuthService {
     private let delay: UInt64
 
-    /// - Parameter delay: simulated latency in seconds.
-    public init(delay: TimeInterval = 0.8) {
+    /// - Parameter delay: simulated latency in seconds. A slightly longer
+    ///   default (1.6s) lets loading states — like the shimmering auth overlay —
+    ///   read clearly in dev hosts and previews.
+    public init(delay: TimeInterval = 1.6) {
         self.delay = UInt64(delay * 1_000_000_000)
     }
 
