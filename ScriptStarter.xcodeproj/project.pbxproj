@@ -1550,7 +1550,7 @@
 			repositoryURL = "https://github.com/patrickridd/FeatureAuth.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.0;
+				minimumVersion = 3.0.0;
 			};
 		};
 		21A55ADD2FDE3990007F62A7 /* XCRemoteSwiftPackageReference "FirebaseAuthData" */ = {

@@ -34,13 +34,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    lazy var loginView: UIHostingController<AuthFlowView> = {
-        let authConfiguration = AuthConfiguration(
+    private lazy var authConfiguration: AuthConfiguration = {
+        AuthConfiguration(
             appName: "Script Builder",
             loginSubtitle: "From your screen to the silver screen",
             signUpSubtitle: "Create your account to start writing",
-            loginFooterPrompt: "New to Script Builder?"
+            loginFooterPrompt: "New to Script Builder?",
+            loginProviders: [.apple, .google, .facebook],   // existing users can still log in with Facebook
+            signUpProviders: [.apple, .google]               // Facebook phased out for new sign-ups
         )
+    }()
+
+    private lazy var loginView: UIHostingController<AuthFlowView> = {
         let firebaseAuthService = FirebaseAuthData.FirebaseAuthService()
         let authFlowView = AuthFlowView(
             config: authConfiguration,
@@ -50,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return UIHostingController(rootView: authFlowView)
     }()
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
         -> Bool {
 
