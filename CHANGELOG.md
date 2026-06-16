@@ -3,6 +3,20 @@
 All notable changes to AuthDomain are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] - 2026-06-16
+
+### Added
+- **`AuthService.deleteAccount()`** — new async-throwing protocol requirement
+  for permanently deleting the currently signed-in account. A default
+  protocol-extension throws `AuthServiceError.notImplemented` so existing
+  conformers outside this repo compile without modification (backward-compatible
+  minor bump).
+- **`MockAuthService.deleteAccount()`** — simulates the async deletion with the
+  configured delay and always succeeds. Useful in dev hosts and SwiftUI
+  previews.
+
+---
+
 ## [1.2.0] - 2026-06-14
 
 ### Changed

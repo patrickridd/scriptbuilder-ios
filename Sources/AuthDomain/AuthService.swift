@@ -47,6 +47,19 @@ public protocol AuthService: Sendable {
     /// sessions (Google, Facebook). Otherwise a subsequent social sign-in may
     /// silently reuse a cached account.
     func signOut() throws
+
+    /// Permanently delete the currently signed-in account and all associated
+    /// data.
+    ///
+    /// Firebase (and most identity providers) require the user to have signed
+    /// in **recently** before a destructive operation like account deletion is
+    /// allowed. Concrete implementations are responsible for triggering
+    /// re-authentication when the provider reports `requiresRecentLogin`.
+    ///
+    /// - Throws: `AuthServiceError` — typically `.message` with a localised
+    ///   description. The caller should present a confirmation dialog **before**
+    ///   calling this method.
+    func deleteAccount() async throws
 }
 
 public extension AuthService {
@@ -54,5 +67,12 @@ public extension AuthService {
     /// requirement is added. Override to provide real sign-out behaviour.
     func signOut() throws {
         throw AuthServiceError.notImplemented("Sign out")
+    }
+
+    /// Default implementation so existing conformers don't break when the
+    /// requirement is added. Override to provide real account-deletion
+    /// behaviour.
+    func deleteAccount() async throws {
+        throw AuthServiceError.notImplemented("Delete account")
     }
 }
