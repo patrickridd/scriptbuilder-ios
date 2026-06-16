@@ -3,6 +3,15 @@
 All notable changes to AuthDomain are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.4.1] - 2026-06-16
+
+### Added
+- **`AuthService.migrateProvider(from:to:)`** — single-call provider migration
+  for planned sunsets (e.g. deprecating Facebook). Composes `linkProvider`
+  then `unlinkProvider`; intentionally non-atomic with link-first ordering so a
+  partial failure never leaves the account locked out. Ships as a protocol
+  extension default, so every conformer inherits it with no backend code.
+
 ## [1.4.0] - 2026-06-16
 
 ### Added

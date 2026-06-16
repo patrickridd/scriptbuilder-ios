@@ -90,6 +90,23 @@ public protocol AuthService: Sendable {
     @discardableResult
     func unlinkProvider(_ provider: SocialAuthProvider) async throws -> AuthUser
 
+    /// Migrates the account from one social provider to another in a single
+    /// call: links `target`, then unlinks `source`. Designed for planned
+    /// provider sunsets (e.g. deprecating Facebook login).
+    ///
+    /// **Not atomic.** Firebase exposes no transaction across link + unlink.
+    /// Ordering is deliberate — link first, unlink second — so a failure
+    /// leaves the account with *more* sign-in methods, never locked out:
+    ///   - If linking `target` fails, `source` is left untouched.
+    ///   - If unlinking `source` fails after a successful link, both remain
+    ///     linked and the call throws; the caller can retry the unlink.
+    ///
+    /// - Throws: `AuthServiceError` propagated from `linkProvider` or
+    ///   `unlinkProvider`.
+    @discardableResult
+    func migrateProvider(from source: SocialAuthProvider,
+                         to target: SocialAuthProvider) async throws -> AuthUser
+
     /// Re-authenticates the current user with the given provider. Required
     /// before sensitive operations (deletion, email/password change, unlink)
     /// when the provider reports the session is too old.
@@ -151,6 +168,17 @@ public extension AuthService {
     @discardableResult
     func unlinkProvider(_ provider: SocialAuthProvider) async throws -> AuthUser {
         throw AuthServiceError.notImplemented("Unlink \(provider.rawValue.capitalized)")
+    }
+
+    /// Default composes the existing primitives — link first (safe), then
+    /// unlink — so every conformer inherits correct migration behaviour with
+    /// no backend-specific code. Conformers that need bespoke handling can
+    /// still override.
+    @discardableResult
+    func migrateProvider(from source: SocialAuthProvider,
+                         to target: SocialAuthProvider) async throws -> AuthUser {
+        _ = try await linkProvider(target)
+        return try await unlinkProvider(source)
     }
 
     func reauthenticate(with provider: SocialAuthProvider) async throws {

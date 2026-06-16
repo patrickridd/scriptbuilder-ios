@@ -43,6 +43,20 @@ struct MockAuthServiceTests {
         // Then
         #expect(user.displayName == "Apple User")
     }
+
+    @Test("migrateProvider links the target and unlinks the source")
+    func migrateProviderSwapsProviders() async throws {
+        // Given a Facebook-only account
+        let sut = MockAuthService(delay: 0)
+        _ = try await sut.signIn(with: .facebook)
+
+        // When migrating Facebook -> Google
+        let user = try await sut.migrateProvider(from: .facebook, to: .google)
+
+        // Then Google is linked and Facebook is gone
+        #expect(user.linkedProviders.contains(.google))
+        #expect(user.linkedProviders.contains(.facebook) == false)
+    }
 }
 
 @Suite("AuthServiceError")
