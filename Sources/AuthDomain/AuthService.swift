@@ -60,6 +60,56 @@ public protocol AuthService: Sendable {
     ///   description. The caller should present a confirmation dialog **before**
     ///   calling this method.
     func deleteAccount() async throws
+
+    // MARK: - Session
+
+    /// The currently signed-in user, or `nil` if no session is active.
+    ///
+    /// Lets the UI restore state on relaunch without re-running a sign-in call.
+    var currentUser: AuthUser? { get }
+
+    /// An async stream that emits the current user whenever auth state changes
+    /// (sign-in, sign-out, token refresh, profile update). Emits the current
+    /// value immediately on subscription.
+    func authStateStream() -> AsyncStream<AuthUser?>
+
+    // MARK: - Account linking / provider bridging
+
+    /// Links an additional social provider to the **currently signed-in**
+    /// account, keeping the same user id. Use this to bridge a user from one
+    /// provider onto another (e.g. add Google to a Facebook-only account)
+    /// before optionally unlinking the old one.
+    ///
+    /// - Throws: `AuthServiceError` — e.g. when the credential is already in
+    ///   use by another account, or re-authentication is required.
+    @discardableResult
+    func linkProvider(_ provider: SocialAuthProvider) async throws -> AuthUser
+
+    /// Removes a linked social provider from the currently signed-in account.
+    /// At least one sign-in method must remain after unlinking.
+    @discardableResult
+    func unlinkProvider(_ provider: SocialAuthProvider) async throws -> AuthUser
+
+    /// Re-authenticates the current user with the given provider. Required
+    /// before sensitive operations (deletion, email/password change, unlink)
+    /// when the provider reports the session is too old.
+    func reauthenticate(with provider: SocialAuthProvider) async throws
+
+    // MARK: - Email verification
+
+    /// Sends a verification email to the currently signed-in user's address.
+    func sendEmailVerification() async throws
+
+    // MARK: - Profile & credential updates
+
+    /// Updates the signed-in user's display name.
+    func updateDisplayName(_ name: String) async throws
+
+    /// Updates the signed-in user's email address. May require recent login.
+    func updateEmail(_ email: String) async throws
+
+    /// Updates the signed-in user's password. May require recent login.
+    func updatePassword(_ password: String) async throws
 }
 
 public extension AuthService {
@@ -74,5 +124,56 @@ public extension AuthService {
     /// behaviour.
     func deleteAccount() async throws {
         throw AuthServiceError.notImplemented("Delete account")
+    }
+
+    // MARK: - Session defaults
+
+    /// Defaults to `nil` — services that can expose the current session should
+    /// override this.
+    var currentUser: AuthUser? { nil }
+
+    /// Default stream emits a single `nil` then finishes. Override to bridge a
+    /// real auth-state listener.
+    func authStateStream() -> AsyncStream<AuthUser?> {
+        AsyncStream { continuation in
+            continuation.yield(currentUser)
+            continuation.finish()
+        }
+    }
+
+    // MARK: - Linking defaults
+
+    @discardableResult
+    func linkProvider(_ provider: SocialAuthProvider) async throws -> AuthUser {
+        throw AuthServiceError.notImplemented("Link \(provider.rawValue.capitalized)")
+    }
+
+    @discardableResult
+    func unlinkProvider(_ provider: SocialAuthProvider) async throws -> AuthUser {
+        throw AuthServiceError.notImplemented("Unlink \(provider.rawValue.capitalized)")
+    }
+
+    func reauthenticate(with provider: SocialAuthProvider) async throws {
+        throw AuthServiceError.notImplemented("Re-authenticate")
+    }
+
+    // MARK: - Email verification default
+
+    func sendEmailVerification() async throws {
+        throw AuthServiceError.notImplemented("Email verification")
+    }
+
+    // MARK: - Profile update defaults
+
+    func updateDisplayName(_ name: String) async throws {
+        throw AuthServiceError.notImplemented("Update display name")
+    }
+
+    func updateEmail(_ email: String) async throws {
+        throw AuthServiceError.notImplemented("Update email")
+    }
+
+    func updatePassword(_ password: String) async throws {
+        throw AuthServiceError.notImplemented("Update password")
     }
 }
