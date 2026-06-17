@@ -75,34 +75,6 @@ class FirebaseController {
             }
         })
     }
-    
-    func signIn(with email: String, password: String, completion: @escaping (_ error: Error?, _ user: FirebaseAuth.User?) -> Void) {
-        Auth.auth().signIn(withEmail: email,
-                           password: password) { (result, error) in
-                            completion(error, result?.user)
-        }
-    }
-    
-    func createAccount(firstName: String, lastName: String, withEmail: String, password: String, completion: @escaping (_ error: Error?, _ user: FirebaseAuth.User?) -> Void) {
-        Auth.auth().createUser(withEmail: withEmail,
-                               password: password) { (result, error) in
-                                guard let createUser = result?.user else {
-                                    completion(error, result?.user)
-                                    return
-                                }
-                                
-                                let changeRequest = createUser.createProfileChangeRequest()
-                                changeRequest.displayName = "\(firstName) \(lastName)"
-                                changeRequest.commitChanges { error in
-                                    if let error = error {
-                                        completion(error, createUser)
-                                    } else {
-                                        // Profile updated.
-                                        completion(error, createUser)
-                                    }
-                                }
-        }
-    }
 
     @objc func saveCurrentScreenplay() {
         if let screenplay = currentScreenplay {
