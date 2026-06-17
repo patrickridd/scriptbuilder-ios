@@ -28,6 +28,8 @@ enum Shortcut: String {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    private let firebaseAuthService = FirebaseAuthData.FirebaseAuthService()
+
     var isLoggedIn: Bool {
         return AccessToken.current != nil || Auth.auth().currentUser != nil
     }
@@ -46,7 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     private lazy var loginView: UIHostingController<AuthFlowView> = {
-        let firebaseAuthService = FirebaseAuthData.FirebaseAuthService()
         let authFlowView = AuthFlowView(
             config: authConfiguration,
             service: firebaseAuthService
@@ -57,32 +58,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
-        -> Bool {
+    -> Bool {
+        
+        // One call: configures Firebase + Google Sign-In from GoogleService-Info.plist.
+        FirebaseAuthService.configure()
+        
+        // Facebook (legacy) — supported entry point.
+        FirebaseAuthService.configureFacebook(application: application, launchOptions: launchOptions)
+        
+        // App-specific concern, NOT auth: keep it, but it's yours to own.
+        FirebaseDatabase.Database.database().isPersistenceEnabled = true
+        
+        // Routing decision via the contract — no Firebase types here.
+        if firebaseAuthService.currentUser != nil {
+            _ = presentScreenplayCollectionView()
+        } else {
+            presentLoginScreen()
+        }
 
-            // Configure Firebase
-            FirebaseApp.configure()
-
-            // Enable offline persistence
-            FirebaseDatabase.Database.database().isPersistenceEnabled = true
-
-            // Initialize Facebook sign-in
-            ApplicationDelegate.shared.application(application,
-                                                   didFinishLaunchingWithOptions: launchOptions)
-
-            // Initialize Google sign-in
-            let clientId = FirebaseApp.app()!.options.clientID!
-            let config = GIDConfiguration(clientID: clientId)
-
-            GIDSignIn.sharedInstance.configuration = config
-
-            if isLoggedIn {
-                // User is logged in so present their screenplays
-                _ = presentScreenplayCollectionView()
-            } else {
-                presentLoginScreen()
-            }
-
-            return true
+        return true
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

@@ -78,6 +78,7 @@
 		21B8FB82201A922D000A8721 /* ScreenplayCoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB81201A922D000A8721 /* ScreenplayCoverViewController.swift */; };
 		21B8FB84201A93D0000A8721 /* ScreenplayPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB83201A93D0000A8721 /* ScreenplayPageViewController.swift */; };
 		21B8FB88201AA656000A8721 /* ScreenplayTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB87201AA656000A8721 /* ScreenplayTabBarController.swift */; };
+		21C616672FDF09F000F1B68D /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C616662FDF09F000F1B68D /* CustomTextView.swift */; };
 		21D3FA1D220277870058D8AE /* Extension+NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D3FA1C220277870058D8AE /* Extension+NotificationCenter.swift */; };
 		21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727ED202CE17700861C2D /* ActBeatSectionHeader.swift */; };
 		21D727F0202CEB8500861C2D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727EF202CEB8500861C2D /* ViewController.swift */; };
@@ -252,6 +253,7 @@
 		21BF311C221B665000DB3DF5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = ScriptStarter/de.lproj/Character.strings; sourceTree = "<group>"; };
 		21BF311E221B665300DB3DF5 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ScriptStarter/ja.lproj/Character.strings; sourceTree = "<group>"; };
 		21BF3120221B665700DB3DF5 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ScriptStarter/ko.lproj/Character.strings; sourceTree = "<group>"; };
+		21C616662FDF09F000F1B68D /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		21C8D3CA22289485004EC055 /* hi-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "hi-IN"; path = hi_IN.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		21C8D3CB22289485004EC055 /* hi-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "hi-IN"; path = hi_IN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		21C8D3CC22289485004EC055 /* hi-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "hi-IN"; path = ScriptStarter/hi_IN.lproj/Character.strings; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				210C07DB22C81B2200F66D7B /* SaveButton.swift */,
 				2158DAA92FD70A3E003B5619 /* Theme.swift */,
 				2158DAA72FD709F0003B5619 /* InterfaceStyle.swift */,
+				21C616662FDF09F000F1B68D /* CustomTextView.swift */,
 			);
 			path = "SharedUI ";
 			sourceTree = "<group>";
@@ -800,12 +803,12 @@
 			);
 			mainGroup = 212DEA672012746500FE9C3F;
 			packageReferences = (
-				21A55AD82FDE3888007F62A7 /* XCLocalSwiftPackageReference "Packages/Domain" */,
 				21A55ADB2FDE38C7007F62A7 /* XCRemoteSwiftPackageReference "AuthDomain" */,
 				21A55ADC2FDE3930007F62A7 /* XCRemoteSwiftPackageReference "FeatureAuth" */,
 				21A55ADD2FDE3990007F62A7 /* XCRemoteSwiftPackageReference "FirebaseAuthData" */,
 				21A55ADE2FDE39AF007F62A7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				21A55ADF2FDE39BF007F62A7 /* XCRemoteSwiftPackageReference "mbprogresshud" */,
+				21C616682FE2D21900F1B68D /* XCLocalSwiftPackageReference "../../Superapp-Projects/FeatureAuth-Dev/Domain" */,
 			);
 			productRefGroup = 212DEA712012746500FE9C3F /* Products */;
 			projectDirPath = "";
@@ -975,6 +978,7 @@
 				215829CB20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift in Sources */,
 				21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */,
 				21D727FD202E332300861C2D /* InformationPopTableViewCell.swift in Sources */,
+				21C616672FDF09F000F1B68D /* CustomTextView.swift in Sources */,
 				2128EF2420200B7500AF156E /* EnlargedDescriptionTableViewController.swift in Sources */,
 				2108EDE92D112EF4004A8FE7 /* LegalTableViewCellCell.swift in Sources */,
 				218E8460203E3D9500D0D652 /* NoCharacterTableViewCell.swift in Sources */,
@@ -1534,6 +1538,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Domain;
 		};
+		21C616682FE2D21900F1B68D /* XCLocalSwiftPackageReference "../../Superapp-Projects/FeatureAuth-Dev/Domain" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../Superapp-Projects/FeatureAuth-Dev/Domain";
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -1542,7 +1550,7 @@
 			repositoryURL = "https://github.com/patrickridd/AuthDomain.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
+				minimumVersion = 1.4.1;
 			};
 		};
 		21A55ADC2FDE3930007F62A7 /* XCRemoteSwiftPackageReference "FeatureAuth" */ = {
@@ -1550,7 +1558,7 @@
 			repositoryURL = "https://github.com/patrickridd/FeatureAuth.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
+				minimumVersion = 3.1.0;
 			};
 		};
 		21A55ADD2FDE3990007F62A7 /* XCRemoteSwiftPackageReference "FirebaseAuthData" */ = {
@@ -1558,7 +1566,7 @@
 			repositoryURL = "https://github.com/patrickridd/FirebaseAuthData.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.0;
+				minimumVersion = 1.5.0;
 			};
 		};
 		21A55ADE2FDE39AF007F62A7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
