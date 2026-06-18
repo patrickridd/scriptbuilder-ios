@@ -28,7 +28,8 @@ class ScreenplayController {
     func set(currentScreenplay: Screenplay) {
         self.currentScreenplay = currentScreenplay
         
-        self.unalteredScreenplay = Screenplay(unalteredScreenplay: currentScreenplay)
+        // Value semantics: assigning the struct stores an independent copy.
+        self.unalteredScreenplay = currentScreenplay
         // Save ID so that when user opens app we can open the screenplay they last were working on
           userDefaults.setValue(currentScreenplay.uuid, forKey: self.screenplayKey)
     }
@@ -57,9 +58,8 @@ class ScreenplayController {
     }
     
     func add(character: Character) {
-        if let screenplay = self.currentScreenplay {
-            screenplay.characters.insert(character)
-        }
+        // Struct: mutate in place via the stored var so the change is retained.
+        self.currentScreenplay?.characters.insert(character)
     }
     
     func getScreenPlayId() -> String? {
@@ -81,7 +81,7 @@ class ScreenplayController {
             completion(nil, nil)
             return
         }
-        let pdfScreenplay = Screenplay(unalteredScreenplay: screenplay)
+        let pdfScreenplay = screenplay
         let pdfHelper = PdfHelper()
         let data = pdfHelper.createPdf(with: pdfScreenplay)
         

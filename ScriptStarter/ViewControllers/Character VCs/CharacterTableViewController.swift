@@ -262,7 +262,7 @@ class CharacterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let screenplay = self.screenplay else {
+        guard var screenplay = self.screenplay else {
             reloadScreenplaysWithAnimation {
                 self.reloadTableView()
             }
@@ -275,6 +275,8 @@ class CharacterTableViewController: UITableViewController {
                                          withScreenplay: screenplay)
         
         screenplay.characters.remove(character)
+        // Persist mutated copy back (Screenplay is a value type)
+        self.screenplay = screenplay
         
         self.roleCharacterSections[indexPath.section].characters.remove(at: indexPath.row)
         if roleCharacterSections[indexPath.section].characters.count == 0 {

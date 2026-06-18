@@ -14,7 +14,7 @@ class ActDetailTableViewController: UITableViewController {
     @IBOutlet weak var saveButton: SaveBarButtonItem!
     
     var expandableSections: [ExpandableTableViewSection] = []
-    var act: Act = .idea
+    var act: OutlineSection = .idea
     var sectionBesidesBeats: Int = 2
 
     var isExpandingCell: Bool = false

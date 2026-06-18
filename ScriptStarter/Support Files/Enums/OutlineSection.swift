@@ -6,14 +6,29 @@
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
 
+import Domain
 import Foundation
 
-enum Act: Int {
+/// A section of the screenplay outline UI. Unlike `Domain.Act`, this includes
+/// the `.idea` case (which isn't an act) and carries the UILabel copy
+/// (`title`, `sectionsTitles`, `sectionSubTitles`, `placeholders`) used by the
+/// outline/act-detail screens. Map to the domain model via `domainAct`.
+enum OutlineSection: Int {
     case idea = 4
     case one = 0
     case two = 1
     case three = 2
-    
+
+    /// The corresponding `Domain.Act`, or `nil` for `.idea` (not an act).
+    var domainAct: Domain.Act? {
+        switch self {
+        case .one:   return .one
+        case .two:   return .two
+        case .three: return .three
+        case .idea:  return nil
+        }
+    }
+
     var title: String {
         switch self {
         case .idea:

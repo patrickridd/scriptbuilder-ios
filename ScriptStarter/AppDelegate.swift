@@ -12,7 +12,7 @@ import UIKit
 import FeatureAuth
 import FirebaseAuth
 import FirebaseAuthData
-import FirebaseDatabase
+import FirebaseData
 import FBSDKCoreKit
 import GoogleSignIn
 import StoreKit
@@ -28,13 +28,24 @@ enum Shortcut: String {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var window: UIWindow?
+
     private let firebaseAuthService = FirebaseAuthData.FirebaseAuthService()
 
-    var isLoggedIn: Bool {
-        return AccessToken.current != nil || Auth.auth().currentUser != nil
-    }
+    /// The signed-in user's id, read live by the repository on every RTDB call.
+    /// Kept in a reference box so the `@Sendable` closure captures a stable
+    /// pointer rather than a `@State` value.
+    private let uidBox = UIDBox()
     
-    var window: UIWindow?
+    /// Builds a live `FirebaseScreenplayRepository` scoped to the signed-in user.
+    lazy public var firebaseRepository: ScreenplayRepository = {
+        let box = uidBox
+        return FirebaseData.FirebaseScreenplayRepository(uidProvider: { box.uid })
+    }()
+
+    var isLoggedIn: Bool {
+        firebaseAuthService.currentUser != nil
+    }
     
     private lazy var authConfiguration: AuthConfiguration = {
         AuthConfiguration(
@@ -52,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             config: authConfiguration,
             service: firebaseAuthService
         ) { [weak self] user in
+            self?.uidBox.uid = user.id
             self?.presentScreenplayCollectionView()
         }
         return UIHostingController(rootView: authFlowView)
@@ -65,12 +77,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Facebook (legacy) — supported entry point.
         FirebaseAuthService.configureFacebook(application: application, launchOptions: launchOptions)
-        
-        // App-specific concern, NOT auth: keep it, but it's yours to own.
-        FirebaseDatabase.Database.database().isPersistenceEnabled = true
-        
+
+        FirebaseDataPersistence.enableDiskPersistence()
+
         // Routing decision via the contract — no Firebase types here.
-        if firebaseAuthService.currentUser != nil {
+        if isLoggedIn {
             _ = presentScreenplayCollectionView()
         } else {
             presentLoginScreen()
@@ -262,3 +273,17 @@ extension UIApplication {
     }
 }
 
+// MARK: - UIDBox
+
+/// Thread-safe holder for the current user's id. The repository's
+/// `uidProvider` closure is `@Sendable` and may be invoked off the main actor
+/// (e.g. inside an RTDB observer), so access is guarded by a lock.
+final class UIDBox: @unchecked Sendable {
+    private let lock = NSLock()
+    private var _uid: String?
+
+    var uid: String? {
+        get { lock.withLock { _uid } }
+        set { lock.withLock { _uid = newValue } }
+    }
+}

@@ -34,6 +34,7 @@
 		21368536220E0C090019A9A8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21368538220E0C090019A9A8 /* InfoPlist.strings */; };
 		2138F8A422207A0900881F4C /* PersonalInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2138F8A322207A0900881F4C /* PersonalInfoTableViewCell.swift */; };
 		2146E3DE203F906B00FBD225 /* SceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2146E3DD203F906B00FBD225 /* SceneTableViewCell.swift */; };
+		2151D9672FE2EB4E00710843 /* FirebaseData in Frameworks */ = {isa = PBXBuildFile; productRef = 2151D9662FE2EB4E00710843 /* FirebaseData */; };
 		2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151FC5F202260F200CE4823 /* ScreenplayController.swift */; };
 		21526C9D20409EE100B14402 /* SceneDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21526C9C20409EE100B14402 /* SceneDetailTableViewController.swift */; };
 		2153C34320755F2300C08B73 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2153C34220755F2300C08B73 /* SettingsTableViewController.swift */; };
@@ -61,7 +62,6 @@
 		21A55AE32FDE39DE007F62A7 /* FeatureAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 21A55AE22FDE39DE007F62A7 /* FeatureAuth */; };
 		21A55AE52FDE39E4007F62A7 /* FirebaseAuthData in Frameworks */ = {isa = PBXBuildFile; productRef = 21A55AE42FDE39E4007F62A7 /* FirebaseAuthData */; };
 		21A55AE72FDE3B3C007F62A7 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 21A55AE62FDE3B3C007F62A7 /* MBProgressHUD */; };
-		21A55AE92FDE3B67007F62A7 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 21A55AE82FDE3B67007F62A7 /* FirebaseDatabase */; };
 		21A7CF492023B00000D97394 /* CharacterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF482023B00000D97394 /* CharacterTableViewController.swift */; };
 		21A7CF4E2023B4D200D97394 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF4D2023B4D200D97394 /* CharacterTableViewCell.swift */; };
 		21A7CF502025039800D97394 /* CharacterDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF4F2025039800D97394 /* CharacterDetailTableViewController.swift */; };
@@ -69,7 +69,7 @@
 		21A7CF542028E60D00D97394 /* ActDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF532028E60D00D97394 /* ActDetailTableViewController.swift */; };
 		21A7CF582028EC8400D97394 /* Extension+UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF572028EC8400D97394 /* Extension+UITableViewCell.swift */; };
 		21A7CF5A202A622000D97394 /* ExpandableTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF59202A622000D97394 /* ExpandableTableViewSection.swift */; };
-		21A7CF6A202A6D3A00D97394 /* Act.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF69202A6D3A00D97394 /* Act.swift */; };
+		21A7CF6A202A6D3A00D97394 /* OutlineSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7CF69202A6D3A00D97394 /* OutlineSection.swift */; };
 		21A84F46201683D500CE4149 /* ScreenplayCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */; };
 		21A84F4A2016988600CE4149 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21A84F492016988600CE4149 /* Storyboard.storyboard */; };
 		21A8C33D2391C296008AEB95 /* PdfHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A8C33C2391C296008AEB95 /* PdfHelper.swift */; };
@@ -214,7 +214,7 @@
 		21A7CF532028E60D00D97394 /* ActDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActDetailTableViewController.swift; sourceTree = "<group>"; };
 		21A7CF572028EC8400D97394 /* Extension+UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITableViewCell.swift"; sourceTree = "<group>"; };
 		21A7CF59202A622000D97394 /* ExpandableTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTableViewSection.swift; sourceTree = "<group>"; };
-		21A7CF69202A6D3A00D97394 /* Act.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Act.swift; sourceTree = "<group>"; };
+		21A7CF69202A6D3A00D97394 /* OutlineSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineSection.swift; sourceTree = "<group>"; };
 		21A84F45201683D500CE4149 /* ScreenplayCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayCollectionViewController.swift; sourceTree = "<group>"; };
 		21A84F492016988600CE4149 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
 		21A8C33C2391C296008AEB95 /* PdfHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfHelper.swift; sourceTree = "<group>"; };
@@ -297,8 +297,8 @@
 				21A55AE72FDE3B3C007F62A7 /* MBProgressHUD in Frameworks */,
 				21A55AE32FDE39DE007F62A7 /* FeatureAuth in Frameworks */,
 				3C2D61BA5839B38F423CDC9F /* Pods_ScriptStarter.framework in Frameworks */,
-				21A55AE92FDE3B67007F62A7 /* FirebaseDatabase in Frameworks */,
 				21A55AE52FDE39E4007F62A7 /* FirebaseAuthData in Frameworks */,
+				2151D9672FE2EB4E00710843 /* FirebaseData in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,7 +379,7 @@
 		210C7613202B83FF003EEC16 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				21A7CF69202A6D3A00D97394 /* Act.swift */,
+				21A7CF69202A6D3A00D97394 /* OutlineSection.swift */,
 				21D727EF202CEB8500861C2D /* ViewController.swift */,
 				21D727FE202E41DD00861C2D /* InformationNotes.swift */,
 				21D72800202E6A6C00861C2D /* CharacterSection.swift */,
@@ -803,12 +803,12 @@
 			);
 			mainGroup = 212DEA672012746500FE9C3F;
 			packageReferences = (
-				21A55ADB2FDE38C7007F62A7 /* XCRemoteSwiftPackageReference "AuthDomain" */,
-				21A55ADC2FDE3930007F62A7 /* XCRemoteSwiftPackageReference "FeatureAuth" */,
-				21A55ADD2FDE3990007F62A7 /* XCRemoteSwiftPackageReference "FirebaseAuthData" */,
-				21A55ADE2FDE39AF007F62A7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				21A55ADF2FDE39BF007F62A7 /* XCRemoteSwiftPackageReference "mbprogresshud" */,
-				21C616682FE2D21900F1B68D /* XCLocalSwiftPackageReference "../../Superapp-Projects/FeatureAuth-Dev/Domain" */,
+				21883CDE2FE4355B0093C267 /* XCLocalSwiftPackageReference "../Domain" */,
+				21883CDF2FE435670093C267 /* XCRemoteSwiftPackageReference "AuthDomain" */,
+				21883CE02FE435840093C267 /* XCLocalSwiftPackageReference "../FirebaseData" */,
+				21883CE12FE435900093C267 /* XCRemoteSwiftPackageReference "FeatureAuth" */,
+				21883CE22FE4359D0093C267 /* XCRemoteSwiftPackageReference "mbprogresshud" */,
+				21883CE32FE435D30093C267 /* XCRemoteSwiftPackageReference "FirebaseAuthData" */,
 			);
 			productRefGroup = 212DEA712012746500FE9C3F /* Products */;
 			projectDirPath = "";
@@ -993,7 +993,7 @@
 				21D727FB202E32D500861C2D /* InformationPopTableViewController.swift in Sources */,
 				212BDE452BD9F6E3009C0FFE /* EnlargedDescriptionViewController.swift in Sources */,
 				21B0272F2BC23B7D00687C52 /* InterfaceStyleTableViewCell.swift in Sources */,
-				21A7CF6A202A6D3A00D97394 /* Act.swift in Sources */,
+				21A7CF6A202A6D3A00D97394 /* OutlineSection.swift in Sources */,
 				2104ADD9205C7F270086CC9F /* SceneController.swift in Sources */,
 				211215D6203B5DC30039D6E8 /* Role.swift in Sources */,
 				21A8C33D2391C296008AEB95 /* PdfHelper.swift in Sources */,
@@ -1534,17 +1534,57 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		217F252C2FE2EA5D0052B8E4 /* XCLocalSwiftPackageReference "../../Superapp-Projects/FeatureAuth-Dev/FirebaseData" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../Superapp-Projects/FeatureAuth-Dev/FirebaseData";
+		};
+		21883CDE2FE4355B0093C267 /* XCLocalSwiftPackageReference "../Domain" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Domain;
+		};
+		21883CE02FE435840093C267 /* XCLocalSwiftPackageReference "../FirebaseData" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../FirebaseData;
+		};
 		21A55AD82FDE3888007F62A7 /* XCLocalSwiftPackageReference "Packages/Domain" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Domain;
 		};
-		21C616682FE2D21900F1B68D /* XCLocalSwiftPackageReference "../../Superapp-Projects/FeatureAuth-Dev/Domain" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../Superapp-Projects/FeatureAuth-Dev/Domain";
-		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		21883CDF2FE435670093C267 /* XCRemoteSwiftPackageReference "AuthDomain" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/patrickridd/AuthDomain.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.1;
+			};
+		};
+		21883CE12FE435900093C267 /* XCRemoteSwiftPackageReference "FeatureAuth" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/patrickridd/FeatureAuth.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.0;
+			};
+		};
+		21883CE22FE4359D0093C267 /* XCRemoteSwiftPackageReference "mbprogresshud" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jdg/mbprogresshud.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		21883CE32FE435D30093C267 /* XCRemoteSwiftPackageReference "FirebaseAuthData" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/patrickridd/FirebaseAuthData.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
 		21A55ADB2FDE38C7007F62A7 /* XCRemoteSwiftPackageReference "AuthDomain" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/patrickridd/AuthDomain.git";
@@ -1569,14 +1609,6 @@
 				minimumVersion = 1.5.0;
 			};
 		};
-		21A55ADE2FDE39AF007F62A7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 12.14.0;
-			};
-		};
 		21A55ADF2FDE39BF007F62A7 /* XCRemoteSwiftPackageReference "mbprogresshud" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jdg/mbprogresshud.git";
@@ -1588,6 +1620,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2151D9662FE2EB4E00710843 /* FirebaseData */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 217F252C2FE2EA5D0052B8E4 /* XCLocalSwiftPackageReference "../../Superapp-Projects/FeatureAuth-Dev/FirebaseData" */;
+			productName = FirebaseData;
+		};
 		21A55AD92FDE3897007F62A7 /* Domain */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 21A55AD82FDE3888007F62A7 /* XCLocalSwiftPackageReference "Packages/Domain" */;
@@ -1612,11 +1649,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 21A55ADF2FDE39BF007F62A7 /* XCRemoteSwiftPackageReference "mbprogresshud" */;
 			productName = MBProgressHUD;
-		};
-		21A55AE82FDE3B67007F62A7 /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 21A55ADE2FDE39AF007F62A7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

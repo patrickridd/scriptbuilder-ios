@@ -9,6 +9,12 @@
 import Domain
 import PDFKit
 
+/// The PDF export uses the outline-section copy (titles/subtitles/placeholders),
+/// including the non-act `.idea` section. Alias keeps the legacy `Act.*`
+/// references in this file pointing at `OutlineSection` after the rename that
+/// disambiguated it from `Domain.Act`.
+private typealias Act = OutlineSection
+
 class PdfHelper {
     
     let pageHeight = 11 * 72.0
@@ -79,18 +85,18 @@ class PdfHelper {
             // Act 1//
             addNewLine(context: context)
             formatAndAdd(sectionSubtitle: "\(Act.one.title) " + "Scenes".localized, with: context)
-            createSceneSection(for: screenplay.act1ScenesArray, in: context)
+            createSceneSection(for: screenplay.act1.scenes, in: context)
             
            
             // Act 2 //
             addNewLine(context: context)
             formatAndAdd(sectionSubtitle: "\(Act.two.title) " + "Scenes".localized, with: context)
-            createSceneSection(for: screenplay.act2ScenesArray, in: context)
+            createSceneSection(for: screenplay.act2.scenes, in: context)
             
             // Act 3 //
             addNewLine(context: context)
             formatAndAdd(sectionSubtitle: "\(Act.three.title) " + "Scenes".localized, with: context)
-            createSceneSection(for: screenplay.act3ScenesArray, in: context)
+            createSceneSection(for: screenplay.act3.scenes, in: context)
         }
         
         return data

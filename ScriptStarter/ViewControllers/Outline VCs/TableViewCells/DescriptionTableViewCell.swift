@@ -28,12 +28,13 @@ class DescriptionTableViewCell: UITableViewCell {
 
     var textViewBecomesFirstResponder: Bool = false
     var screenplay: Screenplay? {
-        return ScreenplayController.shared.currentScreenplay
+        get { ScreenplayController.shared.currentScreenplay }
+        set { ScreenplayController.shared.currentScreenplay = newValue }
     }
     
     var section: Int = 0
     var viewController: ViewController = .outline
-    var act: Act?
+    var act: OutlineSection?
     var character: Character?
     var scene: Scene?
     
@@ -62,7 +63,7 @@ class DescriptionTableViewCell: UITableViewCell {
     
     func update(viewController: ViewController,
                 section: Int,
-                act: Act?,
+                act: OutlineSection?,
                 character: Character? = nil,
                 scene: Scene? = nil) {
         DispatchQueue.main.async {
@@ -441,7 +442,7 @@ class DescriptionTableViewCell: UITableViewCell {
             _ = Timer.scheduledTimer(
                 withTimeInterval: 2.0,
                 repeats: false, block: { [weak self] _ in
-                    FirebaseController.shared.save(scene: self?.scene, inAct: self?.act)
+                    FirebaseController.shared.save(scene: self?.scene, inAct: self?.act?.domainAct)
             })
         }
     }

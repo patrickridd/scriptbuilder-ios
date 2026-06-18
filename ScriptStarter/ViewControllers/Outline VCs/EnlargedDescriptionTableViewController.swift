@@ -15,7 +15,7 @@ class EnlargedDescriptionTableViewController: UITableViewController {
     
     var viewController: ViewController = .outline
     var section: Int = 0
-    var act: Act?
+    var act: OutlineSection?
     var scene: Scene?
     var character: Character?
 

@@ -22,7 +22,7 @@ class EnlargedDescriptionViewController: UIViewController {
     weak var delegate: DescriptionDelegate?
     var viewController: ViewController = .outline
     var section: Int = 0
-    var act: Act?
+    var act: OutlineSection?
     var scene: Scene?
     var character: Character?
     var text: String?
@@ -155,7 +155,7 @@ class EnlargedDescriptionViewController: UIViewController {
 
     func update(viewController: ViewController,
                 section: Int,
-                act: Act?,
+                act: OutlineSection?,
                 character: Character? = nil,
                 scene: Scene? = nil
     ) {
@@ -535,7 +535,7 @@ class EnlargedDescriptionViewController: UIViewController {
             _ = Timer.scheduledTimer(
                 withTimeInterval: 2.0,
                 repeats: false, block: { [weak self] _ in
-                    FirebaseController.shared.save(scene: self?.scene, inAct: self?.act)
+                    FirebaseController.shared.save(scene: self?.scene, inAct: self?.act?.domainAct)
                 })
         }
     }

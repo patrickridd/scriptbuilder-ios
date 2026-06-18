@@ -43,7 +43,7 @@ class SceneActNumberPopTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let act = Act(rawValue: indexPath.row) {
+        if let act = OutlineSection(rawValue: indexPath.row) {
             delegate?.selected(newAct: act)
         }
         self.dismiss(animated: true,

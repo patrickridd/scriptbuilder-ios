@@ -7,6 +7,7 @@
 //
 import FeatureAuth
 import FirebaseAuthData
+import FirebaseData
 import Domain
 import UIKit
 import MBProgressHUD
@@ -16,7 +17,8 @@ extension UIViewController: @retroactive UIScrollViewDelegate {}
 extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITextViewDelegate {
     
     var screenplay: Screenplay? {
-        return ScreenplayController.shared.currentScreenplay
+        get { ScreenplayController.shared.currentScreenplay }
+        set { ScreenplayController.shared.currentScreenplay = newValue }
     }
 
     func loginView() -> UIHostingController<AuthFlowView> {

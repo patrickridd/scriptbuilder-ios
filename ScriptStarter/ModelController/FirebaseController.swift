@@ -5,13 +5,26 @@
 //  Created by Patrick Ridd (patrick.ridd@stgconsulting.com) on 1/23/18.
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
+//  MARK: - TEMP: legacy bridge, remove after editor migration
+//
+//  This class used to talk to RTDB directly. It is now a thin *adapter* that
+//  forwards every call to the new `ScreenplayRepository` (the single source of
+//  truth), resolved once off the AppDelegate composition root. Legacy call
+//  sites keep their old synchronous + completion-handler signatures and compile
+//  unchanged; internally each method bridges to the repo's `async throws` API.
+//
+//  Rules while this seam exists:
+//  - Forward only. Never write to RTDB here in parallel with the repo.
+//  - Read the repo instance off the AppDelegate; never construct a fresh one.
+//  - Keep adapter bodies dead-simple and forward errors faithfully.
+//
 
 import Domain
 import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
-
+import UIKit
 
 let usersKey: String = "users"
 let screenplaysKey: String = "screenplays"
@@ -37,211 +50,197 @@ class FirebaseController {
         )
     }
 
+    // MARK: - Composition-root accessors
+
+    /// The single, app-wide repository instance built in the AppDelegate.
+    /// Force-resolved because the legacy code assumes a configured app.
+    private var repository: ScreenplayRepository? {
+        (UIApplication.shared.delegate as? AppDelegate)?.firebaseRepository
+    }
+
     var currentScreenplay: Screenplay? {
         return ScreenplayController.shared.currentScreenplay
-    }
-
-    var dataBaseReference: DatabaseReference {
-        return Database.database().reference()
-    }
-
-    var currentScreenplayReference: DatabaseReference? {
-        guard let user = user, let currentScreenplay = currentScreenplay else {
-            return nil
-        }
-        return dataBaseReference.child(usersKey)
-            .child(user.uid)
-            .child(screenplaysKey)
-            .child(currentScreenplay.uuid)
-    }
-
-    var charactersReference: DatabaseReference? {
-        currentScreenplayReference?.child(charactersKey)
     }
 
     var user: FirebaseAuth.User? {
         return Auth.auth().currentUser
     }
 
+    // MARK: - Connectivity (unchanged — not a persistence concern)
+
     func areWeOffline(completion: @escaping (_ offline: Bool) -> Void) {
         let connectedRef = Database.database().reference(withPath: ".info/connected")
         connectedRef.observe(.value, with: { snapshot in
-            if snapshot.value as? Bool ?? false {
-                // Online
-                completion(false)
-            } else {
-                // Offline
-                completion(true)
-            }
+            completion(!(snapshot.value as? Bool ?? false))
         })
     }
+
+    // MARK: - Screenplay
 
     @objc func saveCurrentScreenplay() {
         if let screenplay = currentScreenplay {
             save(screenplay: screenplay)
         }
     }
-    
-    func save(screenplay: Screenplay, completion: ((_ success: Bool) -> Void)? = nil) {
-        // Save Outline
-        currentScreenplayReference?.updateChildValues(screenplay.firDictionary) { (_, _) in }
-        // Save Characters
-        saveCharacters(in: screenplay)
-        // Act 1
-        save(scenes: screenplay.act1ScenesArray, for: act1ScenesKey, in: screenplay)
-        // Act 2
-        save(scenes: screenplay.act2ScenesArray, for: act2ScenesKey, in: screenplay)
-        // Act 3
-        save(scenes: screenplay.act3ScenesArray, for: act3ScenesKey, in: screenplay)
-        completion?(true)
-    }
 
-    func saveScreenplayOutline() {
-        if let currentScreenplay {
-            currentScreenplayReference?.updateChildValues(currentScreenplay.firDictionary) { (_, _) in }
+    func save(screenplay: Screenplay, completion: ((_ success: Bool) -> Void)? = nil) {
+        forward(completionBool: completion) { repo in
+            try await repo.save(screenplay)
         }
     }
-    
+
+    /// Outline-only save. Forwards the whole screenplay so the repo's merge
+    /// keeps nested acts/characters intact (its `save` is a deep update).
+    func saveScreenplayOutline() {
+        guard let currentScreenplay else { return }
+        forward { repo in try await repo.save(currentScreenplay) }
+    }
+
     func saveCharacters(in screenplay: Screenplay,
                         completion: ((_ error: Error?) -> Void)? = nil) {
-        // Update characters
-        for character in screenplay.characters {
-            if character.name == "" {
-                character.name = "Unnamed"
-            }
-            charactersReference?.updateChildValues([character.uuid: character.characterDictionary]) { (error,reference) in
-                if let _ = error {
-                    completion?(error)
-                }
+        // Value semantics: build a normalized copy, mutating local vars.
+        let normalized: [Character] = screenplay.characters.map { character in
+            guard character.name.isEmpty else { return character }
+            var copy = character
+            copy.name = "Unnamed"
+            return copy
+        }
+        forward(completionError: completion) { repo in
+            for character in normalized {
+                try await repo.save(character: character, in: screenplay.uuid)
             }
         }
     }
 
     func save(character: Character?) {
-        guard let character else { return }
-        charactersReference?.updateChildValues([character.uuid: character.characterDictionary]) {_,_ in }
+        guard let character, let id = currentScreenplay?.uuid else { return }
+        forward { repo in try await repo.save(character: character, in: id) }
     }
 
-    // Save Scenes by specifying the scenes and act number
+    /// Save every scene for one act key. Maps the legacy string key to `Act`.
     func save(scenes: [Scene],
               for actKey: String,
               in screenplay: Screenplay,
               completion: ((_ error: Error?) -> Void)? = nil) {
-        let scenesRef = currentScreenplayReference?.child(actKey)
-        for scene in scenes {
-            scenesRef?.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in
-                if let error = error {
-                    completion?(error)
-                }
-            }
-        }
-    }
-    
-    func delete(screenplay: Screenplay, completion: @escaping () -> Void) {
-        currentScreenplayReference?.removeValue { (_, _) in
-            ScreenplayController.shared.resetCurrentScreenplay()
-            completion()
-        }
-    }
-    
-    func delete(character: Character, withScreenplay: Screenplay) {
-        // delete character
-        let characterRef = charactersReference?.child(character.uuid)
-        characterRef?.removeValue()
-    }
-
-    func delete(scene: Scene, inAct: Act) {
-        var sceneActKey: String = ""
-        switch inAct {
-        case .one:
-            sceneActKey = act1ScenesKey
-        case .two:
-            sceneActKey = act2ScenesKey
-        case .three:
-            sceneActKey = act3ScenesKey
-        default:
-            break
-        }
-
-        let scenesRef = currentScreenplayReference?.child(sceneActKey).child(scene.uuid)
-        scenesRef?.removeValue()
-    }
-
-    func save(scene: Scene?, inAct: Act?) {
-        guard let scene, let inAct else { return }
-        var sceneActKey: String = ""
-        switch inAct {
-        case .one:
-            sceneActKey = act1ScenesKey
-        case .two:
-            sceneActKey = act2ScenesKey
-        case .three:
-            sceneActKey = act3ScenesKey
-        default:
-            break
-        }
-
-        let sceneActRef = currentScreenplayReference?.child(sceneActKey)
-        sceneActRef?.updateChildValues([scene.uuid:scene.sceneDictionary]) { (error, reference) in }
-    }
-    
-    func getScreenplays(completion: @escaping ([Screenplay])->Void) {
-        guard let user = user else {
-            completion([])
+        guard let act = Self.act(forKey: actKey) else {
+            completion?(nil)
             return
         }
-        self.dataBaseReference.child(usersKey)
-            .child(user.uid)
-            .child(screenplaysKey)
-            .observeSingleEvent(of: .value) { (snapshot) in
-            guard let screenplayDictionaryArray = snapshot.value as? [String:Any] else {
-                completion([])
-                return
+        forward(completionError: completion) { repo in
+            for scene in scenes {
+                try await repo.save(scene: scene, in: act, of: screenplay.uuid)
             }
-            var screenplays: [Screenplay] = []
-            for screenplayKeyValuePair in screenplayDictionaryArray {
-                let uuid = screenplayKeyValuePair.key
-                guard
-                    let screenplayDictionary = screenplayKeyValuePair.value as? [String:Any],
-                    let screenplay = Screenplay(uuid: uuid, screenplayDictionary: screenplayDictionary)
-                else { continue }
-                screenplays.append(screenplay)
-            }
-            completion(screenplays)
         }
     }
-    
+
+    func delete(screenplay: Screenplay, completion: @escaping () -> Void) {
+        let id = screenplay.uuid
+        Task {
+            try? await self.repository?.delete(id: id)
+            await MainActor.run {
+                ScreenplayController.shared.resetCurrentScreenplay()
+                completion()
+            }
+        }
+    }
+
+    func delete(character: Character, withScreenplay: Screenplay) {
+        let id = withScreenplay.uuid
+        forward { repo in try await repo.delete(characterID: character.uuid, from: id) }
+    }
+
+    func delete(scene: Scene, inAct: Domain.Act) {
+        guard let id = currentScreenplay?.uuid else { return }
+        forward { repo in try await repo.delete(sceneID: scene.uuid, from: inAct, of: id) }
+    }
+
+    func save(scene: Scene?, inAct: Domain.Act?) {
+        guard let scene, let inAct, let id = currentScreenplay?.uuid else { return }
+        forward { repo in try await repo.save(scene: scene, in: inAct, of: id) }
+    }
+
+    func getScreenplays(completion: @escaping ([Screenplay]) -> Void) {
+        Task {
+            let result: [Screenplay] = (try? await self.repository?.fetchScreenplays() ?? []) ?? []
+            await MainActor.run { completion(result) }
+        }
+    }
+
+    // MARK: - Account (auth-layer, not screenplay persistence)
+
     func deleteAccount(completion: @escaping (_ deleted: Bool) -> Void) {
         guard let user = user else {
             completion(false)
             return
         }
-        let userRef = self.dataBaseReference.child(usersKey).child(user.uid)
-        
-        user.delete(completion: { (error) in
-            if let _ = error { completion( false) }
-            userRef.removeValue { (error, _) in
-                if let _ = error {
-                    completion(false)
-                } else {
-                    completion(true)
-                }
+        let userRef = Database.database().reference().child(usersKey).child(user.uid)
+        user.delete { error in
+            if error != nil { completion(false) }
+            userRef.removeValue { error, _ in
+                completion(error == nil)
             }
-        })
+        }
     }
-    
-    func changePassword(to newPassword: String, completion: @escaping (_ success: Bool) -> ()) {
+
+    func changePassword(to newPassword: String, completion: @escaping (_ success: Bool) -> Void) {
         guard let user = self.user else {
             completion(false)
             return
         }
-        
-        user.updatePassword(to: newPassword) { (error
-            ) in
-            if let _ = error {
-                completion(false)
-            } else {
-                completion(true)
+        user.updatePassword(to: newPassword) { error in
+            completion(error == nil)
+        }
+    }
+
+    // MARK: - Bridging helpers
+
+    /// Maps a legacy act-scenes RTDB key to the domain `Act` enum.
+    private static func act(forKey key: String) -> Domain.Act? {
+        switch key {
+        case act1ScenesKey: return .one
+        case act2ScenesKey: return .two
+        case act3ScenesKey: return .three
+        default: return nil
+        }
+    }
+
+    /// Fire-and-forget forward to the repo, swallowing errors (legacy callers
+    /// that passed no completion never inspected errors).
+    private func forward(_ body: @escaping (ScreenplayRepository) async throws -> Void) {
+        guard let repo = repository else { return }
+        Task { try? await body(repo) }
+    }
+
+    /// Forward and report success/failure to a legacy `Bool` completion.
+    private func forward(completionBool: ((Bool) -> Void)?,
+                         _ body: @escaping (ScreenplayRepository) async throws -> Void) {
+        guard let repo = repository else {
+            completionBool?(false)
+            return
+        }
+        Task {
+            do {
+                try await body(repo)
+                await MainActor.run { completionBool?(true) }
+            } catch {
+                await MainActor.run { completionBool?(false) }
+            }
+        }
+    }
+
+    /// Forward and report any thrown error to a legacy `Error?` completion.
+    private func forward(completionError: ((Error?) -> Void)?,
+                         _ body: @escaping (ScreenplayRepository) async throws -> Void) {
+        guard let repo = repository else {
+            completionError?(nil)
+            return
+        }
+        Task {
+            do {
+                try await body(repo)
+                await MainActor.run { completionError?(nil) }
+            } catch {
+                await MainActor.run { completionError?(error) }
             }
         }
     }
