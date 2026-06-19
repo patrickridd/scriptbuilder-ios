@@ -80,6 +80,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         FirebaseDataPersistence.enableDiskPersistence()
 
+        // Keep the repository's uid in sync with the *actual* Firebase session.
+        // This covers a session restored on launch (when the sign-in callback
+        // never fires) as well as fresh sign-in and sign-out — without it the
+        // repository's `requireUID()` throws `notAuthenticated` on relaunch.
+        startObservingAuthState()
+
         // Routing decision via the contract — no Firebase types here.
         if isLoggedIn {
             _ = presentScreenplayCollectionView()
@@ -88,6 +94,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         return true
+    }
+
+    /// Mirrors the live Firebase auth state into `uidBox` so the repository
+    /// always reads the correct uid. Seeds synchronously from the restored
+    /// session first, then keeps it current via the state-change listener.
+    private func startObservingAuthState() {
+        uidBox.uid = Auth.auth().currentUser?.uid
+        _ = Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            self?.uidBox.uid = user?.uid
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
