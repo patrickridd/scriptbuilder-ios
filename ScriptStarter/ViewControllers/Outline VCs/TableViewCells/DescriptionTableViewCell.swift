@@ -8,7 +8,6 @@
 
 import Domain
 import UIKit
-import KMPlaceholderTextView
 
 class DescriptionTableViewCell: UITableViewCell {
 
@@ -21,7 +20,7 @@ class DescriptionTableViewCell: UITableViewCell {
     var isResizing: Bool = false
     var defaultHeight: CGFloat = 0
     
-    @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
+    @IBOutlet weak var descriptionTextView: CustomTextView!
     @IBOutlet weak var expandButton: UIButton!
     @IBOutlet weak var descriptionTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var expandView: UIView?
@@ -46,7 +45,7 @@ class DescriptionTableViewCell: UITableViewCell {
         descriptionTextView.textColor = Theme.descriptionTextColor
         expandView?.backgroundColor = Theme.descriptionTextViewBackground
         descriptionTextView.backgroundColor = Theme.descriptionTextViewBackground
-        descriptionTextView.placeholderColor = Theme.descriptionPlaceholderTextColor
+        descriptionTextView.placeholderLabel.textColor = Theme.descriptionPlaceholderTextColor
         contentView.backgroundColor = Theme.tableViewBackgroundColor
         let font = UIFont.systemFont(ofSize: isIpad ? 24: 14,
                                      weight: .regular)
@@ -90,22 +89,22 @@ class DescriptionTableViewCell: UITableViewCell {
         case .outline:
             switch section {
             case 0: // Idea
-                self.descriptionTextView.placeholder = "About a ...".localized
+                self.descriptionTextView.placeholderLabel.text = "About a ...".localized
                 self.descriptionTextView.text  = self.screenplay?.idea
             case 1: // Act 1
-                self.descriptionTextView.placeholder = "Setup".localized
+                self.descriptionTextView.placeholderLabel.text = "Setup".localized
                 self.descriptionTextView.text = self.screenplay?.actOneDescription
                 
             case 2: // Act 2
-                self.descriptionTextView.placeholder = "Confrontation".localized
+                self.descriptionTextView.placeholderLabel.text = "Confrontation".localized
                 self.descriptionTextView.text = self.screenplay?.actTwoDescription
                 
             case 3: // Act 3
-                self.descriptionTextView.placeholder = "Resolution".localized
+                self.descriptionTextView.placeholderLabel.text = "Resolution".localized
                 self.descriptionTextView.text = self.screenplay?.actThreeDescription
             default:
                 self.descriptionTextView.text = ""
-                self.descriptionTextView.placeholder = ""
+                self.descriptionTextView.placeholderLabel.text = ""
             }
         case .actDetail:
             guard let act = act else { break }
@@ -126,7 +125,7 @@ class DescriptionTableViewCell: UITableViewCell {
                     self.descriptionTextView.text = self.screenplay?.notes
                 default:
                     self.descriptionTextView.text = ""
-                    self.descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholderLabel.text = ""
                 }
             case .one:
                 switch section {
@@ -150,12 +149,12 @@ class DescriptionTableViewCell: UITableViewCell {
                     self.descriptionTextView.text = self.screenplay?.act1.enemyAtTheGates
                 default:
                     self.descriptionTextView.text = ""
-                    self.descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholderLabel.text = ""
                 }
                 if section == 0 {
-                    self.descriptionTextView.placeholder = act.placeholders[section]
+                    self.descriptionTextView.placeholderLabel.text = act.placeholders[section]
                 }  else {
-                    self.descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholderLabel.text = ""
                 }
 
             case .two:
@@ -192,12 +191,12 @@ class DescriptionTableViewCell: UITableViewCell {
                     self.descriptionTextView.text = self.screenplay?.act2.allIsLost
                 default:
                     self.descriptionTextView.text = ""
-                    self.descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholderLabel.text = ""
                 }
                 if section == 0 {
-                    self.descriptionTextView.placeholder = act.placeholders[section]
+                    self.descriptionTextView.placeholderLabel.text = act.placeholders[section]
                 }  else {
-                    self.descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholderLabel.text = ""
                 }
             case .three:
                 switch section {
@@ -214,12 +213,12 @@ class DescriptionTableViewCell: UITableViewCell {
                     self.screenplay?.act3.brandNewWorld
                 default:
                     self.descriptionTextView.text = ""
-                    self.descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholderLabel.text = ""
                 }
                 if section == 0 {
-                    self.descriptionTextView.placeholder = act.placeholders[section]
+                    self.descriptionTextView.placeholderLabel.text = act.placeholders[section]
                 }  else {
-                    self.descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholderLabel.text = ""
                 }
             }
         case .characterDetail:
@@ -246,7 +245,7 @@ class DescriptionTableViewCell: UITableViewCell {
                 self.descriptionTextView.text = character?.notes
             default:
                 self.descriptionTextView.text = ""
-                self.descriptionTextView.placeholder = ""
+                self.descriptionTextView.placeholderLabel.text = ""
             }
         case .sceneDetail:
             switch section {
@@ -264,7 +263,7 @@ class DescriptionTableViewCell: UITableViewCell {
                 self.descriptionTextView.text = scene?.notes
             default:
                 self.descriptionTextView.text = ""
-                self.descriptionTextView.placeholder = ""
+                self.descriptionTextView.placeholderLabel.text = ""
             }
         }
            self.checkForResize(textView: self.descriptionTextView)

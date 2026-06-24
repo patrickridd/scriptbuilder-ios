@@ -809,6 +809,8 @@
 				21883CE12FE435900093C267 /* XCRemoteSwiftPackageReference "FeatureAuth" */,
 				21883CE22FE4359D0093C267 /* XCRemoteSwiftPackageReference "mbprogresshud" */,
 				21883CE32FE435D30093C267 /* XCRemoteSwiftPackageReference "FirebaseAuthData" */,
+				21EE7CA92FE9841200400AC4 /* XCLocalSwiftPackageReference "../DesignSystem" */,
+				21EE7CAA2FE9842900400AC4 /* XCLocalSwiftPackageReference "../FeatureHome" */,
 			);
 			productRefGroup = 212DEA712012746500FE9C3F /* Products */;
 			projectDirPath = "";
@@ -1549,6 +1551,14 @@
 		21A55AD82FDE3888007F62A7 /* XCLocalSwiftPackageReference "Packages/Domain" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Domain;
+		};
+		21EE7CA92FE9841200400AC4 /* XCLocalSwiftPackageReference "../DesignSystem" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../DesignSystem;
+		};
+		21EE7CAA2FE9842900400AC4 /* XCLocalSwiftPackageReference "../FeatureHome" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../FeatureHome;
 		};
 /* End XCLocalSwiftPackageReference section */
 

@@ -7,13 +7,12 @@
 //
 
 import Domain
-import KMPlaceholderTextView
 import UIKit
 
 class EnlargedDescriptionViewController: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var descriptionTextView: KMPlaceholderTextView!
+    @IBOutlet weak var descriptionTextView: CustomTextView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var sectionTitleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
@@ -40,7 +39,7 @@ class EnlargedDescriptionViewController: UIViewController {
         view.backgroundColor = Theme.enlargedNavigationDescriptionBackground
         descriptionTextView.backgroundColor = Theme.enlargedNavigationDescriptionBackground
         descriptionTextView.textColor = Theme.descriptionTextColor
-        descriptionTextView.placeholderColor = Theme.descriptionPlaceholderTextColor
+        descriptionTextView.placeholderLabel.textColor = Theme.descriptionPlaceholderTextColor
         addToolBar(textView: descriptionTextView)
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(keyboardDisplayed), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -182,22 +181,22 @@ class EnlargedDescriptionViewController: UIViewController {
             case .outline:
                 switch section {
                 case 0: // Idea
-                    self.descriptionTextView.placeholder = "About a ...".localized
+                    self.descriptionTextView.placeholderLabel.text = "About a ...".localized
                     self.descriptionTextView.text  = self.screenplay?.idea
                 case 1: // Act 1
-                    self.descriptionTextView.placeholder = "Setup".localized
+                    self.descriptionTextView.placeholderLabel.text = "Setup".localized
                     self.descriptionTextView.text = self.screenplay?.actOneDescription
                     
                 case 2: // Act 2
-                    self.descriptionTextView.placeholder = "Confrontation".localized
+                    self.descriptionTextView.placeholderLabel.text = "Confrontation".localized
                     self.descriptionTextView.text = self.screenplay?.actTwoDescription
                     
                 case 3: // Act 3
-                    self.descriptionTextView.placeholder = "Resolution".localized
+                    self.descriptionTextView.placeholderLabel.text = "Resolution".localized
                     self.descriptionTextView.text = self.screenplay?.actThreeDescription
                 default:
                     self.descriptionTextView.text = ""
-                    self.descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholderLabel.text = ""
                 }
                 
             case .actDetail:
@@ -219,7 +218,7 @@ class EnlargedDescriptionViewController: UIViewController {
                         self.descriptionTextView.text = self.screenplay?.notes
                     default:
                         self.descriptionTextView.text = ""
-                        self.descriptionTextView.placeholder = ""
+                        self.descriptionTextView.placeholderLabel.text = ""
                     }
                 case .one:
                     switch section {
@@ -243,12 +242,12 @@ class EnlargedDescriptionViewController: UIViewController {
                         self.descriptionTextView.text = self.screenplay?.act1.enemyAtTheGates
                     default:
                         self.descriptionTextView.text = ""
-                        self.descriptionTextView.placeholder = ""
+                        self.descriptionTextView.placeholderLabel.text = ""
                     }
                     if section == 0 {
-                        self.descriptionTextView.placeholder = act.placeholders[section]
+                        self.descriptionTextView.placeholderLabel.text = act.placeholders[section]
                     }  else {
-                        self.descriptionTextView.placeholder = ""
+                        self.descriptionTextView.placeholderLabel.text = ""
                     }
                     
                 case .two:
@@ -285,12 +284,12 @@ class EnlargedDescriptionViewController: UIViewController {
                         self.descriptionTextView.text = self.screenplay?.act2.allIsLost
                     default:
                         self.descriptionTextView.text = ""
-                        self.descriptionTextView.placeholder = ""
+                        self.descriptionTextView.placeholderLabel.text = ""
                     }
                     if section == 0 {
-                        self.descriptionTextView.placeholder = act.placeholders[section]
+                        self.descriptionTextView.placeholderLabel.text = act.placeholders[section]
                     }  else {
-                        self.descriptionTextView.placeholder = ""
+                        self.descriptionTextView.placeholderLabel.text = ""
                     }
                 case .three:
                     switch section {
@@ -307,12 +306,12 @@ class EnlargedDescriptionViewController: UIViewController {
                         self.screenplay?.act3.brandNewWorld
                     default:
                         self.descriptionTextView.text = ""
-                        self.descriptionTextView.placeholder = ""
+                        self.descriptionTextView.placeholderLabel.text = ""
                     }
                     if section == 0 {
-                        self.descriptionTextView.placeholder = act.placeholders[section]
+                        self.descriptionTextView.placeholderLabel.text = act.placeholders[section]
                     }  else {
-                        self.descriptionTextView.placeholder = ""
+                        self.descriptionTextView.placeholderLabel.text = ""
                     }
                 }
             case .characterDetail:
@@ -339,7 +338,7 @@ class EnlargedDescriptionViewController: UIViewController {
                     self.descriptionTextView.text = character?.notes
                 default:
                     self.descriptionTextView.text = ""
-                    self.descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholderLabel.text = ""
                 }
             case .sceneDetail:
                 switch section {
@@ -357,7 +356,7 @@ class EnlargedDescriptionViewController: UIViewController {
                     self.descriptionTextView.text = scene?.notes
                 default:
                     self.descriptionTextView.text = ""
-                    self.descriptionTextView.placeholder = ""
+                    self.descriptionTextView.placeholderLabel.text = ""
                 }
             }
             self.checkForResize(textView: self.descriptionTextView)

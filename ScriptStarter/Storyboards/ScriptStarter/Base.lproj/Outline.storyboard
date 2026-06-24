@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="C6K-v0-Xhf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="C6K-v0-Xhf">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,7 +13,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="outlineVC" extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="fullScreen" id="h9D-Uq-43Z" customClass="OutlineTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="MBV-AV-Cnd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="754"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.41568627450000001" green="0.41568627450000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -44,7 +43,7 @@
                                                 <constraint firstItem="OoG-mU-OaH" firstAttribute="top" secondItem="Ejy-l3-4Uu" secondAttribute="top" id="cAX-wo-j00"/>
                                             </constraints>
                                         </view>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-BN-hxh" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-BN-hxh" customClass="CustomTextView">
                                             <rect key="frame" x="10" y="0.0" width="371" height="86"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -110,8 +109,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="278"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h3H-0R-P6u" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                            <rect key="frame" x="20" y="11" width="374" height="256"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h3H-0R-P6u" customClass="CustomTextView" customModule="ScriptStarter" customModuleProvider="target">
+                                            <rect key="frame" x="20" y="15" width="374" height="248"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
@@ -162,7 +161,7 @@
             <objects>
                 <navigationController storyboardIdentifier="enlargedNavigationController" id="33e-KE-lUF" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uyE-ZH-Vzf">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="88" width="414" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -182,7 +181,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BK2-3a-M42" userLabel="topContent">
-                                <rect key="frame" x="0.0" y="88" width="414" height="71.666666666666686"/>
+                                <rect key="frame" x="0.0" y="142" width="414" height="71.666666666666686"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="YLh-ck-DMM">
                                         <rect key="frame" x="12" y="19.999999999999996" width="390" height="42.666666666666657"/>
@@ -222,13 +221,13 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="edz-Qt-yzj">
-                                <rect key="frame" x="8" y="167.66666666666669" width="398" height="645.33333333333326"/>
+                                <rect key="frame" x="8" y="221.66666666666669" width="398" height="606.33333333333326"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ru1-hW-z1I" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="398" height="658.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="398" height="619.33333333333337"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xN1-G9-3xK" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                                <rect key="frame" x="0.0" y="8" width="398" height="650.33333333333337"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xN1-G9-3xK" customClass="CustomTextView" customModule="ScriptStarter" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="8" width="398" height="611.33333333333337"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -308,7 +307,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="hcY-35-IFF">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="88" width="414" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -326,7 +325,7 @@
                 <navigationController storyboardIdentifier="enlargedNavigation" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="8Nb-Kf-eN5" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9rK-HN-84F">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="88" width="414" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -343,7 +342,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="actDetailVC" extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="fullScreen" id="maw-ln-3le" customClass="ActDetailTableViewController" customModule="ScriptStarter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="lIG-FJ-swh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="754"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.41568627450000001" green="0.41568627450000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -373,7 +372,7 @@
                                                 <constraint firstItem="b93-dJ-4ek" firstAttribute="top" secondItem="ZPg-pn-mpR" secondAttribute="top" id="jGd-O3-nQK"/>
                                             </constraints>
                                         </view>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsVerticalScrollIndicator="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M2q-6h-tdl" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsVerticalScrollIndicator="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M2q-6h-tdl" customClass="CustomTextView" customModule="ScriptStarter" customModuleProvider="target">
                                             <rect key="frame" x="10" y="0.0" width="371" height="86"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -527,7 +526,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="QTE-kv-2Nf" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3zP-R2-Q6x">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="88" width="414" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -540,17 +539,6 @@
             <point key="canvasLocation" x="3082" y="-1"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="M2q-6h-tdl">
-            <size key="intrinsicContentSize" width="0.0" height="30"/>
-        </designable>
-        <designable name="Qyo-BN-hxh">
-            <size key="intrinsicContentSize" width="0.0" height="36.333333333333336"/>
-        </designable>
-        <designable name="xN1-G9-3xK">
-            <size key="intrinsicContentSize" width="0.0" height="33"/>
-        </designable>
-    </designables>
     <resources>
         <image name="expandButtonAsset 3" width="15" height="15"/>
         <image name="outlineTabIconAsset 1" width="22.333333969116211" height="17.333333969116211"/>
@@ -565,7 +553,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="tableSeparatorDarkColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

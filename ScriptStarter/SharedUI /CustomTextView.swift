@@ -9,11 +9,11 @@
 
 import UIKit
 
-class CustomTextView: UITextView, UITextViewDelegate {
+public class CustomTextView: UITextView, UITextViewDelegate {
     
-    private let placeholderLabel: UILabel = {
+    public let placeholderLabel: UILabel = {
         let label = UILabel()
-        label.text = "Enter comments here..."
+        label.text = "Enter here..."
         label.textColor = .lightGray
         label.font = .systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
