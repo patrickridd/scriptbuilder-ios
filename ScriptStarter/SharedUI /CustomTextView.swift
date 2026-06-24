@@ -45,7 +45,7 @@ public class CustomTextView: UITextView, UITextViewDelegate {
     }
     
     // Toggle label visibility when text edits happen
-    func textViewDidChange(_ textView: UITextView) {
+    public func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !textView.text.isEmpty
     }
 }
