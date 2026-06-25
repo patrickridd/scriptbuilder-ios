@@ -172,6 +172,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             },
             onCreate: { [weak self] in
                 DispatchQueue.main.async { self?.presentNewScreenplayIdea() }
+            },
+            onSignOut: { [weak self] in
+                DispatchQueue.main.async { self?.signOutToLogin() }
             }
         )
 
@@ -179,6 +182,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = UIHostingController(rootView: homeView)
         makeKeyAndVisible()
+    }
+
+    /// Signs the user out via `FirebaseAuthService` and returns to the login
+    /// screen. Clears any cached current screenplay so the next session starts
+    /// clean.
+    func signOutToLogin() {
+        do {
+            try firebaseAuthService.signOut()
+        } catch {
+            NSLog("Sign-out failed: \(error.localizedDescription)")
+        }
+        ScreenplayController.shared.resetCurrentScreenplay()
+        presentLoginScreen()
     }
 
     /// Opens an existing screenplay in the legacy editor flow.
