@@ -13,8 +13,6 @@ import FeatureAuth
 import FeatureHome
 import FirebaseAuthData
 import FirebaseData
-import FBSDKCoreKit
-import GoogleSignIn
 import StoreKit
 import SwiftUI
 
@@ -312,14 +310,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self?.makeKeyAndVisible()
         }
     }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        // Handles both Facebook and Google
-        let handledByFB = ApplicationDelegate.shared.application(app, open: url, options: options)
-        let handledByGoogle = GIDSignIn.sharedInstance.handle(url)
-        return handledByFB || handledByGoogle
-    }
-    
+
     func makeKeyAndVisible() {
         self.window?.makeKeyAndVisible()
         determineInterfaceStyle()
