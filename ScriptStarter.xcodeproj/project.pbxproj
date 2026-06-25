@@ -78,6 +78,7 @@
 		21B8FB82201A922D000A8721 /* ScreenplayCoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB81201A922D000A8721 /* ScreenplayCoverViewController.swift */; };
 		21B8FB84201A93D0000A8721 /* ScreenplayPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB83201A93D0000A8721 /* ScreenplayPageViewController.swift */; };
 		21B8FB88201AA656000A8721 /* ScreenplayTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB87201AA656000A8721 /* ScreenplayTabBarController.swift */; };
+		21C1BE2A2FED6F47001F4DE0 /* FeatureHome in Frameworks */ = {isa = PBXBuildFile; productRef = 21C1BE292FED6F47001F4DE0 /* FeatureHome */; };
 		21C616672FDF09F000F1B68D /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C616662FDF09F000F1B68D /* CustomTextView.swift */; };
 		21D3FA1D220277870058D8AE /* Extension+NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D3FA1C220277870058D8AE /* Extension+NotificationCenter.swift */; };
 		21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727ED202CE17700861C2D /* ActBeatSectionHeader.swift */; };
@@ -277,6 +278,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21C1BE2A2FED6F47001F4DE0 /* FeatureHome in Frameworks */,
 				21A55AE12FDE39D7007F62A7 /* AuthDomain in Frameworks */,
 				21A55ADA2FDE3897007F62A7 /* Domain in Frameworks */,
 				2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */,
@@ -1526,6 +1528,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 21A55ADF2FDE39BF007F62A7 /* XCRemoteSwiftPackageReference "mbprogresshud" */;
 			productName = MBProgressHUD;
+		};
+		21C1BE292FED6F47001F4DE0 /* FeatureHome */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21EE7CAA2FE9842900400AC4 /* XCLocalSwiftPackageReference "../FeatureHome" */;
+			productName = FeatureHome;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -10,13 +10,13 @@ import AuthDomain
 import Domain
 import UIKit
 import FeatureAuth
+import FeatureHome
 import FirebaseAuth
 import FirebaseAuthData
 import FirebaseData
 import FBSDKCoreKit
 import GoogleSignIn
 import StoreKit
-import FirebaseCore
 import SwiftUI
 
 enum Shortcut: String {
@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             service: firebaseAuthService
         ) { [weak self] user in
             self?.uidBox.uid = user.id
-            self?.presentScreenplayCollectionView()
+            self?.presentHome()
         }
         return UIHostingController(rootView: authFlowView)
     }()
@@ -88,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Routing decision via the contract — no Firebase types here.
         if isLoggedIn {
-            _ = presentScreenplayCollectionView()
+            presentHome()
         } else {
             presentLoginScreen()
         }
@@ -155,6 +155,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = loginView
         makeKeyAndVisible()
     }
+
+    /// Presents the modern SwiftUI `HomeView` (FeatureHome) as the root after
+    /// login, replacing the legacy `presentScreenplayCollectionView()` route.
+    /// Side-concerns (open / create) are wired back into the existing
+    /// storyboard navigation so the rest of the app keeps working.
+    func presentHome() {
+        let displayName = firebaseAuthService.currentUser?.displayName ?? "Writer"
+        let config = HomeConfiguration(
+            userDisplayName: displayName,
+            isRestricted: { _ in
+                !Store.shared.allAccessEnabled
+            },
+            onOpen: { [weak self] screenplay in
+                DispatchQueue.main.async { self?.openScreenplay(screenplay) }
+            },
+            onCreate: { [weak self] in
+                DispatchQueue.main.async { self?.presentNewScreenplayIdea() }
+            }
+        )
+
+        let homeView = HomeView(repository: firebaseRepository, config: config)
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = UIHostingController(rootView: homeView)
+        makeKeyAndVisible()
+    }
+
+    /// Opens an existing screenplay in the legacy editor flow.
+    func openScreenplay(_ screenplay: Domain.Screenplay) {
+        ScreenplayController.shared.set(currentScreenplay: screenplay)
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let screenplayCoverVC = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else {
+            return
+        }
+        self.window?.rootViewController = screenplayCoverVC
+        makeKeyAndVisible()
+    }
     
     @discardableResult
     func presentScreenplayCollectionView() -> UINavigationController? {
@@ -199,7 +236,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             return
         }
-        
+
         screenplayCoverVC.swipedLeft()
         screenplayTabBar.selectedIndex = 1
         characterTableViewController.newCharacter = true
@@ -210,7 +247,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self?.window?.makeKeyAndVisible()
                 return
             }
-            let name = Auth.auth().currentUser?.displayName ?? "Name"
+            let name = self?.firebaseAuthService.currentUser?.displayName ?? "Name"
             let screenplay = Screenplay(title: "Untitled", authorName: name)
             ScreenplayController.shared.set(currentScreenplay: screenplay)
             self?.window?.rootViewController = screenplayCoverVC
@@ -242,7 +279,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return
             }
             
-            let name = Auth.auth().currentUser?.displayName ?? "Name"
+            let name = self?.firebaseAuthService.currentUser?.displayName ?? "Name"
             let screenplay = Domain.Screenplay(title: "Untitled".localized, authorName: name)
             ScreenplayController.shared.set(currentScreenplay: screenplay)
             self?.window?.rootViewController = screenplayCoverVC
