@@ -11,7 +11,6 @@ import Domain
 import UIKit
 import FeatureAuth
 import FeatureHome
-import FirebaseAuth
 import FirebaseAuthData
 import FirebaseData
 import FBSDKCoreKit
@@ -36,6 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// Kept in a reference box so the `@Sendable` closure captures a stable
     /// pointer rather than a `@State` value.
     private let uidBox = UIDBox()
+
+    /// Holds the long-lived task consuming `authStateStream()` so it keeps
+    /// running for the app's lifetime rather than being cancelled immediately.
+    private var authStateTask: Task<Void, Never>?
     
     /// Builds a live `FirebaseScreenplayRepository` scoped to the signed-in user.
     lazy public var firebaseRepository: ScreenplayRepository = {
@@ -100,9 +103,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// always reads the correct uid. Seeds synchronously from the restored
     /// session first, then keeps it current via the state-change listener.
     private func startObservingAuthState() {
-        uidBox.uid = Auth.auth().currentUser?.uid
-        _ = Auth.auth().addStateDidChangeListener { [weak self] _, user in
-            self?.uidBox.uid = user?.uid
+        // Seed synchronously from the restored session via the contract.
+        uidBox.uid = firebaseAuthService.currentUser?.id
+
+        // Keep current via the service's auth-state stream, which bridges
+        // Firebase's `addStateDidChangeListener` under the hood.
+        authStateTask = Task { [weak self] in
+            guard let stream = self?.firebaseAuthService.authStateStream() else { return }
+            for await user in stream {
+                self?.uidBox.uid = user?.id
+            }
         }
     }
 
