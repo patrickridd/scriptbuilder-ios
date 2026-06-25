@@ -129,8 +129,12 @@ class Store: ObservableObject {
         guard
             let path = Bundle.main.path(forResource: "Products", ofType: "plist"),
             let plist = FileManager.default.contents(atPath: path),
-            let dictionary = try? PropertyListSerialization.propertyList(from: plist, format: nil) as? [String: String],
-            let productIds = dictionary?.compactMap({ $0.value })
+            let dictionary = (try? PropertyListSerialization.propertyList(from: plist, format: nil)) as? [String: String]
+        else {
+            return []
+        }
+        let productIds = dictionary.compactMap({ $0.value })
+        guard !productIds.isEmpty
         else {
             return []
         }
