@@ -8,9 +8,11 @@
 
 import AuthDomain
 import Domain
+import DesignSystem
 import UIKit
 import FeatureAuth
-import FeatureHome
+import FeatureScreenplays
+import FeatureProfile
 import FirebaseAuthData
 import FirebaseData
 import StoreKit
@@ -164,13 +166,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         makeKeyAndVisible()
     }
 
-    /// Presents the modern SwiftUI `HomeView` (FeatureHome) as the root after
-    /// login, replacing the legacy `presentScreenplayCollectionView()` route.
-    /// Side-concerns (open / create) are wired back into the existing
-    /// storyboard navigation so the rest of the app keeps working.
+    /// Presents the modern SwiftUI experience as the root after login. The
+    /// app-level `RootShellView` owns the navigation chrome and hosts the
+    /// chrome-free `ScreenplaysView`; the profile (with sign-out) is pushed
+    /// from the shell's toolbar. Side-concerns (open / create / sign-out) are
+    /// wired back into the existing storyboard navigation via closures.
     func presentHome() {
-        let displayName = firebaseAuthService.currentUser?.displayName ?? "Writer"
-        let config = HomeConfiguration(
+        let user = firebaseAuthService.currentUser
+        let displayName = user?.displayName ?? "Writer"
+
+        let screenplaysConfig = ScreenplaysConfiguration(
             userDisplayName: displayName,
             isRestricted: { _ in
                 !Store.shared.allAccessEnabled
@@ -180,15 +185,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             },
             onCreate: { [weak self] in
                 DispatchQueue.main.async { self?.presentNewScreenplayIdea() }
-            },
+            }
+        )
+
+        let profileConfig = ProfileConfiguration(
+            displayName: displayName,
+            email: user?.email,
             onSignOut: { [weak self] in
                 DispatchQueue.main.async { self?.signOutToLogin() }
             }
         )
 
-        let homeView = HomeView(repository: firebaseRepository, config: config)
+        let repository = firebaseRepository
+        let shell = RootShellView(
+            screenplaysConfig: screenplaysConfig,
+            profileConfig: profileConfig,
+            makeScreenplaysView: { config in
+                AnyView(ScreenplaysView(repository: repository, config: config))
+            }
+        )
+        .appPalette(.default)
+
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = UIHostingController(rootView: homeView)
+        self.window?.rootViewController = UIHostingController(rootView: shell)
         makeKeyAndVisible()
     }
 
