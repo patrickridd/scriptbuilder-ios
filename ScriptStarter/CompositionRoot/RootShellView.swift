@@ -28,9 +28,10 @@ enum RootRoute: Hashable {
 /// lifetime of the shell via `@StateObject`.
 final class RootRouter: ObservableObject, @unchecked Sendable {
     @Published var path: [RootRoute] = []
+    @Published var isProfilePresented = false
 
     func openProfile() {
-        if path.last != .profile { path.append(.profile) }
+        isProfilePresented = true
     }
 }
 
@@ -54,6 +55,28 @@ struct RootShellView: View {
                 }
         }
         .tint(palette.brandPrimary)
+        .fullScreenCover(isPresented: $router.isProfilePresented) {
+            profileSheet
+        }
+    }
+
+    /// Profile presented modally, wrapped in its own navigation stack so it
+    /// keeps a title bar and a Done button to dismiss.
+    private var profileSheet: some View {
+        let router = router
+        return NavigationStack {
+            ProfileView(config: profileConfig)
+                .navigationTitle("Profile")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Done") {
+                            router.isProfilePresented = false
+                        }
+                    }
+                }
+        }
+        .tint(palette.brandPrimary)
     }
 
     /// The screenplays config with the shell's profile-navigation wired in,
@@ -71,9 +94,7 @@ struct RootShellView: View {
     private func destination(for route: RootRoute) -> some View {
         switch route {
         case .profile:
-            ProfileView(config: profileConfig)
-                .navigationTitle("Profile")
-                .navigationBarTitleDisplayMode(.inline)
+            EmptyView()
         }
     }
 
