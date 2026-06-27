@@ -23,19 +23,30 @@ enum RootRoute: Hashable {
     case profile
 }
 
+/// Holds the navigation path so closures handed to feature modules can drive
+/// navigation without capturing the SwiftUI `View` value type. Lives for the
+/// lifetime of the shell via `@StateObject`.
+final class RootRouter: ObservableObject, @unchecked Sendable {
+    @Published var path: [RootRoute] = []
+
+    func openProfile() {
+        if path.last != .profile { path.append(.profile) }
+    }
+}
+
 /// Structural shell around the Screenplays dashboard. Owns the
 /// `NavigationStack` + toolbar so feature modules stay navigation-agnostic.
 struct RootShellView: View {
     @Environment(\.appPalette) private var palette
-    @State private var path: [RootRoute] = []
+    @StateObject private var router = RootRouter()
 
     let screenplaysConfig: ScreenplaysConfiguration
     let profileConfig: ProfileConfiguration
     let makeScreenplaysView: (ScreenplaysConfiguration) -> AnyView
 
     var body: some View {
-        NavigationStack(path: $path) {
-            makeScreenplaysView(screenplaysConfig)
+        NavigationStack(path: $router.path) {
+            makeScreenplaysView(shellConfig)
                 .navigationTitle("Screenplays")
                 .toolbar { toolbar }
                 .navigationDestination(for: RootRoute.self) { route in
@@ -43,6 +54,17 @@ struct RootShellView: View {
                 }
         }
         .tint(palette.brandPrimary)
+    }
+
+    /// The screenplays config with the shell's profile-navigation wired in,
+    /// so tapping the hero header pushes the profile route.
+    private var shellConfig: ScreenplaysConfiguration {
+        var config = screenplaysConfig
+        let router = router
+        config.onOpenProfile = { @Sendable in
+            DispatchQueue.main.async { router.openProfile() }
+        }
+        return config
     }
 
     @ViewBuilder
@@ -57,12 +79,6 @@ struct RootShellView: View {
 
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
-        ToolbarItem(placement: .topBarLeading) {
-            Button { path.append(.profile) } label: {
-                Image(systemName: "person.crop.circle")
-            }
-            .accessibilityLabel("Profile")
-        }
         ToolbarItem(placement: .topBarTrailing) {
             Button { screenplaysConfig.onCreate() } label: {
                 Image(systemName: "plus")
