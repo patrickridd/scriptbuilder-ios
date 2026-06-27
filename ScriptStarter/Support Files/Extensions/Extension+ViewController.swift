@@ -228,16 +228,18 @@ extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITex
         self.dismiss(animated: false)
     }
 
+    /// Presents the modern SwiftUI `FeatureScreenplays` experience (via the
+    /// app-level `RootShellView`) as the root, replacing the legacy storyboard
+    /// `screenplayNavigationController`. The shell is built once in
+    /// `AppDelegate.presentHome()`, so we delegate to it here to keep a single
+    /// source of truth for the home screen's composition.
     func navigateToScreenplayCollectionView() {
-        DispatchQueue.main.async {
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else {
+        DispatchQueue.main.async { [weak self] in
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                 return
             }
-            UIApplication.shared.mainWindow?.rootViewController = mainNavigationController
-            self.dismiss(animated: true,
-                         completion: nil)
+            appDelegate.presentHome()
+            self?.dismiss(animated: false, completion: nil)
         }
     }
 
