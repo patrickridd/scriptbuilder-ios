@@ -92,11 +92,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Routing decision via the contract — no Firebase types here.
         if isLoggedIn {
             presentHome()
+        } else if isSimulatorAuthBypassEnabled {
+            // Seed a placeholder uid so the repository can resolve.
+            if uidBox.uid == nil { uidBox.uid = "simulator-preview-user" }
+            presentHome()
         } else {
             presentLoginScreen()
         }
 
         return true
+    }
+
+    /// Debug-only escape hatch so the dashboard (and its chrome) can be
+    /// inspected on the Simulator without a real signed-in session. Firebase
+    /// sign-in cannot complete on a fresh Simulator, so this lets us verify UI
+    /// like the hero header / toolbar. Never active on device or in release.
+    private var isSimulatorAuthBypassEnabled: Bool {
+        #if targetEnvironment(simulator) && DEBUG
+        return true
+        #else
+        return false
+        #endif
     }
 
     /// Mirrors the live Firebase auth state into `uidBox` so the repository
@@ -196,7 +212,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         )
 
-        let repository = firebaseRepository
+        let repository: ScreenplayRepository = isSimulatorAuthBypassEnabled
+            ? MockScreenplayRepository()
+            : firebaseRepository
         let shell = RootShellView(
             screenplaysConfig: screenplaysConfig,
             profileConfig: profileConfig,
