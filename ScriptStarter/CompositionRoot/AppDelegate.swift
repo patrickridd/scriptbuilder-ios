@@ -207,8 +207,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let profileConfig = ProfileConfiguration(
             displayName: displayName,
             email: user?.email,
+            providerLabel: user?.linkedProviders.first.map { $0.rawValue.capitalized },
+            interfaceStyle: currentProfileInterfaceStyle(),
+            shareURL: URL(string: "https://apps.apple.com/app/id1234567890"),
+            privacyPolicyURL: URL(string: "https://www.scriptbuilderapp.com/privacy"),
+            termsURL: URL(string: "https://www.scriptbuilderapp.com/terms"),
             onSignOut: { [weak self] in
                 DispatchQueue.main.async { self?.signOutToLogin() }
+            },
+            onAccountDeleted: { [weak self] in
+                DispatchQueue.main.async { self?.signOutToLogin() }
+            },
+            onInterfaceStyleChange: { [weak self] style in
+                DispatchQueue.main.async { self?.applyProfileInterfaceStyle(style) }
             }
         )
 
@@ -218,6 +229,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let shell = RootShellView(
             screenplaysConfig: screenplaysConfig,
             profileConfig: profileConfig,
+            authService: firebaseAuthService,
             makeScreenplaysView: { config in
                 AnyView(ScreenplaysView(repository: repository, config: config))
             }
@@ -357,6 +369,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let interfaceStyleRawValue = UserDefaults().integer(forKey: InterfaceStyle.userDefaultsKey)
         let interfaceStyle = InterfaceStyle(rawValue: interfaceStyleRawValue) ?? .defaultSelected
         UIApplication.shared.set(style: interfaceStyle)
+    }
+
+    // MARK: - Profile interface style bridging
+
+    /// Maps the persisted legacy `InterfaceStyle` to the SwiftUI-facing
+    /// `ProfileInterfaceStyle` shown in the profile's appearance picker.
+    private func currentProfileInterfaceStyle() -> ProfileInterfaceStyle {
+        let raw = UserDefaults().integer(forKey: InterfaceStyle.userDefaultsKey)
+        switch InterfaceStyle(rawValue: raw) ?? .defaultSelected {
+        case .defaultSelected: return .system
+        case .lightModeSelected: return .light
+        case .darkModeSelected: return .dark
+        }
+    }
+
+    /// Persists the user's chosen appearance and applies it live to the window,
+    /// reusing the same `InterfaceStyle` machinery the legacy Settings used.
+    private func applyProfileInterfaceStyle(_ style: ProfileInterfaceStyle) {
+        let legacy: InterfaceStyle
+        switch style {
+        case .system: legacy = .defaultSelected
+        case .light: legacy = .lightModeSelected
+        case .dark: legacy = .darkModeSelected
+        }
+        UserDefaults().set(legacy.rawValue, forKey: InterfaceStyle.userDefaultsKey)
+        UIApplication.shared.set(style: legacy)
     }
 }
 

@@ -17,6 +17,7 @@ import SwiftUI
 import DesignSystem
 import FeatureScreenplays
 import FeatureProfile
+import AuthDomain
 
 /// The destinations the shell can push onto its navigation stack.
 enum RootRoute: Hashable {
@@ -43,6 +44,7 @@ struct RootShellView: View {
 
     let screenplaysConfig: ScreenplaysConfiguration
     let profileConfig: ProfileConfiguration
+    let authService: any AuthService
     let makeScreenplaysView: (ScreenplaysConfiguration) -> AnyView
 
     var body: some View {
@@ -65,7 +67,7 @@ struct RootShellView: View {
     private var profileSheet: some View {
         let router = router
         return NavigationStack {
-            ProfileView(config: profileConfig)
+            ProfileView(config: profileConfig, service: authService)
                 .navigationTitle("Profile")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
