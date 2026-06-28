@@ -210,8 +210,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             providerLabel: user?.linkedProviders.first.map { $0.rawValue.capitalized },
             interfaceStyle: currentProfileInterfaceStyle(),
             shareURL: URL(string: "https://apps.apple.com/app/id1234567890"),
-            privacyPolicyURL: URL(string: "https://www.scriptbuilderapp.com/privacy"),
-            termsURL: URL(string: "https://www.scriptbuilderapp.com/terms"),
+            privacyPolicyURL: URL(string: "https://www.scriptbuilderapp.com/_files/ugd/b622d0_f5722cd213394590bbd181559a0af540.pdf"),
+            termsURL: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"),
             onSignOut: { [weak self] in
                 DispatchQueue.main.async { self?.signOutToLogin() }
             },
