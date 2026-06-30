@@ -105,7 +105,7 @@ class ScreenplayCollectionViewController: UIViewController {
         do {
             try Auth.auth().signOut()
         } catch let error {
-            print(error)
+            SystemLogger(category: "Auth").error("Sign-out failed: \(error.localizedDescription)")
         }
         
         LoginManager().logOut()

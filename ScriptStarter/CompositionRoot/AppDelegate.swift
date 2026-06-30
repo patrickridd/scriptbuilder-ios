@@ -29,6 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    /// App-wide logger injected at the composition root. Packages depend only
+    /// on `Domain.AppLogger`; this is the concrete OS-backed implementation.
+    let logger: AppLogger = SystemLogger(category: "Gate")
+
     private let firebaseAuthService = FirebaseAuthData.FirebaseAuthService()
 
     /// The signed-in user's id, read live by the repository on every RTDB call.
@@ -191,16 +195,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let user = firebaseAuthService.currentUser
         let displayName = user?.displayName ?? "Writer"
 
+        // Gating rule: the first screenplay is always free. Every screenplay
+        // beyond index 0 is gated until the user has all-access. Lifetime
+        // owners pass `allAccessEnabled` automatically, so they're never gated.
+        let freeScreenplayLimit = 1
+        logger.info("Gate: presentHome allAccessEnabled=\(Store.shared.allAccessEnabled) [forever=\(Store.shared.unlimitedForeverEnabled) monthly=\(Store.shared.unlimitedMonthlyEnabled) yearly=\(Store.shared.unlimitedYearlyEnabled) char=\(Store.shared.characterFeatureEnabled) scene=\(Store.shared.sceneFeatureEnabled)]")
+        let isIndexRestricted: @Sendable (Int) -> Bool = { index in
+            index >= freeScreenplayLimit && !Store.shared.allAccessEnabled
+        }
+
         let screenplaysConfig = ScreenplaysConfiguration(
             userDisplayName: displayName,
-            isRestricted: { _ in
-                !Store.shared.allAccessEnabled
+            isRestricted: isIndexRestricted,
+            onOpen: { [weak self] screenplay, rank in
+                // The first screenplay (most-recently-updated, rank 0) is always
+                // free. Anything past the free limit is gated until all-access.
+                // `rank` comes from the same recency-sorted list the dashboard
+                // renders, so the gate matches exactly what the user sees.
+                DispatchQueue.main.async {
+                    guard let self else { return }
+                    let gated = rank >= freeScreenplayLimit && !Store.shared.allAccessEnabled
+                    self.logger.debug("Gate(onOpen): \(screenplay.title) rank=\(rank) gated=\(gated)")
+                    if gated {
+                        self.presentPaywallOverCurrent()
+                    } else {
+                        self.openScreenplay(screenplay)
+                    }
+                }
             },
-            onOpen: { [weak self] screenplay in
-                DispatchQueue.main.async { self?.openScreenplay(screenplay) }
-            },
-            onCreate: { [weak self] in
-                DispatchQueue.main.async { self?.presentNewScreenplayIdea() }
+            onCreate: { [weak self] existingCount in
+                // Creating a new screenplay beyond the free limit triggers the
+                // paywall; the first one is always free. `existingCount` is the
+                // dashboard's current count, so no separate fetch is needed.
+                DispatchQueue.main.async {
+                    guard let self else { return }
+                    let gated = existingCount >= freeScreenplayLimit && !Store.shared.allAccessEnabled
+                    self.logger.debug("Gate(onCreate): existingCount=\(existingCount) gated=\(gated)")
+                    if gated {
+                        self.presentPaywallOverCurrent()
+                    } else {
+                        self.presentNewScreenplayIdea()
+                    }
+                }
             }
         )
 
@@ -241,6 +277,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         makeKeyAndVisible()
     }
 
+    /// Presents the SwiftUI paywall over whatever is currently on screen (the
+    /// live SwiftUI shell). We intentionally do NOT swap the window's root —
+    /// `present(_:)` only works when the presenter is already in the view
+    /// hierarchy, which the existing shell is. Finds the top-most presented
+    /// controller and presents the paywall there.
+    @MainActor
+    func presentPaywallOverCurrent() {
+        guard let root = window?.rootViewController else {
+            logger.error("Gate: no rootViewController to present paywall over")
+            return
+        }
+        var top = root
+        while let presented = top.presentedViewController {
+            top = presented
+        }
+        logger.info("Gate: presenting paywall over \(type(of: top))")
+        top.presentIAPSubscriptionView()
+    }
+
     /// Signs the user out via `FirebaseAuthService` and returns to the login
     /// screen. Clears any cached current screenplay so the next session starts
     /// clean.
@@ -248,7 +303,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             try firebaseAuthService.signOut()
         } catch {
-            NSLog("Sign-out failed: \(error.localizedDescription)")
+            logger.error("Sign-out failed: \(error.localizedDescription)")
         }
         ScreenplayController.shared.resetCurrentScreenplay()
         presentLoginScreen()

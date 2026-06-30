@@ -6,6 +6,8 @@
 //  Copyright © 2018 patrickridd. All rights reserved.
 //
 import FeatureAuth
+import FeaturePaywall
+import DesignSystem
 import FirebaseAuthData
 import FirebaseData
 import Domain
@@ -113,7 +115,7 @@ extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITex
                 loadingNotification.hide(animated: true,
                                          afterDelay: 1)
                 ScreenplayController.shared.set(currentScreenplay: screenplay)
-                print("Screenplay reloaded ⬇︎")
+                SystemLogger(category: "Screenplay").debug("Screenplay reloaded ⬇︎")
                 completion()
             })
         }
@@ -257,12 +259,27 @@ extension UIViewController: @retroactive UITextFieldDelegate, @retroactive UITex
                      completion: nil)
     }
 
-    // Presents InAppPurchase screen to select Subscriptions or Lifetime purchase
+    // Presents the modernized SwiftUI paywall (FeaturePaywall package).
+    @MainActor
     func presentIAPSubscriptionView() {
-        let iapSubscriptionViewController = UIHostingController(rootView: IAPSubscriptionView(presentingViewController: self))
-        if UIDevice.current.userInterfaceIdiom != .phone {
-            iapSubscriptionViewController.modalPresentationStyle = .fullScreen
-        }
-        present(iapSubscriptionViewController, animated: true)
+        let configuration = PaywallConfiguration.scriptBuilderPro(
+            termsURL: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"),
+            privacyURL: URL(string: "https://www.scriptbuilderapp.com/_files/ugd/b622d0_f5722cd213394590bbd181559a0af540.pdf")
+        )
+        let paywall = PaywallView(
+            configuration: configuration,
+            store: Store.shared,
+            onFinished: { [weak self] in
+                self?.presentedViewController?.dismiss(animated: true)
+            }
+        )
+        let hostingController = UIHostingController(
+            rootView: paywall.appPalette(.default)
+        )
+        // Present full-screen on all idioms so the paywall fully covers the
+        // shell (a page-sheet leaves the shell peeking behind and clips the
+        // header). The in-view close button handles dismissal.
+        hostingController.modalPresentationStyle = .fullScreen
+        present(hostingController, animated: true)
     }
 }

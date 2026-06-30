@@ -7,6 +7,8 @@
 //
 
 import Combine
+import Domain
+import FeaturePaywall
 import StoreKit
 
 typealias Transaction = StoreKit.Transaction
@@ -44,6 +46,8 @@ public enum ServiceEntitlement: Int, Comparable {
 class Store: ObservableObject {
     
     static let shared = Store() // Singleton instance
+
+    private let logger: AppLogger = SystemLogger(category: "Store")
 
     @Published private(set) var subscriptions: [Product] = []
     @Published private(set) var nonRenewableSubscriptions: [Product] = []
@@ -155,9 +159,7 @@ class Store: ObservableObject {
                     await transaction.finish()
                 } catch {
                     // StoreKit has a transaction that fails verification. Don't deliver content to the user.
-                    #if DEBUG
-                    print("Transaction failed verification.")
-                    #endif
+                    self.logger.error("Transaction failed verification.")
                 }
             }
         }
@@ -192,7 +194,7 @@ class Store: ObservableObject {
             self.subscriptions = sortByPrice(newSubscriptions)
             self.nonRenewableSubscriptions = sortByPrice(newNonRenewableSubscriptions)
         } catch {
-            
+            logger.error("[Store] requestProducts FAILED: \(error.localizedDescription)")
         }
     }
     
@@ -285,7 +287,7 @@ class Store: ObservableObject {
                     break
                 }
             } catch {
-                print()
+                logger.error("[Store] updateCustomerProductStatus transaction error: \(error.localizedDescription)")
             }
         }
 
@@ -309,7 +311,7 @@ class Store: ObservableObject {
                 return lhsEntitlement < rhsEntitlement
             }
         } catch {
-            print(error)
+            logger.error("[Store] subscriptionGroupStatus fetch failed: \(error.localizedDescription)")
         }
     }
 

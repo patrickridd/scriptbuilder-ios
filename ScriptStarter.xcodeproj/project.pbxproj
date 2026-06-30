@@ -43,6 +43,7 @@
 		215829CB20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215829CA20755B1F00CEAC0A /* ChangePasswordTableViewCell.swift */; };
 		2158DAA82FD709F0003B5619 /* InterfaceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2158DAA72FD709F0003B5619 /* InterfaceStyle.swift */; };
 		2158DAAA2FD70A3E003B5619 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2158DAA92FD70A3E003B5619 /* Theme.swift */; };
+		2159B8782FF193F500181DBE /* FeaturePaywall in Frameworks */ = {isa = PBXBuildFile; productRef = 2159B8772FF193F500181DBE /* FeaturePaywall */; };
 		215DDCD321EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		215DDCD421EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
 		215DDCD521EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
@@ -78,10 +79,10 @@
 		21B8FB88201AA656000A8721 /* ScreenplayTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8FB87201AA656000A8721 /* ScreenplayTabBarController.swift */; };
 		21C1BE412FEEBD90001F4DE0 /* FeatureScreenplays in Frameworks */ = {isa = PBXBuildFile; productRef = 21C1BE402FEEBD90001F4DE0 /* FeatureScreenplays */; };
 		21C1BE442FEEBE36001F4DE0 /* FeatureProfile in Frameworks */ = {isa = PBXBuildFile; productRef = 21C1BE432FEEBE36001F4DE0 /* FeatureProfile */; };
-		21C1BE4C2FEEBFA3001F4DE0 /* IAPSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C1BE492FEEBFA3001F4DE0 /* IAPSubscriptionView.swift */; };
 		21C1BE522FEEC029001F4DE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C1BE4F2FEEC029001F4DE0 /* AppDelegate.swift */; };
 		21C1BE532FEEC029001F4DE0 /* RootShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C1BE502FEEC029001F4DE0 /* RootShellView.swift */; };
 		21C616672FDF09F000F1B68D /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C616662FDF09F000F1B68D /* CustomTextView.swift */; };
+		21CC3B392FF1972C005F9236 /* Store+PaywallStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CC3B382FF1972C005F9236 /* Store+PaywallStore.swift */; };
 		21D3FA1D220277870058D8AE /* Extension+NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D3FA1C220277870058D8AE /* Extension+NotificationCenter.swift */; };
 		21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727ED202CE17700861C2D /* ActBeatSectionHeader.swift */; };
 		21D727F0202CEB8500861C2D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727EF202CEB8500861C2D /* ViewController.swift */; };
@@ -248,7 +249,6 @@
 		21BF311C221B665000DB3DF5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = ScriptStarter/de.lproj/Character.strings; sourceTree = "<group>"; };
 		21BF311E221B665300DB3DF5 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ScriptStarter/ja.lproj/Character.strings; sourceTree = "<group>"; };
 		21BF3120221B665700DB3DF5 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ScriptStarter/ko.lproj/Character.strings; sourceTree = "<group>"; };
-		21C1BE492FEEBFA3001F4DE0 /* IAPSubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPSubscriptionView.swift; sourceTree = "<group>"; };
 		21C1BE4F2FEEC029001F4DE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		21C1BE502FEEC029001F4DE0 /* RootShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootShellView.swift; sourceTree = "<group>"; };
 		21C616662FDF09F000F1B68D /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
@@ -258,6 +258,7 @@
 		21C8D3CD22289485004EC055 /* hi-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "hi-IN"; path = hi_IN.lproj/Scenes.strings; sourceTree = "<group>"; };
 		21C8D3CE22289485004EC055 /* hi-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "hi-IN"; path = hi_IN.lproj/Main.strings; sourceTree = "<group>"; };
 		21C8D3CF22289485004EC055 /* hi-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "hi-IN"; path = ScriptStarter/hi_IN.lproj/Outline.strings; sourceTree = "<group>"; };
+		21CC3B382FF1972C005F9236 /* Store+PaywallStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Store+PaywallStore.swift"; sourceTree = "<group>"; };
 		21D3FA1C220277870058D8AE /* Extension+NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+NotificationCenter.swift"; sourceTree = "<group>"; };
 		21D727ED202CE17700861C2D /* ActBeatSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActBeatSectionHeader.swift; sourceTree = "<group>"; };
 		21D727EF202CEB8500861C2D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -285,6 +286,7 @@
 				21A55ADA2FDE3897007F62A7 /* Domain in Frameworks */,
 				2189FC8E2057187400A69DC1 /* StoreKit.framework in Frameworks */,
 				21A55AE72FDE3B3C007F62A7 /* MBProgressHUD in Frameworks */,
+				2159B8782FF193F500181DBE /* FeaturePaywall in Frameworks */,
 				21C1BE442FEEBE36001F4DE0 /* FeatureProfile in Frameworks */,
 				21A55AE32FDE39DE007F62A7 /* FeatureAuth in Frameworks */,
 				21A55AE52FDE39E4007F62A7 /* FirebaseAuthData in Frameworks */,
@@ -414,7 +416,6 @@
 				217AD64822A08AD700E5ED41 /* SharedUI  */,
 				21E661C22017F955006A14AF /* Support Files */,
 				21C903D6201652660017D626 /* ModelController */,
-				21C1BE4B2FEEBFA3001F4DE0 /* Views */,
 				21C903D4201652520017D626 /* ViewControllers */,
 				213577832012930E00C5EADC /* Storyboards */,
 				2136852B220CB6AF0019A9A8 /* Localize Resources */,
@@ -481,6 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				218FF5CA2CEADFB000D4A14D /* Store.swift */,
+				21CC3B382FF1972C005F9236 /* Store+PaywallStore.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -573,14 +575,6 @@
 				2104ADD6205C60CB0086CC9F /* ActNumberPopTableViewCell.swift */,
 			);
 			path = TableViewCells;
-			sourceTree = "<group>";
-		};
-		21C1BE4B2FEEBFA3001F4DE0 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				21C1BE492FEEBFA3001F4DE0 /* IAPSubscriptionView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		21C1BE512FEEC029001F4DE0 /* CompositionRoot */ = {
@@ -787,6 +781,7 @@
 				21EE7CA92FE9841200400AC4 /* XCLocalSwiftPackageReference "../DesignSystem" */,
 				21C1BE3F2FEEBD77001F4DE0 /* XCLocalSwiftPackageReference "../FeatureScreenplays" */,
 				21C1BE422FEEBE21001F4DE0 /* XCLocalSwiftPackageReference "../FeatureProfile" */,
+				2159B8762FF193E800181DBE /* XCLocalSwiftPackageReference "../FeaturePaywall" */,
 			);
 			productRefGroup = 212DEA712012746500FE9C3F /* Products */;
 			projectDirPath = "";
@@ -854,7 +849,6 @@
 				21E661C12017DBAE006A14AF /* FirebaseController.swift in Sources */,
 				2151FC60202260F200CE4823 /* ScreenplayController.swift in Sources */,
 				21D727F2202CFD2400861C2D /* Extension+ViewController.swift in Sources */,
-				21C1BE4C2FEEBFA3001F4DE0 /* IAPSubscriptionView.swift in Sources */,
 				211215D8203B5E680039D6E8 /* RoleTableViewCell.swift in Sources */,
 				21D727EE202CE17700861C2D /* ActBeatSectionHeader.swift in Sources */,
 				2158DAAA2FD70A3E003B5619 /* Theme.swift in Sources */,
@@ -904,6 +898,7 @@
 				21C1BE522FEEC029001F4DE0 /* AppDelegate.swift in Sources */,
 				21C1BE532FEEC029001F4DE0 /* RootShellView.swift in Sources */,
 				210C07DC22C81B2200F66D7B /* SaveButton.swift in Sources */,
+				21CC3B392FF1972C005F9236 /* Store+PaywallStore.swift in Sources */,
 				21E661C42017F979006A14AF /* Extension+UIColor.swift in Sources */,
 				21A7CF522028E45300D97394 /* CollapsibleHeaderView.swift in Sources */,
 				21D727FF202E41DD00861C2D /* InformationNotes.swift in Sources */,
@@ -1420,6 +1415,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		2159B8762FF193E800181DBE /* XCLocalSwiftPackageReference "../FeaturePaywall" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../FeaturePaywall;
+		};
 		217F252C2FE2EA5D0052B8E4 /* XCLocalSwiftPackageReference "../../Superapp-Projects/FeatureAuth-Dev/FirebaseData" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = "../../Superapp-Projects/FeatureAuth-Dev/FirebaseData";
@@ -1522,6 +1521,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 217F252C2FE2EA5D0052B8E4 /* XCLocalSwiftPackageReference "../../Superapp-Projects/FeatureAuth-Dev/FirebaseData" */;
 			productName = FirebaseData;
+		};
+		2159B8772FF193F500181DBE /* FeaturePaywall */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2159B8762FF193E800181DBE /* XCLocalSwiftPackageReference "../FeaturePaywall" */;
+			productName = FeaturePaywall;
 		};
 		21A55AD92FDE3897007F62A7 /* Domain */ = {
 			isa = XCSwiftPackageProductDependency;

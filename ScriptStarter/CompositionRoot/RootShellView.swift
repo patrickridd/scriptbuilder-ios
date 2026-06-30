@@ -31,6 +31,10 @@ final class RootRouter: ObservableObject, @unchecked Sendable {
     @Published var path: [RootRoute] = []
     @Published var isProfilePresented = false
 
+    /// Latest screenplay count reported by `ScreenplaysView`, so the shell's
+    /// own "+" toolbar button can gate creation against the same count.
+    @Published var screenplayCount = 0
+
     func openProfile() {
         isProfilePresented = true
     }
@@ -89,6 +93,9 @@ struct RootShellView: View {
         config.onOpenProfile = { @Sendable in
             DispatchQueue.main.async { router.openProfile() }
         }
+        config.onCountChange = { @Sendable count in
+            DispatchQueue.main.async { router.screenplayCount = count }
+        }
         return config
     }
 
@@ -103,7 +110,7 @@ struct RootShellView: View {
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
-            Button { screenplaysConfig.onCreate() } label: {
+            Button { screenplaysConfig.onCreate(router.screenplayCount) } label: {
                 Image(systemName: "plus")
             }
             .accessibilityLabel("New Screenplay")
