@@ -47,7 +47,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// Builds a live `FirebaseScreenplayRepository` scoped to the signed-in user.
     lazy public var firebaseRepository: ScreenplayRepository = {
         let box = uidBox
-        return FirebaseData.FirebaseScreenplayRepository(uidProvider: { box.uid })
+        return FirebaseData.FirebaseScreenplayRepository(
+            uidProvider: { box.uid },
+            logger: SystemLogger(category: "Repository")
+        )
     }()
 
     var isLoggedIn: Bool {
