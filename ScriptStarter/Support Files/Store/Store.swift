@@ -57,6 +57,12 @@ class Store: ObservableObject {
     @Published private(set) var purchasedNonRenewableSubscriptions: [Product] = []
     @Published private(set) var subscriptionGroupStatus: Product.SubscriptionInfo.Status?
 
+    /// Product IDs the customer is entitled to, derived directly from `Transaction.currentEntitlements`
+    /// and NOT filtered by the loaded product catalog. This lets us keep honoring purchases (e.g. the
+    /// legacy lifetime `unlimited_forever`) even after a product is removed from sale and StoreKit
+    /// stops returning it in the products metadata fetch.
+    @Published private(set) var entitledProductIDs: Set<String> = []
+
     
     var updateListenerTask: Task<Void, Error>? = nil
     private let productIds: [String]
@@ -68,46 +74,52 @@ class Store: ObservableObject {
     let unlimitedYearlyIdentifier = "unlimited_yearly"
     let unlimitedForeverIdentifier = "unlimited_forever"
 
+    /// A StoreKit-free snapshot of the current product/entitlement state, fed into the
+    /// pure `EntitlementResolver` so the access decision is unit-testable in `Domain`.
+    private var entitlementSnapshot: EntitlementSnapshot {
+        let catalog = Set(nonConsumables.map(\.id)).union(subscriptions.map(\.id))
+        let purchasedCatalog = Set(purchasedNonConsumables.map(\.id))
+            .union(purchasedSubscriptions.map(\.id))
+        return EntitlementSnapshot(
+            catalogProductIDs: catalog,
+            purchasedCatalogProductIDs: purchasedCatalog,
+            entitledProductIDs: entitledProductIDs
+        )
+    }
+
     var characterFeatureEnabled: Bool {
-        if let characterFeatureEnabled = nonConsumables.first(where: { $0.id == characterFeatureIdentifier }) {
-            return purchasedNonConsumables.contains(characterFeatureEnabled)
-        }
-        return false
+        EntitlementResolver.isEntitled(to: characterFeatureIdentifier, in: entitlementSnapshot)
     }
 
     var sceneFeatureEnabled: Bool {
-        if let sceneFeatureEnabled = nonConsumables.first(where: { $0.id == sceneFeatureIdentifier }) {
-            return purchasedNonConsumables.contains(sceneFeatureEnabled)
-        }
-        return false
+        EntitlementResolver.isEntitled(to: sceneFeatureIdentifier, in: entitlementSnapshot)
     }
 
     var unlimitedForeverEnabled: Bool {
-        if let unlimitedForeverEnabled = nonConsumables.first(where: { $0.id == unlimitedForeverIdentifier }) {
-            return purchasedNonConsumables.contains(unlimitedForeverEnabled)
-        }
-        return false
+        EntitlementResolver.isEntitled(to: unlimitedForeverIdentifier, in: entitlementSnapshot)
     }
-    
+
     var unlimitedMonthlyEnabled: Bool {
-        if let unlimitedMonthlyEnabled = subscriptions.first(where: { $0.id == unlimitedMonthlyIdentifier }) {
-            return purchasedSubscriptions.contains(unlimitedMonthlyEnabled)
-        }
-        return false
+        EntitlementResolver.isEntitled(to: unlimitedMonthlyIdentifier, in: entitlementSnapshot)
     }
 
     var unlimitedYearlyEnabled: Bool {
-        if let unlimitedYearlyEnabled = subscriptions.first(where: { $0.id == unlimitedYearlyIdentifier }) {
-            return purchasedSubscriptions.contains(unlimitedYearlyEnabled)
-        }
-        return false
+        EntitlementResolver.isEntitled(to: unlimitedYearlyIdentifier, in: entitlementSnapshot)
     }
 
     var allAccessEnabled: Bool {
-        // Give legacy in-app purchase all access
-        characterFeatureEnabled || sceneFeatureEnabled ||
-        // Check if they have subscription
-        unlimitedForeverEnabled || unlimitedMonthlyEnabled || unlimitedYearlyEnabled
+        // Any of these products individually unlocks all access — legacy lifetime &
+        // legacy per-feature non-consumables, plus the current subscriptions.
+        EntitlementResolver.hasAllAccess(
+            anyOf: [
+                characterFeatureIdentifier,
+                sceneFeatureIdentifier,
+                unlimitedForeverIdentifier,
+                unlimitedMonthlyIdentifier,
+                unlimitedYearlyIdentifier
+            ],
+            in: entitlementSnapshot
+        )
     }
     
     private init() {
@@ -253,12 +265,29 @@ class Store: ObservableObject {
         var purchasedSubscriptions: [Product] = []
         var purchasedNonRenewableSubscriptions: [Product] = []
         var purchasedNonConsumables: [Product] = []
+        var entitledIDs: Set<String> = []
 
         // Iterate through all of the user's purchased products.
         for await result in Transaction.currentEntitlements {
             do {
                 // Check whether the transaction is verified. If it isn’t, catch `failedVerification` error.
                 let transaction = try checkVerified(result)
+
+                // Record the entitlement directly from the verified transaction, independent of whether
+                // the product still loads in the catalog. This keeps lifetime owners (and any other
+                // removed-from-sale product owners) unlocked.
+                switch transaction.productType {
+                case .nonConsumable:
+                    entitledIDs.insert(transaction.productID)
+                case .autoRenewable:
+                    if let expirationDate = transaction.expirationDate, expirationDate > Date() {
+                        entitledIDs.insert(transaction.productID)
+                    }
+                case .nonRenewable:
+                    entitledIDs.insert(transaction.productID)
+                default:
+                    break
+                }
 
                 // Check the `productType` of the transaction and get the corresponding product from the store.
                 switch transaction.productType {
@@ -296,6 +325,8 @@ class Store: ObservableObject {
         self.purchasedNonRenewableSubscriptions = purchasedNonRenewableSubscriptions
         // Update the store information with auto-renewable subscription products.
         self.purchasedSubscriptions = purchasedSubscriptions
+        // Catalog-independent entitlements (honors removed-from-sale products like legacy lifetime).
+        self.entitledProductIDs = entitledIDs
 
         // Check the `subscriptionGroupStatus` to learn the auto-renewable subscription state to determine whether the customer
         // is new (never subscribed), active, or inactive (expired subscription).
