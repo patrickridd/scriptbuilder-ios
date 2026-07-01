@@ -222,7 +222,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if gated {
                         self.presentPaywallOverCurrent()
                     } else {
-                        self.openScreenplay(screenplay)
+                        // Not gated: let the SwiftUI shell own navigation and
+                        // push the new cover → editor flow. We intentionally do
+                        // NOT swap the window root to the legacy editor here.
+                        self.logger.debug("onOpen: handing off to SwiftUI shell for \(screenplay.title)")
                     }
                 }
             },
@@ -269,8 +272,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             screenplaysConfig: screenplaysConfig,
             profileConfig: profileConfig,
             authService: firebaseAuthService,
-            makeScreenplaysView: { config in
-                AnyView(ScreenplaysView(repository: repository, config: config))
+            makeScreenplaysView: { config, namespace in
+                AnyView(ScreenplaysView(
+                    repository: repository,
+                    config: config,
+                    transitionNamespace: namespace
+                ))
+            },
+            makeScreenplayContainer: { screenplay, onDelete in
+                AnyView(ScreenplayContainerView(
+                    screenplay: screenplay,
+                    repository: repository,
+                    onDelete: onDelete
+                ))
             }
         )
         .appPalette(.default)

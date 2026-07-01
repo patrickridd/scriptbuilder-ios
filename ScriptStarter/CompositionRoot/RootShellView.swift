@@ -18,10 +18,31 @@ import DesignSystem
 import FeatureScreenplays
 import FeatureProfile
 import AuthDomain
+import Domain
 
 /// The destinations the shell can push onto its navigation stack.
 enum RootRoute: Hashable {
     case profile
+    /// The paged cover → editor container shown when a screenplay is opened.
+    case screenplay(Screenplay)
+
+    static func == (lhs: RootRoute, rhs: RootRoute) -> Bool {
+        switch (lhs, rhs) {
+        case (.profile, .profile): return true
+        case let (.screenplay(a), .screenplay(b)): return a.id == b.id
+        default: return false
+        }
+    }
+
+    func hash(into hasher: inout Hasher) {
+        switch self {
+        case .profile:
+            hasher.combine("profile")
+        case .screenplay(let s):
+            hasher.combine("screenplay")
+            hasher.combine(s.id)
+        }
+    }
 }
 
 /// Holds the navigation path so closures handed to feature modules can drive
@@ -38,6 +59,10 @@ final class RootRouter: ObservableObject, @unchecked Sendable {
     func openProfile() {
         isProfilePresented = true
     }
+
+    func openScreenplay(_ screenplay: Screenplay) {
+        path.append(.screenplay(screenplay))
+    }
 }
 
 /// Structural shell around the Screenplays dashboard. Owns the
@@ -45,15 +70,19 @@ final class RootRouter: ObservableObject, @unchecked Sendable {
 struct RootShellView: View {
     @Environment(\.appPalette) private var palette
     @StateObject private var router = RootRouter()
+    @Namespace private var coverTransition
 
     let screenplaysConfig: ScreenplaysConfiguration
     let profileConfig: ProfileConfiguration
     let authService: any AuthService
-    let makeScreenplaysView: (ScreenplaysConfiguration) -> AnyView
+    let makeScreenplaysView: (ScreenplaysConfiguration, Namespace.ID) -> AnyView
+    /// Builds the paged cover → editor container for an opened screenplay,
+    /// injecting the repository and a pop-on-delete callback.
+    let makeScreenplayContainer: (Screenplay, @escaping () -> Void) -> AnyView
 
     var body: some View {
         NavigationStack(path: $router.path) {
-            makeScreenplaysView(shellConfig)
+            makeScreenplaysView(shellConfig, coverTransition)
                 .navigationTitle("Screenplays")
                 .toolbar { toolbar }
                 .navigationDestination(for: RootRoute.self) { route in
@@ -90,6 +119,15 @@ struct RootShellView: View {
     private var shellConfig: ScreenplaysConfiguration {
         var config = screenplaysConfig
         let router = router
+        let hostOnOpen = screenplaysConfig.onOpen
+        config.onOpen = { @Sendable screenplay, rank in
+            // Host handles side-concerns (logging, quota gating / paywall).
+            hostOnOpen(screenplay, rank)
+            // Only drive the cinematic push when the screenplay isn't gated —
+            // a gated tap shows the paywall instead of the cover.
+            guard !screenplaysConfig.isRestricted(rank) else { return }
+            DispatchQueue.main.async { router.openScreenplay(screenplay) }
+        }
         config.onOpenProfile = { @Sendable in
             DispatchQueue.main.async { router.openProfile() }
         }
@@ -104,6 +142,13 @@ struct RootShellView: View {
         switch route {
         case .profile:
             EmptyView()
+        case .screenplay(let screenplay):
+            makeScreenplayContainer(screenplay) {
+                DispatchQueue.main.async {
+                    if !router.path.isEmpty { router.path.removeLast() }
+                }
+            }
+            .screenplayZoomDestination(id: screenplay.id, in: coverTransition)
         }
     }
 
