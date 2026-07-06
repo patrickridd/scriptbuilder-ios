@@ -7,6 +7,7 @@
 //
 
 import AuthDomain
+import Combine
 import Domain
 import DesignSystem
 import UIKit
@@ -43,6 +44,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// Holds the long-lived task consuming `authStateStream()` so it keeps
     /// running for the app's lifetime rather than being cancelled immediately.
     private var authStateTask: Task<Void, Never>?
+
+    /// App-lifetime entitlement change signal shared by every editor gate.
+    /// Bumped whenever `Store`'s `@Published` purchase state changes, so the
+    /// SwiftUI editor views (characters / scenes) re-evaluate their lock chrome
+    /// live after a purchase, restore, or subscription expiration — without
+    /// needing to be dismissed and re-opened.
+    private let editorEntitlementSignal = EditorEntitlementSignal()
+
+    /// Retains the Combine subscription that bridges `Store.objectWillChange`
+    /// into `editorEntitlementSignal`.
+    private var entitlementCancellable: AnyCancellable?
     
     /// Builds a live `FirebaseScreenplayRepository` scoped to the signed-in user.
     lazy public var firebaseRepository: ScreenplayRepository = {
@@ -96,6 +108,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // repository's `requireUID()` throws `notAuthenticated` on relaunch.
         startObservingAuthState()
 
+        // Bridge StoreKit entitlement changes into the editor gate signal so
+        // the SwiftUI editor views refresh their locked/unlocked chrome live
+        // when a purchase completes, a restore lands, or a subscription
+        // expires. `Store` publishes on the main actor.
+        startObservingEntitlements()
+
         // Routing decision via the contract — no Firebase types here.
         if isLoggedIn {
             presentHome()
@@ -120,6 +138,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
         return false
         #endif
+    }
+
+    /// Subscribes to `Store`'s published entitlement state and forwards each
+    /// change into the shared `editorEntitlementSignal`. `objectWillChange`
+    /// fires just *before* the `@Published` values update, so we hop to the
+    /// next main-actor tick to read the settled state and bump the signal.
+    /// This is what makes an open editor's lock chrome update immediately after
+    /// a sandbox purchase / restore / expiration.
+    private func startObservingEntitlements() {
+        let signal = editorEntitlementSignal
+        entitlementCancellable = Store.shared.objectWillChange
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                Task { @MainActor in signal.entitlementsDidChange() }
+            }
     }
 
     /// Mirrors the live Firebase auth state into `uidBox` so the repository
@@ -335,7 +368,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             },
             onBlocked: { [weak self] in
                 DispatchQueue.main.async { self?.presentPaywallOverCurrent() }
-            }
+            },
+            entitlementSignal: editorEntitlementSignal
         )
     }
 

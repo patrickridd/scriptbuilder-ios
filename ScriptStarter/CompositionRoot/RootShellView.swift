@@ -70,6 +70,12 @@ final class RootRouter: ObservableObject, @unchecked Sendable {
 struct RootShellView: View {
     @Environment(\.appPalette) private var palette
     @StateObject private var router = RootRouter()
+    // Observe the purchase store so the dashboard re-renders when entitlements
+    // finish loading asynchronously at launch (or change after a purchase /
+    // restore). Without this the lock badges captured `Store.shared` but had no
+    // SwiftUI dependency on its `@Published` state, so they showed stale locks
+    // on already-unlocked scripts until some unrelated re-render cleared them.
+    @ObservedObject private var store = Store.shared
     @Namespace private var coverTransition
 
     let screenplaysConfig: ScreenplaysConfiguration
