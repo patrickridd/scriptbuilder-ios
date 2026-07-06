@@ -17,6 +17,7 @@ import SwiftUI
 import DesignSystem
 import FeatureScreenplays
 import FeatureProfile
+import FirebaseAuthData
 import AuthDomain
 import Domain
 
@@ -55,6 +56,59 @@ final class RootRouter: ObservableObject, @unchecked Sendable {
     /// Latest screenplay count reported by `ScreenplaysView`, so the shell's
     /// own "+" toolbar button can gate creation against the same count.
     @Published var screenplayCount = 0
+
+    /// Live display name, kept current by observing the auth-state stream so
+    /// edits made on the Profile screen propagate to the hero header and
+    /// toolbar avatar without needing to rebuild the shell.
+    @Published var displayName: String = "Writer"
+
+    private var authTask: Task<Void, Never>?
+    private var profileObserver: NSObjectProtocol?
+
+    deinit {
+        authTask?.cancel()
+        if let profileObserver {
+            NotificationCenter.default.removeObserver(profileObserver)
+        }
+    }
+
+    /// Begins mirroring the signed-in user's display name from the auth
+    /// service. Emits immediately with the current value, then on every change
+    /// (including profile updates). Safe to call more than once — subsequent
+    /// calls are ignored.
+    func observeDisplayName(from service: any AuthService) {
+        guard authTask == nil else { return }
+        // Seed with whatever's available right now.
+        if let name = service.currentUser?.displayName, !name.isEmpty {
+            displayName = name
+        }
+        authTask = Task { [weak self] in
+            for await user in service.authStateStream() {
+                let name = user?.displayName?
+                    .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                let resolved = name.isEmpty ? "Writer" : name
+                await MainActor.run { [weak self] in
+                    self?.displayName = resolved
+                }
+            }
+        }
+        // Firebase's auth-state listener doesn't fire on profile edits, so also
+        // listen for the explicit profile-changed notification the service
+        // posts after a display-name update.
+        profileObserver = NotificationCenter.default.addObserver(
+            forName: Notification.Name.authUserProfileDidChange,
+            object: nil,
+            queue: .main
+        ) { [weak self] note in
+            let updated = note.object as? AuthUser
+            let name = updated?.displayName?
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                ?? service.currentUser?.displayName?
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                ?? ""
+            self?.displayName = name.isEmpty ? "Writer" : name
+        }
+    }
 
     func openProfile() {
         isProfilePresented = true
@@ -122,6 +176,7 @@ struct RootShellView: View {
         .fullScreenCover(isPresented: $router.isProfilePresented) {
             profileSheet
         }
+        .onAppear { router.observeDisplayName(from: authService) }
     }
 
     /// Profile presented modally, wrapped in its own navigation stack so it
@@ -147,6 +202,9 @@ struct RootShellView: View {
     /// so tapping the hero header pushes the profile route.
     private var shellConfig: ScreenplaysConfiguration {
         var config = screenplaysConfig
+        // Reflect the live display name so name edits made in Profile appear
+        // instantly in the hero header.
+        config.userDisplayName = router.displayName
         let router = router
         let hostOnOpen = screenplaysConfig.onOpen
         let hostOnCreate = screenplaysConfig.onCreate
@@ -210,11 +268,19 @@ struct RootShellView: View {
     /// Compact circular avatar showing the user's initials over the hero
     /// gradient — a personalized entry point into the profile screen.
     private var profileAvatar: some View {
-        Text(profileConfig.initials)
+        Text(liveInitials)
             .font(.system(size: 13, weight: .bold, design: .rounded))
             .foregroundStyle(.white)
             .frame(width: 30, height: 30)
             .background(palette.heroGradient, in: Circle())
             .overlay(Circle().stroke(palette.cardStroke, lineWidth: 0.5))
+    }
+
+    /// Initials derived from the live display name so the toolbar avatar keeps
+    /// pace with name edits made on the Profile screen.
+    private var liveInitials: String {
+        let parts = router.displayName.split(separator: " ").prefix(2)
+        let letters = parts.compactMap { $0.first }.map(String.init).joined()
+        return letters.isEmpty ? "?" : letters.uppercased()
     }
 }
