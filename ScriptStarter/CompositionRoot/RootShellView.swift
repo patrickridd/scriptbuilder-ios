@@ -85,6 +85,10 @@ struct RootShellView: View {
     /// Builds the paged cover → editor container for an opened screenplay,
     /// injecting the repository and a pop-on-delete callback.
     let makeScreenplayContainer: (Screenplay, @escaping () -> Void) -> AnyView
+    /// Creates + persists a brand-new screenplay and returns it so the shell
+    /// can open it in the SwiftUI editor. Called only when creation is *not*
+    /// gated (the host runs the paywall check first via `onCreate`).
+    let makeNewScreenplay: () -> Screenplay
 
     var body: some View {
         NavigationStack(path: $router.path) {
@@ -126,6 +130,8 @@ struct RootShellView: View {
         var config = screenplaysConfig
         let router = router
         let hostOnOpen = screenplaysConfig.onOpen
+        let hostOnCreate = screenplaysConfig.onCreate
+        let makeNew = makeNewScreenplay
         config.onOpen = { @Sendable screenplay, rank in
             // Host handles side-concerns (logging, quota gating / paywall).
             hostOnOpen(screenplay, rank)
@@ -133,6 +139,14 @@ struct RootShellView: View {
             // a gated tap shows the paywall instead of the cover.
             guard !screenplaysConfig.isRestricted(rank) else { return }
             DispatchQueue.main.async { router.openScreenplay(screenplay) }
+        }
+        config.onCreate = { @Sendable count in
+            // Host decides gating (shows the paywall when over the free limit).
+            hostOnCreate(count)
+            // When not gated, create + persist a fresh screenplay and open it
+            // in the SwiftUI editor.
+            guard !screenplaysConfig.isRestricted(count) else { return }
+            DispatchQueue.main.async { router.openScreenplay(makeNew()) }
         }
         config.onOpenProfile = { @Sendable in
             DispatchQueue.main.async { router.openProfile() }
@@ -161,7 +175,7 @@ struct RootShellView: View {
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
-            Button { screenplaysConfig.onCreate(router.screenplayCount) } label: {
+            Button { shellConfig.onCreate(router.screenplayCount) } label: {
                 Image(systemName: "plus")
             }
             .accessibilityLabel("New Screenplay")

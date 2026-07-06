@@ -19,12 +19,6 @@ import FirebaseData
 import StoreKit
 import SwiftUI
 
-enum Shortcut: String {
-    case newIdea = "newIdea"
-    case newScene = "newScene"
-    case newCharacter = "newCharacter"
-}
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -176,43 +170,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.post(name: Notification.Name.AppWillEnterForeground,
                                         object: nil)
     }
-    
-    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        completionHandler(handleQuickAction(shortcutItem: shortcutItem))
-    }
-    
-    func handleQuickAction(shortcutItem: UIApplicationShortcutItem) -> Bool {
-        
-        if !isLoggedIn {
-            self.presentLoginScreen()
-            return false
-        }
-        
-        if !Store.shared.allAccessEnabled {
-            allAccessFeatureTriggered()
-            return false
-        }
-
-        var quickActionHandled = false
-        let type = shortcutItem.type.components(separatedBy: ".").last!
-        if let shortcutType = Shortcut.init(rawValue: type) {
-        
-            switch shortcutType {
-            case .newIdea:
-                self.presentNewScreenplayIdea()
-                quickActionHandled = true
-            case .newScene:
-                self.presentNewScene()
-                quickActionHandled = true
-
-            case .newCharacter:
-                self.presentNewCharacter()
-                quickActionHandled = true
-            }
-        }
-
-        return quickActionHandled
-    }
 
     // MARK: - Navigation
 
@@ -273,7 +230,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if gated {
                         self.presentPaywallOverCurrent()
                     } else {
-                        self.presentNewScreenplayIdea()
+                        // Not gated: the SwiftUI shell owns the create flow
+                        // (the dashboard's add affordance). Nothing to do here.
+                        self.logger.debug("onCreate: handing off to SwiftUI shell")
                     }
                 }
             }
@@ -319,6 +278,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     gate: self?.makeEditorGate() ?? .unrestricted,
                     onDelete: onDelete
                 ))
+            },
+            makeNewScreenplay: {
+                // Build a fresh screenplay, persist it so it appears in the
+                // dashboard stream, and return it for the shell to open.
+                let screenplay = Domain.Screenplay(title: "Untitled".localized, authorName: displayName)
+                Task {
+                    do { try await repository.save(screenplay) }
+                    catch { NSLog("Create screenplay save failed: \(error.localizedDescription)") }
+                }
+                return screenplay
             }
         )
         .appPalette(.default)
@@ -374,122 +343,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     /// Signs the user out via `FirebaseAuthService` and returns to the login
-    /// screen. Clears any cached current screenplay so the next session starts
-    /// clean.
+    /// screen.
     func signOutToLogin() {
         do {
             try firebaseAuthService.signOut()
         } catch {
             logger.error("Sign-out failed: \(error.localizedDescription)")
         }
-        ScreenplayController.shared.resetCurrentScreenplay()
         presentLoginScreen()
-    }
-
-    /// Opens an existing screenplay in the legacy editor flow.
-    func openScreenplay(_ screenplay: Domain.Screenplay) {
-        ScreenplayController.shared.set(currentScreenplay: screenplay)
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let screenplayCoverVC = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else {
-            return
-        }
-        self.window?.rootViewController = screenplayCoverVC
-        makeKeyAndVisible()
-    }
-    
-    @discardableResult
-    func presentScreenplayCollectionView() -> UINavigationController? {
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayNavigationController") as? UINavigationController else {
-            return nil
-        }
-        
-        self.window?.rootViewController = mainNavigationController
-        makeKeyAndVisible()
-        return mainNavigationController
-    }
-
-    func allAccessFeatureTriggered() {
-        let collectionViewController = presentScreenplayCollectionView()
-        let screenplayCollectionView = collectionViewController?.viewControllers.first as? ScreenplayCollectionViewController
-        screenplayCollectionView?.presentIAPSubscriptionView()
-    }
-
-    func presentNewScreenplayIdea() {
-        ScreenplayController.shared.resetCurrentScreenplay()
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let mainNavigationController = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController else {
-            return
-        }
-
-        self.window?.rootViewController = mainNavigationController
-        makeKeyAndVisible()
-    }
-
-    func presentNewCharacter() {
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        guard
-            let screenplayCoverVC = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController,
-            let screenplayTabBar = screenplayCoverVC.orderedViewControllers[1] as? ScreenplayTabBarController,
-            let characterNavigationController = screenplayTabBar.viewControllers?[1] as? UINavigationController,
-            let characterTableViewController = characterNavigationController.viewControllers[0] as? CharacterTableViewController
-        else {
-            return
-        }
-
-        screenplayCoverVC.swipedLeft()
-        screenplayTabBar.selectedIndex = 1
-        characterTableViewController.newCharacter = true
-        FirebaseController.shared.getScreenplays { [weak self] (screenplays) in
-            if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays) {
-                ScreenplayController.shared.set(currentScreenplay: screenplay)
-                self?.window?.rootViewController = screenplayCoverVC
-                self?.window?.makeKeyAndVisible()
-                return
-            }
-            let name = self?.firebaseAuthService.currentUser?.displayName ?? "Name"
-            let screenplay = Screenplay(title: "Untitled", authorName: name)
-            ScreenplayController.shared.set(currentScreenplay: screenplay)
-            self?.window?.rootViewController = screenplayCoverVC
-            self?.makeKeyAndVisible()
-        }
-    }
-    
-    func presentNewScene() {
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let mainStoryboard = UIStoryboard(name: "Main",
-                                          bundle: nil)
-        guard
-            let screenplayCoverVC = mainStoryboard.instantiateViewController(withIdentifier: "screenplayPageVC") as? ScreenplayPageViewController,
-            let screenplayTabBar = screenplayCoverVC.orderedViewControllers[1] as? ScreenplayTabBarController,
-            let sceneNavigationController = screenplayTabBar.viewControllers?[2] as? UINavigationController,
-            let scenesTableViewController =  sceneNavigationController.viewControllers[0] as? ScenesTableViewController
-        else {
-            return
-        }
-        
-        screenplayCoverVC.swipedLeft()
-        screenplayTabBar.selectedIndex = 2
-        scenesTableViewController.newScene = true
-        FirebaseController.shared.getScreenplays { [weak self] (screenplays) in
-            if let screenplay = ScreenplayController.shared.getCachedScreenplay(screenplays: screenplays) {
-                ScreenplayController.shared.set(currentScreenplay: screenplay)
-                self?.window?.rootViewController = screenplayCoverVC
-                self?.window?.makeKeyAndVisible()
-                return
-            }
-            
-            let name = self?.firebaseAuthService.currentUser?.displayName ?? "Name"
-            let screenplay = Domain.Screenplay(title: "Untitled".localized, authorName: name)
-            ScreenplayController.shared.set(currentScreenplay: screenplay)
-            self?.window?.rootViewController = screenplayCoverVC
-            self?.makeKeyAndVisible()
-        }
     }
 
     func makeKeyAndVisible() {
