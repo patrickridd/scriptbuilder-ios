@@ -279,10 +279,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     transitionNamespace: namespace
                 ))
             },
-            makeScreenplayContainer: { screenplay, onDelete in
+            makeScreenplayContainer: { [weak self] screenplay, onDelete in
                 AnyView(ScreenplayContainerView(
                     screenplay: screenplay,
                     repository: repository,
+                    gate: self?.makeEditorGate() ?? .unrestricted,
                     onDelete: onDelete
                 ))
             }
@@ -311,6 +312,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         logger.info("Gate: presenting paywall over \(type(of: top))")
         top.presentIAPSubscriptionView()
+    }
+
+    /// Builds the in-editor free-tier gate for characters and scenes. The free
+    /// tier allows **1 character** and **1 scene** per screenplay; crossing
+    /// either surfaces the paywall. A user is unlocked for a feature if they
+    /// have all-access OR the specific feature entitlement (Character Builder /
+    /// Scene Builder), matching the legacy `characterFeatureEnabled` /
+    /// `sceneFeatureEnabled` flags.
+    @MainActor
+    private func makeEditorGate() -> EditorGate {
+        let freeCharacterLimit = 1
+        let freeSceneLimit = 1
+        return EditorGate(
+            canAddCharacter: { existingCount in
+                let unlocked = Store.shared.allAccessEnabled || Store.shared.characterFeatureEnabled
+                return unlocked || existingCount < freeCharacterLimit
+            },
+            canAddScene: { existingCount in
+                let unlocked = Store.shared.allAccessEnabled || Store.shared.sceneFeatureEnabled
+                return unlocked || existingCount < freeSceneLimit
+            },
+            onBlocked: { [weak self] in
+                DispatchQueue.main.async { self?.presentPaywallOverCurrent() }
+            }
+        )
     }
 
     /// Signs the user out via `FirebaseAuthService` and returns to the login
