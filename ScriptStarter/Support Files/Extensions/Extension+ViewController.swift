@@ -32,16 +32,18 @@ extension UIViewController {
                      completion: nil)
     }
 
-    // Presents the modernized SwiftUI paywall (FeaturePaywall package).
+    // Presents the modernized SwiftUI paywall (FeaturePaywall package). The
+    // purchase `store` is injected by the composition root (`AppDelegate`)
+    // rather than reached for via a singleton.
     @MainActor
-    func presentIAPSubscriptionView() {
+    func presentIAPSubscriptionView(store: any PaywallStore) {
         let configuration = PaywallConfiguration.scriptBuilderPro(
             termsURL: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"),
             privacyURL: URL(string: "https://www.scriptbuilderapp.com/_files/ugd/b622d0_f5722cd213394590bbd181559a0af540.pdf")
         )
         let paywall = PaywallView(
             configuration: configuration,
-            store: Store.shared,
+            store: store,
             onFinished: { [weak self] in
                 self?.presentedViewController?.dismiss(animated: true)
             }

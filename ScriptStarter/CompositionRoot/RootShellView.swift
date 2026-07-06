@@ -70,12 +70,13 @@ final class RootRouter: ObservableObject, @unchecked Sendable {
 struct RootShellView: View {
     @Environment(\.appPalette) private var palette
     @StateObject private var router = RootRouter()
-    // Observe the purchase store so the dashboard re-renders when entitlements
-    // finish loading asynchronously at launch (or change after a purchase /
-    // restore). Without this the lock badges captured `Store.shared` but had no
-    // SwiftUI dependency on its `@Published` state, so they showed stale locks
-    // on already-unlocked scripts until some unrelated re-render cleared them.
-    @ObservedObject private var store = Store.shared
+    // Observe the injected purchase store so the dashboard re-renders when
+    // entitlements finish loading asynchronously at launch (or change after a
+    // purchase / restore). Without this the lock badges would read the store's
+    // state but have no SwiftUI dependency on its `@Published` state, so they
+    // showed stale locks on already-unlocked scripts until an unrelated
+    // re-render cleared them. Injected by the composition root (`AppDelegate`).
+    @ObservedObject private var store: Store
     @Namespace private var coverTransition
 
     let screenplaysConfig: ScreenplaysConfiguration
@@ -89,6 +90,24 @@ struct RootShellView: View {
     /// can open it in the SwiftUI editor. Called only when creation is *not*
     /// gated (the host runs the paywall check first via `onCreate`).
     let makeNewScreenplay: () -> Screenplay
+
+    init(
+        store: Store,
+        screenplaysConfig: ScreenplaysConfiguration,
+        profileConfig: ProfileConfiguration,
+        authService: any AuthService,
+        makeScreenplaysView: @escaping (ScreenplaysConfiguration, Namespace.ID) -> AnyView,
+        makeScreenplayContainer: @escaping (Screenplay, @escaping () -> Void) -> AnyView,
+        makeNewScreenplay: @escaping () -> Screenplay
+    ) {
+        _store = ObservedObject(wrappedValue: store)
+        self.screenplaysConfig = screenplaysConfig
+        self.profileConfig = profileConfig
+        self.authService = authService
+        self.makeScreenplaysView = makeScreenplaysView
+        self.makeScreenplayContainer = makeScreenplayContainer
+        self.makeNewScreenplay = makeNewScreenplay
+    }
 
     var body: some View {
         NavigationStack(path: $router.path) {

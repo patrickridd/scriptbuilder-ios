@@ -43,9 +43,15 @@ public enum ServiceEntitlement: Int, Comparable {
     }
 }
 
-class Store: ObservableObject {
-    
-    static let shared = Store() // Singleton instance
+/// The StoreKit 2 purchase store. Owned as a single instance at the composition
+/// root (`AppDelegate`) and injected into consumers.
+///
+/// `@unchecked Sendable`: all mutable `@Published` state is written only on the
+/// main actor (StoreKit callbacks + `@MainActor` PaywallStore adapter), and the
+/// entitlement flags read by the gate closures are simple value snapshots. This
+/// lets the `@Sendable` gate closures capture the injected instance without the
+/// former global-singleton escape hatch.
+final class Store: ObservableObject, @unchecked Sendable {
 
     private let logger: AppLogger = SystemLogger(category: "Store")
 
@@ -122,7 +128,7 @@ class Store: ObservableObject {
         )
     }
     
-    private init() {
+    init() {
         productIds = Store.loadProductIds()
         
         // Start a transaction listener as close to app launch as possible so you don't miss any transactions.

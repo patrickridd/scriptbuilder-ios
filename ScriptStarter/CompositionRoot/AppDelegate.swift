@@ -30,6 +30,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private let firebaseAuthService = FirebaseAuthData.FirebaseAuthService()
 
+    /// The single app-lifetime purchase store, owned here at the composition
+    /// root and injected into every consumer (the shell, the editor gates, and
+    /// the paywall). Replaces the former `Store.shared` singleton.
+    let store = Store()
+
     /// The signed-in user's id, read live by the repository on every RTDB call.
     /// Kept in a reference box so the `@Sendable` closure captures a stable
     /// pointer rather than a `@State` value.
@@ -142,7 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// a sandbox purchase / restore / expiration.
     private func startObservingEntitlements() {
         let signal = editorEntitlementSignal
-        entitlementCancellable = Store.shared.objectWillChange
+        entitlementCancellable = store.objectWillChange
             .receive(on: RunLoop.main)
             .sink { _ in
                 Task { @MainActor in signal.entitlementsDidChange() }
@@ -166,11 +171,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        NotificationCenter.default.post(name: Notification.Name.AppWillEnterForeground,
-                                        object: nil)
-    }
-
     // MARK: - Navigation
 
     func presentLoginScreen() {
@@ -192,9 +192,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // beyond index 0 is gated until the user has all-access. Lifetime
         // owners pass `allAccessEnabled` automatically, so they're never gated.
         let freeScreenplayLimit = 1
-        logger.info("Gate: presentHome allAccessEnabled=\(Store.shared.allAccessEnabled) [forever=\(Store.shared.unlimitedForeverEnabled) monthly=\(Store.shared.unlimitedMonthlyEnabled) yearly=\(Store.shared.unlimitedYearlyEnabled) char=\(Store.shared.characterFeatureEnabled) scene=\(Store.shared.sceneFeatureEnabled)]")
+        let store = self.store
+        logger.info("Gate: presentHome allAccessEnabled=\(store.allAccessEnabled) [forever=\(store.unlimitedForeverEnabled) monthly=\(store.unlimitedMonthlyEnabled) yearly=\(store.unlimitedYearlyEnabled) char=\(store.characterFeatureEnabled) scene=\(store.sceneFeatureEnabled)]")
         let isIndexRestricted: @Sendable (Int) -> Bool = { index in
-            index >= freeScreenplayLimit && !Store.shared.allAccessEnabled
+            index >= freeScreenplayLimit && !store.allAccessEnabled
         }
 
         let screenplaysConfig = ScreenplaysConfiguration(
@@ -207,7 +208,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // renders, so the gate matches exactly what the user sees.
                 DispatchQueue.main.async {
                     guard let self else { return }
-                    let gated = rank >= freeScreenplayLimit && !Store.shared.allAccessEnabled
+                    let gated = rank >= freeScreenplayLimit && !store.allAccessEnabled
                     self.logger.debug("Gate(onOpen): \(screenplay.title) rank=\(rank) gated=\(gated)")
                     if gated {
                         self.presentPaywallOverCurrent()
@@ -225,7 +226,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // dashboard's current count, so no separate fetch is needed.
                 DispatchQueue.main.async {
                     guard let self else { return }
-                    let gated = existingCount >= freeScreenplayLimit && !Store.shared.allAccessEnabled
+                    let gated = existingCount >= freeScreenplayLimit && !store.allAccessEnabled
                     self.logger.debug("Gate(onCreate): existingCount=\(existingCount) gated=\(gated)")
                     if gated {
                         self.presentPaywallOverCurrent()
@@ -261,6 +262,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ? MockScreenplayRepository()
             : firebaseRepository
         let shell = RootShellView(
+            store: store,
             screenplaysConfig: screenplaysConfig,
             profileConfig: profileConfig,
             authService: firebaseAuthService,
@@ -313,7 +315,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             top = presented
         }
         logger.info("Gate: presenting paywall over \(type(of: top))")
-        top.presentIAPSubscriptionView()
+        top.presentIAPSubscriptionView(store: store)
     }
 
     /// Builds the in-editor free-tier gate for characters and scenes. The free
@@ -326,13 +328,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func makeEditorGate() -> EditorGate {
         let freeCharacterLimit = 1
         let freeSceneLimit = 1
+        let store = self.store
         return EditorGate(
             canAddCharacter: { existingCount in
-                let unlocked = Store.shared.allAccessEnabled || Store.shared.characterFeatureEnabled
+                let unlocked = store.allAccessEnabled || store.characterFeatureEnabled
                 return unlocked || existingCount < freeCharacterLimit
             },
             canAddScene: { existingCount in
-                let unlocked = Store.shared.allAccessEnabled || Store.shared.sceneFeatureEnabled
+                let unlocked = store.allAccessEnabled || store.sceneFeatureEnabled
                 return unlocked || existingCount < freeSceneLimit
             },
             onBlocked: { [weak self] in
