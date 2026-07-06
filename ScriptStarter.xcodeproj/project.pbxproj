@@ -132,8 +132,6 @@
 		211215D5203B5DC30039D6E8 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		211215D7203B5E680039D6E8 /* RoleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleTableViewCell.swift; sourceTree = "<group>"; };
 		211800D920238A1200F33924 /* ScreenplayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenplayCollectionViewCell.swift; sourceTree = "<group>"; };
-		2122BE692BC38BF700CBC2ED /* bokehBackground.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = bokehBackground.jpeg; path = ../../../../ImageAssets/bokehBackground.jpeg; sourceTree = "<group>"; };
-		2122BE6B2BC38DE500CBC2ED /* spiraling_stars.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = spiraling_stars.jpg; path = ../../../../ImageAssets/spiraling_stars.jpg; sourceTree = "<group>"; };
 		2128EF2320200B7500AF156E /* EnlargedDescriptionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargedDescriptionTableViewController.swift; sourceTree = "<group>"; };
 		212BDE442BD9F6E3009C0FFE /* EnlargedDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargedDescriptionViewController.swift; sourceTree = "<group>"; };
 		212DEA702012746500FE9C3F /* ScriptStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,13 +183,6 @@
 		217DF0F222288FB700C7A543 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ScriptStarter/en.lproj/Outline.strings; sourceTree = "<group>"; };
 		217DF0F422288FBB00C7A543 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ScriptStarter/en.lproj/Character.strings; sourceTree = "<group>"; };
 		217DF0F622288FBF00C7A543 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Scenes.strings; sourceTree = "<group>"; };
-		218337892BCF62590086658C /* blueOcean.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = blueOcean.jpg; path = ../../../../ImageAssets/blueOcean.jpg; sourceTree = "<group>"; };
-		2183378A2BCF62590086658C /* whitePage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = whitePage.jpg; path = ../../../../ImageAssets/whitePage.jpg; sourceTree = "<group>"; };
-		2183378D2BCF75A00086658C /* beachDay.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = beachDay.jpg; path = ../../../../ImageAssets/beachDay.jpg; sourceTree = "<group>"; };
-		2183378F2BCF788A0086658C /* typewriter.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = typewriter.jpg; path = ../../../../ImageAssets/typewriter.jpg; sourceTree = "<group>"; };
-		218337912BCF7A690086658C /* upward_trees.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = upward_trees.jpg; path = ../../../../ImageAssets/upward_trees.jpg; sourceTree = "<group>"; };
-		218337932BCF7C150086658C /* blue_drops.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = blue_drops.jpg; path = ../../../../ImageAssets/blue_drops.jpg; sourceTree = "<group>"; };
-		218337952BCF7E410086658C /* gray_blue_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = gray_blue_background.jpg; path = ../../../../ImageAssets/gray_blue_background.jpg; sourceTree = "<group>"; };
 		21843CAB205AE3E900FAAE16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Scenes.storyboard; sourceTree = "<group>"; };
 		2189FC8D2057187400A69DC1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		218CDC4A2228AD5E004419D1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = zh_CN.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -633,16 +624,7 @@
 		21E952E02BC1BCD800A73D7F /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				2122BE692BC38BF700CBC2ED /* bokehBackground.jpeg */,
 				2101F34D20619442003A90A4 /* Cork_closeup.jpg */,
-				2122BE6B2BC38DE500CBC2ED /* spiraling_stars.jpg */,
-				218337892BCF62590086658C /* blueOcean.jpg */,
-				2183378D2BCF75A00086658C /* beachDay.jpg */,
-				2183378A2BCF62590086658C /* whitePage.jpg */,
-				218337932BCF7C150086658C /* blue_drops.jpg */,
-				2183378F2BCF788A0086658C /* typewriter.jpg */,
-				218337912BCF7A690086658C /* upward_trees.jpg */,
-				218337952BCF7E410086658C /* gray_blue_background.jpg */,
 			);
 			path = Images;
 			sourceTree = "<group>";
