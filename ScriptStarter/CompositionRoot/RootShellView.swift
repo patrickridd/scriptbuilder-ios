@@ -194,9 +194,15 @@ struct RootShellView: View {
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
-            Button { router.openProfile() } label: {
+            Button {
+                // Fire through the shared helper so this buzz honors the
+                // user's Haptics toggle in Profile, like every other haptic.
+                Haptics.lightImpact()
+                router.openProfile()
+            } label: {
                 profileAvatar
             }
+            .buttonStyle(.pressableIcon)
             .accessibilityLabel("Profile")
         }
     }
