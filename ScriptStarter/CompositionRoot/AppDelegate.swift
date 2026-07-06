@@ -291,7 +291,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             makeNewScreenplay: {
                 // Build a fresh screenplay, persist it so it appears in the
                 // dashboard stream, and return it for the shell to open.
-                let screenplay = Domain.Screenplay(title: "Untitled".localized, authorName: displayName)
+                let screenplay = Domain.Screenplay(title: "Untitled", authorName: displayName)
                 Task {
                     do { try await repository.save(screenplay) }
                     catch { NSLog("Create screenplay save failed: \(error.localizedDescription)") }

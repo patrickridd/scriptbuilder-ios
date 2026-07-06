@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		212DEA7B2012746500FE9C3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA7A2012746500FE9C3F /* Assets.xcassets */; };
 		212DEA7E2012746500FE9C3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA7C2012746500FE9C3F /* LaunchScreen.storyboard */; };
-		21368528220CB5270019A9A8 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21368527220CB5270019A9A8 /* Extension+String.swift */; };
 		2136852E220CB9990019A9A8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21368530220CB9990019A9A8 /* Localizable.strings */; };
 		21368536220E0C090019A9A8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21368538220E0C090019A9A8 /* InfoPlist.strings */; };
 		2151D9672FE2EB4E00710843 /* FirebaseData in Frameworks */ = {isa = PBXBuildFile; productRef = 2151D9662FE2EB4E00710843 /* FirebaseData */; };
@@ -55,7 +54,6 @@
 		21319B1C2228956500F4F588 /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = zh_Hans_CN.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		21319B1D2228956500F4F588 /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = zh_Hans_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		21368526220CB3C10019A9A8 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		21368527220CB5270019A9A8 /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		2136852F220CB9990019A9A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		21368537220E0C090019A9A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		21368539220E0C0B0019A9A8 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				21D727F1202CFD2400861C2D /* Extension+ViewController.swift */,
-				21368527220CB5270019A9A8 /* Extension+String.swift */,
 				216999822D8798860057ADE7 /* Extension+Bundle.swift */,
 			);
 			path = Extensions;
@@ -373,7 +370,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21368528220CB5270019A9A8 /* Extension+String.swift in Sources */,
 				216999832D8798860057ADE7 /* Extension+Bundle.swift in Sources */,
 				218FF5CB2CEADFB000D4A14D /* Store.swift in Sources */,
 				21D727F2202CFD2400861C2D /* Extension+ViewController.swift in Sources */,

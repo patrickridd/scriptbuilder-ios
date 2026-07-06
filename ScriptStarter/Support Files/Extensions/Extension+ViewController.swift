@@ -18,20 +18,6 @@ import SwiftUI
 
 extension UIViewController {
 
-    // MARK: UIAlertControllers
-    func present(error: Error) {
-        let alert = UIAlertController(title: "Error".localized,
-                                      message: error.localizedDescription,
-                                      preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK".localized,
-                                     style: .default,
-                                     handler: nil)
-        alert.addAction(okAction)
-        self.present(alert,
-                     animated: true,
-                     completion: nil)
-    }
-
     // Presents the modernized SwiftUI paywall (FeaturePaywall package). The
     // purchase `store` is injected by the composition root (`AppDelegate`)
     // rather than reached for via a singleton.
