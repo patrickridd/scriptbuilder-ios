@@ -251,6 +251,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             shareURL: URL(string: "https://apps.apple.com/app/id1234567890"),
             privacyPolicyURL: URL(string: "https://www.scriptbuilderapp.com/_files/ugd/b622d0_f5722cd213394590bbd181559a0af540.pdf"),
             termsURL: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"),
+            appVersionText: Self.appVersionText,
             onSignOut: { [weak self] in
                 DispatchQueue.main.async { self?.signOutToLogin() }
             },
@@ -392,6 +393,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// Maps the persisted legacy `InterfaceStyle` to the SwiftUI-facing
     /// `ProfileInterfaceStyle` shown in the profile's appearance picker.
     ///
+    /// Formatted app version string (e.g. "Version 1.0 (1)") built from the main
+    /// bundle, shown quietly in the profile footer.
+    static var appVersionText: String {
+        let release = Bundle.main.releaseVersionNumber ?? "1.0"
+        let build = Bundle.main.buildVersionNumber ?? "1"
+        return "Version \(release) (\(build))"
+    }
+
     /// `nonisolated` because it only reads from `UserDefaults` (thread-safe) and
     /// is invoked from a `@Sendable` provider closure the profile calls on
     /// appear.
