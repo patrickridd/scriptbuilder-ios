@@ -194,10 +194,21 @@ struct RootShellView: View {
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
-            Button { shellConfig.onCreate(router.screenplayCount) } label: {
-                Image(systemName: "plus")
+            Button { router.openProfile() } label: {
+                profileAvatar
             }
-            .accessibilityLabel("New Screenplay")
+            .accessibilityLabel("Profile")
         }
+    }
+
+    /// Compact circular avatar showing the user's initials over the hero
+    /// gradient — a personalized entry point into the profile screen.
+    private var profileAvatar: some View {
+        Text(profileConfig.initials)
+            .font(.system(size: 13, weight: .bold, design: .rounded))
+            .foregroundStyle(.white)
+            .frame(width: 30, height: 30)
+            .background(palette.heroGradient, in: Circle())
+            .overlay(Circle().stroke(palette.cardStroke, lineWidth: 0.5))
     }
 }
