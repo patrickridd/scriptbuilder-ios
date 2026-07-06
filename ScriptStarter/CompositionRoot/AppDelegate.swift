@@ -175,6 +175,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func presentLoginScreen() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
+        // Apply the persisted appearance to the window BEFORE assigning the
+        // root VC so the hosting controller inherits the correct trait from
+        // birth, instead of painting in the system appearance first.
+        self.window?.overrideUserInterfaceStyle = persistedInterfaceStyle()
         self.window?.rootViewController = loginView
         makeKeyAndVisible()
     }
@@ -255,6 +259,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             },
             onInterfaceStyleChange: { [weak self] style in
                 DispatchQueue.main.async { self?.applyProfileInterfaceStyle(style) }
+            },
+            currentInterfaceStyle: { [weak self] in
+                self?.currentProfileInterfaceStyle() ?? .system
             }
         )
 
@@ -295,6 +302,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         .appPalette(.default)
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
+        // Apply the persisted appearance to the window BEFORE assigning the
+        // root VC so the SwiftUI hosting controller inherits the correct trait
+        // from initialization rather than after first render.
+        self.window?.overrideUserInterfaceStyle = persistedInterfaceStyle()
         self.window?.rootViewController = UIHostingController(rootView: shell)
         makeKeyAndVisible()
     }
@@ -361,18 +372,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         determineInterfaceStyle()
     }
 
-    func determineInterfaceStyle() {
-        let interfaceStyleRawValue = UserDefaults().integer(forKey: InterfaceStyle.userDefaultsKey)
+    /// Resolves the persisted appearance choice into a UIKit interface style.
+    func persistedInterfaceStyle() -> UIUserInterfaceStyle {
+        let interfaceStyleRawValue = UserDefaults.standard.integer(forKey: InterfaceStyle.userDefaultsKey)
         let interfaceStyle = InterfaceStyle(rawValue: interfaceStyleRawValue) ?? .defaultSelected
-        UIApplication.shared.set(style: interfaceStyle)
+        return interfaceStyle.systemInterfaceStyle
+    }
+
+    func determineInterfaceStyle() {
+        // Apply directly to our own window. At launch the scene's `keyWindow`
+        // may not yet resolve to this window, so going through
+        // `UIApplication.set(style:)` (which looks the window up via the scene)
+        // can silently no-op — leaving the persisted appearance unapplied.
+        window?.overrideUserInterfaceStyle = persistedInterfaceStyle()
     }
 
     // MARK: - Profile interface style bridging
 
     /// Maps the persisted legacy `InterfaceStyle` to the SwiftUI-facing
     /// `ProfileInterfaceStyle` shown in the profile's appearance picker.
-    private func currentProfileInterfaceStyle() -> ProfileInterfaceStyle {
-        let raw = UserDefaults().integer(forKey: InterfaceStyle.userDefaultsKey)
+    ///
+    /// `nonisolated` because it only reads from `UserDefaults` (thread-safe) and
+    /// is invoked from a `@Sendable` provider closure the profile calls on
+    /// appear.
+    nonisolated private func currentProfileInterfaceStyle() -> ProfileInterfaceStyle {
+        let raw = UserDefaults.standard.integer(forKey: InterfaceStyle.userDefaultsKey)
         switch InterfaceStyle(rawValue: raw) ?? .defaultSelected {
         case .defaultSelected: return .system
         case .lightModeSelected: return .light
@@ -389,8 +413,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case .light: legacy = .lightModeSelected
         case .dark: legacy = .darkModeSelected
         }
-        UserDefaults().set(legacy.rawValue, forKey: InterfaceStyle.userDefaultsKey)
-        UIApplication.shared.set(style: legacy)
+        UserDefaults.standard.set(legacy.rawValue, forKey: InterfaceStyle.userDefaultsKey)
+        window?.overrideUserInterfaceStyle = legacy.systemInterfaceStyle
     }
 }
 
