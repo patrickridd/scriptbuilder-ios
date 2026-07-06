@@ -11,8 +11,6 @@ import Foundation
 extension Notification.Name {
 
     static let AppWillEnterForeground =
-        Notification.Name(rawValue:"appWillEnterForegroundNotificationKey")
-    static let ScreenplayUpdated =
-        Notification.Name(rawValue: "SaveScreenplayUpdated")
+        Notification.Name(rawValue: "appWillEnterForegroundNotificationKey")
 
 }
