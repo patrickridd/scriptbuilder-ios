@@ -31,7 +31,6 @@
 		21C1BE532FEEC029001F4DE0 /* RootShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C1BE502FEEC029001F4DE0 /* RootShellView.swift */; };
 		21CC3B392FF1972C005F9236 /* Store+PaywallStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CC3B382FF1972C005F9236 /* Store+PaywallStore.swift */; };
 		21D727F2202CFD2400861C2D /* Extension+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D727F1202CFD2400861C2D /* Extension+ViewController.swift */; };
-		21EE3B872FFB527A00987125 /* InterfaceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EE3B852FFB527A00987125 /* InterfaceStyle.swift */; };
 		21EE3B892FFB5C3A00987125 /* StoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EE3B882FFB5C3A00987125 /* StoreTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -87,7 +86,6 @@
 		21C8D3CB22289485004EC055 /* hi-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "hi-IN"; path = hi_IN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		21CC3B382FF1972C005F9236 /* Store+PaywallStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Store+PaywallStore.swift"; sourceTree = "<group>"; };
 		21D727F1202CFD2400861C2D /* Extension+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+ViewController.swift"; sourceTree = "<group>"; };
-		21EE3B852FFB527A00987125 /* InterfaceStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceStyle.swift; sourceTree = "<group>"; };
 		21EE3B882FFB5C3A00987125 /* StoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,7 +150,6 @@
 			children = (
 				21B6A30920473D0800E8B0F9 /* ScriptStarter.entitlements */,
 				21C1BE512FEEC029001F4DE0 /* CompositionRoot */,
-				21EE3B862FFB527A00987125 /* SharedUI  */,
 				21E661C22017F955006A14AF /* Support Files */,
 				2136852B220CB6AF0019A9A8 /* Localize Resources */,
 				212DEA7A2012746500FE9C3F /* Assets.xcassets */,
@@ -207,14 +204,6 @@
 				218FF5C82CEADF5000D4A14D /* Products.plist */,
 			);
 			path = "Support Files";
-			sourceTree = "<group>";
-		};
-		21EE3B862FFB527A00987125 /* SharedUI  */ = {
-			isa = PBXGroup;
-			children = (
-				21EE3B852FFB527A00987125 /* InterfaceStyle.swift */,
-			);
-			path = "SharedUI ";
 			sourceTree = "<group>";
 		};
 		378CF65633F81B2638728212 /* Frameworks */ = {
@@ -373,7 +362,6 @@
 				216999832D8798860057ADE7 /* Extension+Bundle.swift in Sources */,
 				218FF5CB2CEADFB000D4A14D /* Store.swift in Sources */,
 				21D727F2202CFD2400861C2D /* Extension+ViewController.swift in Sources */,
-				21EE3B872FFB527A00987125 /* InterfaceStyle.swift in Sources */,
 				21C1BE522FEEC029001F4DE0 /* AppDelegate.swift in Sources */,
 				21C1BE532FEEC029001F4DE0 /* RootShellView.swift in Sources */,
 				21CC3B392FF1972C005F9236 /* Store+PaywallStore.swift in Sources */,
