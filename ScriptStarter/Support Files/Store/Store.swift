@@ -436,7 +436,7 @@ enum InAppSubscription: Equatable {
                 let monthlyPrice = Double(truncating: priceString)
                 let weeklyPrice = (monthlyPrice/30.43) * 7
                 let formattedPrice = weeklyPrice.truncate(places: 2)
-                return "\(currencySymbol)\(formattedPrice)/\("week".localized)"
+                return "\(currencySymbol)\(formattedPrice)/\(PaywallStrings.perWeek)"
             } else {
                 return "$0.68/week"
             }
