@@ -7,6 +7,8 @@
 //
 
 import Combine
+import Domain
+import FeaturePaywall
 import StoreKit
 
 typealias Transaction = StoreKit.Transaction
@@ -41,9 +43,17 @@ public enum ServiceEntitlement: Int, Comparable {
     }
 }
 
-class Store: ObservableObject {
-    
-    static let shared = Store() // Singleton instance
+/// The StoreKit 2 purchase store. Owned as a single instance at the composition
+/// root (`AppDelegate`) and injected into consumers.
+///
+/// `@unchecked Sendable`: all mutable `@Published` state is written only on the
+/// main actor (StoreKit callbacks + `@MainActor` PaywallStore adapter), and the
+/// entitlement flags read by the gate closures are simple value snapshots. This
+/// lets the `@Sendable` gate closures capture the injected instance without the
+/// former global-singleton escape hatch.
+final class Store: ObservableObject, @unchecked Sendable {
+
+    private let logger: AppLogger = SystemLogger(category: "Store")
 
     @Published private(set) var subscriptions: [Product] = []
     @Published private(set) var nonRenewableSubscriptions: [Product] = []
@@ -52,6 +62,12 @@ class Store: ObservableObject {
     @Published private(set) var purchasedSubscriptions: [Product] = []
     @Published private(set) var purchasedNonRenewableSubscriptions: [Product] = []
     @Published private(set) var subscriptionGroupStatus: Product.SubscriptionInfo.Status?
+
+    /// Product IDs the customer is entitled to, derived directly from `Transaction.currentEntitlements`
+    /// and NOT filtered by the loaded product catalog. This lets us keep honoring purchases (e.g. the
+    /// legacy lifetime `unlimited_forever`) even after a product is removed from sale and StoreKit
+    /// stops returning it in the products metadata fetch.
+    @Published private(set) var entitledProductIDs: Set<String> = []
 
     
     var updateListenerTask: Task<Void, Error>? = nil
@@ -64,49 +80,55 @@ class Store: ObservableObject {
     let unlimitedYearlyIdentifier = "unlimited_yearly"
     let unlimitedForeverIdentifier = "unlimited_forever"
 
+    /// A StoreKit-free snapshot of the current product/entitlement state, fed into the
+    /// pure `EntitlementResolver` so the access decision is unit-testable in `Domain`.
+    private var entitlementSnapshot: EntitlementSnapshot {
+        let catalog = Set(nonConsumables.map(\.id)).union(subscriptions.map(\.id))
+        let purchasedCatalog = Set(purchasedNonConsumables.map(\.id))
+            .union(purchasedSubscriptions.map(\.id))
+        return EntitlementSnapshot(
+            catalogProductIDs: catalog,
+            purchasedCatalogProductIDs: purchasedCatalog,
+            entitledProductIDs: entitledProductIDs
+        )
+    }
+
     var characterFeatureEnabled: Bool {
-        if let characterFeatureEnabled = nonConsumables.first(where: { $0.id == characterFeatureIdentifier }) {
-            return purchasedNonConsumables.contains(characterFeatureEnabled)
-        }
-        return false
+        EntitlementResolver.isEntitled(to: characterFeatureIdentifier, in: entitlementSnapshot)
     }
 
     var sceneFeatureEnabled: Bool {
-        if let sceneFeatureEnabled = nonConsumables.first(where: { $0.id == sceneFeatureIdentifier }) {
-            return purchasedNonConsumables.contains(sceneFeatureEnabled)
-        }
-        return false
+        EntitlementResolver.isEntitled(to: sceneFeatureIdentifier, in: entitlementSnapshot)
     }
 
     var unlimitedForeverEnabled: Bool {
-        if let unlimitedForeverEnabled = nonConsumables.first(where: { $0.id == unlimitedForeverIdentifier }) {
-            return purchasedNonConsumables.contains(unlimitedForeverEnabled)
-        }
-        return false
+        EntitlementResolver.isEntitled(to: unlimitedForeverIdentifier, in: entitlementSnapshot)
     }
-    
+
     var unlimitedMonthlyEnabled: Bool {
-        if let unlimitedMonthlyEnabled = subscriptions.first(where: { $0.id == unlimitedMonthlyIdentifier }) {
-            return purchasedSubscriptions.contains(unlimitedMonthlyEnabled)
-        }
-        return false
+        EntitlementResolver.isEntitled(to: unlimitedMonthlyIdentifier, in: entitlementSnapshot)
     }
 
     var unlimitedYearlyEnabled: Bool {
-        if let unlimitedYearlyEnabled = subscriptions.first(where: { $0.id == unlimitedYearlyIdentifier }) {
-            return purchasedSubscriptions.contains(unlimitedYearlyEnabled)
-        }
-        return false
+        EntitlementResolver.isEntitled(to: unlimitedYearlyIdentifier, in: entitlementSnapshot)
     }
 
     var allAccessEnabled: Bool {
-        // Give legacy in-app purchase all access
-        characterFeatureEnabled || sceneFeatureEnabled ||
-        // Check if they have subscription
-        unlimitedForeverEnabled || unlimitedMonthlyEnabled || unlimitedYearlyEnabled
+        // Any of these products individually unlocks all access — legacy lifetime &
+        // legacy per-feature non-consumables, plus the current subscriptions.
+        EntitlementResolver.hasAllAccess(
+            anyOf: [
+                characterFeatureIdentifier,
+                sceneFeatureIdentifier,
+                unlimitedForeverIdentifier,
+                unlimitedMonthlyIdentifier,
+                unlimitedYearlyIdentifier
+            ],
+            in: entitlementSnapshot
+        )
     }
     
-    private init() {
+    init() {
         productIds = Store.loadProductIds()
         
         // Start a transaction listener as close to app launch as possible so you don't miss any transactions.
@@ -129,8 +151,12 @@ class Store: ObservableObject {
         guard
             let path = Bundle.main.path(forResource: "Products", ofType: "plist"),
             let plist = FileManager.default.contents(atPath: path),
-            let dictionary = try? PropertyListSerialization.propertyList(from: plist, format: nil) as? [String: String],
-            let productIds = dictionary?.compactMap({ $0.value })
+            let dictionary = (try? PropertyListSerialization.propertyList(from: plist, format: nil)) as? [String: String]
+        else {
+            return []
+        }
+        let productIds = dictionary.compactMap({ $0.value })
+        guard !productIds.isEmpty
         else {
             return []
         }
@@ -151,9 +177,7 @@ class Store: ObservableObject {
                     await transaction.finish()
                 } catch {
                     // StoreKit has a transaction that fails verification. Don't deliver content to the user.
-                    #if DEBUG
-                    print("Transaction failed verification.")
-                    #endif
+                    self.logger.error("Transaction failed verification.")
                 }
             }
         }
@@ -188,7 +212,7 @@ class Store: ObservableObject {
             self.subscriptions = sortByPrice(newSubscriptions)
             self.nonRenewableSubscriptions = sortByPrice(newNonRenewableSubscriptions)
         } catch {
-            
+            logger.error("[Store] requestProducts FAILED: \(error.localizedDescription)")
         }
     }
     
@@ -247,12 +271,29 @@ class Store: ObservableObject {
         var purchasedSubscriptions: [Product] = []
         var purchasedNonRenewableSubscriptions: [Product] = []
         var purchasedNonConsumables: [Product] = []
+        var entitledIDs: Set<String> = []
 
         // Iterate through all of the user's purchased products.
         for await result in Transaction.currentEntitlements {
             do {
                 // Check whether the transaction is verified. If it isn’t, catch `failedVerification` error.
                 let transaction = try checkVerified(result)
+
+                // Record the entitlement directly from the verified transaction, independent of whether
+                // the product still loads in the catalog. This keeps lifetime owners (and any other
+                // removed-from-sale product owners) unlocked.
+                switch transaction.productType {
+                case .nonConsumable:
+                    entitledIDs.insert(transaction.productID)
+                case .autoRenewable:
+                    if let expirationDate = transaction.expirationDate, expirationDate > Date() {
+                        entitledIDs.insert(transaction.productID)
+                    }
+                case .nonRenewable:
+                    entitledIDs.insert(transaction.productID)
+                default:
+                    break
+                }
 
                 // Check the `productType` of the transaction and get the corresponding product from the store.
                 switch transaction.productType {
@@ -281,7 +322,7 @@ class Store: ObservableObject {
                     break
                 }
             } catch {
-                print()
+                logger.error("[Store] updateCustomerProductStatus transaction error: \(error.localizedDescription)")
             }
         }
 
@@ -290,6 +331,8 @@ class Store: ObservableObject {
         self.purchasedNonRenewableSubscriptions = purchasedNonRenewableSubscriptions
         // Update the store information with auto-renewable subscription products.
         self.purchasedSubscriptions = purchasedSubscriptions
+        // Catalog-independent entitlements (honors removed-from-sale products like legacy lifetime).
+        self.entitledProductIDs = entitledIDs
 
         // Check the `subscriptionGroupStatus` to learn the auto-renewable subscription state to determine whether the customer
         // is new (never subscribed), active, or inactive (expired subscription).
@@ -305,7 +348,7 @@ class Store: ObservableObject {
                 return lhsEntitlement < rhsEntitlement
             }
         } catch {
-            print(error)
+            logger.error("[Store] subscriptionGroupStatus fetch failed: \(error.localizedDescription)")
         }
     }
 
@@ -393,7 +436,7 @@ enum InAppSubscription: Equatable {
                 let monthlyPrice = Double(truncating: priceString)
                 let weeklyPrice = (monthlyPrice/30.43) * 7
                 let formattedPrice = weeklyPrice.truncate(places: 2)
-                return "\(currencySymbol)\(formattedPrice)/\("week".localized)"
+                return "\(currencySymbol)\(formattedPrice)/\(PaywallStrings.perWeek)"
             } else {
                 return "$0.68/week"
             }

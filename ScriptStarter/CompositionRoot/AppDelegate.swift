@@ -1,0 +1,463 @@
+//
+//  AppDelegate.swift
+//  ScriptStarter
+//
+//  Created by Patrick Ridd (patrick.ridd@stgconsulting.com) on 1/19/18.
+//  Copyright © 2018 patrickridd. All rights reserved.
+//
+
+import AuthDomain
+import Combine
+import Domain
+import DesignSystem
+import UIKit
+import FeatureAuth
+import FeatureScreenplays
+import FeatureProfile
+import FirebaseAuthData
+import FirebaseData
+import StoreKit
+import SwiftUI
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    /// App-wide logger injected at the composition root. Packages depend only
+    /// on `Domain.AppLogger`; this is the concrete OS-backed implementation.
+    let logger: AppLogger = SystemLogger(category: "Gate")
+
+    private let firebaseAuthService = FirebaseAuthData.FirebaseAuthService()
+
+    /// The single app-lifetime purchase store, owned here at the composition
+    /// root and injected into every consumer (the shell, the editor gates, and
+    /// the paywall). Replaces the former `Store.shared` singleton.
+    let store = Store()
+
+    /// The signed-in user's id, read live by the repository on every RTDB call.
+    /// Kept in a reference box so the `@Sendable` closure captures a stable
+    /// pointer rather than a `@State` value.
+    private let uidBox = UIDBox()
+
+    /// Holds the long-lived task consuming `authStateStream()` so it keeps
+    /// running for the app's lifetime rather than being cancelled immediately.
+    private var authStateTask: Task<Void, Never>?
+
+    /// App-lifetime entitlement change signal shared by every editor gate.
+    /// Bumped whenever `Store`'s `@Published` purchase state changes, so the
+    /// SwiftUI editor views (characters / scenes) re-evaluate their lock chrome
+    /// live after a purchase, restore, or subscription expiration — without
+    /// needing to be dismissed and re-opened.
+    private let editorEntitlementSignal = EditorEntitlementSignal()
+
+    /// Retains the Combine subscription that bridges `Store.objectWillChange`
+    /// into `editorEntitlementSignal`.
+    private var entitlementCancellable: AnyCancellable?
+    
+    /// Builds a live `FirebaseScreenplayRepository` scoped to the signed-in user.
+    lazy public var firebaseRepository: ScreenplayRepository = {
+        let box = uidBox
+        return FirebaseData.FirebaseScreenplayRepository(
+            uidProvider: { box.uid },
+            logger: SystemLogger(category: "Repository")
+        )
+    }()
+
+    var isLoggedIn: Bool {
+        firebaseAuthService.currentUser != nil
+    }
+    
+    private lazy var authConfiguration: AuthConfiguration = {
+        AuthConfiguration(
+            appName: "Script Builder",
+            loginSubtitle: "From your screen to the silver screen",
+            signUpSubtitle: "Create your account to start writing",
+            loginFooterPrompt: "New to Script Builder?",
+            loginProviders: [.apple, .google, .facebook],   // existing users can still log in with Facebook
+            signUpProviders: [.apple, .google]               // Facebook phased out for new sign-ups
+        )
+    }()
+
+    private lazy var loginView: UIHostingController<AuthFlowView> = {
+        let authFlowView = AuthFlowView(
+            config: authConfiguration,
+            service: firebaseAuthService
+        ) { [weak self] user in
+            self?.uidBox.uid = user.id
+            self?.presentHome()
+        }
+        return UIHostingController(rootView: authFlowView)
+    }()
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
+    -> Bool {
+        
+        // One call: configures Firebase + Google Sign-In from GoogleService-Info.plist.
+        FirebaseAuthService.configure()
+        
+        // Facebook (legacy) — supported entry point.
+        FirebaseAuthService.configureFacebook(application: application, launchOptions: launchOptions)
+
+        FirebaseDataPersistence.enableDiskPersistence()
+
+        // Keep the repository's uid in sync with the *actual* Firebase session.
+        // This covers a session restored on launch (when the sign-in callback
+        // never fires) as well as fresh sign-in and sign-out — without it the
+        // repository's `requireUID()` throws `notAuthenticated` on relaunch.
+        startObservingAuthState()
+
+        // Bridge StoreKit entitlement changes into the editor gate signal so
+        // the SwiftUI editor views refresh their locked/unlocked chrome live
+        // when a purchase completes, a restore lands, or a subscription
+        // expires. `Store` publishes on the main actor.
+        startObservingEntitlements()
+
+        // Routing decision via the contract — no Firebase types here.
+        if isLoggedIn {
+            presentHome()
+        } else if isSimulatorAuthBypassEnabled {
+            // Seed a placeholder uid so the repository can resolve.
+            if uidBox.uid == nil { uidBox.uid = "simulator-preview-user" }
+            presentHome()
+        } else {
+            presentLoginScreen()
+        }
+
+        return true
+    }
+
+    /// Debug-only escape hatch so the dashboard (and its chrome) can be
+    /// inspected on the Simulator without a real signed-in session. Firebase
+    /// sign-in cannot complete on a fresh Simulator, so this lets us verify UI
+    /// like the hero header / toolbar. Never active on device or in release.
+    private var isSimulatorAuthBypassEnabled: Bool {
+        #if targetEnvironment(simulator) && DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }
+
+    /// Subscribes to `Store`'s published entitlement state and forwards each
+    /// change into the shared `editorEntitlementSignal`. `objectWillChange`
+    /// fires just *before* the `@Published` values update, so we hop to the
+    /// next main-actor tick to read the settled state and bump the signal.
+    /// This is what makes an open editor's lock chrome update immediately after
+    /// a sandbox purchase / restore / expiration.
+    private func startObservingEntitlements() {
+        let signal = editorEntitlementSignal
+        entitlementCancellable = store.objectWillChange
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                Task { @MainActor in signal.entitlementsDidChange() }
+            }
+    }
+
+    /// Mirrors the live Firebase auth state into `uidBox` so the repository
+    /// always reads the correct uid. Seeds synchronously from the restored
+    /// session first, then keeps it current via the state-change listener.
+    private func startObservingAuthState() {
+        // Seed synchronously from the restored session via the contract.
+        uidBox.uid = firebaseAuthService.currentUser?.id
+
+        // Keep current via the service's auth-state stream, which bridges
+        // Firebase's `addStateDidChangeListener` under the hood.
+        authStateTask = Task { [weak self] in
+            guard let stream = self?.firebaseAuthService.authStateStream() else { return }
+            for await user in stream {
+                self?.uidBox.uid = user?.id
+            }
+        }
+    }
+
+    // MARK: - Navigation
+
+    func presentLoginScreen() {
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        // Apply the persisted appearance to the window BEFORE assigning the
+        // root VC so the hosting controller inherits the correct trait from
+        // birth, instead of painting in the system appearance first.
+        self.window?.overrideUserInterfaceStyle = persistedInterfaceStyle()
+        self.window?.rootViewController = loginView
+        makeKeyAndVisible()
+    }
+
+    /// Presents the modern SwiftUI experience as the root after login. The
+    /// app-level `RootShellView` owns the navigation chrome and hosts the
+    /// chrome-free `ScreenplaysView`; the profile (with sign-out) is pushed
+    /// from the shell's toolbar. Side-concerns (open / create / sign-out) are
+    /// wired back into the existing storyboard navigation via closures.
+    func presentHome() {
+        let user = firebaseAuthService.currentUser
+        let displayName = user?.displayName ?? "Writer"
+
+        // Gating rule: the first screenplay is always free. Every screenplay
+        // beyond index 0 is gated until the user has all-access. Lifetime
+        // owners pass `allAccessEnabled` automatically, so they're never gated.
+        let freeScreenplayLimit = 1
+        let store = self.store
+        logger.info("Gate: presentHome allAccessEnabled=\(store.allAccessEnabled) [forever=\(store.unlimitedForeverEnabled) monthly=\(store.unlimitedMonthlyEnabled) yearly=\(store.unlimitedYearlyEnabled) char=\(store.characterFeatureEnabled) scene=\(store.sceneFeatureEnabled)]")
+        let isIndexRestricted: @Sendable (Int) -> Bool = { index in
+            index >= freeScreenplayLimit && !store.allAccessEnabled
+        }
+
+        let screenplaysConfig = ScreenplaysConfiguration(
+            userDisplayName: displayName,
+            isRestricted: isIndexRestricted,
+            onOpen: { [weak self] screenplay, rank in
+                // The first screenplay (most-recently-updated, rank 0) is always
+                // free. Anything past the free limit is gated until all-access.
+                // `rank` comes from the same recency-sorted list the dashboard
+                // renders, so the gate matches exactly what the user sees.
+                DispatchQueue.main.async {
+                    guard let self else { return }
+                    let gated = rank >= freeScreenplayLimit && !store.allAccessEnabled
+                    self.logger.debug("Gate(onOpen): \(screenplay.title) rank=\(rank) gated=\(gated)")
+                    if gated {
+                        self.presentPaywallOverCurrent()
+                    } else {
+                        // Not gated: let the SwiftUI shell own navigation and
+                        // push the new cover → editor flow. We intentionally do
+                        // NOT swap the window root to the legacy editor here.
+                        self.logger.debug("onOpen: handing off to SwiftUI shell for \(screenplay.title)")
+                    }
+                }
+            },
+            onCreate: { [weak self] existingCount in
+                // Creating a new screenplay beyond the free limit triggers the
+                // paywall; the first one is always free. `existingCount` is the
+                // dashboard's current count, so no separate fetch is needed.
+                DispatchQueue.main.async {
+                    guard let self else { return }
+                    let gated = existingCount >= freeScreenplayLimit && !store.allAccessEnabled
+                    self.logger.debug("Gate(onCreate): existingCount=\(existingCount) gated=\(gated)")
+                    if gated {
+                        self.presentPaywallOverCurrent()
+                    } else {
+                        // Not gated: the SwiftUI shell owns the create flow
+                        // (the dashboard's add affordance). Nothing to do here.
+                        self.logger.debug("onCreate: handing off to SwiftUI shell")
+                    }
+                }
+            }
+        )
+
+        let profileConfig = ProfileConfiguration(
+            displayName: displayName,
+            email: user?.email,
+            providerLabel: user?.linkedProviders.first.map { $0.rawValue.capitalized },
+            interfaceStyle: currentProfileInterfaceStyle(),
+            shareURL: URL(string: "https://apps.apple.com/app/id1234567890"),
+            privacyPolicyURL: URL(string: "https://www.scriptbuilderapp.com/_files/ugd/b622d0_f5722cd213394590bbd181559a0af540.pdf"),
+            termsURL: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"),
+            appVersionText: Self.appVersionText,
+            onSignOut: { [weak self] in
+                DispatchQueue.main.async { self?.signOutToLogin() }
+            },
+            onAccountDeleted: { [weak self] in
+                DispatchQueue.main.async { self?.signOutToLogin() }
+            },
+            onInterfaceStyleChange: { [weak self] style in
+                DispatchQueue.main.async { self?.applyProfileInterfaceStyle(style) }
+            },
+            currentInterfaceStyle: { [weak self] in
+                self?.currentProfileInterfaceStyle() ?? .system
+            }
+        )
+
+        let repository: ScreenplayRepository = isSimulatorAuthBypassEnabled
+            ? MockScreenplayRepository()
+            : firebaseRepository
+        let shell = RootShellView(
+            store: store,
+            screenplaysConfig: screenplaysConfig,
+            profileConfig: profileConfig,
+            authService: firebaseAuthService,
+            makeScreenplaysView: { config, namespace in
+                AnyView(ScreenplaysView(
+                    repository: repository,
+                    config: config,
+                    transitionNamespace: namespace
+                ))
+            },
+            makeScreenplayContainer: { [weak self] screenplay, onDelete in
+                AnyView(ScreenplayContainerView(
+                    screenplay: screenplay,
+                    repository: repository,
+                    gate: self?.makeEditorGate() ?? .unrestricted,
+                    onDelete: onDelete
+                ))
+            },
+            makeNewScreenplay: {
+                // Build a fresh screenplay, persist it so it appears in the
+                // dashboard stream, and return it for the shell to open.
+                let screenplay = Domain.Screenplay(title: "Untitled", authorName: displayName)
+                Task {
+                    do { try await repository.save(screenplay) }
+                    catch { NSLog("Create screenplay save failed: \(error.localizedDescription)") }
+                }
+                return screenplay
+            }
+        )
+        .appPalette(.default)
+
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        // Apply the persisted appearance to the window BEFORE assigning the
+        // root VC so the SwiftUI hosting controller inherits the correct trait
+        // from initialization rather than after first render.
+        self.window?.overrideUserInterfaceStyle = persistedInterfaceStyle()
+        self.window?.rootViewController = UIHostingController(rootView: shell)
+        makeKeyAndVisible()
+    }
+
+    /// Presents the SwiftUI paywall over whatever is currently on screen (the
+    /// live SwiftUI shell). We intentionally do NOT swap the window's root —
+    /// `present(_:)` only works when the presenter is already in the view
+    /// hierarchy, which the existing shell is. Finds the top-most presented
+    /// controller and presents the paywall there.
+    @MainActor
+    func presentPaywallOverCurrent() {
+        guard let root = window?.rootViewController else {
+            logger.error("Gate: no rootViewController to present paywall over")
+            return
+        }
+        var top = root
+        while let presented = top.presentedViewController {
+            top = presented
+        }
+        logger.info("Gate: presenting paywall over \(type(of: top))")
+        top.presentIAPSubscriptionView(store: store)
+    }
+
+    /// Builds the in-editor free-tier gate for characters and scenes. The free
+    /// tier allows **1 character** and **1 scene** per screenplay; crossing
+    /// either surfaces the paywall. A user is unlocked for a feature if they
+    /// have all-access OR the specific feature entitlement (Character Builder /
+    /// Scene Builder), matching the legacy `characterFeatureEnabled` /
+    /// `sceneFeatureEnabled` flags.
+    @MainActor
+    private func makeEditorGate() -> EditorGate {
+        let freeCharacterLimit = 1
+        let freeSceneLimit = 1
+        let store = self.store
+        return EditorGate(
+            canAddCharacter: { existingCount in
+                let unlocked = store.allAccessEnabled || store.characterFeatureEnabled
+                return unlocked || existingCount < freeCharacterLimit
+            },
+            canAddScene: { existingCount in
+                let unlocked = store.allAccessEnabled || store.sceneFeatureEnabled
+                return unlocked || existingCount < freeSceneLimit
+            },
+            onBlocked: { [weak self] in
+                DispatchQueue.main.async { self?.presentPaywallOverCurrent() }
+            },
+            entitlementSignal: editorEntitlementSignal
+        )
+    }
+
+    /// Signs the user out via `FirebaseAuthService` and returns to the login
+    /// screen.
+    func signOutToLogin() {
+        do {
+            try firebaseAuthService.signOut()
+        } catch {
+            logger.error("Sign-out failed: \(error.localizedDescription)")
+        }
+        presentLoginScreen()
+    }
+
+    func makeKeyAndVisible() {
+        self.window?.makeKeyAndVisible()
+        determineInterfaceStyle()
+    }
+
+    /// Resolves the persisted appearance choice into a UIKit interface style.
+    func persistedInterfaceStyle() -> UIUserInterfaceStyle {
+        let interfaceStyleRawValue = UserDefaults.standard.integer(forKey: InterfaceStyle.userDefaultsKey)
+        let interfaceStyle = InterfaceStyle(rawValue: interfaceStyleRawValue) ?? .defaultSelected
+        return interfaceStyle.systemInterfaceStyle
+    }
+
+    func determineInterfaceStyle() {
+        // Apply directly to our own window. At launch the scene's `keyWindow`
+        // may not yet resolve to this window, so going through
+        // `UIApplication.set(style:)` (which looks the window up via the scene)
+        // can silently no-op — leaving the persisted appearance unapplied.
+        window?.overrideUserInterfaceStyle = persistedInterfaceStyle()
+    }
+
+    // MARK: - Profile interface style bridging
+
+    /// Maps the persisted legacy `InterfaceStyle` to the SwiftUI-facing
+    /// `ProfileInterfaceStyle` shown in the profile's appearance picker.
+    ///
+    /// Formatted app version string (e.g. "Version 1.0 (1)") built from the main
+    /// bundle, shown quietly in the profile footer.
+    static var appVersionText: String {
+        let release = Bundle.main.releaseVersionNumber ?? "1.0"
+        let build = Bundle.main.buildVersionNumber ?? "1"
+        return "Version \(release) (\(build))"
+    }
+
+    /// `nonisolated` because it only reads from `UserDefaults` (thread-safe) and
+    /// is invoked from a `@Sendable` provider closure the profile calls on
+    /// appear.
+    nonisolated private func currentProfileInterfaceStyle() -> ProfileInterfaceStyle {
+        let raw = UserDefaults.standard.integer(forKey: InterfaceStyle.userDefaultsKey)
+        switch InterfaceStyle(rawValue: raw) ?? .defaultSelected {
+        case .defaultSelected: return .system
+        case .lightModeSelected: return .light
+        case .darkModeSelected: return .dark
+        }
+    }
+
+    /// Persists the user's chosen appearance and applies it live to the window,
+    /// reusing the same `InterfaceStyle` machinery the legacy Settings used.
+    private func applyProfileInterfaceStyle(_ style: ProfileInterfaceStyle) {
+        let legacy: InterfaceStyle
+        switch style {
+        case .system: legacy = .defaultSelected
+        case .light: legacy = .lightModeSelected
+        case .dark: legacy = .darkModeSelected
+        }
+        UserDefaults.standard.set(legacy.rawValue, forKey: InterfaceStyle.userDefaultsKey)
+        window?.overrideUserInterfaceStyle = legacy.systemInterfaceStyle
+    }
+}
+
+
+extension UIApplication {
+    
+    var mainWindow: UIWindow? {
+        UIApplication
+            .shared
+            .connectedScenes
+            .compactMap { ($0 as? UIWindowScene)?.keyWindow }
+            .last
+    }
+
+    var interfaceStyle: UIUserInterfaceStyle? {
+        mainWindow?.overrideUserInterfaceStyle
+    }
+    
+    func set(style: InterfaceStyle) {
+        mainWindow?.overrideUserInterfaceStyle = style.systemInterfaceStyle
+    }
+}
+
+// MARK: - UIDBox
+
+/// Thread-safe holder for the current user's id. The repository's
+/// `uidProvider` closure is `@Sendable` and may be invoked off the main actor
+/// (e.g. inside an RTDB observer), so access is guarded by a lock.
+final class UIDBox: @unchecked Sendable {
+    private let lock = NSLock()
+    private var _uid: String?
+
+    var uid: String? {
+        get { lock.withLock { _uid } }
+        set { lock.withLock { _uid = newValue } }
+    }
+}
