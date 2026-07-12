@@ -28,6 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// on `Domain.AppLogger`; this is the concrete OS-backed implementation.
     let logger: AppLogger = SystemLogger(category: "Gate")
 
+    /// Coordinates the App Store review prompt: records engagement signals and
+    /// presents Apple's native rating sheet at "moments of delight".
+    private lazy var reviewCoordinator = ReviewCoordinator()
+
     private let firebaseAuthService = FirebaseAuthData.FirebaseAuthService()
 
     /// The single app-lifetime purchase store, owned here at the composition
@@ -101,6 +105,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         FirebaseDataPersistence.enableDiskPersistence()
 
+        // Record an "app opened" engagement signal so the review trigger can
+        // count distinct active days (a guardrail before ever prompting).
+        reviewCoordinator.record(.appOpened(on: Date()))
+
         // Keep the repository's uid in sync with the *actual* Firebase session.
         // This covers a session restored on launch (when the sign-in callback
         // never fires) as well as fresh sign-in and sign-out — without it the
@@ -125,6 +133,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         return true
+    }
+
+    /// Tracks a running count of screenplays the user has created and feeds a
+    /// `screenplayCreated` signal to the review trigger (which only qualifies
+    /// once they're on their 2nd+ screenplay — a sign of real investment).
+    private func recordScreenplayCreated() {
+        let key = "review.screenplaysCreatedTotal"
+        let total = UserDefaults.standard.integer(forKey: key) + 1
+        UserDefaults.standard.set(total, forKey: key)
+        reviewCoordinator.record(.screenplayCreated(total: total))
     }
 
     /// Debug-only escape hatch so the dashboard (and its chrome) can be
@@ -286,10 +304,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     screenplay: screenplay,
                     repository: repository,
                     gate: self?.makeEditorGate() ?? .unrestricted,
-                    onDelete: onDelete
+                    onDelete: onDelete,
+                    onShared: { [weak self] in
+                        self?.reviewCoordinator.record(.screenplayExported)
+                    }
                 ))
             },
-            makeNewScreenplay: {
+            makeNewScreenplay: { [weak self] in
                 // Build a fresh screenplay, persist it so it appears in the
                 // dashboard stream, and return it for the shell to open.
                 let screenplay = Domain.Screenplay(title: "Untitled", authorName: displayName)
@@ -297,6 +318,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     do { try await repository.save(screenplay) }
                     catch { NSLog("Create screenplay save failed: \(error.localizedDescription)") }
                 }
+                self?.recordScreenplayCreated()
                 return screenplay
             }
         )
