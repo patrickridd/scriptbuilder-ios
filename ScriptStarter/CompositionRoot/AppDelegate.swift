@@ -307,6 +307,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     onDelete: onDelete,
                     onShared: { [weak self] in
                         self?.reviewCoordinator.record(.screenplayExported)
+                    },
+                    onOutlineCompleted: { [weak self] in
+                        self?.reviewCoordinator.record(.outlineCompleted)
                     }
                 ))
             },
