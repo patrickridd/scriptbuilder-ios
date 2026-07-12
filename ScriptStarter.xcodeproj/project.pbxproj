@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		212DEA7B2012746500FE9C3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA7A2012746500FE9C3F /* Assets.xcassets */; };
 		212DEA7E2012746500FE9C3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212DEA7C2012746500FE9C3F /* LaunchScreen.storyboard */; };
+		2132CC963004061400E82814 /* ReviewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2132CC953004061400E82814 /* ReviewSupport.swift */; };
 		2151D9672FE2EB4E00710843 /* FirebaseData in Frameworks */ = {isa = PBXBuildFile; productRef = 2151D9662FE2EB4E00710843 /* FirebaseData */; };
 		2159B8782FF193F500181DBE /* FeaturePaywall in Frameworks */ = {isa = PBXBuildFile; productRef = 2159B8772FF193F500181DBE /* FeaturePaywall */; };
 		215DDCD321EFD30800C52B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 215DDCD221EFD30800C52B6C /* GoogleService-Info.plist */; };
@@ -48,6 +49,7 @@
 		212DEA7D2012746500FE9C3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		212DEA7F2012746600FE9C3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		212DEA842012746600FE9C3F /* ScriptStarterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScriptStarterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2132CC953004061400E82814 /* ReviewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSupport.swift; sourceTree = "<group>"; };
 		21368526220CB3C10019A9A8 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2136853E220E0F0D0019A9A8 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		21368545220E0F940019A9A8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 			children = (
 				21C1BE4F2FEEC029001F4DE0 /* AppDelegate.swift */,
 				21C1BE502FEEC029001F4DE0 /* RootShellView.swift */,
+				2132CC953004061400E82814 /* ReviewSupport.swift */,
 			);
 			path = CompositionRoot;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				218FF5CB2CEADFB000D4A14D /* Store.swift in Sources */,
 				21D727F2202CFD2400861C2D /* Extension+ViewController.swift in Sources */,
 				21C1BE522FEEC029001F4DE0 /* AppDelegate.swift in Sources */,
+				2132CC963004061400E82814 /* ReviewSupport.swift in Sources */,
 				21C1BE532FEEC029001F4DE0 /* RootShellView.swift in Sources */,
 				21CC3B392FF1972C005F9236 /* Store+PaywallStore.swift in Sources */,
 			);
@@ -507,7 +511,7 @@
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = ScriptStarter/ScriptStarter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -548,7 +552,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.patrickridd.ScriptStarter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -564,7 +568,7 @@
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = ScriptStarter/ScriptStarter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -605,7 +609,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.patrickridd.ScriptStarter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";

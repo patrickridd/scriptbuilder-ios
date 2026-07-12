@@ -26,7 +26,16 @@ import StoreKitTest
 import FeaturePaywall
 @testable import ScriptStarter
 
+/// `.serialized` is required: these tests drive `SKTestSession`, whose
+/// transaction store is **process-global**. Swift Testing runs test methods in
+/// parallel by default, so without serialization one test's `makeSession()`
+/// (which calls `resetToDefaultState()` + `clearTransactions()`) or its
+/// purchases would clobber another test's StoreKit state mid-run. That's why
+/// `lifetimeEntitlementGrantsAccess` passed in isolation but failed in the full
+/// suite: a concurrently-running test wiped the lifetime transaction it depends
+/// on. Serializing makes each test own the shared StoreKit state exclusively.
 @MainActor
+@Suite(.serialized)
 struct StoreTests {
 
     // Product identifiers from ScriptBuilderStore.storekit / Products.plist.
@@ -113,15 +122,26 @@ struct StoreTests {
         #expect(store.allAccessEnabled)
     }
 
-    @Test("Owning the lifetime product grants access via the catalog fallback")
+    @Test("Owning the lifetime product still grants access after it's removed from sale")
     func lifetimeEntitlementGrantsAccess() async throws {
         let session = try makeSession()
-        // Grant the lifetime non-consumable directly, independent of the catalog.
+        // Simulate a customer who bought lifetime *before* it was pulled from sale.
+        // The `.storekit` config still describes the product (so StoreKitTest can mint
+        // the transaction), but the app no longer offers it: `unlimited_forever` was
+        // removed from `Products.plist`, so `Store` never requests it and it never
+        // appears in the loaded catalog.
         try await session.buyProduct(identifier: Self.lifetimeID)
 
         let store = try await makeLoadedStore()
         try await waitUntil { store.unlimitedForeverEnabled }
 
+        // The product is not for sale — it must be absent from the loaded catalog...
+        let catalogIDs = Set(store.subscriptions.map(\.id))
+            .union(store.nonConsumables.map(\.id))
+        #expect(!catalogIDs.contains(Self.lifetimeID),
+                "Lifetime is removed from sale, so it must not appear in the catalog.")
+
+        // ...yet the standing entitlement from the prior purchase keeps the owner unlocked.
         #expect(store.unlimitedForeverEnabled)
         #expect(store.allAccessEnabled)
     }
