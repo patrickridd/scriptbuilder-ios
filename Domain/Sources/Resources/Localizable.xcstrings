@@ -1,0 +1,792 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "act.1.title" : {
+      "comment" : "Human-facing label for the first act.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Akt I"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Act I"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acto I"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acte I"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अंक I"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第1幕"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1막"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第一幕"
+          }
+        }
+      }
+    },
+    "act.2.title" : {
+      "comment" : "Human-facing label for the second act.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Akt II"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Act II"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acto II"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acte II"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अंक II"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第2幕"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2막"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第二幕"
+          }
+        }
+      }
+    },
+    "act.3.title" : {
+      "comment" : "Human-facing label for the third act.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Akt III"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Act III"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acto III"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acte III"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अंक III"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第3幕"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3막"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第三幕"
+          }
+        }
+      }
+    },
+    "beat.oldWorldDescription.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Alte Welt" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Old World" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Mundo antiguo" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ancien monde" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "पुरानी दुनिया" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "旧世界" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "옛 세계" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "旧世界" } }
+      }
+    },
+    "beat.oldWorldDescription.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wie sieht das Leben aus, bevor die Geschichte beginnt?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What is life like before the story begins?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Cómo es la vida antes de que comience la historia?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "À quoi ressemble la vie avant que l'histoire ne commence ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कहानी शुरू होने से पहले जीवन कैसा है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "物語が始まる前の生活はどのようなものですか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이야기가 시작되기 전의 삶은 어떤가요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "故事开始前的生活是什么样的？" } }
+      }
+    },
+    "beat.incitingIncident.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Auslösendes Ereignis" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Inciting Incident" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Incidente desencadenante" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Élément déclencheur" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रेरक घटना" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "発端の出来事" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "발단 사건" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "触发事件" } }
+      }
+    },
+    "beat.incitingIncident.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Welches Ereignis bringt die Geschichte in Gang?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What event kicks the story into motion?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué evento pone la historia en marcha?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quel événement met l'histoire en mouvement ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कौन सी घटना कहानी को गति देती है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "どんな出来事が物語を動かし始めますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "어떤 사건이 이야기를 움직이게 하나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "什么事件让故事开始运转？" } }
+      }
+    },
+    "beat.callToAdventure.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ruf des Abenteuers" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Call to Adventure" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Llamada a la aventura" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Appel à l'aventure" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "साहसिक कार्य का आह्वान" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "冒険への誘い" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "모험으로의 부름" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "冒险的召唤" } }
+      }
+    },
+    "beat.callToAdventure.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Welche Herausforderung oder Gelegenheit stellt sich deinem Helden?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What challenge or opportunity is presented to your hero?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué desafío u oportunidad se le presenta a tu héroe?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quel défi ou quelle opportunité se présente à votre héros ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपके नायक के सामने कौन सी चुनौती या अवसर प्रस्तुत होता है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "主人公にどんな試練や機会が提示されますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "주인공에게 어떤 도전이나 기회가 주어지나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的主角面临什么挑战或机遇？" } }
+      }
+    },
+    "beat.meetingMentor.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Begegnung mit dem Mentor" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Meeting the Mentor" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Encuentro con el mentor" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rencontre avec le mentor" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "गुरु से मुलाकात" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "師との出会い" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "멘토와의 만남" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "遇见导师" } }
+      }
+    },
+    "beat.meetingMentor.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wer leitet deinen Helden, und was bietet er an?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Who guides your hero, and what do they offer?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Quién guía a tu héroe y qué le ofrece?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Qui guide votre héros, et que lui offre-t-il ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपके नायक का मार्गदर्शन कौन करता है, और वे क्या प्रदान करते हैं?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "誰が主人公を導き、何を与えますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "누가 주인공을 이끌고 무엇을 제공하나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "谁在引导你的主角，他们提供了什么？" } }
+      }
+    },
+    "beat.theme.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Thema" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Theme" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Tema" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Thème" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "विषय" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "テーマ" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "주제" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "主题" } }
+      }
+    },
+    "beat.theme.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Welche tiefere Idee oder Frage erkundet die Geschichte?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What deeper idea or question does the story explore?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué idea o pregunta más profunda explora la historia?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quelle idée ou question plus profonde l'histoire explore-t-elle ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कहानी किस गहरे विचार या प्रश्न की पड़ताल करती है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "物語はどんな深い考えや問いを探求しますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이야기가 탐구하는 더 깊은 생각이나 질문은 무엇인가요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "故事探讨了什么更深层的思想或问题？" } }
+      }
+    },
+    "beat.refusal.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Weigerung gegenüber dem Ruf" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Refusal of the Call" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Rechazo de la llamada" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Refus de l'appel" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आह्वान की अस्वीकृति" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "誘いの拒絶" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "부름의 거부" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "拒绝召唤" } }
+      }
+    },
+    "beat.refusal.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Warum zögert dein Held oder widersetzt sich dem Ruf?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Why does your hero hesitate or resist the call?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Por qué duda tu héroe o se resiste a la llamada?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Pourquoi votre héros hésite-t-il ou résiste-t-il à l'appel ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपका नायक क्यों झिझकता है या आह्वान का विरोध करता है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "なぜ主人公はためらったり、誘いに抵抗したりしますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "주인공은 왜 망설이거나 부름에 저항하나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的主角为什么犹豫或抗拒召唤？" } }
+      }
+    },
+    "beat.reasonToAdventure.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Grund für das Abenteuer" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reason to Adventure" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Razón para la aventura" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Raison de l'aventure" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "साहसिक कार्य का कारण" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "冒険への理由" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "모험의 이유" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "冒险的理由" } }
+      }
+    },
+    "beat.reasonToAdventure.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Was bringt deinen Helden schließlich dazu, sich zu verpflichten?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What finally pushes your hero to commit?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué empuja finalmente a tu héroe a comprometerse?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Qu'est-ce qui pousse finalement votre héros à s'engager ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आखिरकार आपके नायक को प्रतिबद्ध होने के लिए क्या प्रेरित करता है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "何が最終的に主人公を決意させますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "무엇이 마침내 주인공을 결심하게 하나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "最终是什么促使你的主角下定决心？" } }
+      }
+    },
+    "beat.enemyAtTheGates.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Feind vor den Toren" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enemy at the Gates" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Enemigo a las puertas" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "L'ennemi aux portes" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "द्वार पर शत्रु" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "門前の敵" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "문 앞의 적" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "兵临城下" } }
+      }
+    },
+    "beat.enemyAtTheGates.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Welche Bedrohung droht am Ende des ersten Akts?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What threat looms as the first act closes?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué amenaza se cierne al cerrarse el primer acto?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quelle menace plane à la fin du premier acte ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "पहले अंक के समाप्त होते ही कौन सा खतरा मंडराता है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "第一幕の終わりにどんな脅威が迫りますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "1막이 끝날 때 어떤 위협이 다가오나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "第一幕结束时有什么威胁逼近？" } }
+      }
+    },
+    "beat.newWorldDescription.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Neue Welt" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "New World" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Mundo nuevo" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Nouveau monde" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "नई दुनिया" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "新世界" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "새로운 세계" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "新世界" } }
+      }
+    },
+    "beat.newWorldDescription.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wie unterscheidet sich diese unbekannte Welt von der alten?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How is this unfamiliar world different from the old one?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿En qué se diferencia este mundo desconocido del antiguo?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "En quoi ce monde inconnu diffère-t-il de l'ancien ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "यह अपरिचित दुनिया पुरानी से कैसे अलग है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "この見知らぬ世界は古い世界とどう違いますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이 낯선 세계는 옛 세계와 어떻게 다른가요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "这个陌生的世界与旧世界有何不同？" } }
+      }
+    },
+    "beat.enemiesFriends.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Feinde & Freunde" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enemies & Friends" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Enemigos y amigos" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ennemis et amis" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "शत्रु और मित्र" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "敵と味方" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "적과 친구" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "敌人与朋友" } }
+      }
+    },
+    "beat.enemiesFriends.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wen trifft dein Held, und auf wessen Seite steht er?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Who does your hero meet, and whose side are they on?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿A quién conoce tu héroe y de qué lado está?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Qui votre héros rencontre-t-il, et de quel côté sont-ils ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपका नायक किससे मिलता है, और वे किसके पक्ष में हैं?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "主人公は誰に出会い、彼らはどちらの味方ですか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "주인공은 누구를 만나고, 그들은 누구 편인가요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的主角遇到了谁，他们站在哪一边？" } }
+      }
+    },
+    "beat.obstacles.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Hindernisse" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Obstacles" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Obstáculos" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Obstacles" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "बाधाएं" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "障害" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "장애물" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "障碍" } }
+      }
+    },
+    "beat.obstacles.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Welche Prüfungen stellen deinen Helden auf die Probe?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What trials test your hero along the way?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué pruebas ponen a prueba a tu héroe en el camino?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quelles épreuves mettent votre héros à l'épreuve en chemin ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "रास्ते में कौन सी परीक्षाएं आपके नायक को आजमाती हैं?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "道中どんな試練が主人公を試しますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "여정에서 어떤 시련이 주인공을 시험하나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "一路上有哪些考验在磨炼你的主角？" } }
+      }
+    },
+    "beat.sharpeningTheSword.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Das Schwert schärfen" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sharpening the Sword" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Afilando la espada" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aiguiser l'épée" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "तलवार की धार तेज करना" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "剣を研ぐ" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "검을 벼리다" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "磨砺利剑" } }
+      }
+    },
+    "beat.sharpeningTheSword.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wie wächst, trainiert oder bereitet sich dein Held vor?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How does your hero grow, train, or prepare?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Cómo crece, entrena o se prepara tu héroe?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Comment votre héros grandit-il, s'entraîne-t-il ou se prépare-t-il ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपका नायक कैसे बढ़ता, प्रशिक्षण लेता या तैयारी करता है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "主人公はどのように成長し、訓練し、準備しますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "주인공은 어떻게 성장하고, 훈련하고, 준비하나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的主角如何成长、训练或准备？" } }
+      }
+    },
+    "beat.burnTheBoats.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Die Brücken abbrechen" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Burn the Boats" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Quemar las naves" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Brûler les vaisseaux" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "नावें जला देना" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "退路を断つ" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "배수의 진" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "破釜沉舟" } }
+      }
+    },
+    "beat.burnTheBoats.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Welchen Punkt ohne Wiederkehr überschreitet dein Held?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What point of no return does your hero cross?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué punto sin retorno cruza tu héroe?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quel point de non-retour votre héros franchit-il ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपका नायक किस अपरिवर्तनीय बिंदु को पार करता है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "主人公はどんな引き返せない一線を越えますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "주인공은 어떤 돌이킬 수 없는 지점을 넘나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的主角跨越了怎样的不归点？" } }
+      }
+    },
+    "beat.theDeadlyEncounter.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Die tödliche Begegnung" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Deadly Encounter" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "El encuentro mortal" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La rencontre mortelle" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "घातक मुठभेड़" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "命がけの遭遇" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "치명적인 만남" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "致命的遭遇" } }
+      }
+    },
+    "beat.theDeadlyEncounter.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Welche folgenreiche Konfrontation steigert die Spannung?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What high-stakes confrontation raises the tension?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué confrontación de alto riesgo aumenta la tensión?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quelle confrontation à enjeux élevés fait monter la tension ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कौन सा उच्च-जोखिम टकराव तनाव बढ़ाता है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "どんな高リスクの対決が緊張を高めますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "어떤 위험한 대결이 긴장을 고조시키나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "什么高风险的对抗加剧了紧张气氛？" } }
+      }
+    },
+    "beat.celebrate.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Feiern" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Celebrate" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Celebrar" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Célébrer" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "जश्न मनाना" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "祝う" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "축하" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "庆祝" } }
+      }
+    },
+    "beat.celebrate.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Welchen falschen Sieg oder welche Verschnaufpause genießt dein Held?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What false victory or breather does your hero enjoy?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué falsa victoria o respiro disfruta tu héroe?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quelle fausse victoire ou quel répit votre héros savoure-t-il ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपका नायक किस झूठी जीत या राहत का आनंद लेता है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "主人公はどんな偽りの勝利や一息を味わいますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "주인공은 어떤 거짓 승리나 휴식을 즐기나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的主角享受着怎样的虚假胜利或喘息时刻？" } }
+      }
+    },
+    "beat.stormGathers.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Der Sturm zieht auf" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Storm Gathers" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "La tormenta se avecina" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La tempête se prépare" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "तूफान घिर आता है" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "嵐が近づく" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "폭풍이 모여든다" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "风暴聚集" } }
+      }
+    },
+    "beat.stormGathers.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wie beginnen sich die Dinge gegen deinen Helden zu wenden?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How do things start to turn against your hero?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Cómo empiezan las cosas a volverse en contra de tu héroe?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Comment les choses commencent-elles à se retourner contre votre héros ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "चीजें आपके नायक के खिलाफ कैसे मुड़ने लगती हैं?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "状況はどのように主人公に不利になり始めますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "상황이 어떻게 주인공에게 불리해지기 시작하나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "事情如何开始对你的主角不利？" } }
+      }
+    },
+    "beat.badGuysStrikeBack.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Die Bösewichte schlagen zurück" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Bad Guys Strike Back" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Los villanos contraatacan" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Les méchants contre-attaquent" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "खलनायकों का पलटवार" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "悪役の逆襲" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "악당의 반격" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "反派反击" } }
+      }
+    },
+    "beat.badGuysStrikeBack.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wie gewinnen die Antagonisten die Oberhand zurück?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How do the antagonists regain the upper hand?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Cómo recuperan la ventaja los antagonistas?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Comment les antagonistes reprennent-ils le dessus ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "विरोधी फिर से बढ़त कैसे हासिल करते हैं?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "敵役はどのように優位を取り戻しますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "적대자들은 어떻게 다시 우위를 되찾나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "反派如何重新占据上风？" } }
+      }
+    },
+    "beat.allIsLost.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Alles ist verloren" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All Is Lost" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Todo está perdido" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Tout est perdu" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "सब कुछ खो गया" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "すべてが失われる" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "모든 것을 잃다" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "一切尽失" } }
+      }
+    },
+    "beat.allIsLost.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Was ist der Tiefpunkt deines Helden?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What is your hero's lowest point?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Cuál es el punto más bajo de tu héroe?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quel est le point le plus bas de votre héros ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपके नायक का सबसे निचला बिंदु क्या है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "主人公のどん底は何ですか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "주인공의 가장 밑바닥은 무엇인가요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的主角的最低谷是什么？" } }
+      }
+    },
+    "beat.theUltimateAnswer.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Die ultimative Antwort" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Ultimate Answer" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "La respuesta definitiva" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La réponse ultime" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "अंतिम उत्तर" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "究極の答え" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "궁극의 해답" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "终极答案" } }
+      }
+    },
+    "beat.theUltimateAnswer.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Welche Erkenntnis oder welcher Plan lässt deinen Helden zurückschlagen?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What realization or plan lets your hero fight back?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué revelación o plan permite a tu héroe contraatacar?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quelle prise de conscience ou quel plan permet à votre héros de riposter ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कौन सा एहसास या योजना आपके नायक को पलटवार करने देती है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "どんな気づきや計画が主人公に反撃させますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "어떤 깨달음이나 계획이 주인공을 반격하게 하나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "什么领悟或计划让你的主角得以反击？" } }
+      }
+    },
+    "beat.timeIsRunningOut.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Die Zeit läuft ab" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time is Running Out" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "El tiempo se agota" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le temps presse" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "समय समाप्त हो रहा है" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "時間が尽きようとしている" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "시간이 얼마 남지 않았다" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "时间不多了" } }
+      }
+    },
+    "beat.timeIsRunningOut.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Welche tickende Uhr erzwingt jetzt die letzte Konfrontation?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What ticking clock forces the final confrontation right now?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué cuenta atrás fuerza la confrontación final ahora mismo?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quel compte à rebours force la confrontation finale maintenant ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कौन सी समय-सीमा अभी अंतिम टकराव को मजबूर करती है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "どんなタイムリミットが今すぐ最終決戦を迫りますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "어떤 시한이 지금 당장 최종 대결을 강요하나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "什么倒计时迫使最终对决此刻上演？" } }
+      }
+    },
+    "beat.climax.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Der Höhepunkt" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Climax" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "El clímax" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le point culminant" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "चरमोत्कर्ष" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "クライマックス" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "절정" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "高潮" } }
+      }
+    },
+    "beat.climax.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Was ist das letzte Hindernis, und was muss dein Held opfern, um zu gewinnen?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What is the ultimate obstacle, and what must your hero sacrifice to win?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Cuál es el obstáculo final y qué debe sacrificar tu héroe para ganar?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quel est l'obstacle ultime, et que doit sacrifier votre héros pour gagner ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "अंतिम बाधा क्या है, और जीतने के लिए आपके नायक को क्या त्याग करना होगा?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "究極の障害は何で、勝つために主人公は何を犠牲にしなければなりませんか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "궁극의 장애물은 무엇이며, 승리를 위해 주인공은 무엇을 희생해야 하나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "终极障碍是什么，你的主角必须牺牲什么才能获胜？" } }
+      }
+    },
+    "beat.rewards.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Belohnungen" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rewards" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Recompensas" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Récompenses" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "पुरस्कार" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "報酬" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "보상" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "回报" } }
+      }
+    },
+    "beat.rewards.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Was gewinnt dein Held aus dem Höhepunkt?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What does your hero gain from the climax?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué gana tu héroe con el clímax?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Que gagne votre héros du point culminant ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "चरमोत्कर्ष से आपके नायक को क्या मिलता है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "クライマックスから主人公は何を得ますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "절정에서 주인공은 무엇을 얻나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的主角从高潮中获得了什么？" } }
+      }
+    },
+    "beat.untangleStory.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Die Geschichte auflösen" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Untangle the Story" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Desenredar la historia" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Dénouer l'histoire" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कहानी को सुलझाना" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "物語を紐解く" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이야기 풀어내기" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "理清故事" } }
+      }
+    },
+    "beat.untangleStory.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wie werden die losen Fäden der Geschichte aufgelöst?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How are the story's loose threads resolved?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Cómo se resuelven los cabos sueltos de la historia?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Comment les fils narratifs restés en suspens sont-ils résolus ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कहानी के अधूरे सिरे कैसे सुलझते हैं?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "物語の未解決の伏線はどのように解決されますか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이야기의 미해결 실마리는 어떻게 풀리나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "故事的未解线索如何得到解决？" } }
+      }
+    },
+    "beat.brandNewWorld.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Eine ganz neue Welt" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Brand New World" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Un mundo completamente nuevo" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un tout nouveau monde" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "बिल्कुल नई दुनिया" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "まったく新しい世界" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "완전히 새로운 세계" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "崭新的世界" } }
+      }
+    },
+    "beat.brandNewWorld.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wie haben sich die Welt – und dein Held – verändert?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How has the world — and your hero — changed?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Cómo han cambiado el mundo y tu héroe?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Comment le monde — et votre héros — ont-ils changé ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "दुनिया — और आपका नायक — कैसे बदल गए हैं?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "世界と主人公はどのように変わりましたか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "세계와 주인공은 어떻게 변했나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "世界——以及你的主角——发生了怎样的变化？" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

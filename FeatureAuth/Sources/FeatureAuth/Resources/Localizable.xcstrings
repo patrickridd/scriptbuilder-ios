@@ -1,0 +1,487 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@. %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@. %2$@"
+          }
+        }
+      }
+    },
+    "auth.a11y.closeSignUp" : {
+      "comment" : "Accessibility label for the sign-up close button.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Registrierung schließen" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Close sign up" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Cerrar registro" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fermer l’inscription" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "साइन अप बंद करें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "サインアップを閉じる" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "회원가입 닫기" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "关闭注册" } }
+      }
+    },
+    "auth.a11y.continueFacebook" : {
+      "comment" : "Accessibility label for Facebook sign-in.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Mit Facebook fortfahren" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Continue with Facebook" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Continuar con Facebook" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Continuer avec Facebook" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "Facebook के साथ जारी रखें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Facebook で続ける" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "Facebook으로 계속하기" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "使用 Facebook 继续" } }
+      }
+    },
+    "auth.a11y.signInApple" : {
+      "comment" : "Accessibility label for Apple sign-in.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Mit Apple anmelden" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign in with Apple" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Iniciar sesión con Apple" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Se connecter avec Apple" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "Apple से साइन इन करें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Apple でサインイン" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "Apple로 로그인" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "通过 Apple 登录" } }
+      }
+    },
+    "auth.a11y.signInGoogle" : {
+      "comment" : "Accessibility label for Google sign-in.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Mit Google anmelden" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign in with Google" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Iniciar sesión con Google" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Se connecter avec Google" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "Google से साइन इन करें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Google でサインイン" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "Google로 로그인" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "通过 Google 登录" } }
+      }
+    },
+    "auth.a11y.signUpApple" : {
+      "comment" : "Accessibility label for Apple sign-up.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Mit Apple registrieren" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign up with Apple" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Registrarse con Apple" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "S’inscrire avec Apple" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "Apple से साइन अप करें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Apple で登録" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "Apple로 회원가입" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "通过 Apple 注册" } }
+      }
+    },
+    "auth.a11y.signUpFacebook" : {
+      "comment" : "Accessibility label for Facebook sign-up.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Mit Facebook registrieren" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign up with Facebook" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Registrarse con Facebook" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "S’inscrire avec Facebook" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "Facebook से साइन अप करें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Facebook で登録" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "Facebook으로 회원가입" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "通过 Facebook 注册" } }
+      }
+    },
+    "auth.a11y.signUpGoogle" : {
+      "comment" : "Accessibility label for Google sign-up.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Mit Google registrieren" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign up with Google" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Registrarse con Google" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "S’inscrire avec Google" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "Google से साइन अप करें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Google で登録" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "Google로 회원가입" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "通过 Google 注册" } }
+      }
+    },
+    "auth.alert.ok" : {
+      "comment" : "Dismiss button on the error alert.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "OK" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "OK" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Aceptar" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "OK" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "ठीक है" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "OK" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "확인" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "好" } }
+      }
+    },
+    "auth.status.signingIn" : {
+      "comment" : "Shown on the loading overlay while logging the user in.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Anmeldung läuft…" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Signing you in…" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Iniciando sesión…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Connexion en cours…" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "साइन इन किया जा रहा है…" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "サインインしています…" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "로그인 중…" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "正在登录…" } }
+      }
+    },
+    "auth.status.signingUp" : {
+      "comment" : "Shown on the loading overlay while creating the account.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Konto wird erstellt…" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Creating your account…" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Creando tu cuenta…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Création de votre compte…" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपका खाता बनाया जा रहा है…" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アカウントを作成しています…" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "계정을 만드는 중…" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "正在创建你的账户…" } }
+      }
+    },
+    "auth.alert.title" : {
+      "comment" : "Title of the error alert.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Hinweis" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Heads up" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Atención" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Attention" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "ध्यान दें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "お知らせ" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "알림" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "提示" } }
+      }
+    },
+    "auth.button.createAccount" : {
+      "comment" : "Primary sign-up button.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Konto erstellen" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create Account" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Crear cuenta" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Créer un compte" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "खाता बनाएँ" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アカウントを作成" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "계정 만들기" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "创建账户" } }
+      }
+    },
+    "auth.button.login" : {
+      "comment" : "Primary login button.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Anmelden" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Log In" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Iniciar sesión" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Se connecter" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "लॉग इन करें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ログイン" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "로그인" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "登录" } }
+      }
+    },
+    "auth.config.default.appName" : {
+      "comment" : "Fallback app name shown in the brand header when none is provided.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Dein App-Name" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your App Name" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Nombre de tu app" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Nom de votre app" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपके ऐप का नाम" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アプリ名" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "앱 이름" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的应用名称" } }
+      }
+    },
+    "auth.config.default.loginFooterPrompt" : {
+      "comment" : "Fallback footer prompt before the Sign up link on login.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Neu bei [dein App-Name]?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "New to [your app name]?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Nuevo en [tu app]?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Nouveau sur [nom de votre app] ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "[आपके ऐप का नाम] पर नए हैं?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "[アプリ名] は初めてですか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "[앱 이름]이 처음이신가요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "第一次使用[你的应用名称]？" } }
+      }
+    },
+    "auth.config.default.loginSubtitle" : {
+      "comment" : "Fallback subtitle under the title on the login screen.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Hier steht der Untertitel deiner App" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your personal app subtitle here" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "El subtítulo de tu app aquí" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le sous-titre de votre app ici" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "यहाँ आपके ऐप का उपशीर्षक" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ここにアプリのサブタイトル" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "여기에 앱 부제목을 입력하세요" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "在此填写你的应用副标题" } }
+      }
+    },
+    "auth.config.default.signUpFooterPrompt" : {
+      "comment" : "Fallback footer prompt before the Log in link on sign-up.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Hast du bereits ein Konto?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Already have an account?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Ya tienes una cuenta?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vous avez déjà un compte ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "पहले से खाता है?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "すでにアカウントをお持ちですか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이미 계정이 있으신가요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已经有账户了？" } }
+      }
+    },
+    "auth.config.default.signUpSubtitle" : {
+      "comment" : "Fallback subtitle on the sign-up screen.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Erstelle dein Konto, um zu starten" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create your account to start" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Crea tu cuenta para empezar" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Créez votre compte pour commencer" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "शुरू करने के लिए अपना खाता बनाएँ" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アカウントを作成して始めましょう" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "시작하려면 계정을 만드세요" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "创建账户即可开始" } }
+      }
+    },
+    "auth.divider.continueWith" : {
+      "comment" : "Divider label on the login screen.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "oder fortfahren mit" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "or continue with" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "o continúa con" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "ou continuer avec" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "या इसके साथ जारी रखें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "または次で続ける" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "또는 다음으로 계속하기" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "或使用以下方式继续" } }
+      }
+    },
+    "auth.divider.signUpWith" : {
+      "comment" : "Divider label on the sign-up screen.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "oder registrieren mit" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "or sign up with" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "o regístrate con" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "ou s’inscrire avec" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "या इसके साथ साइन अप करें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "または次で登録" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "또는 다음으로 회원가입" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "或使用以下方式注册" } }
+      }
+    },
+    "auth.error.login.invalid" : {
+      "comment" : "Validation error when login fields are invalid.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Gib eine gültige E-Mail und ein Passwort mit mindestens 6 Zeichen ein." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enter a valid email and a password of at least 6 characters." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Introduce un correo válido y una contraseña de al menos 6 caracteres." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Saisissez une adresse e-mail valide et un mot de passe d’au moins 6 caractères." } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "एक मान्य ईमेल और कम से कम 6 अक्षरों का पासवर्ड दर्ज करें।" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "有効なメールアドレスと6文字以上のパスワードを入力してください。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "유효한 이메일과 6자 이상의 비밀번호를 입력하세요." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "请输入有效的电子邮件和至少 6 个字符的密码。" } }
+      }
+    },
+    "auth.error.reset.needEmail" : {
+      "comment" : "Prompt to enter an email before requesting a password reset.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Gib oben deine E-Mail ein und tippe erneut auf „Passwort vergessen?“." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enter your email above, then tap “Forgot password?” again." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Introduce tu correo arriba y vuelve a tocar «¿Olvidaste tu contraseña?»." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Saisissez votre e-mail ci-dessus, puis touchez à nouveau « Mot de passe oublié ? »." } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "ऊपर अपना ईमेल दर्ज करें, फिर “पासवर्ड भूल गए?” पर दोबारा टैप करें।" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "上にメールアドレスを入力してから、もう一度「パスワードをお忘れですか？」をタップしてください。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "위에 이메일을 입력한 다음 “비밀번호를 잊으셨나요?”를 다시 탭하세요." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "请在上方输入你的电子邮件，然后再次点击“忘记密码？”。" } }
+      }
+    },
+    "auth.error.signUp.invalid" : {
+      "comment" : "Validation error when sign-up fields are incomplete.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Bitte fülle alle Felder aus. Passwörter benötigen mindestens 6 Zeichen." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Please fill in every field. Passwords need at least 6 characters." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Completa todos los campos. Las contraseñas necesitan al menos 6 caracteres." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Veuillez remplir tous les champs. Les mots de passe doivent comporter au moins 6 caractères." } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कृपया हर फ़ील्ड भरें। पासवर्ड में कम से कम 6 अक्षर होने चाहिए।" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "すべての項目を入力してください。パスワードは6文字以上必要です。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "모든 항목을 입력하세요. 비밀번호는 6자 이상이어야 합니다." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "请填写所有字段。密码至少需要 6 个字符。" } }
+      }
+    },
+    "auth.field.email.placeholder" : {
+      "comment" : "Email field placeholder.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "du@beispiel.com" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "you@example.com" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "tu@ejemplo.com" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "vous@exemple.com" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "aap@udaharan.com" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "you@example.com" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "you@example.com" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "you@example.com" } }
+      }
+    },
+    "auth.field.email.title" : {
+      "comment" : "Email field label.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "E-Mail" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Email" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Correo electrónico" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "E-mail" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "ईमेल" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "メール" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이메일" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "电子邮件" } }
+      }
+    },
+    "auth.field.firstName.placeholder" : {
+      "comment" : "First name placeholder.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Anna" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Jane" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Ana" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Marie" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रिया" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "花子" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "지민" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "小明" } }
+      }
+    },
+    "auth.field.firstName.title" : {
+      "comment" : "First name field label.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Vorname" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "First name" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Nombre" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Prénom" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "पहला नाम" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "名" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이름" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "名字" } }
+      }
+    },
+    "auth.field.lastName.placeholder" : {
+      "comment" : "Last name placeholder.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Müller" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Doe" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "García" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Dupont" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "शर्मा" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "山田" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "김" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "王" } }
+      }
+    },
+    "auth.field.lastName.title" : {
+      "comment" : "Last name field label.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Nachname" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Last name" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Apellido" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Nom" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "अंतिम नाम" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "姓" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "성" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "姓氏" } }
+      }
+    },
+    "auth.field.password.placeholder" : {
+      "comment" : "Login password placeholder.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Dein Passwort" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your password" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Tu contraseña" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre mot de passe" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपका पासवर्ड" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "パスワード" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "비밀번호" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的密码" } }
+      }
+    },
+    "auth.field.password.placeholder.min" : {
+      "comment" : "Sign-up password placeholder noting the minimum length.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Mindestens 6 Zeichen" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "At least 6 characters" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Al menos 6 caracteres" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Au moins 6 caractères" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कम से कम 6 अक्षर" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "6文字以上" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "6자 이상" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "至少 6 个字符" } }
+      }
+    },
+    "auth.field.password.title" : {
+      "comment" : "Password field label.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Passwort" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Password" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Contraseña" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Mot de passe" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "पासवर्ड" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "パスワード" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "비밀번호" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "密码" } }
+      }
+    },
+    "auth.link.forgotPassword" : {
+      "comment" : "Forgot password link.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Passwort vergessen?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Forgot password?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Olvidaste tu contraseña?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Mot de passe oublié ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "पासवर्ड भूल गए?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "パスワードをお忘れですか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "비밀번호를 잊으셨나요?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "忘记密码？" } }
+      }
+    },
+    "auth.link.logIn" : {
+      "comment" : "Log in link in the sign-up footer.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Anmelden" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Log in" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Inicia sesión" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Se connecter" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "लॉग इन करें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ログイン" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "로그인" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "登录" } }
+      }
+    },
+    "auth.link.signUp" : {
+      "comment" : "Sign up link in the login footer.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Registrieren" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign up" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Regístrate" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "S’inscrire" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "साइन अप करें" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "登録" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "회원가입" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "注册" } }
+      }
+    },
+    "auth.reset.sent" : {
+      "comment" : "Confirmation after a password reset email is sent. %@ is the email address.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wir haben einen Link zum Zurücksetzen des Passworts an %@ gesendet." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "We've sent a password reset link to %@." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Hemos enviado un enlace de restablecimiento a %@." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Nous avons envoyé un lien de réinitialisation du mot de passe à %@." } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "हमने %@ पर पासवर्ड रीसेट लिंक भेज दिया है।" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "%@ にパスワード再設定リンクを送信しました。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "%@(으)로 비밀번호 재설정 링크를 보냈습니다." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "我们已向 %@ 发送了密码重置链接。" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}
