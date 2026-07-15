@@ -7,6 +7,12 @@
 !*.xcworkspace/contents.xcworkspacedata
 !*.xcworkspace/xcshareddata/
 
+# Swift Package Manager build cache (never commit — regenerates on build)
+.build/
+**/.build/
+.swiftpm/
+Package.resolved
+
 # macOS
 .DS_Store
 *.swp
