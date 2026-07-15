@@ -75,6 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private lazy var authConfiguration: AuthConfiguration = {
         AuthConfiguration(
             appName: "Script Builder",
+            logo: Image("AppLogo"),
             loginSubtitle: "From your screen to the silver screen",
             signUpSubtitle: "Create your account to start writing",
             loginFooterPrompt: "New to Script Builder?",
@@ -296,6 +297,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 AnyView(ScreenplaysView(
                     repository: repository,
                     config: config,
+                    logo: Image("AppLogo"),
                     transitionNamespace: namespace
                 ))
             },

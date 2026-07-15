@@ -1,0 +1,72 @@
+# SwiftLint configuration for FeatureAuth-Dev
+#
+# Focus of this config: flag short / single-letter variable names so we keep
+# self-documenting identifiers like `container` instead of `c`.
+#
+# To use it locally, install SwiftLint:  brew install swiftlint
+# The build phase added to the app target runs it automatically when present.
+
+# Directories SwiftLint should scan. The Swift Package sources and the demo app.
+included:
+  - FeatureAuthDemo
+  - FeatureAuth/Sources
+  - FirebaseData/Sources
+  - FirebaseAuthData/Sources
+  - AuthDomain/Sources
+  - Domain/Sources
+
+# Never lint generated code, dependencies, or the legacy UIKit project.
+excluded:
+  - "**/.build"
+  - "**/Package.swift"
+  - scriptbuilder-ios
+  - "**/Tests"
+
+# Enforce descriptive identifier names. This is the rule that catches `c`, `vm`,
+# etc. We keep a small allow-list for conventional short names so loops and math
+# stay readable.
+identifier_name:
+  min_length:
+    warning: 3
+    error: 2
+  max_length:
+    warning: 50
+    error: 60
+  allowed_symbols: ["_"]
+  excluded:
+    - id
+    - x
+    - y
+    - z
+    - i
+    - j
+    - k
+    - dx
+    - dy
+    - to
+    - up
+    - ok
+    - URL
+    - url
+
+# Type names should also be descriptive, but allow common short generics.
+type_name:
+  min_length:
+    warning: 3
+    error: 2
+  excluded:
+    - T
+    - U
+    - V
+
+# Keep noise low: only the rules we care about should fail the build.
+# Everything else stays at the default warning level.
+disabled_rules:
+  - line_length
+  - todo
+  - trailing_whitespace
+  - file_length
+  - type_body_length
+  - function_body_length
+
+reporter: "xcode"

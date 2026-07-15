@@ -1,0 +1,235 @@
+name: ScriptStarter
+options:
+  bundleIdPrefix: com.superapp
+  developmentLanguage: en
+
+packages:
+  FeatureAuth:
+    url: https://github.com/patrickridd/FeatureAuth.git
+    from: 3.2.1
+  DesignSystem:
+    path: DesignSystem
+  FeatureScreenplays:
+    path: FeatureScreenplays
+  FeatureProfile:
+    path: FeatureProfile
+  FeaturePaywall:
+    path: FeaturePaywall
+  Domain:
+    path: Domain
+  AuthDomain:
+    url: https://github.com/patrickridd/AuthDomain.git
+    from: 1.0.0
+  FirebaseAuthData:
+    url: https://github.com/patrickridd/FirebaseAuthData.git
+    from: 1.5.0
+  FirebaseData:
+    path: FirebaseData
+  FacebookSDK:
+    url: https://github.com/facebook/facebook-ios-sdk.git
+    from: 18.0.0
+  MBProgressHUD:
+    url: https://github.com/jdg/MBProgressHUD.git
+    from: 1.2.0
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk.git
+    from: 12.14.0
+  GoogleSignIn:
+    url: https://github.com/google/GoogleSignIn-iOS.git
+    from: 8.0.0
+
+settings:
+  base:
+    SWIFT_VERSION: 5.0
+    MARKETING_VERSION: 1.0
+    CURRENT_PROJECT_VERSION: 1
+    SUPPORTED_PLATFORMS: iphoneos iphonesimulator
+    TARGETED_DEVICE_FAMILY: '1'
+    SUPPORTS_MACCATALYST: NO
+    ALWAYS_SEARCH_USER_PATHS: NO
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    DEVELOPMENT_TEAM: CVQEUYD92N
+    CODE_SIGN_STYLE: Automatic
+  configs:
+    Debug:
+      SWIFT_OPTIMIZATION_LEVEL: '-Onone'
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+      GCC_OPTIMIZATION_LEVEL: '0'
+      DEBUG_INFORMATION_FORMAT: dwarf
+      ENABLE_TESTABILITY: YES
+      ONLY_ACTIVE_ARCH: YES
+    Release:
+      SWIFT_OPTIMIZATION_LEVEL: '-O'
+      GCC_OPTIMIZATION_LEVEL: s
+      DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+      ENABLE_TESTABILITY: NO
+      ONLY_ACTIVE_ARCH: NO
+      COPY_PHASE_STRIP: NO
+
+targets:
+  scriptbuilder-ios:
+    type: application
+    platform: iOS
+    deploymentTarget: '17.0'
+    settings:
+      base:
+        PRODUCT_NAME: ScriptStarter
+        PRODUCT_BUNDLE_IDENTIFIER: com.patrickridd.ScriptStarter
+        CODE_SIGN_ENTITLEMENTS: ScriptStarter/ScriptStarter.entitlements
+        ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: YES
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
+    dependencies:
+      - package: FeatureAuth
+        product: FeatureAuth
+      - package: DesignSystem
+        product: DesignSystem
+      - package: FeatureScreenplays
+        product: FeatureScreenplays
+      - package: FeatureProfile
+        product: FeatureProfile
+      - package: FeaturePaywall
+        product: FeaturePaywall
+      - package: AuthDomain
+        product: AuthDomain
+      - package: FirebaseAuthData
+        product: FirebaseAuthData
+      - package: FirebaseData
+        product: FirebaseData
+      - package: FacebookSDK
+        product: FacebookLogin
+      - package: FacebookSDK
+        product: FacebookCore
+      - package: FacebookSDK
+        product: FacebookAEM
+      - package: FacebookSDK
+        product: FacebookBasics
+      - package: MBProgressHUD
+        product: MBProgressHUD
+      - package: Firebase
+        product: FirebaseAuth
+      - package: Firebase
+        product: FirebaseCore
+      - package: Firebase
+        product: FirebaseDatabase
+      - package: GoogleSignIn
+        product: GoogleSignIn
+    sources:
+      - path: ScriptStarter
+        excludes:
+          - "**/.DS_Store"
+      - path: GoogleService-Info.plist
+        buildPhase: resources
+    preBuildScripts:
+      - name: SwiftLint
+        basedOnDependencyAnalysis: false
+        script: |
+          export PATH="$PATH:/opt/homebrew/bin:/usr/local/bin"
+          if which swiftlint >/dev/null; then
+            swiftlint --config "${SRCROOT}/.swiftlint.yml"
+          else
+            echo "warning: SwiftLint not installed. Run 'brew install swiftlint' to enable identifier-name linting."
+          fi
+    entitlements:
+      path: ScriptStarter/ScriptStarter.entitlements
+      properties:
+        aps-environment: development
+        com.apple.developer.applesignin:
+          - Default
+        com.apple.developer.associated-domains:
+          - applinks:r2a29.app.goo.gl
+    info:
+      path: ScriptStarter/Info.plist
+      properties:
+        CFBundleDevelopmentRegion: $(DEVELOPMENT_LANGUAGE)
+        CFBundleDisplayName: Script Builder
+        CFBundleExecutable: $(EXECUTABLE_NAME)
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleInfoDictionaryVersion: 6.0
+        CFBundleName: $(PRODUCT_NAME)
+        CFBundlePackageType: $(PRODUCT_BUNDLE_PACKAGE_TYPE)
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleIconName: AppIcon
+        ITSAppUsesNonExemptEncryption: false
+        LSRequiresIPhoneOS: true
+        GADApplicationIdentifier: "ca-app-pub-1297096402264538~9994351234"
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        NSCalendarsUsageDescription: "ScriptBuilder would like to schedule events on your calendar."
+        SKAdNetworkItems:
+          - SKAdNetworkIdentifier: cstr6suwn9.skadnetwork
+        CFBundleURLTypes:
+          - CFBundleTypeRole: Editor
+            CFBundleURLSchemes:
+              - com.googleusercontent.apps.737554005422-4gbiql6q5q4orj379dig0q46ffsbg8ml
+          - CFBundleTypeRole: Editor
+            CFBundleURLSchemes:
+              - fb388278151632697
+          - CFBundleTypeRole: Editor
+            CFBundleURLName: Bundle ID
+            CFBundleURLSchemes:
+              - com.patrickridd.ScriptStarter
+        FacebookAppID: "388278151632697"
+        FacebookClientToken: "9bca7253ec121ded5f049d715fa3aad9"
+        FacebookDisplayName: Script Builder
+        LSApplicationQueriesSchemes:
+          - fbapi
+          - fb-messenger-share-api
+          - fbauth2
+          - fbshareextension
+        UIApplicationSupportsIndirectInputEvents: true
+        UILaunchStoryboardName: LaunchScreen
+        UIRequiredDeviceCapabilities: [ arm64 ]
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+
+  scriptbuilder-iosTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: '17.0'
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.patrickridd.ScriptStarter.tests
+    sources:
+      - path: ScriptStarterTests
+        excludes:
+          - "**/.DS_Store"
+    dependencies:
+      - target: scriptbuilder-ios
+      - package: FeaturePaywall
+        product: FeaturePaywall
+      - package: Domain
+        product: Domain
+
+configFiles:
+  Debug: {}
+  Release: {}
+
+schemes:
+  ScriptStarter:
+    build:
+      targets:
+        scriptbuilder-ios: all
+        scriptbuilder-iosTests: [ test ]
+    run:
+      config: Debug
+      storeKitConfiguration: ScriptBuilderStore.storekit
+    test:
+      config: Debug
+      storeKitConfiguration: ScriptBuilderStore.storekit
+      targets:
+        - scriptbuilder-iosTests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
