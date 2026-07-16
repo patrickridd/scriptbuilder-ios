@@ -80,7 +80,7 @@
 		F0AD1CB4418EB90411E367DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F60329030907CF56B79533C4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F6242EA248E6A33E7E3C6CAB /* scriptbuilder-iosTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = text; name = "scriptbuilder-iosTests.xctest"; path = .xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F6C7E29A5FD0963D6FCF30E4 /* scriptbuilder-ios.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; name = "scriptbuilder-ios.app"; path = ScriptStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6C7E29A5FD0963D6FCF30E4 /* ScriptStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBF395A827A9755C8EB1375 /* FeatureProfile */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FeatureProfile; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -188,7 +188,7 @@
 		9E28F540EAD57E05E079CC3B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F6C7E29A5FD0963D6FCF30E4 /* scriptbuilder-ios.app */,
+				F6C7E29A5FD0963D6FCF30E4 /* ScriptStarter.app */,
 				F6242EA248E6A33E7E3C6CAB /* scriptbuilder-iosTests.xctest */,
 			);
 			name = Products;
@@ -250,7 +250,7 @@
 				B254208B1009DFF1CBF32816 /* GoogleSignIn */,
 			);
 			productName = "scriptbuilder-ios";
-			productReference = F6C7E29A5FD0963D6FCF30E4 /* scriptbuilder-ios.app */;
+			productReference = F6C7E29A5FD0963D6FCF30E4 /* ScriptStarter.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6259F00C1D4478C578621C74 /* scriptbuilder-iosTests */ = {
@@ -446,6 +446,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = ScriptStarter/ScriptStarter.entitlements;
+				CURRENT_PROJECT_VERSION = 43;
 				INFOPLIST_FILE = ScriptStarter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -453,6 +454,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.patrickridd.ScriptStarter;
 				PRODUCT_NAME = ScriptStarter;
 			};
@@ -520,6 +522,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = ScriptStarter/ScriptStarter.entitlements;
+				CURRENT_PROJECT_VERSION = 43;
 				INFOPLIST_FILE = ScriptStarter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -527,6 +530,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.patrickridd.ScriptStarter;
 				PRODUCT_NAME = ScriptStarter;
 			};
