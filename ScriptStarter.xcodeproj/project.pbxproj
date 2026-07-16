@@ -25,19 +25,19 @@
 		8036BBBD6E1C0B29A6B97277 /* Products.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FB7133C4356423168B4D69F /* Products.plist */; };
 		8347BE09897FC995C441C4E8 /* AuthDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 127B414A8E5F3BF707E2059A /* AuthDomain */; };
 		8CABC92A3B1E87C9255C6362 /* FirebaseAuthData in Frameworks */ = {isa = PBXBuildFile; productRef = 9E4E7915E7A68AD812138E36 /* FirebaseAuthData */; };
+		8EF42E52225A01F4DDFF8A9B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6BD0AB5A59D395947FAC78 /* FirebaseAuth */; };
 		A1EFFE0B674B3B3CFC1E36DA /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 099A2D5D65E06FFCB47F1863 /* Domain */; };
 		AE1E5B3600912405CC751580 /* Extension+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97329D9D1356B5EDC0D1B646 /* Extension+ViewController.swift */; };
 		AF96BE2A85EC15871981A197 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 4E52CE59314E1646AC89E55F /* FacebookLogin */; };
-		B02BB9844BF208E0B62673C7 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = E5EDAD6CD66C528D5A23A420 /* FirebaseCore */; };
+		B02BB9844BF208E0B62673C7 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 635CDB07F6675D7962516221 /* FirebaseDatabase */; };
 		BB1D972453FC73F3E30B7077 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = AE6E3A37DACB186C763DF7E0 /* DesignSystem */; };
-		CDDE66EBFADA3563627F0B69 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6BD0AB5A59D395947FAC78 /* FirebaseAuth */; };
+		CDDE66EBFADA3563627F0B69 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = E5EDAD6CD66C528D5A23A420 /* FirebaseCore */; };
 		D0051E62336C92695D03A81F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C5FDABD91E4E7AD7C44BA3F /* Assets.xcassets */; };
 		D0CD6748A7EFBA47956E53FD /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09CDE0AC319621F96F1AAE /* Store.swift */; };
 		D1BFBA873C31FD3D79EE49A7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67BD96A5A6B9268A37848D3F /* GoogleService-Info.plist */; };
-		DCDD297ABA0F768DE6341E18 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = B254208B1009DFF1CBF32816 /* GoogleSignIn */; };
 		EF4F6D83F2C016857851512E /* FeaturePaywall in Frameworks */ = {isa = PBXBuildFile; productRef = DD950C85BE733EFA727F7251 /* FeaturePaywall */; };
 		F07EE1142205CC058EE0FA46 /* FacebookAEM in Frameworks */ = {isa = PBXBuildFile; productRef = FAEDF5F8EA2503DA5873180E /* FacebookAEM */; };
-		F2530CACBF08857C87451FFA /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 635CDB07F6675D7962516221 /* FirebaseDatabase */; };
+		F2530CACBF08857C87451FFA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = B254208B1009DFF1CBF32816 /* GoogleSignIn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,20 +54,20 @@
 		0FB7133C4356423168B4D69F /* Products.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Products.plist; sourceTree = "<group>"; };
 		1D56A42A62C4F39C5A2F0430 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		211AEFA036677F0A2F6A695D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		21768D1B9CA3597930B08EF8 /* FeaturePaywall */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FeaturePaywall; sourceTree = SOURCE_ROOT; };
+		21768D1B9CA3597930B08EF8 /* FeaturePaywall */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FeaturePaywall; path = FeaturePaywall; sourceTree = SOURCE_ROOT; };
 		2D18CA095E54E4664D2CF061 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30AF3C90C77B9E3A676DDFE6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		333614547CFA6C3E694D4616 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		3B31CD04A9701A4D2732EB62 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46769DA1F43D6FCE15190702 /* ScriptStarter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScriptStarter.entitlements; sourceTree = "<group>"; };
-		49E5F198DC1186E105E40B58 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DesignSystem; sourceTree = SOURCE_ROOT; };
+		49E5F198DC1186E105E40B58 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DesignSystem; path = DesignSystem; sourceTree = SOURCE_ROOT; };
 		52A8F172DD8CD0427A33C6FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BD89042D9647782A7D1C550 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		67AB756377FE10A64786E4FD /* ReviewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSupport.swift; sourceTree = "<group>"; };
 		67BD96A5A6B9268A37848D3F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		751A0DCEC8FA98B3162C7605 /* FirebaseData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FirebaseData; sourceTree = SOURCE_ROOT; };
-		77AEEB1B757E0EDE047174A4 /* FeatureScreenplays */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FeatureScreenplays; sourceTree = SOURCE_ROOT; };
-		7EB0AC6583050CF8FE97CCFD /* Domain */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Domain; sourceTree = SOURCE_ROOT; };
+		751A0DCEC8FA98B3162C7605 /* FirebaseData */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FirebaseData; path = FirebaseData; sourceTree = SOURCE_ROOT; };
+		77AEEB1B757E0EDE047174A4 /* FeatureScreenplays */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FeatureScreenplays; path = FeatureScreenplays; sourceTree = SOURCE_ROOT; };
+		7EB0AC6583050CF8FE97CCFD /* Domain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Domain; path = Domain; sourceTree = SOURCE_ROOT; };
 		8A51EA75C5D8F24F465C1A25 /* Extension+Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Bundle.swift"; sourceTree = "<group>"; };
 		959308A6C268EBF7F31A65A2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		97329D9D1356B5EDC0D1B646 /* Extension+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+ViewController.swift"; sourceTree = "<group>"; };
@@ -80,8 +80,8 @@
 		F0AD1CB4418EB90411E367DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F60329030907CF56B79533C4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F6242EA248E6A33E7E3C6CAB /* scriptbuilder-iosTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = "scriptbuilder-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F6C7E29A5FD0963D6FCF30E4 /* scriptbuilder-ios.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; name = "scriptbuilder-ios.app"; path = ScriptStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FCBF395A827A9755C8EB1375 /* FeatureProfile */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FeatureProfile; sourceTree = SOURCE_ROOT; };
+		F6C7E29A5FD0963D6FCF30E4 /* scriptbuilder-ios.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "scriptbuilder-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCBF395A827A9755C8EB1375 /* FeatureProfile */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FeatureProfile; path = FeatureProfile; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +101,10 @@
 				29561DC8F218B8D5ACBA8B93 /* FacebookCore in Frameworks */,
 				F07EE1142205CC058EE0FA46 /* FacebookAEM in Frameworks */,
 				5A7DAEE3BE862B642DFF29C2 /* FacebookBasics in Frameworks */,
-				CDDE66EBFADA3563627F0B69 /* FirebaseAuth in Frameworks */,
-				B02BB9844BF208E0B62673C7 /* FirebaseCore in Frameworks */,
-				F2530CACBF08857C87451FFA /* FirebaseDatabase in Frameworks */,
-				DCDD297ABA0F768DE6341E18 /* GoogleSignIn in Frameworks */,
+				8EF42E52225A01F4DDFF8A9B /* FirebaseAuth in Frameworks */,
+				CDDE66EBFADA3563627F0B69 /* FirebaseCore in Frameworks */,
+				B02BB9844BF208E0B62673C7 /* FirebaseDatabase in Frameworks */,
+				F2530CACBF08857C87451FFA /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,11 +459,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ScriptStarter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.patrickridd.ScriptStarter;
 				PRODUCT_NAME = ScriptStarter;
 				SDKROOT = iphoneos;
@@ -635,11 +631,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ScriptStarter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.patrickridd.ScriptStarter;
 				PRODUCT_NAME = ScriptStarter;
 				SDKROOT = iphoneos;
