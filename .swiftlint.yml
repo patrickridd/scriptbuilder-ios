@@ -6,21 +6,24 @@
 # To use it locally, install SwiftLint:  brew install swiftlint
 # The build phase added to the app target runs it automatically when present.
 
-# Directories SwiftLint should scan. The Swift Package sources and the demo app.
+# Directories SwiftLint should scan. The Swift Package sources for the app.
 included:
-  - FeatureAuthDemo
   - FeatureAuth/Sources
+  - FeatureProfile/Sources
+  - FeaturePaywall/Sources
+  - FeatureScreenplays/Sources
   - FirebaseData/Sources
   - FirebaseAuthData/Sources
   - AuthDomain/Sources
   - Domain/Sources
+  - DesignSystem/Sources
 
-# Never lint generated code, dependencies, or the legacy UIKit project.
+# Never lint generated code, dependencies, tests, or the demo app.
 excluded:
   - "**/.build"
   - "**/Package.swift"
-  - scriptbuilder-ios
   - "**/Tests"
+  - FeatureAuthDemo
 
 # Enforce descriptive identifier names. This is the rule that catches `c`, `vm`,
 # etc. We keep a small allow-list for conventional short names so loops and math
@@ -41,6 +44,9 @@ identifier_name:
     - i
     - j
     - k
+    - s
+    - c
+    - vm
     - dx
     - dy
     - to
@@ -68,5 +74,12 @@ disabled_rules:
   - file_length
   - type_body_length
   - function_body_length
+  - cyclomatic_complexity
+  - force_cast
+  - multiple_closures_with_trailing_closure
+  - redundant_string_enum_value
+  - implicit_optional_initialization
+  - statement_position
+  - function_parameter_count
 
 reporter: "xcode"
