@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Record an "app opened" engagement signal so the review trigger can
         // count distinct active days (a guardrail before ever prompting).
-        reviewCoordinator.record(.appOpened(on: Date()))
+        reviewCoordinator.record(.appOpenedOn(date: Date()))
 
         // Keep the repository's uid in sync with the *actual* Firebase session.
         // This covers a session restored on launch (when the sign-in callback
@@ -267,7 +267,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             email: user?.email,
             providerLabel: user?.linkedProviders.first.map { $0.rawValue.capitalized },
             interfaceStyle: currentProfileInterfaceStyle(),
-            shareURL: URL(string: "https://apps.apple.com/app/id1234567890"),
+            shareURL: URL(string: "https://apps.apple.com/app/id1358448790"),
+            reviewURL: URL(string: "https://apps.apple.com/app/id1358448790?action=write-review"),
             privacyPolicyURL: URL(string: "https://www.scriptbuilderapp.com/_files/ugd/b622d0_f5722cd213394590bbd181559a0af540.pdf"),
             termsURL: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"),
             appVersionText: Self.appVersionText,

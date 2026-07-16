@@ -8,6 +8,7 @@ import DesignSystem
 struct AccountActionsCard: View {
     @Environment(\.appPalette) private var palette
     let shareURL: URL?
+    let reviewURL: URL?
     let privacyURL: URL?
     let termsURL: URL?
 
@@ -16,6 +17,10 @@ struct AccountActionsCard: View {
             VStack(spacing: 0) {
                 if let shareURL {
                     shareRow(url: shareURL)
+                    if hasContentAfterShare { profileDivider(palette) }
+                }
+                if let reviewURL {
+                    linkRow(icon: "star.fill", title: L10n.Link.rateApp, url: reviewURL)
                     if privacyURL != nil || termsURL != nil { profileDivider(palette) }
                 }
                 if let privacyURL {
@@ -27,6 +32,10 @@ struct AccountActionsCard: View {
                 }
             }
         }
+    }
+
+    private var hasContentAfterShare: Bool {
+        reviewURL != nil || privacyURL != nil || termsURL != nil
     }
 
     private func shareRow(url: URL) -> some View {

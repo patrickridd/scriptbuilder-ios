@@ -54,6 +54,7 @@ enum L10n {
 
     enum Link {
         static var shareApp: String { L10n.string("profile.link.shareApp") }
+        static var rateApp: String { L10n.string("profile.link.rateApp") }
         static var privacy: String { L10n.string("profile.link.privacy") }
         static var terms: String { L10n.string("profile.link.terms") }
     }

@@ -37,7 +37,7 @@ public enum ReviewSignal: Sendable, Equatable {
     /// The user created a screenplay (pass the running total they now own).
     case screenplayCreated(total: Int)
     /// The app became active on a given calendar day (for "days active").
-    case appOpened(on: Date)
+    case appOpenedOn(date: Date)
 }
 
 /// Decides when to request a review, based on recorded engagement signals.
@@ -92,7 +92,7 @@ public struct ReviewTrigger: Sendable {
     @discardableResult
     public func record(_ signal: ReviewSignal) -> Bool {
         switch signal {
-        case .appOpened(let day):
+        case .appOpenedOn(let day):
             recordActiveDay(day)
             return false
         case .screenplayCreated(let total):

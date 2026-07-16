@@ -102,6 +102,7 @@ public struct ProfileView: View {
     private var accountActions: some View {
         AccountActionsCard(
             shareURL: config.shareURL,
+            reviewURL: config.reviewURL,
             privacyURL: config.privacyPolicyURL,
             termsURL: config.termsURL
         )

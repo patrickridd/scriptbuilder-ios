@@ -85,6 +85,9 @@ public struct ProfileConfiguration: Sendable {
     /// URL the "Share App" sheet points to (App Store listing).
     public var shareURL: URL?
 
+    /// Deep link that opens the App Store review screen for the app.
+    public var reviewURL: URL?
+
     /// Privacy-policy link shown in the legal section.
     public var privacyPolicyURL: URL?
 
@@ -103,6 +106,7 @@ public struct ProfileConfiguration: Sendable {
         screenplayCount: Int? = nil,
         interfaceStyle: ProfileInterfaceStyle = .system,
         shareURL: URL? = nil,
+        reviewURL: URL? = nil,
         privacyPolicyURL: URL? = nil,
         termsURL: URL? = nil,
         appVersionText: String? = nil,
@@ -117,6 +121,7 @@ public struct ProfileConfiguration: Sendable {
         self.screenplayCount = screenplayCount
         self.interfaceStyle = interfaceStyle
         self.shareURL = shareURL
+        self.reviewURL = reviewURL
         self.privacyPolicyURL = privacyPolicyURL
         self.termsURL = termsURL
         self.appVersionText = appVersionText
