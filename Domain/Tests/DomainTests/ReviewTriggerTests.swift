@@ -35,7 +35,7 @@ struct ReviewTriggerTests {
         let store = InMemoryStore()
         let t = trigger(store: store)
         // Only one active day recorded.
-        _ = t.record(.appOpened(on: Date()))
+        _ = t.record(.appOpenedOn(date: Date()))
         #expect(t.record(.screenplayExported) == false)
     }
 
@@ -46,7 +46,7 @@ struct ReviewTriggerTests {
         let t = trigger(store: store, now: day)
         // Three distinct active days.
         for _ in 0..<3 {
-            _ = t.record(.appOpened(on: day))
+            _ = t.record(.appOpenedOn(date: day))
             day = day.addingTimeInterval(60 * 60 * 24)
         }
         #expect(t.record(.screenplayExported) == true)
@@ -58,7 +58,7 @@ struct ReviewTriggerTests {
         let day = DateComponents(calendar: .current, year: 2026, month: 1, day: 1).date!
         var d = day
         let t = trigger(store: store, now: day)
-        for _ in 0..<3 { _ = t.record(.appOpened(on: d)); d = d.addingTimeInterval(86_400) }
+        for _ in 0..<3 { _ = t.record(.appOpenedOn(date: d)); d = d.addingTimeInterval(86_400) }
         #expect(t.record(.screenplayExported) == true)
         t.markPrompted()
         #expect(t.record(.outlineCompleted) == false)
@@ -70,7 +70,7 @@ struct ReviewTriggerTests {
         let day = DateComponents(calendar: .current, year: 2026, month: 1, day: 1).date!
         var d = day
         let t = trigger(store: store, now: day)
-        for _ in 0..<3 { _ = t.record(.appOpened(on: d)); d = d.addingTimeInterval(86_400) }
+        for _ in 0..<3 { _ = t.record(.appOpenedOn(date: d)); d = d.addingTimeInterval(86_400) }
         #expect(t.record(.screenplayCreated(total: 1)) == false)
         #expect(t.record(.screenplayCreated(total: 2)) == true)
     }

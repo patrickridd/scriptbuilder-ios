@@ -50,7 +50,7 @@ public struct CharacterListView: View {
             L10n.CharacterUI.deleteTitle,
             isPresented: deleteDialogBinding,
             presenting: viewModel.pendingDelete
-        ) { character in
+        ) { _ in
             Button(L10n.Action.delete, role: .destructive) {
                 Haptics.warning()
                 if let target = viewModel.pendingDelete {

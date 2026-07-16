@@ -124,10 +124,13 @@ targets:
         basedOnDependencyAnalysis: false
         script: |
           export PATH="$PATH:/opt/homebrew/bin:/usr/local/bin"
-          if which swiftlint >/dev/null; then
-            swiftlint --config "${SRCROOT}/.swiftlint.yml"
-          else
+          CONFIG="${SRCROOT}/.swiftlint.yml"
+          if ! which swiftlint >/dev/null; then
             echo "warning: SwiftLint not installed. Run 'brew install swiftlint' to enable identifier-name linting."
+          elif [ ! -r "$CONFIG" ]; then
+            echo "warning: Cannot read $CONFIG (permission or missing). Skipping SwiftLint. Fix with: chmod u+rw '$CONFIG' && xattr -c '$CONFIG'"
+          else
+            swiftlint --config "$CONFIG"
           fi
     entitlements:
       path: ScriptStarter/ScriptStarter.entitlements

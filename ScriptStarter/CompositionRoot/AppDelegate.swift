@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Record an "app opened" engagement signal so the review trigger can
         // count distinct active days (a guardrail before ever prompting).
-        reviewCoordinator.record(.appOpened(on: Date()))
+        reviewCoordinator.record(.appOpenedOn(date: Date()))
 
         // Keep the repository's uid in sync with the *actual* Firebase session.
         // This covers a session restored on launch (when the sign-in callback
