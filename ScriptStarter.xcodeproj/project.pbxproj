@@ -7,16 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		012621A78E467DD05D7C9A26 /* FeaturePaywall in Frameworks */ = {isa = PBXBuildFile; productRef = 2415DEADF9705DACA83AF09D /* FeaturePaywall */; };
 		05621396EDF838D011F3E56C /* FeatureScreenplays in Frameworks */ = {isa = PBXBuildFile; productRef = 805A8381929D9260046FDF28 /* FeatureScreenplays */; };
 		071DD42E8D33D50EB90F2D15 /* ReviewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AB756377FE10A64786E4FD /* ReviewSupport.swift */; };
 		07E206C729A1AA8248234370 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8444CCDC28D1913459B48F2 /* LaunchScreen.storyboard */; };
-		0BB6194773FFCED1BACB687B /* StoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CB50AC02D2257CEBA325FB /* StoreTests.swift */; };
 		13314888AB1C0175231780F4 /* Extension+Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A51EA75C5D8F24F465C1A25 /* Extension+Bundle.swift */; };
 		1E3A6A93005EE5C5D17173C8 /* RootShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39D21ACE9BBB0D5F1267777 /* RootShellView.swift */; };
 		29561DC8F218B8D5ACBA8B93 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 13009653FE3DBE158688998A /* FacebookCore */; };
 		295849A790AC3676DF86EBAD /* Store+PaywallStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA659E51F621C4AFC8D6140 /* Store+PaywallStore.swift */; };
 		3DE6817A848C4BDB38B307D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B31CD04A9701A4D2732EB62 /* GoogleService-Info.plist */; };
+		7B4C1A2D3E4F5061728394A5 /* ScriptBuilderStore.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F2B8C1D4E5F607182930A /* ScriptBuilderStore.storekit */; };
 		4F869AB312B76BA491317BD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D18CA095E54E4664D2CF061 /* AppDelegate.swift */; };
 		5A7DAEE3BE862B642DFF29C2 /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = B685302EED65EC8F5D45B82A /* FacebookBasics */; };
 		6D33A2437235BCA53B221D05 /* FeatureProfile in Frameworks */ = {isa = PBXBuildFile; productRef = 8799997378DAA47EDD1BA74F /* FeatureProfile */; };
@@ -26,22 +25,21 @@
 		8347BE09897FC995C441C4E8 /* AuthDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 127B414A8E5F3BF707E2059A /* AuthDomain */; };
 		8CABC92A3B1E87C9255C6362 /* FirebaseAuthData in Frameworks */ = {isa = PBXBuildFile; productRef = 9E4E7915E7A68AD812138E36 /* FirebaseAuthData */; };
 		8EF42E52225A01F4DDFF8A9B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6BD0AB5A59D395947FAC78 /* FirebaseAuth */; };
-		A1EFFE0B674B3B3CFC1E36DA /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 099A2D5D65E06FFCB47F1863 /* Domain */; };
 		AE1E5B3600912405CC751580 /* Extension+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97329D9D1356B5EDC0D1B646 /* Extension+ViewController.swift */; };
 		AF96BE2A85EC15871981A197 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 4E52CE59314E1646AC89E55F /* FacebookLogin */; };
 		B02BB9844BF208E0B62673C7 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 635CDB07F6675D7962516221 /* FirebaseDatabase */; };
 		BB1D972453FC73F3E30B7077 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = AE6E3A37DACB186C763DF7E0 /* DesignSystem */; };
+		C97824E75DA9B7660D40C5AB /* StoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CB50AC02D2257CEBA325FB /* StoreTests.swift */; };
 		CDDE66EBFADA3563627F0B69 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = E5EDAD6CD66C528D5A23A420 /* FirebaseCore */; };
 		D0051E62336C92695D03A81F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C5FDABD91E4E7AD7C44BA3F /* Assets.xcassets */; };
 		D0CD6748A7EFBA47956E53FD /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09CDE0AC319621F96F1AAE /* Store.swift */; };
-		D1BFBA873C31FD3D79EE49A7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67BD96A5A6B9268A37848D3F /* GoogleService-Info.plist */; };
 		EF4F6D83F2C016857851512E /* FeaturePaywall in Frameworks */ = {isa = PBXBuildFile; productRef = DD950C85BE733EFA727F7251 /* FeaturePaywall */; };
 		F07EE1142205CC058EE0FA46 /* FacebookAEM in Frameworks */ = {isa = PBXBuildFile; productRef = FAEDF5F8EA2503DA5873180E /* FacebookAEM */; };
 		F2530CACBF08857C87451FFA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = B254208B1009DFF1CBF32816 /* GoogleSignIn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		002190A58AC29E2FFE1236C6 /* PBXContainerItemProxy */ = {
+		E679286BA81EA3F91831AFA9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6652E7ED35AEF271A646CDD1 /* Project object */;
 			proxyType = 1;
@@ -59,12 +57,12 @@
 		30AF3C90C77B9E3A676DDFE6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		333614547CFA6C3E694D4616 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		3B31CD04A9701A4D2732EB62 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3A9F2B8C1D4E5F607182930A /* ScriptBuilderStore.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = ScriptBuilderStore.storekit; sourceTree = "<group>"; };
 		46769DA1F43D6FCE15190702 /* ScriptStarter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScriptStarter.entitlements; sourceTree = "<group>"; };
 		49E5F198DC1186E105E40B58 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DesignSystem; path = DesignSystem; sourceTree = SOURCE_ROOT; };
 		52A8F172DD8CD0427A33C6FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BD89042D9647782A7D1C550 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		67AB756377FE10A64786E4FD /* ReviewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSupport.swift; sourceTree = "<group>"; };
-		67BD96A5A6B9268A37848D3F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		751A0DCEC8FA98B3162C7605 /* FirebaseData */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FirebaseData; path = FirebaseData; sourceTree = SOURCE_ROOT; };
 		77AEEB1B757E0EDE047174A4 /* FeatureScreenplays */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FeatureScreenplays; path = FeatureScreenplays; sourceTree = SOURCE_ROOT; };
 		7EB0AC6583050CF8FE97CCFD /* Domain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Domain; path = Domain; sourceTree = SOURCE_ROOT; };
@@ -77,9 +75,8 @@
 		BD09CDE0AC319621F96F1AAE /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		BEA659E51F621C4AFC8D6140 /* Store+PaywallStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Store+PaywallStore.swift"; sourceTree = "<group>"; };
 		C39D21ACE9BBB0D5F1267777 /* RootShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootShellView.swift; sourceTree = "<group>"; };
-		F0AD1CB4418EB90411E367DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EF951980C932B918D8EBDA53 /* ScriptStarterTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ScriptStarterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60329030907CF56B79533C4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		F6242EA248E6A33E7E3C6CAB /* scriptbuilder-iosTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = "scriptbuilder-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6C7E29A5FD0963D6FCF30E4 /* scriptbuilder-ios.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "scriptbuilder-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBF395A827A9755C8EB1375 /* FeatureProfile */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FeatureProfile; path = FeatureProfile; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -108,15 +105,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C6E1C5B4A102217BE168D1F7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				012621A78E467DD05D7C9A26 /* FeaturePaywall in Frameworks */,
-				A1EFFE0B674B3B3CFC1E36DA /* Domain in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -124,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				3B31CD04A9701A4D2732EB62 /* GoogleService-Info.plist */,
+				3A9F2B8C1D4E5F607182930A /* ScriptBuilderStore.storekit */,
 				714B16E1D0E91BC7BB3BD35D /* Packages */,
 				71194E0022AD9219E41A00DB /* ScriptStarter */,
 				BEB4A2DF42DBCD8874EABF73 /* ScriptStarterTests */,
@@ -189,7 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				F6C7E29A5FD0963D6FCF30E4 /* scriptbuilder-ios.app */,
-				F6242EA248E6A33E7E3C6CAB /* scriptbuilder-iosTests.xctest */,
+				EF951980C932B918D8EBDA53 /* ScriptStarterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -197,8 +186,6 @@
 		BEB4A2DF42DBCD8874EABF73 /* ScriptStarterTests */ = {
 			isa = PBXGroup;
 			children = (
-				67BD96A5A6B9268A37848D3F /* GoogleService-Info.plist */,
-				F0AD1CB4418EB90411E367DA /* Info.plist */,
 				B9CB50AC02D2257CEBA325FB /* StoreTests.swift */,
 			);
 			path = ScriptStarterTests;
@@ -217,6 +204,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		290B5BB4697FADBBFC69D6AF /* ScriptStarterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B7D939D167D51F815F143A94 /* Build configuration list for PBXNativeTarget "ScriptStarterTests" */;
+			buildPhases = (
+				B862BD1FE962A1CBC9281A50 /* Sources */,
+				9D8E7C6B5A493827160504F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BEC6696E1E96428BBC6CA49B /* PBXTargetDependency */,
+			);
+			name = ScriptStarterTests;
+			packageProductDependencies = (
+			);
+			productName = ScriptStarterTests;
+			productReference = EF951980C932B918D8EBDA53 /* ScriptStarterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		5D601B70F37321008912EA1F /* scriptbuilder-ios */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 759C00DE81208531BEBF46A8 /* Build configuration list for PBXNativeTarget "scriptbuilder-ios" */;
@@ -253,28 +259,6 @@
 			productReference = F6C7E29A5FD0963D6FCF30E4 /* scriptbuilder-ios.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6259F00C1D4478C578621C74 /* scriptbuilder-iosTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8EB7972B738230F0D2D79C9C /* Build configuration list for PBXNativeTarget "scriptbuilder-iosTests" */;
-			buildPhases = (
-				E023FDC5C5026D1ED5470D45 /* Sources */,
-				23933E67C99BAF69743F9932 /* Resources */,
-				C6E1C5B4A102217BE168D1F7 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8668AAF09AF3D70D003EB712 /* PBXTargetDependency */,
-			);
-			name = "scriptbuilder-iosTests";
-			packageProductDependencies = (
-				2415DEADF9705DACA83AF09D /* FeaturePaywall */,
-				099A2D5D65E06FFCB47F1863 /* Domain */,
-			);
-			productName = "scriptbuilder-iosTests";
-			productReference = F6242EA248E6A33E7E3C6CAB /* scriptbuilder-iosTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -284,11 +268,11 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					5D601B70F37321008912EA1F = {
+					290B5BB4697FADBBFC69D6AF = {
 						DevelopmentTeam = CVQEUYD92N;
 						ProvisioningStyle = Automatic;
 					};
-					6259F00C1D4478C578621C74 = {
+					5D601B70F37321008912EA1F = {
 						DevelopmentTeam = CVQEUYD92N;
 						ProvisioningStyle = Automatic;
 					};
@@ -329,18 +313,18 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				290B5BB4697FADBBFC69D6AF /* ScriptStarterTests */,
 				5D601B70F37321008912EA1F /* scriptbuilder-ios */,
-				6259F00C1D4478C578621C74 /* scriptbuilder-iosTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		23933E67C99BAF69743F9932 /* Resources */ = {
+		9D8E7C6B5A493827160504F3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1BFBA873C31FD3D79EE49A7 /* GoogleService-Info.plist in Resources */,
+				7B4C1A2D3E4F5061728394A5 /* ScriptBuilderStore.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,21 +378,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E023FDC5C5026D1ED5470D45 /* Sources */ = {
+		B862BD1FE962A1CBC9281A50 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BB6194773FFCED1BACB687B /* StoreTests.swift in Sources */,
+				C97824E75DA9B7660D40C5AB /* StoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8668AAF09AF3D70D003EB712 /* PBXTargetDependency */ = {
+		BEC6696E1E96428BBC6CA49B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5D601B70F37321008912EA1F /* scriptbuilder-ios */;
-			targetProxy = 002190A58AC29E2FFE1236C6 /* PBXContainerItemProxy */;
+			targetProxy = E679286BA81EA3F91831AFA9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -431,25 +415,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0581D1690A698F764C7E85AF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ScriptStarterTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.patrickridd.ScriptStarter.tests;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/scriptbuilder-ios.app/scriptbuilder-ios";
-			};
-			name = Debug;
-		};
 		5FF750E8DB4F339F9369F0F8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -467,24 +432,24 @@
 			};
 			name = Release;
 		};
-		9E44A4093680217AA95844CD /* Release */ = {
+		753BEC22DE25D7AC9FF5874B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ScriptStarterTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.patrickridd.ScriptStarter.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.patrickridd.ScriptStarterTests;
+				PRODUCT_NAME = ScriptStarterTests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/scriptbuilder-ios.app/scriptbuilder-ios";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScriptStarter.app/ScriptStarter";
 			};
-			name = Release;
+			name = Debug;
 		};
 		A99FF067BC72F49E6A152A68 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -639,6 +604,25 @@
 			};
 			name = Debug;
 		};
+		FDF1F6546029765AFFB748AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.patrickridd.ScriptStarterTests;
+				PRODUCT_NAME = ScriptStarterTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScriptStarter.app/ScriptStarter";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -660,11 +644,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		8EB7972B738230F0D2D79C9C /* Build configuration list for PBXNativeTarget "scriptbuilder-iosTests" */ = {
+		B7D939D167D51F815F143A94 /* Build configuration list for PBXNativeTarget "ScriptStarterTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0581D1690A698F764C7E85AF /* Debug */,
-				9E44A4093680217AA95844CD /* Release */,
+				753BEC22DE25D7AC9FF5874B /* Debug */,
+				FDF1F6546029765AFFB748AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -750,10 +734,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		099A2D5D65E06FFCB47F1863 /* Domain */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Domain;
-		};
 		127B414A8E5F3BF707E2059A /* AuthDomain */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 853BAEAB7E860538EDE0D4F8 /* XCRemoteSwiftPackageReference "AuthDomain" */;
@@ -763,10 +743,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7133106BF8A18D6EA3DC401A /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookCore;
-		};
-		2415DEADF9705DACA83AF09D /* FeaturePaywall */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FeaturePaywall;
 		};
 		36D110E65B6633253309A8A0 /* FeatureAuth */ = {
 			isa = XCSwiftPackageProductDependency;

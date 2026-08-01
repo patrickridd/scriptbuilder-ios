@@ -188,24 +188,27 @@ targets:
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
 
-  scriptbuilder-iosTests:
+  ScriptStarterTests:
     type: bundle.unit-test
     platform: iOS
     deploymentTarget: '17.0'
     settings:
       base:
+        PRODUCT_NAME: ScriptStarterTests
+        PRODUCT_BUNDLE_IDENTIFIER: com.patrickridd.ScriptStarterTests
         GENERATE_INFOPLIST_FILE: YES
-        PRODUCT_BUNDLE_IDENTIFIER: com.patrickridd.ScriptStarter.tests
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/ScriptStarter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ScriptStarter"
+        BUNDLE_LOADER: "$(TEST_HOST)"
     sources:
       - path: ScriptStarterTests
         excludes:
           - "**/.DS_Store"
+          - "Info.plist"
+          - "GoogleService-Info.plist"
+      - path: ScriptBuilderStore.storekit
+        buildPhase: resources
     dependencies:
       - target: scriptbuilder-ios
-      - package: FeaturePaywall
-        product: FeaturePaywall
-      - package: Domain
-        product: Domain
 
 configFiles:
   Debug: {}
@@ -216,7 +219,6 @@ schemes:
     build:
       targets:
         scriptbuilder-ios: all
-        scriptbuilder-iosTests: [ test ]
     run:
       config: Debug
       storeKitConfiguration: ScriptBuilderStore.storekit
@@ -224,7 +226,7 @@ schemes:
       config: Debug
       storeKitConfiguration: ScriptBuilderStore.storekit
       targets:
-        - scriptbuilder-iosTests
+        - ScriptStarterTests
     profile:
       config: Release
     analyze:
