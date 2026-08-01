@@ -148,3 +148,45 @@ enum CharacterRole: String, CaseIterable, Identifiable {
         return CharacterRole(rawValue: stored) ?? .custom
     }
 }
+
+/// The identity of a cast-list section. Stock roles group by their enum case;
+/// free-form ("Custom") roles group by the exact label the writer typed, so the
+/// header reads e.g. "FORTUNE TELLER" instead of a generic "CUSTOM".
+struct RoleKey: Hashable, Identifiable {
+    let role: CharacterRole
+    /// The writer's free-form label. Always empty unless `role == .custom`.
+    let customName: String
+
+    init(role: CharacterRole, customName: String = "") {
+        self.role = role
+        self.customName = role == .custom ? customName : ""
+    }
+
+    var id: String { role == .custom ? "custom:\(customName)" : role.rawValue }
+
+    /// Header text: the writer's own wording for custom roles, otherwise the
+    /// localized stock role name.
+    var displayName: String { customName.isEmpty ? role.displayName : customName }
+
+    var systemImage: String { role.systemImage }
+
+    static let protagonist = RoleKey(role: .protagonist)
+    static let antagonist = RoleKey(role: .antagonist)
+    static let mentor = RoleKey(role: .mentor)
+    static let lover = RoleKey(role: .lover)
+    static let friend = RoleKey(role: .friend)
+    static let jester = RoleKey(role: .jester)
+    static let enemy = RoleKey(role: .enemy)
+    static let ally = RoleKey(role: .ally)
+    static let mysterious = RoleKey(role: .mysterious)
+    /// The unlabeled bucket: characters with no role set yet, or literally "Custom".
+    static let custom = RoleKey(role: .custom)
+
+    /// The section a stored role string belongs to.
+    static func bucket(for stored: String?) -> RoleKey {
+        let trimmed = stored?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        guard !trimmed.isEmpty else { return .custom }
+        if let known = CharacterRole(rawValue: trimmed) { return RoleKey(role: known) }
+        return RoleKey(role: .custom, customName: trimmed)
+    }
+}

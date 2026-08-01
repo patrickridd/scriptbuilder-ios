@@ -140,6 +140,7 @@ public struct CharacterListView: View {
                 }
             }
         }
+        .padding(.top)
     }
 
     private func roleSection(_ section: CharactersViewModel.RoleSection) -> some View {
