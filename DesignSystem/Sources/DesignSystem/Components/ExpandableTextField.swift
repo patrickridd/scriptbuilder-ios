@@ -11,6 +11,7 @@ public struct ExpandableTextField: View {
     @Environment(\.appPalette) private var palette
     @FocusState private var isFocused: Bool
     @State private var isExpanded = false
+    @State private var headerHeight: CGFloat = 0
 
     private let title: String
     private let prompt: String
@@ -43,12 +44,22 @@ public struct ExpandableTextField: View {
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 0) {
             header
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(headerBackground)
+                .background(headerHeightReader)
+            Rectangle()
+                .fill(palette.cardStroke.opacity(0.7))
+                .frame(height: 1)
             editor
+                .padding(16)
+                .frame(minHeight: editorMinHeight, alignment: .topLeading)
         }
-        .padding(16)
         .background(fieldBackground)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .overlay(fieldStroke)
         .fullScreenCover(isPresented: $isExpanded) {
             FullScreenTextEditor(
@@ -60,6 +71,22 @@ public struct ExpandableTextField: View {
             )
         }.onTapGesture {
             isFocused = true
+        }
+    }
+
+    /// The writing area opens at 1.5x the height of the label band, then
+    /// grows naturally as the writer types.
+    private var editorMinHeight: CGFloat {
+        headerHeight > 0 ? headerHeight * 1.5 : 0
+    }
+
+    private var headerHeightReader: some View {
+        GeometryReader { proxy in
+            Color.clear
+                .onAppear { headerHeight = proxy.size.height }
+                .onChange(of: proxy.size.height) { _, newValue in
+                    headerHeight = newValue
+                }
         }
     }
 
@@ -154,6 +181,16 @@ public struct ExpandableTextField: View {
     private var fieldBackground: some View {
         RoundedRectangle(cornerRadius: 16, style: .continuous)
             .fill(palette.cardSurface)
+    }
+
+    /// A whisper-quiet tint that separates the label band from the writing
+    /// area without turning it into a heavy toolbar.
+    private var headerBackground: some View {
+        ZStack {
+            palette.cardSurface
+            palette.accent.opacity(0.07)
+            palette.textPrimary.opacity(0.04)
+        }
     }
 
     private var fieldStroke: some View {
