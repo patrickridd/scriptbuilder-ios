@@ -59,9 +59,7 @@ struct OutlineView: View {
                     .animation(.easeInOut(duration: 0.3), value: headerSubtitle)
             }
             Spacer(minLength: 8)
-            OutlineProgressRing(
-                targetFraction: viewModel.overallCompletion
-            )
+            ProgressRing(targetFraction: viewModel.overallCompletion)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -102,88 +100,6 @@ struct OutlineView: View {
                     )
                 }
                 .buttonStyle(.pressableCard)
-            }
-        }
-    }
-}
-
-// MARK: - Progress ring
-
-/// A compact circular progress indicator for overall outline completion.
-/// Animates its fill from empty up to `targetFraction` when it first appears,
-/// and plays a celebratory bloom + sparkle flourish when it reaches 100%.
-private struct OutlineProgressRing: View {
-    @Environment(\.appPalette) private var palette
-    let targetFraction: Double
-    @State private var fraction: Double = 0
-    @State private var celebrate = false
-    @State private var bloom = false
-
-    private var isComplete: Bool { targetFraction >= 0.999 }
-
-    var body: some View {
-        ZStack {
-            bloomHalo
-            ring
-        }
-        .frame(width: 52, height: 52)
-        .scaleEffect(celebrate ? 1.12 : 1)
-        .animation(.spring(response: 0.4, dampingFraction: 0.5), value: celebrate)
-        .onAppear {
-            withAnimation(.easeInOut(duration: 0.9).delay(0.15)) {
-                fraction = targetFraction
-            }
-            if isComplete { triggerCelebration(delay: 1.0) }
-        }
-        .onChange(of: targetFraction) { _, newValue in
-            withAnimation(.easeInOut(duration: 0.5)) {
-                fraction = newValue
-            }
-            if newValue >= 0.999 { triggerCelebration(delay: 0.45) }
-        }
-    }
-
-    private var ring: some View {
-        ZStack {
-            Circle()
-                .stroke(palette.accent.opacity(0.15), lineWidth: 6)
-            Circle()
-                .trim(from: 0, to: max(0.001, min(1, fraction)))
-                .stroke(palette.accent, style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-            Group {
-                if isComplete && celebrate {
-                    Image(systemName: "checkmark")
-                        .font(.subheadline.weight(.heavy))
-                        .foregroundStyle(palette.accent)
-                        .transition(.scale.combined(with: .opacity))
-                } else {
-                    Text("\(Int(fraction * 100))%")
-                        .font(.caption2.weight(.bold))
-                        .foregroundStyle(palette.textPrimary)
-                        .contentTransition(.numericText())
-                }
-            }
-        }
-    }
-
-    private var bloomHalo: some View {
-        Circle()
-            .stroke(palette.accent.opacity(bloom ? 0 : 0.6), lineWidth: 3)
-            .scaleEffect(bloom ? 1.9 : 0.9)
-            .opacity(bloom ? 0 : 1)
-    }
-
-    private func triggerCelebration(delay: Double) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            withAnimation(.spring(response: 0.4, dampingFraction: 0.5)) {
-                celebrate = true
-            }
-            withAnimation(.easeOut(duration: 0.8)) {
-                bloom = true
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-                bloom = false
             }
         }
     }
