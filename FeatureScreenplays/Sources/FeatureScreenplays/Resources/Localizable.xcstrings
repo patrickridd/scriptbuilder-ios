@@ -38,6 +38,19 @@
     "Add screenplay" : {
 
     },
+    "Character Arc" : {
+
+    },
+    "Character arc, %lld of %lld fields complete" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Character arc, %1$lld of %2$lld fields complete"
+          }
+        }
+      }
+    },
     "character.delete.button" : {
       "localizations" : {
         "de" : {

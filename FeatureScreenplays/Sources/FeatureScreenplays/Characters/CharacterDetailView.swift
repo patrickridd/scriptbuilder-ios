@@ -22,6 +22,7 @@ struct CharacterDetailView: View {
             AppBackground()
             ScrollView {
                 VStack(spacing: 16) {
+                    arcHeader
                     basicInfoCard
                     arcFields
                     deleteButton
@@ -46,6 +47,41 @@ struct CharacterDetailView: View {
         } message: {
             Text(viewModel.deleteConfirmMessage)
         }
+    }
+
+    // MARK: - Arc progress
+
+    private var arcFilledCount: Int { CharacterArcField.filledCount(for: viewModel.draft) }
+    private var arcTotalCount: Int { CharacterArcField.scoreable.count }
+    private var arcCompletion: Double { CharacterArcField.completion(for: viewModel.draft) }
+
+    private var isArcComplete: Bool { arcFilledCount == arcTotalCount }
+
+    private var arcSubtitle: String {
+        isArcComplete
+            ? "Arc complete"
+            : "\(arcFilledCount) of \(arcTotalCount) fields complete"
+    }
+
+    private var arcHeader: some View {
+        HStack(alignment: .center, spacing: 16) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Character Arc")
+                    .font(.title2.weight(.bold))
+                    .foregroundStyle(palette.textPrimary)
+                Text(arcSubtitle)
+                    .font(.subheadline)
+                    .foregroundStyle(isArcComplete ? palette.accent : palette.textMuted)
+                    .contentTransition(.opacity)
+                    .animation(.easeInOut(duration: 0.3), value: arcSubtitle)
+            }
+            Spacer(minLength: 8)
+            ProgressRing(targetFraction: arcCompletion)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Character arc, \(arcFilledCount) of \(arcTotalCount) fields complete")
+        .padding(.horizontal, 8)
     }
 
     private var basicInfoCard: some View {
@@ -156,3 +192,66 @@ struct CharacterDetailView: View {
             .foregroundStyle(palette.textPrimary)
     }
 }
+
+#if DEBUG
+
+private enum CharacterDetailPreviewData {
+
+    static let partial = Character(
+        uuid: "preview-partial",
+        name: "Mara Vale",
+        role: "Protagonist",
+        intention: "Recover the stolen memory and prove the archive is lying.",
+        whyIntention: "Without it she cannot prove her sister ever existed.",
+        whatToDo: "Break into the Ledger and pull the original shard.",
+        howDoesCharacterDoIt: "",
+        obstacles: "The city's every camera already knows her face.",
+        flaws: "She trusts data more than people.",
+        intentionFix: "",
+        need: "",
+        howCharacterChanged: "",
+        notes: ""
+    )
+
+    static let complete = Character(
+        uuid: "preview-complete",
+        name: "Idris Kwan",
+        role: "Antagonist",
+        intention: "Keep the archive sealed at any cost.",
+        whyIntention: "He wrote the lie that holds the city together.",
+        whatToDo: "Erase every witness to the original upload.",
+        howDoesCharacterDoIt: "Through proxies, favours and quiet edits.",
+        obstacles: "Mara remembers what he deleted.",
+        flaws: "He mistakes control for care.",
+        intentionFix: "Confess before the final upload.",
+        need: "To be forgiven rather than obeyed.",
+        howCharacterChanged: "He hands Mara the key and walks into the light.",
+        notes: "Speaks softly, never raises his voice."
+    )
+
+    @MainActor
+    static func viewModel(for character: Character) -> CharactersViewModel {
+        CharactersViewModel(
+            screenplayID: "preview-screenplay",
+            characters: [character],
+            repository: MockScreenplayRepository(seedSamples: false)
+        )
+    }
+}
+
+#Preview("Arc in progress") {
+    let character = CharacterDetailPreviewData.partial
+    return NavigationStack {
+        CharacterDetailView(character: character, viewModel: CharacterDetailPreviewData.viewModel(for: character))
+    }
+}
+
+#Preview("Arc complete — Dark") {
+    let character = CharacterDetailPreviewData.complete
+    return NavigationStack {
+        CharacterDetailView(character: character, viewModel: CharacterDetailPreviewData.viewModel(for: character))
+    }
+    .preferredColorScheme(.dark)
+}
+
+#endif

@@ -18,25 +18,59 @@ struct CharacterCard: View {
     var body: some View {
         HStack(spacing: 14) {
             roleGlyph
-            VStack(alignment: .leading, spacing: 3) {
-                Text(character.name.isEmpty ? "Unnamed" : character.name)
-                    .font(.headline)
-                    .foregroundStyle(palette.textPrimary)
-                    .lineLimit(1)
+            VStack(alignment: .leading, spacing: 10) {
+                nameRow
                 Text(preview)
                     .font(.footnote)
                     .foregroundStyle(palette.textMuted)
                     .lineLimit(2)
             }
-            Spacer()
-            Image(systemName: "chevron.right")
-                .font(.footnote.weight(.semibold))
-                .foregroundStyle(palette.textMuted)
+            chevron
         }
         .padding(14)
         .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
         .overlay(cardBorder)
         .animation(.easeInOut(duration: 0.3), value: isHighlighted)
+    }
+
+    private var filledCount: Int { CharacterArcField.filledCount(for: character) }
+    private var totalCount: Int { CharacterArcField.scoreable.count }
+    private var isComplete: Bool { totalCount > 0 && filledCount == totalCount }
+
+    private var nameRow: some View {
+        HStack(spacing: 12) {
+            Text(character.name.isEmpty ? "Unnamed" : character.name)
+                .font(.headline)
+                .foregroundStyle(palette.textPrimary)
+                .lineLimit(1)
+            Spacer(minLength: 4)
+            progressBadge
+        }
+        .accessibilityElement(children: .combine)
+    }
+
+    private var chevron: some View {
+        Image(systemName: "chevron.right")
+            .font(.footnote.weight(.semibold))
+            .foregroundStyle(palette.textMuted.opacity(0.6))
+    }
+
+    @ViewBuilder
+    private var progressBadge: some View {
+        if totalCount > 0 {
+            Text("\(filledCount)/\(totalCount)")
+                .font(.caption.weight(.semibold))
+                .monospacedDigit()
+                .foregroundStyle(isComplete ? palette.accent : palette.textMuted)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 3)
+                .background(palette.accent.opacity(isComplete ? 0.14 : 0.06), in: Capsule())
+                .accessibilityLabel(arcAccessibilityLabel)
+        }
+    }
+
+    private var arcAccessibilityLabel: String {
+        "Arc \(filledCount) of \(totalCount) complete"
     }
 
     private var roleGlyph: some View {

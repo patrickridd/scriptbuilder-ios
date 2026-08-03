@@ -58,6 +58,28 @@ enum CharacterArcField: Int, CaseIterable, Identifiable {
         }
     }
 
+    /// The arc fields that count toward a character's completion. `notes` is a
+    /// free-form scratchpad, so it is deliberately excluded — a fully developed
+    /// character can genuinely reach 100%.
+    static var scoreable: [CharacterArcField] {
+        allCases.filter { $0 != .notes }
+    }
+
+    /// How many scoreable fields the writer has filled in.
+    static func filledCount(for character: Character) -> Int {
+        scoreable.reduce(into: 0) { total, field in
+            let text = field.value(in: character).trimmingCharacters(in: .whitespacesAndNewlines)
+            if !text.isEmpty { total += 1 }
+        }
+    }
+
+    /// Completion of a character's arc, from 0 to 1.
+    static func completion(for character: Character) -> Double {
+        let total = scoreable.count
+        guard total > 0 else { return 0 }
+        return Double(filledCount(for: character)) / Double(total)
+    }
+
     /// Read/write access to the matching field on a `Character`.
     func value(in character: Character) -> String {
         switch self {
