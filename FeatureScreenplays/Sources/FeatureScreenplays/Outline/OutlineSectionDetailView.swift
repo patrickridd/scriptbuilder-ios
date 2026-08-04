@@ -40,10 +40,6 @@ struct OutlineSectionDetailView: View {
         }
         .navigationTitle(section.title)
         .navigationBarTitleDisplayMode(.inline)
-        .completionCelebration(
-            isComplete: progress.total > 0 && progress.filled == progress.total,
-            title: L10n.Outline.sectionComplete
-        )
     }
 
     // MARK: - Progress header
