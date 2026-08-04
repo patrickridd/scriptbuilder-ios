@@ -81,6 +81,8 @@ enum L10n {
         static var unlockMore: String { L10n.string("scene.list.unlockMore") }
         static var progressTitle: String { L10n.string("scene.progress.title") }
         static var progressComplete: String { L10n.string("scene.progress.complete") }
+        static var titlePlaceholder: String { L10n.string("scene.field.title.placeholder") }
+        static var headingPlaceholder: String { L10n.string("scene.field.heading.placeholder") }
 
         static func deleteMessage(_ subject: String) -> String {
             String(format: L10n.string("scene.delete.message"), subject)
@@ -164,6 +166,7 @@ enum L10n {
         }
 
         static var nextUpHint: String { L10n.string("progress.nextUp.hint") }
+        static var celebrationSubtitle: String { L10n.string("progress.celebration.subtitle") }
     }
 
     // MARK: - Idea fields

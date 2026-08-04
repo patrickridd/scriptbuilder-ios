@@ -36,6 +36,10 @@ struct SceneDetailView: View {
         }
         .navigationTitle(viewModel.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
+        .completionCelebration(
+            isComplete: totalFieldCount > 0 && filledFieldCount == totalFieldCount,
+            title: L10n.SceneUI.progressComplete
+        )
         .onAppear {
             if viewModel.shouldFocusTitle { titleFocused = true }
         }
@@ -100,7 +104,7 @@ struct SceneDetailView: View {
     }
 
     private var titleField: some View {
-        TextField("Scene title", text: $viewModel.draft.title)
+        TextField(L10n.SceneUI.titlePlaceholder, text: $viewModel.draft.title)
             .font(.body)
             .focused($titleFocused)
             .foregroundStyle(palette.textPrimary)
@@ -111,7 +115,7 @@ struct SceneDetailView: View {
     }
 
     private var headingField: some View {
-        TextField("EXT. APARTMENT - NIGHT", text: $viewModel.draft.header)
+        TextField(L10n.SceneUI.headingPlaceholder, text: $viewModel.draft.header)
             .font(.body.monospaced())
             .textInputAutocapitalization(.characters)
             .autocorrectionDisabled()

@@ -35,6 +35,10 @@ struct CharacterDetailView: View {
         }
         .navigationTitle(viewModel.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
+        .completionCelebration(
+            isComplete: arcTotalCount > 0 && arcFilledCount == arcTotalCount,
+            title: L10n.CharacterUI.arcComplete
+        )
         .onAppear {
             if viewModel.shouldFocusName { nameFocused = true }
         }
