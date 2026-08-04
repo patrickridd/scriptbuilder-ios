@@ -130,6 +130,16 @@ enum L10n {
             String(format: L10n.string("outline.sectionsComplete"), done, total)
         }
 
+        static var sectionComplete: String { L10n.string("outline.section.complete") }
+
+        static func sectionFieldsComplete(_ done: Int, _ total: Int) -> String {
+            String(format: L10n.string("outline.section.fieldsComplete"), done, total)
+        }
+
+        static func sectionAccessibility(_ title: String, _ done: Int, _ total: Int) -> String {
+            String(format: L10n.string("outline.section.accessibility"), title, done, total)
+        }
+
         static func overallPrompt(_ section: String) -> String {
             String(format: L10n.string("outline.overallPrompt"), section)
         }

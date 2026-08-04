@@ -23,6 +23,7 @@ struct OutlineSectionDetailView: View {
             AppBackground()
             ScrollView {
                 VStack(spacing: 16) {
+                    progressHeader
                     if section == .idea {
                         ideaFields
                     } else {
@@ -37,6 +38,51 @@ struct OutlineSectionDetailView: View {
         }
         .navigationTitle(section.title)
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    // MARK: - Progress header
+
+    private var progress: (filled: Int, total: Int) { viewModel.filledCount(for: section) }
+
+    private var isSectionComplete: Bool {
+        let progress = self.progress
+        return progress.total > 0 && progress.filled == progress.total
+    }
+
+    private var progressFraction: Double {
+        let progress = self.progress
+        guard progress.total > 0 else { return 0 }
+        return Double(progress.filled) / Double(progress.total)
+    }
+
+    private var progressSubtitle: String {
+        let progress = self.progress
+        return isSectionComplete
+            ? L10n.Outline.sectionComplete
+            : L10n.Outline.sectionFieldsComplete(progress.filled, progress.total)
+    }
+
+    private var progressHeader: some View {
+        HStack(alignment: .center, spacing: 16) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(section.title)
+                    .font(.title2.weight(.bold))
+                    .foregroundStyle(palette.textPrimary)
+                Text(progressSubtitle)
+                    .font(.subheadline)
+                    .foregroundStyle(isSectionComplete ? palette.accent : palette.textMuted)
+                    .contentTransition(.opacity)
+                    .animation(.easeInOut(duration: 0.3), value: progressSubtitle)
+            }
+            Spacer(minLength: 8)
+            ProgressRing(targetFraction: progressFraction)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(
+            L10n.Outline.sectionAccessibility(section.title, progress.filled, progress.total)
+        )
+        .padding(.horizontal, 8)
     }
 
     // MARK: - Idea
