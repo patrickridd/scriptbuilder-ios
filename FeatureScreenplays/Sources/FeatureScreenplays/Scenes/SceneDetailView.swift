@@ -12,6 +12,7 @@ struct SceneDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: SceneDetailViewModel
     @State private var showDeleteConfirm = false
+    @State private var focusRequest: AnyHashable?
     @FocusState private var titleFocused: Bool
 
     init(scene: Domain.Scene, act: Act, viewModel: ScenesViewModel) {
@@ -36,10 +37,6 @@ struct SceneDetailView: View {
         }
         .navigationTitle(viewModel.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
-        .completionCelebration(
-            isComplete: totalFieldCount > 0 && filledFieldCount == totalFieldCount,
-            title: L10n.SceneUI.progressComplete
-        )
         .onAppear {
             if viewModel.shouldFocusTitle { titleFocused = true }
         }
@@ -71,6 +68,7 @@ struct SceneDetailView: View {
             nextFieldTitle: nextSceneField?.title,
             onNextTapped: {
                 guard let field = nextSceneField else { return }
+                focusRequest = AnyHashable(field)
                 withAnimation(.easeInOut(duration: 0.35)) {
                     proxy.scrollTo(field, anchor: .top)
                 }
@@ -188,6 +186,8 @@ struct SceneDetailView: View {
                     title: field.title,
                     prompt: field.prompt,
                     systemImage: field.systemImage,
+                    focusRequest: $focusRequest,
+                    focusID: AnyHashable(field),
                     text: binding(for: field)
                 )
                 .id(field)

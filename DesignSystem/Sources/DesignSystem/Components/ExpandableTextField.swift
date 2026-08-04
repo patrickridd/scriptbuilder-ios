@@ -18,6 +18,8 @@ public struct ExpandableTextField: View {
     private let placeholder: String
     private let systemImage: String?
     private let allowsFullScreen: Bool
+    private let focusRequest: Binding<AnyHashable?>?
+    private let focusID: AnyHashable?
     @Binding private var text: String
 
     /// - Parameters:
@@ -26,6 +28,11 @@ public struct ExpandableTextField: View {
     ///   - placeholder: Greyed hint shown inside an empty field.
     ///   - systemImage: Optional SF Symbol shown beside the title.
     ///   - allowsFullScreen: Shows an expand button that opens a full-screen editor.
+    ///   - focusRequest: A shared "please focus this field" token owned by the parent
+    ///     form. When it matches `focusID` this field becomes first responder and the
+    ///     token is cleared.
+    ///   - focusID: This field's identity within the form — usually the same value
+    ///     used for `.id(…)` so scrolling and focusing target the same field.
     ///   - text: The bound value the field edits.
     public init(
         title: String,
@@ -33,6 +40,8 @@ public struct ExpandableTextField: View {
         placeholder: String = "Start writing…",
         systemImage: String? = nil,
         allowsFullScreen: Bool = true,
+        focusRequest: Binding<AnyHashable?>? = nil,
+        focusID: AnyHashable? = nil,
         text: Binding<String>
     ) {
         self.title = title
@@ -40,6 +49,8 @@ public struct ExpandableTextField: View {
         self.placeholder = placeholder
         self.systemImage = systemImage
         self.allowsFullScreen = allowsFullScreen
+        self.focusRequest = focusRequest
+        self.focusID = focusID
         self._text = text
     }
 
@@ -71,6 +82,19 @@ public struct ExpandableTextField: View {
             )
         }.onTapGesture {
             isFocused = true
+        }
+        .onChange(of: focusRequest?.wrappedValue) { _, requested in
+            handleFocusRequest(requested)
+        }
+    }
+
+    /// Becomes first responder when the parent form asks for this field, then
+    /// clears the token so a later tap on the same nudge works again.
+    private func handleFocusRequest(_ requested: AnyHashable?) {
+        guard let focusID, let requested, requested == focusID else { return }
+        isFocused = true
+        Task { @MainActor in
+            focusRequest?.wrappedValue = nil
         }
     }
 

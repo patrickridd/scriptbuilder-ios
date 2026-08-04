@@ -11,6 +11,7 @@ struct CharacterDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: CharacterDetailViewModel
     @State private var showDeleteConfirm = false
+    @State private var focusRequest: AnyHashable?
     @FocusState private var nameFocused: Bool
 
     init(character: Character, viewModel: CharactersViewModel) {
@@ -69,6 +70,7 @@ struct CharacterDetailView: View {
             nextFieldTitle: nextArcField?.title,
             onNextTapped: {
                 guard let field = nextArcField else { return }
+                focusRequest = AnyHashable(field)
                 withAnimation(.easeInOut(duration: 0.35)) {
                     proxy.scrollTo(field, anchor: .top)
                 }
@@ -137,6 +139,8 @@ struct CharacterDetailView: View {
                     title: field.title,
                     prompt: field.prompt,
                     systemImage: field.systemImage,
+                    focusRequest: $focusRequest,
+                    focusID: AnyHashable(field),
                     text: binding(for: field)
                 )
                 .id(field)
