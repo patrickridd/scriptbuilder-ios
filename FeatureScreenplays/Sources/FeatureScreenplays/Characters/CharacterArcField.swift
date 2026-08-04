@@ -73,6 +73,14 @@ enum CharacterArcField: Int, CaseIterable, Identifiable {
         }
     }
 
+    /// The first scoreable field the writer has not filled in yet — drives the
+    /// "Next up: …" nudge in the detail editor.
+    static func firstUnfilled(for character: Character) -> CharacterArcField? {
+        scoreable.first {
+            $0.value(in: character).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        }
+    }
+
     /// Completion of a character's arc, from 0 to 1.
     static func completion(for character: Character) -> Double {
         let total = scoreable.count

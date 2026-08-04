@@ -21,19 +21,21 @@ struct OutlineSectionDetailView: View {
     var body: some View {
         ZStack {
             AppBackground()
-            ScrollView {
-                VStack(spacing: 16) {
-                    progressHeader
-                    if section == .idea {
-                        ideaFields
-                    } else {
-                        overallDescriptionField
-                        beatsHeader
-                        beatsFields
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 16) {
+                        progressHeader(proxy: proxy)
+                        if section == .idea {
+                            ideaFields
+                        } else {
+                            overallDescriptionField
+                            beatsHeader
+                            beatsFields
+                        }
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
             }
         }
         .navigationTitle(section.title)
@@ -44,45 +46,21 @@ struct OutlineSectionDetailView: View {
 
     private var progress: (filled: Int, total: Int) { viewModel.filledCount(for: section) }
 
-    private var isSectionComplete: Bool {
-        let progress = self.progress
-        return progress.total > 0 && progress.filled == progress.total
-    }
-
-    private var progressFraction: Double {
-        let progress = self.progress
-        guard progress.total > 0 else { return 0 }
-        return Double(progress.filled) / Double(progress.total)
-    }
-
-    private var progressSubtitle: String {
-        let progress = self.progress
-        return isSectionComplete
-            ? L10n.Outline.sectionComplete
-            : L10n.Outline.sectionFieldsComplete(progress.filled, progress.total)
-    }
-
-    private var progressHeader: some View {
-        HStack(alignment: .center, spacing: 16) {
-            VStack(alignment: .leading, spacing: 6) {
-                Text(section.title)
-                    .font(.title2.weight(.bold))
-                    .foregroundStyle(palette.textPrimary)
-                Text(progressSubtitle)
-                    .font(.subheadline)
-                    .foregroundStyle(isSectionComplete ? palette.accent : palette.textMuted)
-                    .contentTransition(.opacity)
-                    .animation(.easeInOut(duration: 0.3), value: progressSubtitle)
+    private func progressHeader(proxy: ScrollViewProxy) -> some View {
+        let next = viewModel.firstUnfilled(for: section)
+        return ProgressHeader(
+            title: section.title,
+            filled: progress.filled,
+            total: progress.total,
+            completeText: L10n.Outline.sectionComplete,
+            nextFieldTitle: next?.title,
+            onNextTapped: {
+                guard let anchor = next?.anchor else { return }
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    proxy.scrollTo(anchor, anchor: .top)
+                }
             }
-            Spacer(minLength: 8)
-            ProgressRing(targetFraction: progressFraction)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(
-            L10n.Outline.sectionAccessibility(section.title, progress.filled, progress.total)
         )
-        .padding(.horizontal, 8)
     }
 
     // MARK: - Idea
@@ -96,6 +74,7 @@ struct OutlineSectionDetailView: View {
                     systemImage: spec.systemImage,
                     text: viewModel.binding(for: spec.field)
                 )
+                .id(OutlineViewModel.FieldAnchor.outline(spec.field))
             }
         }
     }
@@ -111,6 +90,7 @@ struct OutlineSectionDetailView: View {
                     systemImage: "text.alignleft",
                     text: viewModel.binding(for: field)
                 )
+                .id(OutlineViewModel.FieldAnchor.outline(field))
             }
         }
     }
@@ -168,6 +148,7 @@ struct OutlineSectionDetailView: View {
                     systemImage: "circle.grid.cross",
                     text: viewModel.binding(for: beat)
                 )
+                .id(OutlineViewModel.FieldAnchor.beat(beat))
             }
         }
     }

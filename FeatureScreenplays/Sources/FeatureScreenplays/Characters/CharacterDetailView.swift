@@ -20,15 +20,17 @@ struct CharacterDetailView: View {
     var body: some View {
         ZStack {
             AppBackground()
-            ScrollView {
-                VStack(spacing: 16) {
-                    arcHeader
-                    basicInfoCard
-                    arcFields
-                    deleteButton
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 16) {
+                        arcHeader(proxy: proxy)
+                        basicInfoCard
+                        arcFields
+                        deleteButton
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
             }
         }
         .navigationTitle(viewModel.navigationTitle)
@@ -53,35 +55,25 @@ struct CharacterDetailView: View {
 
     private var arcFilledCount: Int { CharacterArcField.filledCount(for: viewModel.draft) }
     private var arcTotalCount: Int { CharacterArcField.scoreable.count }
-    private var arcCompletion: Double { CharacterArcField.completion(for: viewModel.draft) }
 
-    private var isArcComplete: Bool { arcFilledCount == arcTotalCount }
-
-    private var arcSubtitle: String {
-        isArcComplete
-            ? L10n.CharacterUI.arcComplete
-            : L10n.CharacterUI.arcFieldsComplete(arcFilledCount, arcTotalCount)
+    private var nextArcField: CharacterArcField? {
+        CharacterArcField.firstUnfilled(for: viewModel.draft)
     }
 
-    private var arcHeader: some View {
-        HStack(alignment: .center, spacing: 16) {
-            VStack(alignment: .leading, spacing: 6) {
-                Text(L10n.CharacterUI.arcTitle)
-                    .font(.title2.weight(.bold))
-                    .foregroundStyle(palette.textPrimary)
-                Text(arcSubtitle)
-                    .font(.subheadline)
-                    .foregroundStyle(isArcComplete ? palette.accent : palette.textMuted)
-                    .contentTransition(.opacity)
-                    .animation(.easeInOut(duration: 0.3), value: arcSubtitle)
+    private func arcHeader(proxy: ScrollViewProxy) -> some View {
+        ProgressHeader(
+            title: L10n.CharacterUI.arcTitle,
+            filled: arcFilledCount,
+            total: arcTotalCount,
+            completeText: L10n.CharacterUI.arcComplete,
+            nextFieldTitle: nextArcField?.title,
+            onNextTapped: {
+                guard let field = nextArcField else { return }
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    proxy.scrollTo(field, anchor: .top)
+                }
             }
-            Spacer(minLength: 8)
-            ProgressRing(targetFraction: arcCompletion)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(L10n.CharacterUI.arcAccessibility(arcFilledCount, arcTotalCount))
-        .padding(.horizontal, 8)
+        )
     }
 
     private var basicInfoCard: some View {
@@ -147,6 +139,7 @@ struct CharacterDetailView: View {
                     systemImage: field.systemImage,
                     text: binding(for: field)
                 )
+                .id(field)
             }
         }
     }

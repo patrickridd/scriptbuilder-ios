@@ -261,6 +261,30 @@ public final class OutlineViewModel {
         return ActBeatField.beats(for: act)
     }
 
+    /// Scroll anchor for one editable row inside a section's detail editor.
+    enum FieldAnchor: Hashable {
+        case outline(OutlineField)
+        case beat(ActBeatField)
+    }
+
+    /// The first required field in a section that is still empty, paired with
+    /// its localized title — drives the "Next up: …" nudge.
+    func firstUnfilled(for section: OutlineSection) -> (anchor: FieldAnchor, title: String)? {
+        if section == .idea {
+            for spec in ideaFieldSpecs where !spec.isOptional {
+                if isBlank(value(for: spec.field)) { return (.outline(spec.field), spec.title) }
+            }
+            return nil
+        }
+        if let field = section.descriptionField, isBlank(value(for: field)) {
+            return (.outline(field), L10n.Outline.overallDescription)
+        }
+        for beat in beats(for: section) where isBlank(beat.value(in: screenplay)) {
+            return (.beat(beat), beat.title)
+        }
+        return nil
+    }
+
     /// The explanatory copy shown in the Act Beats info popover.
     let beatsInfoText = "Answering these questions can help you develop the plot points in your acts and push the story forward. Although not required, they can help you escape writer's block."
 

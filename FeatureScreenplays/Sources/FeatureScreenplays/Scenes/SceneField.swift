@@ -46,8 +46,28 @@ enum SceneField: Int, CaseIterable, Identifiable {
         }
     }
 
-    func value(in scene: Scene) -> String {
-        switch self {
+    /// The sections that count toward a scene's completion. `notes` is a
+    /// free-form scratchpad, so it is deliberately excluded.
+    static var scoreable: [SceneField] {
+        allCases.filter { $0 != .notes }
+    }
+
+    /// How many scoreable sections the writer has filled in.
+    static func filledCount(for scene: Scene) -> Int {
+        scoreable.reduce(into: 0) { total, field in
+            let text = field.value(in: scene).trimmingCharacters(in: .whitespacesAndNewlines)
+            if !text.isEmpty { total += 1 }
+        }
+    }
+
+    /// The first scoreable section still empty — drives the "Next up: …" nudge.
+    static func firstUnfilled(for scene: Scene) -> SceneField? {
+        scoreable.first {
+            $0.value(in: scene).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        }
+    }
+
+    func value(in scene: Scene) -> String {        switch self {
         case .sceneDescription: return scene.sceneDescription
         case .characters: return scene.characters
         case .dialogue: return scene.dialogue

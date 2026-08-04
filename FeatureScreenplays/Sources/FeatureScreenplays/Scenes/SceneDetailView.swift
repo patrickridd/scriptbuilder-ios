@@ -21,14 +21,17 @@ struct SceneDetailView: View {
     var body: some View {
         ZStack {
             AppBackground()
-            ScrollView {
-                VStack(spacing: 16) {
-                    metadataCard
-                    sceneFields
-                    deleteButton
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 16) {
+                        progressHeader(proxy: proxy)
+                        metadataCard
+                        sceneFields
+                        deleteButton
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
             }
         }
         .navigationTitle(viewModel.navigationTitle)
@@ -47,6 +50,28 @@ struct SceneDetailView: View {
         } message: {
             Text(viewModel.deleteConfirmMessage)
         }
+    }
+
+    // MARK: - Progress header
+
+    private var filledFieldCount: Int { SceneField.filledCount(for: viewModel.draft) }
+    private var totalFieldCount: Int { SceneField.scoreable.count }
+    private var nextSceneField: SceneField? { SceneField.firstUnfilled(for: viewModel.draft) }
+
+    private func progressHeader(proxy: ScrollViewProxy) -> some View {
+        ProgressHeader(
+            title: L10n.SceneUI.progressTitle,
+            filled: filledFieldCount,
+            total: totalFieldCount,
+            completeText: L10n.SceneUI.progressComplete,
+            nextFieldTitle: nextSceneField?.title,
+            onNextTapped: {
+                guard let field = nextSceneField else { return }
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    proxy.scrollTo(field, anchor: .top)
+                }
+            }
+        )
     }
 
     // MARK: - Metadata
@@ -161,6 +186,7 @@ struct SceneDetailView: View {
                     systemImage: field.systemImage,
                     text: binding(for: field)
                 )
+                .id(field)
             }
         }
     }

@@ -79,6 +79,8 @@ enum L10n {
         static var fieldHeading: String { L10n.string("scene.field.heading.label") }
         static var addScene: String { L10n.string("scene.list.add") }
         static var unlockMore: String { L10n.string("scene.list.unlockMore") }
+        static var progressTitle: String { L10n.string("scene.progress.title") }
+        static var progressComplete: String { L10n.string("scene.progress.complete") }
 
         static func deleteMessage(_ subject: String) -> String {
             String(format: L10n.string("scene.delete.message"), subject)
@@ -132,14 +134,6 @@ enum L10n {
 
         static var sectionComplete: String { L10n.string("outline.section.complete") }
 
-        static func sectionFieldsComplete(_ done: Int, _ total: Int) -> String {
-            String(format: L10n.string("outline.section.fieldsComplete"), done, total)
-        }
-
-        static func sectionAccessibility(_ title: String, _ done: Int, _ total: Int) -> String {
-            String(format: L10n.string("outline.section.accessibility"), title, done, total)
-        }
-
         static func overallPrompt(_ section: String) -> String {
             String(format: L10n.string("outline.overallPrompt"), section)
         }
@@ -153,6 +147,23 @@ enum L10n {
         static func sectionPlaceholder(_ section: OutlineSection) -> String {
             L10n.dynamic("outline.section.\(section.key).placeholder")
         }
+    }
+
+    // MARK: - Shared progress header
+    enum Progress {
+        static func fieldsComplete(_ done: Int, _ total: Int) -> String {
+            String(format: L10n.string("progress.fieldsComplete"), done, total)
+        }
+
+        static func accessibility(_ title: String, _ done: Int, _ total: Int) -> String {
+            String(format: L10n.string("progress.accessibility"), title, done, total)
+        }
+
+        static func nextUp(_ field: String) -> String {
+            String(format: L10n.string("progress.nextUp"), field)
+        }
+
+        static var nextUpHint: String { L10n.string("progress.nextUp.hint") }
     }
 
     // MARK: - Idea fields
