@@ -152,7 +152,7 @@ public struct CharacterListView: View {
                     CharacterCard(character: character, isHighlighted: viewModel.isHighlighted(character))
                 }
                 .buttonStyle(.plain)
-                .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+                .listRowInsets(EdgeInsets(top: 5, leading: 2, bottom: 5, trailing: 2))
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {

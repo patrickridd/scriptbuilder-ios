@@ -28,8 +28,9 @@ struct CharacterCard: View {
             chevron
         }
         .padding(14)
-        .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(cardShape.fill(palette.cardSurface))
         .overlay(cardBorder)
+        .compositingGroup()
         .animation(.easeInOut(duration: 0.3), value: isHighlighted)
     }
 
@@ -81,11 +82,19 @@ struct CharacterCard: View {
             .background(palette.heroGradient, in: RoundedRectangle(cornerRadius: 13, style: .continuous))
     }
 
-    private var cardBorder: some View {
+    private var cardShape: RoundedRectangle {
         RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .stroke(
+    }
+
+    /// Drawn with `strokeBorder` so the full line sits *inside* the card bounds.
+    /// A plain `stroke` straddles the edge, and the outer half was being clipped
+    /// by the enclosing list row — which made the highlight border look like it
+    /// stopped short of wrapping the card.
+    private var cardBorder: some View {
+        cardShape
+            .strokeBorder(
                 isHighlighted ? palette.accent.opacity(0.9) : palette.cardStroke,
-                lineWidth: isHighlighted ? 1.5 : 1
+                lineWidth: isHighlighted ? 2 : 1
             )
     }
 }
