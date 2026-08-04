@@ -93,6 +93,16 @@ enum L10n {
         static var deleteButton: String { L10n.string("character.delete.button") }
         static var fieldName: String { L10n.string("character.field.name.label") }
         static var fieldRole: String { L10n.string("character.field.role.label") }
+        static var customRolePlaceholder: String { L10n.string("character.field.role.custom.placeholder") }
+        static var arcTitle: String { L10n.string("character.arc.title") }
+        static var arcComplete: String { L10n.string("character.arc.complete") }
+
+        static func arcFieldsComplete(_ done: Int, _ total: Int) -> String {
+            String(format: L10n.string("character.arc.fieldsComplete"), done, total)
+        }
+        static func arcAccessibility(_ done: Int, _ total: Int) -> String {
+            String(format: L10n.string("character.arc.accessibility"), done, total)
+        }
         static var emptyTitle: String { L10n.string("character.empty.title") }
         static var emptyMessage: String { L10n.string("character.empty.message") }
         static var noMatchesTitle: String { L10n.string("character.noMatches.title") }

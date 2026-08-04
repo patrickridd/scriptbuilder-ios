@@ -59,14 +59,14 @@ struct CharacterDetailView: View {
 
     private var arcSubtitle: String {
         isArcComplete
-            ? "Arc complete"
-            : "\(arcFilledCount) of \(arcTotalCount) fields complete"
+            ? L10n.CharacterUI.arcComplete
+            : L10n.CharacterUI.arcFieldsComplete(arcFilledCount, arcTotalCount)
     }
 
     private var arcHeader: some View {
         HStack(alignment: .center, spacing: 16) {
             VStack(alignment: .leading, spacing: 6) {
-                Text("Character Arc")
+                Text(L10n.CharacterUI.arcTitle)
                     .font(.title2.weight(.bold))
                     .foregroundStyle(palette.textPrimary)
                 Text(arcSubtitle)
@@ -80,7 +80,7 @@ struct CharacterDetailView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("Character arc, \(arcFilledCount) of \(arcTotalCount) fields complete")
+        .accessibilityLabel(L10n.CharacterUI.arcAccessibility(arcFilledCount, arcTotalCount))
         .padding(.horizontal, 8)
     }
 
@@ -99,7 +99,7 @@ struct CharacterDetailView: View {
             fieldLabel(L10n.CharacterUI.fieldRole, systemImage: "theatermasks")
             rolePicker
             if viewModel.role == .custom {
-                TextField("Custom role", text: $viewModel.customRole)
+                TextField(L10n.CharacterUI.customRolePlaceholder, text: $viewModel.customRole)
                     .font(.body)
                     .foregroundStyle(palette.textPrimary)
                     .tint(palette.accent)
