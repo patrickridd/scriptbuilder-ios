@@ -79,6 +79,10 @@ enum L10n {
         static var fieldHeading: String { L10n.string("scene.field.heading.label") }
         static var addScene: String { L10n.string("scene.list.add") }
         static var unlockMore: String { L10n.string("scene.list.unlockMore") }
+        static var progressTitle: String { L10n.string("scene.progress.title") }
+        static var progressComplete: String { L10n.string("scene.progress.complete") }
+        static var titlePlaceholder: String { L10n.string("scene.field.title.placeholder") }
+        static var headingPlaceholder: String { L10n.string("scene.field.heading.placeholder") }
 
         static func deleteMessage(_ subject: String) -> String {
             String(format: L10n.string("scene.delete.message"), subject)
@@ -93,6 +97,16 @@ enum L10n {
         static var deleteButton: String { L10n.string("character.delete.button") }
         static var fieldName: String { L10n.string("character.field.name.label") }
         static var fieldRole: String { L10n.string("character.field.role.label") }
+        static var customRolePlaceholder: String { L10n.string("character.field.role.custom.placeholder") }
+        static var arcTitle: String { L10n.string("character.arc.title") }
+        static var arcComplete: String { L10n.string("character.arc.complete") }
+
+        static func arcFieldsComplete(_ done: Int, _ total: Int) -> String {
+            String(format: L10n.string("character.arc.fieldsComplete"), done, total)
+        }
+        static func arcAccessibility(_ done: Int, _ total: Int) -> String {
+            String(format: L10n.string("character.arc.accessibility"), done, total)
+        }
         static var emptyTitle: String { L10n.string("character.empty.title") }
         static var emptyMessage: String { L10n.string("character.empty.message") }
         static var noMatchesTitle: String { L10n.string("character.noMatches.title") }
@@ -120,6 +134,8 @@ enum L10n {
             String(format: L10n.string("outline.sectionsComplete"), done, total)
         }
 
+        static var sectionComplete: String { L10n.string("outline.section.complete") }
+
         static func overallPrompt(_ section: String) -> String {
             String(format: L10n.string("outline.overallPrompt"), section)
         }
@@ -133,6 +149,24 @@ enum L10n {
         static func sectionPlaceholder(_ section: OutlineSection) -> String {
             L10n.dynamic("outline.section.\(section.key).placeholder")
         }
+    }
+
+    // MARK: - Shared progress header
+    enum Progress {
+        static func fieldsComplete(_ done: Int, _ total: Int) -> String {
+            String(format: L10n.string("progress.fieldsComplete"), done, total)
+        }
+
+        static func accessibility(_ title: String, _ done: Int, _ total: Int) -> String {
+            String(format: L10n.string("progress.accessibility"), title, done, total)
+        }
+
+        static func nextUp(_ field: String) -> String {
+            String(format: L10n.string("progress.nextUp"), field)
+        }
+
+        static var nextUpHint: String { L10n.string("progress.nextUp.hint") }
+        static var celebrationSubtitle: String { L10n.string("progress.celebration.subtitle") }
     }
 
     // MARK: - Idea fields

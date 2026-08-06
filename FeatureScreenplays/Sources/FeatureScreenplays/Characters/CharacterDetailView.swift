@@ -11,6 +11,7 @@ struct CharacterDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: CharacterDetailViewModel
     @State private var showDeleteConfirm = false
+    @State private var focusRequest: AnyHashable?
     @FocusState private var nameFocused: Bool
 
     init(character: Character, viewModel: CharactersViewModel) {
@@ -20,14 +21,17 @@ struct CharacterDetailView: View {
     var body: some View {
         ZStack {
             AppBackground()
-            ScrollView {
-                VStack(spacing: 16) {
-                    basicInfoCard
-                    arcFields
-                    deleteButton
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 16) {
+                        arcHeader(proxy: proxy)
+                        basicInfoCard
+                        arcFields
+                        deleteButton
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
             }
         }
         .navigationTitle(viewModel.navigationTitle)
@@ -48,6 +52,32 @@ struct CharacterDetailView: View {
         }
     }
 
+    // MARK: - Arc progress
+
+    private var arcFilledCount: Int { CharacterArcField.filledCount(for: viewModel.draft) }
+    private var arcTotalCount: Int { CharacterArcField.scoreable.count }
+
+    private var nextArcField: CharacterArcField? {
+        CharacterArcField.firstUnfilled(for: viewModel.draft)
+    }
+
+    private func arcHeader(proxy: ScrollViewProxy) -> some View {
+        ProgressHeader(
+            title: L10n.CharacterUI.arcTitle,
+            filled: arcFilledCount,
+            total: arcTotalCount,
+            completeText: L10n.CharacterUI.arcComplete,
+            nextFieldTitle: nextArcField?.title,
+            onNextTapped: {
+                guard let field = nextArcField else { return }
+                focusRequest = AnyHashable(field)
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    proxy.scrollTo(field, anchor: .top)
+                }
+            }
+        )
+    }
+
     private var basicInfoCard: some View {
         VStack(alignment: .leading, spacing: 14) {
             fieldLabel(L10n.CharacterUI.fieldName, systemImage: "person.text.rectangle")
@@ -63,7 +93,7 @@ struct CharacterDetailView: View {
             fieldLabel(L10n.CharacterUI.fieldRole, systemImage: "theatermasks")
             rolePicker
             if viewModel.role == .custom {
-                TextField("Custom role", text: $viewModel.customRole)
+                TextField(L10n.CharacterUI.customRolePlaceholder, text: $viewModel.customRole)
                     .font(.body)
                     .foregroundStyle(palette.textPrimary)
                     .tint(palette.accent)
@@ -109,8 +139,11 @@ struct CharacterDetailView: View {
                     title: field.title,
                     prompt: field.prompt,
                     systemImage: field.systemImage,
+                    focusRequest: $focusRequest,
+                    focusID: AnyHashable(field),
                     text: binding(for: field)
                 )
+                .id(field)
             }
         }
     }
@@ -156,3 +189,66 @@ struct CharacterDetailView: View {
             .foregroundStyle(palette.textPrimary)
     }
 }
+
+#if DEBUG
+
+private enum CharacterDetailPreviewData {
+
+    static let partial = Character(
+        uuid: "preview-partial",
+        name: "Mara Vale",
+        role: "Protagonist",
+        intention: "Recover the stolen memory and prove the archive is lying.",
+        whyIntention: "Without it she cannot prove her sister ever existed.",
+        whatToDo: "Break into the Ledger and pull the original shard.",
+        howDoesCharacterDoIt: "",
+        obstacles: "The city's every camera already knows her face.",
+        flaws: "She trusts data more than people.",
+        intentionFix: "",
+        need: "",
+        howCharacterChanged: "",
+        notes: ""
+    )
+
+    static let complete = Character(
+        uuid: "preview-complete",
+        name: "Idris Kwan",
+        role: "Antagonist",
+        intention: "Keep the archive sealed at any cost.",
+        whyIntention: "He wrote the lie that holds the city together.",
+        whatToDo: "Erase every witness to the original upload.",
+        howDoesCharacterDoIt: "Through proxies, favours and quiet edits.",
+        obstacles: "Mara remembers what he deleted.",
+        flaws: "He mistakes control for care.",
+        intentionFix: "Confess before the final upload.",
+        need: "To be forgiven rather than obeyed.",
+        howCharacterChanged: "He hands Mara the key and walks into the light.",
+        notes: "Speaks softly, never raises his voice."
+    )
+
+    @MainActor
+    static func viewModel(for character: Character) -> CharactersViewModel {
+        CharactersViewModel(
+            screenplayID: "preview-screenplay",
+            characters: [character],
+            repository: MockScreenplayRepository(seedSamples: false)
+        )
+    }
+}
+
+#Preview("Arc in progress") {
+    let character = CharacterDetailPreviewData.partial
+    return NavigationStack {
+        CharacterDetailView(character: character, viewModel: CharacterDetailPreviewData.viewModel(for: character))
+    }
+}
+
+#Preview("Arc complete — Dark") {
+    let character = CharacterDetailPreviewData.complete
+    return NavigationStack {
+        CharacterDetailView(character: character, viewModel: CharacterDetailPreviewData.viewModel(for: character))
+    }
+    .preferredColorScheme(.dark)
+}
+
+#endif

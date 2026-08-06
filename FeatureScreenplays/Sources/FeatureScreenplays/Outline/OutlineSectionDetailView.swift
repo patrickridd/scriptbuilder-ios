@@ -12,6 +12,7 @@ struct OutlineSectionDetailView: View {
     @Bindable var viewModel: OutlineViewModel
     private let section: OutlineSection
     @State private var showBeatsInfo = false
+    @State private var focusRequest: AnyHashable?
 
     init(section: OutlineSection, viewModel: OutlineViewModel) {
         self.section = section
@@ -21,22 +22,47 @@ struct OutlineSectionDetailView: View {
     var body: some View {
         ZStack {
             AppBackground()
-            ScrollView {
-                VStack(spacing: 16) {
-                    if section == .idea {
-                        ideaFields
-                    } else {
-                        overallDescriptionField
-                        beatsHeader
-                        beatsFields
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 16) {
+                        progressHeader(proxy: proxy)
+                        if section == .idea {
+                            ideaFields
+                        } else {
+                            overallDescriptionField
+                            beatsHeader
+                            beatsFields
+                        }
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
             }
         }
         .navigationTitle(section.title)
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    // MARK: - Progress header
+
+    private var progress: (filled: Int, total: Int) { viewModel.filledCount(for: section) }
+
+    private func progressHeader(proxy: ScrollViewProxy) -> some View {
+        let next = viewModel.firstUnfilled(for: section)
+        return ProgressHeader(
+            title: section.title,
+            filled: progress.filled,
+            total: progress.total,
+            completeText: L10n.Outline.sectionComplete,
+            nextFieldTitle: next?.title,
+            onNextTapped: {
+                guard let anchor = next?.anchor else { return }
+                focusRequest = AnyHashable(anchor)
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    proxy.scrollTo(anchor, anchor: .top)
+                }
+            }
+        )
     }
 
     // MARK: - Idea
@@ -48,8 +74,11 @@ struct OutlineSectionDetailView: View {
                     title: spec.isOptional ? L10n.Action.optional(spec.title) : spec.title,
                     prompt: spec.prompt,
                     systemImage: spec.systemImage,
+                    focusRequest: $focusRequest,
+                    focusID: AnyHashable(OutlineViewModel.FieldAnchor.outline(spec.field)),
                     text: viewModel.binding(for: spec.field)
                 )
+                .id(OutlineViewModel.FieldAnchor.outline(spec.field))
             }
         }
     }
@@ -63,8 +92,11 @@ struct OutlineSectionDetailView: View {
                     title: L10n.Outline.overallDescription,
                     prompt: L10n.Outline.overallPrompt(section.title),
                     systemImage: "text.alignleft",
+                    focusRequest: $focusRequest,
+                    focusID: AnyHashable(OutlineViewModel.FieldAnchor.outline(field)),
                     text: viewModel.binding(for: field)
                 )
+                .id(OutlineViewModel.FieldAnchor.outline(field))
             }
         }
     }
@@ -120,8 +152,11 @@ struct OutlineSectionDetailView: View {
                     title: beat.title,
                     prompt: beat.subtitle,
                     systemImage: "circle.grid.cross",
+                    focusRequest: $focusRequest,
+                    focusID: AnyHashable(OutlineViewModel.FieldAnchor.beat(beat)),
                     text: viewModel.binding(for: beat)
                 )
+                .id(OutlineViewModel.FieldAnchor.beat(beat))
             }
         }
     }

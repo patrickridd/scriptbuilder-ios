@@ -90,7 +90,7 @@ struct CharactersViewModelTests {
 
         sut.moveToTop(mystery)
 
-        #expect(sut.populatedRoles.first == CharacterRole.bucket(for: "Mysterious"))
+        #expect(sut.populatedRoles.first == RoleKey.bucket(for: "Mysterious"))
         #expect(sut.characters.first?.uuid == mystery.uuid)
     }
 
@@ -132,13 +132,15 @@ struct CharactersViewModelTests {
         #expect(sut.populatedRoles == [.protagonist, .antagonist])
     }
 
-    @Test("Characters with unknown roles are grouped under Custom")
-    func unknownRolesGroupUnderCustom() async {
+    @Test("Characters with a free-form role are grouped under that role's own name")
+    func unknownRolesGroupUnderTheirOwnName() async {
         let oddball = Character(name: "Oracle", role: "Fortune Teller")
         let (sut, _) = makeSUT(characters: [oddball])
 
-        #expect(sut.populatedRoles == [.custom])
-        #expect(sut.characters(in: .custom).contains(oddball))
+        let expected = RoleKey.bucket(for: "Fortune Teller")
+        #expect(sut.populatedRoles == [expected])
+        #expect(expected.displayName == "Fortune Teller")
+        #expect(sut.characters(in: expected).contains(oddball))
     }
 
     @Test("Deleting the last character in a section drops that section")

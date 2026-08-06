@@ -63,11 +63,11 @@ public final class CharactersViewModel {
     /// cause of the "invalid number of items in section" collection-view crash).
     /// Add / moveToTop bubble a role to the front here; delete only prunes a
     /// role once it becomes empty, in a separate, settled update.
-    private var roleOrder: [CharacterRole] = []
+    private var roleOrder: [RoleKey] = []
 
     /// Roles that currently contain at least one character, derived from the
     /// **stored** `sections` snapshot so it never re-filters the live array.
-    var populatedRoles: [CharacterRole] {
+    var populatedRoles: [RoleKey] {
         sections.map(\.role)
     }
 
@@ -114,7 +114,7 @@ public final class CharactersViewModel {
     /// SwiftUI equivalent of UIKit's `didSet { reloadTableView() }`.
     private func rebuildSections() {
         sections = roleOrder.compactMap { role in
-            let rows = characters.filter { CharacterRole.bucket(for: $0.role) == role }
+            let rows = characters.filter { RoleKey.bucket(for: $0.role) == role }
             guard !rows.isEmpty else { return nil }
             return RoleSection(role: role, characters: rows)
         }
@@ -130,24 +130,24 @@ public final class CharactersViewModel {
     var structureID: String {
         sections
             .map { section in
-                section.role.rawValue + ":" + section.characters.map(\.uuid).joined(separator: ",")
+                section.role.id + ":" + section.characters.map(\.uuid).joined(separator: ",")
             }
             .joined(separator: "|")
     }
 
     /// One role bucket plus its rows, snapshotted together (see `sections`).
     struct RoleSection: Identifiable {
-        let role: CharacterRole
+        let role: RoleKey
         let characters: [Character]
-        var id: CharacterRole { role }
+        var id: String { role.id }
     }
 
     /// Ensure `roleOrder` contains every role currently present in the cast,
     /// preserving existing order and appending any newcomers. Call after seeding
     /// or when a character's role changes.
-    private func syncRoleOrder(bringingToFront front: CharacterRole? = nil) {
+    private func syncRoleOrder(bringingToFront front: RoleKey? = nil) {
         for character in characters {
-            let role = CharacterRole.bucket(for: character.role)
+            let role = RoleKey.bucket(for: character.role)
             if !roleOrder.contains(role) { roleOrder.append(role) }
         }
         if let front, let idx = roleOrder.firstIndex(of: front) {
@@ -159,7 +159,7 @@ public final class CharactersViewModel {
     /// Characters for a role bucket, read from the **stored** `sections`
     /// snapshot so it matches exactly what the List is diffing (never
     /// re-filters the live array mid-mutation).
-    func characters(in role: CharacterRole) -> [Character] {
+    func characters(in role: RoleKey) -> [Character] {
         sections.first(where: { $0.role == role })?.characters ?? []
     }
 
@@ -168,7 +168,7 @@ public final class CharactersViewModel {
     func addCharacter(named name: String, role: String?) async -> Character {
         let new = Character(name: name, role: role)
         characters.insert(new, at: 0)
-        syncRoleOrder(bringingToFront: CharacterRole.bucket(for: role))
+        syncRoleOrder(bringingToFront: RoleKey.bucket(for: role))
         rebuildSections()
         await save(new)
         return new
@@ -196,7 +196,7 @@ public final class CharactersViewModel {
         withAnimation(.spring(response: 0.45, dampingFraction: 0.85)) {
             characters.removeAll { $0.uuid == character.uuid }
             characters.insert(character, at: 0)
-            syncRoleOrder(bringingToFront: CharacterRole.bucket(for: character.role))
+            syncRoleOrder(bringingToFront: RoleKey.bucket(for: character.role))
             rebuildSections()
             highlightedCharacterID = character.uuid
         }
@@ -253,9 +253,9 @@ public final class CharactersViewModel {
             highlightedCharacterID = nil
         }
 
-        let role = CharacterRole.bucket(for: character.role)
+        let role = RoleKey.bucket(for: character.role)
         let isLastInSection = characters
-            .filter { CharacterRole.bucket(for: $0.role) == role }
+            .filter { RoleKey.bucket(for: $0.role) == role }
             .count == 1
 
         // Apply the list-shape change with animations EXPLICITLY DISABLED. The

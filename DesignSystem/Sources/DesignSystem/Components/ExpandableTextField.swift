@@ -11,12 +11,15 @@ public struct ExpandableTextField: View {
     @Environment(\.appPalette) private var palette
     @FocusState private var isFocused: Bool
     @State private var isExpanded = false
+    @State private var headerHeight: CGFloat = 0
 
     private let title: String
     private let prompt: String
     private let placeholder: String
     private let systemImage: String?
     private let allowsFullScreen: Bool
+    private let focusRequest: Binding<AnyHashable?>?
+    private let focusID: AnyHashable?
     @Binding private var text: String
 
     /// - Parameters:
@@ -25,6 +28,11 @@ public struct ExpandableTextField: View {
     ///   - placeholder: Greyed hint shown inside an empty field.
     ///   - systemImage: Optional SF Symbol shown beside the title.
     ///   - allowsFullScreen: Shows an expand button that opens a full-screen editor.
+    ///   - focusRequest: A shared "please focus this field" token owned by the parent
+    ///     form. When it matches `focusID` this field becomes first responder and the
+    ///     token is cleared.
+    ///   - focusID: This field's identity within the form — usually the same value
+    ///     used for `.id(…)` so scrolling and focusing target the same field.
     ///   - text: The bound value the field edits.
     public init(
         title: String,
@@ -32,6 +40,8 @@ public struct ExpandableTextField: View {
         placeholder: String = "Start writing…",
         systemImage: String? = nil,
         allowsFullScreen: Bool = true,
+        focusRequest: Binding<AnyHashable?>? = nil,
+        focusID: AnyHashable? = nil,
         text: Binding<String>
     ) {
         self.title = title
@@ -39,16 +49,28 @@ public struct ExpandableTextField: View {
         self.placeholder = placeholder
         self.systemImage = systemImage
         self.allowsFullScreen = allowsFullScreen
+        self.focusRequest = focusRequest
+        self.focusID = focusID
         self._text = text
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 0) {
             header
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(headerBackground)
+                .background(headerHeightReader)
+            Rectangle()
+                .fill(palette.cardStroke.opacity(0.7))
+                .frame(height: 1)
             editor
+                .padding(16)
+                .frame(minHeight: editorMinHeight, alignment: .topLeading)
         }
-        .padding(16)
         .background(fieldBackground)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .overlay(fieldStroke)
         .fullScreenCover(isPresented: $isExpanded) {
             FullScreenTextEditor(
@@ -60,6 +82,35 @@ public struct ExpandableTextField: View {
             )
         }.onTapGesture {
             isFocused = true
+        }
+        .onChange(of: focusRequest?.wrappedValue) { _, requested in
+            handleFocusRequest(requested)
+        }
+    }
+
+    /// Becomes first responder when the parent form asks for this field, then
+    /// clears the token so a later tap on the same nudge works again.
+    private func handleFocusRequest(_ requested: AnyHashable?) {
+        guard let focusID, let requested, requested == focusID else { return }
+        isFocused = true
+        Task { @MainActor in
+            focusRequest?.wrappedValue = nil
+        }
+    }
+
+    /// The writing area opens at 1.5x the height of the label band, then
+    /// grows naturally as the writer types.
+    private var editorMinHeight: CGFloat {
+        headerHeight > 0 ? headerHeight * 1.5 : 0
+    }
+
+    private var headerHeightReader: some View {
+        GeometryReader { proxy in
+            Color.clear
+                .onAppear { headerHeight = proxy.size.height }
+                .onChange(of: proxy.size.height) { _, newValue in
+                    headerHeight = newValue
+                }
         }
     }
 
@@ -154,6 +205,16 @@ public struct ExpandableTextField: View {
     private var fieldBackground: some View {
         RoundedRectangle(cornerRadius: 16, style: .continuous)
             .fill(palette.cardSurface)
+    }
+
+    /// A whisper-quiet tint that separates the label band from the writing
+    /// area without turning it into a heavy toolbar.
+    private var headerBackground: some View {
+        ZStack {
+            palette.cardSurface
+            palette.accent.opacity(0.07)
+            palette.textPrimary.opacity(0.04)
+        }
     }
 
     private var fieldStroke: some View {
