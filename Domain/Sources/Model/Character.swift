@@ -21,6 +21,11 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
     public var name: String
     public var role: String?
 
+    // Identity — who the character is (role tier, archetypes, story
+    // functions, personality, quirks). Defaults to empty; old records that
+    // predate this field decode fine.
+    public var identity: CharacterIdentity
+
     // Character Arc
     public var intention: String
     public var whyIntention: String
@@ -37,6 +42,7 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         uuid: String = UUID().uuidString,
         name: String,
         role: String? = nil,
+        identity: CharacterIdentity = .empty,
         intention: String = "",
         whyIntention: String = "",
         whatToDo: String = "",
@@ -51,6 +57,7 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         self.uuid = uuid
         self.name = name
         self.role = role
+        self.identity = identity
         self.intention = intention
         self.whyIntention = whyIntention
         self.whatToDo = whatToDo
@@ -71,5 +78,34 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(uuid)
+    }
+
+    // MARK: - Codable (backward-compatible)
+
+    enum CodingKeys: String, CodingKey {
+        case uuid, name, role, identity
+        case intention, whyIntention, whatToDo, howDoesCharacterDoIt
+        case obstacles, flaws, intentionFix, need, howCharacterChanged, notes
+    }
+
+    /// Custom decode so records that predate `identity` still decode; when the
+    /// key is absent, the identity is resolved from the legacy `role` string.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        uuid = try container.decodeIfPresent(String.self, forKey: .uuid) ?? UUID().uuidString
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        role = try container.decodeIfPresent(String.self, forKey: .role)
+        let storedIdentity = try container.decodeIfPresent(CharacterIdentity.self, forKey: .identity)
+        identity = storedIdentity ?? CharacterIdentity(resolvingLegacyRole: role)
+        intention = try container.decodeIfPresent(String.self, forKey: .intention) ?? ""
+        whyIntention = try container.decodeIfPresent(String.self, forKey: .whyIntention) ?? ""
+        whatToDo = try container.decodeIfPresent(String.self, forKey: .whatToDo) ?? ""
+        howDoesCharacterDoIt = try container.decodeIfPresent(String.self, forKey: .howDoesCharacterDoIt) ?? ""
+        obstacles = try container.decodeIfPresent(String.self, forKey: .obstacles) ?? ""
+        flaws = try container.decodeIfPresent(String.self, forKey: .flaws) ?? ""
+        intentionFix = try container.decodeIfPresent(String.self, forKey: .intentionFix) ?? ""
+        need = try container.decodeIfPresent(String.self, forKey: .need) ?? ""
+        howCharacterChanged = try container.decodeIfPresent(String.self, forKey: .howCharacterChanged) ?? ""
+        notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? ""
     }
 }

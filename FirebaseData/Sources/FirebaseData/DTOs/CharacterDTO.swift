@@ -17,6 +17,7 @@ struct CharacterDTO: Codable, Sendable {
     let uuid: String
     let name: String
     let role: String?
+    let identity: CharacterIdentityDTO?
     let intention: String
     let whyIntention: String
     let whatToDo: String
@@ -32,6 +33,7 @@ struct CharacterDTO: Codable, Sendable {
         case uuid                 = "uuid"
         case name                 = "name"
         case role                 = "role"
+        case identity             = "identity"
         case intention            = "intention"
         case whyIntention         = "whyTheyWantThis"      // diverges from property name
         case whatToDo             = "physicalGoal"         // diverges from property name
@@ -45,7 +47,8 @@ struct CharacterDTO: Codable, Sendable {
     }
 
     init(
-        uuid: String, name: String, role: String?, intention: String,
+        uuid: String, name: String, role: String?,
+        identity: CharacterIdentityDTO?, intention: String,
         whyIntention: String, whatToDo: String, howDoesCharacterDoIt: String,
         obstacles: String, flaws: String, intentionFix: String, need: String,
         howCharacterChanged: String, notes: String
@@ -53,6 +56,7 @@ struct CharacterDTO: Codable, Sendable {
         self.uuid = uuid
         self.name = name
         self.role = role
+        self.identity = identity
         self.intention = intention
         self.whyIntention = whyIntention
         self.whatToDo = whatToDo
@@ -70,6 +74,7 @@ struct CharacterDTO: Codable, Sendable {
         uuid                 = container.lenientString(.uuid)
         name                 = container.lenientString(.name)
         role                 = try? container.decodeIfPresent(String.self, forKey: .role)
+        identity             = try? container.decodeIfPresent(CharacterIdentityDTO.self, forKey: .identity)
         intention            = container.lenientString(.intention)
         whyIntention         = container.lenientString(.whyIntention)
         whatToDo             = container.lenientString(.whatToDo)
