@@ -64,6 +64,7 @@ struct CharacterDetailView: View {
     private func arcHeader(proxy: ScrollViewProxy) -> some View {
         ProgressHeader(
             title: L10n.CharacterUI.arcTitle,
+            systemImage: "chart.line.uptrend.xyaxis",
             filled: arcFilledCount,
             total: arcTotalCount,
             completeText: L10n.CharacterUI.arcComplete,
@@ -105,12 +106,14 @@ struct CharacterDetailView: View {
             roleRow
             traitRow(
                 title: IdentityUIStrings.archetypeRow,
+                intro: .archetype,
                 catalog: IdentityCatalog.archetypes,
                 nudge: IdentityUIStrings.archetypeNudge,
                 selection: $viewModel.draft.identity.archetypes
             )
             traitRow(
                 title: IdentityUIStrings.storyFunctionRow,
+                intro: .storyFunction,
                 catalog: IdentityCatalog.storyFunctions,
                 nudge: IdentityUIStrings.storyFunctionNudge,
                 selection: $viewModel.draft.identity.storyFunctions
@@ -120,7 +123,10 @@ struct CharacterDetailView: View {
 
     private var roleRow: some View {
         NavigationLink {
-            RolePickerDetailView(selection: viewModel.draft.identity.role) { newRole in
+            RolePickerDetailView(
+                characterName: viewModel.navigationTitle,
+                selection: viewModel.draft.identity.role
+            ) { newRole in
                 viewModel.applyRole(newRole)
             }
         } label: {
@@ -136,13 +142,21 @@ struct CharacterDetailView: View {
 
     private func traitRow(
         title: String,
+        intro: IdentitySectionIntro,
         catalog: [IdentityCatalogEntry],
         nudge: String,
         selection: Binding<[IdentityTrait]>
     ) -> some View {
         let names = selection.wrappedValue.map { IdentityCatalog.displayName(for: $0, in: catalog) }
         return NavigationLink {
-            TraitPickerDetailView(title: title, catalog: catalog, nudge: nudge, selection: selection)
+            TraitPickerDetailView(
+                title: title,
+                characterName: viewModel.navigationTitle,
+                intro: intro,
+                catalog: catalog,
+                nudge: nudge,
+                selection: selection
+            )
         } label: {
             identityRowLabel(title: title) {
                 if names.isEmpty {

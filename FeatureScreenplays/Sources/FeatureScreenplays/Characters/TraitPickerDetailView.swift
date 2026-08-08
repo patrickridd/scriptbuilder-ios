@@ -16,6 +16,8 @@ struct TraitPickerDetailView: View {
     @Environment(\.appPalette) private var palette
 
     let title: String
+    let characterName: String
+    let intro: IdentitySectionIntro
     let catalog: [IdentityCatalogEntry]
     let nudge: String
     @Binding var boundSelection: [IdentityTrait]
@@ -28,8 +30,17 @@ struct TraitPickerDetailView: View {
 
     private let nudgeThreshold = 5
 
-    init(title: String, catalog: [IdentityCatalogEntry], nudge: String, selection: Binding<[IdentityTrait]>) {
+    init(
+        title: String,
+        characterName: String,
+        intro: IdentitySectionIntro,
+        catalog: [IdentityCatalogEntry],
+        nudge: String,
+        selection: Binding<[IdentityTrait]>
+    ) {
         self.title = title
+        self.characterName = characterName
+        self.intro = intro
         self.catalog = catalog
         self.nudge = nudge
         self._boundSelection = selection
@@ -53,6 +64,7 @@ struct TraitPickerDetailView: View {
             GeometryReader { geo in
                 ScrollView(.vertical) {
                     VStack(alignment: .leading, spacing: 14) {
+                        IdentitySectionHeader(intro: intro)
                         if selection.count >= nudgeThreshold {
                             nudgeFootnote
                         }
@@ -66,7 +78,7 @@ struct TraitPickerDetailView: View {
                 .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
             }
         }
-        .navigationTitle(title)
+        .navigationTitle(characterName)
         .navigationBarTitleDisplayMode(.inline)
         .pageTurnDisabled()
     }

@@ -49,9 +49,14 @@ struct OutlineView: View {
     private var header: some View {
         HStack(alignment: .center, spacing: 16) {
             VStack(alignment: .leading, spacing: 6) {
-                Text(L10n.Outline.storyOutline)
-                    .font(.title2.weight(.bold))
-                    .foregroundStyle(palette.textPrimary)
+                HStack(spacing: 8) {
+                    Image(systemName: "list.bullet.rectangle")
+                        .font(.title3.weight(.semibold))
+                        .foregroundStyle(palette.accent)
+                    Text(L10n.Outline.storyOutline)
+                        .font(.title2.weight(.bold))
+                        .foregroundStyle(palette.textPrimary)
+                }
                 Text(headerSubtitle)
                     .font(.subheadline)
                     .foregroundStyle(isAllComplete ? palette.accent : palette.textMuted)

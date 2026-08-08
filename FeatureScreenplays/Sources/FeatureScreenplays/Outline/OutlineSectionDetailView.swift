@@ -51,6 +51,7 @@ struct OutlineSectionDetailView: View {
         let next = viewModel.firstUnfilled(for: section)
         return ProgressHeader(
             title: section.title,
+            systemImage: section.systemImage,
             filled: progress.filled,
             total: progress.total,
             completeText: L10n.Outline.sectionComplete,

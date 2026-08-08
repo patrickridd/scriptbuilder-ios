@@ -15,6 +15,7 @@ struct RolePickerDetailView: View {
     @Environment(\.appPalette) private var palette
     @Environment(\.dismiss) private var dismiss
 
+    let characterName: String
     let selection: HierarchicalRole?
     let onSelect: (HierarchicalRole?) -> Void
 
@@ -34,13 +35,14 @@ struct RolePickerDetailView: View {
                 .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
             }
         }
-        .navigationTitle(IdentityUIStrings.roleRow)
+        .navigationTitle(characterName)
         .navigationBarTitleDisplayMode(.inline)
         .pageTurnDisabled()
     }
 
     private var content: some View {
         VStack(alignment: .leading, spacing: 14) {
+            IdentitySectionHeader(intro: .role)
             tierSection(IdentityUIStrings.tierPrimary, entries: IdentityCatalog.primaryRoles)
             tierSection(IdentityUIStrings.tierSecondary, entries: IdentityCatalog.secondaryRoles)
             tierSection(IdentityUIStrings.tierBackground, entries: IdentityCatalog.backgroundRoles)

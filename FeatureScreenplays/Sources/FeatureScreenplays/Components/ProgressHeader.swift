@@ -9,6 +9,8 @@ struct ProgressHeader: View {
     @Environment(\.appPalette) private var palette
 
     let title: String
+    /// Optional SF Symbol shown leading the title.
+    var systemImage: String?
     let filled: Int
     let total: Int
     /// Copy shown when every counted field has content.
@@ -42,9 +44,16 @@ struct ProgressHeader: View {
     private var summaryRow: some View {
         HStack(alignment: .center, spacing: 16) {
             VStack(alignment: .leading, spacing: 6) {
-                Text(title)
-                    .font(.title2.weight(.bold))
-                    .foregroundStyle(palette.textPrimary)
+                HStack(spacing: 8) {
+                    if let systemImage {
+                        Image(systemName: systemImage)
+                            .font(.title3.weight(.semibold))
+                            .foregroundStyle(palette.accent)
+                    }
+                    Text(title)
+                        .font(.title2.weight(.bold))
+                        .foregroundStyle(palette.textPrimary)
+                }
                 Text(subtitle)
                     .font(.subheadline)
                     .foregroundStyle(isComplete ? palette.accent : palette.textMuted)

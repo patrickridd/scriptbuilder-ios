@@ -62,6 +62,7 @@ struct SceneDetailView: View {
     private func progressHeader(proxy: ScrollViewProxy) -> some View {
         ProgressHeader(
             title: L10n.SceneUI.progressTitle,
+            systemImage: "film",
             filled: filledFieldCount,
             total: totalFieldCount,
             completeText: L10n.SceneUI.progressComplete,
