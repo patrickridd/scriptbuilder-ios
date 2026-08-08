@@ -11,72 +11,121 @@ struct CharacterDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: CharacterDetailViewModel
     @State private var showDeleteConfirm = false
-    @State private var focusRequest: AnyHashable?
     @FocusState private var nameFocused: Bool
 
-    init(character: Character, viewModel: CharactersViewModel) {
+    /// Title of the owning screenplay, shown in the navigation bar so the
+    /// on-screen header can carry the character's own name instead.
+    private let screenplayTitle: String
+
+    init(character: Character, viewModel: CharactersViewModel, screenplayTitle: String = "") {
         _viewModel = State(initialValue: CharacterDetailViewModel(character: character, viewModel: viewModel))
+        self.screenplayTitle = screenplayTitle
+    }
+
+    private var navTitle: String {
+        screenplayTitle.isEmpty ? viewModel.navigationTitle : screenplayTitle
     }
 
     var body: some View {
         ZStack {
             AppBackground()
-            ScrollViewReader { proxy in
-                ScrollView {
-                    VStack(spacing: 16) {
-                        arcHeader(proxy: proxy)
-                        basicInfoCard
-                        arcFields
-                        deleteButton
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
+            ScrollView {
+                VStack(spacing: 16) {
+                    characterHeader
+                    basicInfoCard
                 }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
             }
         }
-        .navigationTitle(viewModel.navigationTitle)
+        .navigationTitle(navTitle)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar { overflowMenu }
         .onAppear {
             if viewModel.shouldFocusName { nameFocused = true }
         }
         .onDisappear { Task { await viewModel.flush() } }
+        // Alerts inherit the surrounding tint. A custom brand tint makes iOS 26
+        // draw the prominent cancel capsule with a label in the same colour as
+        // its fill, so we hand the alert the system tint instead.
+        .tint(.blue)
         .alert(L10n.CharacterUI.deleteTitle, isPresented: $showDeleteConfirm) {
+            Button(L10n.Action.cancel, role: .cancel) { }
             Button(L10n.Action.delete, role: .destructive) {
                 Haptics.warning()
                 viewModel.requestDelete()
                 dismiss()
             }
-            Button(L10n.Action.cancel, role: .cancel) { }
         } message: {
             Text(viewModel.deleteConfirmMessage)
         }
     }
 
-    // MARK: - Arc progress
+    // MARK: - Header
 
-    private var arcFilledCount: Int { CharacterArcField.filledCount(for: viewModel.draft) }
-    private var arcTotalCount: Int { CharacterArcField.scoreable.count }
-
-    private var nextArcField: CharacterArcField? {
-        CharacterArcField.firstUnfilled(for: viewModel.draft)
+    /// The character's stated intention, or a gentle nudge when it is empty.
+    private var intentionText: String {
+        let trimmed = viewModel.draft.intention.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? CharacterArcField.intention.prompt : trimmed
     }
 
-    private func arcHeader(proxy: ScrollViewProxy) -> some View {
-        ProgressHeader(
-            title: L10n.CharacterUI.arcTitle,
-            systemImage: "chart.line.uptrend.xyaxis",
-            filled: arcFilledCount,
-            total: arcTotalCount,
-            completeText: L10n.CharacterUI.arcComplete,
-            nextFieldTitle: nextArcField?.title,
-            onNextTapped: {
-                guard let field = nextArcField else { return }
-                focusRequest = AnyHashable(field)
-                withAnimation(.easeInOut(duration: 0.35)) {
-                    proxy.scrollTo(field, anchor: .top)
-                }
+    private var hasIntention: Bool {
+        !viewModel.draft.intention.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    private var characterHeader: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 8) {
+                Image(systemName: "person.crop.circle")
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(palette.accent)
+                Text(viewModel.navigationTitle)
+                    .font(.title2.weight(.bold))
+                    .foregroundStyle(palette.textPrimary)
+                    .lineLimit(2)
             }
-        )
+            Text(intentionText)
+                .font(.subheadline)
+                .foregroundStyle(hasIntention ? palette.textMuted : palette.textMuted.opacity(0.7))
+                .lineLimit(3)
+                .contentTransition(.opacity)
+                .animation(.easeInOut(duration: 0.3), value: intentionText)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    // MARK: - Arc row
+
+    private var arcRow: some View {
+        NavigationLink {
+            CharacterArcView(viewModel: viewModel)
+        } label: {
+            HStack(spacing: 8) {
+                Label(L10n.CharacterUI.arcTitle, systemImage: "chart.line.uptrend.xyaxis")
+                    .font(.body.weight(.medium))
+                    .foregroundStyle(palette.textPrimary)
+                Spacer(minLength: 8)
+                ProgressBadge(
+                    filled: viewModel.arcFilledCount,
+                    total: viewModel.arcTotalCount,
+                    completeText: L10n.CharacterUI.arcComplete
+                )
+                Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(palette.textMuted)
+            }
+            .padding(12)
+            .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var hairline: some View {
+        Rectangle()
+            .fill(palette.cardStroke)
+            .frame(height: 1)
+            .padding(.vertical, 2)
     }
 
     private var basicInfoCard: some View {
@@ -90,6 +139,10 @@ struct CharacterDetailView: View {
                 .padding(12)
                 .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
+
+            hairline
+            arcRow
+            hairline
 
             fieldLabel(IdentityUIStrings.sectionTitle, systemImage: "theatermasks")
             identityRows
@@ -187,57 +240,29 @@ struct CharacterDetailView: View {
         .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
     }
 
-    private var arcFields: some View {
-        VStack(spacing: 14) {
-            ForEach(CharacterArcField.allCases) { field in
-                ExpandableTextField(
-                    title: field.title,
-                    prompt: field.prompt,
-                    systemImage: field.systemImage,
-                    focusRequest: $focusRequest,
-                    focusID: AnyHashable(field),
-                    text: binding(for: field)
-                )
-                .id(field)
-            }
-        }
-    }
-
     // MARK: - Delete
 
-    private var deleteButton: some View {
-        Button(role: .destructive) {
-            showDeleteConfirm = true
-        } label: {
-            Label(L10n.CharacterUI.deleteButton, systemImage: "trash")
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(.red.opacity(0.85))
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-        }
-        .buttonStyle(.plain)
-        .padding(.top, 16)
-    }
-
-    /// Return the real state-backed binding for a field. Hand-made
-    /// `Binding(get:set:)` closures go stale inside `fullScreenCover` and
-    /// silently drop writes — direct `$model.draft.<field>` bindings are tracked
-    /// by SwiftUI/Observation and stay live everywhere.
-    private func binding(for field: CharacterArcField) -> Binding<String> {
-        switch field {
-        case .intention: return $viewModel.draft.intention
-        case .whyIntention: return $viewModel.draft.whyIntention
-        case .whatToDo: return $viewModel.draft.whatToDo
-        case .howDoesCharacterDoIt: return $viewModel.draft.howDoesCharacterDoIt
-        case .obstacles: return $viewModel.draft.obstacles
-        case .flaws: return $viewModel.draft.flaws
-        case .intentionFix: return $viewModel.draft.intentionFix
-        case .need: return $viewModel.draft.need
-        case .howCharacterChanged: return $viewModel.draft.howCharacterChanged
-        case .notes: return $viewModel.draft.notes
+    /// Character-level actions live in the navigation bar so the page body
+    /// stays focused on writing, and destructive actions are never a stray tap
+    /// away at the end of a scroll.
+    @ToolbarContentBuilder
+    private var overflowMenu: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Menu {
+                Button(role: .destructive) {
+                    showDeleteConfirm = true
+                } label: {
+                    Label(L10n.CharacterUI.deleteButton, systemImage: "trash")
+                }
+            } label: {
+                Image(systemName: "ellipsis.circle")
+                    .foregroundStyle(palette.accent)
+            }
+            .accessibilityLabel(L10n.CharacterUI.deleteButton)
         }
     }
 
+    /// Section label used above the name field and identity rows.
     private func fieldLabel(_ text: String, systemImage: String) -> some View {
         Label(text, systemImage: systemImage)
             .font(.subheadline.weight(.semibold))

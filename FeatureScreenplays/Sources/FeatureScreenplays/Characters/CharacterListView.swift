@@ -11,6 +11,8 @@ public struct CharacterListView: View {
     @State private var newlyAdded: Character?
     @State private var selected: Character?
     private let gate: EditorGate
+    /// Shown as the navigation title on a character's detail screen.
+    private let screenplayTitle: String
     /// Observe entitlement changes so the lock chrome updates live after a
     /// purchase / restore / expiration while this tab is on screen.
     @ObservedObject private var entitlementSignal: EditorEntitlementSignal
@@ -19,7 +21,8 @@ public struct CharacterListView: View {
         screenplayID: String,
         characters: Set<Character>,
         repository: ScreenplayRepository,
-        gate: EditorGate = .unrestricted
+        gate: EditorGate = .unrestricted,
+        screenplayTitle: String = ""
     ) {
         _viewModel = State(
             wrappedValue: CharactersViewModel(
@@ -29,6 +32,7 @@ public struct CharacterListView: View {
             )
         )
         self.gate = gate
+        self.screenplayTitle = screenplayTitle
         _entitlementSignal = ObservedObject(wrappedValue: gate.entitlementSignal)
     }
 
@@ -41,10 +45,10 @@ public struct CharacterListView: View {
             }
         }
         .navigationDestination(item: $newlyAdded) { character in
-            CharacterDetailView(character: character, viewModel: viewModel)
+            CharacterDetailView(character: character, viewModel: viewModel, screenplayTitle: screenplayTitle)
         }
         .navigationDestination(item: $selected) { character in
-            CharacterDetailView(character: character, viewModel: viewModel)
+            CharacterDetailView(character: character, viewModel: viewModel, screenplayTitle: screenplayTitle)
         }
         .alert(
             L10n.CharacterUI.deleteTitle,

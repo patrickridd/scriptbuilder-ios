@@ -86,6 +86,17 @@ final class CharacterDetailViewModel {
         }
     }
 
+    // MARK: - Arc progress
+
+    /// How many of the scoreable arc fields currently have content.
+    var arcFilledCount: Int { CharacterArcField.filledCount(for: draft) }
+
+    /// Total number of scoreable arc fields.
+    var arcTotalCount: Int { CharacterArcField.scoreable.count }
+
+    /// The first arc field still waiting to be filled in, if any.
+    var nextArcField: CharacterArcField? { CharacterArcField.firstUnfilled(for: draft) }
+
     /// Title shown in the navigation bar.
     var navigationTitle: String {
         draft.name.isEmpty ? "Character" : draft.name

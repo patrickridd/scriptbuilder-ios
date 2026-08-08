@@ -4070,6 +4070,15 @@
         }
       }
     },
+    "KEY TAKEAWAY" : {
+
+    },
+    "Learn more" : {
+
+    },
+    "Learn more about %@" : {
+
+    },
     "Opens the outline, characters, and scenes editor" : {
 
     },
@@ -6371,6 +6380,12 @@
 
     },
     "Search scripts" : {
+
+    },
+    "Show less" : {
+
+    },
+    "Show less about %@" : {
 
     },
     "Unlock ScriptBuilder Pro to add more characters" : {
