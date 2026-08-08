@@ -1,5 +1,46 @@
 import SwiftUI
 
+/// Lets pushed detail screens switch the book's page-turn gesture off while
+/// they are on screen, so a horizontal drag can't drag the page askew.
+enum PageTurnGate {
+    static let notification = Notification.Name("ScriptBuilder.PageTurnGate")
+
+    @MainActor private static var lockCount = 0
+
+    @MainActor static func lock() {
+        lockCount += 1
+        post(enabled: false)
+    }
+
+    @MainActor static func unlock() {
+        lockCount = max(0, lockCount - 1)
+        post(enabled: lockCount == 0)
+    }
+
+    @MainActor private static func post(enabled: Bool) {
+        NotificationCenter.default.post(
+            name: notification,
+            object: nil,
+            userInfo: ["enabled": enabled]
+        )
+    }
+}
+
+private struct PageTurnDisabledModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .onAppear { PageTurnGate.lock() }
+            .onDisappear { PageTurnGate.unlock() }
+    }
+}
+
+extension View {
+    /// Locks the underlying book pager while this screen is visible.
+    func pageTurnDisabled() -> some View {
+        modifier(PageTurnDisabledModifier())
+    }
+}
+
 /// A two-page book-style **page-curl** pager, recreating the feel of the legacy
 /// `ScreenplayPageViewController` (a `UIPageViewController` with the
 /// `.pageCurl` transition set in the storyboard). It hosts two SwiftUI pages
@@ -41,6 +82,7 @@ struct PageCurlView<Leading: View, Trailing: View>: UIViewControllerRepresentabl
             direction: .forward,
             animated: false
         )
+        context.coordinator.attach(pager)
         return pager
     }
 
@@ -61,9 +103,33 @@ struct PageCurlView<Leading: View, Trailing: View>: UIViewControllerRepresentabl
     final class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
         var parent: PageCurlView
         private var controllers: [UIHostingController<AnyView>] = []
+        private weak var pager: UIPageViewController?
 
         init(_ parent: PageCurlView) {
             self.parent = parent
+            super.init()
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(pageTurnGateChanged(_:)),
+                name: PageTurnGate.notification,
+                object: nil
+            )
+        }
+
+        deinit {
+            NotificationCenter.default.removeObserver(self)
+        }
+
+        /// Keep a handle on the pager so the gate can toggle its gestures.
+        @MainActor
+        func attach(_ pager: UIPageViewController) {
+            self.pager = pager
+        }
+
+        @MainActor
+        @objc private func pageTurnGateChanged(_ note: Notification) {
+            let enabled = (note.userInfo?["enabled"] as? Bool) ?? true
+            pager?.gestureRecognizers.forEach { $0.isEnabled = enabled }
         }
 
         func buildControllers() {

@@ -34,10 +34,56 @@ final class CharacterDetailViewModel {
     ) {
         self.viewModel = viewModel
         self.debounce = debounce
-        self.draft = character
+        // Backfill identity for characters constructed with only a legacy flat
+        // role string (non-destructive; persisted on the next save).
+        var initialDraft = character
+        if initialDraft.identity.isEmpty,
+           let legacyRole = initialDraft.role,
+           !legacyRole.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            initialDraft.identity = CharacterIdentity(resolvingLegacyRole: legacyRole)
+        }
+        self.draft = initialDraft
         let bucket = CharacterRole.bucket(for: character.role)
         self.role = bucket
         self.customRole = bucket == .custom ? (character.role ?? "") : ""
+    }
+
+    // MARK: - Identity
+
+    /// Apply a role picked in `RolePickerDetailView`: updates the structured
+    /// identity and keeps the legacy flat `role` string in sync so the cast
+    /// list's role grouping keeps working.
+    func applyRole(_ newRole: HierarchicalRole?) {
+        draft.identity.role = newRole
+        let legacy = Self.legacyBucket(for: newRole)
+        role = legacy.bucket
+        customRole = legacy.customText
+    }
+
+    /// Display text for the Role row: the writer's own label for custom and
+    /// legacy roles (shown as-is), otherwise the stock catalog name.
+    var roleDisplayText: String? {
+        guard let identityRole = draft.identity.role else { return nil }
+        return IdentityCatalog.displayName(for: identityRole)
+    }
+
+    /// Map a structured role back onto the legacy picker buckets. Stock roles
+    /// without a legacy equivalent are stored by display name so the cast list
+    /// groups them under their own header.
+    private static func legacyBucket(for identityRole: HierarchicalRole?) -> (bucket: CharacterRole, customText: String) {
+        guard let identityRole else { return (.custom, "") }
+        if identityRole.isCustom {
+            return (.custom, identityRole.customLabel ?? "")
+        }
+        switch identityRole.slug {
+        case HierarchicalRole.Stock.protagonist:
+            return (.protagonist, "")
+        case HierarchicalRole.Stock.antagonist:
+            return (.antagonist, "")
+        default:
+            let name = IdentityCatalog.roleEntry(for: identityRole.slug)?.name ?? identityRole.slug.capitalized
+            return (.custom, name)
+        }
     }
 
     /// Title shown in the navigation bar.

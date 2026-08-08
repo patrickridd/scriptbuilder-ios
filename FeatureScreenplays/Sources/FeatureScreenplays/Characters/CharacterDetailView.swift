@@ -90,46 +90,87 @@ struct CharacterDetailView: View {
                 .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
 
-            fieldLabel(L10n.CharacterUI.fieldRole, systemImage: "theatermasks")
-            rolePicker
-            if viewModel.role == .custom {
-                TextField(L10n.CharacterUI.customRolePlaceholder, text: $viewModel.customRole)
-                    .font(.body)
-                    .foregroundStyle(palette.textPrimary)
-                    .tint(palette.accent)
-                    .padding(12)
-                    .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
-            }
+            fieldLabel(IdentityUIStrings.sectionTitle, systemImage: "theatermasks")
+            identityRows
         }
         .padding(16)
         .background(palette.cardSurface.opacity(0.6), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
     }
 
-    private var rolePicker: some View {
-        Menu {
-            ForEach(CharacterRole.allCases) { option in
-                Button {
-                    viewModel.role = option
-                } label: {
-                    Label(option.displayName, systemImage: option.systemImage)
-                }
+    // MARK: - Identity rows
+
+    private var identityRows: some View {
+        VStack(spacing: 10) {
+            roleRow
+            traitRow(
+                title: IdentityUIStrings.archetypeRow,
+                catalog: IdentityCatalog.archetypes,
+                nudge: IdentityUIStrings.archetypeNudge,
+                selection: $viewModel.draft.identity.archetypes
+            )
+            traitRow(
+                title: IdentityUIStrings.storyFunctionRow,
+                catalog: IdentityCatalog.storyFunctions,
+                nudge: IdentityUIStrings.storyFunctionNudge,
+                selection: $viewModel.draft.identity.storyFunctions
+            )
+        }
+    }
+
+    private var roleRow: some View {
+        NavigationLink {
+            RolePickerDetailView(selection: viewModel.draft.identity.role) { newRole in
+                viewModel.applyRole(newRole)
             }
         } label: {
-            HStack {
-                Label(viewModel.role.displayName, systemImage: viewModel.role.systemImage)
-                    .font(.body.weight(.medium))
-                    .foregroundStyle(palette.textPrimary)
-                Spacer()
-                Image(systemName: "chevron.up.chevron.down")
-                    .font(.footnote)
-                    .foregroundStyle(palette.textMuted)
+            identityRowLabel(title: IdentityUIStrings.roleRow) {
+                Text(viewModel.roleDisplayText ?? IdentityUIStrings.noneValue)
+                    .font(.subheadline)
+                    .lineLimit(1)
+                    .foregroundStyle(viewModel.roleDisplayText == nil ? palette.textMuted.opacity(0.7) : palette.accent)
             }
-            .padding(12)
-            .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
         }
+        .buttonStyle(.plain)
+    }
+
+    private func traitRow(
+        title: String,
+        catalog: [IdentityCatalogEntry],
+        nudge: String,
+        selection: Binding<[IdentityTrait]>
+    ) -> some View {
+        let names = selection.wrappedValue.map { IdentityCatalog.displayName(for: $0, in: catalog) }
+        return NavigationLink {
+            TraitPickerDetailView(title: title, catalog: catalog, nudge: nudge, selection: selection)
+        } label: {
+            identityRowLabel(title: title) {
+                if names.isEmpty {
+                    Text(IdentityUIStrings.noneValue)
+                        .font(.subheadline)
+                        .foregroundStyle(palette.textMuted.opacity(0.7))
+                } else {
+                    TraitChipsPreview(names: names)
+                }
+            }
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func identityRowLabel(title: String, @ViewBuilder value: () -> some View) -> some View {
+        HStack(spacing: 8) {
+            Text(title)
+                .font(.body.weight(.medium))
+                .foregroundStyle(palette.textPrimary)
+            Spacer(minLength: 8)
+            value()
+            Image(systemName: "chevron.right")
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(palette.textMuted)
+        }
+        .padding(12)
+        .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
     }
 
     private var arcFields: some View {
