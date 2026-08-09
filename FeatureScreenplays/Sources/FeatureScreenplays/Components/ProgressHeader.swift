@@ -40,8 +40,8 @@ struct ProgressHeader: View {
 
     private var summaryRow: some View {
         HStack(alignment: .top, spacing: 16) {
-            VStack(alignment: .leading, spacing: 10) {
-                HStack(spacing: 8) {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(alignment: .center, spacing: 8) {
                     if let systemImage {
                         Image(systemName: systemImage)
                             .font(.title3.weight(.semibold))
@@ -50,16 +50,22 @@ struct ProgressHeader: View {
                     Text(title)
                         .font(.title.weight(.bold))
                         .foregroundStyle(palette.textPrimary)
-                }
-                Text(subtitle)
-                    .font(.subheadline)
-                    .foregroundStyle(isComplete ? palette.accent : palette.textMuted)
-                    .contentTransition(.opacity)
-                    .animation(.easeInOut(duration: 0.3), value: subtitle)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
 
-                if !isComplete, let nextFieldTitle, let onNextTapped {
-                    nudge(title: nextFieldTitle, action: onNextTapped)
-                        .padding(.trailing)
+                }
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(subtitle)
+                        .font(.subheadline)
+                        .foregroundStyle(isComplete ? palette.accent : palette.textMuted)
+                        .contentTransition(.opacity)
+                        .animation(.easeInOut(duration: 0.3), value: subtitle)
+                        .padding(.leading, 2)
+                    if !isComplete, let nextFieldTitle, let onNextTapped {
+                        nudge(title: nextFieldTitle, action: onNextTapped)
+                            .padding(.trailing)
+                    }
                 }
             }
             Spacer(minLength: 8)
@@ -74,22 +80,74 @@ struct ProgressHeader: View {
             Haptics.selection()
             action()
         } label: {
-            HStack(spacing: 8) {
+            HStack(spacing: 5) {
                 Image(systemName: "sparkles")
-                    .font(.footnote.weight(.semibold))
+                    .font(.caption2.weight(.semibold))
                 Text(L10n.Progress.nextUp(title))
-                    .font(.subheadline.weight(.medium))
+                    .font(.caption.weight(.medium))
                     .lineLimit(1)
-                Spacer(minLength: 4)
                 Image(systemName: "arrow.down.circle.fill")
-                    .font(.subheadline)
+                    .font(.caption2)
             }
             .foregroundStyle(palette.accent)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 10)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
             .background(palette.accent.opacity(0.12), in: Capsule())
         }
         .buttonStyle(PressableScaleStyle())
         .accessibilityHint(L10n.Progress.nextUpHint)
     }
 }
+
+// MARK: - Previews
+
+#if DEBUG
+private struct ProgressHeaderPreview: View {
+    var body: some View {
+        ZStack {
+            AppBackground()
+            ScrollView {
+                VStack(spacing: 32) {
+                    ProgressHeader(
+                        title: "Scene Progress",
+                        systemImage: "film",
+                        filled: 2,
+                        total: 6,
+                        completeText: "Scene complete — nice work!",
+                        nextFieldTitle: "Dialogue",
+                        onNextTapped: {}
+                    )
+                    ProgressHeader(
+                        title: "Act One",
+                        systemImage: "list.bullet.rectangle",
+                        filled: 5,
+                        total: 6,
+                        completeText: "Act complete!",
+                        nextFieldTitle: "Inciting Incident",
+                        onNextTapped: {}
+                    )
+                    ProgressHeader(
+                        title: "Character",
+                        systemImage: "person.fill",
+                        filled: 8,
+                        total: 8,
+                        completeText: "Every detail filled in ✨"
+                    )
+                    ProgressHeader(
+                        title: "No Icon, Just Starting",
+                        filled: 0,
+                        total: 6,
+                        completeText: "Done!",
+                        nextFieldTitle: "Scene Description",
+                        onNextTapped: {}
+                    )
+                }
+                .padding(20)
+            }
+        }
+    }
+}
+
+#Preview("Progress Header — Light") { ProgressHeaderPreview() }
+#Preview("Progress Header — Dark") { ProgressHeaderPreview().preferredColorScheme(.dark) }
+#endif
