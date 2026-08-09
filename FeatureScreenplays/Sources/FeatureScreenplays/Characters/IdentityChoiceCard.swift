@@ -89,26 +89,40 @@ struct IdentityChoiceCard: View {
 
 /// Full selection display for multi-select rows: every chosen trait as a chip,
 /// wrapping onto as many lines as it needs beneath the row it belongs to.
-struct TraitChipsWrap: View {
+/// Each chip is a navigation link straight to that trait inside the picker.
+struct TraitChipsWrap<Destination: View>: View {
     @Environment(\.appPalette) private var palette
 
     let names: [String]
+    @ViewBuilder var destination: (Int) -> Destination
 
     var body: some View {
         FlowLayout(spacing: 6, lineSpacing: 6) {
-            ForEach(names, id: \.self) { name in
-                Text(name)
-                    .font(.caption.weight(.medium))
-                    .lineLimit(1)
-                    .foregroundStyle(palette.accent)
-                    .padding(.horizontal, 9)
-                    .padding(.vertical, 5)
-                    .background(palette.accent.opacity(0.14), in: Capsule())
+            ForEach(Array(names.enumerated()), id: \.offset) { index, name in
+                NavigationLink {
+                    destination(index)
+                } label: {
+                    chip(name)
+                }
+                .buttonStyle(PressableScaleStyle())
+                .accessibilityLabel(name)
+                .accessibilityHint(IdentityUIStrings.chipHint)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(names.joined(separator: ", "))
+    }
+
+    private func chip(_ name: String) -> some View {
+        HStack(spacing: 4) {
+            Text(name)
+                .font(.caption.weight(.medium))
+                .lineLimit(1)
+        }
+        .foregroundStyle(palette.accent)
+        .padding(.horizontal, 9)
+        .padding(.vertical, 5)
+        .background(palette.accent.opacity(0.14), in: Capsule())
+        .overlay(Capsule().stroke(palette.accent.opacity(0.25), lineWidth: 1))
     }
 }
 

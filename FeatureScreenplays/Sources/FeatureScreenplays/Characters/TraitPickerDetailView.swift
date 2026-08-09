@@ -21,11 +21,15 @@ struct TraitPickerDetailView: View {
     let catalog: [IdentityCatalogEntry]
     let nudge: String
     @Binding var boundSelection: [IdentityTrait]
+    /// When set, the picker opens scrolled to this trait and pulses it briefly
+    /// so a tap on a chip lands exactly where the writer expects.
+    let focusTrait: IdentityTrait?
 
     /// Local mirror of the binding so taps repaint immediately, independent of
     /// how the owning view model propagates observation changes.
     @State private var selection: [IdentityTrait]
     @State private var customText = ""
+    @State private var highlightedAnchor: String?
     @FocusState private var customFocused: Bool
 
     private let nudgeThreshold = 5
@@ -36,7 +40,8 @@ struct TraitPickerDetailView: View {
         intro: IdentitySectionIntro,
         catalog: [IdentityCatalogEntry],
         nudge: String,
-        selection: Binding<[IdentityTrait]>
+        selection: Binding<[IdentityTrait]>,
+        focusTrait: IdentityTrait? = nil
     ) {
         self.title = title
         self.characterName = characterName
@@ -44,7 +49,35 @@ struct TraitPickerDetailView: View {
         self.catalog = catalog
         self.nudge = nudge
         self._boundSelection = selection
+        self.focusTrait = focusTrait
         self._selection = State(initialValue: selection.wrappedValue)
+    }
+
+    /// Stable scroll anchor for a trait, matching stock slugs and custom labels.
+    private func anchor(for trait: IdentityTrait) -> String {
+        trait.isCustom ? "custom-\(trait.customLabel ?? "")" : "stock-\(trait.slug)"
+    }
+
+    /// Scrolls to the tapped chip's card and pulses it for a beat.
+    private func focusIfNeeded(_ proxy: ScrollViewProxy) {
+        guard let focusTrait else { return }
+        let target = anchor(for: focusTrait)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+            withAnimation(.easeInOut(duration: 0.4)) {
+                proxy.scrollTo(target, anchor: .center)
+                highlightedAnchor = target
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                withAnimation(.easeInOut(duration: 0.4)) { highlightedAnchor = nil }
+            }
+        }
+    }
+
+    /// Pulse ring drawn over the card the writer navigated to.
+    private func focusHighlight(_ anchorID: String) -> some View {
+        RoundedRectangle(cornerRadius: 12, style: .continuous)
+            .stroke(palette.accent, lineWidth: highlightedAnchor == anchorID ? 2 : 0)
+            .opacity(highlightedAnchor == anchorID ? 1 : 0)
     }
 
     /// Applies a mutation to the local copy (animated) and writes it through.
@@ -62,20 +95,23 @@ struct TraitPickerDetailView: View {
         ZStack {
             AppBackground()
             GeometryReader { geo in
-                ScrollView(.vertical) {
-                    VStack(alignment: .leading, spacing: 14) {
-                        IdentitySectionHeader(intro: intro)
-                        if selection.count >= nudgeThreshold {
-                            nudgeFootnote
+                ScrollViewReader { proxy in
+                    ScrollView(.vertical) {
+                        VStack(alignment: .leading, spacing: 14) {
+                            IdentitySectionHeader(intro: intro)
+                            if selection.count >= nudgeThreshold {
+                                nudgeFootnote
+                            }
+                            stockCards
+                            customSection
                         }
-                        stockCards
-                        customSection
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
+                        .frame(width: geo.size.width, alignment: .leading)
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
-                    .frame(width: geo.size.width, alignment: .leading)
+                    .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
+                    .onAppear { focusIfNeeded(proxy) }
                 }
-                .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
             }
         }
         .navigationTitle(characterName)
@@ -95,6 +131,8 @@ struct TraitPickerDetailView: View {
                     isSelected: isStockSelected(entry.slug),
                     onTap: { toggleStock(entry.slug) }
                 )
+                .overlay(focusHighlight("stock-\(entry.slug)"))
+                .id("stock-\(entry.slug)")
             }
         }
     }
@@ -135,6 +173,8 @@ struct TraitPickerDetailView: View {
                     onTap: { removeCustom(trait) },
                     onDelete: { removeCustom(trait) }
                 )
+                .overlay(focusHighlight(anchor(for: trait)))
+                .id(anchor(for: trait))
             }
             customInputField
         }

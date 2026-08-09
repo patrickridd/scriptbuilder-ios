@@ -282,6 +282,7 @@ enum IdentityUIStrings {
     static let characterComplete = "Fully developed — identity and arc"
     static let intentionPrefix = "Wants to:"
     static let namePlaceholderTitle = "Name your character"
+    static let chipHint = "Opens this choice in the picker"
 
     /// Trailing summary for a multi-select row, e.g. "2 selected".
     static func selectedCount(_ count: Int) -> String {

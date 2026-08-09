@@ -258,29 +258,52 @@ struct CharacterDetailView: View {
         let names = selection.wrappedValue.map { IdentityCatalog.displayName(for: $0, in: catalog) }
         return VStack(alignment: .leading, spacing: 10) {
             NavigationLink {
-                TraitPickerDetailView(
-                    title: title,
-                    characterName: viewModel.navigationTitle,
-                    intro: intro,
-                    catalog: catalog,
-                    nudge: nudge,
-                    selection: selection
-                )
+                traitPicker(title: title, intro: intro, catalog: catalog, nudge: nudge, selection: selection)
             } label: {
                 traitRowHeader(title: title, systemImage: intro.symbol, count: names.count)
             }
             .buttonStyle(.plain)
 
             if !names.isEmpty {
-                TraitChipsWrap(names: names)
-                    .padding(.leading, 30)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+                TraitChipsWrap(names: names) { index in
+                    traitPicker(
+                        title: title,
+                        intro: intro,
+                        catalog: catalog,
+                        nudge: nudge,
+                        selection: selection,
+                        focus: selection.wrappedValue.indices.contains(index) ? selection.wrappedValue[index] : nil
+                    )
+                }
+                .padding(.leading, 30)
+                .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
         .animation(.easeInOut(duration: 0.25), value: names)
         .padding(12)
         .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
+    }
+
+    /// Shared picker destination for a multi-select row — used by both the row
+    /// itself and by each selected chip (which opens focused on its trait).
+    private func traitPicker(
+        title: String,
+        intro: IdentitySectionIntro,
+        catalog: [IdentityCatalogEntry],
+        nudge: String,
+        selection: Binding<[IdentityTrait]>,
+        focus: IdentityTrait? = nil
+    ) -> some View {
+        TraitPickerDetailView(
+            title: title,
+            characterName: viewModel.navigationTitle,
+            intro: intro,
+            catalog: catalog,
+            nudge: nudge,
+            selection: selection,
+            focusTrait: focus
+        )
     }
 
     /// Row header for a multi-select field: icon, title, a summary of how many
