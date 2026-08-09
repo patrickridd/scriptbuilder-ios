@@ -39,7 +39,8 @@ struct CharacterCard: View {
             }
             chevron
         }
-        .padding(14)        .background(cardShape.fill(palette.cardSurface))
+        .padding(14)
+        .background(cardShape.fill(palette.cardSurface))
         .overlay(cardBorder)
         .compositingGroup()
         .animation(.easeInOut(duration: 0.3), value: isHighlighted)
@@ -91,8 +92,11 @@ struct CharacterCard: View {
                 .font(.caption2.weight(.semibold))
                 .monospacedDigit()
                 .foregroundStyle(isComplete ? palette.accent : palette.textMuted)
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel(arcAccessibilityLabel)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 3)
+                .background(palette.accent.opacity(isComplete ? 0.14 : 0.06), in: Capsule())
+                .accessibilityLabel(arcAccessibilityLabel)
+                .accessibilityElement(children: .ignore)
         }
     }
 
