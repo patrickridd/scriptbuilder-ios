@@ -282,6 +282,11 @@ enum IdentityUIStrings {
     static let characterComplete = "Fully developed — identity and arc"
     static let intentionPrefix = "Wants to:"
     static let namePlaceholderTitle = "Name your character"
+
+    /// Trailing summary for a multi-select row, e.g. "2 selected".
+    static func selectedCount(_ count: Int) -> String {
+        "\(count) selected"
+    }
     static let clearRole = "No Role"
     static let tierPrimary = "Primary"
     static let tierSecondary = "Secondary"

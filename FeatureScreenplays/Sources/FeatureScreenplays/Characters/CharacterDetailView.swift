@@ -256,27 +256,51 @@ struct CharacterDetailView: View {
         selection: Binding<[IdentityTrait]>
     ) -> some View {
         let names = selection.wrappedValue.map { IdentityCatalog.displayName(for: $0, in: catalog) }
-        return NavigationLink {
-            TraitPickerDetailView(
-                title: title,
-                characterName: viewModel.navigationTitle,
-                intro: intro,
-                catalog: catalog,
-                nudge: nudge,
-                selection: selection
-            )
-        } label: {
-            identityRowLabel(title: title, systemImage: intro.symbol) {
-                if names.isEmpty {
-                    Text(IdentityUIStrings.noneValue)
-                        .font(.subheadline)
-                        .foregroundStyle(palette.textMuted.opacity(0.7))
-                } else {
-                    TraitChipsPreview(names: names)
-                }
+        return VStack(alignment: .leading, spacing: 10) {
+            NavigationLink {
+                TraitPickerDetailView(
+                    title: title,
+                    characterName: viewModel.navigationTitle,
+                    intro: intro,
+                    catalog: catalog,
+                    nudge: nudge,
+                    selection: selection
+                )
+            } label: {
+                traitRowHeader(title: title, systemImage: intro.symbol, count: names.count)
+            }
+            .buttonStyle(.plain)
+
+            if !names.isEmpty {
+                TraitChipsWrap(names: names)
+                    .padding(.leading, 30)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
-        .buttonStyle(.plain)
+        .animation(.easeInOut(duration: 0.25), value: names)
+        .padding(12)
+        .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
+    }
+
+    /// Row header for a multi-select field: icon, title, a summary of how many
+    /// traits are chosen, and the disclosure chevron. The chips themselves live
+    /// below so long selections never squeeze the title.
+    private func traitRowHeader(title: String, systemImage: String, count: Int) -> some View {
+        HStack(spacing: 8) {
+            rowIcon(systemImage)
+            Text(title)
+                .font(.body.weight(.medium))
+                .foregroundStyle(palette.textPrimary)
+            Spacer(minLength: 8)
+            Text(count == 0 ? IdentityUIStrings.noneValue : IdentityUIStrings.selectedCount(count))
+                .font(.subheadline)
+                .foregroundStyle(count == 0 ? palette.textMuted.opacity(0.7) : palette.accent)
+            Image(systemName: "chevron.right")
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(palette.textMuted)
+        }
+        .contentShape(Rectangle())
     }
 
     /// Consistent leading glyph for every row inside the Identity section.

@@ -87,6 +87,31 @@ struct IdentityChoiceCard: View {
     }
 }
 
+/// Full selection display for multi-select rows: every chosen trait as a chip,
+/// wrapping onto as many lines as it needs beneath the row it belongs to.
+struct TraitChipsWrap: View {
+    @Environment(\.appPalette) private var palette
+
+    let names: [String]
+
+    var body: some View {
+        FlowLayout(spacing: 6, lineSpacing: 6) {
+            ForEach(names, id: \.self) { name in
+                Text(name)
+                    .font(.caption.weight(.medium))
+                    .lineLimit(1)
+                    .foregroundStyle(palette.accent)
+                    .padding(.horizontal, 9)
+                    .padding(.vertical, 5)
+                    .background(palette.accent.opacity(0.14), in: Capsule())
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(names.joined(separator: ", "))
+    }
+}
+
 /// Inline preview for multi-select rows: the first two selections as small
 /// chips plus a "+N" overflow marker.
 struct TraitChipsPreview: View {
