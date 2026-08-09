@@ -192,33 +192,84 @@ struct CharacterCard: View {
 }
 
 #if DEBUG
+/// Sample cast tuned to exercise every chip state: accent archetypes, violet
+/// story functions, a mixed card, a custom (writer-typed) trait, the "+N"
+/// overflow marker, and a card with no identity at all.
+enum CharacterCardSamples {
+
+    static let mixed = Character(
+        name: "Nora Vance",
+        role: "Protagonist",
+        identity: CharacterIdentity(
+            role: HierarchicalRole(slug: HierarchicalRole.Stock.protagonist),
+            archetypes: [.stock(ArchetypeSlug.hero), .stock(ArchetypeSlug.rebel)],
+            storyFunctions: [.stock(StoryFunctionSlug.catalyst)]
+        ),
+        intention: "Win back the observatory before the grant deadline."
+    )
+
+    static let functionsOnly = Character(
+        name: "Professor Aoki",
+        role: "Mentor",
+        identity: CharacterIdentity(
+            storyFunctions: [
+                .stock(StoryFunctionSlug.voiceOfReason),
+                .stock(StoryFunctionSlug.confidant)
+            ]
+        ),
+        intention: "Teach Nora that proof matters more than pride."
+    )
+
+    static let overflowing = Character(
+        name: "Desmond Kade",
+        role: "Antagonist",
+        identity: CharacterIdentity(
+            archetypes: [.stock(ArchetypeSlug.shadow), .stock(ArchetypeSlug.ruler)],
+            storyFunctions: [
+                .stock(StoryFunctionSlug.saboteur),
+                .stock(StoryFunctionSlug.tempter),
+                .stock(StoryFunctionSlug.foil)
+            ]
+        ),
+        intention: "Bury the discovery to protect his legacy."
+    )
+
+    static let custom = Character(
+        name: "Sam Ortiz",
+        role: "Friend",
+        identity: CharacterIdentity(
+            archetypes: [.custom("Night Owl")],
+            storyFunctions: [.custom("Getaway Driver")]
+        ),
+        intention: "Keep the crew laughing when the funding falls through."
+    )
+
+    static let blank = Character(name: "", role: nil)
+}
+
 private struct CharacterCardPreview: View {
     var body: some View {
         ZStack {
             AppBackground()
-            VStack(spacing: 12) {
-                CharacterCard(
-                    character: Character(
-                        name: "Nora Vance",
-                        role: "Protagonist",
-                        intention: "Win back the observatory before the grant deadline."
-                    )
-                )
-                CharacterCard(
-                    character: Character(
-                        name: "Desmond Kade",
-                        role: "Antagonist",
-                        intention: "Bury the discovery to protect his legacy."
-                    ),
-                    isHighlighted: true
-                )
-                CharacterCard(character: Character(name: "", role: nil))
+            ScrollView {
+                VStack(spacing: 12) {
+                    CharacterCard(character: CharacterCardSamples.mixed)
+                    CharacterCard(character: CharacterCardSamples.functionsOnly)
+                    CharacterCard(character: CharacterCardSamples.overflowing, isHighlighted: true)
+                    CharacterCard(character: CharacterCardSamples.custom)
+                    CharacterCard(character: CharacterCardSamples.blank)
+                }
+                .padding(16)
             }
-            .padding(16)
         }
     }
 }
 
 #Preview("Character Card — Light") { CharacterCardPreview() }
 #Preview("Character Card — Dark") { CharacterCardPreview().preferredColorScheme(.dark) }
+
+#Preview("Chips — Dynamic Type XXL") {
+    CharacterCardPreview()
+        .environment(\.sizeCategory, .accessibilityExtraLarge)
+}
 #endif

@@ -279,22 +279,10 @@ private struct CharacterListPreview: View {
     }
 
     static let sampleCast: Set<Character> = [
-        Character(
-            name: "Nora Vance",
-            role: "Protagonist",
-            intention: "Win back the observatory before the grant deadline."
-        ),
-        Character(
-            name: "Desmond Kade",
-            role: "Antagonist",
-            intention: "Bury the discovery to protect his legacy."
-        ),
-        Character(
-            name: "Professor Aoki",
-            role: "Mentor",
-            intention: "Teach Nora that proof matters more than pride."
-        ),
-        Character(name: "Sam Ortiz", role: "Friend")
+        CharacterCardSamples.mixed,
+        CharacterCardSamples.overflowing,
+        CharacterCardSamples.functionsOnly,
+        CharacterCardSamples.custom
     ]
 }
 
