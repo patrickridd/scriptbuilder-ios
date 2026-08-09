@@ -97,6 +97,30 @@ final class CharacterDetailViewModel {
     /// The first arc field still waiting to be filled in, if any.
     var nextArcField: CharacterArcField? { CharacterArcField.firstUnfilled(for: draft) }
 
+    // MARK: - Overall progress
+
+    /// How many identity facets (role, archetype, story function) are chosen.
+    var identityFilledCount: Int { CharacterIdentityField.filledCount(for: draft.identity) }
+
+    /// Total number of identity facets counted toward completion.
+    var identityTotalCount: Int { CharacterIdentityField.allCases.count }
+
+    /// Identity + arc combined: the character's overall completion numerator.
+    var overallFilledCount: Int { identityFilledCount + arcFilledCount }
+
+    /// Identity + arc combined: the character's overall completion denominator.
+    var overallTotalCount: Int { identityTotalCount + arcTotalCount }
+
+    /// The next thing to work on: an unchosen identity facet first (it's the
+    /// quickest win and shapes the arc), then the first empty arc field.
+    var nextOverallTarget: CharacterProgressTarget? {
+        if let field = CharacterIdentityField.firstUnfilled(for: draft.identity) {
+            return .identity(field)
+        }
+        if let field = nextArcField { return .arc(field) }
+        return nil
+    }
+
     /// Title shown in the navigation bar.
     var navigationTitle: String {
         draft.name.isEmpty ? "Character" : draft.name

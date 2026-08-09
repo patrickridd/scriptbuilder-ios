@@ -11,7 +11,11 @@ struct CharacterDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: CharacterDetailViewModel
     @State private var showDeleteConfirm = false
+    @State private var showArc = false
     @FocusState private var nameFocused: Bool
+
+    /// Scroll anchor for the identity rows, used by the header's nudge.
+    private let identityAnchor = "character-identity-rows"
 
     /// Title of the owning screenplay, shown in the navigation bar so the
     /// on-screen header can carry the character's own name instead.
@@ -29,15 +33,20 @@ struct CharacterDetailView: View {
     var body: some View {
         ZStack {
             AppBackground()
-            ScrollView {
-                VStack(spacing: 16) {
-                    characterHeader
-                        .padding(8)
-                    basicInfoCard
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 16) {
+                        characterHeader(proxy: proxy)
+                            .padding(8)
+                        basicInfoCard
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
             }
+        }
+        .navigationDestination(isPresented: $showArc) {
+            CharacterArcView(viewModel: viewModel)
         }
         .navigationTitle(navTitle)
         .navigationBarTitleDisplayMode(.inline)
@@ -74,27 +83,50 @@ struct CharacterDetailView: View {
         !viewModel.draft.intention.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
-    private var characterHeader: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(spacing: 8) {
-                Image(systemName: "person.crop.circle")
-                    .font(.title3.weight(.semibold))
-                    .foregroundStyle(palette.accent)
-                Text(viewModel.navigationTitle)
-                    .font(.title2.weight(.bold))
-                    .foregroundStyle(palette.textPrimary)
-                    .lineLimit(2)
-            }
-            Text(intentionText)
+    /// "Wants to: …" once an intention exists; the bare prompt while it is empty.
+    private var intentionLine: Text {
+        guard hasIntention else { return Text(intentionText) }
+        return Text(IdentityUIStrings.intentionPrefix)
+            .fontWeight(.semibold)
+            .foregroundColor(palette.textPrimary)
+            + Text(" " + intentionText)
+    }
+
+    private func characterHeader(proxy: ScrollViewProxy) -> some View {
+        let next = viewModel.nextOverallTarget
+        return VStack(alignment: .leading, spacing: 12) {
+            ProgressHeader(
+                title: viewModel.navigationTitle,
+                systemImage: "person.crop.circle",
+                filled: viewModel.overallFilledCount,
+                total: viewModel.overallTotalCount,
+                completeText: IdentityUIStrings.characterComplete,
+                nextFieldTitle: next?.title,
+                onNextTapped: { jump(to: next, proxy: proxy) }
+            )
+            intentionLine
                 .font(.subheadline)
                 .foregroundStyle(hasIntention ? palette.textMuted : palette.textMuted.opacity(0.7))
                 .lineLimit(3)
                 .contentTransition(.opacity)
                 .animation(.easeInOut(duration: 0.3), value: intentionText)
+                .padding(.horizontal, 4)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 16)
+    }
 
+    /// Send the writer to whatever is still missing: identity rows live on this
+    /// screen, arc fields live one push away in the Arc editor.
+    private func jump(to target: CharacterProgressTarget?, proxy: ScrollViewProxy) {
+        guard let target else { return }
+        switch target {
+        case .identity:
+            withAnimation(.easeInOut(duration: 0.35)) {
+                proxy.scrollTo(identityAnchor, anchor: .center)
+            }
+        case .arc:
+            showArc = true
+        }
     }
 
     // MARK: - Arc row
@@ -149,6 +181,7 @@ struct CharacterDetailView: View {
 
             fieldLabel(IdentityUIStrings.sectionTitle, systemImage: "theatermasks")
             identityRows
+                .id(identityAnchor)
         }
         .padding(16)
         .background(palette.cardSurface.opacity(0.6), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
