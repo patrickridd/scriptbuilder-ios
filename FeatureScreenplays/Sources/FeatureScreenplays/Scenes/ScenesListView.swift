@@ -60,20 +60,22 @@ public struct ScenesListView: View {
             .navigationDestination(item: $selected) { route in
                 SceneDetailView(scene: route.scene, act: route.act, viewModel: viewModel)
             }
-            .alert(
-                L10n.SceneUI.deleteTitle,
+            // Fully custom pop-up so swipe-to-delete matches every other
+            // destructive action in the app.
+            .confirmDialog(
                 isPresented: deleteDialogBinding,
-                presenting: viewModel.pendingDelete
-            ) { scene in
-                Button(L10n.Action.delete, role: .destructive) {
-                    Haptics.warning()
-                    if selected?.id == scene.uuid { selected = nil }
-                    if newlyAdded?.id == scene.uuid { newlyAdded = nil }
-                    viewModel.confirmPendingDelete()
+                icon: "trash.fill",
+                title: L10n.SceneUI.deleteTitle,
+                message: viewModel.pendingDeleteMessage,
+                confirmTitle: L10n.Action.delete,
+                cancelTitle: L10n.Action.cancel
+            ) {
+                Haptics.warning()
+                if let target = viewModel.pendingDelete {
+                    if selected?.id == target.uuid { selected = nil }
+                    if newlyAdded?.id == target.uuid { newlyAdded = nil }
                 }
-                Button(L10n.Action.cancel, role: .cancel) { viewModel.pendingDelete = nil }
-            } message: { _ in
-                Text(viewModel.pendingDeleteMessage)
+                viewModel.confirmPendingDelete()
             }
     }
 

@@ -169,8 +169,10 @@ private struct ConfirmDialogModifier: ViewModifier {
                 cancelTitle: cancelTitle,
                 isDestructive: isDestructive,
                 onConfirm: {
-                    isPresented = false
+                    // Run the action *before* dismissing so callers that read a
+                    // "pending target" bound to `isPresented` still see it.
                     onConfirm()
+                    isPresented = false
                 },
                 onCancel: { close() }
             )

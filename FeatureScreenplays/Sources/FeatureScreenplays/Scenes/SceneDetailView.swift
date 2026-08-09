@@ -41,15 +41,18 @@ struct SceneDetailView: View {
             if viewModel.shouldFocusTitle { titleFocused = true }
         }
         .onDisappear { Task { await viewModel.flush() } }
-        .alert(L10n.SceneUI.deleteTitle, isPresented: $showDeleteConfirm) {
-            Button(L10n.Action.delete, role: .destructive) {
-                Haptics.warning()
-                viewModel.requestDelete()
-                dismiss()
-            }
-            Button(L10n.Action.cancel, role: .cancel) { }
-        } message: {
-            Text(viewModel.deleteConfirmMessage)
+        // Fully custom pop-up so every destructive action shares one look.
+        .confirmDialog(
+            isPresented: $showDeleteConfirm,
+            icon: "trash.fill",
+            title: L10n.SceneUI.deleteTitle,
+            message: viewModel.deleteConfirmMessage,
+            confirmTitle: L10n.Action.delete,
+            cancelTitle: L10n.Action.cancel
+        ) {
+            Haptics.warning()
+            viewModel.requestDelete()
+            dismiss()
         }
     }
 

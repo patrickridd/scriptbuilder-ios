@@ -50,22 +50,22 @@ public struct CharacterListView: View {
         .navigationDestination(item: $selected) { character in
             CharacterDetailView(character: character, viewModel: viewModel, screenplayTitle: screenplayTitle)
         }
-        .alert(
-            L10n.CharacterUI.deleteTitle,
+        // Fully custom pop-up so swipe-to-delete matches every other
+        // destructive action in the app.
+        .confirmDialog(
             isPresented: deleteDialogBinding,
-            presenting: viewModel.pendingDelete
-        ) { _ in
-            Button(L10n.Action.delete, role: .destructive) {
-                Haptics.warning()
-                if let target = viewModel.pendingDelete {
-                    if selected?.uuid == target.uuid { selected = nil }
-                    if newlyAdded?.uuid == target.uuid { newlyAdded = nil }
-                }
-                viewModel.confirmPendingDelete()
+            icon: "trash.fill",
+            title: L10n.CharacterUI.deleteTitle,
+            message: viewModel.pendingDeleteMessage,
+            confirmTitle: L10n.Action.delete,
+            cancelTitle: L10n.Action.cancel
+        ) {
+            Haptics.warning()
+            if let target = viewModel.pendingDelete {
+                if selected?.uuid == target.uuid { selected = nil }
+                if newlyAdded?.uuid == target.uuid { newlyAdded = nil }
             }
-            Button(L10n.Action.cancel, role: .cancel) { viewModel.pendingDelete = nil }
-        } message: { _ in
-            Text(viewModel.pendingDeleteMessage)
+            viewModel.confirmPendingDelete()
         }
     }
 
