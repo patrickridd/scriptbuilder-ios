@@ -45,19 +45,19 @@ struct CharacterDetailView: View {
             if viewModel.shouldFocusName { nameFocused = true }
         }
         .onDisappear { Task { await viewModel.flush() } }
-        // Alerts inherit the surrounding tint. A custom brand tint makes iOS 26
-        // draw the prominent cancel capsule with a label in the same colour as
-        // its fill, so we hand the alert the system tint instead.
-        .tint(.blue)
-        .alert(L10n.CharacterUI.deleteTitle, isPresented: $showDeleteConfirm) {
-            Button(L10n.Action.cancel, role: .cancel) { }
-            Button(L10n.Action.delete, role: .destructive) {
-                Haptics.warning()
-                viewModel.requestDelete()
-                dismiss()
-            }
-        } message: {
-            Text(viewModel.deleteConfirmMessage)
+        // A fully custom pop-up: system alerts inherit the brand tint and can
+        // draw the cancel capsule with a label in the same colour as its fill.
+        .confirmDialog(
+            isPresented: $showDeleteConfirm,
+            icon: "trash.fill",
+            title: L10n.CharacterUI.deleteTitle,
+            message: viewModel.deleteConfirmMessage,
+            confirmTitle: L10n.Action.delete,
+            cancelTitle: L10n.Action.cancel
+        ) {
+            Haptics.warning()
+            viewModel.requestDelete()
+            dismiss()
         }
     }
 
