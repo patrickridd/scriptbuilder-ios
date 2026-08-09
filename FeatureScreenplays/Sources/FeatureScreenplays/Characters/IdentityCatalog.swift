@@ -281,6 +281,7 @@ enum IdentityUIStrings {
     static let noneValue = "None"
     static let characterComplete = "Fully developed — identity and arc"
     static let intentionPrefix = "Wants to:"
+    static let namePlaceholderTitle = "Name your character"
     static let clearRole = "No Role"
     static let tierPrimary = "Primary"
     static let tierSecondary = "Secondary"

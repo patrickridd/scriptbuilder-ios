@@ -60,11 +60,17 @@ struct CharacterCard: View {
         totalCount > 0 ? Double(filledCount) / Double(totalCount) : 0
     }
 
+    private var trimmedName: String {
+        character.name.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private var hasName: Bool { !trimmedName.isEmpty }
+
     private var nameRow: some View {
         HStack(spacing: 12) {
-            Text(character.name.isEmpty ? "Unnamed" : character.name)
-                .font(.headline)
-                .foregroundStyle(palette.textPrimary)
+            Text(hasName ? trimmedName : IdentityUIStrings.namePlaceholderTitle)
+                .font(hasName ? .headline : .subheadline.weight(.medium))
+                .foregroundStyle(hasName ? palette.textPrimary : palette.textMuted)
                 .lineLimit(1)
             Spacer(minLength: 4)
             progressBadge

@@ -11,6 +11,11 @@ struct ProgressHeader: View {
     let title: String
     /// Optional SF Symbol shown leading the title.
     var systemImage: String?
+    /// When true the title is rendered as a soft prompt (muted, lighter weight)
+    /// because the real value has not been entered yet.
+    var titleIsPlaceholder: Bool = false
+    /// Optional action fired when a placeholder title is tapped.
+    var onTitleTapped: (() -> Void)?
     let filled: Int
     let total: Int
     /// Copy shown when every counted field has content.
@@ -41,19 +46,7 @@ struct ProgressHeader: View {
     private var summaryRow: some View {
         HStack(alignment: .top, spacing: 16) {
             VStack(alignment: .leading, spacing: 12) {
-                HStack(alignment: .center, spacing: 8) {
-                    if let systemImage {
-                        Image(systemName: systemImage)
-                            .font(.title3.weight(.semibold))
-                            .foregroundStyle(palette.accent)
-                    }
-                    Text(title)
-                        .font(.title.weight(.bold))
-                        .foregroundStyle(palette.textPrimary)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.5)
-
-                }
+                titleRow
                 
                 VStack(alignment: .leading, spacing: 8) {
                     Text(subtitle)
@@ -73,6 +66,38 @@ struct ProgressHeader: View {
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel(L10n.Progress.accessibility(title, filled, total))
+    }
+
+    @ViewBuilder
+    private var titleRow: some View {
+        if titleIsPlaceholder, let onTitleTapped {
+            Button {
+                Haptics.selection()
+                onTitleTapped()
+            } label: {
+                titleLabel
+            }
+            .buttonStyle(PressableScaleStyle())
+        } else {
+            titleLabel
+        }
+    }
+
+    private var titleLabel: some View {
+        HStack(alignment: .center, spacing: 8) {
+            if let systemImage {
+                Image(systemName: systemImage)
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(titleIsPlaceholder ? palette.textMuted : palette.accent)
+            }
+            Text(title)
+                .font(titleIsPlaceholder ? .title.weight(.semibold) : .title.weight(.bold))
+                .foregroundStyle(titleIsPlaceholder ? palette.textMuted : palette.textPrimary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+        }
+        .contentTransition(.opacity)
+        .animation(.easeInOut(duration: 0.25), value: titleIsPlaceholder)
     }
 
     private func nudge(title: String, action: @escaping () -> Void) -> some View {

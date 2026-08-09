@@ -162,6 +162,16 @@ final class CharacterDetailViewModel {
         draft.name.isEmpty ? "Character" : draft.name
     }
 
+    /// True once the writer has typed a name (ignoring whitespace).
+    var hasName: Bool {
+        !draft.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    /// Big header title: the character's name, or a friendly prompt while blank.
+    var headerTitle: String {
+        hasName ? draft.name : IdentityUIStrings.namePlaceholderTitle
+    }
+
     /// Whether the name field should grab focus when the detail view appears.
     /// True for a brand-new (still unnamed) character so the user can start
     /// typing immediately; false when editing an existing, named character.

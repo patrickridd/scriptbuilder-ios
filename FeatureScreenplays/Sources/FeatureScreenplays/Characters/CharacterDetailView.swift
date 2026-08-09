@@ -96,8 +96,10 @@ struct CharacterDetailView: View {
         let next = viewModel.nextOverallTarget
         return VStack(alignment: .leading, spacing: 12) {
             ProgressHeader(
-                title: viewModel.navigationTitle,
+                title: viewModel.headerTitle,
                 systemImage: "person.crop.circle",
+                titleIsPlaceholder: !viewModel.hasName,
+                onTitleTapped: { nameFocused = true },
                 filled: viewModel.overallFilledCount,
                 total: viewModel.overallTotalCount,
                 completeText: IdentityUIStrings.characterComplete,
