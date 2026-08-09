@@ -338,3 +338,29 @@ private struct SceneRowCard: View {
         .animation(.easeInOut(duration: 0.3), value: isHighlighted)
     }
 }
+
+// MARK: - Previews
+
+#if DEBUG
+private struct ScenesListPreview: View {
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                AppBackground()
+                ScenesListView(
+                    screenplayID: ScenesPreviewData.screenplayID,
+                    act1: ScenesPreviewData.act1,
+                    act2: ScenesPreviewData.act2,
+                    act3: ScenesPreviewData.act3,
+                    repository: MockScreenplayRepository(seedSamples: false)
+                )
+            }
+            .navigationTitle("Neon Divide")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
+#Preview("Scenes — Light") { ScenesListPreview() }
+#Preview("Scenes — Dark") { ScenesListPreview().preferredColorScheme(.dark) }
+#endif

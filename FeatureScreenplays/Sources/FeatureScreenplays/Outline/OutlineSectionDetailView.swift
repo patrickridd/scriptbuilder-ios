@@ -40,8 +40,15 @@ struct OutlineSectionDetailView: View {
                 }
             }
         }
-        .navigationTitle(section.title)
+        .navigationTitle(navigationTitleText)
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    /// The screenplay's title, since the section name already appears in the
+    /// on-screen header. Falls back to the section title for untitled drafts.
+    private var navigationTitleText: String {
+        let name = viewModel.screenplay.title.trimmingCharacters(in: .whitespacesAndNewlines)
+        return name.isEmpty ? section.title : name
     }
 
     // MARK: - Progress header

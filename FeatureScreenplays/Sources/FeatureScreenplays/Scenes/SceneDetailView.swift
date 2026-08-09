@@ -78,6 +78,8 @@ struct SceneDetailView: View {
                 }
             }
         )
+        .padding(.horizontal, 16)
+
     }
 
     // MARK: - Metadata
@@ -218,3 +220,27 @@ struct SceneDetailView: View {
             .foregroundStyle(palette.textPrimary)
     }
 }
+
+// MARK: - Previews
+
+#if DEBUG
+private struct SceneDetailPreview: View {
+    let scene: Domain.Scene
+    @State private var viewModel = ScenesPreviewData.viewModel()
+
+    var body: some View {
+        NavigationStack {
+            SceneDetailView(scene: scene, act: .one, viewModel: viewModel)
+        }
+    }
+}
+
+#Preview("Scene Detail — Filled") {
+    SceneDetailPreview(scene: ScenesPreviewData.act1[0])
+}
+
+#Preview("Scene Detail — Dark") {
+    SceneDetailPreview(scene: ScenesPreviewData.act1[1])
+        .preferredColorScheme(.dark)
+}
+#endif
