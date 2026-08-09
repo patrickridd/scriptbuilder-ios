@@ -1,10 +1,12 @@
 import Foundation
 import Domain
 
-/// The three identity facets that count toward a character's overall
-/// completion: who they are in the hierarchy (role), the pattern they embody
-/// (archetype), and the job they do for the plot (story function).
+/// The identity facets that count toward a character's overall completion:
+/// what they're called (name), who they are in the hierarchy (role), the
+/// pattern they embody (archetype), and the job they do for the plot
+/// (story function).
 enum CharacterIdentityField: Int, CaseIterable, Identifiable {
+    case name
     case role
     case archetype
     case storyFunction
@@ -13,30 +15,36 @@ enum CharacterIdentityField: Int, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
+        case .name: return L10n.CharacterUI.fieldName
         case .role: return IdentityUIStrings.roleRow
         case .archetype: return IdentityUIStrings.archetypeRow
         case .storyFunction: return IdentityUIStrings.storyFunctionRow
         }
     }
 
-    func isFilled(in identity: CharacterIdentity) -> Bool {
+    func isFilled(in character: Character) -> Bool {
         switch self {
-        case .role: return identity.role != nil
-        case .archetype: return !identity.archetypes.isEmpty
-        case .storyFunction: return !identity.storyFunctions.isEmpty
+        case .name:
+            return !character.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        case .role:
+            return character.identity.role != nil
+        case .archetype:
+            return !character.identity.archetypes.isEmpty
+        case .storyFunction:
+            return !character.identity.storyFunctions.isEmpty
         }
     }
 
-    /// How many identity facets the writer has chosen so far.
-    static func filledCount(for identity: CharacterIdentity) -> Int {
+    /// How many identity facets the writer has settled so far.
+    static func filledCount(for character: Character) -> Int {
         allCases.reduce(into: 0) { total, field in
-            if field.isFilled(in: identity) { total += 1 }
+            if field.isFilled(in: character) { total += 1 }
         }
     }
 
-    /// The first identity facet still waiting on a choice, if any.
-    static func firstUnfilled(for identity: CharacterIdentity) -> CharacterIdentityField? {
-        allCases.first { !$0.isFilled(in: identity) }
+    /// The first identity facet still waiting on the writer, if any.
+    static func firstUnfilled(for character: Character) -> CharacterIdentityField? {
+        allCases.first { !$0.isFilled(in: character) }
     }
 }
 

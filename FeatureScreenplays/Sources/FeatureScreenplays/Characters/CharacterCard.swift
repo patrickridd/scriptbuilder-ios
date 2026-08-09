@@ -10,9 +10,21 @@ struct CharacterCard: View {
 
     private var role: CharacterRole { CharacterRole.bucket(for: character.role) }
 
+    private var trimmedIntention: String {
+        character.intention.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
     private var preview: String {
-        let intention = character.intention.trimmingCharacters(in: .whitespacesAndNewlines)
-        return intention.isEmpty ? "No intention set yet" : intention
+        trimmedIntention.isEmpty ? "No intention set yet" : trimmedIntention
+    }
+
+    /// "Wants to: …" once an intention exists; the empty-state line stays plain.
+    private var previewLine: Text {
+        guard !trimmedIntention.isEmpty else { return Text(preview) }
+        return Text(IdentityUIStrings.intentionPrefix)
+            .fontWeight(.medium)
+            .foregroundColor(palette.textPrimary)
+            + Text(" " + trimmedIntention)
     }
 
     var body: some View {
@@ -20,23 +32,33 @@ struct CharacterCard: View {
             roleGlyph
             VStack(alignment: .leading, spacing: 10) {
                 nameRow
-                Text(preview)
+                previewLine
                     .font(.footnote)
                     .foregroundStyle(palette.textMuted)
                     .lineLimit(2)
             }
             chevron
         }
-        .padding(14)
-        .background(cardShape.fill(palette.cardSurface))
+        .padding(14)        .background(cardShape.fill(palette.cardSurface))
         .overlay(cardBorder)
         .compositingGroup()
         .animation(.easeInOut(duration: 0.3), value: isHighlighted)
     }
 
-    private var filledCount: Int { CharacterArcField.filledCount(for: character) }
-    private var totalCount: Int { CharacterArcField.scoreable.count }
+    /// Mirrors the detail screen's ring: identity facets + scoreable arc fields.
+    private var filledCount: Int {
+        CharacterIdentityField.filledCount(for: character) + CharacterArcField.filledCount(for: character)
+    }
+
+    private var totalCount: Int {
+        CharacterIdentityField.allCases.count + CharacterArcField.scoreable.count
+    }
+
     private var isComplete: Bool { totalCount > 0 && filledCount == totalCount }
+
+    private var fraction: Double {
+        totalCount > 0 ? Double(filledCount) / Double(totalCount) : 0
+    }
 
     private var nameRow: some View {
         HStack(spacing: 12) {
@@ -60,18 +82,16 @@ struct CharacterCard: View {
     private var progressBadge: some View {
         if totalCount > 0 {
             Text("\(filledCount)/\(totalCount)")
-                .font(.caption.weight(.semibold))
+                .font(.caption2.weight(.semibold))
                 .monospacedDigit()
                 .foregroundStyle(isComplete ? palette.accent : palette.textMuted)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 3)
-                .background(palette.accent.opacity(isComplete ? 0.14 : 0.06), in: Capsule())
-                .accessibilityLabel(arcAccessibilityLabel)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(arcAccessibilityLabel)
         }
     }
 
     private var arcAccessibilityLabel: String {
-        "Arc \(filledCount) of \(totalCount) complete"
+        "\(filledCount) of \(totalCount) fields complete"
     }
 
     private var roleGlyph: some View {

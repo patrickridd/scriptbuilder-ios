@@ -11,14 +11,50 @@ import Domain
 final class CharacterDetailViewModel {
 
     /// The live working copy the form binds to. Mutating any field schedules a
-    /// debounced save automatically via `didSet`.
-    var draft: Character { didSet { scheduleSave() } }
+    /// debounced save automatically.
+    ///
+    /// Written by hand rather than as a plain stored property because the
+    /// `@Observable` macro skips properties that declare `didSet`, which left
+    /// the header title and progress ring stale while typing. `access` /
+    /// `withMutation` reinstate the change notifications the macro would emit.
+    var draft: Character {
+        get {
+            access(keyPath: \.draft)
+            return storedDraft
+        }
+        set {
+            withMutation(keyPath: \.draft) { storedDraft = newValue }
+            scheduleSave()
+        }
+    }
 
     /// The selected role bucket. Changing it (or `customRole`) reschedules a save.
-    var role: CharacterRole { didSet { scheduleSave() } }
+    var role: CharacterRole {
+        get {
+            access(keyPath: \.role)
+            return storedRole
+        }
+        set {
+            withMutation(keyPath: \.role) { storedRole = newValue }
+            scheduleSave()
+        }
+    }
 
     /// Free-form role text, only meaningful when `role == .custom`.
-    var customRole: String { didSet { scheduleSave() } }
+    var customRole: String {
+        get {
+            access(keyPath: \.customRole)
+            return storedCustomRole
+        }
+        set {
+            withMutation(keyPath: \.customRole) { storedCustomRole = newValue }
+            scheduleSave()
+        }
+    }
+
+    @ObservationIgnored private var storedDraft: Character
+    @ObservationIgnored private var storedRole: CharacterRole
+    @ObservationIgnored private var storedCustomRole: String
 
     @ObservationIgnored private let viewModel: CharactersViewModel
     @ObservationIgnored private var saveTask: Task<Void, Never>?
@@ -42,10 +78,10 @@ final class CharacterDetailViewModel {
            !legacyRole.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             initialDraft.identity = CharacterIdentity(resolvingLegacyRole: legacyRole)
         }
-        self.draft = initialDraft
+        self.storedDraft = initialDraft
         let bucket = CharacterRole.bucket(for: character.role)
-        self.role = bucket
-        self.customRole = bucket == .custom ? (character.role ?? "") : ""
+        self.storedRole = bucket
+        self.storedCustomRole = bucket == .custom ? (character.role ?? "") : ""
     }
 
     // MARK: - Identity
@@ -99,8 +135,8 @@ final class CharacterDetailViewModel {
 
     // MARK: - Overall progress
 
-    /// How many identity facets (role, archetype, story function) are chosen.
-    var identityFilledCount: Int { CharacterIdentityField.filledCount(for: draft.identity) }
+    /// How many identity facets (name, role, archetype, story function) are set.
+    var identityFilledCount: Int { CharacterIdentityField.filledCount(for: draft) }
 
     /// Total number of identity facets counted toward completion.
     var identityTotalCount: Int { CharacterIdentityField.allCases.count }
@@ -114,7 +150,7 @@ final class CharacterDetailViewModel {
     /// The next thing to work on: an unchosen identity facet first (it's the
     /// quickest win and shapes the arc), then the first empty arc field.
     var nextOverallTarget: CharacterProgressTarget? {
-        if let field = CharacterIdentityField.firstUnfilled(for: draft.identity) {
+        if let field = CharacterIdentityField.firstUnfilled(for: draft) {
             return .identity(field)
         }
         if let field = nextArcField { return .arc(field) }

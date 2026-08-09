@@ -120,10 +120,11 @@ struct CharacterDetailView: View {
     private func jump(to target: CharacterProgressTarget?, proxy: ScrollViewProxy) {
         guard let target else { return }
         switch target {
-        case .identity:
+        case .identity(let field):
             withAnimation(.easeInOut(duration: 0.35)) {
                 proxy.scrollTo(identityAnchor, anchor: .center)
             }
+            if field == .name { nameFocused = true }
         case .arc:
             showArc = true
         }
@@ -136,7 +137,8 @@ struct CharacterDetailView: View {
             CharacterArcView(viewModel: viewModel)
         } label: {
             HStack(spacing: 8) {
-                Label(L10n.CharacterUI.arcTitle, systemImage: "chart.line.uptrend.xyaxis")
+                rowIcon("chart.line.uptrend.xyaxis")
+                Text(L10n.CharacterUI.arcTitle)
                     .font(.body.weight(.medium))
                     .foregroundStyle(palette.textPrimary)
                 Spacer(minLength: 8)
@@ -163,25 +165,40 @@ struct CharacterDetailView: View {
             .padding(.vertical, 2)
     }
 
+    /// The character's name — the first thing under Identity, since everything
+    /// else on the screen describes who that name belongs to.
+    private var nameField: some View {
+        HStack(spacing: 8) {
+            rowIcon("person.text.rectangle")
+            Text(L10n.CharacterUI.fieldName)
+                .font(.body.weight(.medium))
+                .foregroundStyle(palette.textPrimary)
+            Spacer(minLength: 8)
+            TextField(L10n.CharacterUI.fieldName, text: $viewModel.draft.name)
+                .font(.subheadline)
+                .multilineTextAlignment(.trailing)
+                .focused($nameFocused)
+                .foregroundStyle(palette.accent)
+                .tint(palette.accent)
+        }
+        .padding(12)
+        .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
+    }
+
     private var basicInfoCard: some View {
         VStack(alignment: .leading, spacing: 14) {
-            fieldLabel(L10n.CharacterUI.fieldName, systemImage: "person.text.rectangle")
-            TextField(L10n.CharacterUI.fieldName, text: $viewModel.draft.name)
-                .font(.body)
-                .focused($nameFocused)
+            Text(IdentityUIStrings.sectionTitle)
+                .font(.subheadline.weight(.semibold))
                 .foregroundStyle(palette.textPrimary)
-                .tint(palette.accent)
-                .padding(12)
-                .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
+            VStack(spacing: 10) {
+                nameField
+                identityRows
+            }
+            .id(identityAnchor)
 
             hairline
             arcRow
-            hairline
-
-            fieldLabel(IdentityUIStrings.sectionTitle, systemImage: "theatermasks")
-            identityRows
-                .id(identityAnchor)
         }
         .padding(16)
         .background(palette.cardSurface.opacity(0.6), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
@@ -219,7 +236,7 @@ struct CharacterDetailView: View {
                 viewModel.applyRole(newRole)
             }
         } label: {
-            identityRowLabel(title: IdentityUIStrings.roleRow) {
+            identityRowLabel(title: IdentityUIStrings.roleRow, systemImage: IdentitySectionIntro.role.symbol) {
                 Text(viewModel.roleDisplayText ?? IdentityUIStrings.noneValue)
                     .font(.subheadline)
                     .lineLimit(1)
@@ -247,7 +264,7 @@ struct CharacterDetailView: View {
                 selection: selection
             )
         } label: {
-            identityRowLabel(title: title) {
+            identityRowLabel(title: title, systemImage: intro.symbol) {
                 if names.isEmpty {
                     Text(IdentityUIStrings.noneValue)
                         .font(.subheadline)
@@ -260,8 +277,21 @@ struct CharacterDetailView: View {
         .buttonStyle(.plain)
     }
 
-    private func identityRowLabel(title: String, @ViewBuilder value: () -> some View) -> some View {
+    /// Consistent leading glyph for every row inside the Identity section.
+    private func rowIcon(_ systemImage: String) -> some View {
+        Image(systemName: systemImage)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(palette.accent)
+            .frame(width: 22, alignment: .center)
+    }
+
+    private func identityRowLabel(
+        title: String,
+        systemImage: String,
+        @ViewBuilder value: () -> some View
+    ) -> some View {
         HStack(spacing: 8) {
+            rowIcon(systemImage)
             Text(title)
                 .font(.body.weight(.medium))
                 .foregroundStyle(palette.textPrimary)
@@ -298,14 +328,7 @@ struct CharacterDetailView: View {
         }
     }
 
-    /// Section label used above the name field and identity rows.
-    private func fieldLabel(_ text: String, systemImage: String) -> some View {
-        Label(text, systemImage: systemImage)
-            .font(.subheadline.weight(.semibold))
-            .foregroundStyle(palette.textPrimary)
-    }
 }
-
 #if DEBUG
 
 private enum CharacterDetailPreviewData {
