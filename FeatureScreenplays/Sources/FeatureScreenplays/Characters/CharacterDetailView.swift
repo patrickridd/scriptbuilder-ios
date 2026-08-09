@@ -224,7 +224,8 @@ struct CharacterDetailView: View {
                 intro: .storyFunction,
                 catalog: IdentityCatalog.storyFunctions,
                 nudge: IdentityUIStrings.storyFunctionNudge,
-                selection: $viewModel.draft.identity.storyFunctions
+                selection: $viewModel.draft.identity.storyFunctions,
+                tint: IdentityHue.storyFunction
             )
         }
     }
@@ -253,7 +254,8 @@ struct CharacterDetailView: View {
         intro: IdentitySectionIntro,
         catalog: [IdentityCatalogEntry],
         nudge: String,
-        selection: Binding<[IdentityTrait]>
+        selection: Binding<[IdentityTrait]>,
+        tint: Color? = nil
     ) -> some View {
         let names = selection.wrappedValue.map { IdentityCatalog.displayName(for: $0, in: catalog) }
         return VStack(alignment: .leading, spacing: 10) {
@@ -265,7 +267,7 @@ struct CharacterDetailView: View {
             .buttonStyle(.plain)
 
             if !names.isEmpty {
-                TraitChipsWrap(names: names) { index in
+                TraitChipsWrap(names: names, tint: tint) { index in
                     traitPicker(
                         title: title,
                         intro: intro,

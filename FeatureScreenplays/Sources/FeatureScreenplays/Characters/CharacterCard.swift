@@ -2,6 +2,13 @@ import SwiftUI
 import Domain
 import DesignSystem
 
+/// A single identity chip shown on a cast-list card.
+private struct IdentityTag: Identifiable {
+    let text: String
+    let isArchetype: Bool
+    var id: String { (isArchetype ? "a-" : "f-") + text }
+}
+
 /// A single cast-list card: role glyph, name, role, and an intention preview.
 struct CharacterCard: View {
     @Environment(\.appPalette) private var palette
@@ -36,6 +43,7 @@ struct CharacterCard: View {
                     .font(.footnote)
                     .foregroundStyle(palette.textMuted)
                     .lineLimit(2)
+                identityChips
             }
             chevron
         }
@@ -77,6 +85,60 @@ struct CharacterCard: View {
             progressBadge
         }
         .accessibilityElement(children: .combine)
+    }
+
+    /// Archetypes first, then story functions — the identity choices that best
+    /// describe the character at a glance. Capped so a card never grows tall.
+    private var identityTags: [IdentityTag] {
+        let archetypes = character.identity.archetypes.map {
+            IdentityTag(text: IdentityCatalog.displayName(for: $0, in: IdentityCatalog.archetypes), isArchetype: true)
+        }
+        let functions = character.identity.storyFunctions.map {
+            IdentityTag(text: IdentityCatalog.displayName(for: $0, in: IdentityCatalog.storyFunctions), isArchetype: false)
+        }
+        return archetypes + functions
+    }
+
+    private static let maxVisibleTags = 4
+
+    @ViewBuilder
+    private var identityChips: some View {
+        let tags = identityTags
+        if !tags.isEmpty {
+            let visible = Array(tags.prefix(Self.maxVisibleTags))
+            let overflow = tags.count - visible.count
+            FlowLayout(spacing: 6, lineSpacing: 6) {
+                ForEach(visible) { tag in
+                    chip(tag.text, isArchetype: tag.isArchetype)
+                }
+                if overflow > 0 {
+                    overflowChip(overflow)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityElement(children: .combine)
+        }
+    }
+
+    private func chip(_ text: String, isArchetype: Bool) -> some View {
+        let hue = isArchetype ? palette.accent : IdentityHue.storyFunction
+        return Text(text)
+            .font(.caption2.weight(.medium))
+            .lineLimit(1)
+            .foregroundStyle(hue)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(hue.opacity(0.14), in: Capsule())
+            .overlay(Capsule().stroke(hue.opacity(0.22), lineWidth: 1))
+    }
+
+    private func overflowChip(_ count: Int) -> some View {
+        Text("+\(count)")
+            .font(.caption2.weight(.semibold))
+            .foregroundStyle(palette.textMuted)
+            .padding(.horizontal, 7)
+            .padding(.vertical, 4)
+            .background(palette.textMuted.opacity(0.10), in: Capsule())
     }
 
     private var chevron: some View {

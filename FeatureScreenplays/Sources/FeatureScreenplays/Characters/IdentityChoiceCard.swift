@@ -94,7 +94,11 @@ struct TraitChipsWrap<Destination: View>: View {
     @Environment(\.appPalette) private var palette
 
     let names: [String]
+    /// Chip hue; defaults to the app accent when not supplied.
+    var tint: Color?
     @ViewBuilder var destination: (Int) -> Destination
+
+    private var hue: Color { tint ?? palette.accent }
 
     var body: some View {
         FlowLayout(spacing: 6, lineSpacing: 6) {
@@ -118,11 +122,11 @@ struct TraitChipsWrap<Destination: View>: View {
                 .font(.caption.weight(.medium))
                 .lineLimit(1)
         }
-        .foregroundStyle(palette.accent)
+        .foregroundStyle(hue)
         .padding(.horizontal, 9)
         .padding(.vertical, 5)
-        .background(palette.accent.opacity(0.14), in: Capsule())
-        .overlay(Capsule().stroke(palette.accent.opacity(0.25), lineWidth: 1))
+        .background(hue.opacity(0.14), in: Capsule())
+        .overlay(Capsule().stroke(hue.opacity(0.25), lineWidth: 1))
     }
 }
 
