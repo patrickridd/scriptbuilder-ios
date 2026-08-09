@@ -26,6 +26,7 @@ struct OutlineSectionDetailView: View {
                 ScrollView {
                     VStack(spacing: 16) {
                         progressHeader(proxy: proxy)
+                            .padding(8)
                         if section == .idea {
                             ideaFields
                         } else {

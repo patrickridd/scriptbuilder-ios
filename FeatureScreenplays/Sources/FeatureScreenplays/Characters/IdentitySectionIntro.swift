@@ -67,7 +67,7 @@ struct IdentitySectionHeader: View {
     @State private var isExpanded = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 8) {
                 Image(systemName: intro.symbol)
                     .font(.title3.weight(.semibold))

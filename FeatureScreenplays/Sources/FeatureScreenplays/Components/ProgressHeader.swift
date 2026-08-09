@@ -33,17 +33,14 @@ struct ProgressHeader: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             summaryRow
-            if !isComplete, let nextFieldTitle, let onNextTapped {
-                nudge(title: nextFieldTitle, action: onNextTapped)
-            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 8)
+        .padding(.horizontal, 4)
     }
 
     private var summaryRow: some View {
-        HStack(alignment: .center, spacing: 16) {
-            VStack(alignment: .leading, spacing: 6) {
+        HStack(alignment: .top, spacing: 16) {
+            VStack(alignment: .leading, spacing: 10) {
                 HStack(spacing: 8) {
                     if let systemImage {
                         Image(systemName: systemImage)
@@ -51,7 +48,7 @@ struct ProgressHeader: View {
                             .foregroundStyle(palette.accent)
                     }
                     Text(title)
-                        .font(.title2.weight(.bold))
+                        .font(.title.weight(.bold))
                         .foregroundStyle(palette.textPrimary)
                 }
                 Text(subtitle)
@@ -59,6 +56,11 @@ struct ProgressHeader: View {
                     .foregroundStyle(isComplete ? palette.accent : palette.textMuted)
                     .contentTransition(.opacity)
                     .animation(.easeInOut(duration: 0.3), value: subtitle)
+
+                if !isComplete, let nextFieldTitle, let onNextTapped {
+                    nudge(title: nextFieldTitle, action: onNextTapped)
+                        .padding(.trailing)
+                }
             }
             Spacer(minLength: 8)
             ProgressRing(targetFraction: fraction)

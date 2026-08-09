@@ -67,6 +67,8 @@ struct OutlineView: View {
             ProgressRing(targetFraction: viewModel.overallCompletion)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal)
+        .padding(.top)
     }
 
     // MARK: - Idea hero card
