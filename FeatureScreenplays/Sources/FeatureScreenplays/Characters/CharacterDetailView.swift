@@ -32,6 +32,7 @@ struct CharacterDetailView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     characterHeader
+                        .padding(8)
                     basicInfoCard
                 }
                 .padding(.horizontal, 16)
@@ -74,7 +75,7 @@ struct CharacterDetailView: View {
     }
 
     private var characterHeader: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 8) {
                 Image(systemName: "person.crop.circle")
                     .font(.title3.weight(.semibold))
@@ -92,6 +93,8 @@ struct CharacterDetailView: View {
                 .animation(.easeInOut(duration: 0.3), value: intentionText)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 16)
+
     }
 
     // MARK: - Arc row
