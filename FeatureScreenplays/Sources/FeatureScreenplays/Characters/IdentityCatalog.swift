@@ -275,6 +275,7 @@ enum IdentityCatalog {
 /// localization pass.
 enum IdentityUIStrings {
     static let sectionTitle = "Identity"
+    static let arcCardSubtitle = "Where they start, break and land"
     static let roleRow = "Role"
     static let archetypeRow = "Archetype"
     static let storyFunctionRow = "Story Function"
@@ -282,6 +283,13 @@ enum IdentityUIStrings {
     static let characterComplete = "Fully developed — identity and arc"
     static let intentionPrefix = "Wants to:"
     static let namePlaceholderTitle = "Name your character"
+    static let nameFieldLabel = "Character name"
+    /// Short prompt used inside the header field, where width is precious.
+    static let nameFieldPrompt = "Character name"
+    static let nameFieldDone = "Done"
+    /// Menu action that drops the caret into the header name field.
+    static let changeNameAction = "Change Name"
+    static let moreActions = "More actions"
     static let chipHint = "Opens this choice in the picker"
 
     /// Trailing summary for a multi-select row, e.g. "2 selected".

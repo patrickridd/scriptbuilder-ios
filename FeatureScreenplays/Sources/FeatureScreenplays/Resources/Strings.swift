@@ -167,6 +167,7 @@ enum L10n {
 
         static var nextUpHint: String { L10n.string("progress.nextUp.hint") }
         static var celebrationSubtitle: String { L10n.string("progress.celebration.subtitle") }
+        static var editTitle: String { L10n.string("progress.editTitle") }
     }
 
     // MARK: - Idea fields

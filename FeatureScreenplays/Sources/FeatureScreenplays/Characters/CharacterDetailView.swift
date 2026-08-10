@@ -38,7 +38,9 @@ struct CharacterDetailView: View {
                     VStack(spacing: 16) {
                         characterHeader(proxy: proxy)
                             .padding(8)
-                        basicInfoCard
+                        identitySection
+                        arcCard
+                            .padding(.top, 6)
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)
@@ -51,6 +53,13 @@ struct CharacterDetailView: View {
         .navigationTitle(navTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { overflowMenu }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button(IdentityUIStrings.nameFieldDone) { nameFocused = false }
+                    .font(.body.weight(.semibold))
+            }
+        }
         .onAppear {
             if viewModel.shouldFocusName { nameFocused = true }
         }
@@ -99,7 +108,10 @@ struct CharacterDetailView: View {
                 title: viewModel.headerTitle,
                 systemImage: "person.crop.circle",
                 titleIsPlaceholder: !viewModel.hasName,
-                onTitleTapped: { nameFocused = true },
+                titleBinding: $viewModel.draft.name,
+                titlePlaceholder: IdentityUIStrings.nameFieldPrompt,
+                titleAccessibilityLabel: IdentityUIStrings.nameFieldLabel,
+                titleFocus: $nameFocused,
                 filled: viewModel.overallFilledCount,
                 total: viewModel.overallTotalCount,
                 completeText: IdentityUIStrings.characterComplete,
@@ -123,26 +135,37 @@ struct CharacterDetailView: View {
         guard let target else { return }
         switch target {
         case .identity(let field):
+            if field == .name {
+                nameFocused = true
+                return
+            }
             withAnimation(.easeInOut(duration: 0.35)) {
                 proxy.scrollTo(identityAnchor, anchor: .center)
             }
-            if field == .name { nameFocused = true }
         case .arc:
             showArc = true
         }
     }
 
-    // MARK: - Arc row
+    // MARK: - Arc card
 
-    private var arcRow: some View {
+    /// The arc is a doorway to another screen rather than a field, so it stands
+    /// on its own below Identity with room for its progress.
+    private var arcCard: some View {
         NavigationLink {
             CharacterArcView(viewModel: viewModel)
         } label: {
-            HStack(spacing: 8) {
-                rowIcon("chart.line.uptrend.xyaxis")
-                Text(L10n.CharacterUI.arcTitle)
-                    .font(.body.weight(.medium))
-                    .foregroundStyle(palette.textPrimary)
+            HStack(spacing: 12) {
+                arcGlyph
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(L10n.CharacterUI.arcTitle)
+                        .font(.body.weight(.semibold))
+                        .foregroundStyle(palette.textPrimary)
+                    Text(IdentityUIStrings.arcCardSubtitle)
+                        .font(.caption)
+                        .foregroundStyle(palette.textMuted)
+                        .lineLimit(2)
+                }
                 Spacer(minLength: 8)
                 ProgressBadge(
                     filled: viewModel.arcFilledCount,
@@ -153,58 +176,33 @@ struct CharacterDetailView: View {
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(palette.textMuted)
             }
-            .padding(12)
-            .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
+            .padding(14)
+            .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
         }
         .buttonStyle(.plain)
     }
 
-    private var hairline: some View {
-        Rectangle()
-            .fill(palette.cardStroke)
-            .frame(height: 1)
-            .padding(.vertical, 2)
+    private var arcGlyph: some View {
+        Image(systemName: "chart.line.uptrend.xyaxis")
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(palette.accent)
+            .frame(width: 34, height: 34)
+            .background(palette.accent.opacity(0.14), in: Circle())
     }
 
-    /// The character's name — the first thing under Identity, since everything
-    /// else on the screen describes who that name belongs to.
-    private var nameField: some View {
-        HStack(spacing: 8) {
-            rowIcon("person.text.rectangle")
-            Text(L10n.CharacterUI.fieldName)
-                .font(.body.weight(.medium))
-                .foregroundStyle(palette.textPrimary)
-            Spacer(minLength: 8)
-            TextField(L10n.CharacterUI.fieldName, text: $viewModel.draft.name)
-                .font(.subheadline)
-                .multilineTextAlignment(.trailing)
-                .focused($nameFocused)
-                .foregroundStyle(palette.accent)
-                .tint(palette.accent)
-        }
-        .padding(12)
-        .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
-    }
-
-    private var basicInfoCard: some View {
-        VStack(alignment: .leading, spacing: 14) {
+    /// Identity carries no frame of its own: the title floats on the gradient
+    /// like the header above it, and each field keeps its single card. The name
+    /// itself lives in the header, so this is purely the three choices.
+    private var identitySection: some View {
+        VStack(alignment: .leading, spacing: 10) {
             Text(IdentityUIStrings.sectionTitle)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(palette.textPrimary)
-            VStack(spacing: 10) {
-                nameField
-                identityRows
-            }
-            .id(identityAnchor)
-
-            hairline
-            arcRow
+                .padding(.leading, 4)
+            identityRows
+                .id(identityAnchor)
         }
-        .padding(16)
-        .background(palette.cardSurface.opacity(0.6), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-        .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
     }
 
     // MARK: - Identity rows
@@ -366,6 +364,11 @@ struct CharacterDetailView: View {
     private var overflowMenu: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Menu {
+                Button {
+                    focusName()
+                } label: {
+                    Label(IdentityUIStrings.changeNameAction, systemImage: "textformat")
+                }
                 Button(role: .destructive) {
                     showDeleteConfirm = true
                 } label: {
@@ -375,7 +378,16 @@ struct CharacterDetailView: View {
                 Image(systemName: "ellipsis.circle")
                     .foregroundStyle(palette.accent)
             }
-            .accessibilityLabel(L10n.CharacterUI.deleteButton)
+            .accessibilityLabel(IdentityUIStrings.moreActions)
+        }
+    }
+
+    /// Menus dismiss asynchronously, so give the sheet a beat before claiming
+    /// focus or the keyboard never appears.
+    private func focusName() {
+        Haptics.selection()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+            nameFocused = true
         }
     }
 
