@@ -67,12 +67,6 @@ enum IdentityCatalog {
             name: "Fringe",
             definition: "A recurring minor character who colors the world without steering the plot.",
             examples: "Moaning Myrtle · The Log Lady"
-        ),
-        IdentityCatalogEntry(
-            slug: HierarchicalRole.Stock.background,
-            name: "Background",
-            definition: "Faces in the crowd — walk-ons and extras that populate scenes.",
-            examples: "Cantina patrons · Hogwarts students"
         )
     ]
 
