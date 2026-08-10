@@ -36,14 +36,10 @@ struct CharacterCard: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            roleGlyph
-            VStack(alignment: .leading, spacing: 10) {
-                nameRow
-                previewLine
-                    .font(.footnote)
-                    .foregroundStyle(palette.textMuted)
-                    .lineLimit(2)
+            VStack(alignment: .leading, spacing: 14) {
+                topCardSection
                 identityChips
+                    .padding(.leading, 16)
             }
             chevron
         }
@@ -52,6 +48,19 @@ struct CharacterCard: View {
         .overlay(cardBorder)
         .compositingGroup()
         .animation(.easeInOut(duration: 0.3), value: isHighlighted)
+    }
+    
+    var topCardSection: some View {
+        HStack(alignment: .center, spacing: 14) {
+            roleGlyph
+            VStack(alignment: .leading, spacing: 6) {
+                nameRow
+                previewLine
+                    .font(.footnote)
+                    .foregroundStyle(palette.textMuted)
+                    .lineLimit(2)
+            }
+        }
     }
 
     /// Mirrors the detail screen's ring: identity facets + scoreable arc fields.
