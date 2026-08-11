@@ -3,8 +3,10 @@
 //  FeatureScreenplays
 //
 //  Single-select role picker grouped by narrative tier (Primary / Secondary /
-//  Background). Picking any role — stock or custom — pops straight back to the
-//  character screen. Legacy free-text roles surface as a selected custom card.
+//  Background). Roles are list-only — there is no free-text entry, so the plot
+//  hierarchy stays consistent. Picking a role pops straight back to the
+//  character screen. Free-text roles saved earlier still surface (read-only) so
+//  nothing a writer already entered disappears.
 //
 
 import SwiftUI
@@ -18,9 +20,6 @@ struct RolePickerDetailView: View {
     let characterName: String
     let selection: HierarchicalRole?
     let onSelect: (HierarchicalRole?) -> Void
-
-    @State private var customText = ""
-    @FocusState private var customFocused: Bool
 
     var body: some View {
         ZStack {
@@ -43,9 +42,9 @@ struct RolePickerDetailView: View {
     private var content: some View {
         VStack(alignment: .leading, spacing: 14) {
             IdentitySectionHeader(intro: .role)
+            savedCustomSection
             tierSection(IdentityUIStrings.tierPrimary, entries: IdentityCatalog.primaryRoles)
             tierSection(IdentityUIStrings.tierSecondary, entries: IdentityCatalog.secondaryRoles)
-            customSection
             if selection != nil {
                 clearButton
             }
@@ -77,16 +76,20 @@ struct RolePickerDetailView: View {
         selection?.slug == slug && selection?.isCustom == false
     }
 
-    // MARK: - Custom role
+    // MARK: - Saved free-text role (read-only)
 
-    private var customSection: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(IdentityUIStrings.customSection)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(palette.textMuted)
-                .textCase(.uppercase)
-                .padding(.top, 4)
-            if let selection, selection.isCustom, let label = selection.customLabel, !label.isEmpty {
+    /// Existing free-text roles (saved before roles became list-only, or
+    /// migrated from the legacy flat `role` string) stay visible so no work
+    /// disappears. They can be kept or replaced, but new ones aren't offered.
+    @ViewBuilder
+    private var savedCustomSection: some View {
+        if let selection, selection.isCustom, let label = selection.customLabel, !label.isEmpty {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(IdentityUIStrings.savedRoleSection)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(palette.textMuted)
+                    .textCase(.uppercase)
+                    .padding(.top, 4)
                 IdentityChoiceCard(
                     name: label,
                     definition: nil,
@@ -95,42 +98,11 @@ struct RolePickerDetailView: View {
                     onTap: {},
                     onDelete: { pick(nil) }
                 )
+                Text(IdentityUIStrings.savedRoleHint)
+                    .font(.footnote)
+                    .foregroundStyle(palette.textMuted)
             }
-            customInputField
         }
-    }
-
-    private var customInputField: some View {
-        HStack(spacing: 8) {
-            TextField(IdentityUIStrings.customRolePlaceholder, text: $customText)
-                .font(.body)
-                .focused($customFocused)
-                .foregroundStyle(palette.textPrimary)
-                .tint(palette.accent)
-                .submitLabel(.done)
-                .onSubmit(addCustom)
-            Button(action: addCustom) {
-                Image(systemName: "plus.circle.fill")
-                    .font(.title3)
-                    .foregroundStyle(canAddCustom ? palette.accent : palette.textMuted.opacity(0.4))
-            }
-            .buttonStyle(.plain)
-            .disabled(!canAddCustom)
-            .accessibilityLabel(IdentityUIStrings.addCustom)
-        }
-        .padding(12)
-        .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
-    }
-
-    private var canAddCustom: Bool {
-        !customText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-    }
-
-    private func addCustom() {
-        let trimmed = customText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return }
-        pick(.custom(trimmed))
     }
 
     // MARK: - Selection
