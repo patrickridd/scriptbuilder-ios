@@ -58,10 +58,7 @@ enum IdentityCatalog {
             name: "Tetratagonist",
             definition: "Fourth in importance; a steady presence in the ensemble.",
             examples: "Ron Weasley · Merry Brandybuck"
-        )
-    ]
-
-    static let backgroundRoles: [IdentityCatalogEntry] = [
+        ),
         IdentityCatalogEntry(
             slug: HierarchicalRole.Stock.fringe,
             name: "Fringe",
@@ -71,7 +68,7 @@ enum IdentityCatalog {
     ]
 
     static var allRoles: [IdentityCatalogEntry] {
-        primaryRoles + secondaryRoles + backgroundRoles
+        primaryRoles + secondaryRoles
     }
 
     static func roleEntry(for slug: String) -> IdentityCatalogEntry? {
@@ -240,11 +237,6 @@ enum IdentityCatalog {
             slug: StoryFunctionSlug.henchman, name: "Henchman",
             definition: "Executes the antagonist's will.",
             examples: "Oddjob · Crabbe & Goyle"
-        ),
-        IdentityCatalogEntry(
-            slug: StoryFunctionSlug.sidekick, name: "Sidekick",
-            definition: "Rides along — support in action.",
-            examples: "Robin · Samwise Gamgee"
         )
     ]
 
@@ -293,11 +285,30 @@ enum IdentityUIStrings {
     static let clearRole = "No Role"
     static let tierPrimary = "Primary"
     static let tierSecondary = "Secondary"
-    static let tierBackground = "Background"
     static let customSection = "Custom"
     static let customRolePlaceholder = "Your own role…"
     static let customTraitPlaceholder = "Add your own…"
     static let addCustom = "Add"
     static let archetypeNudge = "Most memorable characters embody 1–3 archetypes."
     static let storyFunctionNudge = "A focused set of 1–3 story functions reads strongest."
+
+    /// Header above the role-relevant choices, e.g. "Suggested for your Antagonist".
+    static func suggestedFor(_ roleName: String) -> String {
+        "Suggested for your \(roleName)"
+    }
+
+    /// Disclosure label revealing the full catalog, e.g. "All Archetypes".
+    static func allChoices(_ title: String) -> String {
+        "All \(title)s"
+    }
+
+    /// Badge on the disclosure showing how many choices remain hidden, e.g. "+9".
+    static func moreCount(_ count: Int) -> String {
+        "+\(count)"
+    }
+
+    /// Spoken version of the disclosure label, e.g. "All Archetypes, 9 more".
+    static func allChoicesAccessibility(_ title: String, count: Int) -> String {
+        "\(allChoices(title)), \(count) more"
+    }
 }

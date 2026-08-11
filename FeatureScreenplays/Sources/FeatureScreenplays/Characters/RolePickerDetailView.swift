@@ -45,7 +45,6 @@ struct RolePickerDetailView: View {
             IdentitySectionHeader(intro: .role)
             tierSection(IdentityUIStrings.tierPrimary, entries: IdentityCatalog.primaryRoles)
             tierSection(IdentityUIStrings.tierSecondary, entries: IdentityCatalog.secondaryRoles)
-            tierSection(IdentityUIStrings.tierBackground, entries: IdentityCatalog.backgroundRoles)
             customSection
             if selection != nil {
                 clearButton

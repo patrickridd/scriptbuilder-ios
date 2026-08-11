@@ -208,13 +208,15 @@ struct CharacterDetailView: View {
     // MARK: - Identity rows
 
     private var identityRows: some View {
-        VStack(spacing: 10) {
+        let role = viewModel.draft.identity.role
+        return VStack(spacing: 10) {
             roleRow
             traitRow(
                 title: IdentityUIStrings.archetypeRow,
                 intro: .archetype,
                 catalog: IdentityCatalog.archetypes,
                 nudge: IdentityUIStrings.archetypeNudge,
+                suggestedSlugs: IdentityRelevance.suggestedArchetypeSlugs(for: role),
                 selection: $viewModel.draft.identity.archetypes
             )
             traitRow(
@@ -222,6 +224,7 @@ struct CharacterDetailView: View {
                 intro: .storyFunction,
                 catalog: IdentityCatalog.storyFunctions,
                 nudge: IdentityUIStrings.storyFunctionNudge,
+                suggestedSlugs: IdentityRelevance.suggestedStoryFunctionSlugs(for: role),
                 selection: $viewModel.draft.identity.storyFunctions,
                 tint: IdentityHue.storyFunction
             )
@@ -252,13 +255,21 @@ struct CharacterDetailView: View {
         intro: IdentitySectionIntro,
         catalog: [IdentityCatalogEntry],
         nudge: String,
+        suggestedSlugs: [String],
         selection: Binding<[IdentityTrait]>,
         tint: Color? = nil
     ) -> some View {
         let names = selection.wrappedValue.map { IdentityCatalog.displayName(for: $0, in: catalog) }
         return VStack(alignment: .leading, spacing: 10) {
             NavigationLink {
-                traitPicker(title: title, intro: intro, catalog: catalog, nudge: nudge, selection: selection)
+                traitPicker(
+                    title: title,
+                    intro: intro,
+                    catalog: catalog,
+                    nudge: nudge,
+                    suggestedSlugs: suggestedSlugs,
+                    selection: selection
+                )
             } label: {
                 traitRowHeader(title: title, systemImage: intro.symbol, count: names.count)
             }
@@ -271,6 +282,7 @@ struct CharacterDetailView: View {
                         intro: intro,
                         catalog: catalog,
                         nudge: nudge,
+                        suggestedSlugs: suggestedSlugs,
                         selection: selection,
                         focus: selection.wrappedValue.indices.contains(index) ? selection.wrappedValue[index] : nil
                     )
@@ -292,6 +304,7 @@ struct CharacterDetailView: View {
         intro: IdentitySectionIntro,
         catalog: [IdentityCatalogEntry],
         nudge: String,
+        suggestedSlugs: [String],
         selection: Binding<[IdentityTrait]>,
         focus: IdentityTrait? = nil
     ) -> some View {
@@ -301,6 +314,8 @@ struct CharacterDetailView: View {
             intro: intro,
             catalog: catalog,
             nudge: nudge,
+            roleName: viewModel.roleDisplayText,
+            suggestedSlugs: suggestedSlugs,
             selection: selection,
             focusTrait: focus
         )

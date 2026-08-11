@@ -22,7 +22,6 @@ import Foundation
 public enum RoleTier: String, CaseIterable, Sendable, Codable {
     case primary
     case secondary
-    case background
 }
 
 // MARK: - Hierarchical role
@@ -51,13 +50,12 @@ public struct HierarchicalRole: Equatable, Hashable, Sendable, Codable {
         public static let tritagonist  = "tritagonist"
         public static let tetratagonist = "tetratagonist"
         public static let fringe       = "fringe"
-        public static let background   = "background"
 
         /// All stock slugs in canonical (tier, importance) order.
         public static let all: [String] = [
             protagonist, antagonist, deuteragonist,
             tritagonist, tetratagonist,
-            fringe, background
+            fringe
         ]
     }
 
@@ -74,10 +72,8 @@ public struct HierarchicalRole: Equatable, Hashable, Sendable, Codable {
         switch slug {
         case Stock.protagonist, Stock.antagonist, Stock.deuteragonist:
             return .primary
-        case Stock.tritagonist, Stock.tetratagonist:
+        case Stock.tritagonist, Stock.tetratagonist, Stock.fringe:
             return .secondary
-        case Stock.fringe, Stock.background:
-            return .background
         default:
             return nil
         }
@@ -159,12 +155,11 @@ public enum StoryFunctionSlug {
     public static let thematicAnchor    = "thematic-anchor"
     public static let instigator        = "instigator"
     public static let henchman          = "henchman"
-    public static let sidekick          = "sidekick"
 
     public static let all: [String] = [
         catalyst, foil, confidant, thresholdGuardian, herald, comicRelief,
         loveInterest, voiceOfReason, redHerring, audienceSurrogate, harbinger,
-        mirror, saboteur, tempter, thematicAnchor, instigator, henchman, sidekick
+        mirror, saboteur, tempter, thematicAnchor, instigator, henchman
     ]
 }
 

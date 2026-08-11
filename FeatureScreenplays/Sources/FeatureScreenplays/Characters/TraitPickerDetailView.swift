@@ -20,6 +20,8 @@ struct TraitPickerDetailView: View {
     let intro: IdentitySectionIntro
     let catalog: [IdentityCatalogEntry]
     let nudge: String
+    /// Display name of the character's role, used in the suggested header.
+    let roleName: String?
     @Binding var boundSelection: [IdentityTrait]
     /// When set, the picker opens scrolled to this trait and pulses it briefly
     /// so a tap on a chip lands exactly where the writer expects.
@@ -30,7 +32,12 @@ struct TraitPickerDetailView: View {
     @State private var selection: [IdentityTrait]
     @State private var customText = ""
     @State private var highlightedAnchor: String?
+    @State private var showAllChoices: Bool
     @FocusState private var customFocused: Bool
+
+    /// Groups are frozen at open time so cards never jump between sections
+    /// while the writer is tapping through them.
+    private let groups: IdentityRelevanceGroups
 
     private let nudgeThreshold = 5
 
@@ -40,6 +47,8 @@ struct TraitPickerDetailView: View {
         intro: IdentitySectionIntro,
         catalog: [IdentityCatalogEntry],
         nudge: String,
+        roleName: String? = nil,
+        suggestedSlugs: [String] = [],
         selection: Binding<[IdentityTrait]>,
         focusTrait: IdentityTrait? = nil
     ) {
@@ -48,9 +57,23 @@ struct TraitPickerDetailView: View {
         self.intro = intro
         self.catalog = catalog
         self.nudge = nudge
+        self.roleName = roleName
         self._boundSelection = selection
         self.focusTrait = focusTrait
         self._selection = State(initialValue: selection.wrappedValue)
+
+        let grouped = IdentityRelevance.groups(
+            catalog: catalog,
+            suggestedSlugs: suggestedSlugs,
+            pinning: selection.wrappedValue
+        )
+        self.groups = grouped
+        // Open the full list up front when the writer tapped a chip that lives
+        // inside it, so the focus scroll has somewhere to land.
+        let focusInOthers = focusTrait.map { trait in
+            !trait.isCustom && grouped.others.contains { $0.slug == trait.slug }
+        } ?? false
+        self._showAllChoices = State(initialValue: focusInOthers)
     }
 
     /// Stable scroll anchor for a trait, matching stock slugs and custom labels.
@@ -121,9 +144,68 @@ struct TraitPickerDetailView: View {
 
     // MARK: - Stock choices
 
-    private var stockCards: some View {
+    /// Suggested-first layout: choices that fit the role lead, the full
+    /// catalog stays one tap away under a disclosure.
+    @ViewBuilder private var stockCards: some View {
+        if groups.isFiltering {
+            VStack(alignment: .leading, spacing: 10) {
+                if let roleName {
+                    groupHeader(IdentityUIStrings.suggestedFor(roleName))
+                }
+                cards(groups.suggested)
+                allChoicesDisclosure
+            }
+        } else {
+            cards(groups.others)
+        }
+    }
+
+    private func groupHeader(_ text: String) -> some View {
+        Text(text)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(palette.textPrimary)
+            .padding(.leading, 4)
+    }
+
+    private var allChoicesDisclosure: some View {
+        DisclosureGroup(isExpanded: $showAllChoices) {
+            cards(groups.others)
+                .padding(.top, 10)
+        } label: {
+            HStack(spacing: 8) {
+                Text(IdentityUIStrings.allChoices(title))
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(palette.accent)
+                countBadge
+            }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(
+                IdentityUIStrings.allChoicesAccessibility(title, count: groups.others.count)
+            )
+        }
+        .tint(palette.accent)
+        .padding(.top, 6)
+        .padding(.horizontal, 4)
+        .animation(.easeInOut(duration: 0.22), value: showAllChoices)
+    }
+
+    /// Tells the writer how much more is hiding under the disclosure.
+    private var countBadge: some View {
+        Text(IdentityUIStrings.moreCount(groups.others.count))
+            .font(.caption2.weight(.bold))
+            .monospacedDigit()
+            .foregroundStyle(palette.accent)
+            .padding(.horizontal, 7)
+            .padding(.vertical, 3)
+            .background(
+                Capsule(style: .continuous)
+                    .fill(palette.accent.opacity(0.14))
+            )
+    }
+
+    private func cards(_ entries: [IdentityCatalogEntry]) -> some View {
         VStack(spacing: 10) {
-            ForEach(catalog) { entry in
+            ForEach(entries) { entry in
                 IdentityChoiceCard(
                     name: entry.name,
                     definition: entry.definition,

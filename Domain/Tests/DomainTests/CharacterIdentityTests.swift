@@ -74,8 +74,8 @@ final class CharacterIdentityTests: XCTestCase {
         XCTAssertEqual(HierarchicalRole(slug: "deuteragonist").tier, .primary)
         XCTAssertEqual(HierarchicalRole(slug: "tritagonist").tier, .secondary)
         XCTAssertEqual(HierarchicalRole(slug: "tetratagonist").tier, .secondary)
-        XCTAssertEqual(HierarchicalRole(slug: "fringe").tier, .background)
-        XCTAssertEqual(HierarchicalRole(slug: "background").tier, .background)
+        XCTAssertEqual(HierarchicalRole(slug: "fringe").tier, .secondary)
+        XCTAssertNil(HierarchicalRole(slug: "background").tier)
     }
 
     // MARK: - Backward-compatible Character decoding
