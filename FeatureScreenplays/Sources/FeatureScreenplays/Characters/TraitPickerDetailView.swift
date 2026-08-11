@@ -152,22 +152,16 @@ struct TraitPickerDetailView: View {
     @ViewBuilder private var stockCards: some View {
         if groups.isFiltering {
             VStack(alignment: .leading, spacing: 10) {
-                if let header = IdentityUIStrings.suggestedFor(sources: suggestionSources) {
-                    groupHeader(header)
-                }
+                IdentityGroupHeader(
+                    title: IdentityUIStrings.suggestedSection,
+                    description: IdentityUIStrings.suggestedDescription(sources: suggestionSources)
+                )
                 cards(groups.suggested)
                 allChoicesDisclosure
             }
         } else {
             cards(groups.others)
         }
-    }
-
-    private func groupHeader(_ text: String) -> some View {
-        Text(text)
-            .font(.subheadline.weight(.semibold))
-            .foregroundStyle(palette.textPrimary)
-            .padding(.leading, 4)
     }
 
     private var allChoicesDisclosure: some View {
@@ -245,10 +239,10 @@ struct TraitPickerDetailView: View {
 
     private var customSection: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(IdentityUIStrings.customSection)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(palette.textPrimary)
-                .padding(.top, 8)
+            IdentityGroupHeader(
+                title: IdentityUIStrings.customSection,
+                description: IdentityUIStrings.customSectionDescription
+            )
             ForEach(customTraits, id: \.self) { trait in
                 IdentityChoiceCard(
                     name: trait.customLabel ?? "",

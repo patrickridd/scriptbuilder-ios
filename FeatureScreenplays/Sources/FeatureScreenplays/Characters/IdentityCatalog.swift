@@ -300,6 +300,7 @@ enum IdentityUIStrings {
     static let tierSupporting = "Supporting"
     static let tierSupportingDescription = "Shapes it from the edges"
     static let customSection = "Custom"
+    static let customSectionDescription = "Anything the list is missing"
     static let savedRoleSection = "Your Saved Role"
     static let savedRoleHint = "Roles now come from the list above. Pick one to replace this."
     static let customTraitPlaceholder = "Add your own…"
@@ -307,16 +308,15 @@ enum IdentityUIStrings {
     static let archetypeNudge = "Most memorable characters embody 1–3 archetypes."
     static let storyFunctionNudge = "A focused set of 1–3 story functions reads strongest."
 
-    /// Header above the role-relevant choices, e.g. "Suggested for your Antagonist".
-    static func suggestedFor(_ roleName: String) -> String {
-        "Suggested for your \(roleName)"
-    }
+    /// Title above the role-relevant choices. The sources it was drawn from
+    /// are named in the description line beneath it.
+    static let suggestedSection = "Suggested"
 
-    /// Header naming every source a suggestion set came from, e.g.
-    /// "Suggested for your Second Lead · Mentor".
-    static func suggestedFor(sources: [String]) -> String? {
+    /// Description naming every source a suggestion set came from, e.g.
+    /// "Fits your Second Lead · Mentor". Nil when nothing is driving the order.
+    static func suggestedDescription(sources: [String]) -> String? {
         guard !sources.isEmpty else { return nil }
-        return suggestedFor(sources.joined(separator: " · "))
+        return "Fits your \(sources.joined(separator: " · "))"
     }
 
     /// Disclosure label revealing the full catalog, e.g. "All Archetypes".

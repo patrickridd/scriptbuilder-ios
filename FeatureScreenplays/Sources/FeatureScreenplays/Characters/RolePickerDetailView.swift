@@ -81,7 +81,7 @@ struct RolePickerDetailView: View {
         entries: [IdentityCatalogEntry]
     ) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            tierHeader(header, description: description)
+            IdentityGroupHeader(title: header, description: description)
             ForEach(entries) { entry in
                 IdentityChoiceCard(
                     name: entry.name,
@@ -93,22 +93,6 @@ struct RolePickerDetailView: View {
                 )
             }
         }
-    }
-
-    /// Title and its one-line explanation sit tighter to each other than the
-    /// group sits to the section above, so the caption reads as belonging to
-    /// the header below it rather than the cards above.
-    private func tierHeader(_ header: String, description: String) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text(header)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(palette.textMuted)
-                .textCase(.uppercase)
-            Text(description)
-                .font(.footnote)
-                .foregroundStyle(palette.textMuted.opacity(0.75))
-        }
-        .padding(.top, 8)
     }
 
     private func isSelected(_ slug: String) -> Bool {
@@ -124,11 +108,7 @@ struct RolePickerDetailView: View {
     private var savedCustomSection: some View {
         if let selection, selection.isCustom, let label = selection.customLabel, !label.isEmpty {
             VStack(alignment: .leading, spacing: 8) {
-                Text(IdentityUIStrings.savedRoleSection)
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(palette.textMuted)
-                    .textCase(.uppercase)
-                    .padding(.top, 4)
+                IdentityGroupHeader(title: IdentityUIStrings.savedRoleSection)
                 IdentityChoiceCard(
                     name: label,
                     definition: nil,
