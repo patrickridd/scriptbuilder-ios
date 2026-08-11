@@ -34,19 +34,19 @@ enum IdentityRelevance {
             ArchetypeSlug.shadow, ArchetypeSlug.shapeshifter, ArchetypeSlug.ruler,
             ArchetypeSlug.warrior, ArchetypeSlug.rebel
         ],
-        HierarchicalRole.Stock.deuteragonist: [
+        HierarchicalRole.Stock.secondLead: [
             ArchetypeSlug.sidekick, ArchetypeSlug.caregiver, ArchetypeSlug.lover,
             ArchetypeSlug.mentor, ArchetypeSlug.warrior
         ],
-        HierarchicalRole.Stock.tritagonist: [
+        HierarchicalRole.Stock.thirdLead: [
             ArchetypeSlug.jester, ArchetypeSlug.mentor, ArchetypeSlug.warrior,
             ArchetypeSlug.artist, ArchetypeSlug.sidekick
         ],
-        HierarchicalRole.Stock.tetartagonist: [
+        HierarchicalRole.Stock.fourthLead: [
             ArchetypeSlug.jester, ArchetypeSlug.sidekick, ArchetypeSlug.caregiver,
             ArchetypeSlug.artist, ArchetypeSlug.innocent
         ],
-        HierarchicalRole.Stock.fringe: [
+        HierarchicalRole.Stock.recurring: [
             ArchetypeSlug.jester, ArchetypeSlug.innocent, ArchetypeSlug.caregiver,
             ArchetypeSlug.artist
         ]
@@ -62,20 +62,20 @@ enum IdentityRelevance {
             StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.harbinger,
             StoryFunctionSlug.mirror, StoryFunctionSlug.instigator
         ],
-        HierarchicalRole.Stock.deuteragonist: [
+        HierarchicalRole.Stock.secondLead: [
             StoryFunctionSlug.confidant, StoryFunctionSlug.foil,
             StoryFunctionSlug.loveInterest, StoryFunctionSlug.voiceOfReason
         ],
-        HierarchicalRole.Stock.tritagonist: [
+        HierarchicalRole.Stock.thirdLead: [
             StoryFunctionSlug.comicRelief, StoryFunctionSlug.foil,
             StoryFunctionSlug.herald, StoryFunctionSlug.voiceOfReason,
             StoryFunctionSlug.redHerring
         ],
-        HierarchicalRole.Stock.tetartagonist: [
+        HierarchicalRole.Stock.fourthLead: [
             StoryFunctionSlug.comicRelief, StoryFunctionSlug.herald,
             StoryFunctionSlug.catalyst, StoryFunctionSlug.redHerring
         ],
-        HierarchicalRole.Stock.fringe: [
+        HierarchicalRole.Stock.recurring: [
             StoryFunctionSlug.comicRelief, StoryFunctionSlug.herald,
             StoryFunctionSlug.harbinger, StoryFunctionSlug.catalyst,
             StoryFunctionSlug.redHerring, StoryFunctionSlug.henchman

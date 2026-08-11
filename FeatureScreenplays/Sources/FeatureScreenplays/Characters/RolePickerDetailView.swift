@@ -2,8 +2,8 @@
 //  RolePickerDetailView.swift
 //  FeatureScreenplays
 //
-//  Single-select role picker grouped by narrative tier (Primary / Secondary /
-//  Background). Roles are list-only — there is no free-text entry, so the plot
+//  Single-select role picker grouped by narrative tier (Main / Supporting).
+//  Roles are list-only — there is no free-text entry, so the plot
 //  hierarchy stays consistent. Picking a role pops straight back to the
 //  character screen; clearing or deleting one keeps the picker open so a
 //  replacement can be chosen right away. Free-text roles saved earlier still
@@ -57,8 +57,16 @@ struct RolePickerDetailView: View {
         VStack(alignment: .leading, spacing: 14) {
             IdentitySectionHeader(intro: .role)
             savedCustomSection
-            tierSection(IdentityUIStrings.tierPrimary, entries: IdentityCatalog.primaryRoles)
-            tierSection(IdentityUIStrings.tierSecondary, entries: IdentityCatalog.secondaryRoles)
+            tierSection(
+                IdentityUIStrings.tierMain,
+                description: IdentityUIStrings.tierMainDescription,
+                entries: IdentityCatalog.mainRoles
+            )
+            tierSection(
+                IdentityUIStrings.tierSupporting,
+                description: IdentityUIStrings.tierSupportingDescription,
+                entries: IdentityCatalog.supportingRoles
+            )
             if selection != nil {
                 clearButton
             }
@@ -67,23 +75,40 @@ struct RolePickerDetailView: View {
 
     // MARK: - Tier sections
 
-    private func tierSection(_ header: String, entries: [IdentityCatalogEntry]) -> some View {
+    private func tierSection(
+        _ header: String,
+        description: String,
+        entries: [IdentityCatalogEntry]
+    ) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(header)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(palette.textMuted)
-                .textCase(.uppercase)
-                .padding(.top, 4)
+            tierHeader(header, description: description)
             ForEach(entries) { entry in
                 IdentityChoiceCard(
                     name: entry.name,
                     definition: entry.definition,
                     examples: entry.examples,
+                    classicalName: entry.classicalName,
                     isSelected: isSelected(entry.slug),
                     onTap: { tap(entry.slug) }
                 )
             }
         }
+    }
+
+    /// Title and its one-line explanation sit tighter to each other than the
+    /// group sits to the section above, so the caption reads as belonging to
+    /// the header below it rather than the cards above.
+    private func tierHeader(_ header: String, description: String) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(header)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(palette.textMuted)
+                .textCase(.uppercase)
+            Text(description)
+                .font(.footnote)
+                .foregroundStyle(palette.textMuted.opacity(0.75))
+        }
+        .padding(.top, 8)
     }
 
     private func isSelected(_ slug: String) -> Bool {

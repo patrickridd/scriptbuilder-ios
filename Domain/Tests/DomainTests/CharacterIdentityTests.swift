@@ -71,10 +71,10 @@ final class CharacterIdentityTests: XCTestCase {
     // MARK: - Tier mapping
 
     func testStockRoleTiers() {
-        XCTAssertEqual(HierarchicalRole(slug: "deuteragonist").tier, .primary)
-        XCTAssertEqual(HierarchicalRole(slug: "tritagonist").tier, .secondary)
-        XCTAssertEqual(HierarchicalRole(slug: "tetartagonist").tier, .secondary)
-        XCTAssertEqual(HierarchicalRole(slug: "fringe").tier, .secondary)
+        XCTAssertEqual(HierarchicalRole(slug: "second-lead").tier, .primary)
+        XCTAssertEqual(HierarchicalRole(slug: "third-lead").tier, .secondary)
+        XCTAssertEqual(HierarchicalRole(slug: "fourth-lead").tier, .secondary)
+        XCTAssertEqual(HierarchicalRole(slug: "recurring").tier, .secondary)
         XCTAssertNil(HierarchicalRole(slug: "background").tier)
     }
 

@@ -16,6 +16,8 @@ struct IdentityChoiceCard: View {
     let name: String
     let definition: String?
     let examples: String?
+    /// Optional scholarly term shown as a quiet caption under the name.
+    var classicalName: String?
     let isSelected: Bool
     let onTap: () -> Void
     var onDelete: (() -> Void)?
@@ -24,6 +26,7 @@ struct IdentityChoiceCard: View {
     /// keep their indicator pinned to the first line of text.
     private var isCompact: Bool {
         (definition?.isEmpty ?? true) && (examples?.isEmpty ?? true)
+            && (classicalName?.isEmpty ?? true)
     }
 
     var body: some View {
@@ -56,6 +59,13 @@ struct IdentityChoiceCard: View {
                 .font(.body.weight(.semibold))
                 .foregroundStyle(palette.textPrimary)
                 .multilineTextAlignment(.leading)
+            if let classicalName, !classicalName.isEmpty {
+                Text(classicalName)
+                    .font(.caption2)
+                    .italic()
+                    .foregroundStyle(palette.textMuted)
+                    .accessibilityLabel(IdentityUIStrings.classicalTerm(classicalName))
+            }
             if let definition, !definition.isEmpty {
                 Text(definition)
                     .font(.footnote)

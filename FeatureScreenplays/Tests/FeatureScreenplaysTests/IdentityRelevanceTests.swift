@@ -23,7 +23,7 @@ final class IdentityRelevanceTests: XCTestCase {
     }
 
     func testArchetypeAddsStoryFunctionsOnTopOfRoleSuggestions() {
-        let role = HierarchicalRole(slug: HierarchicalRole.Stock.tetartagonist)
+        let role = HierarchicalRole(slug: HierarchicalRole.Stock.fourthLead)
         let slugs = IdentityRelevance.suggestedStoryFunctionSlugs(
             for: role,
             archetypes: [.stock(ArchetypeSlug.jester)]
@@ -59,13 +59,13 @@ final class IdentityRelevanceTests: XCTestCase {
     }
 
     func testSuggestionSourcesNameRoleThenArchetypes() {
-        let role = HierarchicalRole(slug: HierarchicalRole.Stock.deuteragonist)
+        let role = HierarchicalRole(slug: HierarchicalRole.Stock.secondLead)
         let sources = IdentityRelevance.storyFunctionSuggestionSources(
             role: role,
-            roleName: "Deuteragonist",
+            roleName: "Second Lead",
             archetypes: [.stock(ArchetypeSlug.mentor)]
         )
-        XCTAssertEqual(sources, ["Deuteragonist", "Mentor"])
+        XCTAssertEqual(sources, ["Second Lead", "Mentor"])
     }
 
     func testGroupsSplitCatalogWithoutLosingEntries() {

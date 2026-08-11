@@ -47,13 +47,13 @@ final class CharacterIdentityPersistenceTests: XCTestCase {
     func testStoredIdentityWinsOverLegacyRole() throws {
         let json = """
         {"uuid":"c2","name":"Han","role":"Ally",
-         "identity":{"role":{"slug":"deuteragonist"},
+         "identity":{"role":{"slug":"second-lead"},
                      "archetypes":[{"slug":"anti-hero"}]}}
         """
         let dto = try JSONDecoder().decode(CharacterDTO.self, from: Data(json.utf8))
         let character = dto.toDomain()
 
-        XCTAssertEqual(character.identity.role?.slug, "deuteragonist")
+        XCTAssertEqual(character.identity.role?.slug, "second-lead")
         XCTAssertEqual(character.identity.archetypes, [.stock(ArchetypeSlug.antiHero)])
         // Legacy "Ally" was NOT re-resolved because a stored identity exists.
         XCTAssertTrue(character.identity.storyFunctions.isEmpty)

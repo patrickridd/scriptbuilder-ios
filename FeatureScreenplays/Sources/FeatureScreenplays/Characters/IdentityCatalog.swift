@@ -17,6 +17,9 @@ struct IdentityCatalogEntry: Identifiable, Hashable {
     let name: String
     let definition: String
     let examples: String
+    /// Scholarly term for the same idea (e.g. "Deuteragonist"), shown as a
+    /// quiet caption so the plain-English name can lead.
+    var classicalName: String?
 
     var id: String { slug }
 }
@@ -25,7 +28,7 @@ enum IdentityCatalog {
 
     // MARK: - Roles (grouped by tier)
 
-    static let primaryRoles: [IdentityCatalogEntry] = [
+    static let mainRoles: [IdentityCatalogEntry] = [
         IdentityCatalogEntry(
             slug: HierarchicalRole.Stock.protagonist,
             name: "Protagonist",
@@ -39,36 +42,40 @@ enum IdentityCatalog {
             examples: "Darth Vader · Nurse Ratched"
         ),
         IdentityCatalogEntry(
-            slug: HierarchicalRole.Stock.deuteragonist,
-            name: "Deuteragonist",
+            slug: HierarchicalRole.Stock.secondLead,
+            name: "Second Lead",
             definition: "The second most important character — often the closest companion.",
-            examples: "Samwise Gamgee · Dr. Watson"
+            examples: "Samwise Gamgee · Dr. Watson",
+            classicalName: "Deuteragonist"
         )
     ]
 
-    static let secondaryRoles: [IdentityCatalogEntry] = [
+    static let supportingRoles: [IdentityCatalogEntry] = [
         IdentityCatalogEntry(
-            slug: HierarchicalRole.Stock.tritagonist,
-            name: "Tritagonist",
+            slug: HierarchicalRole.Stock.thirdLead,
+            name: "Third Lead",
             definition: "The third most important character; completes the core trio.",
-            examples: "Han Solo · Hermione Granger"
+            examples: "Han Solo · Hermione Granger",
+            classicalName: "Tritagonist"
         ),
         IdentityCatalogEntry(
-            slug: HierarchicalRole.Stock.tetartagonist,
-            name: "Tetartagonist",
+            slug: HierarchicalRole.Stock.fourthLead,
+            name: "Fourth Lead",
             definition: "Fourth in importance; a steady presence in the ensemble.",
-            examples: "Ron Weasley · Merry Brandybuck"
+            examples: "Ron Weasley · Merry Brandybuck",
+            classicalName: "Tetartagonist"
         ),
         IdentityCatalogEntry(
-            slug: HierarchicalRole.Stock.fringe,
-            name: "Fringe",
+            slug: HierarchicalRole.Stock.recurring,
+            name: "Recurring",
             definition: "A recurring minor character who colors the world without steering the plot.",
-            examples: "Moaning Myrtle · The Log Lady"
+            examples: "Moaning Myrtle · The Log Lady",
+            classicalName: "Fringe"
         )
     ]
 
     static var allRoles: [IdentityCatalogEntry] {
-        primaryRoles + secondaryRoles
+        mainRoles + supportingRoles
     }
 
     static func roleEntry(for slug: String) -> IdentityCatalogEntry? {
@@ -278,13 +285,20 @@ enum IdentityUIStrings {
     static let moreActions = "More actions"
     static let chipHint = "Opens this choice in the picker"
 
+    /// Spoken form of the scholarly caption, e.g. "Also called Deuteragonist".
+    static func classicalTerm(_ term: String) -> String {
+        "Also called \(term)"
+    }
+
     /// Trailing summary for a multi-select row, e.g. "2 selected".
     static func selectedCount(_ count: Int) -> String {
         "\(count) selected"
     }
     static let clearRole = "No Role"
-    static let tierPrimary = "Primary"
-    static let tierSecondary = "Secondary"
+    static let tierMain = "Main"
+    static let tierMainDescription = "Carries the story"
+    static let tierSupporting = "Supporting"
+    static let tierSupportingDescription = "Shapes it from the edges"
     static let customSection = "Custom"
     static let savedRoleSection = "Your Saved Role"
     static let savedRoleHint = "Roles now come from the list above. Pick one to replace this."
@@ -299,7 +313,7 @@ enum IdentityUIStrings {
     }
 
     /// Header naming every source a suggestion set came from, e.g.
-    /// "Suggested for your Deuteragonist · Mentor".
+    /// "Suggested for your Second Lead · Mentor".
     static func suggestedFor(sources: [String]) -> String? {
         guard !sources.isEmpty else { return nil }
         return suggestedFor(sources.joined(separator: " · "))

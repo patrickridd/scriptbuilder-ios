@@ -26,7 +26,7 @@ public enum RoleTier: String, CaseIterable, Sendable, Codable {
 
 // MARK: - Hierarchical role
 
-/// Single-select narrative-importance role ("Protagonist", "Tritagonist"…).
+/// Single-select narrative-importance role ("Protagonist", "Third Lead"…).
 public struct HierarchicalRole: Equatable, Hashable, Sendable, Codable {
 
     /// A stock slug (see `Stock`) or `HierarchicalRole.customSlug`.
@@ -44,18 +44,22 @@ public struct HierarchicalRole: Equatable, Hashable, Sendable, Codable {
     // MARK: Stock slugs
 
     public enum Stock {
-        public static let protagonist  = "protagonist"
-        public static let antagonist   = "antagonist"
-        public static let deuteragonist = "deuteragonist"
-        public static let tritagonist  = "tritagonist"
-        public static let tetartagonist = "tetartagonist"
-        public static let fringe       = "fringe"
+        public static let protagonist = "protagonist"
+        public static let antagonist  = "antagonist"
+        /// Classically the Deuteragonist.
+        public static let secondLead  = "second-lead"
+        /// Classically the Tritagonist.
+        public static let thirdLead   = "third-lead"
+        /// Classically the Tetartagonist.
+        public static let fourthLead  = "fourth-lead"
+        /// Classically the Fringe character.
+        public static let recurring   = "recurring"
 
         /// All stock slugs in canonical (tier, importance) order.
         public static let all: [String] = [
-            protagonist, antagonist, deuteragonist,
-            tritagonist, tetartagonist,
-            fringe
+            protagonist, antagonist, secondLead,
+            thirdLead, fourthLead,
+            recurring
         ]
     }
 
@@ -70,9 +74,9 @@ public struct HierarchicalRole: Equatable, Hashable, Sendable, Codable {
     /// Tier of a stock role; `nil` for custom roles.
     public var tier: RoleTier? {
         switch slug {
-        case Stock.protagonist, Stock.antagonist, Stock.deuteragonist:
+        case Stock.protagonist, Stock.antagonist, Stock.secondLead:
             return .primary
-        case Stock.tritagonist, Stock.tetartagonist, Stock.fringe:
+        case Stock.thirdLead, Stock.fourthLead, Stock.recurring:
             return .secondary
         default:
             return nil
