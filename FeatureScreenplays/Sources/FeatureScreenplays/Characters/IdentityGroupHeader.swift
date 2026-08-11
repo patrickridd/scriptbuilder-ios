@@ -26,7 +26,7 @@ struct IdentityGroupHeader: View {
             if let description, !description.isEmpty {
                 Text(description)
                     .font(.footnote)
-                    .foregroundStyle(palette.textMuted.opacity(0.75))
+                    .foregroundStyle(palette.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }

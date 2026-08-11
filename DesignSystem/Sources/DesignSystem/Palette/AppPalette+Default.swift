@@ -32,6 +32,10 @@ public extension AppPalette {
                 dark: Color.white.opacity(0.82)
             ),
             textOnLight: Color(red: 0.08, green: 0.12, blue: 0.18),
+            textSecondary: dynamic(
+                light: Color(red: 0.40, green: 0.46, blue: 0.54),
+                dark: Color.white.opacity(0.78)
+            ),
             backgroundTop: dynamic(
                 light: Color(red: 0.84, green: 0.92, blue: 0.99),
                 dark: Color(red: 0.05, green: 0.10, blue: 0.20)

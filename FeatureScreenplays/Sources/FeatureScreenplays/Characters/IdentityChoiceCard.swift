@@ -69,14 +69,14 @@ struct IdentityChoiceCard: View {
             if let definition, !definition.isEmpty {
                 Text(definition)
                     .font(.footnote)
-                    .foregroundStyle(palette.textPrimary.opacity(0.75))
+                    .foregroundStyle(palette.textSecondary)
                     .multilineTextAlignment(.leading)
             }
             if let examples, !examples.isEmpty {
                 Text(examples)
                     .font(.caption)
                     .italic()
-                    .foregroundStyle(palette.textMuted)
+                    .foregroundStyle(palette.textSecondary)
                     .multilineTextAlignment(.leading)
             }
         }
