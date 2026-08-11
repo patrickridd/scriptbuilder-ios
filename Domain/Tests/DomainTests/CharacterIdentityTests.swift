@@ -73,7 +73,7 @@ final class CharacterIdentityTests: XCTestCase {
     func testStockRoleTiers() {
         XCTAssertEqual(HierarchicalRole(slug: "deuteragonist").tier, .primary)
         XCTAssertEqual(HierarchicalRole(slug: "tritagonist").tier, .secondary)
-        XCTAssertEqual(HierarchicalRole(slug: "tetratagonist").tier, .secondary)
+        XCTAssertEqual(HierarchicalRole(slug: "tetartagonist").tier, .secondary)
         XCTAssertEqual(HierarchicalRole(slug: "fringe").tier, .secondary)
         XCTAssertNil(HierarchicalRole(slug: "background").tier)
     }

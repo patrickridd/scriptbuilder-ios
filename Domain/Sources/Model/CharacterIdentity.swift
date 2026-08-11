@@ -48,13 +48,13 @@ public struct HierarchicalRole: Equatable, Hashable, Sendable, Codable {
         public static let antagonist   = "antagonist"
         public static let deuteragonist = "deuteragonist"
         public static let tritagonist  = "tritagonist"
-        public static let tetratagonist = "tetratagonist"
+        public static let tetartagonist = "tetartagonist"
         public static let fringe       = "fringe"
 
         /// All stock slugs in canonical (tier, importance) order.
         public static let all: [String] = [
             protagonist, antagonist, deuteragonist,
-            tritagonist, tetratagonist,
+            tritagonist, tetartagonist,
             fringe
         ]
     }
@@ -72,7 +72,7 @@ public struct HierarchicalRole: Equatable, Hashable, Sendable, Codable {
         switch slug {
         case Stock.protagonist, Stock.antagonist, Stock.deuteragonist:
             return .primary
-        case Stock.tritagonist, Stock.tetratagonist, Stock.fringe:
+        case Stock.tritagonist, Stock.tetartagonist, Stock.fringe:
             return .secondary
         default:
             return nil

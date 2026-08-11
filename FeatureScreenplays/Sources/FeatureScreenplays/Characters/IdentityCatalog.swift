@@ -54,8 +54,8 @@ enum IdentityCatalog {
             examples: "Han Solo · Hermione Granger"
         ),
         IdentityCatalogEntry(
-            slug: HierarchicalRole.Stock.tetratagonist,
-            name: "Tetratagonist",
+            slug: HierarchicalRole.Stock.tetartagonist,
+            name: "Tetartagonist",
             definition: "Fourth in importance; a steady presence in the ensemble.",
             examples: "Ron Weasley · Merry Brandybuck"
         ),

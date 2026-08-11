@@ -42,7 +42,7 @@ enum IdentityRelevance {
             ArchetypeSlug.jester, ArchetypeSlug.mentor, ArchetypeSlug.warrior,
             ArchetypeSlug.artist, ArchetypeSlug.sidekick
         ],
-        HierarchicalRole.Stock.tetratagonist: [
+        HierarchicalRole.Stock.tetartagonist: [
             ArchetypeSlug.jester, ArchetypeSlug.sidekick, ArchetypeSlug.caregiver,
             ArchetypeSlug.artist, ArchetypeSlug.innocent
         ],
@@ -71,7 +71,7 @@ enum IdentityRelevance {
             StoryFunctionSlug.herald, StoryFunctionSlug.voiceOfReason,
             StoryFunctionSlug.redHerring
         ],
-        HierarchicalRole.Stock.tetratagonist: [
+        HierarchicalRole.Stock.tetartagonist: [
             StoryFunctionSlug.comicRelief, StoryFunctionSlug.herald,
             StoryFunctionSlug.catalyst, StoryFunctionSlug.redHerring
         ],
