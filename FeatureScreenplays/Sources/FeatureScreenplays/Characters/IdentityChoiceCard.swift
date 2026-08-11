@@ -20,9 +20,15 @@ struct IdentityChoiceCard: View {
     let onTap: () -> Void
     var onDelete: (() -> Void)?
 
+    /// Name-only cards (custom entries) read best centred; multi-line cards
+    /// keep their indicator pinned to the first line of text.
+    private var isCompact: Bool {
+        (definition?.isEmpty ?? true) && (examples?.isEmpty ?? true)
+    }
+
     var body: some View {
         Button(action: onTap) {
-            HStack(alignment: .top, spacing: 12) {
+            HStack(alignment: isCompact ? .center : .top, spacing: 12) {
                 selectionIndicator
                 textStack
                 Spacer(minLength: 0)
@@ -41,7 +47,7 @@ struct IdentityChoiceCard: View {
         Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
             .font(.title3)
             .foregroundStyle(isSelected ? palette.accent : palette.textMuted.opacity(0.5))
-            .padding(.top, 1)
+            .padding(.top, isCompact ? 0 : 1)
     }
 
     private var textStack: some View {
