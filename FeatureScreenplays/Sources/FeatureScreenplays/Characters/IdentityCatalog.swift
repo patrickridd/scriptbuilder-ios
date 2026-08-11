@@ -297,6 +297,13 @@ enum IdentityUIStrings {
         "Suggested for your \(roleName)"
     }
 
+    /// Header naming every source a suggestion set came from, e.g.
+    /// "Suggested for your Deuteragonist · Mentor".
+    static func suggestedFor(sources: [String]) -> String? {
+        guard !sources.isEmpty else { return nil }
+        return suggestedFor(sources.joined(separator: " · "))
+    }
+
     /// Disclosure label revealing the full catalog, e.g. "All Archetypes".
     static func allChoices(_ title: String) -> String {
         "All \(title)s"

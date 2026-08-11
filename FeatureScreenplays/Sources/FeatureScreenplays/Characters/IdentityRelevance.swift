@@ -82,6 +82,58 @@ enum IdentityRelevance {
         ]
     ]
 
+    /// Story functions an archetype tends to perform. Archetype is *who a
+    /// character is*; story function is *the job they do for the plot* — a
+    /// Mentor often speaks as the Voice of Reason, but a Voice of Reason
+    /// (Hermione) need not be anyone's Mentor. These merge with the role's own
+    /// suggestions rather than replacing them.
+    private static let storyFunctionsByArchetype: [String: [String]] = [
+        ArchetypeSlug.hero: [
+            StoryFunctionSlug.audienceSurrogate, StoryFunctionSlug.instigator,
+            StoryFunctionSlug.catalyst
+        ],
+        ArchetypeSlug.antiHero: [
+            StoryFunctionSlug.foil, StoryFunctionSlug.mirror, StoryFunctionSlug.instigator
+        ],
+        ArchetypeSlug.mentor: [
+            StoryFunctionSlug.voiceOfReason, StoryFunctionSlug.herald,
+            StoryFunctionSlug.thresholdGuardian
+        ],
+        ArchetypeSlug.jester: [
+            StoryFunctionSlug.comicRelief, StoryFunctionSlug.redHerring
+        ],
+        ArchetypeSlug.sidekick: [
+            StoryFunctionSlug.confidant, StoryFunctionSlug.comicRelief
+        ],
+        ArchetypeSlug.caregiver: [
+            StoryFunctionSlug.confidant, StoryFunctionSlug.voiceOfReason
+        ],
+        ArchetypeSlug.lover: [
+            StoryFunctionSlug.loveInterest, StoryFunctionSlug.confidant
+        ],
+        ArchetypeSlug.shadow: [
+            StoryFunctionSlug.tempter, StoryFunctionSlug.saboteur, StoryFunctionSlug.mirror
+        ],
+        ArchetypeSlug.shapeshifter: [
+            StoryFunctionSlug.redHerring, StoryFunctionSlug.saboteur
+        ],
+        ArchetypeSlug.rebel: [
+            StoryFunctionSlug.instigator, StoryFunctionSlug.catalyst
+        ],
+        ArchetypeSlug.warrior: [
+            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.henchman
+        ],
+        ArchetypeSlug.ruler: [
+            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.harbinger
+        ],
+        ArchetypeSlug.innocent: [
+            StoryFunctionSlug.audienceSurrogate, StoryFunctionSlug.catalyst
+        ],
+        ArchetypeSlug.artist: [
+            StoryFunctionSlug.thematicAnchor, StoryFunctionSlug.mirror
+        ]
+    ]
+
     // MARK: - Lookups
 
     /// Archetype slugs that suit the role, in suggestion order.
@@ -95,6 +147,41 @@ enum IdentityRelevance {
     static func suggestedStoryFunctionSlugs(for role: HierarchicalRole?) -> [String] {
         guard let role, !role.isCustom else { return [] }
         return storyFunctionsByRole[role.slug] ?? []
+    }
+
+    /// Union of the role's story functions and those of every chosen archetype,
+    /// role-led and de-duplicated. Custom roles and custom archetypes are
+    /// skipped, and an archetype on its own is enough to produce suggestions.
+    static func suggestedStoryFunctionSlugs(
+        for role: HierarchicalRole?,
+        archetypes: [IdentityTrait]
+    ) -> [String] {
+        var ordered = suggestedStoryFunctionSlugs(for: role)
+        var seen = Set(ordered)
+        for trait in archetypes where !trait.isCustom {
+            for slug in storyFunctionsByArchetype[trait.slug] ?? [] where !seen.contains(slug) {
+                ordered.append(slug)
+                seen.insert(slug)
+            }
+        }
+        return ordered
+    }
+
+    /// Names of the identity choices a suggestion set was derived from, so the
+    /// picker can say *why* it is suggesting — e.g. ["Deuteragonist", "Mentor"].
+    static func storyFunctionSuggestionSources(
+        role: HierarchicalRole?,
+        roleName: String?,
+        archetypes: [IdentityTrait]
+    ) -> [String] {
+        var names: [String] = []
+        if let role, !role.isCustom, storyFunctionsByRole[role.slug] != nil, let roleName {
+            names.append(roleName)
+        }
+        for trait in archetypes where !trait.isCustom && storyFunctionsByArchetype[trait.slug] != nil {
+            names.append(IdentityCatalog.displayName(for: trait, in: IdentityCatalog.archetypes))
+        }
+        return names
     }
 
     // MARK: - Splitting

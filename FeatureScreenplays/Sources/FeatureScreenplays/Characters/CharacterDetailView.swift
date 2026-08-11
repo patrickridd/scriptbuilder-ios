@@ -209,6 +209,7 @@ struct CharacterDetailView: View {
 
     private var identityRows: some View {
         let role = viewModel.draft.identity.role
+        let archetypes = viewModel.draft.identity.archetypes
         return VStack(spacing: 10) {
             roleRow
             traitRow(
@@ -224,9 +225,17 @@ struct CharacterDetailView: View {
                 intro: .storyFunction,
                 catalog: IdentityCatalog.storyFunctions,
                 nudge: IdentityUIStrings.storyFunctionNudge,
-                suggestedSlugs: IdentityRelevance.suggestedStoryFunctionSlugs(for: role),
+                suggestedSlugs: IdentityRelevance.suggestedStoryFunctionSlugs(
+                    for: role,
+                    archetypes: archetypes
+                ),
                 selection: $viewModel.draft.identity.storyFunctions,
-                tint: IdentityHue.storyFunction
+                tint: IdentityHue.storyFunction,
+                suggestionSources: IdentityRelevance.storyFunctionSuggestionSources(
+                    role: role,
+                    roleName: viewModel.roleDisplayText,
+                    archetypes: archetypes
+                )
             )
         }
     }
@@ -257,7 +266,8 @@ struct CharacterDetailView: View {
         nudge: String,
         suggestedSlugs: [String],
         selection: Binding<[IdentityTrait]>,
-        tint: Color? = nil
+        tint: Color? = nil,
+        suggestionSources: [String]? = nil
     ) -> some View {
         let names = selection.wrappedValue.map { IdentityCatalog.displayName(for: $0, in: catalog) }
         return VStack(alignment: .leading, spacing: 10) {
@@ -268,7 +278,8 @@ struct CharacterDetailView: View {
                     catalog: catalog,
                     nudge: nudge,
                     suggestedSlugs: suggestedSlugs,
-                    selection: selection
+                    selection: selection,
+                    suggestionSources: suggestionSources
                 )
             } label: {
                 traitRowHeader(title: title, systemImage: intro.symbol, count: names.count)
@@ -284,6 +295,7 @@ struct CharacterDetailView: View {
                         nudge: nudge,
                         suggestedSlugs: suggestedSlugs,
                         selection: selection,
+                        suggestionSources: suggestionSources,
                         focus: selection.wrappedValue.indices.contains(index) ? selection.wrappedValue[index] : nil
                     )
                 }
@@ -306,6 +318,7 @@ struct CharacterDetailView: View {
         nudge: String,
         suggestedSlugs: [String],
         selection: Binding<[IdentityTrait]>,
+        suggestionSources: [String]? = nil,
         focus: IdentityTrait? = nil
     ) -> some View {
         TraitPickerDetailView(
@@ -315,6 +328,7 @@ struct CharacterDetailView: View {
             catalog: catalog,
             nudge: nudge,
             roleName: viewModel.roleDisplayText,
+            suggestionSources: suggestionSources,
             suggestedSlugs: suggestedSlugs,
             selection: selection,
             focusTrait: focus

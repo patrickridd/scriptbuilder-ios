@@ -22,6 +22,52 @@ final class IdentityRelevanceTests: XCTestCase {
         XCTAssertTrue(IdentityRelevance.suggestedStoryFunctionSlugs(for: .custom("Narrator")).isEmpty)
     }
 
+    func testArchetypeAddsStoryFunctionsOnTopOfRoleSuggestions() {
+        let role = HierarchicalRole(slug: HierarchicalRole.Stock.tetartagonist)
+        let slugs = IdentityRelevance.suggestedStoryFunctionSlugs(
+            for: role,
+            archetypes: [.stock(ArchetypeSlug.jester)]
+        )
+        // Role-led order is preserved…
+        XCTAssertEqual(slugs.first, StoryFunctionSlug.comicRelief)
+        // …and the archetype's own functions are merged in without duplicates.
+        XCTAssertTrue(slugs.contains(StoryFunctionSlug.redHerring))
+        XCTAssertEqual(slugs.count, Set(slugs).count)
+    }
+
+    func testMentorArchetypeSuggestsVoiceOfReasonWithoutRole() {
+        let slugs = IdentityRelevance.suggestedStoryFunctionSlugs(
+            for: nil,
+            archetypes: [.stock(ArchetypeSlug.mentor)]
+        )
+        XCTAssertTrue(slugs.contains(StoryFunctionSlug.voiceOfReason))
+        XCTAssertTrue(slugs.contains(StoryFunctionSlug.thresholdGuardian))
+    }
+
+    func testCustomArchetypesAreSkippedInSuggestionsAndSources() {
+        let slugs = IdentityRelevance.suggestedStoryFunctionSlugs(
+            for: nil,
+            archetypes: [.custom("Time Traveller")]
+        )
+        XCTAssertTrue(slugs.isEmpty)
+        let sources = IdentityRelevance.storyFunctionSuggestionSources(
+            role: nil,
+            roleName: nil,
+            archetypes: [.custom("Time Traveller")]
+        )
+        XCTAssertTrue(sources.isEmpty)
+    }
+
+    func testSuggestionSourcesNameRoleThenArchetypes() {
+        let role = HierarchicalRole(slug: HierarchicalRole.Stock.deuteragonist)
+        let sources = IdentityRelevance.storyFunctionSuggestionSources(
+            role: role,
+            roleName: "Deuteragonist",
+            archetypes: [.stock(ArchetypeSlug.mentor)]
+        )
+        XCTAssertEqual(sources, ["Deuteragonist", "Mentor"])
+    }
+
     func testGroupsSplitCatalogWithoutLosingEntries() {
         let role = HierarchicalRole(slug: HierarchicalRole.Stock.protagonist)
         let groups = IdentityRelevance.groups(

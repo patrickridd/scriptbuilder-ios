@@ -20,8 +20,10 @@ struct TraitPickerDetailView: View {
     let intro: IdentitySectionIntro
     let catalog: [IdentityCatalogEntry]
     let nudge: String
-    /// Display name of the character's role, used in the suggested header.
-    let roleName: String?
+    /// Display names of the identity choices these suggestions came from —
+    /// role and/or archetypes — shown in the suggested header so the writer
+    /// can see why the list is ordered the way it is.
+    let suggestionSources: [String]
     @Binding var boundSelection: [IdentityTrait]
     /// When set, the picker opens scrolled to this trait and pulses it briefly
     /// so a tap on a chip lands exactly where the writer expects.
@@ -48,6 +50,7 @@ struct TraitPickerDetailView: View {
         catalog: [IdentityCatalogEntry],
         nudge: String,
         roleName: String? = nil,
+        suggestionSources: [String]? = nil,
         suggestedSlugs: [String] = [],
         selection: Binding<[IdentityTrait]>,
         focusTrait: IdentityTrait? = nil
@@ -57,7 +60,7 @@ struct TraitPickerDetailView: View {
         self.intro = intro
         self.catalog = catalog
         self.nudge = nudge
-        self.roleName = roleName
+        self.suggestionSources = suggestionSources ?? [roleName].compactMap { $0 }
         self._boundSelection = selection
         self.focusTrait = focusTrait
         self._selection = State(initialValue: selection.wrappedValue)
@@ -149,8 +152,8 @@ struct TraitPickerDetailView: View {
     @ViewBuilder private var stockCards: some View {
         if groups.isFiltering {
             VStack(alignment: .leading, spacing: 10) {
-                if let roleName {
-                    groupHeader(IdentityUIStrings.suggestedFor(roleName))
+                if let header = IdentityUIStrings.suggestedFor(sources: suggestionSources) {
+                    groupHeader(header)
                 }
                 cards(groups.suggested)
                 allChoicesDisclosure
