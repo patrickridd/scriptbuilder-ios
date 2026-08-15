@@ -32,20 +32,23 @@ enum IdentityCatalog {
         IdentityCatalogEntry(
             slug: HierarchicalRole.Stock.protagonist,
             name: "Protagonist",
-            definition: "The story's central character, whose goal drives the plot.",
-            examples: "Luke Skywalker · Erin Brockovich"
+            definition: "A central character whose goal drives the plot — a story "
+                + "can follow more than one.",
+            examples: "Luke Skywalker · Erin Brockovich · Thelma & Louise"
         ),
         IdentityCatalogEntry(
             slug: HierarchicalRole.Stock.antagonist,
             name: "Antagonist",
-            definition: "The main force standing against the protagonist's goal.",
-            examples: "Darth Vader · Nurse Ratched"
+            definition: "A primary force working against a protagonist's goal — "
+                + "a story can carry several.",
+            examples: "Darth Vader · Nurse Ratched · the Lannisters"
         ),
         IdentityCatalogEntry(
             slug: HierarchicalRole.Stock.secondLead,
             name: "Second Lead",
-            definition: "The second most important character — often the closest companion.",
-            examples: "Samwise Gamgee · Dr. Watson",
+            definition: "Second in importance — often the closest companion. "
+                + "An ensemble can hold more than one.",
+            examples: "Samwise Gamgee · Dr. Watson · Trinity",
             classicalName: "Deuteragonist"
         )
     ]
@@ -54,22 +57,25 @@ enum IdentityCatalog {
         IdentityCatalogEntry(
             slug: HierarchicalRole.Stock.thirdLead,
             name: "Third Lead",
-            definition: "The third most important character; completes the core trio.",
-            examples: "Han Solo · Hermione Granger",
+            definition: "Third in importance; often completes a core trio — "
+                + "several can share this tier.",
+            examples: "Han Solo · Hermione Granger · Dr. Ellie Sattler",
             classicalName: "Tritagonist"
         ),
         IdentityCatalogEntry(
             slug: HierarchicalRole.Stock.fourthLead,
             name: "Fourth Lead",
-            definition: "Fourth in importance; a steady presence in the ensemble.",
-            examples: "Ron Weasley · Merry Brandybuck",
+            definition: "Fourth in importance; a steady presence in the ensemble — "
+                + "add as many as your cast needs.",
+            examples: "Ron Weasley · Merry Brandybuck · Ian Malcolm",
             classicalName: "Tetartagonist"
         ),
         IdentityCatalogEntry(
             slug: HierarchicalRole.Stock.recurring,
             name: "Recurring",
-            definition: "A recurring minor character who colors the world without steering the plot.",
-            examples: "Moaning Myrtle · The Log Lady",
+            definition: "A minor character who colors the world without steering "
+                + "the plot — most stories keep a handful.",
+            examples: "Moaning Myrtle · The Log Lady · Norm from Cheers",
             classicalName: "Fringe"
         )
     ]
