@@ -32,7 +32,11 @@ enum IdentityRelevance {
             ArchetypeSlug.artist
         ],
         HierarchicalRole.Stock.antagonist: [
-            ArchetypeSlug.shadow, ArchetypeSlug.shapeshifter, ArchetypeSlug.ruler,
+            ArchetypeSlug.villain, ArchetypeSlug.antiVillain, ArchetypeSlug.shadow,
+            ArchetypeSlug.hiddenAntagonist, ArchetypeSlug.falseAntagonist,
+            ArchetypeSlug.heroAntagonist, ArchetypeSlug.innerAntagonist,
+            ArchetypeSlug.inanimateAntagonist,
+            ArchetypeSlug.shapeshifter, ArchetypeSlug.ruler,
             ArchetypeSlug.warrior, ArchetypeSlug.rebel
         ],
         HierarchicalRole.Stock.secondLead: [
@@ -118,6 +122,34 @@ enum IdentityRelevance {
         ],
         ArchetypeSlug.shadow: [
             StoryFunctionSlug.tempter, StoryFunctionSlug.saboteur, StoryFunctionSlug.mirror
+        ],
+        ArchetypeSlug.villain: [
+            StoryFunctionSlug.saboteur, StoryFunctionSlug.tempter,
+            StoryFunctionSlug.harbinger
+        ],
+        ArchetypeSlug.antiVillain: [
+            StoryFunctionSlug.mirror, StoryFunctionSlug.foil,
+            StoryFunctionSlug.thematicAnchor
+        ],
+        ArchetypeSlug.falseAntagonist: [
+            StoryFunctionSlug.redHerring, StoryFunctionSlug.thresholdGuardian,
+            StoryFunctionSlug.confidant
+        ],
+        ArchetypeSlug.hiddenAntagonist: [
+            StoryFunctionSlug.redHerring, StoryFunctionSlug.saboteur,
+            StoryFunctionSlug.tempter
+        ],
+        ArchetypeSlug.heroAntagonist: [
+            StoryFunctionSlug.foil, StoryFunctionSlug.thresholdGuardian,
+            StoryFunctionSlug.voiceOfReason
+        ],
+        ArchetypeSlug.innerAntagonist: [
+            StoryFunctionSlug.saboteur, StoryFunctionSlug.mirror,
+            StoryFunctionSlug.thematicAnchor
+        ],
+        ArchetypeSlug.inanimateAntagonist: [
+            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.catalyst,
+            StoryFunctionSlug.harbinger
         ],
         ArchetypeSlug.shapeshifter: [
             StoryFunctionSlug.redHerring, StoryFunctionSlug.saboteur

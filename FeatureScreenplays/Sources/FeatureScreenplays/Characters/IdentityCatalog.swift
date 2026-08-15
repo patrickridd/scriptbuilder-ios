@@ -107,6 +107,48 @@ enum IdentityCatalog {
             examples: "Anakin Skywalker · Harvey Dent · Michael Corleone"
         ),
         IdentityCatalogEntry(
+            slug: ArchetypeSlug.villain, name: "Villain",
+            definition: "Commits evil intentionally to oppose the hero and serve "
+                + "malicious goals.",
+            examples: "Lord Voldemort · The Joker · Sauron"
+        ),
+        IdentityCatalogEntry(
+            slug: ArchetypeSlug.antiVillain, name: "Anti-Villain",
+            definition: "Opposes the hero, yet acts on noble intentions or a "
+                + "sympathetic past.",
+            examples: "Killmonger · Magneto · Thanos"
+        ),
+        IdentityCatalogEntry(
+            slug: ArchetypeSlug.falseAntagonist, name: "False Antagonist",
+            definition: "Introduced as a threat, later revealed as an ally or an "
+                + "innocent.",
+            examples: "Severus Snape · The Iron Giant · Boo Radley"
+        ),
+        IdentityCatalogEntry(
+            slug: ArchetypeSlug.hiddenAntagonist, name: "Hidden Antagonist",
+            definition: "A mastermind who hides their identity or motives until the "
+                + "twist lands.",
+            examples: "Palpatine · Lotso · Peter Pettigrew"
+        ),
+        IdentityCatalogEntry(
+            slug: ArchetypeSlug.heroAntagonist, name: "Hero Antagonist",
+            definition: "Doing the right thing — and it puts them squarely against "
+                + "our lead.",
+            examples: "Inspector Javert · Hank Schrader · Chief Inspector Campbell"
+        ),
+        IdentityCatalogEntry(
+            slug: ArchetypeSlug.innerAntagonist, name: "Inner Antagonist",
+            definition: "The flaw, guilt, or self-sabotage inside the hero that is "
+                + "the real obstacle.",
+            examples: "Walter White's hubris · Holden Caulfield's alienation"
+        ),
+        IdentityCatalogEntry(
+            slug: ArchetypeSlug.inanimateAntagonist, name: "Inanimate Antagonist",
+            definition: "A non-sentient force — nature, disease, machine — that the "
+                + "hero must survive.",
+            examples: "Mars (The Martian) · The Overlook Hotel · The iceberg (Titanic)"
+        ),
+        IdentityCatalogEntry(
             slug: ArchetypeSlug.shadow, name: "Shadow",
             definition: "The dark mirror of the hero's repressed side.",
             examples: "Darth Vader · Tyler Durden"

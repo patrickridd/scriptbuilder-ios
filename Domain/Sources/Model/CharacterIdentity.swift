@@ -135,9 +135,20 @@ public enum ArchetypeSlug {
     public static let sidekick     = "sidekick"
     public static let artist       = "artist"
 
+    // Antagonist-leaning archetypes
+    public static let villain             = "villain"
+    public static let antiVillain         = "anti-villain"
+    public static let falseAntagonist     = "false-antagonist"
+    public static let hiddenAntagonist    = "hidden-antagonist"
+    public static let heroAntagonist      = "hero-antagonist"
+    public static let innerAntagonist     = "inner-antagonist"
+    public static let inanimateAntagonist = "inanimate-antagonist"
+
     public static let all: [String] = [
         jester, mentor, antiHero, tragicHero, shapeshifter, lover, rebel, caregiver,
-        warrior, ruler, hero, innocent, shadow, sidekick, artist
+        warrior, ruler, hero, innocent, shadow, sidekick, artist,
+        villain, antiVillain, falseAntagonist, hiddenAntagonist, heroAntagonist,
+        innerAntagonist, inanimateAntagonist
     ]
 }
 
