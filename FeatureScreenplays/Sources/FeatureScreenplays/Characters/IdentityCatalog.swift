@@ -102,6 +102,19 @@ enum IdentityCatalog {
             examples: "Obi-Wan Kenobi · Mr. Miyagi"
         ),
         IdentityCatalogEntry(
+            slug: ArchetypeSlug.villainProtagonist, name: "Villain Protagonist",
+            definition: "A main character who drives the plot forward but we root against "
+                + "due to their evil motives or harmful actions.",
+            examples: "Patrick Bateman (American Psycho) · Lou Bloom (Nightcrawler) · "
+                + "Arthur Fleck (Joker)"
+        ),
+        IdentityCatalogEntry(
+            slug: ArchetypeSlug.passiveProtagonist, name: "Passive Protagonist",
+            definition: "A main character who reacts to external events rather than "
+                + "driving the plot through their own choices and actions.",
+            examples: "Nick Carraway (The Great Gatsby) · The Dude (The Big Lebowski)"
+        ),
+        IdentityCatalogEntry(
             slug: ArchetypeSlug.antiHero, name: "Anti-Hero",
             definition: "A flawed lead who does the right thing the wrong way.",
             examples: "Tony Soprano · Deadpool"

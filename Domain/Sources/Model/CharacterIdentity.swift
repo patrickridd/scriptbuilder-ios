@@ -144,11 +144,14 @@ public enum ArchetypeSlug {
     public static let innerAntagonist     = "inner-antagonist"
     public static let inanimateAntagonist = "inanimate-antagonist"
 
+    public static let passiveProtagonist  = "passive-protagonist"
+    public static let villainProtagonist  = "villain-protagonist"
+
     public static let all: [String] = [
         jester, mentor, antiHero, tragicHero, shapeshifter, lover, rebel, caregiver,
         warrior, ruler, hero, innocent, shadow, sidekick, artist,
         villain, antiVillain, falseAntagonist, hiddenAntagonist, heroAntagonist,
-        innerAntagonist, inanimateAntagonist
+        innerAntagonist, inanimateAntagonist, passiveProtagonist, villainProtagonist
     ]
 }
 
