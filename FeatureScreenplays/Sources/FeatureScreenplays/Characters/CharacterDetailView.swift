@@ -215,7 +215,7 @@ struct CharacterDetailView: View {
             traitRow(
                 title: IdentityUIStrings.archetypeRow,
                 intro: .archetype,
-                catalog: IdentityCatalog.archetypes,
+                catalog: IdentityRelevance.archetypeCatalog(for: role, selection: archetypes),
                 nudge: IdentityUIStrings.archetypeNudge,
                 suggestedSlugs: IdentityRelevance.suggestedArchetypeSlugs(for: role),
                 selection: $viewModel.draft.identity.archetypes

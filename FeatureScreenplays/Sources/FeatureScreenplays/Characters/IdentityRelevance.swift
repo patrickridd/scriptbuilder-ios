@@ -180,6 +180,41 @@ enum IdentityRelevance {
         ]
     ]
 
+    /// Archetypes that only make sense for one role — the hero family reads as
+    /// nonsense on a Recurring player, and the antagonist family on a Second
+    /// Lead. These are hidden from the archetype picker (even under "All …")
+    /// unless the matching role is selected, or the writer already saved one.
+    private static let requiredRoleByArchetype: [String: String] = [
+        ArchetypeSlug.hero: HierarchicalRole.Stock.protagonist,
+        ArchetypeSlug.antiHero: HierarchicalRole.Stock.protagonist,
+        ArchetypeSlug.tragicHero: HierarchicalRole.Stock.protagonist,
+        ArchetypeSlug.passiveProtagonist: HierarchicalRole.Stock.protagonist,
+        ArchetypeSlug.villainProtagonist: HierarchicalRole.Stock.protagonist,
+        ArchetypeSlug.villain: HierarchicalRole.Stock.antagonist,
+        ArchetypeSlug.antiVillain: HierarchicalRole.Stock.antagonist,
+        ArchetypeSlug.falseAntagonist: HierarchicalRole.Stock.antagonist,
+        ArchetypeSlug.hiddenAntagonist: HierarchicalRole.Stock.antagonist,
+        ArchetypeSlug.heroAntagonist: HierarchicalRole.Stock.antagonist,
+        ArchetypeSlug.innerAntagonist: HierarchicalRole.Stock.antagonist,
+        ArchetypeSlug.inanimateAntagonist: HierarchicalRole.Stock.antagonist
+    ]
+
+    /// The archetype catalog trimmed to what the current role can wear.
+    /// Anything already selected stays visible so changing a role never hides
+    /// saved work.
+    static func archetypeCatalog(
+        for role: HierarchicalRole?,
+        selection: [IdentityTrait] = []
+    ) -> [IdentityCatalogEntry] {
+        let selected = Set(selection.filter { !$0.isCustom }.map(\.slug))
+        return IdentityCatalog.archetypes.filter { entry in
+            guard let required = requiredRoleByArchetype[entry.slug] else { return true }
+            if selected.contains(entry.slug) { return true }
+            guard let role, !role.isCustom else { return false }
+            return role.slug == required
+        }
+    }
+
     // MARK: - Lookups
 
     /// Archetype slugs that suit the role, in suggestion order.
