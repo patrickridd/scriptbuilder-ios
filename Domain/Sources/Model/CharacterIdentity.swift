@@ -122,6 +122,7 @@ public enum ArchetypeSlug {
     public static let jester       = "jester"
     public static let mentor       = "mentor"
     public static let antiHero     = "anti-hero"
+    public static let tragicHero   = "tragic-hero"
     public static let shapeshifter = "shapeshifter"
     public static let lover        = "lover"
     public static let rebel        = "rebel"
@@ -135,7 +136,7 @@ public enum ArchetypeSlug {
     public static let artist       = "artist"
 
     public static let all: [String] = [
-        jester, mentor, antiHero, shapeshifter, lover, rebel, caregiver,
+        jester, mentor, antiHero, tragicHero, shapeshifter, lover, rebel, caregiver,
         warrior, ruler, hero, innocent, shadow, sidekick, artist
     ]
 }

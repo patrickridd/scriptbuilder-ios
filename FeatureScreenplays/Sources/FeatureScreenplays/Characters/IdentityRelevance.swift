@@ -26,7 +26,8 @@ enum IdentityRelevance {
 
     private static let archetypesByRole: [String: [String]] = [
         HierarchicalRole.Stock.protagonist: [
-            ArchetypeSlug.hero, ArchetypeSlug.antiHero, ArchetypeSlug.rebel,
+            ArchetypeSlug.hero, ArchetypeSlug.antiHero, ArchetypeSlug.tragicHero,
+            ArchetypeSlug.rebel,
             ArchetypeSlug.innocent, ArchetypeSlug.warrior, ArchetypeSlug.lover,
             ArchetypeSlug.artist
         ],
@@ -94,6 +95,10 @@ enum IdentityRelevance {
         ],
         ArchetypeSlug.antiHero: [
             StoryFunctionSlug.foil, StoryFunctionSlug.mirror, StoryFunctionSlug.instigator
+        ],
+        ArchetypeSlug.tragicHero: [
+            StoryFunctionSlug.thematicAnchor, StoryFunctionSlug.mirror,
+            StoryFunctionSlug.catalyst
         ],
         ArchetypeSlug.mentor: [
             StoryFunctionSlug.voiceOfReason, StoryFunctionSlug.herald,

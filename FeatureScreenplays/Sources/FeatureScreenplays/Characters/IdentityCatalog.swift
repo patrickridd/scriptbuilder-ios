@@ -101,6 +101,12 @@ enum IdentityCatalog {
             examples: "Tony Soprano · Deadpool"
         ),
         IdentityCatalogEntry(
+            slug: ArchetypeSlug.tragicHero, name: "Tragic Hero",
+            definition: "A noble, generally good character whose fatal flaw or "
+                + "misjudgment leads to their downfall and death.",
+            examples: "Anakin Skywalker · Harvey Dent · Michael Corleone"
+        ),
+        IdentityCatalogEntry(
             slug: ArchetypeSlug.shadow, name: "Shadow",
             definition: "The dark mirror of the hero's repressed side.",
             examples: "Darth Vader · Tyler Durden"
