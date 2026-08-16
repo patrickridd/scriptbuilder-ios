@@ -18,6 +18,7 @@ struct CharacterArcView: View {
                 ScrollView {
                     VStack(spacing: 16) {
                         arcHeader(proxy: proxy)
+                        if viewModel.draft.arcNotApplicable { waivedNote }
                         arcFields
                     }
                     .padding(.horizontal, 16)
@@ -38,7 +39,7 @@ struct CharacterArcView: View {
             systemImage: "chart.line.uptrend.xyaxis",
             filled: viewModel.arcFilledCount,
             total: viewModel.arcTotalCount,
-            completeText: L10n.CharacterUI.arcComplete,
+            completeText: viewModel.arcCompleteText,
             nextFieldTitle: viewModel.nextArcField?.title,
             onNextTapped: {
                 guard let field = viewModel.nextArcField else { return }
@@ -50,11 +51,36 @@ struct CharacterArcView: View {
         )
     }
 
+    // MARK: - Not applicable
+
+    /// A quiet reminder that the writer already decided this character has no
+    /// arc. The switch itself lives in Character Settings, out of the way.
+    private var waivedNote: some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: "checkmark.seal.fill")
+                .font(.subheadline)
+                .foregroundStyle(palette.accent)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(IdentityUIStrings.arcNotApplicableTitle)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(palette.textPrimary)
+                Text(IdentityUIStrings.arcNotApplicableNote)
+                    .font(.caption)
+                    .foregroundStyle(palette.textMuted)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(14)
+        .background(palette.accent.opacity(0.10), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
+        .transition(.opacity)
+    }
+
     // MARK: - Fields
 
     private var arcFields: some View {
         VStack(spacing: 14) {
-            ForEach(CharacterArcField.allCases) { field in
+            ForEach(visibleFields) { field in
                 ExpandableTextField(
                     title: field.title,
                     prompt: field.prompt,
@@ -66,6 +92,12 @@ struct CharacterArcView: View {
                 .id(field)
             }
         }
+    }
+
+    /// With the arc waived only the free-form notes remain — everything else
+    /// would be asking questions the story has already answered with "none".
+    private var visibleFields: [CharacterArcField] {
+        viewModel.draft.arcNotApplicable ? [.notes] : CharacterArcField.allCases
     }
 
     /// Return the real state-backed binding for a field. Hand-made

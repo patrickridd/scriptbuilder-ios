@@ -133,6 +133,14 @@ final class CharacterDetailViewModel {
     /// The first arc field still waiting to be filled in, if any.
     var nextArcField: CharacterArcField? { CharacterArcField.firstUnfilled(for: draft) }
 
+    /// True when the writer has declared this character simply has no arc.
+    var arcNotApplicable: Bool { draft.arcNotApplicable }
+
+    /// Completion copy for the arc: a distinct line when the arc was waived.
+    var arcCompleteText: String {
+        draft.arcNotApplicable ? IdentityUIStrings.arcNotApplicableComplete : L10n.CharacterUI.arcComplete
+    }
+
     // MARK: - Overall progress
 
     /// How many identity facets (name, role, archetype, story function) are set.

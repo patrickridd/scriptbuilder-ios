@@ -10,8 +10,8 @@ struct CharacterDetailView: View {
     @Environment(\.appPalette) private var palette
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: CharacterDetailViewModel
-    @State private var showDeleteConfirm = false
     @State private var showArc = false
+    @State private var showSettings = false
     @FocusState private var nameFocused: Bool
 
     /// Scroll anchor for the identity rows, used by the header's nudge.
@@ -50,6 +50,22 @@ struct CharacterDetailView: View {
         .navigationDestination(isPresented: $showArc) {
             CharacterArcView(viewModel: viewModel)
         }
+        .sheet(isPresented: $showSettings) {
+            NavigationStack {
+                CharacterSettingsView(viewModel: viewModel) {
+                    showSettings = false
+                    viewModel.requestDelete()
+                    dismiss()
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(IdentityUIStrings.settingsSave) { showSettings = false }
+                            .fontWeight(.semibold)
+                            .foregroundStyle(palette.accent)
+                    }
+                }
+            }
+        }
         .navigationTitle(navTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { overflowMenu }
@@ -64,20 +80,6 @@ struct CharacterDetailView: View {
             if viewModel.shouldFocusName { nameFocused = true }
         }
         .onDisappear { Task { await viewModel.flush() } }
-        // A fully custom pop-up: system alerts inherit the brand tint and can
-        // draw the cancel capsule with a label in the same colour as its fill.
-        .confirmDialog(
-            isPresented: $showDeleteConfirm,
-            icon: "trash.fill",
-            title: L10n.CharacterUI.deleteTitle,
-            message: viewModel.deleteConfirmMessage,
-            confirmTitle: L10n.Action.delete,
-            cancelTitle: L10n.Action.cancel
-        ) {
-            Haptics.warning()
-            viewModel.requestDelete()
-            dismiss()
-        }
     }
 
     // MARK: - Header
@@ -155,22 +157,24 @@ struct CharacterDetailView: View {
         NavigationLink {
             CharacterArcView(viewModel: viewModel)
         } label: {
-            HStack(spacing: 12) {
+            HStack(spacing: 8) {
                 arcGlyph
                 VStack(alignment: .leading, spacing: 3) {
                     Text(L10n.CharacterUI.arcTitle)
                         .font(.body.weight(.semibold))
                         .foregroundStyle(palette.textPrimary)
-                    Text(IdentityUIStrings.arcCardSubtitle)
+                    Text(viewModel.arcNotApplicable
+                         ? IdentityUIStrings.arcNotApplicableTitle
+                         : IdentityUIStrings.arcCardSubtitle)
                         .font(.caption)
                         .foregroundStyle(palette.textMuted)
                         .lineLimit(2)
                 }
-                Spacer(minLength: 8)
+                Spacer(minLength: 4)
                 ProgressBadge(
                     filled: viewModel.arcFilledCount,
                     total: viewModel.arcTotalCount,
-                    completeText: L10n.CharacterUI.arcComplete
+                    completeText: viewModel.arcCompleteText
                 )
                 Image(systemName: "chevron.right")
                     .font(.footnote.weight(.semibold))
@@ -392,31 +396,14 @@ struct CharacterDetailView: View {
     @ToolbarContentBuilder
     private var overflowMenu: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
-            Menu {
-                Button {
-                    focusName()
-                } label: {
-                    Label(IdentityUIStrings.changeNameAction, systemImage: "textformat")
-                }
-                Button(role: .destructive) {
-                    showDeleteConfirm = true
-                } label: {
-                    Label(L10n.CharacterUI.deleteButton, systemImage: "trash")
-                }
+            Button {
+                Haptics.selection()
+                nameFocused = false
+                showSettings = true
             } label: {
-                Image(systemName: "ellipsis.circle")
-                    .foregroundStyle(palette.accent)
+                Image(systemName: "ellipsis.circle")                    .foregroundStyle(palette.accent)
             }
-            .accessibilityLabel(IdentityUIStrings.moreActions)
-        }
-    }
-
-    /// Menus dismiss asynchronously, so give the sheet a beat before claiming
-    /// focus or the keyboard never appears.
-    private func focusName() {
-        Haptics.selection()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-            nameFocused = true
+            .accessibilityLabel(IdentityUIStrings.settingsAction)
         }
     }
 
@@ -457,6 +444,16 @@ private enum CharacterDetailPreviewData {
         notes: "Speaks softly, never raises his voice."
     )
 
+    /// A character who genuinely wants nothing — the iceberg case. Arc waived,
+    /// so the arc badge reads "No arc needed" and stops counting against them.
+    static let noArc = Character(
+        uuid: "preview-no-arc",
+        name: "The Iceberg",
+        role: "Antagonist",
+        notes: "A force of nature, not a person. It has no desire, only mass.",
+        arcNotApplicable: true
+    )
+
     @MainActor
     static func viewModel(for character: Character) -> CharactersViewModel {
         CharactersViewModel(
@@ -478,6 +475,29 @@ private enum CharacterDetailPreviewData {
     let character = CharacterDetailPreviewData.complete
     return NavigationStack {
         CharacterDetailView(character: character, viewModel: CharacterDetailPreviewData.viewModel(for: character))
+    }
+    .preferredColorScheme(.dark)
+}
+
+#Preview("No arc needed") {
+    let character = CharacterDetailPreviewData.noArc
+    return NavigationStack {
+        CharacterDetailView(
+            character: character,
+            viewModel: CharacterDetailPreviewData.viewModel(for: character),
+            screenplayTitle: "The Neon Protocol"
+        )
+    }
+}
+
+#Preview("No arc needed — Dark") {
+    let character = CharacterDetailPreviewData.noArc
+    return NavigationStack {
+        CharacterDetailView(
+            character: character,
+            viewModel: CharacterDetailPreviewData.viewModel(for: character),
+            screenplayTitle: "The Neon Protocol"
+        )
     }
     .preferredColorScheme(.dark)
 }

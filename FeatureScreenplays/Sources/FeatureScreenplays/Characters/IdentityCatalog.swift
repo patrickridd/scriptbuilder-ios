@@ -336,6 +336,22 @@ enum IdentityCatalog {
 enum IdentityUIStrings {
     static let sectionTitle = "Identity"
     static let arcCardSubtitle = "Where they start, break and land"
+    static let arcNotApplicableTitle = "This character has no arc"
+    static let arcNotApplicableSubtitle =
+        "Objects, forces and figures who never want anything — mark it and the arc counts as done."
+    static let arcNotApplicableComplete = "No Arc needed"
+    static let arcNotApplicableNote = "Arc questions are hidden. Notes stay available if you want a line about why."
+    /// Character-level settings screen, reached from the overflow menu.
+    static let settingsTitle = "Character Settings"
+    static let settingsAction = "Character Settings"
+    static let settingsArcSection = "Dramatic Arc"
+    static let settingsNameSection = "Name"
+    static let settingsNameFooter = "How this character appears across the cast list, scenes and exports."
+    static let settingsDangerSection = "Danger Zone"
+    static let settingsDeleteAction = "Delete Character"
+    static let settingsDeleteFooter = "Removes this character and everything written about them. This cannot be undone."
+    static let settingsFooter =
+        "Nothing you have written is deleted — hidden fields come straight back if you switch this off."
     static let roleRow = "Role"
     static let archetypeRow = "Archetype"
     static let storyFunctionRow = "Story Function"
@@ -347,6 +363,8 @@ enum IdentityUIStrings {
     /// Short prompt used inside the header field, where width is precious.
     static let nameFieldPrompt = "Character name"
     static let nameFieldDone = "Done"
+    /// Confirmation button that dismisses the Character Settings sheet.
+    static let settingsSave = "Save"
     /// Menu action that drops the caret into the header name field.
     static let changeNameAction = "Change Name"
     static let moreActions = "More actions"

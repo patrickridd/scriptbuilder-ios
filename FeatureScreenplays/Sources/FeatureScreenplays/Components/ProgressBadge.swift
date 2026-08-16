@@ -15,13 +15,14 @@ struct ProgressBadge: View {
 
     var body: some View {
         HStack(spacing: 4) {
+            Text(labelText)
+                .font(.caption.weight(.semibold))
+                .monospacedDigit()
+                .lineLimit(1)
             if isComplete {
                 Image(systemName: "checkmark.circle.fill")
                     .font(.caption.weight(.semibold))
             }
-            Text(labelText)
-                .font(.caption.weight(.semibold))
-                .monospacedDigit()
         }
         .foregroundStyle(isComplete ? palette.accent : palette.textMuted)
         .padding(.horizontal, 9)
@@ -48,6 +49,7 @@ struct ProgressBadge: View {
     VStack(spacing: 12) {
         ProgressBadge(filled: 3, total: 10)
         ProgressBadge(filled: 9, total: 9, completeText: "Complete")
+        ProgressBadge(filled: 9, total: 9, completeText: "No Arc Needed")
     }
     .padding()
 }

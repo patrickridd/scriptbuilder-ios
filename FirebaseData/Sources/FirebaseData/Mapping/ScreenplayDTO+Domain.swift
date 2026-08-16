@@ -98,7 +98,8 @@ extension CharacterDTO {
             intentionFix: character.intentionFix,
             need: character.need,
             howCharacterChanged: character.howCharacterChanged,
-            notes: character.notes
+            notes: character.notes,
+            arcNotApplicable: character.arcNotApplicable
         )
     }
 
@@ -123,7 +124,8 @@ extension CharacterDTO {
             intentionFix: intentionFix,
             need: need,
             howCharacterChanged: howCharacterChanged,
-            notes: notes
+            notes: notes,
+            arcNotApplicable: arcNotApplicable
         )
     }
 }

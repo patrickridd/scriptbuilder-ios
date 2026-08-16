@@ -38,6 +38,11 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
     public var howCharacterChanged: String
     public var notes: String
 
+    /// Some characters simply have no dramatic arc (the iceberg in *Titanic*
+    /// wants nothing). When true, the arc is treated as intentionally complete
+    /// and stops counting against the character's progress.
+    public var arcNotApplicable: Bool
+
     public init(
         uuid: String = UUID().uuidString,
         name: String,
@@ -52,7 +57,8 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         intentionFix: String = "",
         need: String = "",
         howCharacterChanged: String = "",
-        notes: String = ""
+        notes: String = "",
+        arcNotApplicable: Bool = false
     ) {
         self.uuid = uuid
         self.name = name
@@ -68,6 +74,7 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         self.need = need
         self.howCharacterChanged = howCharacterChanged
         self.notes = notes
+        self.arcNotApplicable = arcNotApplicable
     }
 
     // Identity-based equality/hashing keeps Set semantics stable across edits,
@@ -86,6 +93,7 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         case uuid, name, role, identity
         case intention, whyIntention, whatToDo, howDoesCharacterDoIt
         case obstacles, flaws, intentionFix, need, howCharacterChanged, notes
+        case arcNotApplicable
     }
 
     /// Custom decode so records that predate `identity` still decode; when the
@@ -107,5 +115,6 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         need = try container.decodeIfPresent(String.self, forKey: .need) ?? ""
         howCharacterChanged = try container.decodeIfPresent(String.self, forKey: .howCharacterChanged) ?? ""
         notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? ""
+        arcNotApplicable = try container.decodeIfPresent(Bool.self, forKey: .arcNotApplicable) ?? false
     }
 }

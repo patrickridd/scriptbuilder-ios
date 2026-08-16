@@ -65,9 +65,11 @@ enum CharacterArcField: Int, CaseIterable, Identifiable {
         allCases.filter { $0 != .notes }
     }
 
-    /// How many scoreable fields the writer has filled in.
+    /// How many scoreable fields the writer has filled in. A character marked
+    /// as having no arc counts as fully done — the decision *is* the work.
     static func filledCount(for character: Character) -> Int {
-        scoreable.reduce(into: 0) { total, field in
+        guard !character.arcNotApplicable else { return scoreable.count }
+        return scoreable.reduce(into: 0) { total, field in
             let text = field.value(in: character).trimmingCharacters(in: .whitespacesAndNewlines)
             if !text.isEmpty { total += 1 }
         }
@@ -76,7 +78,8 @@ enum CharacterArcField: Int, CaseIterable, Identifiable {
     /// The first scoreable field the writer has not filled in yet — drives the
     /// "Next up: …" nudge in the detail editor.
     static func firstUnfilled(for character: Character) -> CharacterArcField? {
-        scoreable.first {
+        guard !character.arcNotApplicable else { return nil }
+        return scoreable.first {
             $0.value(in: character).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }
     }

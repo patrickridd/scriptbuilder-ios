@@ -28,6 +28,7 @@ struct CharacterDTO: Codable, Sendable {
     let need: String
     let howCharacterChanged: String
     let notes: String
+    let arcNotApplicable: Bool
 
     enum CodingKeys: String, CodingKey {
         case uuid                 = "uuid"
@@ -44,6 +45,7 @@ struct CharacterDTO: Codable, Sendable {
         case need                 = "need"
         case howCharacterChanged  = "howCharacterChanged"
         case notes                = "notes"
+        case arcNotApplicable     = "arcNotApplicable"
     }
 
     init(
@@ -51,7 +53,8 @@ struct CharacterDTO: Codable, Sendable {
         identity: CharacterIdentityDTO?, intention: String,
         whyIntention: String, whatToDo: String, howDoesCharacterDoIt: String,
         obstacles: String, flaws: String, intentionFix: String, need: String,
-        howCharacterChanged: String, notes: String
+        howCharacterChanged: String, notes: String,
+        arcNotApplicable: Bool = false
     ) {
         self.uuid = uuid
         self.name = name
@@ -67,6 +70,7 @@ struct CharacterDTO: Codable, Sendable {
         self.need = need
         self.howCharacterChanged = howCharacterChanged
         self.notes = notes
+        self.arcNotApplicable = arcNotApplicable
     }
 
     init(from decoder: Decoder) throws {
@@ -85,5 +89,13 @@ struct CharacterDTO: Codable, Sendable {
         need                 = container.lenientString(.need)
         howCharacterChanged  = container.lenientString(.howCharacterChanged)
         notes                = container.lenientString(.notes)
+        // Legacy payloads may store this as a bool, a 0/1 number or a string.
+        if let flag = try? container.decodeIfPresent(Bool.self, forKey: .arcNotApplicable) {
+            arcNotApplicable = flag
+        } else if let number = try? container.decodeIfPresent(Int.self, forKey: .arcNotApplicable) {
+            arcNotApplicable = number != 0
+        } else {
+            arcNotApplicable = container.lenientString(.arcNotApplicable).lowercased() == "true"
+        }
     }
 }
