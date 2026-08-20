@@ -34,8 +34,7 @@ enum IdentityRelevance {
         ],
         HierarchicalRole.Stock.antagonist: [
             ArchetypeSlug.villain, ArchetypeSlug.antiVillain, ArchetypeSlug.shadow,
-            ArchetypeSlug.hiddenAntagonist, ArchetypeSlug.falseAntagonist,
-            ArchetypeSlug.heroAntagonist, ArchetypeSlug.innerAntagonist,
+            ArchetypeSlug.innerAntagonist,
             ArchetypeSlug.inanimateAntagonist,
             ArchetypeSlug.shapeshifter, ArchetypeSlug.ruler,
             ArchetypeSlug.warrior, ArchetypeSlug.rebel
@@ -66,25 +65,29 @@ enum IdentityRelevance {
         HierarchicalRole.Stock.antagonist: [
             StoryFunctionSlug.tempter, StoryFunctionSlug.saboteur,
             StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.harbinger,
-            StoryFunctionSlug.mirror, StoryFunctionSlug.instigator
+            StoryFunctionSlug.mirror, StoryFunctionSlug.instigator,
+            StoryFunctionSlug.falseAntagonist, StoryFunctionSlug.heroAntagonist,
+            StoryFunctionSlug.hiddenAntagonist
         ],
         HierarchicalRole.Stock.secondLead: [
             StoryFunctionSlug.confidant, StoryFunctionSlug.foil,
-            StoryFunctionSlug.loveInterest, StoryFunctionSlug.voiceOfReason
+            StoryFunctionSlug.loveInterest, StoryFunctionSlug.voiceOfReason,
+            StoryFunctionSlug.falseAntagonist, StoryFunctionSlug.heroAntagonist,
+            StoryFunctionSlug.hiddenAntagonist
         ],
         HierarchicalRole.Stock.thirdLead: [
             StoryFunctionSlug.comicRelief, StoryFunctionSlug.foil,
             StoryFunctionSlug.herald, StoryFunctionSlug.voiceOfReason,
-            StoryFunctionSlug.redHerring
+            StoryFunctionSlug.falseAntagonist
         ],
         HierarchicalRole.Stock.fourthLead: [
             StoryFunctionSlug.comicRelief, StoryFunctionSlug.herald,
-            StoryFunctionSlug.catalyst, StoryFunctionSlug.redHerring
+            StoryFunctionSlug.catalyst, StoryFunctionSlug.falseAntagonist
         ],
         HierarchicalRole.Stock.recurring: [
             StoryFunctionSlug.comicRelief, StoryFunctionSlug.herald,
             StoryFunctionSlug.harbinger, StoryFunctionSlug.catalyst,
-            StoryFunctionSlug.redHerring, StoryFunctionSlug.henchman
+            StoryFunctionSlug.falseAntagonist, StoryFunctionSlug.henchman
         ]
     ]
 
@@ -118,7 +121,7 @@ enum IdentityRelevance {
             StoryFunctionSlug.thresholdGuardian
         ],
         ArchetypeSlug.jester: [
-            StoryFunctionSlug.comicRelief, StoryFunctionSlug.redHerring
+            StoryFunctionSlug.comicRelief, StoryFunctionSlug.foil
         ],
         ArchetypeSlug.sidekick: [
             StoryFunctionSlug.confidant, StoryFunctionSlug.comicRelief
@@ -130,27 +133,16 @@ enum IdentityRelevance {
             StoryFunctionSlug.loveInterest, StoryFunctionSlug.confidant
         ],
         ArchetypeSlug.shadow: [
-            StoryFunctionSlug.tempter, StoryFunctionSlug.saboteur, StoryFunctionSlug.mirror
+            StoryFunctionSlug.tempter, StoryFunctionSlug.saboteur,
+            StoryFunctionSlug.mirror, StoryFunctionSlug.hiddenAntagonist
         ],
         ArchetypeSlug.villain: [
             StoryFunctionSlug.saboteur, StoryFunctionSlug.tempter,
-            StoryFunctionSlug.harbinger
+            StoryFunctionSlug.harbinger, StoryFunctionSlug.hiddenAntagonist
         ],
         ArchetypeSlug.antiVillain: [
             StoryFunctionSlug.mirror, StoryFunctionSlug.foil,
             StoryFunctionSlug.thematicAnchor
-        ],
-        ArchetypeSlug.falseAntagonist: [
-            StoryFunctionSlug.redHerring, StoryFunctionSlug.thresholdGuardian,
-            StoryFunctionSlug.confidant
-        ],
-        ArchetypeSlug.hiddenAntagonist: [
-            StoryFunctionSlug.redHerring, StoryFunctionSlug.saboteur,
-            StoryFunctionSlug.tempter
-        ],
-        ArchetypeSlug.heroAntagonist: [
-            StoryFunctionSlug.foil, StoryFunctionSlug.thresholdGuardian,
-            StoryFunctionSlug.voiceOfReason
         ],
         ArchetypeSlug.innerAntagonist: [
             StoryFunctionSlug.saboteur, StoryFunctionSlug.mirror,
@@ -161,16 +153,19 @@ enum IdentityRelevance {
             StoryFunctionSlug.harbinger
         ],
         ArchetypeSlug.shapeshifter: [
-            StoryFunctionSlug.redHerring, StoryFunctionSlug.saboteur
+            StoryFunctionSlug.falseAntagonist, StoryFunctionSlug.hiddenAntagonist,
+            StoryFunctionSlug.saboteur
         ],
         ArchetypeSlug.rebel: [
             StoryFunctionSlug.instigator, StoryFunctionSlug.catalyst
         ],
         ArchetypeSlug.warrior: [
-            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.henchman
+            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.henchman,
+            StoryFunctionSlug.heroAntagonist
         ],
         ArchetypeSlug.ruler: [
-            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.harbinger
+            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.harbinger,
+            StoryFunctionSlug.heroAntagonist
         ],
         ArchetypeSlug.innocent: [
             StoryFunctionSlug.audienceSurrogate, StoryFunctionSlug.catalyst
@@ -192,9 +187,6 @@ enum IdentityRelevance {
         ArchetypeSlug.villainProtagonist: HierarchicalRole.Stock.protagonist,
         ArchetypeSlug.villain: HierarchicalRole.Stock.antagonist,
         ArchetypeSlug.antiVillain: HierarchicalRole.Stock.antagonist,
-        ArchetypeSlug.falseAntagonist: HierarchicalRole.Stock.antagonist,
-        ArchetypeSlug.hiddenAntagonist: HierarchicalRole.Stock.antagonist,
-        ArchetypeSlug.heroAntagonist: HierarchicalRole.Stock.antagonist,
         ArchetypeSlug.innerAntagonist: HierarchicalRole.Stock.antagonist,
         ArchetypeSlug.inanimateAntagonist: HierarchicalRole.Stock.antagonist
     ]

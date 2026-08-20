@@ -74,7 +74,10 @@ enum IdentityHue {
 
     /// Story functions cited by name inside the intro paragraphs.
     private static let namedFunctions: Set<String> = [
-        "exposition device", "confidant", "foil", "threshold guardian"
+        "exposition device", "confidant", "foil", "threshold guardian",
+        "false antagonist", "false antagonist (red herring)", "red herring",
+        "hero antagonist", "hidden antagonist",
+        "hidden antagonist (secret threat)", "secret threat"
     ]
 
     private static func dynamic(light: UIColor, dark: UIColor) -> Color {

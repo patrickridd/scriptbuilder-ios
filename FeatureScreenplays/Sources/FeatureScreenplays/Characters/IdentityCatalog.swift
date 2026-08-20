@@ -138,24 +138,6 @@ enum IdentityCatalog {
             examples: "Killmonger · Magneto · Thanos"
         ),
         IdentityCatalogEntry(
-            slug: ArchetypeSlug.falseAntagonist, name: "False Antagonist",
-            definition: "Introduced as a threat, later revealed as an ally or an "
-                + "innocent.",
-            examples: "Severus Snape · The Iron Giant · Boo Radley"
-        ),
-        IdentityCatalogEntry(
-            slug: ArchetypeSlug.hiddenAntagonist, name: "Hidden Antagonist",
-            definition: "A mastermind who hides their identity or motives until the "
-                + "twist lands.",
-            examples: "Palpatine · Lotso · Peter Pettigrew"
-        ),
-        IdentityCatalogEntry(
-            slug: ArchetypeSlug.heroAntagonist, name: "Hero Antagonist",
-            definition: "Doing the right thing — and it puts them squarely against "
-                + "our lead.",
-            examples: "Inspector Javert · Hank Schrader · Chief Inspector Campbell"
-        ),
-        IdentityCatalogEntry(
             slug: ArchetypeSlug.innerAntagonist, name: "Inner Antagonist",
             definition: "The flaw, guilt, or self-sabotage inside the hero that is "
                 + "the real obstacle.",
@@ -268,9 +250,24 @@ enum IdentityCatalog {
             examples: "Spock · Hermione Granger"
         ),
         IdentityCatalogEntry(
-            slug: StoryFunctionSlug.redHerring, name: "Red Herring",
-            definition: "Draws suspicion to mislead the audience.",
-            examples: "Severus Snape · Bishop Aringarosa"
+            slug: StoryFunctionSlug.falseAntagonist,
+            name: "False Antagonist (Red Herring)",
+            definition: "Framed as the threat and drawing the suspicion, later "
+                + "revealed as an ally or an innocent.",
+            examples: "Severus Snape · The Iron Giant · Boo Radley"
+        ),
+        IdentityCatalogEntry(
+            slug: StoryFunctionSlug.heroAntagonist, name: "Hero Antagonist",
+            definition: "Doing the right thing — and it puts them squarely "
+                + "against our lead.",
+            examples: "Inspector Javert · Hank Schrader · Chief Inspector Campbell"
+        ),
+        IdentityCatalogEntry(
+            slug: StoryFunctionSlug.hiddenAntagonist,
+            name: "Hidden Antagonist (Secret Threat)",
+            definition: "Hides their identity or motives — trusted by the cast "
+                + "until the twist lands.",
+            examples: "Palpatine · Lotso · Peter Pettigrew"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.audienceSurrogate, name: "Audience Surrogate",

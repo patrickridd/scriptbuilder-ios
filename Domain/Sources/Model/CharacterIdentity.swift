@@ -138,9 +138,6 @@ public enum ArchetypeSlug {
     // Antagonist-leaning archetypes
     public static let villain             = "villain"
     public static let antiVillain         = "anti-villain"
-    public static let falseAntagonist     = "false-antagonist"
-    public static let hiddenAntagonist    = "hidden-antagonist"
-    public static let heroAntagonist      = "hero-antagonist"
     public static let innerAntagonist     = "inner-antagonist"
     public static let inanimateAntagonist = "inanimate-antagonist"
 
@@ -150,7 +147,7 @@ public enum ArchetypeSlug {
     public static let all: [String] = [
         jester, mentor, antiHero, tragicHero, shapeshifter, lover, rebel, caregiver,
         warrior, ruler, hero, innocent, shadow, sidekick, artist,
-        villain, antiVillain, falseAntagonist, hiddenAntagonist, heroAntagonist,
+        villain, antiVillain,
         innerAntagonist, inanimateAntagonist, passiveProtagonist, villainProtagonist
     ]
 }
@@ -165,7 +162,12 @@ public enum StoryFunctionSlug {
     public static let comicRelief       = "comic-relief"
     public static let loveInterest      = "love-interest"
     public static let voiceOfReason     = "voice-of-reason"
-    public static let redHerring        = "red-herring"
+    /// Also known as the Red Herring: opposition the plot only pretends to have.
+    public static let falseAntagonist   = "false-antagonist"
+    /// Opposition created by someone doing the right thing.
+    public static let heroAntagonist    = "hero-antagonist"
+    /// Also known as the Secret Threat: opposition hidden until the twist.
+    public static let hiddenAntagonist  = "hidden-antagonist"
     public static let audienceSurrogate = "audience-surrogate"
     public static let harbinger         = "harbinger"
     public static let mirror            = "mirror"
@@ -177,7 +179,9 @@ public enum StoryFunctionSlug {
 
     public static let all: [String] = [
         catalyst, foil, confidant, thresholdGuardian, herald, comicRelief,
-        loveInterest, voiceOfReason, redHerring, audienceSurrogate, harbinger,
+        loveInterest, voiceOfReason, falseAntagonist, heroAntagonist,
+        hiddenAntagonist,
+        audienceSurrogate, harbinger,
         mirror, saboteur, tempter, thematicAnchor, instigator, henchman
     ]
 }

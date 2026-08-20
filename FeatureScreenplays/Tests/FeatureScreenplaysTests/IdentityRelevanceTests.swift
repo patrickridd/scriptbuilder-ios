@@ -31,7 +31,7 @@ final class IdentityRelevanceTests: XCTestCase {
         // Role-led order is preserved…
         XCTAssertEqual(slugs.first, StoryFunctionSlug.comicRelief)
         // …and the archetype's own functions are merged in without duplicates.
-        XCTAssertTrue(slugs.contains(StoryFunctionSlug.redHerring))
+        XCTAssertTrue(slugs.contains(StoryFunctionSlug.foil))
         XCTAssertEqual(slugs.count, Set(slugs).count)
     }
 
