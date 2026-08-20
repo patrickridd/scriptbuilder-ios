@@ -217,14 +217,23 @@ struct CharacterDetailView: View {
         return VStack(spacing: 10) {
             roleRow
             traitRow(
+                step: 2,
                 title: IdentityUIStrings.archetypeRow,
                 intro: .archetype,
                 catalog: IdentityRelevance.archetypeCatalog(for: role, selection: archetypes),
                 nudge: IdentityUIStrings.archetypeNudge,
                 suggestedSlugs: IdentityRelevance.suggestedArchetypeSlugs(for: role),
-                selection: $viewModel.draft.identity.archetypes
+                selection: $viewModel.draft.identity.archetypes,
+                tint: IdentityHue.archetype,
+                gateHint: role == nil ? IdentityUIStrings.archetypeGateHint : nil,
+                gateBanner: role == nil ? IdentityUIStrings.archetypeGateBanner : nil,
+                roleExclusiveFamilies: IdentityRelevance.hiddenRoleExclusiveFamilies(
+                    for: role,
+                    selection: archetypes
+                )
             )
             traitRow(
+                step: 3,
                 title: IdentityUIStrings.storyFunctionRow,
                 intro: .storyFunction,
                 catalog: IdentityCatalog.storyFunctions,
@@ -239,31 +248,50 @@ struct CharacterDetailView: View {
                     role: role,
                     roleName: viewModel.roleDisplayText,
                     archetypes: archetypes
-                )
+                ),
+                gateHint: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateHint : nil,
+                gateBanner: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateBanner : nil
             )
         }
     }
 
     private var roleRow: some View {
-        NavigationLink {
+        let hue = IdentityHue.role
+        return NavigationLink {
             RolePickerDetailView(
                 characterName: viewModel.navigationTitle,
-                selection: viewModel.draft.identity.role
+                selection: viewModel.draft.identity.role,
+                tint: hue
             ) { newRole in
                 viewModel.applyRole(newRole)
             }
         } label: {
-            identityRowLabel(title: IdentityUIStrings.roleRow, systemImage: IdentitySectionIntro.role.symbol) {
+            identityRowLabel(step: 1, title: IdentityUIStrings.roleRow, hue: hue) {
                 Text(viewModel.roleDisplayText ?? IdentityUIStrings.noneValue)
                     .font(.subheadline)
                     .lineLimit(1)
-                    .foregroundStyle(viewModel.roleDisplayText == nil ? palette.textMuted.opacity(0.7) : palette.accent)
+                    .foregroundStyle(viewModel.roleDisplayText == nil ? palette.textMuted.opacity(0.7) : hue)
             }
         }
         .buttonStyle(.plain)
     }
 
+    /// Numbered badge that makes the craft sequence visible — Role, then
+    /// Archetype, then Story Function — without ever locking a row. The badge
+    /// carries the facet's own hue so the number and its chips match.
+    private func stepBadge(_ step: Int, hue: Color, dimmed: Bool) -> some View {
+        let tint = dimmed ? palette.textMuted : hue
+        return Text("\(step)")
+            .font(.caption.weight(.bold))
+            .monospacedDigit()
+            .foregroundStyle(tint)
+            .frame(width: 24, height: 24)
+            .background(tint.opacity(0.15), in: Circle())
+            .accessibilityLabel(IdentityUIStrings.stepLabel(step))
+    }
+
     private func traitRow(
+        step: Int,
         title: String,
         intro: IdentitySectionIntro,
         catalog: [IdentityCatalogEntry],
@@ -271,9 +299,14 @@ struct CharacterDetailView: View {
         suggestedSlugs: [String],
         selection: Binding<[IdentityTrait]>,
         tint: Color? = nil,
-        suggestionSources: [String]? = nil
+        suggestionSources: [IdentityRelevance.SuggestionSource]? = nil,
+        gateHint: String? = nil,
+        gateBanner: String? = nil,
+        roleExclusiveFamilies: [IdentityRelevance.RoleExclusiveFamily] = []
     ) -> some View {
         let names = selection.wrappedValue.map { IdentityCatalog.displayName(for: $0, in: catalog) }
+        let dimmed = gateHint != nil && names.isEmpty
+        let hue = tint ?? palette.accent
         return VStack(alignment: .leading, spacing: 10) {
             NavigationLink {
                 traitPicker(
@@ -283,10 +316,20 @@ struct CharacterDetailView: View {
                     nudge: nudge,
                     suggestedSlugs: suggestedSlugs,
                     selection: selection,
-                    suggestionSources: suggestionSources
+                    suggestionSources: suggestionSources,
+                    gateBanner: gateBanner,
+                    roleExclusiveFamilies: roleExclusiveFamilies,
+                    tint: tint
                 )
             } label: {
-                traitRowHeader(title: title, systemImage: intro.symbol, count: names.count)
+                traitRowHeader(
+                    step: step,
+                    title: title,
+                    count: names.count,
+                    hint: names.isEmpty ? gateHint : nil,
+                    dimmed: dimmed,
+                    hue: hue
+                )
             }
             .buttonStyle(.plain)
 
@@ -300,10 +343,13 @@ struct CharacterDetailView: View {
                         suggestedSlugs: suggestedSlugs,
                         selection: selection,
                         suggestionSources: suggestionSources,
+                        gateBanner: gateBanner,
+                        roleExclusiveFamilies: roleExclusiveFamilies,
+                        tint: tint,
                         focus: selection.wrappedValue.indices.contains(index) ? selection.wrappedValue[index] : nil
                     )
                 }
-                .padding(.leading, 30)
+                .padding(.leading, 32)
                 .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
@@ -322,7 +368,10 @@ struct CharacterDetailView: View {
         nudge: String,
         suggestedSlugs: [String],
         selection: Binding<[IdentityTrait]>,
-        suggestionSources: [String]? = nil,
+        suggestionSources: [IdentityRelevance.SuggestionSource]? = nil,
+        gateBanner: String? = nil,
+        roleExclusiveFamilies: [IdentityRelevance.RoleExclusiveFamily] = [],
+        tint: Color? = nil,
         focus: IdentityTrait? = nil
     ) -> some View {
         TraitPickerDetailView(
@@ -335,23 +384,41 @@ struct CharacterDetailView: View {
             suggestionSources: suggestionSources,
             suggestedSlugs: suggestedSlugs,
             selection: selection,
-            focusTrait: focus
+            focusTrait: focus,
+            gateBanner: gateBanner,
+            roleExclusiveFamilies: roleExclusiveFamilies,
+            tint: tint
         )
     }
 
-    /// Row header for a multi-select field: icon, title, a summary of how many
-    /// traits are chosen, and the disclosure chevron. The chips themselves live
-    /// below so long selections never squeeze the title.
-    private func traitRowHeader(title: String, systemImage: String, count: Int) -> some View {
+    /// Row header for a multi-select field: step number, title, a summary of how
+    /// many traits are chosen, and the disclosure chevron. A gate hint sits
+    /// under the title while the earlier step is still empty.
+    private func traitRowHeader(
+        step: Int,
+        title: String,
+        count: Int,
+        hint: String?,
+        dimmed: Bool,
+        hue: Color
+    ) -> some View {
         HStack(spacing: 8) {
-            rowIcon(systemImage)
-            Text(title)
-                .font(.body.weight(.medium))
-                .foregroundStyle(palette.textPrimary)
+            stepBadge(step, hue: hue, dimmed: dimmed)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.body.weight(.medium))
+                    .foregroundStyle(dimmed ? palette.textMuted : palette.textPrimary)
+                if let hint {
+                    Text(hint)
+                        .font(.caption2)
+                        .foregroundStyle(palette.textMuted.opacity(0.85))
+                        .lineLimit(2)
+                }
+            }
             Spacer(minLength: 8)
             Text(count == 0 ? IdentityUIStrings.noneValue : IdentityUIStrings.selectedCount(count))
                 .font(.subheadline)
-                .foregroundStyle(count == 0 ? palette.textMuted.opacity(0.7) : palette.accent)
+                .foregroundStyle(count == 0 ? palette.textMuted.opacity(0.7) : hue)
             Image(systemName: "chevron.right")
                 .font(.footnote.weight(.semibold))
                 .foregroundStyle(palette.textMuted)
@@ -359,21 +426,14 @@ struct CharacterDetailView: View {
         .contentShape(Rectangle())
     }
 
-    /// Consistent leading glyph for every row inside the Identity section.
-    private func rowIcon(_ systemImage: String) -> some View {
-        Image(systemName: systemImage)
-            .font(.subheadline.weight(.semibold))
-            .foregroundStyle(palette.accent)
-            .frame(width: 22, alignment: .center)
-    }
-
     private func identityRowLabel(
+        step: Int,
         title: String,
-        systemImage: String,
+        hue: Color,
         @ViewBuilder value: () -> some View
     ) -> some View {
         HStack(spacing: 8) {
-            rowIcon(systemImage)
+            stepBadge(step, hue: hue, dimmed: false)
             Text(title)
                 .font(.body.weight(.medium))
                 .foregroundStyle(palette.textPrimary)

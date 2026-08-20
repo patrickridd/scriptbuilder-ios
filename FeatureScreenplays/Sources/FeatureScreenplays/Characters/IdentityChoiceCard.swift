@@ -21,6 +21,10 @@ struct IdentityChoiceCard: View {
     let isSelected: Bool
     let onTap: () -> Void
     var onDelete: (() -> Void)?
+    /// Facet hue for the selected state. Falls back to the app accent.
+    var tint: Color?
+
+    private var accent: Color { tint ?? palette.accent }
 
     /// Name-only cards (custom entries) read best centred; multi-line cards
     /// keep their indicator pinned to the first line of text.
@@ -49,7 +53,7 @@ struct IdentityChoiceCard: View {
     private var selectionIndicator: some View {
         Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
             .font(.title3)
-            .foregroundStyle(isSelected ? palette.accent : palette.textMuted.opacity(0.5))
+            .foregroundStyle(isSelected ? accent : palette.textMuted.opacity(0.5))
             .padding(.top, isCompact ? 0 : 1)
     }
 
@@ -99,7 +103,7 @@ struct IdentityChoiceCard: View {
 
     private var border: some View {
         RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .stroke(isSelected ? palette.accent.opacity(0.7) : palette.cardStroke, lineWidth: isSelected ? 1.5 : 1)
+            .stroke(isSelected ? accent.opacity(0.7) : palette.cardStroke, lineWidth: isSelected ? 1.5 : 1)
     }
 }
 

@@ -19,7 +19,11 @@ struct RolePickerDetailView: View {
     @Environment(\.dismiss) private var dismiss
 
     let characterName: String
+    /// Facet hue for the role screen. Falls back to the app accent.
+    var tint: Color?
     let onSelect: (HierarchicalRole?) -> Void
+
+    private var accent: Color { tint ?? palette.accent }
 
     /// Live selection. Clearing or deleting updates this in place (and saves)
     /// without popping, so the writer can immediately pick a replacement.
@@ -28,9 +32,11 @@ struct RolePickerDetailView: View {
     init(
         characterName: String,
         selection: HierarchicalRole?,
+        tint: Color? = nil,
         onSelect: @escaping (HierarchicalRole?) -> Void
     ) {
         self.characterName = characterName
+        self.tint = tint
         self.onSelect = onSelect
         _selection = State(initialValue: selection)
     }
@@ -55,7 +61,7 @@ struct RolePickerDetailView: View {
 
     private var content: some View {
         VStack(alignment: .leading, spacing: 14) {
-            IdentitySectionHeader(intro: .role)
+            IdentitySectionHeader(intro: .role, tint: accent)
             savedCustomSection
             tierSection(
                 IdentityUIStrings.tierMain,
@@ -89,7 +95,8 @@ struct RolePickerDetailView: View {
                     examples: entry.examples,
                     classicalName: entry.classicalName,
                     isSelected: isSelected(entry.slug),
-                    onTap: { tap(entry.slug) }
+                    onTap: { tap(entry.slug) },
+                    tint: accent
                 )
             }
         }
@@ -115,7 +122,8 @@ struct RolePickerDetailView: View {
                     examples: nil,
                     isSelected: true,
                     onTap: {},
-                    onDelete: { clear() }
+                    onDelete: { clear() },
+                    tint: accent
                 )
                 Text(IdentityUIStrings.savedRoleHint)
                     .font(.footnote)

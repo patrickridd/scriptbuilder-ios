@@ -398,10 +398,12 @@ enum IdentityUIStrings {
     static let suggestedSection = "Suggested"
 
     /// Description naming every source a suggestion set came from, e.g.
-    /// "Fits your Second Lead · Mentor". Nil when nothing is driving the order.
+    /// "Commonly paired with **Second Lead** · **Mentor**", with each source bolded via
+    /// Markdown. Nil when nothing drives the order.
     static func suggestedDescription(sources: [String]) -> String? {
         guard !sources.isEmpty else { return nil }
-        return "Fits your \(sources.joined(separator: " · "))"
+        let emphasized = sources.map { "**\($0)**" }.joined(separator: " · ")
+        return "Commonly paired with \(emphasized)"
     }
 
     /// Disclosure label revealing the full catalog, e.g. "All Archetypes".
@@ -417,5 +419,34 @@ enum IdentityUIStrings {
     /// Spoken version of the disclosure label, e.g. "All Archetypes, 9 more".
     static func allChoicesAccessibility(_ title: String, count: Int) -> String {
         "\(allChoices(title)), \(count) more"
+    }
+
+    // MARK: - Craft sequence (soft gates)
+    //
+    // Role → Archetype → Story Function is the order the craft teaches, so the
+    // rows are numbered and the later ones read as "not ready yet". Nothing is
+    // ever locked: every row stays tappable and no saved choice is discarded.
+
+    /// Spoken form of a row's step number, e.g. "Step 2 of 3".
+    static func stepLabel(_ step: Int, of total: Int = 3) -> String {
+        "Step \(step) of \(total)"
+    }
+
+    /// Sub-line on the Archetype row while no role is chosen.
+    static let archetypeGateHint = "Pick a role first for tailored suggestions"
+    /// Sub-line on the Story Function row while no archetype is chosen.
+    static let storyFunctionGateHint = "Pick an archetype for sharper suggestions"
+
+    /// Banner at the top of the Archetype picker when no role is set.
+    static let archetypeGateBanner = "Set a role and we'll suggest the archetypes that fit."
+    /// Banner at the top of the Story Function picker when no archetype is set.
+    static let storyFunctionGateBanner = "Set an archetype and we'll suggest the jobs it usually does."
+    /// Tappable tail of a gate banner — pops back to the Identity rows.
+    static let gateBannerAction = "Back to Identity"
+
+    /// Explains an archetype family the current role cannot wear, e.g.
+    /// "5 Protagonist-only archetypes — set the role to Protagonist to see them".
+    static func roleExclusiveNotice(count: Int, roleName: String) -> String {
+        "\(count) \(roleName)-only \(count == 1 ? "archetype" : "archetypes") — set the role to \(roleName) to see them"
     }
 }

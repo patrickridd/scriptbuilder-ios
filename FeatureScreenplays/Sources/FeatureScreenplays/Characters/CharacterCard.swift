@@ -5,8 +5,8 @@ import DesignSystem
 /// A single identity chip shown on a cast-list card.
 private struct IdentityTag: Identifiable {
     let text: String
-    let isArchetype: Bool
-    var id: String { (isArchetype ? "a-" : "f-") + text }
+    let facet: IdentityHue.Facet
+    var id: String { "\(facet)-" + text }
 }
 
 /// A single cast-list card: role glyph, name, role, and an intention preview.
@@ -96,19 +96,28 @@ struct CharacterCard: View {
         .accessibilityElement(children: .combine)
     }
 
-    /// Archetypes first, then story functions — the identity choices that best
-    /// describe the character at a glance. Capped so a card never grows tall.
+    /// Role first, then archetypes, then story functions — the same order the
+    /// writer fills them in. Capped so a card never grows tall.
     private var identityTags: [IdentityTag] {
+        let roleTag = character.identity.role.map {
+            IdentityTag(text: IdentityCatalog.displayName(for: $0), facet: .role)
+        }
         let archetypes = character.identity.archetypes.map {
-            IdentityTag(text: IdentityCatalog.displayName(for: $0, in: IdentityCatalog.archetypes), isArchetype: true)
+            IdentityTag(
+                text: IdentityCatalog.displayName(for: $0, in: IdentityCatalog.archetypes),
+                facet: .archetype
+            )
         }
         let functions = character.identity.storyFunctions.map {
-            IdentityTag(text: IdentityCatalog.displayName(for: $0, in: IdentityCatalog.storyFunctions), isArchetype: false)
+            IdentityTag(
+                text: IdentityCatalog.displayName(for: $0, in: IdentityCatalog.storyFunctions),
+                facet: .storyFunction
+            )
         }
-        return archetypes + functions
+        return [roleTag].compactMap { $0 } + archetypes + functions
     }
 
-    private static let maxVisibleTags = 4
+    private static let maxVisibleTags = 5
 
     @ViewBuilder
     private var identityChips: some View {
@@ -118,7 +127,7 @@ struct CharacterCard: View {
             let overflow = tags.count - visible.count
             FlowLayout(spacing: 6, lineSpacing: 6) {
                 ForEach(visible) { tag in
-                    chip(tag.text, isArchetype: tag.isArchetype)
+                    chip(tag.text, facet: tag.facet)
                 }
                 if overflow > 0 {
                     overflowChip(overflow)
@@ -129,8 +138,8 @@ struct CharacterCard: View {
         }
     }
 
-    private func chip(_ text: String, isArchetype: Bool) -> some View {
-        let hue = isArchetype ? palette.accent : IdentityHue.storyFunction
+    private func chip(_ text: String, facet: IdentityHue.Facet) -> some View {
+        let hue = IdentityHue.hue(for: facet)
         return Text(text)
             .font(.caption2.weight(.medium))
             .lineLimit(1)

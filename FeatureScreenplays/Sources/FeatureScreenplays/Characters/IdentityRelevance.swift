@@ -215,6 +215,35 @@ enum IdentityRelevance {
         }
     }
 
+    /// An archetype family currently out of reach because it belongs to one
+    /// role only — surfaced in the picker so a shorter list explains itself
+    /// instead of quietly shrinking.
+    struct RoleExclusiveFamily: Identifiable, Equatable {
+        let roleSlug: String
+        let roleName: String
+        let count: Int
+        var id: String { roleSlug }
+    }
+
+    /// The role-exclusive archetype families the current role cannot wear.
+    static func hiddenRoleExclusiveFamilies(
+        for role: HierarchicalRole?,
+        selection: [IdentityTrait] = []
+    ) -> [RoleExclusiveFamily] {
+        let visible = Set(archetypeCatalog(for: role, selection: selection).map(\.slug))
+        var counts: [String: Int] = [:]
+        for (slug, requiredRole) in requiredRoleByArchetype where !visible.contains(slug) {
+            counts[requiredRole, default: 0] += 1
+        }
+        return counts.keys.sorted().map { roleSlug in
+            RoleExclusiveFamily(
+                roleSlug: roleSlug,
+                roleName: IdentityCatalog.roleEntry(for: roleSlug)?.name ?? roleSlug.capitalized,
+                count: counts[roleSlug] ?? 0
+            )
+        }
+    }
+
     // MARK: - Lookups
 
     /// Archetype slugs that suit the role, in suggestion order.
@@ -248,21 +277,29 @@ enum IdentityRelevance {
         return ordered
     }
 
-    /// Names of the identity choices a suggestion set was derived from, so the
-    /// picker can say *why* it is suggesting — e.g. ["Deuteragonist", "Mentor"].
+    /// One identity choice a suggestion set was derived from, tagged with the
+    /// facet it came from so the picker can colour it like its chips.
+    struct SuggestionSource: Equatable {
+        let name: String
+        let facet: IdentityHue.Facet
+    }
+
+    /// Sources a suggestion set was derived from, so the picker can say *why*
+    /// it is suggesting — e.g. Antagonist (role) · Villain (archetype).
     static func storyFunctionSuggestionSources(
         role: HierarchicalRole?,
         roleName: String?,
         archetypes: [IdentityTrait]
-    ) -> [String] {
-        var names: [String] = []
+    ) -> [SuggestionSource] {
+        var sources: [SuggestionSource] = []
         if let role, !role.isCustom, storyFunctionsByRole[role.slug] != nil, let roleName {
-            names.append(roleName)
+            sources.append(SuggestionSource(name: roleName, facet: .role))
         }
         for trait in archetypes where !trait.isCustom && storyFunctionsByArchetype[trait.slug] != nil {
-            names.append(IdentityCatalog.displayName(for: trait, in: IdentityCatalog.archetypes))
+            let name = IdentityCatalog.displayName(for: trait, in: IdentityCatalog.archetypes)
+            sources.append(SuggestionSource(name: name, facet: .archetype))
         }
-        return names
+        return sources
     }
 
     // MARK: - Splitting
