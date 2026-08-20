@@ -219,6 +219,7 @@ struct CharacterDetailView: View {
             traitRow(
                 step: 2,
                 title: IdentityUIStrings.archetypeRow,
+                prompt: IdentityUIStrings.archetypePrompt,
                 intro: .archetype,
                 catalog: IdentityRelevance.archetypeCatalog(for: role, selection: archetypes),
                 nudge: IdentityUIStrings.archetypeNudge,
@@ -235,6 +236,7 @@ struct CharacterDetailView: View {
             traitRow(
                 step: 3,
                 title: IdentityUIStrings.storyFunctionRow,
+                prompt: IdentityUIStrings.storyFunctionPrompt,
                 intro: .storyFunction,
                 catalog: IdentityCatalog.storyFunctions,
                 nudge: IdentityUIStrings.storyFunctionNudge,
@@ -267,10 +269,11 @@ struct CharacterDetailView: View {
             }
         } label: {
             identityRowLabel(step: 1, title: IdentityUIStrings.roleRow, hue: hue) {
-                Text(viewModel.roleDisplayText ?? IdentityUIStrings.noneValue)
-                    .font(.subheadline)
-                    .lineLimit(1)
-                    .foregroundStyle(viewModel.roleDisplayText == nil ? palette.textMuted.opacity(0.7) : hue)
+                identityRowValue(
+                    text: viewModel.roleDisplayText ?? IdentityUIStrings.rolePrompt,
+                    isPrompt: viewModel.roleDisplayText == nil,
+                    hue: hue
+                )
             }
         }
         .buttonStyle(.plain)
@@ -293,6 +296,7 @@ struct CharacterDetailView: View {
     private func traitRow(
         step: Int,
         title: String,
+        prompt: String,
         intro: IdentitySectionIntro,
         catalog: [IdentityCatalogEntry],
         nudge: String,
@@ -326,6 +330,7 @@ struct CharacterDetailView: View {
                     step: step,
                     title: title,
                     count: names.count,
+                    prompt: prompt,
                     hint: names.isEmpty ? gateHint : nil,
                     dimmed: dimmed,
                     hue: hue
@@ -398,6 +403,7 @@ struct CharacterDetailView: View {
         step: Int,
         title: String,
         count: Int,
+        prompt: String,
         hint: String?,
         dimmed: Bool,
         hue: Color
@@ -416,14 +422,27 @@ struct CharacterDetailView: View {
                 }
             }
             Spacer(minLength: 8)
-            Text(count == 0 ? IdentityUIStrings.noneValue : IdentityUIStrings.selectedCount(count))
+            Text(count == 0 ? prompt : IdentityUIStrings.selectedCount(count))
                 .font(.subheadline)
-                .foregroundStyle(count == 0 ? palette.textMuted.opacity(0.7) : hue)
+                .lineLimit(1)
+                .minimumScaleFactor(0.85)
+                .foregroundStyle(count == 0 ? hue.opacity(0.75) : hue)
             Image(systemName: "chevron.right")
                 .font(.footnote.weight(.semibold))
                 .foregroundStyle(palette.textMuted)
         }
         .contentShape(Rectangle())
+    }
+
+    /// Value shown on the right of an identity row. When nothing is chosen yet
+    /// we show a question in the facet's own hue — an invitation to tap, rather
+    /// than a flat "None".
+    private func identityRowValue(text: String, isPrompt: Bool, hue: Color) -> some View {
+        Text(text)
+            .font(.subheadline)
+            .lineLimit(1)
+            .minimumScaleFactor(0.85)
+            .foregroundStyle(isPrompt ? hue.opacity(0.75) : hue)
     }
 
     private func identityRowLabel(

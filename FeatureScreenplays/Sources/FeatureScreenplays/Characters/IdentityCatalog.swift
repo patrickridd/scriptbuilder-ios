@@ -353,6 +353,11 @@ enum IdentityUIStrings {
     static let archetypeRow = "Archetype"
     static let storyFunctionRow = "Story Function"
     static let noneValue = "None"
+    /// Empty-state prompts on the identity rows. A question invites a tap far
+    /// better than a flat "None", and each one frames what that step decides.
+    static let rolePrompt = "Where do they stand?"
+    static let archetypePrompt = "Who are they?"
+    static let storyFunctionPrompt = "What do they do?"
     static let characterComplete = "Fully developed — identity and arc"
     static let intentionPrefix = "Wants to:"
     static let namePlaceholderTitle = "Name your character"
