@@ -39,7 +39,7 @@ struct CharacterDetailView: View {
                         characterHeader(proxy: proxy)
                             .padding(8)
                         identitySection
-                        arcCard
+                        behaviorSection
                             .padding(.top, 6)
                     }
                     .padding(.horizontal, 16)
@@ -151,8 +151,8 @@ struct CharacterDetailView: View {
 
     // MARK: - Arc card
 
-    /// The arc is a doorway to another screen rather than a field, so it stands
-    /// on its own below Identity with room for its progress.
+    /// The arc is a doorway to another screen rather than a field. It sits in
+    /// Behavior beneath Story Function, with room for its progress badge.
     private var arcCard: some View {
         NavigationLink {
             CharacterArcView(viewModel: viewModel)
@@ -200,13 +200,29 @@ struct CharacterDetailView: View {
     /// itself lives in the header, so this is purely the three choices.
     private var identitySection: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(IdentityUIStrings.sectionTitle)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(palette.textPrimary)
-                .padding(.leading, 4)
+            sectionTitle(IdentityUIStrings.sectionTitle)
             identityRows
                 .id(identityAnchor)
         }
+    }
+
+    /// Behavior collects what the character *does* — their story function —
+    /// and how they change across the script, so the arc sits with it.
+    private var behaviorSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            sectionTitle(IdentityUIStrings.behaviorSectionTitle)
+            VStack(spacing: 10) {
+                storyFunctionRow
+                arcCard
+            }
+        }
+    }
+
+    private func sectionTitle(_ text: String) -> some View {
+        Text(text)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(palette.textPrimary)
+            .padding(.leading, 4)
     }
 
     // MARK: - Identity rows
@@ -233,28 +249,35 @@ struct CharacterDetailView: View {
                     selection: archetypes
                 )
             )
-            traitRow(
-                step: 3,
-                title: IdentityUIStrings.storyFunctionRow,
-                prompt: IdentityUIStrings.storyFunctionPrompt,
-                intro: .storyFunction,
-                catalog: IdentityCatalog.storyFunctions,
-                nudge: IdentityUIStrings.storyFunctionNudge,
-                suggestedSlugs: IdentityRelevance.suggestedStoryFunctionSlugs(
-                    for: role,
-                    archetypes: archetypes
-                ),
-                selection: $viewModel.draft.identity.storyFunctions,
-                tint: IdentityHue.storyFunction,
-                suggestionSources: IdentityRelevance.storyFunctionSuggestionSources(
-                    role: role,
-                    roleName: viewModel.roleDisplayText,
-                    archetypes: archetypes
-                ),
-                gateHint: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateHint : nil,
-                gateBanner: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateBanner : nil
-            )
         }
+    }
+
+    /// Lives under Behavior but keeps step 3 of the identity sequence, so the
+    /// numbered badges still read 1 → 2 → 3 down the screen.
+    private var storyFunctionRow: some View {
+        let role = viewModel.draft.identity.role
+        let archetypes = viewModel.draft.identity.archetypes
+        return traitRow(
+            step: 3,
+            title: IdentityUIStrings.storyFunctionRow,
+            prompt: IdentityUIStrings.storyFunctionPrompt,
+            intro: .storyFunction,
+            catalog: IdentityCatalog.storyFunctions,
+            nudge: IdentityUIStrings.storyFunctionNudge,
+            suggestedSlugs: IdentityRelevance.suggestedStoryFunctionSlugs(
+                for: role,
+                archetypes: archetypes
+            ),
+            selection: $viewModel.draft.identity.storyFunctions,
+            tint: IdentityHue.storyFunction,
+            suggestionSources: IdentityRelevance.storyFunctionSuggestionSources(
+                role: role,
+                roleName: viewModel.roleDisplayText,
+                archetypes: archetypes
+            ),
+            gateHint: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateHint : nil,
+            gateBanner: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateBanner : nil
+        )
     }
 
     private var roleRow: some View {

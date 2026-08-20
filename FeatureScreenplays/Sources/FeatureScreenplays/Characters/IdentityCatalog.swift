@@ -332,6 +332,9 @@ enum IdentityCatalog {
 /// localization pass.
 enum IdentityUIStrings {
     static let sectionTitle = "Identity"
+    /// Second grouping on character detail: what the character *does* in the
+    /// story (story function) and how they change (arc).
+    static let behaviorSectionTitle = "Behavior"
     static let arcCardSubtitle = "Where they start, break and land"
     static let arcNotApplicableTitle = "This character has no arc"
     static let arcNotApplicableSubtitle =
