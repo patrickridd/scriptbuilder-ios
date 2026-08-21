@@ -109,12 +109,6 @@ enum IdentityCatalog {
                 + "Arthur Fleck (Joker)"
         ),
         IdentityCatalogEntry(
-            slug: ArchetypeSlug.passiveProtagonist, name: "Passive Protagonist",
-            definition: "A main character who reacts to external events rather than "
-                + "driving the plot through their own choices and actions.",
-            examples: "Nick Carraway (The Great Gatsby) · The Dude (The Big Lebowski)"
-        ),
-        IdentityCatalogEntry(
             slug: ArchetypeSlug.antiHero, name: "Anti-Hero",
             definition: "A flawed lead who does the right thing the wrong way.",
             examples: "Tony Soprano · Deadpool"
@@ -138,12 +132,6 @@ enum IdentityCatalog {
             examples: "Killmonger · Magneto · Thanos"
         ),
         IdentityCatalogEntry(
-            slug: ArchetypeSlug.innerAntagonist, name: "Inner Antagonist",
-            definition: "The flaw, guilt, or self-sabotage inside the hero that is "
-                + "the real obstacle.",
-            examples: "Walter White's hubris · Holden Caulfield's alienation"
-        ),
-        IdentityCatalogEntry(
             slug: ArchetypeSlug.inanimateAntagonist, name: "Inanimate Antagonist",
             definition: "A non-sentient force — nature, disease, machine — that the "
                 + "hero must survive.",
@@ -151,18 +139,20 @@ enum IdentityCatalog {
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.shadow, name: "Shadow",
-            definition: "The dark mirror of the hero's repressed side.",
-            examples: "Darth Vader · Tyler Durden"
+            definition: "The dark psychological mirror to the protagonist, embodying "
+                + "the hero's repressed flaws, fears, or potential for corruption.",
+            examples: "Darth Vader (Star Wars) · Killmonger (Black Panther)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.shapeshifter, name: "Shapeshifter",
-            definition: "Loyalty and identity keep shifting — keeps everyone guessing.",
-            examples: "Catwoman · Severus Snape"
+            definition: "Allegiance never settles — ally in one scene, threat in "
+                + "the next. Defined by which way they'll turn.",
+            examples: "Petyr Baelish (Game of Thrones) · Gollum (The Lord of the Rings)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.jester, name: "Jester",
             definition: "Uses humor to disarm — and to speak the truth.",
-            examples: "Genie · Donkey"
+            examples: "Ferris Bueller · Jack Sparrow · Genie · Donkey"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.lover, name: "Lover",
@@ -177,7 +167,7 @@ enum IdentityCatalog {
         IdentityCatalogEntry(
             slug: ArchetypeSlug.caregiver, name: "Caregiver",
             definition: "Protects and nurtures others, often at personal cost.",
-            examples: "Samwise Gamgee · Mary Poppins"
+            examples: "Marlin (Finding Nemo) · Samwise Gamgee · Mary Poppins"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.warrior, name: "Warrior",
@@ -268,6 +258,13 @@ enum IdentityCatalog {
             definition: "Hides their identity or motives — trusted by the cast "
                 + "until the twist lands.",
             examples: "Palpatine · Lotso · Peter Pettigrew"
+        ),
+        IdentityCatalogEntry(
+            slug: StoryFunctionSlug.passiveProtagonist,
+            name: "Passive Protagonist",
+            definition: "Carries the story by reacting to events rather than "
+                + "driving them — the plot happens to them.",
+            examples: "Nick Carraway · The Dude · Bilbo Baggins"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.audienceSurrogate, name: "Audience Surrogate",

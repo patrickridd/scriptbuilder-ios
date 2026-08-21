@@ -27,14 +27,13 @@ enum IdentityRelevance {
     private static let archetypesByRole: [String: [String]] = [
         HierarchicalRole.Stock.protagonist: [
             ArchetypeSlug.hero, ArchetypeSlug.antiHero, ArchetypeSlug.tragicHero,
-            ArchetypeSlug.passiveProtagonist, ArchetypeSlug.villainProtagonist,
+            ArchetypeSlug.villainProtagonist,
             ArchetypeSlug.rebel,
             ArchetypeSlug.innocent, ArchetypeSlug.warrior, ArchetypeSlug.lover,
-            ArchetypeSlug.artist
+            ArchetypeSlug.artist, ArchetypeSlug.jester, ArchetypeSlug.caregiver
         ],
         HierarchicalRole.Stock.antagonist: [
             ArchetypeSlug.villain, ArchetypeSlug.antiVillain, ArchetypeSlug.shadow,
-            ArchetypeSlug.innerAntagonist,
             ArchetypeSlug.inanimateAntagonist,
             ArchetypeSlug.shapeshifter, ArchetypeSlug.ruler,
             ArchetypeSlug.warrior, ArchetypeSlug.rebel
@@ -60,7 +59,8 @@ enum IdentityRelevance {
     private static let storyFunctionsByRole: [String: [String]] = [
         HierarchicalRole.Stock.protagonist: [
             StoryFunctionSlug.audienceSurrogate, StoryFunctionSlug.instigator,
-            StoryFunctionSlug.thematicAnchor, StoryFunctionSlug.catalyst
+            StoryFunctionSlug.thematicAnchor, StoryFunctionSlug.catalyst,
+            StoryFunctionSlug.passiveProtagonist
         ],
         HierarchicalRole.Stock.antagonist: [
             StoryFunctionSlug.tempter, StoryFunctionSlug.saboteur,
@@ -73,7 +73,7 @@ enum IdentityRelevance {
             StoryFunctionSlug.confidant, StoryFunctionSlug.foil,
             StoryFunctionSlug.loveInterest, StoryFunctionSlug.voiceOfReason,
             StoryFunctionSlug.falseAntagonist, StoryFunctionSlug.heroAntagonist,
-            StoryFunctionSlug.hiddenAntagonist
+            StoryFunctionSlug.hiddenAntagonist, StoryFunctionSlug.passiveProtagonist
         ],
         HierarchicalRole.Stock.thirdLead: [
             StoryFunctionSlug.comicRelief, StoryFunctionSlug.foil,
@@ -108,20 +108,17 @@ enum IdentityRelevance {
             StoryFunctionSlug.instigator, StoryFunctionSlug.saboteur,
             StoryFunctionSlug.thematicAnchor
         ],
-        ArchetypeSlug.passiveProtagonist: [
-            StoryFunctionSlug.audienceSurrogate, StoryFunctionSlug.mirror,
-            StoryFunctionSlug.thematicAnchor
-        ],
         ArchetypeSlug.tragicHero: [
             StoryFunctionSlug.thematicAnchor, StoryFunctionSlug.mirror,
-            StoryFunctionSlug.catalyst
+            StoryFunctionSlug.catalyst, StoryFunctionSlug.passiveProtagonist
         ],
         ArchetypeSlug.mentor: [
             StoryFunctionSlug.voiceOfReason, StoryFunctionSlug.herald,
             StoryFunctionSlug.thresholdGuardian
         ],
         ArchetypeSlug.jester: [
-            StoryFunctionSlug.comicRelief, StoryFunctionSlug.foil
+            StoryFunctionSlug.comicRelief, StoryFunctionSlug.foil,
+            StoryFunctionSlug.instigator
         ],
         ArchetypeSlug.sidekick: [
             StoryFunctionSlug.confidant, StoryFunctionSlug.comicRelief
@@ -144,10 +141,6 @@ enum IdentityRelevance {
             StoryFunctionSlug.mirror, StoryFunctionSlug.foil,
             StoryFunctionSlug.thematicAnchor
         ],
-        ArchetypeSlug.innerAntagonist: [
-            StoryFunctionSlug.saboteur, StoryFunctionSlug.mirror,
-            StoryFunctionSlug.thematicAnchor
-        ],
         ArchetypeSlug.inanimateAntagonist: [
             StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.catalyst,
             StoryFunctionSlug.harbinger
@@ -168,10 +161,12 @@ enum IdentityRelevance {
             StoryFunctionSlug.heroAntagonist
         ],
         ArchetypeSlug.innocent: [
-            StoryFunctionSlug.audienceSurrogate, StoryFunctionSlug.catalyst
+            StoryFunctionSlug.audienceSurrogate, StoryFunctionSlug.catalyst,
+            StoryFunctionSlug.passiveProtagonist
         ],
         ArchetypeSlug.artist: [
-            StoryFunctionSlug.thematicAnchor, StoryFunctionSlug.mirror
+            StoryFunctionSlug.thematicAnchor, StoryFunctionSlug.mirror,
+            StoryFunctionSlug.passiveProtagonist
         ]
     ]
 
@@ -183,11 +178,9 @@ enum IdentityRelevance {
         ArchetypeSlug.hero: HierarchicalRole.Stock.protagonist,
         ArchetypeSlug.antiHero: HierarchicalRole.Stock.protagonist,
         ArchetypeSlug.tragicHero: HierarchicalRole.Stock.protagonist,
-        ArchetypeSlug.passiveProtagonist: HierarchicalRole.Stock.protagonist,
         ArchetypeSlug.villainProtagonist: HierarchicalRole.Stock.protagonist,
         ArchetypeSlug.villain: HierarchicalRole.Stock.antagonist,
         ArchetypeSlug.antiVillain: HierarchicalRole.Stock.antagonist,
-        ArchetypeSlug.innerAntagonist: HierarchicalRole.Stock.antagonist,
         ArchetypeSlug.inanimateAntagonist: HierarchicalRole.Stock.antagonist
     ]
 
