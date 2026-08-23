@@ -201,7 +201,8 @@ enum IdentityCatalog {
     static let storyFunctions: [IdentityCatalogEntry] = [
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.catalyst, name: "Catalyst",
-            definition: "Sparks the story into motion.",
+            definition: "Sparks someone else's story into motion, "
+                + "then steps out of the way.",
             examples: "R2-D2 · The White Rabbit"
         ),
         IdentityCatalogEntry(

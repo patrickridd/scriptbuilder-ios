@@ -17,6 +17,63 @@ final class IdentityRelevanceTests: XCTestCase {
         XCTAssertTrue(slugs.contains(StoryFunctionSlug.tempter))
     }
 
+    func testProtagonistOnlyJobsLeadTheSuggestionList() {
+        let role = HierarchicalRole(slug: HierarchicalRole.Stock.protagonist)
+        let slugs = IdentityRelevance.suggestedStoryFunctionSlugs(
+            for: role,
+            archetypes: [.stock(ArchetypeSlug.hero)]
+        )
+        let exclusive: Set<String> = [
+            StoryFunctionSlug.activeProtagonist,
+            StoryFunctionSlug.passiveProtagonist,
+            StoryFunctionSlug.catalystLead
+        ]
+        let leading = slugs.prefix(while: { exclusive.contains($0) })
+        XCTAssertEqual(Set(leading), exclusive.intersection(slugs))
+        XCTAssertEqual(slugs.count, Set(slugs).count)
+    }
+
+    func testSupportingOnlyJobsAreHiddenFromBothPoles() {
+        for slug in [HierarchicalRole.Stock.protagonist, HierarchicalRole.Stock.antagonist] {
+            let catalog = IdentityRelevance.storyFunctionCatalog(
+                for: HierarchicalRole(slug: slug)
+            ).map(\.slug)
+            XCTAssertFalse(catalog.contains(StoryFunctionSlug.catalyst), slug)
+            XCTAssertFalse(catalog.contains(StoryFunctionSlug.henchman), slug)
+        }
+        let recurring = IdentityRelevance.storyFunctionCatalog(
+            for: HierarchicalRole(slug: HierarchicalRole.Stock.recurring)
+        ).map(\.slug)
+        XCTAssertTrue(recurring.contains(StoryFunctionSlug.catalyst))
+        XCTAssertTrue(recurring.contains(StoryFunctionSlug.henchman))
+    }
+
+    func testSupportingOnlyJobsLeadARecurringSuggestionList() {
+        let role = HierarchicalRole(slug: HierarchicalRole.Stock.recurring)
+        let slugs = IdentityRelevance.suggestedStoryFunctionSlugs(for: role, archetypes: [])
+        func index(_ slug: String) -> Int { slugs.firstIndex(of: slug) ?? Int.max }
+        XCTAssertLessThan(index(StoryFunctionSlug.catalyst),
+                          index(StoryFunctionSlug.comicRelief))
+        XCTAssertLessThan(index(StoryFunctionSlug.henchman),
+                          index(StoryFunctionSlug.herald))
+    }
+
+    func testAntagonistOppositionJobsOutrankUniversalOnes() {
+        let role = HierarchicalRole(slug: HierarchicalRole.Stock.antagonist)
+        let slugs = IdentityRelevance.suggestedStoryFunctionSlugs(for: role, archetypes: [])
+        func index(_ slug: String) -> Int {
+            slugs.firstIndex(of: slug) ?? Int.max
+        }
+        // Jobs a Protagonist is barred from are rarer, so they lead…
+        XCTAssertLessThan(index(StoryFunctionSlug.heroAntagonist),
+                          index(StoryFunctionSlug.thresholdGuardian))
+        XCTAssertLessThan(index(StoryFunctionSlug.hiddenAntagonist),
+                          index(StoryFunctionSlug.mirror))
+        // …and the curated order survives inside each tier.
+        XCTAssertLessThan(index(StoryFunctionSlug.tempter),
+                          index(StoryFunctionSlug.saboteur))
+    }
+
     func testNoRoleOrCustomRoleSuggestsNothingSoEverythingShows() {
         XCTAssertTrue(IdentityRelevance.suggestedArchetypeSlugs(for: nil).isEmpty)
         XCTAssertTrue(IdentityRelevance.suggestedStoryFunctionSlugs(for: .custom("Narrator")).isEmpty)

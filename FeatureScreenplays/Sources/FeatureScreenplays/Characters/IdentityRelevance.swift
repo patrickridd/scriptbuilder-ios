@@ -113,7 +113,7 @@ enum IdentityRelevance {
         ],
         ArchetypeSlug.tragicHero: [
             StoryFunctionSlug.thematicAnchor, StoryFunctionSlug.mirror,
-            StoryFunctionSlug.catalyst, StoryFunctionSlug.passiveProtagonist
+            StoryFunctionSlug.passiveProtagonist
         ],
         ArchetypeSlug.mentor: [
             StoryFunctionSlug.voiceOfReason, StoryFunctionSlug.herald,
@@ -144,7 +144,7 @@ enum IdentityRelevance {
             StoryFunctionSlug.mirror, StoryFunctionSlug.foil
         ],
         ArchetypeSlug.inanimateAntagonist: [
-            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.catalyst,
+            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.instigator,
             StoryFunctionSlug.harbinger
         ],
         ArchetypeSlug.shapeshifter: [
@@ -211,27 +211,35 @@ enum IdentityRelevance {
         StoryFunctionSlug.catalystLead
     ]
 
+    /// Jobs that only read as jobs when a *supporting* player does them: they
+    /// serve one of the two poles of the story rather than being one. A lead
+    /// who sparks their own story is a Catalyst Lead; the opposition stirring
+    /// trouble is an Instigator; and nobody is their own henchman.
+    private static let supportingOnlyStoryFunctions: Set<String> = [
+        StoryFunctionSlug.catalyst,
+        StoryFunctionSlug.henchman
+    ]
+
     /// Story functions that contradict a role outright. A Protagonist can be
     /// plenty of unpleasant things, but they cannot be the story's opposition
     /// machinery — those jobs only read as jobs when someone else does them.
     /// Hidden from the picker (even under "All …") unless already saved.
     private static let blockedStoryFunctionsByRole: [String: Set<String>] = [
-        HierarchicalRole.Stock.protagonist: [
+        HierarchicalRole.Stock.protagonist: supportingOnlyStoryFunctions.union([
             StoryFunctionSlug.falseAntagonist,
             StoryFunctionSlug.heroAntagonist,
             StoryFunctionSlug.hiddenAntagonist,
             StoryFunctionSlug.saboteur,
             StoryFunctionSlug.tempter,
-            StoryFunctionSlug.henchman,
             StoryFunctionSlug.instigator
-        ],
-        HierarchicalRole.Stock.antagonist: [
+        ]),
+        HierarchicalRole.Stock.antagonist: supportingOnlyStoryFunctions.union([
             StoryFunctionSlug.activeProtagonist,
             StoryFunctionSlug.audienceSurrogate,
             StoryFunctionSlug.passiveProtagonist,
             StoryFunctionSlug.thematicAnchor,
             StoryFunctionSlug.catalystLead
-        ],
+        ]),
         HierarchicalRole.Stock.secondLead: leadOnlyStoryFunctions,
         HierarchicalRole.Stock.thirdLead: leadOnlyStoryFunctions,
         HierarchicalRole.Stock.fourthLead: leadOnlyStoryFunctions,
@@ -338,6 +346,27 @@ enum IdentityRelevance {
         return storyFunctionsByRole[role.slug] ?? []
     }
 
+    /// How many stock roles are allowed to wear a job. Lower means rarer, and
+    /// rarer jobs lead the suggestion list: they're the ones this role would
+    /// lose by switching. A job only this role can take scores 1 and always
+    /// sorts first; a job everyone can take scores the full role count.
+    private static func roleReach(of slug: String) -> Int {
+        HierarchicalRole.Stock.all.filter { roleSlug in
+            !(blockedStoryFunctionsByRole[roleSlug]?.contains(slug) ?? false)
+        }.count
+    }
+
+    /// Rarest-first, preserving the curated order inside each tier.
+    private static func rankedByExclusivity(_ slugs: [String]) -> [String] {
+        slugs.enumerated()
+            .sorted { lhs, rhs in
+                let left = roleReach(of: lhs.element)
+                let right = roleReach(of: rhs.element)
+                return left == right ? lhs.offset < rhs.offset : left < right
+            }
+            .map(\.element)
+    }
+
     /// Union of the role's story functions and those of every chosen archetype,
     /// role-led and de-duplicated. Custom roles and custom archetypes are
     /// skipped, and an archetype on its own is enough to produce suggestions.
@@ -355,9 +384,12 @@ enum IdentityRelevance {
         }
         // Archetype hints merge with role hints, so a Protagonist/Warrior could
         // otherwise be handed Hero Antagonist through the back door.
-        guard let role, !role.isCustom,
-              let blocked = blockedStoryFunctionsByRole[role.slug] else { return ordered }
-        return ordered.filter { !blocked.contains($0) }
+        guard let role, !role.isCustom else { return ordered }
+        let blocked = blockedStoryFunctionsByRole[role.slug] ?? []
+        let visible = blocked.isEmpty ? ordered : ordered.filter { !blocked.contains($0) }
+        // Jobs few other roles can take lead the list: they're the ones the
+        // writer loses the moment they change this role.
+        return rankedByExclusivity(visible)
     }
 
     /// One identity choice a suggestion set was derived from, tagged with the
