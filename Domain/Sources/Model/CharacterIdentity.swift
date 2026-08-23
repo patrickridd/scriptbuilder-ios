@@ -168,6 +168,12 @@ public enum StoryFunctionSlug {
     public static let hiddenAntagonist  = "hidden-antagonist"
     /// A lead the plot happens *to*: they react rather than drive.
     public static let passiveProtagonist = "passive-protagonist"
+    /// A lead who drives the plot scene by scene through their own choices.
+    public static let activeProtagonist = "active-protagonist"
+    /// Uncovers clues, secrets and worldbuilding on the audience's behalf.
+    public static let investigator      = "investigator"
+    /// One pivotal Act 1 choice that shatters the status quo.
+    public static let catalystLead      = "catalyst-lead"
     public static let audienceSurrogate = "audience-surrogate"
     public static let harbinger         = "harbinger"
     public static let mirror            = "mirror"
@@ -181,6 +187,7 @@ public enum StoryFunctionSlug {
         catalyst, foil, confidant, thresholdGuardian, herald, comicRelief,
         loveInterest, voiceOfReason, falseAntagonist, heroAntagonist,
         hiddenAntagonist, passiveProtagonist,
+        activeProtagonist, investigator, catalystLead,
         audienceSurrogate, harbinger,
         mirror, saboteur, tempter, thematicAnchor, instigator, henchman
     ]

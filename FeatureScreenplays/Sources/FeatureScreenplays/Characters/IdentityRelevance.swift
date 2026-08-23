@@ -58,6 +58,9 @@ enum IdentityRelevance {
 
     private static let storyFunctionsByRole: [String: [String]] = [
         HierarchicalRole.Stock.protagonist: [
+            StoryFunctionSlug.activeProtagonist,
+            StoryFunctionSlug.catalystLead,
+            StoryFunctionSlug.investigator,
             StoryFunctionSlug.audienceSurrogate,
             StoryFunctionSlug.thematicAnchor,
             StoryFunctionSlug.passiveProtagonist
@@ -98,6 +101,7 @@ enum IdentityRelevance {
     /// suggestions rather than replacing them.
     private static let storyFunctionsByArchetype: [String: [String]] = [
         ArchetypeSlug.hero: [
+            StoryFunctionSlug.activeProtagonist,
             StoryFunctionSlug.audienceSurrogate, StoryFunctionSlug.thematicAnchor
         ],
         ArchetypeSlug.antiHero: [
@@ -137,8 +141,7 @@ enum IdentityRelevance {
             StoryFunctionSlug.harbinger, StoryFunctionSlug.hiddenAntagonist
         ],
         ArchetypeSlug.antiVillain: [
-            StoryFunctionSlug.mirror, StoryFunctionSlug.foil,
-            StoryFunctionSlug.thematicAnchor
+            StoryFunctionSlug.mirror, StoryFunctionSlug.foil
         ],
         ArchetypeSlug.inanimateAntagonist: [
             StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.catalyst,
@@ -212,6 +215,13 @@ enum IdentityRelevance {
             StoryFunctionSlug.tempter,
             StoryFunctionSlug.henchman,
             StoryFunctionSlug.instigator
+        ],
+        HierarchicalRole.Stock.antagonist: [
+            StoryFunctionSlug.activeProtagonist,
+            StoryFunctionSlug.audienceSurrogate,
+            StoryFunctionSlug.passiveProtagonist,
+            StoryFunctionSlug.thematicAnchor,
+            StoryFunctionSlug.catalystLead
         ]
     ]
 

@@ -267,6 +267,27 @@ enum IdentityCatalog {
             examples: "Nick Carraway · The Dude · Bilbo Baggins"
         ),
         IdentityCatalogEntry(
+            slug: StoryFunctionSlug.activeProtagonist,
+            name: "Active Protagonist",
+            definition: "Proactively makes decisions, pursues an external goal, "
+                + "and drives the plot forward through scene-by-scene agency.",
+            examples: "John McClane (Die Hard) · Marlin (Finding Nemo)"
+        ),
+        IdentityCatalogEntry(
+            slug: StoryFunctionSlug.investigator,
+            name: "The Investigator",
+            definition: "Drives the narrative momentum by systematically "
+                + "uncovering clues, secrets, and worldbuilding for the audience.",
+            examples: "Benoit Blanc (Knives Out) · Rick Deckard (Blade Runner)"
+        ),
+        IdentityCatalogEntry(
+            slug: StoryFunctionSlug.catalystLead,
+            name: "Catalyst Lead",
+            definition: "Makes the pivotal choice that triggers their own journey.",
+            examples: "Katniss Everdeen (The Hunger Games) · "
+                + "Sarah Connor (The Terminator)"
+        ),
+        IdentityCatalogEntry(
             slug: StoryFunctionSlug.audienceSurrogate, name: "Audience Surrogate",
             definition: "Asks what we're all thinking — our way into the world.",
             examples: "Nick Carraway · Bilbo Baggins"
