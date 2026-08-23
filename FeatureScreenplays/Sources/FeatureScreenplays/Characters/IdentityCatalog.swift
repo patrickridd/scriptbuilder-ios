@@ -293,8 +293,9 @@ enum IdentityCatalog {
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.thematicAnchor, name: "Thematic Anchor",
-            definition: "Embodies the story's central idea.",
-            examples: "Yoda · Atticus Finch"
+            definition: "Holds the story's moral centre and never bends. "
+                + "They don't change — the world around them does.",
+            examples: "Paddington · Superman · Atticus Finch"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.instigator, name: "Instigator",
@@ -450,5 +451,13 @@ enum IdentityUIStrings {
     /// "5 Protagonist-only archetypes — set the role to Protagonist to see them".
     static func roleExclusiveNotice(count: Int, roleName: String) -> String {
         "\(count) \(roleName)-only \(count == 1 ? "archetype" : "archetypes") — set the role to \(roleName) to see them"
+    }
+
+    /// Explains story functions withheld because they fight the current role,
+    /// e.g. "6 opposition jobs hidden — a Protagonist can't work against their
+    /// own story. Change the role to see them".
+    static func blockedFunctionNotice(count: Int, roleName: String) -> String {
+        let jobs = count == 1 ? "job" : "jobs"
+        return "\(count) opposition \(jobs) hidden — a \(roleName) can't work against their own story. Change the role to see them"
     }
 }

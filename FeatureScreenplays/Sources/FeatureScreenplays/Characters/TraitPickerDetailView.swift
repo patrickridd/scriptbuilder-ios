@@ -27,6 +27,9 @@ struct TraitPickerDetailView: View {
     /// Archetype families the current role cannot wear, listed under the cards
     /// so a trimmed catalog explains itself.
     let roleExclusiveFamilies: [IdentityRelevance.RoleExclusiveFamily]
+    /// Copy for choices withheld because they contradict the current role —
+    /// shown under the cards, tapping pops back to Identity.
+    let blockedNotice: String?
     /// The identity choices these suggestions came from — role and/or
     /// archetypes — shown in the suggested header so the writer can see why
     /// the list is ordered the way it is. Each keeps its facet so the header
@@ -72,6 +75,7 @@ struct TraitPickerDetailView: View {
         focusTrait: IdentityTrait? = nil,
         gateBanner: String? = nil,
         roleExclusiveFamilies: [IdentityRelevance.RoleExclusiveFamily] = [],
+        blockedNotice: String? = nil,
         tint: Color? = nil
     ) {
         self.title = title
@@ -81,6 +85,7 @@ struct TraitPickerDetailView: View {
         self.nudge = nudge
         self.gateBanner = gateBanner
         self.roleExclusiveFamilies = roleExclusiveFamilies
+        self.blockedNotice = blockedNotice
         self.tint = tint
         self.suggestionSources = suggestionSources ?? [roleName]
             .compactMap { $0 }
@@ -375,43 +380,51 @@ struct TraitPickerDetailView: View {
     /// "5 Protagonist-only archetypes — set the role to Protagonist to see
     /// them." Tapping returns to Identity where the Role row lives.
     @ViewBuilder private var roleExclusiveNotices: some View {
-        if !roleExclusiveFamilies.isEmpty {
+        if !roleExclusiveFamilies.isEmpty || blockedNotice != nil {
             VStack(spacing: 8) {
                 ForEach(roleExclusiveFamilies) { family in
-                    Button {
-                        Haptics.selection()
-                        dismiss()
-                    } label: {
-                        HStack(spacing: 8) {
-                            Image(systemName: "lock.open")
-                                .font(.caption.weight(.semibold))
-                                .foregroundStyle(palette.textMuted)
-                            Text(IdentityUIStrings.roleExclusiveNotice(
-                                count: family.count,
-                                roleName: family.roleName
-                            ))
-                            .font(.caption)
-                            .foregroundStyle(palette.textMuted)
-                            .multilineTextAlignment(.leading)
-                            Spacer(minLength: 0)
-                            Image(systemName: "chevron.right")
-                                .font(.caption2.weight(.semibold))
-                                .foregroundStyle(palette.textMuted.opacity(0.7))
-                        }
-                        .padding(12)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .fill(palette.cardSurface.opacity(0.6))
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .stroke(palette.cardStroke, lineWidth: 1)
-                        )
-                    }
-                    .buttonStyle(.plain)
+                    noticeRow(IdentityUIStrings.roleExclusiveNotice(
+                        count: family.count,
+                        roleName: family.roleName
+                    ))
+                }
+                if let blockedNotice {
+                    noticeRow(blockedNotice)
                 }
             }
         }
+    }
+
+    /// A muted, tappable "here's what you can't see and why" row.
+    private func noticeRow(_ text: String) -> some View {
+        Button {
+            Haptics.selection()
+            dismiss()
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "lock.open")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(palette.textMuted)
+                Text(text)
+                    .font(.caption)
+                    .foregroundStyle(palette.textMuted)
+                    .multilineTextAlignment(.leading)
+                Spacer(minLength: 0)
+                Image(systemName: "chevron.right")
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(palette.textMuted.opacity(0.7))
+            }
+            .padding(12)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(palette.cardSurface.opacity(0.6))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(palette.cardStroke, lineWidth: 1)
+            )
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: - Soft nudge

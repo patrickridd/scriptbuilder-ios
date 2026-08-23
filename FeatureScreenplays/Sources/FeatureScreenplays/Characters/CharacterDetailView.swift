@@ -257,12 +257,17 @@ struct CharacterDetailView: View {
     private var storyFunctionRow: some View {
         let role = viewModel.draft.identity.role
         let archetypes = viewModel.draft.identity.archetypes
+        let functions = viewModel.draft.identity.storyFunctions
+        let hiddenCount = IdentityRelevance.hiddenStoryFunctionCount(
+            for: role,
+            selection: functions
+        )
         return traitRow(
             step: 3,
             title: IdentityUIStrings.storyFunctionRow,
             prompt: IdentityUIStrings.storyFunctionPrompt,
             intro: .storyFunction,
-            catalog: IdentityCatalog.storyFunctions,
+            catalog: IdentityRelevance.storyFunctionCatalog(for: role, selection: functions),
             nudge: IdentityUIStrings.storyFunctionNudge,
             suggestedSlugs: IdentityRelevance.suggestedStoryFunctionSlugs(
                 for: role,
@@ -276,7 +281,13 @@ struct CharacterDetailView: View {
                 archetypes: archetypes
             ),
             gateHint: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateHint : nil,
-            gateBanner: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateBanner : nil
+            gateBanner: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateBanner : nil,
+            blockedNotice: hiddenCount > 0 && viewModel.roleDisplayText != nil
+                ? IdentityUIStrings.blockedFunctionNotice(
+                    count: hiddenCount,
+                    roleName: viewModel.roleDisplayText ?? ""
+                )
+                : nil
         )
     }
 
@@ -329,7 +340,8 @@ struct CharacterDetailView: View {
         suggestionSources: [IdentityRelevance.SuggestionSource]? = nil,
         gateHint: String? = nil,
         gateBanner: String? = nil,
-        roleExclusiveFamilies: [IdentityRelevance.RoleExclusiveFamily] = []
+        roleExclusiveFamilies: [IdentityRelevance.RoleExclusiveFamily] = [],
+        blockedNotice: String? = nil
     ) -> some View {
         let names = selection.wrappedValue.map { IdentityCatalog.displayName(for: $0, in: catalog) }
         let dimmed = gateHint != nil && names.isEmpty
@@ -346,6 +358,7 @@ struct CharacterDetailView: View {
                     suggestionSources: suggestionSources,
                     gateBanner: gateBanner,
                     roleExclusiveFamilies: roleExclusiveFamilies,
+                    blockedNotice: blockedNotice,
                     tint: tint
                 )
             } label: {
@@ -373,6 +386,7 @@ struct CharacterDetailView: View {
                         suggestionSources: suggestionSources,
                         gateBanner: gateBanner,
                         roleExclusiveFamilies: roleExclusiveFamilies,
+                        blockedNotice: blockedNotice,
                         tint: tint,
                         focus: selection.wrappedValue.indices.contains(index) ? selection.wrappedValue[index] : nil
                     )
@@ -399,6 +413,7 @@ struct CharacterDetailView: View {
         suggestionSources: [IdentityRelevance.SuggestionSource]? = nil,
         gateBanner: String? = nil,
         roleExclusiveFamilies: [IdentityRelevance.RoleExclusiveFamily] = [],
+        blockedNotice: String? = nil,
         tint: Color? = nil,
         focus: IdentityTrait? = nil
     ) -> some View {
@@ -415,6 +430,7 @@ struct CharacterDetailView: View {
             focusTrait: focus,
             gateBanner: gateBanner,
             roleExclusiveFamilies: roleExclusiveFamilies,
+            blockedNotice: blockedNotice,
             tint: tint
         )
     }

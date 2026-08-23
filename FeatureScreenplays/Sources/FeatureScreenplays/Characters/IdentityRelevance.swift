@@ -58,8 +58,8 @@ enum IdentityRelevance {
 
     private static let storyFunctionsByRole: [String: [String]] = [
         HierarchicalRole.Stock.protagonist: [
-            StoryFunctionSlug.audienceSurrogate, StoryFunctionSlug.instigator,
-            StoryFunctionSlug.thematicAnchor, StoryFunctionSlug.catalyst,
+            StoryFunctionSlug.audienceSurrogate,
+            StoryFunctionSlug.thematicAnchor,
             StoryFunctionSlug.passiveProtagonist
         ],
         HierarchicalRole.Stock.antagonist: [
@@ -98,8 +98,7 @@ enum IdentityRelevance {
     /// suggestions rather than replacing them.
     private static let storyFunctionsByArchetype: [String: [String]] = [
         ArchetypeSlug.hero: [
-            StoryFunctionSlug.audienceSurrogate, StoryFunctionSlug.instigator,
-            StoryFunctionSlug.catalyst
+            StoryFunctionSlug.audienceSurrogate, StoryFunctionSlug.thematicAnchor
         ],
         ArchetypeSlug.antiHero: [
             StoryFunctionSlug.foil, StoryFunctionSlug.mirror, StoryFunctionSlug.instigator
@@ -200,6 +199,53 @@ enum IdentityRelevance {
         }
     }
 
+    /// Story functions that contradict a role outright. A Protagonist can be
+    /// plenty of unpleasant things, but they cannot be the story's opposition
+    /// machinery — those jobs only read as jobs when someone else does them.
+    /// Hidden from the picker (even under "All …") unless already saved.
+    private static let blockedStoryFunctionsByRole: [String: Set<String>] = [
+        HierarchicalRole.Stock.protagonist: [
+            StoryFunctionSlug.falseAntagonist,
+            StoryFunctionSlug.heroAntagonist,
+            StoryFunctionSlug.hiddenAntagonist,
+            StoryFunctionSlug.saboteur,
+            StoryFunctionSlug.tempter,
+            StoryFunctionSlug.henchman,
+            StoryFunctionSlug.instigator
+        ]
+    ]
+
+    /// Story function slugs the role cannot wear, minus anything already saved.
+    private static func blockedStoryFunctions(
+        for role: HierarchicalRole?,
+        selection: [IdentityTrait]
+    ) -> Set<String> {
+        guard let role, !role.isCustom,
+              let blocked = blockedStoryFunctionsByRole[role.slug] else { return [] }
+        return blocked.subtracting(selection.filter { !$0.isCustom }.map(\.slug))
+    }
+
+    /// The story-function catalog trimmed to what the current role can do.
+    /// Anything already selected stays visible so changing a role never hides
+    /// saved work.
+    static func storyFunctionCatalog(
+        for role: HierarchicalRole?,
+        selection: [IdentityTrait] = []
+    ) -> [IdentityCatalogEntry] {
+        let blocked = blockedStoryFunctions(for: role, selection: selection)
+        guard !blocked.isEmpty else { return IdentityCatalog.storyFunctions }
+        return IdentityCatalog.storyFunctions.filter { !blocked.contains($0.slug) }
+    }
+
+    /// How many story functions the current role is barred from — surfaced in
+    /// the picker so a trimmed catalog explains itself.
+    static func hiddenStoryFunctionCount(
+        for role: HierarchicalRole?,
+        selection: [IdentityTrait] = []
+    ) -> Int {
+        blockedStoryFunctions(for: role, selection: selection).count
+    }
+
     /// An archetype family currently out of reach because it belongs to one
     /// role only — surfaced in the picker so a shorter list explains itself
     /// instead of quietly shrinking.
@@ -259,7 +305,11 @@ enum IdentityRelevance {
                 seen.insert(slug)
             }
         }
-        return ordered
+        // Archetype hints merge with role hints, so a Protagonist/Warrior could
+        // otherwise be handed Hero Antagonist through the back door.
+        guard let role, !role.isCustom,
+              let blocked = blockedStoryFunctionsByRole[role.slug] else { return ordered }
+        return ordered.filter { !blocked.contains($0) }
     }
 
     /// One identity choice a suggestion set was derived from, tagged with the
