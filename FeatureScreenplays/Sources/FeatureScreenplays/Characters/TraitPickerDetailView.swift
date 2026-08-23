@@ -377,8 +377,8 @@ struct TraitPickerDetailView: View {
         .buttonStyle(.plain)
     }
 
-    /// "5 Protagonist-only archetypes — set the role to Protagonist to see
-    /// them." Tapping returns to Identity where the Role row lives.
+    /// "5 Protagonist-only archetypes. Change the role to see them."
+    /// Tapping returns to Identity where the Role row lives.
     @ViewBuilder private var roleExclusiveNotices: some View {
         if !roleExclusiveFamilies.isEmpty || blockedNotice != nil {
             VStack(spacing: 8) {

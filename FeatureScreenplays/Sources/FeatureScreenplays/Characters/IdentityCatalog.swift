@@ -469,16 +469,30 @@ enum IdentityUIStrings {
     static let gateBannerAction = "Back to Identity"
 
     /// Explains an archetype family the current role cannot wear, e.g.
-    /// "5 Protagonist-only archetypes — set the role to Protagonist to see them".
+    /// "5 Protagonist-only archetypes. Change the role to see them".
+    /// Deliberately mirrors `roleOnlyFunctionNotice` so both picker notices
+    /// read as one voice.
     static func roleExclusiveNotice(count: Int, roleName: String) -> String {
-        "\(count) \(roleName)-only \(count == 1 ? "archetype" : "archetypes") — set the role to \(roleName) to see them"
+        let archetypes = count == 1 ? "archetype" : "archetypes"
+        let them = count == 1 ? "it" : "them"
+        return "\(count) \(roleName)-only \(archetypes). Change the role to see \(them)"
     }
 
-    /// Explains story functions withheld because they fight the current role,
-    /// e.g. "6 opposition jobs hidden — a Protagonist can't work against their
-    /// own story. Change the role to see them".
+    /// Explains story functions withheld because they don't fit the current role,
+    /// e.g. "6 jobs restricted for Protagonist. Change the role to see them".
+    /// Deliberately neutral: the hidden set can be opposition jobs (for a lead)
+    /// or lead-driver jobs (for a supporting role), so the copy must fit both.
     static func blockedFunctionNotice(count: Int, roleName: String) -> String {
         let jobs = count == 1 ? "job" : "jobs"
-        return "\(count) opposition \(jobs) hidden — a \(roleName) can't work against their own story. Change the role to see them"
+        let them = count == 1 ? "it" : "them"
+        return "\(count) \(jobs) restricted for \(roleName). Change the role to see \(them)"
+    }
+
+    /// Used when every hidden job belongs to one specific role, e.g.
+    /// "3 Protagonist-only jobs. Change the role to see them".
+    static func roleOnlyFunctionNotice(count: Int, roleName: String) -> String {
+        let jobs = count == 1 ? "job" : "jobs"
+        let them = count == 1 ? "it" : "them"
+        return "\(count) \(roleName)-only \(jobs). Change the role to see \(them)"
     }
 }

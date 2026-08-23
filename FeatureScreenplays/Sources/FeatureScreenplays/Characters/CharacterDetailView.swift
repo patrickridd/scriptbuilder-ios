@@ -262,6 +262,14 @@ struct CharacterDetailView: View {
             for: role,
             selection: functions
         )
+        let ownerRoleName = IdentityRelevance.hiddenStoryFunctionOwnerRoleName(
+            for: role,
+            selection: functions
+        )
+        let blockedNotice = storyFunctionBlockedNotice(
+            count: hiddenCount,
+            ownerRoleName: ownerRoleName
+        )
         return traitRow(
             step: 3,
             title: IdentityUIStrings.storyFunctionRow,
@@ -282,13 +290,25 @@ struct CharacterDetailView: View {
             ),
             gateHint: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateHint : nil,
             gateBanner: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateBanner : nil,
-            blockedNotice: hiddenCount > 0 && viewModel.roleDisplayText != nil
-                ? IdentityUIStrings.blockedFunctionNotice(
-                    count: hiddenCount,
-                    roleName: viewModel.roleDisplayText ?? ""
-                )
-                : nil
+            blockedNotice: blockedNotice
         )
+    }
+
+    /// Names the owning role when the hidden jobs all belong to one ("3
+    /// Protagonist-only jobs"); otherwise stays neutral, because a lead hides a
+    /// mixed bag of opposition jobs that no single role owns.
+    private func storyFunctionBlockedNotice(
+        count: Int,
+        ownerRoleName: String?
+    ) -> String? {
+        guard count > 0, let roleName = viewModel.roleDisplayText else { return nil }
+        if let ownerRoleName {
+            return IdentityUIStrings.roleOnlyFunctionNotice(
+                count: count,
+                roleName: ownerRoleName
+            )
+        }
+        return IdentityUIStrings.blockedFunctionNotice(count: count, roleName: roleName)
     }
 
     private var roleRow: some View {

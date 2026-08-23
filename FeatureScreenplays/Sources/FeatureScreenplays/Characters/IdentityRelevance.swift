@@ -76,7 +76,7 @@ enum IdentityRelevance {
             StoryFunctionSlug.confidant, StoryFunctionSlug.foil,
             StoryFunctionSlug.loveInterest, StoryFunctionSlug.voiceOfReason,
             StoryFunctionSlug.falseAntagonist, StoryFunctionSlug.heroAntagonist,
-            StoryFunctionSlug.hiddenAntagonist, StoryFunctionSlug.passiveProtagonist
+            StoryFunctionSlug.hiddenAntagonist
         ],
         HierarchicalRole.Stock.thirdLead: [
             StoryFunctionSlug.comicRelief, StoryFunctionSlug.foil,
@@ -202,6 +202,15 @@ enum IdentityRelevance {
         }
     }
 
+    /// Jobs that only make sense for the person the story is *about*: they
+    /// describe how the lead carries the plot, so a supporting player or the
+    /// opposition can never wear them.
+    private static let leadOnlyStoryFunctions: Set<String> = [
+        StoryFunctionSlug.activeProtagonist,
+        StoryFunctionSlug.passiveProtagonist,
+        StoryFunctionSlug.catalystLead
+    ]
+
     /// Story functions that contradict a role outright. A Protagonist can be
     /// plenty of unpleasant things, but they cannot be the story's opposition
     /// machinery — those jobs only read as jobs when someone else does them.
@@ -222,7 +231,11 @@ enum IdentityRelevance {
             StoryFunctionSlug.passiveProtagonist,
             StoryFunctionSlug.thematicAnchor,
             StoryFunctionSlug.catalystLead
-        ]
+        ],
+        HierarchicalRole.Stock.secondLead: leadOnlyStoryFunctions,
+        HierarchicalRole.Stock.thirdLead: leadOnlyStoryFunctions,
+        HierarchicalRole.Stock.fourthLead: leadOnlyStoryFunctions,
+        HierarchicalRole.Stock.recurring: leadOnlyStoryFunctions
     ]
 
     /// Story function slugs the role cannot wear, minus anything already saved.
@@ -254,6 +267,31 @@ enum IdentityRelevance {
         selection: [IdentityTrait] = []
     ) -> Int {
         blockedStoryFunctions(for: role, selection: selection).count
+    }
+
+    /// Jobs that belong to exactly one role, so a supporting player can be told
+    /// *whose* jobs they're missing rather than a vague "restricted".
+    private static let ownerRoleByStoryFunction: [String: String] = Dictionary(
+        uniqueKeysWithValues: leadOnlyStoryFunctions.map {
+            ($0, HierarchicalRole.Stock.protagonist)
+        }
+    )
+
+    /// The display name of the single role that owns every hidden job, when
+    /// there is one. Returns nil for mixed sets (a Protagonist hides several
+    /// opposition jobs that no single role owns), so the caller can fall back
+    /// to neutral copy.
+    static func hiddenStoryFunctionOwnerRoleName(
+        for role: HierarchicalRole?,
+        selection: [IdentityTrait] = []
+    ) -> String? {
+        let hidden = blockedStoryFunctions(for: role, selection: selection)
+        guard !hidden.isEmpty else { return nil }
+        let owners = Set(hidden.map { ownerRoleByStoryFunction[$0] ?? "" })
+        guard owners.count == 1, let ownerSlug = owners.first, !ownerSlug.isEmpty else {
+            return nil
+        }
+        return IdentityCatalog.roleEntry(for: ownerSlug)?.name ?? ownerSlug.capitalized
     }
 
     /// An archetype family currently out of reach because it belongs to one
