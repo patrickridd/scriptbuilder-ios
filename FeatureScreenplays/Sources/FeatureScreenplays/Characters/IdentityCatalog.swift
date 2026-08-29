@@ -331,6 +331,47 @@ enum IdentityCatalog {
         )
     ]
 
+    // MARK: - Story function actions
+
+    /// Verb-phrase headline for every story function, keyed by slug.
+    ///
+    /// Archetypes and story functions are both lists of agent nouns ("Mentor",
+    /// "Tempter"), so grammar — not colour — is what separates them. In the
+    /// picker the job leads as an *action* and the noun drops to a caption,
+    /// making that list read as things a character does rather than things a
+    /// character is. Only story functions appear here; a nil lookup means the
+    /// card keeps its noun headline.
+    static let storyFunctionActions: [String: String] = [
+        StoryFunctionSlug.catalyst: "Sparks someone else's story",
+        StoryFunctionSlug.foil: "Contrasts the lead",
+        StoryFunctionSlug.confidant: "Hears what the lead can't say aloud",
+        StoryFunctionSlug.thresholdGuardian: "Blocks the way in",
+        StoryFunctionSlug.herald: "Delivers the call to adventure",
+        StoryFunctionSlug.comicRelief: "Breaks the tension",
+        StoryFunctionSlug.loveInterest: "Raises the personal stakes",
+        StoryFunctionSlug.voiceOfReason: "Argues for the sensible plan",
+        StoryFunctionSlug.falseAntagonist: "Draws the suspicion",
+        StoryFunctionSlug.heroAntagonist: "Opposes the lead for good reasons",
+        StoryFunctionSlug.hiddenAntagonist: "Hides in plain sight",
+        StoryFunctionSlug.passiveProtagonist: "Reacts instead of driving",
+        StoryFunctionSlug.activeProtagonist: "Drives the plot scene by scene",
+        StoryFunctionSlug.investigator: "Uncovers the truth",
+        StoryFunctionSlug.catalystLead: "Makes the choice that starts it all",
+        StoryFunctionSlug.audienceSurrogate: "Asks what we're all thinking",
+        StoryFunctionSlug.harbinger: "Warns what's coming",
+        StoryFunctionSlug.mirror: "Shows the road not taken",
+        StoryFunctionSlug.saboteur: "Undermines the plan from within",
+        StoryFunctionSlug.tempter: "Offers the easy way out",
+        StoryFunctionSlug.thematicAnchor: "Holds the moral line",
+        StoryFunctionSlug.instigator: "Stirs up trouble",
+        StoryFunctionSlug.henchman: "Carries out the orders"
+    ]
+
+    /// Verb-phrase headline for a slug, when one exists.
+    static func action(for slug: String) -> String? {
+        storyFunctionActions[slug]
+    }
+
     // MARK: - Display helpers
 
     /// Display text for a selected role: the writer's own label for custom /
@@ -394,6 +435,12 @@ enum IdentityUIStrings {
     static let changeNameAction = "Change Name"
     static let moreActions = "More actions"
     static let chipHint = "Opens this choice in the picker"
+
+    /// Spoken form of the noun tag under an action headline, e.g. "Known as
+    /// Catalyst".
+    static func knownAs(_ term: String) -> String {
+        "Known as \(term)"
+    }
 
     /// Spoken form of the scholarly caption, e.g. "Also called Deuteragonist".
     static func classicalTerm(_ term: String) -> String {

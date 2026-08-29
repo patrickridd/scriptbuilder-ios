@@ -18,6 +18,9 @@ struct IdentityChoiceCard: View {
     let examples: String?
     /// Optional scholarly term shown as a quiet caption under the name.
     var classicalName: String?
+    /// The noun this choice is filed under, shown as a small tag beneath an
+    /// action headline (story functions lead with the verb phrase instead).
+    var term: String?
     let isSelected: Bool
     let onTap: () -> Void
     var onDelete: (() -> Void)?
@@ -33,19 +36,21 @@ struct IdentityChoiceCard: View {
     /// keep their indicator pinned to the first line of text.
     private var isCompact: Bool {
         (definition?.isEmpty ?? true) && (examples?.isEmpty ?? true)
-            && (classicalName?.isEmpty ?? true)
+            && (classicalName?.isEmpty ?? true) && (term?.isEmpty ?? true)
     }
 
     var body: some View {
         Button(action: onTap) {
             HStack(alignment: isCompact ? .center : .top, spacing: 12) {
+                glyphBadge
                 textStack
                 Spacer(minLength: 0)
                 deleteButton
                 selectionIndicator
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(12)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 14)
             .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
             .overlay(border)
         }
@@ -57,12 +62,37 @@ struct IdentityChoiceCard: View {
         Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
             .font(.title3)
             .foregroundStyle(isSelected ? accent : palette.textMuted.opacity(0.5))
-            .padding(.top, isCompact ? 0 : 1)
+            .frame(height: isCompact ? nil : titleLineHeight)
     }
 
+    /// Facet glyph in its own leading column, vertically centred on the title
+    /// line so it reads as a marker for the headline, not for the paragraph.
+    @ViewBuilder
+    private var glyphBadge: some View {
+        if let glyph, !glyph.isEmpty {
+            Image(systemName: glyph)
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(accent.opacity(isSelected ? 1 : 0.75))
+                .frame(width: 18, height: isCompact ? nil : titleLineHeight)
+                .accessibilityHidden(true)
+        }
+    }
+
+    /// Height of the title's line box, used to centre the leading glyph and
+    /// the trailing checkmark against the headline.
+    private var titleLineHeight: CGFloat { 22 }
+
     private var textStack: some View {
-        VStack(alignment: .leading, spacing: 3) {
+        VStack(alignment: .leading, spacing: 6) {
             nameLine
+            if let term, !term.isEmpty {
+                Text(term)
+                    .font(.caption2.weight(.bold))
+                    .textCase(.uppercase)
+                    .tracking(0.6)
+                    .foregroundStyle(accent.opacity(isSelected ? 1 : 0.85))
+                    .accessibilityLabel(IdentityUIStrings.knownAs(term))
+            }
             if let classicalName, !classicalName.isEmpty {
                 Text(classicalName)
                     .font(.caption2)
@@ -87,21 +117,14 @@ struct IdentityChoiceCard: View {
         .fixedSize(horizontal: false, vertical: true)
     }
 
-    /// Name preceded by the facet glyph — the shape does the work the hue
-    /// alone can't, because both facets are lists of agent nouns.
+    /// The headline itself. The facet glyph sits in its own column to the
+    /// left so long names wrap flush instead of tucking under the symbol.
     private var nameLine: some View {
-        HStack(alignment: .firstTextBaseline, spacing: 6) {
-            if let glyph, !glyph.isEmpty {
-                Image(systemName: glyph)
-                    .font(.caption2.weight(.semibold))
-                    .foregroundStyle(accent.opacity(isSelected ? 1 : 0.75))
-                    .accessibilityHidden(true)
-            }
-            Text(name)
-                .font(.body.weight(.semibold))
-                .foregroundStyle(palette.textPrimary)
-                .multilineTextAlignment(.leading)
-        }
+        Text(name)
+            .font(.body.weight(.semibold))
+            .foregroundStyle(palette.textPrimary)
+            .multilineTextAlignment(.leading)
+            .frame(minHeight: isCompact ? nil : titleLineHeight, alignment: .leading)
     }
 
     @ViewBuilder
