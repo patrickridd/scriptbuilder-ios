@@ -96,7 +96,8 @@ struct RolePickerDetailView: View {
                     classicalName: entry.classicalName,
                     isSelected: isSelected(entry.slug),
                     onTap: { tap(entry.slug) },
-                    tint: accent
+                    tint: accent,
+                    glyph: IdentityHue.glyph(for: .role)
                 )
             }
         }
@@ -123,7 +124,8 @@ struct RolePickerDetailView: View {
                     isSelected: true,
                     onTap: {},
                     onDelete: { clear() },
-                    tint: accent
+                    tint: accent,
+                    glyph: IdentityHue.glyph(for: .role)
                 )
                 Text(IdentityUIStrings.savedRoleHint)
                     .font(.footnote)

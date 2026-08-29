@@ -140,9 +140,14 @@ struct CharacterCard: View {
 
     private func chip(_ text: String, facet: IdentityHue.Facet) -> some View {
         let hue = IdentityHue.hue(for: facet)
-        return Text(text)
-            .font(.caption2.weight(.medium))
-            .lineLimit(1)
+        return HStack(spacing: 4) {
+            Image(systemName: IdentityHue.glyph(for: facet))
+                .font(.system(size: 9, weight: .semibold))
+                .accessibilityHidden(true)
+            Text(text)
+                .font(.caption2.weight(.medium))
+                .lineLimit(1)
+        }
             .foregroundStyle(hue)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)

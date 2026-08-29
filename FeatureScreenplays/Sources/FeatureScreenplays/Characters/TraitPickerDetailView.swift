@@ -38,6 +38,9 @@ struct TraitPickerDetailView: View {
     /// Facet hue used for emphasized words in the suggested header. Falls back
     /// to the app accent (archetypes) when nil.
     let tint: Color?
+    /// Facet glyph stamped on every card and chip in this picker, so a list of
+    /// archetypes never reads like a list of story functions.
+    let glyph: String?
     @Binding var boundSelection: [IdentityTrait]
     /// When set, the picker opens scrolled to this trait and pulses it briefly
     /// so a tap on a chip lands exactly where the writer expects.
@@ -76,7 +79,8 @@ struct TraitPickerDetailView: View {
         gateBanner: String? = nil,
         roleExclusiveFamilies: [IdentityRelevance.RoleExclusiveFamily] = [],
         blockedNotice: String? = nil,
-        tint: Color? = nil
+        tint: Color? = nil,
+        glyph: String? = nil
     ) {
         self.title = title
         self.characterName = characterName
@@ -87,6 +91,7 @@ struct TraitPickerDetailView: View {
         self.roleExclusiveFamilies = roleExclusiveFamilies
         self.blockedNotice = blockedNotice
         self.tint = tint
+        self.glyph = glyph
         self.suggestionSources = suggestionSources ?? [roleName]
             .compactMap { $0 }
             .map { IdentityRelevance.SuggestionSource(name: $0, facet: .role) }
@@ -245,7 +250,8 @@ struct TraitPickerDetailView: View {
                     examples: entry.examples,
                     isSelected: isStockSelected(entry.slug),
                     onTap: { toggleStock(entry.slug) },
-                    tint: hue
+                    tint: hue,
+                    glyph: glyph
                 )
                 .overlay(focusHighlight("stock-\(entry.slug)"))
                 .id("stock-\(entry.slug)")
@@ -288,7 +294,8 @@ struct TraitPickerDetailView: View {
                     isSelected: true,
                     onTap: { removeCustom(trait) },
                     onDelete: { removeCustom(trait) },
-                    tint: hue
+                    tint: hue,
+                    glyph: glyph
                 )
                 .overlay(focusHighlight(anchor(for: trait)))
                 .id(anchor(for: trait))

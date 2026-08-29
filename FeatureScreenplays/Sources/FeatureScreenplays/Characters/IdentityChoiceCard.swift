@@ -23,6 +23,9 @@ struct IdentityChoiceCard: View {
     var onDelete: (() -> Void)?
     /// Facet hue for the selected state. Falls back to the app accent.
     var tint: Color?
+    /// SF Symbol marking which facet this choice belongs to, so an archetype
+    /// card never reads like a story-function card at a glance.
+    var glyph: String?
 
     private var accent: Color { tint ?? palette.accent }
 
@@ -36,10 +39,10 @@ struct IdentityChoiceCard: View {
     var body: some View {
         Button(action: onTap) {
             HStack(alignment: isCompact ? .center : .top, spacing: 12) {
-                selectionIndicator
                 textStack
                 Spacer(minLength: 0)
                 deleteButton
+                selectionIndicator
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
@@ -59,10 +62,7 @@ struct IdentityChoiceCard: View {
 
     private var textStack: some View {
         VStack(alignment: .leading, spacing: 3) {
-            Text(name)
-                .font(.body.weight(.semibold))
-                .foregroundStyle(palette.textPrimary)
-                .multilineTextAlignment(.leading)
+            nameLine
             if let classicalName, !classicalName.isEmpty {
                 Text(classicalName)
                     .font(.caption2)
@@ -85,6 +85,23 @@ struct IdentityChoiceCard: View {
             }
         }
         .fixedSize(horizontal: false, vertical: true)
+    }
+
+    /// Name preceded by the facet glyph — the shape does the work the hue
+    /// alone can't, because both facets are lists of agent nouns.
+    private var nameLine: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 6) {
+            if let glyph, !glyph.isEmpty {
+                Image(systemName: glyph)
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(accent.opacity(isSelected ? 1 : 0.75))
+                    .accessibilityHidden(true)
+            }
+            Text(name)
+                .font(.body.weight(.semibold))
+                .foregroundStyle(palette.textPrimary)
+                .multilineTextAlignment(.leading)
+        }
     }
 
     @ViewBuilder
@@ -116,6 +133,8 @@ struct TraitChipsWrap<Destination: View>: View {
     let names: [String]
     /// Chip hue; defaults to the app accent when not supplied.
     var tint: Color?
+    /// Facet glyph carried on every chip, matching the picker cards.
+    var glyph: String?
     @ViewBuilder var destination: (Int) -> Destination
 
     private var hue: Color { tint ?? palette.accent }
@@ -138,6 +157,11 @@ struct TraitChipsWrap<Destination: View>: View {
 
     private func chip(_ name: String) -> some View {
         HStack(spacing: 4) {
+            if let glyph, !glyph.isEmpty {
+                Image(systemName: glyph)
+                    .font(.caption2.weight(.semibold))
+                    .accessibilityHidden(true)
+            }
             Text(name)
                 .font(.caption.weight(.medium))
                 .lineLimit(1)

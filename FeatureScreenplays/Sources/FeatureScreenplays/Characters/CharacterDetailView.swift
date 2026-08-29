@@ -242,6 +242,7 @@ struct CharacterDetailView: View {
                 suggestedSlugs: IdentityRelevance.suggestedArchetypeSlugs(for: role),
                 selection: $viewModel.draft.identity.archetypes,
                 tint: IdentityHue.archetype,
+                glyph: IdentityHue.glyph(for: .archetype),
                 gateHint: role == nil ? IdentityUIStrings.archetypeGateHint : nil,
                 gateBanner: role == nil ? IdentityUIStrings.archetypeGateBanner : nil,
                 roleExclusiveFamilies: IdentityRelevance.hiddenRoleExclusiveFamilies(
@@ -283,6 +284,7 @@ struct CharacterDetailView: View {
             ),
             selection: $viewModel.draft.identity.storyFunctions,
             tint: IdentityHue.storyFunction,
+            glyph: IdentityHue.glyph(for: .storyFunction),
             suggestionSources: IdentityRelevance.storyFunctionSuggestionSources(
                 role: role,
                 roleName: viewModel.roleDisplayText,
@@ -322,7 +324,12 @@ struct CharacterDetailView: View {
                 viewModel.applyRole(newRole)
             }
         } label: {
-            identityRowLabel(step: 1, title: IdentityUIStrings.roleRow, hue: hue) {
+            identityRowLabel(
+                step: 1,
+                title: IdentityUIStrings.roleRow,
+                hue: hue,
+                glyph: IdentityHue.glyph(for: .role)
+            ) {
                 identityRowValue(
                     text: viewModel.roleDisplayText ?? IdentityUIStrings.rolePrompt,
                     isPrompt: viewModel.roleDisplayText == nil,
@@ -357,6 +364,7 @@ struct CharacterDetailView: View {
         suggestedSlugs: [String],
         selection: Binding<[IdentityTrait]>,
         tint: Color? = nil,
+        glyph: String? = nil,
         suggestionSources: [IdentityRelevance.SuggestionSource]? = nil,
         gateHint: String? = nil,
         gateBanner: String? = nil,
@@ -379,7 +387,8 @@ struct CharacterDetailView: View {
                     gateBanner: gateBanner,
                     roleExclusiveFamilies: roleExclusiveFamilies,
                     blockedNotice: blockedNotice,
-                    tint: tint
+                    tint: tint,
+                    glyph: glyph
                 )
             } label: {
                 traitRowHeader(
@@ -389,13 +398,14 @@ struct CharacterDetailView: View {
                     prompt: prompt,
                     hint: names.isEmpty ? gateHint : nil,
                     dimmed: dimmed,
-                    hue: hue
+                    hue: hue,
+                    glyph: glyph
                 )
             }
             .buttonStyle(.plain)
 
             if !names.isEmpty {
-                TraitChipsWrap(names: names, tint: tint) { index in
+                TraitChipsWrap(names: names, tint: tint, glyph: glyph) { index in
                     traitPicker(
                         title: title,
                         intro: intro,
@@ -408,6 +418,7 @@ struct CharacterDetailView: View {
                         roleExclusiveFamilies: roleExclusiveFamilies,
                         blockedNotice: blockedNotice,
                         tint: tint,
+                        glyph: glyph,
                         focus: selection.wrappedValue.indices.contains(index) ? selection.wrappedValue[index] : nil
                     )
                 }
@@ -435,6 +446,7 @@ struct CharacterDetailView: View {
         roleExclusiveFamilies: [IdentityRelevance.RoleExclusiveFamily] = [],
         blockedNotice: String? = nil,
         tint: Color? = nil,
+        glyph: String? = nil,
         focus: IdentityTrait? = nil
     ) -> some View {
         TraitPickerDetailView(
@@ -451,7 +463,8 @@ struct CharacterDetailView: View {
             gateBanner: gateBanner,
             roleExclusiveFamilies: roleExclusiveFamilies,
             blockedNotice: blockedNotice,
-            tint: tint
+            tint: tint,
+            glyph: glyph
         )
     }
 
@@ -465,14 +478,13 @@ struct CharacterDetailView: View {
         prompt: String,
         hint: String?,
         dimmed: Bool,
-        hue: Color
+        hue: Color,
+        glyph: String? = nil
     ) -> some View {
         HStack(spacing: 8) {
             stepBadge(step, hue: hue, dimmed: dimmed)
             VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.body.weight(.medium))
-                    .foregroundStyle(dimmed ? palette.textMuted : palette.textPrimary)
+                facetTitle(title, hue: hue, dimmed: dimmed, glyph: glyph)
                 if let hint {
                     Text(hint)
                         .font(.caption2)
@@ -493,6 +505,27 @@ struct CharacterDetailView: View {
         .contentShape(Rectangle())
     }
 
+    /// Row title with its facet glyph — the same symbol that rides every chip
+    /// and picker card for this facet, so the shape teaches the category.
+    private func facetTitle(
+        _ title: String,
+        hue: Color,
+        dimmed: Bool,
+        glyph: String?
+    ) -> some View {
+        HStack(spacing: 6) {
+            if let glyph, !glyph.isEmpty {
+                Image(systemName: glyph)
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(dimmed ? palette.textMuted : hue)
+                    .accessibilityHidden(true)
+            }
+            Text(title)
+                .font(.body.weight(.medium))
+                .foregroundStyle(dimmed ? palette.textMuted : palette.textPrimary)
+        }
+    }
+
     /// Value shown on the right of an identity row. When nothing is chosen yet
     /// we show a question in the facet's own hue — an invitation to tap, rather
     /// than a flat "None".
@@ -508,13 +541,12 @@ struct CharacterDetailView: View {
         step: Int,
         title: String,
         hue: Color,
+        glyph: String? = nil,
         @ViewBuilder value: () -> some View
     ) -> some View {
         HStack(spacing: 8) {
             stepBadge(step, hue: hue, dimmed: false)
-            Text(title)
-                .font(.body.weight(.medium))
-                .foregroundStyle(palette.textPrimary)
+            facetTitle(title, hue: hue, dimmed: false, glyph: glyph)
             Spacer(minLength: 8)
             value()
             Image(systemName: "chevron.right")

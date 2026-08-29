@@ -51,6 +51,19 @@ enum IdentityHue {
         }
     }
 
+    /// SF Symbol paired with each facet. Colour alone can't separate two lists
+    /// of agent nouns ("Mentor" the archetype vs "Tempter" the job), so every
+    /// place a hue appears a shape appears with it: a billing list for role,
+    /// theatre masks for *who they are*, a gear for *what they do* — the job
+    /// they perform in the machinery of the plot.
+    static func glyph(for facet: Facet) -> String {
+        switch facet {
+        case .role: return "list.number"
+        case .archetype: return "theatermasks.fill"
+        case .storyFunction: return "gearshape.fill"
+        }
+    }
+
     /// Maps an emphasized craft term from the teaching copy to its facet, so
     /// "Hierarchical Role", "Archetype" and "Story Function" wear their own
     /// colour wherever they're name-dropped in prose. Returns `nil` for terms
