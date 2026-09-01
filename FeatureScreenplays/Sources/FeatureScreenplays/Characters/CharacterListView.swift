@@ -82,12 +82,23 @@ public struct CharacterListView: View {
         }
     }
 
-    /// Pinned bottom bar: a rounded search field filling most of the width, with
-    /// a compact "+" button on the trailing side. Sits at the bottom for easy
-    /// thumb reach, mirroring the Screenplays screen.
+    /// Pinned bottom bar: a full-width, labelled "New Character" button stacked
+    /// above the search field. The label (rather than a bare "+") is what makes
+    /// the action findable — an icon-only circle beside a search box reads as a
+    /// search accessory.
     private var searchBar: some View {
-        HStack(spacing: 12) {
-            HStack(spacing: 8) {
+        VStack(spacing: 10) {
+            addButton
+            searchField
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 10)
+        .padding(.bottom, 6)
+        .background(.ultraThinMaterial)
+    }
+
+    private var searchField: some View {
+        HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(palette.textMuted)
@@ -105,17 +116,10 @@ public struct CharacterListView: View {
                     .buttonStyle(.plain)
                 }
             }
-            .padding(.horizontal, 12)
-            .frame(height: 44)
-            .background(palette.cardSurface, in: Capsule())
-            .overlay(Capsule().stroke(palette.cardStroke, lineWidth: 1))
-
-            addButton
-        }
-        .padding(.horizontal, 16)
-        .padding(.top, 10)
-        .padding(.bottom, 6)
-        .background(.ultraThinMaterial)
+        .padding(.horizontal, 12)
+        .frame(height: 44)
+        .background(palette.cardSurface, in: Capsule())
+        .overlay(Capsule().stroke(palette.cardStroke, lineWidth: 1))
     }
 
     private var deleteDialogBinding: Binding<Bool> {
@@ -181,47 +185,61 @@ public struct CharacterListView: View {
         !gate.canAddCharacter(viewModel.characters.count)
     }
 
+    /// Single entry point for every "add" affordance on this screen (bottom
+    /// pill, empty-state button, no-results shortcut) so the gate is checked in
+    /// exactly one place.
+    private func createCharacter(named name: String = "") {
+        guard gate.canAddCharacter(viewModel.characters.count) else {
+            gate.onBlocked()
+            return
+        }
+        Haptics.lightImpact()
+        Task {
+            let created = await viewModel.addCharacter(named: name, role: nil)
+            newlyAdded = created
+        }
+    }
+
     private var addButton: some View {
         Button {
-            guard gate.canAddCharacter(viewModel.characters.count) else {
-                gate.onBlocked()
-                return
-            }
-            Task {
-                let created = await viewModel.addCharacter(named: "", role: nil)
-                newlyAdded = created
-            }
+            createCharacter()
         } label: {
-            addButtonLabel
+            addButtonLabel("New Character")
         }
-        .accessibilityLabel(isCharacterLocked ? "Add character (Pro)" : "Add character")
+        .buttonStyle(PressableScaleStyle())
+        .accessibilityLabel(isCharacterLocked ? "New character (Pro)" : "New character")
         .accessibilityHint(isCharacterLocked ? "Unlock ScriptBuilder Pro to add more characters" : "")
     }
 
-    private var addButtonLabel: some View {
-        Image(systemName: "plus")
-            .font(.title3.weight(.bold))
-            .foregroundStyle(.white)
-            .frame(width: 44, height: 44)
-            .background(
-                isCharacterLocked ? AnyShapeStyle(palette.textMuted.opacity(0.55)) : AnyShapeStyle(palette.primaryButtonGradient),
-                in: Circle()
-            )
-            .overlay(alignment: .bottomTrailing) {
-                if isCharacterLocked { lockBadge }
-            }
-            .shadow(color: palette.accent.opacity(isCharacterLocked ? 0 : 0.35), radius: 8, y: 4)
-            .animation(.easeInOut(duration: 0.25), value: isCharacterLocked)
+    /// Full-width accent pill. Deliberately keeps its gradient and shadow when
+    /// the free-tier gate is active — it stays tappable (it opens the paywall),
+    /// so greying it out would read as "disabled" and hide the action. The
+    /// boundary is shown with a small "Pro" capsule instead.
+    private func addButtonLabel(_ title: String) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: "plus")
+                .font(.subheadline.weight(.bold))
+            Text(title)
+                .font(.subheadline.weight(.semibold))
+            if isCharacterLocked { proBadge }
+        }
+        .foregroundStyle(.white)
+        .padding(.horizontal, 22)
+        .frame(maxWidth: .infinity)
+        .frame(height: 48)
+        .background(palette.primaryButtonGradient, in: Capsule())
+        .shadow(color: palette.accent.opacity(0.35), radius: 8, y: 4)
     }
 
-    private var lockBadge: some View {
-        Image(systemName: "lock.fill")
+    private var proBadge: some View {
+        Text("PRO")
             .font(.system(size: 10, weight: .black))
-            .foregroundStyle(palette.accent)
-            .padding(3)
-            .background(.white, in: Circle())
-            .overlay(Circle().stroke(palette.cardStroke, lineWidth: 0.5))
-            .offset(x: 3, y: 3)
+            .foregroundStyle(.white)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 2)
+            .background(Color.white.opacity(0.28), in: Capsule())
+            .overlay(Capsule().stroke(Color.white.opacity(0.5), lineWidth: 0.5))
+            .accessibilityHidden(true)
     }
 
     private var noResultsState: some View {
@@ -237,8 +255,28 @@ public struct CharacterListView: View {
                 .foregroundStyle(palette.textMuted)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
+
+            createTypedNameButton
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    /// Turns a dead-end search into an add: "Create 'Mara'" makes the character
+    /// with the text already typed as their name.
+    @ViewBuilder
+    private var createTypedNameButton: some View {
+        let query = viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !query.isEmpty {
+            Button {
+                viewModel.searchText = ""
+                createCharacter(named: query)
+            } label: {
+                addButtonLabel("Create “\(query)”")
+                    .fixedSize(horizontal: true, vertical: false)
+            }
+            .buttonStyle(PressableScaleStyle())
+            .padding(.top, 6)
+        }
     }
 
     private var emptyState: some View {
@@ -254,6 +292,16 @@ public struct CharacterListView: View {
                 .foregroundStyle(palette.textMuted)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 36)
+
+            Button {
+                createCharacter()
+            } label: {
+                addButtonLabel("Add your first character")
+                    .fixedSize(horizontal: true, vertical: false)
+            }
+            .buttonStyle(PressableScaleStyle())
+            .padding(.top, 6)
+            .accessibilityHint(isCharacterLocked ? "Unlock ScriptBuilder Pro to add more characters" : "")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
