@@ -53,7 +53,7 @@ public struct ScenesListView: View {
     }
 
     public var body: some View {
-        scroll
+        content
             .navigationDestination(item: $newlyAdded) { route in
                 SceneDetailView(scene: route.scene, act: route.act, viewModel: viewModel)
             }
@@ -88,11 +88,124 @@ public struct ScenesListView: View {
 
     // MARK: - Scroll content
 
+    /// The list (or the no-matches state) with the pinned search shelf below —
+    /// the same arrangement as the cast and the Screenplays library.
+    private var content: some View {
+        Group {
+            if viewModel.hasNoSearchResults {
+                noResultsState
+            } else {
+                scroll
+            }
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            searchBar
+        }
+    }
+
+    /// Pinned bottom bar: the scene search field with a compact "+" on the
+    /// trailing side, identical in shape to the cast and library shelves.
+    private var searchBar: some View {
+        HStack(spacing: 12) {
+            searchField
+            addButton
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 10)
+        .padding(.bottom, 6)
+        .background(.ultraThinMaterial)
+    }
+
+    private var searchField: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "magnifyingglass")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(palette.textMuted)
+            TextField("Search scenes", text: $viewModel.searchText)
+                .autocorrectionDisabled()
+                .foregroundStyle(palette.textPrimary)
+            if viewModel.isSearching {
+                Button {
+                    viewModel.searchText = ""
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundStyle(palette.textMuted)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(.horizontal, 12)
+        .frame(height: 44)
+        .background(palette.cardSurface, in: Capsule())
+        .overlay(Capsule().stroke(palette.cardStroke, lineWidth: 1))
+    }
+
+    /// Compact circular "+" beside the search field. It keeps its full gradient
+    /// when the free-tier gate is active — it stays tappable (it opens the
+    /// paywall) — and shows a small lock instead.
+    private var addButton: some View {
+        Button {
+            requestAddScene(to: viewModel.defaultAct)
+        } label: {
+            Image(systemName: "plus")
+                .font(.title3.weight(.bold))
+                .foregroundStyle(.white)
+                .frame(width: 44, height: 44)
+                .background(palette.primaryButtonGradient, in: Circle())
+                .overlay(alignment: .topTrailing) {
+                    if isSceneLocked { lockBadge }
+                }
+                .shadow(color: palette.accent.opacity(0.35), radius: 8, y: 4)
+        }
+        .accessibilityLabel(isSceneLocked ? "New scene (Pro)" : "New scene")
+        .accessibilityHint(isSceneLocked ? "Unlock ScriptBuilder Pro to add more scenes" : "")
+    }
+
+    private var lockBadge: some View {
+        Image(systemName: "lock.fill")
+            .font(.system(size: 9, weight: .black))
+            .foregroundStyle(palette.accent)
+            .frame(width: 18, height: 18)
+            .background(Color.white, in: Circle())
+            .offset(x: 2, y: -2)
+            .accessibilityHidden(true)
+    }
+
+    /// Turns a dead-end search into an add: "Create “Rooftop”" makes the scene
+    /// with the text already typed as its title.
+    private var noResultsState: some View {
+        VStack(spacing: 12) {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 40, weight: .light))
+                .foregroundStyle(palette.textMuted)
+            Text("No scenes found")
+                .font(.headline)
+                .foregroundStyle(palette.textPrimary)
+            Text("Nothing matches “\(viewModel.trimmedQuery)” yet.")
+                .font(.subheadline)
+                .foregroundStyle(palette.textMuted)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+
+            AddPillButton(
+                title: "Create “\(viewModel.trimmedQuery)”",
+                isLocked: isSceneLocked,
+                accessibilityHintText: isSceneLocked ? "Unlock ScriptBuilder Pro to add more scenes" : ""
+            ) {
+                let query = viewModel.trimmedQuery
+                viewModel.searchText = ""
+                requestAddScene(to: viewModel.defaultAct, titled: query)
+            }
+            .padding(.top, 6)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
     private var scroll: some View {
         ScrollViewReader { proxy in
             ScrollView {
                 LazyVStack(spacing: 20, pinnedViews: []) {
-                    ForEach(viewModel.sections) { section in
+                    ForEach(viewModel.visibleSections) { section in
                         actSection(section)
                     }
                 }
@@ -135,7 +248,7 @@ public struct ScenesListView: View {
                 ZStack(alignment: .bottomTrailing) {
                     Image(systemName: "plus.circle.fill")
                         .font(.title3)
-                        .foregroundStyle(isSceneLocked ? palette.textMuted : palette.accent)
+                        .foregroundStyle(palette.accent)
                     if isSceneLocked { headerLockBadge }
                 }
                 .animation(.easeInOut(duration: 0.25), value: isSceneLocked)
@@ -196,31 +309,16 @@ public struct ScenesListView: View {
         }
     }
 
+    /// Dashed "New Scene" card shown for an act with no scenes yet. It creates
+    /// straight into that act and doubles as the drop destination for a
+    /// dragged scene.
     private func emptyRow(for act: Act) -> some View {
-        Button {
+        AddSceneCard(
+            caption: "Add to \(act.title)",
+            isLocked: isSceneLocked
+        ) {
             requestAddScene(to: act)
-        } label: {
-            HStack(spacing: 10) {
-                Image(systemName: isSceneLocked ? "lock.fill" : "plus.circle.fill")
-                    .font(.title3)
-                Text(isSceneLocked ? L10n.SceneUI.unlockMore : L10n.SceneUI.addScene)
-                    .font(.subheadline.weight(.semibold))
-            }
-            .foregroundStyle(isSceneLocked ? palette.textMuted : palette.accent)
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 22)
-            .background(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill((isSceneLocked ? palette.textMuted : palette.accent).opacity(0.12))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .strokeBorder((isSceneLocked ? palette.textMuted : palette.accent).opacity(0.35), lineWidth: 1.5)
-            )
-            .animation(.easeInOut(duration: 0.25), value: isSceneLocked)
         }
-        .buttonStyle(.plain)
-        .accessibilityLabel(isSceneLocked ? "Unlock ScriptBuilder Pro to add more scenes" : "Create a new scene in \(act.title)")
         .dropDestination(for: String.self) { items, _ in
             endDrag()
             guard let sceneID = items.first else { return false }
@@ -261,13 +359,14 @@ public struct ScenesListView: View {
     /// Gate-checked scene creation. If the free limit is reached, surface the
     /// paywall via the gate instead of creating; otherwise add and route into
     /// the new scene's editor.
-    private func requestAddScene(to act: Act) {
+    private func requestAddScene(to act: Act, titled title: String = "") {
         guard gate.canAddScene(totalSceneCount) else {
             gate.onBlocked()
             return
         }
+        Haptics.lightImpact()
         Task {
-            let created = await viewModel.addScene(to: act)
+            let created = await viewModel.addScene(to: act, titled: title)
             newlyAdded = SceneRoute(scene: created, act: act)
         }
     }

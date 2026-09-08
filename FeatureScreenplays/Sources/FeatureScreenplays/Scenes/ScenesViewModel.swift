@@ -86,6 +86,45 @@ public final class ScenesViewModel {
             .joined(separator: "|")
     }
 
+    // MARK: - Search
+
+    /// Live query from the pinned search bar. Matches scene title, heading and
+    /// description so a writer can find a scene by any of the three.
+    var searchText: String = ""
+
+    /// The trimmed query, or an empty string when nothing is typed.
+    var trimmedQuery: String {
+        searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    var isSearching: Bool { !trimmedQuery.isEmpty }
+
+    /// The sections the list renders: all three acts normally, or only the acts
+    /// with matching scenes while searching (empty acts drop out entirely).
+    var visibleSections: [ActSection] {
+        guard isSearching else { return sections }
+        let needle = trimmedQuery.lowercased()
+        return sections.compactMap { section in
+            let matches = section.scenes.filter { scene in
+                scene.title.lowercased().contains(needle)
+                    || scene.header.lowercased().contains(needle)
+                    || scene.sceneDescription.lowercased().contains(needle)
+            }
+            return matches.isEmpty ? nil : ActSection(act: section.act, scenes: matches)
+        }
+    }
+
+    /// True when a query is typed but nothing in the script matches it.
+    var hasNoSearchResults: Bool {
+        isSearching && visibleSections.isEmpty
+    }
+
+    /// Where an un-scoped "+" should drop a new scene: the last act that has
+    /// any scenes, so adding continues where the script currently ends.
+    var defaultAct: Act {
+        sections.last(where: { !$0.scenes.isEmpty })?.act ?? .one
+    }
+
     /// Scenes for a given act, read from the frozen snapshot so it matches
     /// exactly what the List is diffing.
     func scenes(in act: Act) -> [Domain.Scene] {
@@ -122,10 +161,10 @@ public final class ScenesViewModel {
 
     /// Insert a brand-new blank scene at the end of a specific act and persist.
     /// The scene number is the next available in that act.
-    func addScene(to act: Act) async -> Domain.Scene {
+    func addScene(to act: Act, titled title: String = "") async -> Domain.Scene {
         var current = buckets[act] ?? []
         let nextNumber = (current.map(\.sceneNumber).max() ?? 0) + 1
-        let new = Domain.Scene(title: "", sceneNumber: nextNumber)
+        let new = Domain.Scene(title: title, sceneNumber: nextNumber)
         current.append(new)
         buckets[act] = current
         rebuildSections()

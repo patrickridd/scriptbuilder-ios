@@ -77,19 +77,23 @@ public struct CharacterListView: View {
                 castList
             }
         }
+        .safeAreaInset(edge: .top, spacing: 0) {
+            newCharacterPill
+                .padding(.top)
+        }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             searchBar
         }
     }
 
-    /// Pinned bottom bar: a full-width, labelled "New Character" button stacked
-    /// above the search field. The label (rather than a bare "+") is what makes
-    /// the action findable — an icon-only circle beside a search box reads as a
-    /// search accessory.
+    /// Pinned bottom bar: the cast search field with a compact "+" on the
+    /// trailing side — the same shape as the Screenplays shelf, so "add" lives
+    /// in the same place on both screens. The navigation bar carries a second
+    /// "+" for reach while scrolling.
     private var searchBar: some View {
-        VStack(spacing: 10) {
-            addButton
+        HStack(spacing: 12) {
             searchField
+            addButton
         }
         .padding(.horizontal, 16)
         .padding(.top, 10)
@@ -200,45 +204,85 @@ public struct CharacterListView: View {
         }
     }
 
+    /// Compact circular "+" beside the search field, matching the Screenplays
+    /// shelf. It keeps its full gradient when the free-tier gate is active — it
+    /// stays tappable (it opens the paywall) — and shows a small lock instead.
     private var addButton: some View {
         Button {
             createCharacter()
         } label: {
-            addButtonLabel("New Character")
+            Image(systemName: "plus")
+                .font(.title3.weight(.bold))
+                .foregroundStyle(.white)
+                .frame(width: 44, height: 44)
+                .background(palette.primaryButtonGradient, in: Circle())
+                .overlay(alignment: .topTrailing) {
+                    if isCharacterLocked { lockBadge }
+                }
+                .shadow(color: palette.accent.opacity(0.35), radius: 8, y: 4)
         }
-        .buttonStyle(PressableScaleStyle())
         .accessibilityLabel(isCharacterLocked ? "New character (Pro)" : "New character")
         .accessibilityHint(isCharacterLocked ? "Unlock ScriptBuilder Pro to add more characters" : "")
     }
 
-    /// Full-width accent pill. Deliberately keeps its gradient and shadow when
-    /// the free-tier gate is active — it stays tappable (it opens the paywall),
-    /// so greying it out would read as "disabled" and hide the action. The
-    /// boundary is shown with a small "Pro" capsule instead.
-    private func addButtonLabel(_ title: String) -> some View {
-        HStack(spacing: 8) {
-            Image(systemName: "plus")
-                .font(.subheadline.weight(.bold))
-            Text(title)
-                .font(.subheadline.weight(.semibold))
-            if isCharacterLocked { proBadge }
-        }
-        .foregroundStyle(.white)
-        .padding(.horizontal, 22)
-        .frame(maxWidth: .infinity)
-        .frame(height: 48)
-        .background(palette.primaryButtonGradient, in: Capsule())
-        .shadow(color: palette.accent.opacity(0.35), radius: 8, y: 4)
+    private var lockBadge: some View {
+        Image(systemName: "lock.fill")
+            .font(.system(size: 9, weight: .black))
+            .foregroundStyle(palette.accent)
+            .frame(width: 18, height: 18)
+            .background(Color.white, in: Circle())
+            .offset(x: 2, y: -2)
+            .accessibilityHidden(true)
     }
 
-    private var proBadge: some View {
+    /// Dashed "New Character" pill pinned directly under the screenplay tab
+    /// bar, above the cast list. It borrows the dashed-accent vocabulary of the
+    /// Scenes tab's `AddSceneCard` so both tabs read as one system: list
+    /// scaffolding rather than a second primary button competing with the
+    /// bottom shelf "+".
+    private var newCharacterPill: some View {
+        Button {
+            createCharacter()
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "plus")
+                    .font(.subheadline.weight(.bold))
+                Text("New Character")
+                    .font(.subheadline.weight(.semibold))
+                if isCharacterLocked { proCapsule }
+            }
+            .foregroundStyle(palette.accent)
+            .frame(maxWidth: .infinity)
+            .frame(height: 44)
+            .background(dashedPillBackground)
+        }
+        .buttonStyle(PressableScaleStyle())
+        .padding(.horizontal, 16)
+        .padding(.top, 10)
+        .padding(.bottom, 2)
+        .accessibilityLabel(isCharacterLocked ? "New character (Pro)" : "New character")
+        .accessibilityHint(isCharacterLocked ? "Unlock ScriptBuilder Pro to add more characters" : "")
+    }
+
+    private var dashedPillBackground: some View {
+        Capsule()
+            .fill(palette.accent.opacity(0.08))
+            .overlay(
+                Capsule()
+                    .strokeBorder(
+                        palette.accent.opacity(0.55),
+                        style: StrokeStyle(lineWidth: 1.5, dash: [7, 5])
+                    )
+            )
+    }
+
+    private var proCapsule: some View {
         Text("PRO")
-            .font(.system(size: 10, weight: .black))
+            .font(.caption2.weight(.black))
             .foregroundStyle(.white)
-            .padding(.horizontal, 6)
+            .padding(.horizontal, 7)
             .padding(.vertical, 2)
-            .background(Color.white.opacity(0.28), in: Capsule())
-            .overlay(Capsule().stroke(Color.white.opacity(0.5), lineWidth: 0.5))
+            .background(palette.accent, in: Capsule())
             .accessibilityHidden(true)
     }
 
@@ -267,14 +311,14 @@ public struct CharacterListView: View {
     private var createTypedNameButton: some View {
         let query = viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         if !query.isEmpty {
-            Button {
+            AddPillButton(
+                title: "Create “\(query)”",
+                isLocked: isCharacterLocked,
+                accessibilityHintText: isCharacterLocked ? "Unlock ScriptBuilder Pro to add more characters" : ""
+            ) {
                 viewModel.searchText = ""
                 createCharacter(named: query)
-            } label: {
-                addButtonLabel("Create “\(query)”")
-                    .fixedSize(horizontal: true, vertical: false)
             }
-            .buttonStyle(PressableScaleStyle())
             .padding(.top, 6)
         }
     }
@@ -293,15 +337,14 @@ public struct CharacterListView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 36)
 
-            Button {
+            AddPillButton(
+                title: "New Character",
+                isLocked: isCharacterLocked,
+                accessibilityHintText: isCharacterLocked ? "Unlock ScriptBuilder Pro to add more characters" : ""
+            ) {
                 createCharacter()
-            } label: {
-                addButtonLabel("Add your first character")
-                    .fixedSize(horizontal: true, vertical: false)
             }
-            .buttonStyle(PressableScaleStyle())
             .padding(.top, 6)
-            .accessibilityHint(isCharacterLocked ? "Unlock ScriptBuilder Pro to add more characters" : "")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
