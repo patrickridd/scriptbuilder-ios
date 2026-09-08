@@ -161,7 +161,11 @@ public struct CharacterListView: View {
                 Button {
                     selected = character
                 } label: {
-                    CharacterCard(character: character, isHighlighted: viewModel.isHighlighted(character))
+                    CharacterCard(
+                        character: character,
+                        revision: character.cardRevision,
+                        isHighlighted: viewModel.isHighlighted(character)
+                    )
                 }
                 .buttonStyle(.plain)
                 .listRowInsets(EdgeInsets(top: 5, leading: 2, bottom: 5, trailing: 2))

@@ -63,7 +63,12 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         self.uuid = uuid
         self.name = name
         self.role = role
-        self.identity = identity
+        // A character that carries only the legacy flat `role` string (seed
+        // data, previews, anything built in memory) still gets a structured
+        // identity, so the cast list shows the same chips the detail screen
+        // would show. Non-destructive: the legacy string is kept verbatim and
+        // the resolved identity is only written back on the next save.
+        self.identity = identity.isEmpty ? CharacterIdentity(resolvingLegacyRole: role) : identity
         self.intention = intention
         self.whyIntention = whyIntention
         self.whatToDo = whatToDo
@@ -104,7 +109,11 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         role = try container.decodeIfPresent(String.self, forKey: .role)
         let storedIdentity = try container.decodeIfPresent(CharacterIdentity.self, forKey: .identity)
-        identity = storedIdentity ?? CharacterIdentity(resolvingLegacyRole: role)
+        if let storedIdentity, !storedIdentity.isEmpty {
+            identity = storedIdentity
+        } else {
+            identity = CharacterIdentity(resolvingLegacyRole: role)
+        }
         intention = try container.decodeIfPresent(String.self, forKey: .intention) ?? ""
         whyIntention = try container.decodeIfPresent(String.self, forKey: .whyIntention) ?? ""
         whatToDo = try container.decodeIfPresent(String.self, forKey: .whatToDo) ?? ""

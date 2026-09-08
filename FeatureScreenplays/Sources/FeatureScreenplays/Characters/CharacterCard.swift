@@ -9,10 +9,40 @@ private struct IdentityTag: Identifiable {
     var id: String { "\(facet)-" + text }
 }
 
+extension Character {
+
+    /// A string that changes whenever anything a cast-list card *renders*
+    /// changes: name, role bucket, intention preview, every identity chip
+    /// (role / archetypes / story functions, custom labels included) and the
+    /// progress ring's filled count. Passed to `CharacterCard.revision` so the
+    /// card re-renders in place instead of waiting for a structural refresh.
+    var cardRevision: String {
+        var parts: [String] = [uuid, name, role ?? "", intention]
+        if let identityRole = identity.role {
+            parts.append("R:" + identityRole.slug + "/" + (identityRole.customLabel ?? ""))
+        }
+        parts += identity.archetypes.map { "A:" + $0.slug + "/" + ($0.customLabel ?? "") }
+        parts += identity.storyFunctions.map { "F:" + $0.slug + "/" + ($0.customLabel ?? "") }
+        let filled = CharacterIdentityField.filledCount(for: self) + CharacterArcField.filledCount(for: self)
+        parts.append("P:\(filled)")
+        parts.append(arcNotApplicable ? "N:1" : "N:0")
+        return parts.joined(separator: "~")
+    }
+}
+
 /// A single cast-list card: role glyph, name, role, and an intention preview.
 struct CharacterCard: View {
     @Environment(\.appPalette) private var palette
     let character: Character
+    /// Fingerprint of everything this card draws (see `Character.cardRevision`).
+    ///
+    /// `Character` is `Equatable` on `uuid` **only**, so SwiftUI's structural
+    /// comparison considers two cards for the same character identical even
+    /// after its role / archetypes / story functions changed — and skips
+    /// re-evaluating `body`, which is why freshly picked traits used to appear
+    /// only after a round trip through the detail screen forced a rebuild.
+    /// Holding the fingerprint here makes the view value itself change.
+    var revision: String = ""
     var isHighlighted: Bool = false
 
     private var role: CharacterRole { CharacterRole.bucket(for: character.role) }
