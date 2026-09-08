@@ -12,6 +12,8 @@ struct CharacterDetailView: View {
     @State private var viewModel: CharacterDetailViewModel
     @State private var showArc = false
     @State private var showSettings = false
+    /// Identity step the header's "Next up" nudge is pushing, if any.
+    @State private var pickerField: CharacterIdentityField?
     @FocusState private var nameFocused: Bool
 
     /// Scroll anchor for the identity rows, used by the header's nudge.
@@ -49,6 +51,9 @@ struct CharacterDetailView: View {
         }
         .navigationDestination(isPresented: $showArc) {
             CharacterArcView(viewModel: viewModel)
+        }
+        .navigationDestination(item: $pickerField) { field in
+            identityPicker(for: field)
         }
         .sheet(isPresented: $showSettings) {
             NavigationStack {
@@ -118,7 +123,8 @@ struct CharacterDetailView: View {
                 total: viewModel.overallTotalCount,
                 completeText: IdentityUIStrings.characterComplete,
                 nextFieldTitle: next?.title,
-                onNextTapped: { jump(to: next, proxy: proxy) }
+                onNextTapped: { jump(to: next, proxy: proxy) },
+                nextFieldGlyph: nudgeGlyph(for: next)
             )
             intentionLine
                 .font(.subheadline)
@@ -131,8 +137,9 @@ struct CharacterDetailView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
-    /// Send the writer to whatever is still missing: identity rows live on this
-    /// screen, arc fields live one push away in the Arc editor.
+    /// Send the writer to whatever is still missing: the name lives in the
+    /// header, the identity facets each own a picker one push away, and arc
+    /// fields live in the Arc editor.
     private func jump(to target: CharacterProgressTarget?, proxy: ScrollViewProxy) {
         guard let target else { return }
         switch target {
@@ -141,11 +148,33 @@ struct CharacterDetailView: View {
                 nameFocused = true
                 return
             }
-            withAnimation(.easeInOut(duration: 0.35)) {
-                proxy.scrollTo(identityAnchor, anchor: .center)
-            }
+            nameFocused = false
+            pickerField = field
         case .arc:
             showArc = true
+        }
+    }
+
+    /// The nudge's trailing glyph tells the writer what the tap will do: edit
+    /// the name in place, or push the step's own editor.
+    private func nudgeGlyph(for target: CharacterProgressTarget?) -> String {
+        if case .identity(.name) = target { return "pencil.circle.fill" }
+        return "chevron.right.circle.fill"
+    }
+
+    /// Destination for the "Next up" nudge — the very same picker the matching
+    /// identity row pushes, so both routes stay in sync.
+    @ViewBuilder
+    private func identityPicker(for field: CharacterIdentityField) -> some View {
+        switch field {
+        case .role:
+            rolePicker
+        case .archetype:
+            traitPicker(archetypeSpec, selection: $viewModel.draft.identity.archetypes)
+        case .storyFunction:
+            traitPicker(storyFunctionSpec, selection: $viewModel.draft.identity.storyFunctions)
+        case .name:
+            EmptyView()
         }
     }
 
@@ -228,34 +257,43 @@ struct CharacterDetailView: View {
     // MARK: - Identity rows
 
     private var identityRows: some View {
+        VStack(spacing: 10) {
+            roleRow
+            traitRow(archetypeSpec, selection: $viewModel.draft.identity.archetypes)
+        }
+    }
+
+    /// Step 2 — the archetype row, hidden families and gate copy included.
+    private var archetypeSpec: TraitRowSpec {
         let role = viewModel.draft.identity.role
         let archetypes = viewModel.draft.identity.archetypes
-        return VStack(spacing: 10) {
-            roleRow
-            traitRow(
-                step: 2,
-                title: IdentityUIStrings.archetypeRow,
-                prompt: IdentityUIStrings.archetypePrompt,
-                intro: .archetype,
-                catalog: IdentityRelevance.archetypeCatalog(for: role, selection: archetypes),
-                nudge: IdentityUIStrings.archetypeNudge,
-                suggestedSlugs: IdentityRelevance.suggestedArchetypeSlugs(for: role),
-                selection: $viewModel.draft.identity.archetypes,
-                tint: IdentityHue.archetype,
-                glyph: IdentityHue.glyph(for: .archetype),
-                gateHint: role == nil ? IdentityUIStrings.archetypeGateHint : nil,
-                gateBanner: role == nil ? IdentityUIStrings.archetypeGateBanner : nil,
-                roleExclusiveFamilies: IdentityRelevance.hiddenRoleExclusiveFamilies(
-                    for: role,
-                    selection: archetypes
-                )
-            )
-        }
+        return TraitRowSpec(
+            step: 2,
+            title: IdentityUIStrings.archetypeRow,
+            prompt: IdentityUIStrings.archetypePrompt,
+            intro: .archetype,
+            catalog: IdentityRelevance.archetypeCatalog(for: role, selection: archetypes),
+            nudge: IdentityUIStrings.archetypeNudge,
+            suggestedSlugs: IdentityRelevance.suggestedArchetypeSlugs(for: role),
+            gateHint: role == nil ? IdentityUIStrings.archetypeGateHint : nil,
+            gateBanner: role == nil ? IdentityUIStrings.archetypeGateBanner : nil,
+            roleExclusiveFamilies: IdentityRelevance.hiddenRoleExclusiveFamilies(
+                for: role,
+                selection: archetypes
+            ),
+            tint: IdentityHue.archetype,
+            glyph: IdentityHue.glyph(for: .archetype)
+        )
     }
 
     /// Lives under Behavior but keeps step 3 of the identity sequence, so the
     /// numbered badges still read 1 → 2 → 3 down the screen.
     private var storyFunctionRow: some View {
+        traitRow(storyFunctionSpec, selection: $viewModel.draft.identity.storyFunctions)
+    }
+
+    /// Step 3 — the story-function row, including the role-restriction notice.
+    private var storyFunctionSpec: TraitRowSpec {
         let role = viewModel.draft.identity.role
         let archetypes = viewModel.draft.identity.archetypes
         let functions = viewModel.draft.identity.storyFunctions
@@ -271,7 +309,7 @@ struct CharacterDetailView: View {
             count: hiddenCount,
             ownerRoleName: ownerRoleName
         )
-        return traitRow(
+        return TraitRowSpec(
             step: 3,
             title: IdentityUIStrings.storyFunctionRow,
             prompt: IdentityUIStrings.storyFunctionPrompt,
@@ -282,9 +320,6 @@ struct CharacterDetailView: View {
                 for: role,
                 archetypes: archetypes
             ),
-            selection: $viewModel.draft.identity.storyFunctions,
-            tint: IdentityHue.storyFunction,
-            glyph: IdentityHue.glyph(for: .storyFunction),
             suggestionSources: IdentityRelevance.storyFunctionSuggestionSources(
                 role: role,
                 roleName: viewModel.roleDisplayText,
@@ -292,7 +327,9 @@ struct CharacterDetailView: View {
             ),
             gateHint: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateHint : nil,
             gateBanner: archetypes.isEmpty ? IdentityUIStrings.storyFunctionGateBanner : nil,
-            blockedNotice: blockedNotice
+            blockedNotice: blockedNotice,
+            tint: IdentityHue.storyFunction,
+            glyph: IdentityHue.glyph(for: .storyFunction)
         )
     }
 
@@ -316,13 +353,7 @@ struct CharacterDetailView: View {
     private var roleRow: some View {
         let hue = IdentityHue.role
         return NavigationLink {
-            RolePickerDetailView(
-                characterName: viewModel.navigationTitle,
-                selection: viewModel.draft.identity.role,
-                tint: hue
-            ) { newRole in
-                viewModel.applyRole(newRole)
-            }
+            rolePicker
         } label: {
             identityRowLabel(
                 step: 1,
@@ -340,6 +371,17 @@ struct CharacterDetailView: View {
         .buttonStyle(.plain)
     }
 
+    /// Step 1's destination, shared by the row and the header's nudge.
+    private var rolePicker: some View {
+        RolePickerDetailView(
+            characterName: viewModel.navigationTitle,
+            selection: viewModel.draft.identity.role,
+            tint: IdentityHue.role
+        ) { newRole in
+            viewModel.applyRole(newRole)
+        }
+    }
+
     /// Numbered badge that makes the craft sequence visible — Role, then
     /// Archetype, then Story Function — without ever locking a row. The badge
     /// carries the facet's own hue so the number and its chips match.
@@ -355,70 +397,33 @@ struct CharacterDetailView: View {
     }
 
     private func traitRow(
-        step: Int,
-        title: String,
-        prompt: String,
-        intro: IdentitySectionIntro,
-        catalog: [IdentityCatalogEntry],
-        nudge: String,
-        suggestedSlugs: [String],
-        selection: Binding<[IdentityTrait]>,
-        tint: Color? = nil,
-        glyph: String? = nil,
-        suggestionSources: [IdentityRelevance.SuggestionSource]? = nil,
-        gateHint: String? = nil,
-        gateBanner: String? = nil,
-        roleExclusiveFamilies: [IdentityRelevance.RoleExclusiveFamily] = [],
-        blockedNotice: String? = nil
+        _ spec: TraitRowSpec,
+        selection: Binding<[IdentityTrait]>
     ) -> some View {
-        let names = selection.wrappedValue.map { IdentityCatalog.displayName(for: $0, in: catalog) }
-        let dimmed = gateHint != nil && names.isEmpty
-        let hue = tint ?? palette.accent
+        let names = selection.wrappedValue.map { IdentityCatalog.displayName(for: $0, in: spec.catalog) }
+        let dimmed = spec.gateHint != nil && names.isEmpty
         return VStack(alignment: .leading, spacing: 10) {
             NavigationLink {
-                traitPicker(
-                    title: title,
-                    intro: intro,
-                    catalog: catalog,
-                    nudge: nudge,
-                    suggestedSlugs: suggestedSlugs,
-                    selection: selection,
-                    suggestionSources: suggestionSources,
-                    gateBanner: gateBanner,
-                    roleExclusiveFamilies: roleExclusiveFamilies,
-                    blockedNotice: blockedNotice,
-                    tint: tint,
-                    glyph: glyph
-                )
+                traitPicker(spec, selection: selection)
             } label: {
                 traitRowHeader(
-                    step: step,
-                    title: title,
+                    step: spec.step,
+                    title: spec.title,
                     count: names.count,
-                    prompt: prompt,
-                    hint: names.isEmpty ? gateHint : nil,
+                    prompt: spec.prompt,
+                    hint: names.isEmpty ? spec.gateHint : nil,
                     dimmed: dimmed,
-                    hue: hue,
-                    glyph: glyph
+                    hue: spec.tint,
+                    glyph: spec.glyph
                 )
             }
             .buttonStyle(.plain)
 
             if !names.isEmpty {
-                TraitChipsWrap(names: names, tint: tint, glyph: glyph) { index in
+                TraitChipsWrap(names: names, tint: spec.tint, glyph: spec.glyph) { index in
                     traitPicker(
-                        title: title,
-                        intro: intro,
-                        catalog: catalog,
-                        nudge: nudge,
-                        suggestedSlugs: suggestedSlugs,
+                        spec,
                         selection: selection,
-                        suggestionSources: suggestionSources,
-                        gateBanner: gateBanner,
-                        roleExclusiveFamilies: roleExclusiveFamilies,
-                        blockedNotice: blockedNotice,
-                        tint: tint,
-                        glyph: glyph,
                         focus: selection.wrappedValue.indices.contains(index) ? selection.wrappedValue[index] : nil
                     )
                 }
@@ -432,39 +437,29 @@ struct CharacterDetailView: View {
         .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(palette.cardStroke, lineWidth: 1))
     }
 
-    /// Shared picker destination for a multi-select row — used by both the row
-    /// itself and by each selected chip (which opens focused on its trait).
+    /// Shared picker destination for a multi-select row — used by the row, by
+    /// each selected chip (focused on its trait), and by the "Next up" nudge.
     private func traitPicker(
-        title: String,
-        intro: IdentitySectionIntro,
-        catalog: [IdentityCatalogEntry],
-        nudge: String,
-        suggestedSlugs: [String],
+        _ spec: TraitRowSpec,
         selection: Binding<[IdentityTrait]>,
-        suggestionSources: [IdentityRelevance.SuggestionSource]? = nil,
-        gateBanner: String? = nil,
-        roleExclusiveFamilies: [IdentityRelevance.RoleExclusiveFamily] = [],
-        blockedNotice: String? = nil,
-        tint: Color? = nil,
-        glyph: String? = nil,
         focus: IdentityTrait? = nil
     ) -> some View {
         TraitPickerDetailView(
-            title: title,
+            title: spec.title,
             characterName: viewModel.navigationTitle,
-            intro: intro,
-            catalog: catalog,
-            nudge: nudge,
+            intro: spec.intro,
+            catalog: spec.catalog,
+            nudge: spec.nudge,
             roleName: viewModel.roleDisplayText,
-            suggestionSources: suggestionSources,
-            suggestedSlugs: suggestedSlugs,
+            suggestionSources: spec.suggestionSources,
+            suggestedSlugs: spec.suggestedSlugs,
             selection: selection,
             focusTrait: focus,
-            gateBanner: gateBanner,
-            roleExclusiveFamilies: roleExclusiveFamilies,
-            blockedNotice: blockedNotice,
-            tint: tint,
-            glyph: glyph
+            gateBanner: spec.gateBanner,
+            roleExclusiveFamilies: spec.roleExclusiveFamilies,
+            blockedNotice: spec.blockedNotice,
+            tint: spec.tint,
+            glyph: spec.glyph
         )
     }
 

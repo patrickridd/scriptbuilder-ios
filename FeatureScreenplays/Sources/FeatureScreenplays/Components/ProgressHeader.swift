@@ -32,6 +32,9 @@ struct ProgressHeader: View {
     /// Localized title of the first empty field, if any.
     var nextFieldTitle: String?
     var onNextTapped: (() -> Void)?
+    /// Trailing glyph on the nudge: an arrow when the tap scrolls down this
+    /// screen, a chevron when it pushes a whole editor.
+    var nextFieldGlyph: String = "arrow.down.circle.fill"
 
     private var isComplete: Bool { total > 0 && filled == total }
 
@@ -182,7 +185,7 @@ struct ProgressHeader: View {
                 Text(L10n.Progress.nextUp(title))
                     .font(.caption.weight(.medium))
                     .lineLimit(1)
-                Image(systemName: "arrow.down.circle.fill")
+                Image(systemName: nextFieldGlyph)
                     .font(.caption2)
             }
             .foregroundStyle(palette.accent)
