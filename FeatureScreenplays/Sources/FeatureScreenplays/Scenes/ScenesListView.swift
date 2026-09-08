@@ -123,6 +123,7 @@ public struct ScenesListView: View {
                 .foregroundStyle(palette.textMuted)
             TextField("Search scenes", text: $viewModel.searchText)
                 .autocorrectionDisabled()
+                .submitLabel(.done)
                 .foregroundStyle(palette.textPrimary)
             if viewModel.isSearching {
                 Button {

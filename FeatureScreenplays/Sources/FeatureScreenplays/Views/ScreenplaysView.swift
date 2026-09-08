@@ -64,6 +64,7 @@ public struct ScreenplaysView: View {
                     .foregroundStyle(palette.textMuted)
                 TextField("Search scripts", text: $viewModel.searchText)
                     .autocorrectionDisabled()
+                    .submitLabel(.done)
                     .foregroundStyle(palette.textPrimary)
                 if !viewModel.searchText.isEmpty {
                     Button {

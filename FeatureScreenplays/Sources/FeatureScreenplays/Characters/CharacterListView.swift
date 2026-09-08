@@ -109,6 +109,7 @@ public struct CharacterListView: View {
                 TextField("Search cast", text: $viewModel.searchText)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
+                    .submitLabel(.done)
                     .foregroundStyle(palette.textPrimary)
                 if viewModel.isSearching {
                     Button {
