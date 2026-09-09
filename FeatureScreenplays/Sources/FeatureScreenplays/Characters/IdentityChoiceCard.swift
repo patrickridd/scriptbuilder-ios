@@ -107,11 +107,15 @@ struct IdentityChoiceCard: View {
                     .multilineTextAlignment(.leading)
             }
             if let examples, !examples.isEmpty {
-                Text(examples)
-                    .font(.caption)
-                    .italic()
-                    .foregroundStyle(palette.textSecondary)
-                    .multilineTextAlignment(.leading)
+                HStack {
+                    Text("Examples:")
+                        .font(.caption)
+                    Text(examples)
+                        .font(.caption)
+                        .italic()
+                        .foregroundStyle(palette.accent)
+                        .multilineTextAlignment(.leading)
+                }
             }
         }
         .fixedSize(horizontal: false, vertical: true)
