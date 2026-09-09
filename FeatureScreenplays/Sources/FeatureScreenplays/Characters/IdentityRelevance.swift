@@ -66,9 +66,16 @@ enum IdentityRelevance {
             StoryFunctionSlug.passiveProtagonist
         ],
         HierarchicalRole.Stock.antagonist: [
+            StoryFunctionSlug.rival, StoryFunctionSlug.pursuer,
             StoryFunctionSlug.tempter, StoryFunctionSlug.saboteur,
-            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.harbinger,
-            StoryFunctionSlug.mirror, StoryFunctionSlug.instigator,
+            StoryFunctionSlug.instigator, StoryFunctionSlug.puppeteer,
+            StoryFunctionSlug.authority,
+            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.mirror,
+            // Harbinger is deliberately NOT suggested here: warning what's
+            // coming is an *informational* job, not an oppositional one — the
+            // witches tell Macbeth his future and leave. It belongs with
+            // Recurring and the supporting leads (and stays selectable here).
+            //
             // False Antagonist is deliberately NOT suggested here: it names the
             // decoy the audience *mistakes* for the opposition, which means the
             // real opposition is someone else. It stays selectable (dual-
@@ -79,6 +86,7 @@ enum IdentityRelevance {
         HierarchicalRole.Stock.secondLead: [
             StoryFunctionSlug.confidant, StoryFunctionSlug.foil,
             StoryFunctionSlug.loveInterest, StoryFunctionSlug.voiceOfReason,
+            StoryFunctionSlug.rival,
             StoryFunctionSlug.falseAntagonist, StoryFunctionSlug.heroAntagonist,
             StoryFunctionSlug.hiddenAntagonist
         ],
@@ -121,7 +129,7 @@ enum IdentityRelevance {
         ],
         ArchetypeSlug.mentor: [
             StoryFunctionSlug.voiceOfReason, StoryFunctionSlug.herald,
-            StoryFunctionSlug.thresholdGuardian
+            StoryFunctionSlug.harbinger, StoryFunctionSlug.thresholdGuardian
         ],
         ArchetypeSlug.jester: [
             StoryFunctionSlug.comicRelief, StoryFunctionSlug.foil,
@@ -142,14 +150,15 @@ enum IdentityRelevance {
         ],
         ArchetypeSlug.villain: [
             StoryFunctionSlug.saboteur, StoryFunctionSlug.tempter,
-            StoryFunctionSlug.harbinger, StoryFunctionSlug.hiddenAntagonist
+            StoryFunctionSlug.puppeteer, StoryFunctionSlug.hiddenAntagonist
         ],
         ArchetypeSlug.antiVillain: [
-            StoryFunctionSlug.mirror, StoryFunctionSlug.foil
+            StoryFunctionSlug.mirror, StoryFunctionSlug.foil,
+            StoryFunctionSlug.rival
         ],
         ArchetypeSlug.inanimateAntagonist: [
             StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.instigator,
-            StoryFunctionSlug.harbinger
+            StoryFunctionSlug.pursuer
         ],
         ArchetypeSlug.shapeshifter: [
             StoryFunctionSlug.falseAntagonist, StoryFunctionSlug.hiddenAntagonist,
@@ -160,10 +169,10 @@ enum IdentityRelevance {
         ],
         ArchetypeSlug.warrior: [
             StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.henchman,
-            StoryFunctionSlug.heroAntagonist
+            StoryFunctionSlug.rival, StoryFunctionSlug.heroAntagonist
         ],
         ArchetypeSlug.ruler: [
-            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.harbinger,
+            StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.authority,
             StoryFunctionSlug.heroAntagonist
         ],
         ArchetypeSlug.innocent: [
@@ -235,7 +244,14 @@ enum IdentityRelevance {
             StoryFunctionSlug.hiddenAntagonist,
             StoryFunctionSlug.saboteur,
             StoryFunctionSlug.tempter,
-            StoryFunctionSlug.instigator
+            StoryFunctionSlug.instigator,
+            // Opposition jobs defined *against* the lead: the person the story
+            // is about cannot be their own rival, hunter, unseen hand or
+            // rulebook.
+            StoryFunctionSlug.rival,
+            StoryFunctionSlug.pursuer,
+            StoryFunctionSlug.puppeteer,
+            StoryFunctionSlug.authority
         ]),
         HierarchicalRole.Stock.antagonist: supportingOnlyStoryFunctions.union([
             StoryFunctionSlug.activeProtagonist,

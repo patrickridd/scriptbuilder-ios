@@ -17,6 +17,25 @@ final class IdentityRelevanceTests: XCTestCase {
         XCTAssertTrue(slugs.contains(StoryFunctionSlug.tempter))
     }
 
+    /// Harbinger warns; it doesn't oppose. It stays selectable for an
+    /// Antagonist but is never suggested for one.
+    func testAntagonistSuggestsOppositionJobsButNotHarbinger() {
+        let role = HierarchicalRole(slug: HierarchicalRole.Stock.antagonist)
+        let slugs = IdentityRelevance.suggestedStoryFunctionSlugs(
+            for: role,
+            archetypes: [.stock(ArchetypeSlug.villain)]
+        )
+        XCTAssertFalse(slugs.contains(StoryFunctionSlug.harbinger))
+        for slug in [
+            StoryFunctionSlug.rival, StoryFunctionSlug.pursuer,
+            StoryFunctionSlug.puppeteer, StoryFunctionSlug.authority
+        ] {
+            XCTAssertTrue(slugs.contains(slug), slug)
+        }
+        let catalog = IdentityRelevance.storyFunctionCatalog(for: role).map(\.slug)
+        XCTAssertTrue(catalog.contains(StoryFunctionSlug.harbinger))
+    }
+
     func testProtagonistOnlyJobsLeadTheSuggestionList() {
         let role = HierarchicalRole(slug: HierarchicalRole.Stock.protagonist)
         let slugs = IdentityRelevance.suggestedStoryFunctionSlugs(
@@ -85,10 +104,18 @@ final class IdentityRelevanceTests: XCTestCase {
             for: role,
             archetypes: [.stock(ArchetypeSlug.jester)]
         )
-        // Role-led order is preserved…
-        XCTAssertEqual(slugs.first, StoryFunctionSlug.comicRelief)
-        // …and the archetype's own functions are merged in without duplicates.
+        // Rarest-first ranking wins over curated order: a supporting-only job
+        // leads a Fourth Lead's list…
+        XCTAssertEqual(slugs.first, StoryFunctionSlug.catalyst)
+        func index(_ slug: String) -> Int { slugs.firstIndex(of: slug) ?? Int.max }
+        // …the role's curated order survives inside a tier…
+        XCTAssertLessThan(index(StoryFunctionSlug.comicRelief),
+                          index(StoryFunctionSlug.herald))
+        // …and the archetype's own functions are merged in behind the role's,
+        // without duplicates.
         XCTAssertTrue(slugs.contains(StoryFunctionSlug.foil))
+        XCTAssertLessThan(index(StoryFunctionSlug.comicRelief),
+                          index(StoryFunctionSlug.foil))
         XCTAssertEqual(slugs.count, Set(slugs).count)
     }
 
@@ -122,7 +149,8 @@ final class IdentityRelevanceTests: XCTestCase {
             roleName: "Second Lead",
             archetypes: [.stock(ArchetypeSlug.mentor)]
         )
-        XCTAssertEqual(sources, ["Second Lead", "Mentor"])
+        XCTAssertEqual(sources.map(\.name), ["Second Lead", "Mentor"])
+        XCTAssertEqual(sources.map(\.facet), [.role, .archetype])
     }
 
     func testGroupsSplitCatalogWithoutLosingEntries() {

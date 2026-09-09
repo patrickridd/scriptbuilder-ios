@@ -182,6 +182,15 @@ public enum StoryFunctionSlug {
     public static let thematicAnchor    = "thematic-anchor"
     public static let instigator        = "instigator"
     public static let henchman          = "henchman"
+    /// Zero-sum opposition with no malice: they want what the lead wants.
+    public static let rival             = "rival"
+    /// Relentless chase — pressure by proximity rather than scheming.
+    public static let pursuer           = "pursuer"
+    /// Runs the opposition through proxies and stays out of reach.
+    /// Displayed as "Puppet Master".
+    public static let puppeteer         = "puppeteer"
+    /// Institutional obstruction with the rulebook on its side.
+    public static let authority         = "authority"
 
     public static let all: [String] = [
         catalyst, foil, confidant, thresholdGuardian, herald, comicRelief,
@@ -189,7 +198,8 @@ public enum StoryFunctionSlug {
         hiddenAntagonist, passiveProtagonist,
         activeProtagonist, investigator, catalystLead,
         audienceSurrogate, harbinger,
-        mirror, saboteur, tempter, thematicAnchor, instigator, henchman
+        mirror, saboteur, tempter, rival, pursuer, puppeteer, authority,
+        thematicAnchor, instigator, henchman
     ]
 }
 

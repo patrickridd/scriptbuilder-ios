@@ -222,7 +222,8 @@ enum IdentityCatalog {
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.herald, name: "Herald",
-            definition: "Announces the call to adventure.",
+            definition: "Hands the lead an invitation to act — the door into "
+                + "the story only opens because they showed up.",
             examples: "Hagrid · Effie Trinket"
         ),
         IdentityCatalogEntry(
@@ -296,7 +297,8 @@ enum IdentityCatalog {
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.harbinger, name: "Harbinger",
-            definition: "Foreshadows what's coming.",
+            definition: "Warns what's coming whether anyone acts or not — they "
+                + "hand the story dread, not an invitation.",
             examples: "The Three Witches · The Fortune Teller"
         ),
         IdentityCatalogEntry(
@@ -313,6 +315,33 @@ enum IdentityCatalog {
             slug: StoryFunctionSlug.tempter, name: "Tempter",
             definition: "Offers the easy, corrupting path.",
             examples: "Palpatine · The White Witch"
+        ),
+        IdentityCatalogEntry(
+            slug: StoryFunctionSlug.rival, name: "The Rival",
+            definition: "Wants the exact same thing the lead does, and only one "
+                + "of them can have it — opposition without malice.",
+            examples: "Salieri (Amadeus) · Apollo Creed (Rocky) · "
+                + "Gaston (Beauty and the Beast)"
+        ),
+        IdentityCatalogEntry(
+            slug: StoryFunctionSlug.pursuer, name: "The Pursuer",
+            definition: "Applies pressure by proximity rather than scheming: "
+                + "they keep coming, and stopping isn't something they do.",
+            examples: "The Terminator · Anton Chigurh (No Country for Old Men) · "
+                + "The shark (Jaws)"
+        ),
+        IdentityCatalogEntry(
+            slug: StoryFunctionSlug.puppeteer, name: "Puppet Master",
+            definition: "Runs the opposition through proxies and stays out of "
+                + "reach — often unmet until the last act.",
+            examples: "Professor Moriarty · Keyser Söze (The Usual Suspects)"
+        ),
+        IdentityCatalogEntry(
+            slug: StoryFunctionSlug.authority, name: "The Authority",
+            definition: "Blocks the lead with the rulebook on their side — "
+                + "grinding, systemic resistance rather than a single test.",
+            examples: "Nurse Ratched (One Flew Over the Cuckoo's Nest) · "
+                + "Miranda Priestly (The Devil Wears Prada)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.thematicAnchor, name: "Thematic Anchor",
@@ -363,6 +392,10 @@ enum IdentityCatalog {
         StoryFunctionSlug.mirror: "Shows the road not taken",
         StoryFunctionSlug.saboteur: "Undermines the plan from within",
         StoryFunctionSlug.tempter: "Offers the easy way out",
+        StoryFunctionSlug.rival: "Wants the same thing the lead wants",
+        StoryFunctionSlug.pursuer: "Never stops coming",
+        StoryFunctionSlug.puppeteer: "Pulls the strings and never shows up",
+        StoryFunctionSlug.authority: "Says no from behind a desk",
         StoryFunctionSlug.thematicAnchor: "Holds the moral line",
         StoryFunctionSlug.instigator: "Stirs up trouble",
         StoryFunctionSlug.henchman: "Carries out the orders"
