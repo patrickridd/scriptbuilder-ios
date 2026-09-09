@@ -197,7 +197,7 @@ struct TraitChipsWrap<Destination: View>: View {
     }
 }
 
-/// Inline preview for multi-select rows: the first two selections as small
+/// Inline summary for multi-select rows: the first two selections as small
 /// chips plus a "+N" overflow marker.
 struct TraitChipsPreview: View {
     @Environment(\.appPalette) private var palette
@@ -227,3 +227,122 @@ struct TraitChipsPreview: View {
             .background(palette.accent.opacity(0.12), in: Capsule())
     }
 }
+
+#if DEBUG
+/// Gallery of every shape the card can take, one per facet plus the two
+/// special cases (a classical term, and a compact custom entry with delete).
+/// Tapping toggles selection so the accent border, tinted glyph and checkmark
+/// can be checked live in both colour schemes.
+private struct IdentityChoiceCardGallery: View {
+    @State private var selected: Set<String> = ["protagonist", "instigator"]
+
+    private var roleHue: Color { IdentityHue.hue(for: .role) }
+    private var archetypeHue: Color { IdentityHue.hue(for: .archetype) }
+    private var functionHue: Color { IdentityHue.hue(for: .storyFunction) }
+
+    var body: some View {
+        ZStack {
+            AppBackground()
+            ScrollView {
+                VStack(spacing: 12) {
+                    roleCard
+                    archetypeCard
+                    storyFunctionCard
+                    customCard
+                }
+                .padding(16)
+            }
+        }
+    }
+
+    private var roleCard: some View {
+        card(
+            id: "protagonist",
+            name: "Protagonist",
+            definition: "The character whose choices drive the story forward.",
+            examples: "Clarice Starling · Michael Corleone",
+            facet: .role,
+            tint: roleHue
+        )
+    }
+
+    private var archetypeCard: some View {
+        card(
+            id: "mentor",
+            name: "Mentor",
+            definition: "Guides the lead, then steps aside so they can face it alone.",
+            examples: "Obi-Wan Kenobi · Mickey Goldmill",
+            facet: .archetype,
+            tint: archetypeHue,
+            classicalName: "Senex"
+        )
+    }
+
+    /// Story functions lead with the verb phrase and file the noun underneath.
+    private var storyFunctionCard: some View {
+        card(
+            id: "instigator",
+            name: "Stirs up trouble",
+            definition: "Pushes the story off balance and keeps the pressure on.",
+            examples: "Amy Dunne · Loki",
+            facet: .storyFunction,
+            tint: functionHue,
+            term: "Instigator"
+        )
+    }
+
+    /// Writer-typed entry: name only, so it centres and offers a delete.
+    private var customCard: some View {
+        IdentityChoiceCard(
+            name: "Reluctant Fixer",
+            definition: nil,
+            examples: nil,
+            isSelected: selected.contains("custom"),
+            onTap: { toggle("custom") },
+            onDelete: {},
+            tint: functionHue,
+            glyph: IdentityHue.glyph(for: .storyFunction)
+        )
+    }
+
+    private func card(
+        id: String,
+        name: String,
+        definition: String,
+        examples: String,
+        facet: IdentityHue.Facet,
+        tint: Color,
+        classicalName: String? = nil,
+        term: String? = nil
+    ) -> some View {
+        IdentityChoiceCard(
+            name: name,
+            definition: definition,
+            examples: examples,
+            classicalName: classicalName,
+            term: term,
+            isSelected: selected.contains(id),
+            onTap: { toggle(id) },
+            tint: tint,
+            glyph: IdentityHue.glyph(for: facet)
+        )
+    }
+
+    private func toggle(_ id: String) {
+        if selected.contains(id) {
+            selected.remove(id)
+        } else {
+            selected.insert(id)
+        }
+    }
+}
+
+#Preview("Identity Choice Cards — Light") {
+    IdentityChoiceCardGallery()
+}
+
+#Preview("Identity Choice Cards — Dark") {
+    IdentityChoiceCardGallery()
+        .preferredColorScheme(.dark)
+}
+#endif
