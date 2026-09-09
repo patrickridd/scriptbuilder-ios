@@ -69,7 +69,11 @@ enum IdentityRelevance {
             StoryFunctionSlug.tempter, StoryFunctionSlug.saboteur,
             StoryFunctionSlug.thresholdGuardian, StoryFunctionSlug.harbinger,
             StoryFunctionSlug.mirror, StoryFunctionSlug.instigator,
-            StoryFunctionSlug.falseAntagonist, StoryFunctionSlug.heroAntagonist,
+            // False Antagonist is deliberately NOT suggested here: it names the
+            // decoy the audience *mistakes* for the opposition, which means the
+            // real opposition is someone else. It stays selectable (dual-
+            // antagonist scripts, undecided drafts) but supporting roles own it.
+            StoryFunctionSlug.heroAntagonist,
             StoryFunctionSlug.hiddenAntagonist
         ],
         HierarchicalRole.Stock.secondLead: [

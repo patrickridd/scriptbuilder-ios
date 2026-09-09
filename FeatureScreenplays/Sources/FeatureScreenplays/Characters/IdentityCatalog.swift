@@ -244,7 +244,8 @@ enum IdentityCatalog {
             slug: StoryFunctionSlug.falseAntagonist,
             name: "False Antagonist (Red Herring)",
             definition: "Framed as the threat and drawing the suspicion, later "
-                + "revealed as an ally or an innocent.",
+                + "revealed as an ally or an innocent — the real opposition "
+                + "belongs to someone else.",
             examples: "Severus Snape · The Iron Giant · Boo Radley"
         ),
         IdentityCatalogEntry(
