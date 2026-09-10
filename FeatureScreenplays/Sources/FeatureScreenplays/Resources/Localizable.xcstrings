@@ -4061,6 +4061,370 @@
         }
       }
     },
+    "export.action" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Handlung" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Action" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Acción" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Action" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "क्रिया" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アクション" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "액션" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "动作" } }
+      }
+    },
+    "export.description" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Beschreibung" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Description" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Descripción" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Description" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "विवरण" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "説明" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "설명" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "描述" } }
+      }
+    },
+    "export.dialogue" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Dialog" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Dialogue" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Diálogo" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Dialogue" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "संवाद" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "台詞" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "대사" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "对白" } }
+      }
+    },
+    "export.flaws" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Schwächen" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Flaws" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Defectos" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Failles" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कमज़ोरियाँ" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "欠点" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "결함" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "缺陷" } }
+      }
+    },
+    "export.header" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Szenenkopf" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Header" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Encabezado" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "En-tête" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "शीर्षक" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "シーンヘッダー" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "슬러그라인" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "场景标题" } }
+      }
+    },
+    "export.howTheyChange" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wie sie sich verändern" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How They Change" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Cómo cambian" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Comment ils changent" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "वे कैसे बदलते हैं" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "どう変わるか" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "어떻게 변하는가" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "他们如何转变" } }
+      }
+    },
+    "export.howTheyDoIt" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wie sie es tun" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How They Do It" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Cómo lo hacen" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Comment ils le font" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "वे कैसे करते हैं" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "どう行うか" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "어떻게 하는가" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "他们怎么做" } }
+      }
+    },
+    "export.intentionFix" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Zielkorrektur" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Intention Fix" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Corrección de la intención" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Correction de l'intention" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "अभिप्राय सुधार" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "目的の修正" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "목표 수정" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "意图修正" } }
+      }
+    },
+    "export.need" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Bedürfnis" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Need" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Necesidad" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Besoin" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आवश्यकता" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "本当に必要なもの" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "진짜 욕구" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "内在需求" } }
+      }
+    },
+    "export.obstacles" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Hindernisse" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Obstacles" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Obstáculos" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Obstacles" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "बाधाएँ" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "障害" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "장애물" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "阻碍" } }
+      }
+    },
+    "export.section.scenes" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Szenen" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Scenes" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Escenas" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Scènes" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "दृश्य" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "シーン" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "장면" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "场景" } }
+      }
+    },
+    "export.storyProgression" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Story-Fortschritt" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Story Progression" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Avance de la historia" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Progression de l'histoire" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कहानी की प्रगति" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "物語の進行" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이야기 전개" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "故事推进" } }
+      }
+    },
+    "export.whatTheyDo" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Was sie tun" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What They Do" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Qué hacen" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ce qu'ils font" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "वे क्या करते हैं" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "何をするか" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "무엇을 하는가" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "他们做什么" } }
+      }
+    },
+    "export.why" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Warum" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Why" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Por qué" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Pourquoi" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "क्यों" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "理由" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이유" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "原因" } }
+      }
+    },
+    "export.centralIntention" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Zentrales Ziel" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Central Intention" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Intención central" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Intention centrale" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "केंद्रीय अभिप्राय" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "中心となる目的" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "핵심 목표" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "核心意图" } }
+      }
+    },
+    "export.idea" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Idee" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Idea" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Idea" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Idée" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "विचार" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アイデア" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "아이디어" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "创意" } }
+      }
+    },
+    "export.intention" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ziel" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Intention" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Intención" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Intention" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "अभिप्राय" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "目的" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "목표" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "意图" } }
+      }
+    },
+    "export.logline" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Logline" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Logline" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Logline" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Logline" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "लॉगलाइन" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ログライン" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "로그라인" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "故事梗概" } }
+      }
+    },
+    "export.mainObstacle" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Haupthindernis" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Main Obstacle" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Obstáculo principal" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Obstacle principal" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "मुख्य बाधा" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "主な障害" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "주요 장애물" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "主要阻碍" } }
+      }
+    },
+    "export.notes" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Notizen" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notes" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Notas" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Notes" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "नोट्स" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "メモ" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "메모" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "笔记" } }
+      }
+    },
+    "export.role" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Rolle" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Role" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Rol" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rôle" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "भूमिका" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "役割" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "역할" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "角色定位" } }
+      }
+    },
+    "export.section.characters" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Figuren" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Characters" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Personajes" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Personnages" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "पात्र" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "登場人物" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "인물" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "角色" } }
+      }
+    },
+    "export.section.outline" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Gliederung" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Outline" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Escaleta" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Structure" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "रूपरेखा" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アウトライン" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "아웃라인" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "大纲" } }
+      }
+    },
+    "export.section.overview" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Überblick" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Overview" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Resumen" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vue d'ensemble" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "अवलोकन" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "概要" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "개요" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "总览" } }
+      }
+    },
+    "export.theme" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Thema" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Theme" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Tema" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Thème" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "थीम" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "テーマ" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "주제" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "主题" } }
+      }
+    },
+    "export.unnamedCharacter" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Namenlose Figur" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unnamed Character" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Personaje sin nombre" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Personnage sans nom" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "अनाम पात्र" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "名前のない登場人物" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이름 없는 인물" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未命名角色" } }
+      }
+    },
+    "export.untitled" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ohne Titel" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Untitled" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Sin título" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Sans titre" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "अनाम" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "無題" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "제목 없음" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "无标题" } }
+      }
+    },
+    "export.writtenBy" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Von %@" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Written by %@" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Escrito por %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Écrit par %@" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "%@ द्वारा लिखित" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "脚本 %@" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "%@ 각본" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "编剧 %@" } }
+      }
+    },
     "identity.ui.allChoices" : {
       "extractionState" : "stale",
       "localizations" : {
