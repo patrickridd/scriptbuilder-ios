@@ -107,7 +107,7 @@ struct IdentityChoiceCard: View {
                     .multilineTextAlignment(.leading)
             }
             if let examples, !examples.isEmpty {
-                HStack {
+                HStack(alignment: .top) {
                     Text(L10n.Identity.examplesLabel)
                         .font(.caption)
                     Text(examples)
