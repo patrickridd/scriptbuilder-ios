@@ -94,12 +94,12 @@ enum IdentityCatalog {
         IdentityCatalogEntry(
             slug: ArchetypeSlug.hero, name: "Hero",
             definition: "Rises to the challenge and sacrifices for others.",
-            examples: "Luke Skywalker · Mulan"
+            examples: "Luke Skywalker (Star Wars) · Mulan"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.mentor, name: "Mentor",
             definition: "Guides the hero's growth with wisdom and gifts.",
-            examples: "Obi-Wan Kenobi · Mr. Miyagi"
+            examples: "Obi-Wan Kenobi (Star Wars) · Mr. Miyagi (The Karate Kid)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.villainProtagonist, name: "Villain Protagonist",
@@ -111,31 +111,35 @@ enum IdentityCatalog {
         IdentityCatalogEntry(
             slug: ArchetypeSlug.antiHero, name: "Anti-Hero",
             definition: "A flawed lead who does the right thing the wrong way.",
-            examples: "Tony Soprano · Deadpool"
+            examples: "Tony Soprano (The Sopranos) · Deadpool"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.tragicHero, name: "Tragic Hero",
             definition: "A noble, generally good character whose fatal flaw or "
                 + "misjudgment leads to their downfall and death.",
-            examples: "Anakin Skywalker · Harvey Dent · Michael Corleone"
+            examples: "Anakin Skywalker (Star Wars) · Harvey Dent (The Dark Knight) · "
+                + "Michael Corleone (The Godfather)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.villain, name: "Villain",
             definition: "Commits evil intentionally to oppose the hero and serve "
                 + "malicious goals.",
-            examples: "Lord Voldemort · The Joker · Sauron"
+            examples: "Lord Voldemort (Harry Potter) · The Joker (The Dark Knight) · "
+                + "Sauron (The Lord of the Rings)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.antiVillain, name: "Anti-Villain",
             definition: "Opposes the hero, yet acts on noble intentions or a "
                 + "sympathetic past.",
-            examples: "Killmonger · Magneto · Thanos"
+            examples: "Killmonger (Black Panther) · Magneto (X-Men) · "
+                + "Thanos (Avengers: Infinity War)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.inanimateAntagonist, name: "Inanimate Antagonist",
             definition: "A non-sentient force — nature, disease, machine — that the "
                 + "hero must survive.",
-            examples: "Mars (The Martian) · The Overlook Hotel · The iceberg (Titanic)"
+            examples: "Mars (The Martian) · The Overlook Hotel (The Shining) · "
+                + "The iceberg (Titanic)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.shadow, name: "Shadow",
@@ -152,47 +156,50 @@ enum IdentityCatalog {
         IdentityCatalogEntry(
             slug: ArchetypeSlug.jester, name: "Jester",
             definition: "Uses humor to disarm — and to speak the truth.",
-            examples: "Ferris Bueller · Jack Sparrow · Genie · Donkey"
+            examples: "Ferris Bueller (Ferris Bueller's Day Off) · "
+                + "Jack Sparrow (Pirates of the Caribbean) · Genie (Aladdin)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.lover, name: "Lover",
             definition: "Led by the heart; seeks intimacy and connection.",
-            examples: "Rose DeWitt · Noah Calhoun"
+            examples: "Rose DeWitt (Titanic) · Noah Calhoun (The Notebook)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.rebel, name: "Rebel",
             definition: "Breaks the rules to upend the status quo.",
-            examples: "Katniss Everdeen · V"
+            examples: "Katniss Everdeen (The Hunger Games) · Magneto (X-Men)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.caregiver, name: "Caregiver",
             definition: "Protects and nurtures others, often at personal cost.",
-            examples: "Marlin (Finding Nemo) · Samwise Gamgee · Mary Poppins"
+            examples: "Marlin (Finding Nemo) · "
+                + "Samwise Gamgee (The Lord of the Rings) · Mary Poppins"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.warrior, name: "Warrior",
             definition: "Lives by courage, discipline, and the fight.",
-            examples: "Maximus · Sarah Connor"
+            examples: "Maximus (Gladiator) · General Zod (Man of Steel)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.ruler, name: "Ruler",
             definition: "Craves control and order; leads — or dominates.",
-            examples: "Michael Corleone · Miranda Priestly"
+            examples: "Michael Corleone (The Godfather) · "
+                + "Miranda Priestly (The Devil Wears Prada)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.innocent, name: "Innocent",
             definition: "Sees the world with optimism and trust.",
-            examples: "Forrest Gump · Buddy the Elf"
+            examples: "Forrest Gump · Buddy the Elf (Elf)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.sidekick, name: "Sidekick",
             definition: "The loyal companion who steadies and supports.",
-            examples: "Ron Weasley · Chewbacca"
+            examples: "Ron Weasley (Harry Potter) · Chewbacca (Star Wars)"
         ),
         IdentityCatalogEntry(
             slug: ArchetypeSlug.artist, name: "Artist",
             definition: "Creates meaning and sees the world differently.",
-            examples: "Amélie · Jack Dawson"
+            examples: "Amélie · Jack Dawson (Titanic)"
         )
     ]
 
@@ -203,43 +210,45 @@ enum IdentityCatalog {
             slug: StoryFunctionSlug.catalyst, name: "Catalyst",
             definition: "Sparks someone else's story into motion, "
                 + "then steps out of the way.",
-            examples: "R2-D2 · The White Rabbit"
+            examples: "R2-D2 (Star Wars) · The White Rabbit (Alice in Wonderland)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.foil, name: "Foil",
             definition: "Contrasts the hero to reveal their qualities.",
-            examples: "Draco Malfoy · Buzz Lightyear"
+            examples: "Draco Malfoy (Harry Potter) · Buzz Lightyear (Toy Story)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.confidant, name: "Confidant",
             definition: "The trusted ear where inner thoughts surface.",
-            examples: "Dr. Watson · Horatio"
+            examples: "Dr. Watson (Sherlock Holmes) · Horatio (Hamlet)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.thresholdGuardian, name: "Threshold Guardian",
             definition: "Tests the hero at the gate of new territory.",
-            examples: "The Sphinx · Emerald City gatekeeper"
+            examples: "The Sphinx (Oedipus Rex) · "
+                + "Emerald City gatekeeper (The Wizard of Oz)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.herald, name: "Herald",
             definition: "Hands the lead an invitation to act — the door into "
                 + "the story only opens because they showed up.",
-            examples: "Hagrid · Effie Trinket"
+            examples: "Hagrid (Harry Potter) · Effie Trinket (The Hunger Games)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.comicRelief, name: "Comic Relief",
             definition: "Breaks tension with humor.",
-            examples: "C-3PO · Olaf"
+            examples: "C-3PO (Star Wars) · Olaf (Frozen)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.loveInterest, name: "Love Interest",
             definition: "The romantic stake that raises the pressure.",
-            examples: "Mary Jane Watson · Peeta Mellark"
+            examples: "Mary Jane Watson (Spider-Man) · "
+                + "Peeta Mellark (The Hunger Games)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.voiceOfReason, name: "Voice of Reason",
             definition: "Grounds the group with logic and caution.",
-            examples: "Spock · Hermione Granger"
+            examples: "Spock (Star Trek) · Hermione Granger (Harry Potter)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.falseAntagonist,
@@ -247,27 +256,32 @@ enum IdentityCatalog {
             definition: "Framed as the threat and drawing the suspicion, later "
                 + "revealed as an ally or an innocent — the real opposition "
                 + "belongs to someone else.",
-            examples: "Severus Snape · The Iron Giant · Boo Radley"
+            examples: "Severus Snape (Harry Potter) · The Iron Giant · "
+                + "Boo Radley (To Kill a Mockingbird)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.heroAntagonist, name: "Hero Antagonist",
             definition: "Doing the right thing — and it puts them squarely "
                 + "against our lead.",
-            examples: "Inspector Javert · Hank Schrader · Chief Inspector Campbell"
+            examples: "Inspector Javert (Les Misérables) · "
+                + "Hank Schrader (Breaking Bad) · "
+                + "Chief Inspector Campbell (Peaky Blinders)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.hiddenAntagonist,
             name: "Hidden Antagonist (Secret Threat)",
             definition: "Hides their identity or motives — trusted by the cast "
                 + "until the twist lands.",
-            examples: "Palpatine · Lotso · Peter Pettigrew"
+            examples: "Palpatine (Star Wars) · Lotso (Toy Story 3) · "
+                + "Peter Pettigrew (Harry Potter)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.passiveProtagonist,
             name: "Passive Protagonist",
             definition: "Carries the story by reacting to events rather than "
                 + "driving them — the plot happens to them.",
-            examples: "Nick Carraway · The Dude · Bilbo Baggins"
+            examples: "Nick Carraway (The Great Gatsby) · "
+                + "The Dude (The Big Lebowski) · Bilbo Baggins (The Hobbit)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.activeProtagonist,
@@ -293,28 +307,29 @@ enum IdentityCatalog {
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.audienceSurrogate, name: "Audience Surrogate",
             definition: "Asks what we're all thinking — our way into the world.",
-            examples: "Nick Carraway · Bilbo Baggins"
+            examples: "Nick Carraway (The Great Gatsby) · Bilbo Baggins (The Hobbit)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.harbinger, name: "Harbinger",
             definition: "Warns what's coming whether anyone acts or not — they "
                 + "hand the story dread, not an invitation.",
-            examples: "The Three Witches · The Fortune Teller"
+            examples: "The Three Witches (Macbeth) · Cassandra (Troy)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.mirror, name: "Mirror",
             definition: "Reflects the hero's choices taken down another path.",
-            examples: "Gollum · Kylo Ren"
+            examples: "Gollum (The Lord of the Rings) · Kylo Ren (Star Wars)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.saboteur, name: "Saboteur",
             definition: "Undermines the plan from within.",
-            examples: "Cypher · Edmund Pevensie"
+            examples: "Cypher (The Matrix) · Edmund Pevensie (The Chronicles of Narnia)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.tempter, name: "Tempter",
             definition: "Offers the easy, corrupting path.",
-            examples: "Palpatine · The White Witch"
+            examples: "Palpatine (Star Wars) · "
+                + "The White Witch (The Chronicles of Narnia)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.rival, name: "The Rival",
@@ -347,17 +362,17 @@ enum IdentityCatalog {
             slug: StoryFunctionSlug.thematicAnchor, name: "Thematic Anchor",
             definition: "Holds the story's moral centre and never bends. "
                 + "They don't change — the world around them does.",
-            examples: "Paddington · Superman · Atticus Finch"
+            examples: "Paddington · Superman · Atticus Finch (To Kill a Mockingbird)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.instigator, name: "Instigator",
             definition: "Stirs conflict and forces decisions.",
-            examples: "Iago · Tyler Durden"
+            examples: "Iago (Othello) · Tyler Durden (Fight Club)"
         ),
         IdentityCatalogEntry(
             slug: StoryFunctionSlug.henchman, name: "Henchman",
             definition: "Executes the antagonist's will.",
-            examples: "Oddjob · Crabbe & Goyle"
+            examples: "Oddjob (Goldfinger) · Crabbe & Goyle (Harry Potter)"
         )
     ]
 
