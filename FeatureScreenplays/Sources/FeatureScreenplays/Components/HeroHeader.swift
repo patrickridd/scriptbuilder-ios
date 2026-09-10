@@ -25,7 +25,7 @@ struct HeroHeader: View {
         .onTapGesture { onOpenProfile() }
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.isButton)
-        .accessibilityHint("Opens your profile")
+        .accessibilityHint(L10n.Home.profileHint)
     }
 
     private var welcome: some View {
@@ -62,11 +62,11 @@ struct HeroHeader: View {
 
     private var stats: some View {
         HStack(spacing: 8) {
-            StatPill(value: "\(scriptCount)", label: "Scripts")
+            StatPill(value: "\(scriptCount)", label: L10n.Home.statScripts)
             divider
-            StatPill(value: "\(sceneCount)", label: "Scenes")
+            StatPill(value: "\(sceneCount)", label: L10n.Home.statScenes)
             divider
-            StatPill(value: lastEdited, label: "Last edit")
+            StatPill(value: lastEdited, label: L10n.Home.statLastEdit)
         }
         .padding(.vertical, 12)
         .padding(.horizontal, 8)

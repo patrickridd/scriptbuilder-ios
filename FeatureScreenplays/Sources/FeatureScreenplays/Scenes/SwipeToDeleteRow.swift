@@ -54,7 +54,7 @@ struct SwipeToDeleteRow<Content: View>: View {
         }
         .buttonStyle(.plain)
         .opacity(currentOffset < -8 ? 1 : 0)
-        .accessibilityLabel("Delete scene")
+        .accessibilityLabel(L10n.SceneUI.deleteAccessibility)
     }
 
     private var dragGesture: some Gesture {

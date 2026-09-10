@@ -10,7 +10,7 @@ import DesignSystem
 struct AddSceneCard: View {
     @Environment(\.appPalette) private var palette
 
-    var title: String = "New Scene"
+    var title: String = L10n.SceneUI.newScene
     let caption: String
     var isLocked: Bool = false
     let action: () -> Void
@@ -29,7 +29,7 @@ struct AddSceneCard: View {
             .background(cardBackground)
         }
         .buttonStyle(PressableScaleStyle())
-        .accessibilityLabel(isLocked ? "\(title) (Pro)" : title)
+        .accessibilityLabel(isLocked ? L10n.Action.withPro(title) : title)
         .accessibilityHint(caption)
     }
 
@@ -56,7 +56,7 @@ struct AddSceneCard: View {
     }
 
     private var proCapsule: some View {
-        Text("PRO")
+        Text(L10n.Action.pro)
             .font(.caption2.weight(.black))
             .foregroundStyle(.white)
             .padding(.horizontal, 8)

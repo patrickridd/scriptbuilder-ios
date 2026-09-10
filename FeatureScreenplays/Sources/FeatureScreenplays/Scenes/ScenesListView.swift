@@ -121,7 +121,7 @@ public struct ScenesListView: View {
             Image(systemName: "magnifyingglass")
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(palette.textMuted)
-            TextField("Search scenes", text: $viewModel.searchText)
+            TextField(L10n.SceneUI.searchPlaceholder, text: $viewModel.searchText)
                 .autocorrectionDisabled()
                 .submitLabel(.done)
                 .foregroundStyle(palette.textPrimary)
@@ -158,8 +158,8 @@ public struct ScenesListView: View {
                 }
                 .shadow(color: palette.accent.opacity(0.35), radius: 8, y: 4)
         }
-        .accessibilityLabel(isSceneLocked ? "New scene (Pro)" : "New scene")
-        .accessibilityHint(isSceneLocked ? "Unlock ScriptBuilder Pro to add more scenes" : "")
+        .accessibilityLabel(L10n.SceneUI.addAccessibility(locked: isSceneLocked))
+        .accessibilityHint(isSceneLocked ? L10n.SceneUI.unlockProHint : "")
     }
 
     private var lockBadge: some View {
@@ -179,19 +179,19 @@ public struct ScenesListView: View {
             Image(systemName: "magnifyingglass")
                 .font(.system(size: 40, weight: .light))
                 .foregroundStyle(palette.textMuted)
-            Text("No scenes found")
+            Text(L10n.SceneUI.noMatchesTitle)
                 .font(.headline)
                 .foregroundStyle(palette.textPrimary)
-            Text("Nothing matches “\(viewModel.trimmedQuery)” yet.")
+            Text(L10n.SceneUI.noMatchesMessage(viewModel.trimmedQuery))
                 .font(.subheadline)
                 .foregroundStyle(palette.textMuted)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
 
             AddPillButton(
-                title: "Create “\(viewModel.trimmedQuery)”",
+                title: L10n.SceneUI.createNamed(viewModel.trimmedQuery),
                 isLocked: isSceneLocked,
-                accessibilityHintText: isSceneLocked ? "Unlock ScriptBuilder Pro to add more scenes" : ""
+                accessibilityHintText: isSceneLocked ? L10n.SceneUI.unlockProHint : ""
             ) {
                 let query = viewModel.trimmedQuery
                 viewModel.searchText = ""
@@ -315,7 +315,7 @@ public struct ScenesListView: View {
     /// dragged scene.
     private func emptyRow(for act: Act) -> some View {
         AddSceneCard(
-            caption: "Add to \(act.title)",
+            caption: L10n.SceneUI.addToAct(act.title),
             isLocked: isSceneLocked
         ) {
             requestAddScene(to: act)

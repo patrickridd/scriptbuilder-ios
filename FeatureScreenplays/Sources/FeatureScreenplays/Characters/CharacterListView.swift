@@ -106,7 +106,7 @@ public struct CharacterListView: View {
                 Image(systemName: "magnifyingglass")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(palette.textMuted)
-                TextField("Search cast", text: $viewModel.searchText)
+                TextField(L10n.CharacterUI.searchPlaceholder, text: $viewModel.searchText)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
                     .submitLabel(.done)
@@ -226,8 +226,8 @@ public struct CharacterListView: View {
                 }
                 .shadow(color: palette.accent.opacity(0.35), radius: 8, y: 4)
         }
-        .accessibilityLabel(isCharacterLocked ? "New character (Pro)" : "New character")
-        .accessibilityHint(isCharacterLocked ? "Unlock ScriptBuilder Pro to add more characters" : "")
+        .accessibilityLabel(L10n.CharacterUI.addAccessibility(locked: isCharacterLocked))
+        .accessibilityHint(isCharacterLocked ? L10n.CharacterUI.unlockProHint : "")
     }
 
     private var lockBadge: some View {
@@ -252,7 +252,7 @@ public struct CharacterListView: View {
             HStack(spacing: 8) {
                 Image(systemName: "plus")
                     .font(.subheadline.weight(.bold))
-                Text("New Character")
+                Text(L10n.CharacterUI.newCharacter)
                     .font(.subheadline.weight(.semibold))
                 if isCharacterLocked { proCapsule }
             }
@@ -265,8 +265,8 @@ public struct CharacterListView: View {
         .padding(.horizontal, 16)
         .padding(.top, 10)
         .padding(.bottom, 2)
-        .accessibilityLabel(isCharacterLocked ? "New character (Pro)" : "New character")
-        .accessibilityHint(isCharacterLocked ? "Unlock ScriptBuilder Pro to add more characters" : "")
+        .accessibilityLabel(L10n.CharacterUI.addAccessibility(locked: isCharacterLocked))
+        .accessibilityHint(isCharacterLocked ? L10n.CharacterUI.unlockProHint : "")
     }
 
     private var dashedPillBackground: some View {
@@ -282,7 +282,7 @@ public struct CharacterListView: View {
     }
 
     private var proCapsule: some View {
-        Text("PRO")
+        Text(L10n.Action.pro)
             .font(.caption2.weight(.black))
             .foregroundStyle(.white)
             .padding(.horizontal, 7)
@@ -317,9 +317,9 @@ public struct CharacterListView: View {
         let query = viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         if !query.isEmpty {
             AddPillButton(
-                title: "Create “\(query)”",
+                title: L10n.CharacterUI.createNamed(query),
                 isLocked: isCharacterLocked,
-                accessibilityHintText: isCharacterLocked ? "Unlock ScriptBuilder Pro to add more characters" : ""
+                accessibilityHintText: isCharacterLocked ? L10n.CharacterUI.unlockProHint : ""
             ) {
                 viewModel.searchText = ""
                 createCharacter(named: query)
@@ -343,9 +343,9 @@ public struct CharacterListView: View {
                 .padding(.horizontal, 36)
 
             AddPillButton(
-                title: "New Character",
+                title: L10n.CharacterUI.newCharacter,
                 isLocked: isCharacterLocked,
-                accessibilityHintText: isCharacterLocked ? "Unlock ScriptBuilder Pro to add more characters" : ""
+                accessibilityHintText: isCharacterLocked ? L10n.CharacterUI.unlockProHint : ""
             ) {
                 createCharacter()
             }

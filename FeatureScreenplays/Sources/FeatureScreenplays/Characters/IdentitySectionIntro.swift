@@ -152,7 +152,7 @@ struct IdentitySectionHeader: View {
 
     private func takeawayBlock(_ text: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("KEY TAKEAWAY")
+            Text(L10n.Identity.keyTakeaway)
                 .font(.caption2.weight(.bold))
                 .foregroundStyle(accent)
             Text(facetColored(text, fallback: palette.textPrimary))

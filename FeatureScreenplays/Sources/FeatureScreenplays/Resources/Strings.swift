@@ -27,6 +27,22 @@ enum L10n {
         Bundle.module.localizedString(forKey: key, value: key, table: nil)
     }
 
+    /// Look up a localized string by key, falling back to the English literal
+    /// baked into the call site when the catalog has no entry for that key yet.
+    ///
+    /// This is what makes an incremental localization pass safe: the copy is
+    /// resolved through the catalog (so any language added later lights up with
+    /// no code change), but an untranslated key renders correct English instead
+    /// of leaking a raw `identity.row.role`-style key into the UI.
+    static func string(_ key: String, default fallback: String) -> String {
+        Bundle.module.localizedString(forKey: key, value: fallback, table: nil)
+    }
+
+    /// `string(_:default:)` for copy that interpolates values.
+    static func format(_ key: String, default fallback: String, _ arguments: any CVarArg...) -> String {
+        String(format: L10n.string(key, default: fallback), arguments: arguments)
+    }
+
     // MARK: - Scene fields (title + guiding prompt)
     enum Scene {
         static func title(_ field: SceneField) -> String {
@@ -62,6 +78,13 @@ enum L10n {
         static var tryAgain: String { L10n.string("common.action.tryAgain") }
         static var close: String { L10n.string("common.action.close") }
         static var untitled: String { L10n.string("common.untitled") }
+        /// Capsule marking a paid-tier affordance. Kept as-is in most locales.
+        static var pro: String { L10n.string("common.pro", default: "PRO") }
+
+        /// Spoken form of a gated affordance, e.g. "New Scene (Pro)".
+        static func withPro(_ title: String) -> String {
+            L10n.format("common.pro.suffixed", default: "%@ (Pro)", title)
+        }
         static var somethingWentWrong: String { L10n.string("common.somethingWentWrong") }
 
         static func optional(_ title: String) -> String {
@@ -89,6 +112,53 @@ enum L10n {
         }
         static var deleteSubjectFallback: String { L10n.string("scene.delete.subject.fallback") }
         static var deleteSubjectFallbackCapitalized: String { L10n.string("scene.delete.subject.fallback.capitalized") }
+
+        static var noMatchesTitle: String {
+            L10n.string("scene.noMatches.title", default: "No scenes found")
+        }
+        static func noMatchesMessage(_ query: String) -> String {
+            L10n.format("scene.noMatches.message", default: "Nothing matches “%@” yet.", query)
+        }
+        static func createNamed(_ query: String) -> String {
+            L10n.format("scene.noMatches.create", default: "Create “%@”", query)
+        }
+        static var searchPlaceholder: String {
+            L10n.string("scene.list.searchPlaceholder", default: "Search scenes")
+        }
+        static var newScene: String { L10n.string("scene.list.newScene", default: "New Scene") }
+        static var untitledScene: String { L10n.string("scene.untitled", default: "Untitled Scene") }
+        static var noHeadingYet: String {
+            L10n.string("scene.heading.empty", default: "No heading set yet")
+        }
+        static func addToAct(_ act: String) -> String {
+            L10n.format("scene.list.addToAct", default: "Add to %@", act)
+        }
+        static func addAccessibility(locked: Bool) -> String {
+            locked
+                ? L10n.string("scene.list.add.a11y.pro", default: "New scene (Pro)")
+                : L10n.string("scene.list.add.a11y", default: "New scene")
+        }
+        static func addToActAccessibility(_ act: String, locked: Bool) -> String {
+            locked
+                ? L10n.format("scene.list.addToAct.a11y.pro", default: "Add scene to %@ (Pro)", act)
+                : L10n.format("scene.list.addToAct.a11y", default: "Add scene to %@", act)
+        }
+        static var unlockProHint: String {
+            L10n.string("scene.list.unlockPro.hint", default: "Unlock ScriptBuilder Pro to add more scenes")
+        }
+        static var deleteAccessibility: String {
+            L10n.string("scene.delete.a11y", default: "Delete scene")
+        }
+    }
+
+    // MARK: - Character identity pickers (chrome only; catalog copy is English)
+    enum Identity {
+        static var examplesLabel: String {
+            L10n.string("identity.card.examples", default: "Examples:")
+        }
+        static var keyTakeaway: String {
+            L10n.string("identity.intro.keyTakeaway", default: "KEY TAKEAWAY")
+        }
     }
 
     // MARK: - Character editor / list
@@ -119,6 +189,29 @@ enum L10n {
         }
         static var deleteSubjectFallback: String { L10n.string("character.delete.subject.fallback") }
         static var deleteSubjectFallbackCapitalized: String { L10n.string("character.delete.subject.fallback.capitalized") }
+
+        /// Label on the dashed pill pinned above the cast list.
+        static var newCharacter: String {
+            L10n.string("character.list.newCharacter", default: "New Character")
+        }
+        static func createNamed(_ query: String) -> String {
+            L10n.format("character.noMatches.create", default: "Create “%@”", query)
+        }
+        static var searchPlaceholder: String {
+            L10n.string("character.list.searchPlaceholder", default: "Search cast")
+        }
+        static var castTitle: String { L10n.string("character.list.title", default: "Cast") }
+        static var newCharacterCaption: String {
+            L10n.string("character.list.newCharacter.caption", default: "Add someone to the cast")
+        }
+        static func addAccessibility(locked: Bool) -> String {
+            locked
+                ? L10n.string("character.list.add.a11y.pro", default: "New character (Pro)")
+                : L10n.string("character.list.add.a11y", default: "New character")
+        }
+        static var unlockProHint: String {
+            L10n.string("character.list.unlockPro.hint", default: "Unlock ScriptBuilder Pro to add more characters")
+        }
     }
 
     // MARK: - Outline
@@ -191,6 +284,15 @@ enum L10n {
         static var emptyMessage: String { L10n.string("home.empty.message") }
         static var loadErrorTitle: String { L10n.string("home.loadError.title") }
         static var loadingMessage: String { L10n.string("home.loadingMessage") }
+        static var searchPlaceholder: String {
+            L10n.string("home.searchPlaceholder", default: "Search scripts")
+        }
+        static var profileHint: String {
+            L10n.string("home.hero.profileHint", default: "Opens your profile")
+        }
+        static var statScripts: String { L10n.string("home.stat.scripts", default: "Scripts") }
+        static var statScenes: String { L10n.string("home.stat.scenes", default: "Scenes") }
+        static var statLastEdit: String { L10n.string("home.stat.lastEdit", default: "Last edit") }
 
         static func greeting(_ name: String) -> String {
             String(format: L10n.string("home.greeting"), name)
@@ -206,6 +308,18 @@ enum L10n {
         static var plainText: String { L10n.string("cover.plainText") }
         static var screenplaySettings: String { L10n.string("cover.screenplaySettings") }
         static var coverLabel: String { L10n.string("cover.coverLabel") }
+        static var startWritingHint: String {
+            L10n.string(
+                "cover.startWriting.hint",
+                default: "Opens the outline, characters, and scenes editor"
+            )
+        }
+        static var shareHint: String {
+            L10n.string(
+                "cover.share.hint",
+                default: "Exports the full screenplay as a PDF or plain text you can share or print"
+            )
+        }
     }
 
     enum EditSheet {

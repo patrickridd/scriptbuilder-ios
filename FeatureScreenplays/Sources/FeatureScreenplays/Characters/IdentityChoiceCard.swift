@@ -108,7 +108,7 @@ struct IdentityChoiceCard: View {
             }
             if let examples, !examples.isEmpty {
                 HStack {
-                    Text("Examples:")
+                    Text(L10n.Identity.examplesLabel)
                         .font(.caption)
                     Text(examples)
                         .font(.caption)

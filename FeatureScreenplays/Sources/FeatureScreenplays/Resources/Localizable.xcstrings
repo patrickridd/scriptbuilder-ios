@@ -32,9 +32,6 @@
     "Add scene to %@ (Pro)" : {
 
     },
-    "Add screenplay" : {
-
-    },
     "character.arc.accessibility" : {
       "localizations" : {
         "de" : {
@@ -3402,6 +3399,9 @@
           }
         }
       }
+    },
+    "Examples:" : {
+
     },
     "Exports the full screenplay as a PDF or plain text you can share or print" : {
 
