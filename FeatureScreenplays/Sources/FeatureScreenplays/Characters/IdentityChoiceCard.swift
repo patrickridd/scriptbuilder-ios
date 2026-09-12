@@ -49,8 +49,8 @@ struct IdentityChoiceCard: View {
                 selectionIndicator
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 14)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 16)
             .background(palette.cardSurface, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
             .overlay(border)
         }
@@ -83,7 +83,7 @@ struct IdentityChoiceCard: View {
     private var titleLineHeight: CGFloat { 22 }
 
     private var textStack: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 7) {
             nameLine
             if let term, !term.isEmpty {
                 Text(term)
@@ -104,6 +104,7 @@ struct IdentityChoiceCard: View {
                 Text(definition)
                     .font(.footnote)
                     .foregroundStyle(palette.textSecondary)
+                    .lineSpacing(2)
                     .multilineTextAlignment(.leading)
             }
             if let examples, !examples.isEmpty {
@@ -118,15 +119,16 @@ struct IdentityChoiceCard: View {
     /// narrow ragged column.
     @ViewBuilder
     private func examplesBlock(_ examples: String) -> some View {
-        VStack(alignment: .leading, spacing: 3) {
+        VStack(alignment: .leading, spacing: 4) {
             Text(L10n.Identity.examplesLabel)
                 .font(.caption)
             Text(styledExamples(examples))
+                .lineSpacing(3)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .accessibilityLabel(examples)
         }
-        .padding(.top, 1)
+        .padding(.top, 3)
     }
 
     /// Character names carry the card's facet hue (same violet/amber/teal as

@@ -242,7 +242,7 @@ struct TraitPickerDetailView: View {
     }
 
     private func cards(_ entries: [IdentityCatalogEntry]) -> some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 14) {
             ForEach(entries) { entry in
                 IdentityChoiceCard(
                     name: IdentityCatalog.action(for: entry.slug) ?? entry.name,
