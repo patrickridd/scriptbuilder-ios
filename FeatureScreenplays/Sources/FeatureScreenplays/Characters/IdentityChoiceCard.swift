@@ -107,18 +107,37 @@ struct IdentityChoiceCard: View {
                     .multilineTextAlignment(.leading)
             }
             if let examples, !examples.isEmpty {
-                HStack(alignment: .top) {
-                    Text(L10n.Identity.examplesLabel)
-                        .font(.caption)
-                    Text(examples)
-                        .font(.caption)
-                        .italic()
-                        .foregroundStyle(palette.accent)
-                        .multilineTextAlignment(.leading)
-                }
+                examplesBlock(examples)
             }
         }
         .fixedSize(horizontal: false, vertical: true)
+    }
+
+    /// "Examples:" sits on its own line so the titles below can use the full
+    /// card width — side-by-side, long parenthetical sources wrapped into a
+    /// narrow ragged column.
+    @ViewBuilder
+    private func examplesBlock(_ examples: String) -> some View {
+        VStack(alignment: .leading, spacing: 3) {
+            Text(L10n.Identity.examplesLabel)
+                .font(.caption)
+            Text(styledExamples(examples))
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityLabel(examples)
+        }
+        .padding(.top, 1)
+    }
+
+    /// Character names carry the card's facet hue (same violet/amber/teal as
+    /// the glyph and the term caption); the source title stays muted and
+    /// upright, so the pair reads as one family rather than a link + footnote.
+    private func styledExamples(_ examples: String) -> AttributedString {
+        IdentityExamplesText.attributed(
+            examples,
+            nameColor: accent,
+            sourceColor: palette.textMuted
+        )
     }
 
     /// The headline itself. The facet glyph sits in its own column to the
