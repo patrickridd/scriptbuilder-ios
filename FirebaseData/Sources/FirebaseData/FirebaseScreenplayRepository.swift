@@ -237,6 +237,16 @@ public final class FirebaseScreenplayRepository: ScreenplayRepository, @unchecke
         try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
     }
 
+    public func setBeat(_ beat: ActBeatField, disabled: Bool, of screenplayID: String) async throws {
+        let uid = try requireUID()
+        let key = try safeKey(beat.rawValue)
+        // Merge: only this flag is written (NSNull removes it when re-enabled).
+        let value: Any = disabled ? true : NSNull()
+        try await ref(RTDBPaths.disabledBeats(uid: uid, id: screenplayID))
+            .updateChildValues([key: value])
+        try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
+    }
+
     /// Refreshes only the `lastUpdated` timestamp via a scoped merge.
     private func touchLastUpdated(uid: String, screenplayID: String) async throws {
         try await ref(RTDBPaths.screenplay(uid: uid, id: screenplayID))

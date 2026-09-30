@@ -13,17 +13,19 @@ import Domain
 struct CustomBeatDTO: Codable, Sendable {
     let id: String
     let title: String
+    let subtitle: String
     let text: String
     let anchor: String?
     let order: Double
 
     enum CodingKeys: String, CodingKey {
-        case id, title, text, anchor, order
+        case id, title, subtitle, text, anchor, order
     }
 
-    init(id: String, title: String, text: String, anchor: String?, order: Double) {
+    init(id: String, title: String, subtitle: String, text: String, anchor: String?, order: Double) {
         self.id = id
         self.title = title
+        self.subtitle = subtitle
         self.text = text
         self.anchor = anchor
         self.order = order
@@ -33,6 +35,7 @@ struct CustomBeatDTO: Codable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id     = container.lenientString(.id)
         title  = container.lenientString(.title)
+        subtitle = container.lenientString(.subtitle)
         text   = container.lenientString(.text)
         anchor = try? container.decodeIfPresent(String.self, forKey: .anchor)
         order  = (try? container.decodeIfPresent(Double.self, forKey: .order)) ?? 0
@@ -44,6 +47,7 @@ extension CustomBeatDTO {
         self.init(
             id: domain.id,
             title: domain.title,
+            subtitle: domain.subtitle,
             text: domain.text,
             anchor: domain.anchor?.rawValue,
             order: domain.order
@@ -54,6 +58,7 @@ extension CustomBeatDTO {
         CustomBeat(
             id: id.isEmpty ? fallbackID : id,
             title: title,
+            subtitle: subtitle,
             text: text,
             anchor: anchor.flatMap(ActBeatField.init(rawValue:)),
             order: order

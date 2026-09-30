@@ -13,10 +13,17 @@ struct OutlineSectionDetailView: View {
     private let section: OutlineSection
     @State private var showBeatsInfo = false
     @State private var focusRequest: AnyHashable?
+    /// A custom beat with writing in it that's waiting on delete confirmation.
+    @State private var pendingDeleteID: String?
+    private let gate: EditorGate
+    /// Re-renders the PRO marker live after a purchase / restore / expiry.
+    @ObservedObject private var entitlementSignal: EditorEntitlementSignal
 
-    init(section: OutlineSection, viewModel: OutlineViewModel) {
+    init(section: OutlineSection, viewModel: OutlineViewModel, gate: EditorGate = .unrestricted) {
         self.section = section
         self.viewModel = viewModel
+        self.gate = gate
+        _entitlementSignal = ObservedObject(wrappedValue: gate.entitlementSignal)
     }
 
     var body: some View {
@@ -38,10 +45,34 @@ struct OutlineSectionDetailView: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)
                 }
+                .onChange(of: focusRequest) { _, requested in
+                    scrollToRequested(requested, proxy: proxy)
+                }
             }
         }
         .navigationTitle(navigationTitleText)
         .navigationBarTitleDisplayMode(.inline)
+        .confirmationDialog(
+            L10n.CustomBeatCopy.deleteConfirmTitle,
+            isPresented: isConfirmingDelete,
+            titleVisibility: .visible
+        ) {
+            Button(L10n.CustomBeatCopy.delete, role: .destructive) {
+                if let id = pendingDeleteID { performDelete(id) }
+            }
+        } message: {
+            Text(L10n.CustomBeatCopy.deleteConfirmMessage)
+        }
+    }
+
+    /// Brings a freshly added custom beat into view (focus follows via the
+    /// field's own handling of `focusRequest`).
+    private func scrollToRequested(_ requested: AnyHashable?, proxy: ScrollViewProxy) {
+        guard let anchor = requested?.base as? OutlineViewModel.FieldAnchor,
+              case .custom = anchor else { return }
+        withAnimation(.easeInOut(duration: 0.35)) {
+            proxy.scrollTo(anchor, anchor: .center)
+        }
     }
 
     /// The screenplay's title, since the section name already appears in the
@@ -154,19 +185,153 @@ struct OutlineSectionDetailView: View {
         .presentationCompactAdaptation(.popover)
     }
 
+    /// Template and custom beats in outline order, closed by the dashed
+    /// "+ Add Beat" card.
     private var beatsFields: some View {
         VStack(spacing: 14) {
-            ForEach(viewModel.beats(for: section)) { beat in
-                ExpandableTextField(
-                    title: beat.title,
-                    prompt: beat.subtitle,
-                    systemImage: "circle.grid.cross",
-                    focusRequest: $focusRequest,
-                    focusID: AnyHashable(OutlineViewModel.FieldAnchor.beat(beat)),
-                    text: viewModel.binding(for: beat)
-                )
-                .id(OutlineViewModel.FieldAnchor.beat(beat))
+            ForEach(viewModel.slots(for: section), id: \.stableID) { slot in
+                slotView(slot)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
             }
+            addBeatCard
+        }
+        .animation(.spring(response: 0.4, dampingFraction: 0.85), value: slotIDs)
+    }
+
+    /// Identity-only fingerprint of the outline so the insert/remove spring
+    /// doesn't fire on every keystroke.
+    private var slotIDs: [String] {
+        viewModel.slots(for: section).map(\.stableID)
+    }
+
+    @ViewBuilder
+    private func slotView(_ slot: CustomBeat.Slot) -> some View {
+        switch slot {
+        case .template(let beat):
+            templateField(beat)
+        case .custom(let beat):
+            customField(beat)
+        }
+    }
+
+    @ViewBuilder
+    private func templateField(_ beat: ActBeatField) -> some View {
+        if viewModel.isDisabled(beat) {
+            DisabledBeatRow(title: beat.title) { toggleBeat(beat, disabled: false) }
+                .id(OutlineViewModel.FieldAnchor.beat(beat))
+        } else {
+            ExpandableTextField(
+                title: beat.title,
+                prompt: beat.subtitle,
+                systemImage: "circle.grid.cross",
+                focusRequest: $focusRequest,
+                focusID: AnyHashable(OutlineViewModel.FieldAnchor.beat(beat)),
+                menuItems: templateMenu(for: beat),
+                menuLabel: L10n.CustomBeatCopy.options,
+                text: viewModel.binding(for: beat)
+            )
+            .id(OutlineViewModel.FieldAnchor.beat(beat))
+        }
+    }
+
+    private func templateMenu(for beat: ActBeatField) -> [ExpandableTextField.MenuItem] {
+        [
+            ExpandableTextField.MenuItem(
+                title: L10n.CustomBeatCopy.insertAfter,
+                systemImage: "plus.square.on.square"
+            ) { addBeat(after: .template(beat)) },
+            ExpandableTextField.MenuItem(
+                title: L10n.CustomBeatCopy.disable,
+                systemImage: "eye.slash"
+            ) { toggleBeat(beat, disabled: true) }
+        ]
+    }
+
+    private func toggleBeat(_ beat: ActBeatField, disabled: Bool) {
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+            viewModel.setBeat(beat, disabled: disabled)
+        }
+    }
+
+    private func customField(_ beat: CustomBeat) -> some View {
+        let anchor = OutlineViewModel.FieldAnchor.custom(beat.id)
+        return SwipeToDeleteRow(onDelete: { requestDelete(beat) }) {
+            CustomBeatField(
+                title: viewModel.titleBinding(forCustomBeat: beat.id, in: section),
+                subtitle: viewModel.subtitleBinding(forCustomBeat: beat.id, in: section),
+                text: viewModel.textBinding(forCustomBeat: beat.id, in: section),
+                focusRequest: $focusRequest,
+                focusID: AnyHashable(anchor),
+                onInsertAfter: { addBeat(after: .custom(beat)) },
+                onDelete: { requestDelete(beat) }
+            )
+        }
+        .id(anchor)
+    }
+
+    private var addBeatCard: some View {
+        AddSceneCard(
+            title: L10n.CustomBeatCopy.addTitle,
+            caption: L10n.CustomBeatCopy.addCaption(section.title),
+            isLocked: isBeatLocked
+        ) {
+            addBeat(after: nil)
+        }
+    }
+
+    // MARK: - Custom beat intents
+
+    /// Whether a *new* beat would hit the free-tier limit for this act.
+    /// Existing beats are never locked.
+    private var isBeatLocked: Bool {
+        _ = entitlementSignal.revision
+        return !gate.canAddCustomBeat(viewModel.customBeatCount(for: section))
+    }
+
+    /// The single place the custom-beat gate is checked.
+    private func addBeat(after slot: CustomBeat.Slot?) {
+        guard gate.canAddCustomBeat(viewModel.customBeatCount(for: section)) else {
+            gate.onBlocked()
+            return
+        }
+        guard let id = viewModel.addCustomBeat(to: section, after: slot) else { return }
+        focusRequest = AnyHashable(OutlineViewModel.FieldAnchor.custom(id))
+    }
+
+    /// Empty beats go straight away; beats with writing ask first.
+    private func requestDelete(_ beat: CustomBeat) {
+        let hasContent = beat.isFilled
+            || !beat.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        if hasContent {
+            pendingDeleteID = beat.id
+        } else {
+            performDelete(beat.id)
+        }
+    }
+
+    private func performDelete(_ id: String) {
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+            viewModel.deleteCustomBeat(id: id, from: section)
+        }
+        pendingDeleteID = nil
+    }
+
+    private var isConfirmingDelete: Binding<Bool> {
+        Binding(
+            get: { pendingDeleteID != nil },
+            set: { if !$0 { pendingDeleteID = nil } }
+        )
+    }
+}
+
+private extension CustomBeat.Slot {
+    /// Stable identity for `ForEach`. The slot's own `Hashable` includes the
+    /// beat's text, so keying on it would rebuild (and unfocus) a custom beat
+    /// on every keystroke.
+    var stableID: String {
+        switch self {
+        case .template(let beat): return "template.\(beat.rawValue)"
+        case .custom(let beat):   return "custom.\(beat.id)"
         }
     }
 }

@@ -44,6 +44,11 @@ public struct EditorGate: Sendable {
     /// creation.
     public var canAddScene: @Sendable (_ existingCount: Int) -> Bool
 
+    /// Whether the user may add another custom beat to one act, given how many
+    /// custom beats that act already has. Existing beats are never locked —
+    /// this only decides whether a *new* one may be created.
+    public var canAddCustomBeat: @Sendable (_ existingCountInAct: Int) -> Bool
+
     /// Called when an add action is blocked, so the host can present the
     /// paywall. Runs on the main actor.
     public var onBlocked: @Sendable () -> Void
@@ -56,11 +61,13 @@ public struct EditorGate: Sendable {
     public init(
         canAddCharacter: @escaping @Sendable (_ existingCount: Int) -> Bool = { _ in true },
         canAddScene: @escaping @Sendable (_ existingCount: Int) -> Bool = { _ in true },
+        canAddCustomBeat: @escaping @Sendable (_ existingCountInAct: Int) -> Bool = { _ in true },
         onBlocked: @escaping @Sendable () -> Void = {},
         entitlementSignal: EditorEntitlementSignal = EditorEntitlementSignal()
     ) {
         self.canAddCharacter = canAddCharacter
         self.canAddScene = canAddScene
+        self.canAddCustomBeat = canAddCustomBeat
         self.onBlocked = onBlocked
         self.entitlementSignal = entitlementSignal
     }

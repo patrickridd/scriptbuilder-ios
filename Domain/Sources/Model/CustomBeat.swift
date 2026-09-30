@@ -23,6 +23,9 @@ public struct CustomBeat: Equatable, Hashable, Sendable, Codable, Identifiable {
 
     public var id: String
     public var title: String
+    /// Optional guiding line under the title — the custom twin of a template
+    /// beat's prompt ("What finally pushes your hero to commit?").
+    public var subtitle: String
     public var text: String
     /// Template beat this one follows; `nil` places it at the end of the act.
     public var anchor: ActBeatField?
@@ -32,12 +35,14 @@ public struct CustomBeat: Equatable, Hashable, Sendable, Codable, Identifiable {
     public init(
         id: String = UUID().uuidString,
         title: String = "",
+        subtitle: String = "",
         text: String = "",
         anchor: ActBeatField? = nil,
         order: Double = 0
     ) {
         self.id = id
         self.title = title
+        self.subtitle = subtitle
         self.text = text
         self.anchor = anchor
         self.order = order
@@ -50,13 +55,14 @@ public struct CustomBeat: Equatable, Hashable, Sendable, Codable, Identifiable {
     // MARK: - Codable (lenient, so a bad field never drops the whole act)
 
     enum CodingKeys: String, CodingKey {
-        case id, title, text, anchor, order
+        case id, title, subtitle, text, anchor, order
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
         title = (try? container.decodeIfPresent(String.self, forKey: .title)) ?? ""
+        subtitle = (try? container.decodeIfPresent(String.self, forKey: .subtitle)) ?? ""
         text = (try? container.decodeIfPresent(String.self, forKey: .text)) ?? ""
         let anchorKey = try? container.decodeIfPresent(String.self, forKey: .anchor)
         // An unknown anchor (e.g. a retired template beat) falls back to the
@@ -69,6 +75,7 @@ public struct CustomBeat: Equatable, Hashable, Sendable, Codable, Identifiable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(title, forKey: .title)
+        try container.encode(subtitle, forKey: .subtitle)
         try container.encode(text, forKey: .text)
         try container.encodeIfPresent(anchor?.rawValue, forKey: .anchor)
         try container.encode(order, forKey: .order)

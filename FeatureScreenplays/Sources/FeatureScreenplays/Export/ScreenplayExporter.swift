@@ -79,12 +79,47 @@ public enum ScreenplayExporter {
         out.section(section)
     }
 
-    private static func appendOutline(_ s: Screenplay, to out: inout DocumentBuilder) {
-        var section = DocumentBuilder.Section(title: L10n.Export.outline)
-        section.add(Act.one.title, s.actOneDescription)
-        section.add(Act.two.title, s.actTwoDescription)
-        section.add(Act.three.title, s.actThreeDescription)
-        out.section(section)
+    /// Per act: the overall description, then every beat — template and
+    /// custom — in outline order (`CustomBeat.outline` is the one ordering
+    /// source). Custom beats are labelled exactly like template beats.
+    private static func appendOutline(_ screenplay: Screenplay, to out: inout DocumentBuilder) {
+        let acts = Act.allCases.map { act in (act, outlineBlock(for: act, in: screenplay)) }
+            .filter { !$0.1.isEmpty }
+        guard !acts.isEmpty else { return }
+
+        out.header(L10n.Export.outline)
+        for (act, block) in acts {
+            out.subheader(act.title)
+            // Beats are prose, so each gets breathing room (`field` adds a
+            // blank line) rather than the compact `inlineSection` layout.
+            for field in block.fields { out.field(field.label, field.value) }
+        }
+    }
+
+    private static func outlineBlock(for act: Act, in screenplay: Screenplay) -> DocumentBuilder.Section {
+        var block = DocumentBuilder.Section(title: nil)
+        block.add(L10n.Outline.overallDescription, actDescription(act, in: screenplay))
+        let slots = CustomBeat.outline(for: act, customBeats: screenplay.customBeats(in: act))
+        for slot in slots {
+            switch slot {
+            case .template(let beat) where !screenplay.isBeatDisabled(beat):
+                block.add(beat.title, beat.value(in: screenplay))
+            case .template:
+                continue
+            case .custom(let beat):
+                let title = beat.title.trimmingCharacters(in: .whitespacesAndNewlines)
+                block.add(title.isEmpty ? L10n.CustomBeatCopy.untitled : title, beat.text)
+            }
+        }
+        return block
+    }
+
+    private static func actDescription(_ act: Act, in screenplay: Screenplay) -> String {
+        switch act {
+        case .one:   return screenplay.actOneDescription
+        case .two:   return screenplay.actTwoDescription
+        case .three: return screenplay.actThreeDescription
+        }
     }
 
     private static func appendCharacters(_ s: Screenplay, to out: inout DocumentBuilder) {

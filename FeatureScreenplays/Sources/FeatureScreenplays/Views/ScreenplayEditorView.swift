@@ -91,7 +91,10 @@ public struct ScreenplayEditorView: View {
     private var content: some View {
         switch tab.wrappedValue {
         case .outline:
-            OutlineView(viewModel: workspace.outline(onOutlineCompleted: onOutlineCompleted))
+            OutlineView(
+                viewModel: workspace.outline(onOutlineCompleted: onOutlineCompleted),
+                gate: gate
+            )
         case .characters:
             CharacterListView(
                 viewModel: workspace.characters,

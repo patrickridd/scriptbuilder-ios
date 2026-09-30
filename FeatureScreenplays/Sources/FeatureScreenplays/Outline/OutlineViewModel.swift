@@ -16,16 +16,18 @@ import SwiftUI
 @Observable
 public final class OutlineViewModel {
 
-    /// The live working copy every field binds to.
-    private(set) var screenplay: Screenplay
+    /// The live working copy every field binds to. Settable within the module
+    /// only so the custom-beat extension (`OutlineViewModel+CustomBeats`) can
+    /// mutate it; views go through bindings and intent methods.
+    var screenplay: Screenplay
 
     var errorMessage: String?
 
-    @ObservationIgnored private let screenplayID: String
-    @ObservationIgnored private let repository: ScreenplayRepository
-    @ObservationIgnored private let debounce: Duration
-    @ObservationIgnored private var saveTasks: [String: Task<Void, Never>] = [:]
-    @ObservationIgnored private var pendingWrites: [String: @MainActor () async throws -> Void] = [:]
+    @ObservationIgnored let screenplayID: String
+    @ObservationIgnored let repository: ScreenplayRepository
+    @ObservationIgnored let debounce: Duration
+    @ObservationIgnored var saveTasks: [String: Task<Void, Never>] = [:]
+    @ObservationIgnored var pendingWrites: [String: @MainActor () async throws -> Void] = [:]
 
     /// Fired exactly once each time the outline *transitions* into a fully
     /// complete state (every section 100% filled). The app layer treats this
@@ -55,7 +57,7 @@ public final class OutlineViewModel {
 
     /// Re-evaluates full completion after an edit and fires
     /// `onOutlineCompleted` only on the incomplete→complete transition.
-    private func evaluateCompletionEdge() {
+    func evaluateCompletionEdge() {
         let nowComplete = overallCompletion >= 0.999
         defer { wasFullyComplete = nowComplete }
         guard nowComplete, !wasFullyComplete else { return }
@@ -120,7 +122,9 @@ public final class OutlineViewModel {
     /// Debounces one write per key. The write closure captures the repository
     /// and id strongly, so it still lands if this model is released mid-wait
     /// (closing the script within the debounce used to drop the last edit).
-    private func schedule(_ key: String, write: @escaping @MainActor () async throws -> Void) {
+    /// Internal (not private) so `OutlineViewModel+CustomBeats` routes through
+    /// it too — `flush()` only sends writes registered here.
+    func schedule(_ key: String, write: @escaping @MainActor () async throws -> Void) {
         saveTasks[key]?.cancel()
         pendingWrites[key] = write
         saveTasks[key] = Task { [weak self, debounce] in
@@ -207,7 +211,8 @@ public final class OutlineViewModel {
             return (fields.filter { !blank($0) }.count, fields.count)
         case .actOne, .actTwo, .actThree:
             guard let act = section.act else { return (0, 0) }
-            let beats = ActBeatField.beats(for: act)
+            // Disabled template beats drop out of both sides of the count.
+            let beats = ActBeatField.beats(for: act).filter { !screenplay.isBeatDisabled($0) }
             let desc: String
             switch section {
             case .actOne:   desc = screenplay.actOneDescription
@@ -216,8 +221,12 @@ public final class OutlineViewModel {
             case .idea:     desc = ""
             }
             let filledBeats = beats.filter { !blank($0.value(in: screenplay)) }.count
+            // Custom beats count toward completion just like template beats:
+            // a fresh, empty one lowers the % until the writer fills it in.
+            let customBeats = screenplay.customBeats(in: act)
+            let filledCustom = customBeats.filter(\.isFilled).count
             let descFilled = blank(desc) ? 0 : 1
-            return (filledBeats + descFilled, beats.count + 1)
+            return (filledBeats + filledCustom + descFilled, beats.count + customBeats.count + 1)
         }
     }
 
@@ -288,6 +297,8 @@ public final class OutlineViewModel {
     enum FieldAnchor: Hashable {
         case outline(OutlineField)
         case beat(ActBeatField)
+        /// A writer-authored beat, keyed by its id.
+        case custom(String)
     }
 
     /// The first required field in a section that is still empty, paired with
@@ -302,8 +313,16 @@ public final class OutlineViewModel {
         if let field = section.descriptionField, isBlank(value(for: field)) {
             return (.outline(field), L10n.Outline.overallDescription)
         }
-        for beat in beats(for: section) where isBlank(beat.value(in: screenplay)) {
-            return (.beat(beat), beat.title)
+        for slot in slots(for: section) {
+            switch slot {
+            case .template(let beat) where isBlank(beat.value(in: screenplay))
+                && !screenplay.isBeatDisabled(beat):
+                return (.beat(beat), beat.title)
+            case .custom(let beat) where !beat.isFilled:
+                return (.custom(beat.id), displayTitle(for: beat))
+            default:
+                continue
+            }
         }
         return nil
     }
@@ -316,7 +335,7 @@ public final class OutlineViewModel {
     /// Whether a text value is empty once surrounding whitespace/newlines are
     /// trimmed. Centralizes the "is this field filled?" rule used by `preview`
     /// and `filledCount`.
-    private func isBlank(_ text: String) -> Bool {
+    func isBlank(_ text: String) -> Bool {
         text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }

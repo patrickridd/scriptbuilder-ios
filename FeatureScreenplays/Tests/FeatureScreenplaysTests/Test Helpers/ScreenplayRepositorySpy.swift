@@ -125,4 +125,9 @@ final class ScreenplayRepositorySpy: ScreenplayRepository, @unchecked Sendable {
     func delete(customBeatID: String, from act: Act, of screenplayID: String) async throws {
         lock.withLock { _deletedCustomBeats.append((customBeatID, act)) }
     }
+    func setBeat(_ beat: ActBeatField, disabled: Bool, of screenplayID: String) async throws {
+        lock.withLock { _disabledBeatChanges.append((beat, disabled)) }
+    }
+    private var _disabledBeatChanges: [(ActBeatField, Bool)] = []
+    var disabledBeatChanges: [(ActBeatField, Bool)] { lock.withLock { _disabledBeatChanges } }
 }

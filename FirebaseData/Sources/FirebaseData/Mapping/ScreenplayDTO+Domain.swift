@@ -249,7 +249,10 @@ extension ScreenplayDTO {
             act1: Act1DTO(domain: screenplay.act1),
             act2: Act2DTO(domain: screenplay.act2),
             act3: Act3DTO(domain: screenplay.act3),
-            characters: CharacterMapping.toMap(screenplay.characters)
+            characters: CharacterMapping.toMap(screenplay.characters),
+            disabledBeats: screenplay.disabledBeats.isEmpty
+                ? nil
+                : Dictionary(uniqueKeysWithValues: screenplay.disabledBeats.map { ($0.rawValue, true) })
         )
     }
 
@@ -277,7 +280,10 @@ extension ScreenplayDTO {
             characters: CharacterMapping.toSet(characters),
             act1: act1Domain,
             act2: act2Domain,
-            act3: act3Domain
+            act3: act3Domain,
+            disabledBeats: Set((disabledBeats ?? [:])
+                .filter(\.value)
+                .compactMap { ActBeatField(rawValue: $0.key) })
         )
     }
 }

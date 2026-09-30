@@ -42,6 +42,28 @@ public struct Screenplay: Identifiable, Equatable, Sendable, Codable {
     public var act2: Act2
     public var act3: Act3
 
+    /// Raw values of template beats the writer switched off. Optional so data
+    /// saved before this existed still decodes (synthesized `Codable` uses
+    /// `decodeIfPresent` for optionals). Read/write via `isBeatDisabled` /
+    /// `setBeat(_:disabled:)`.
+    private var disabledBeatKeys: Set<String>?
+
+    /// Template beats the writer switched off: hidden from progress, the
+    /// "Next up" nudge and exports. Their text is kept.
+    public var disabledBeats: Set<ActBeatField> {
+        Set((disabledBeatKeys ?? []).compactMap(ActBeatField.init(rawValue:)))
+    }
+
+    public func isBeatDisabled(_ beat: ActBeatField) -> Bool {
+        disabledBeatKeys?.contains(beat.rawValue) ?? false
+    }
+
+    public mutating func setBeat(_ beat: ActBeatField, disabled: Bool) {
+        var keys = disabledBeatKeys ?? []
+        if disabled { keys.insert(beat.rawValue) } else { keys.remove(beat.rawValue) }
+        disabledBeatKeys = keys.isEmpty ? nil : keys
+    }
+
     public init(
         uuid: String = UUID().uuidString,
         title: String,
@@ -59,8 +81,10 @@ public struct Screenplay: Identifiable, Equatable, Sendable, Codable {
         characters: Set<Character> = [],
         act1: Act1 = Act1(),
         act2: Act2 = Act2(),
-        act3: Act3 = Act3()
+        act3: Act3 = Act3(),
+        disabledBeats: Set<ActBeatField> = []
     ) {
+        self.disabledBeatKeys = disabledBeats.isEmpty ? nil : Set(disabledBeats.map(\.rawValue))
         self.uuid = uuid
         self.title = title
         self.authorName = authorName

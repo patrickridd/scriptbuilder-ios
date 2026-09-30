@@ -93,6 +93,10 @@ public protocol ScreenplayRepository: Sendable {
 
     /// Remove a single custom beat from `act`. Everything else is untouched.
     func delete(customBeatID: String, from act: Act, of screenplayID: String) async throws
+
+    /// Switch a template beat off (or back on). Only that beat's flag is
+    /// written; its text and every other field are untouched.
+    func setBeat(_ beat: ActBeatField, disabled: Bool, of screenplayID: String) async throws
 }
 
 /// Outline-level (non-nested) text fields of a screenplay that the editor can

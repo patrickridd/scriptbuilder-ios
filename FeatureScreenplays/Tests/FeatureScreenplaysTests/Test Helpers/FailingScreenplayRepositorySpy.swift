@@ -88,4 +88,7 @@ final class FailingScreenplayRepositorySpy: ScreenplayRepository, @unchecked Sen
     func delete(customBeatID: String, from act: Act, of screenplayID: String) async throws {
         throw error
     }
+    func setBeat(_ beat: ActBeatField, disabled: Bool, of screenplayID: String) async throws {
+        throw error
+    }
 }

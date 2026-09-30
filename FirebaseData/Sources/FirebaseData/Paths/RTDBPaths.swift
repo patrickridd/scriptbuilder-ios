@@ -59,6 +59,11 @@ enum RTDBPaths {
         "\(actNode(uid: uid, id: id, act: act))/customBeats"
     }
 
+    /// The disabled-template-beats flag map (beat key → true) on a screenplay.
+    static func disabledBeats(uid: String, id: String) -> String {
+        "\(screenplay(uid: uid, id: id))/disabledBeats"
+    }
+
     /// The characters child node under a screenplay.
     static func characters(uid: String, id: String) -> String {
         "\(screenplay(uid: uid, id: id))/characters"
