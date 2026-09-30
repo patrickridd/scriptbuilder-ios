@@ -143,7 +143,8 @@ extension Act1DTO {
             refusal: domain.refusal,
             reasonToAdventure: domain.reasonToAdventure,
             enemyAtTheGates: domain.enemyAtTheGates,
-            scenes: SceneMapping.toMap(domain.scenes)
+            scenes: SceneMapping.toMap(domain.scenes),
+            customBeats: CustomBeatMapping.toMap(domain.customBeats)
         )
     }
 
@@ -157,7 +158,8 @@ extension Act1DTO {
             theme: theme,
             refusal: refusal,
             reasonToAdventure: reasonToAdventure,
-            enemyAtTheGates: enemyAtTheGates
+            enemyAtTheGates: enemyAtTheGates,
+            customBeats: CustomBeatMapping.toArray(customBeats)
         )
     }
 }
@@ -175,7 +177,8 @@ extension Act2DTO {
             stormGathers: domain.stormGathers,
             badGuysStrikeBack: domain.badGuysStrikeBack,
             allIsLost: domain.allIsLost,
-            scenes: SceneMapping.toMap(domain.scenes)
+            scenes: SceneMapping.toMap(domain.scenes),
+            customBeats: CustomBeatMapping.toMap(domain.customBeats)
         )
     }
 
@@ -191,7 +194,8 @@ extension Act2DTO {
             celebrate: celebrate,
             stormGathers: stormGathers,
             badGuysStrikeBack: badGuysStrikeBack,
-            allIsLost: allIsLost
+            allIsLost: allIsLost,
+            customBeats: CustomBeatMapping.toArray(customBeats)
         )
     }
 }
@@ -205,7 +209,8 @@ extension Act3DTO {
             rewards: domain.rewards,
             untangleStory: domain.untangleStory,
             brandNewWorld: domain.brandNewWorld,
-            scenes: SceneMapping.toMap(domain.scenes)
+            scenes: SceneMapping.toMap(domain.scenes),
+            customBeats: CustomBeatMapping.toMap(domain.customBeats)
         )
     }
 
@@ -217,7 +222,8 @@ extension Act3DTO {
             climax: climax,
             rewards: rewards,
             untangleStory: untangleStory,
-            brandNewWorld: brandNewWorld
+            brandNewWorld: brandNewWorld,
+            customBeats: CustomBeatMapping.toArray(customBeats)
         )
     }
 }

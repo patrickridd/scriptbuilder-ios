@@ -117,6 +117,22 @@ public actor MockScreenplayRepository: ScreenplayRepository {
         broadcast()
     }
 
+    public func save(customBeat: CustomBeat, in act: Act, of screenplayID: String) async throws {
+        guard var screenplay = storage[screenplayID] else { throw RepositoryError.notFound }
+        screenplay.upsert(customBeat: customBeat, in: act)
+        screenplay.lastUpdated = Date()
+        storage[screenplayID] = screenplay
+        broadcast()
+    }
+
+    public func delete(customBeatID: String, from act: Act, of screenplayID: String) async throws {
+        guard var screenplay = storage[screenplayID] else { throw RepositoryError.notFound }
+        screenplay.removeCustomBeat(id: customBeatID, from: act)
+        screenplay.lastUpdated = Date()
+        storage[screenplayID] = screenplay
+        broadcast()
+    }
+
     // MARK: - Granular write helpers
 
     private static func upsert(_ scene: Scene, in act: Act, of screenplay: inout Screenplay) {

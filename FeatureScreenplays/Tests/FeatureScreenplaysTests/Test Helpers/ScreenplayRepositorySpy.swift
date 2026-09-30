@@ -21,6 +21,18 @@ final class ScreenplayRepositorySpy: ScreenplayRepository, @unchecked Sendable {
     private var _deletedScenes: [(sceneID: String, act: Act)] = []
     private var _updatedOutlines: [[OutlineField: String]] = []
     private var _updatedActBeats: [(beats: [ActBeatField: String], act: Act)] = []
+    private var _savedCustomBeats: [(beat: CustomBeat, act: Act)] = []
+    private var _deletedCustomBeats: [(beatID: String, act: Act)] = []
+
+    /// Every custom beat passed to `save(customBeat:in:of:)`, in call order.
+    var savedCustomBeats: [(beat: CustomBeat, act: Act)] {
+        lock.withLock { _savedCustomBeats }
+    }
+
+    /// Every custom beat id passed to `delete(customBeatID:from:of:)`, in call order.
+    var deletedCustomBeats: [(beatID: String, act: Act)] {
+        lock.withLock { _deletedCustomBeats }
+    }
 
     /// Every character passed to `save(character:in:)`, in call order.
     var savedCharacters: [Character] {
@@ -106,5 +118,11 @@ final class ScreenplayRepositorySpy: ScreenplayRepository, @unchecked Sendable {
     }
     func updateActBeats(_ beats: [ActBeatField: String], in act: Act, of screenplayID: String) async throws {
         lock.withLock { _updatedActBeats.append((beats, act)) }
+    }
+    func save(customBeat: CustomBeat, in act: Act, of screenplayID: String) async throws {
+        lock.withLock { _savedCustomBeats.append((customBeat, act)) }
+    }
+    func delete(customBeatID: String, from act: Act, of screenplayID: String) async throws {
+        lock.withLock { _deletedCustomBeats.append((customBeatID, act)) }
     }
 }

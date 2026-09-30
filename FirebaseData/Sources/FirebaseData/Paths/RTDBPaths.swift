@@ -54,6 +54,11 @@ enum RTDBPaths {
         "\(screenplay(uid: uid, id: id))/\(actNodeKey(act))"
     }
 
+    /// The custom-beats map (id → beat) inside an act node.
+    static func actCustomBeats(uid: String, id: String, act: Act) -> String {
+        "\(actNode(uid: uid, id: id, act: act))/customBeats"
+    }
+
     /// The characters child node under a screenplay.
     static func characters(uid: String, id: String) -> String {
         "\(screenplay(uid: uid, id: id))/characters"

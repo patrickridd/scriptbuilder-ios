@@ -218,6 +218,25 @@ public final class FirebaseScreenplayRepository: ScreenplayRepository, @unchecke
         try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
     }
 
+    public func save(customBeat: CustomBeat, in act: Act, of screenplayID: String) async throws {
+        let uid = try requireUID()
+        let key = try safeKey(customBeat.id)
+        let value = try encode(CustomBeatDTO(domain: customBeat))
+        // Merge: only this beat's key is written; template beats, sibling
+        // custom beats and the act's scenes are untouched.
+        try await ref(RTDBPaths.actCustomBeats(uid: uid, id: screenplayID, act: act))
+            .updateChildValues([key: value])
+        try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
+    }
+
+    public func delete(customBeatID: String, from act: Act, of screenplayID: String) async throws {
+        let uid = try requireUID()
+        let key = try safeKey(customBeatID)
+        try await ref(RTDBPaths.actCustomBeats(uid: uid, id: screenplayID, act: act))
+            .updateChildValues([key: NSNull()])
+        try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
+    }
+
     /// Refreshes only the `lastUpdated` timestamp via a scoped merge.
     private func touchLastUpdated(uid: String, screenplayID: String) async throws {
         try await ref(RTDBPaths.screenplay(uid: uid, id: screenplayID))

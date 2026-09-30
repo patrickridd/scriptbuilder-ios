@@ -25,6 +25,7 @@ struct Act1DTO: Codable, Sendable {
     let reasonToAdventure: String
     let enemyAtTheGates: String
     let scenes: [String: SceneDTO]?
+    let customBeats: [String: CustomBeatDTO]?
 
     enum CodingKeys: String, CodingKey {
         case oldWorldDescription = "oldWorldDescription"
@@ -36,14 +37,16 @@ struct Act1DTO: Codable, Sendable {
         case reasonToAdventure   = "reasonToAdventure"
         case enemyAtTheGates     = "enemyAtTheGates"
         case scenes              = "scenes"
+        case customBeats         = "customBeats"
     }
 
     init(
         oldWorldDescription: String, incitingIncident: String,
         callToAdventure: String, meetingMentor: String, theme: String,
         refusal: String, reasonToAdventure: String, enemyAtTheGates: String,
-        scenes: [String: SceneDTO]?
+        scenes: [String: SceneDTO]?, customBeats: [String: CustomBeatDTO]? = nil
     ) {
+        self.customBeats = customBeats
         self.oldWorldDescription = oldWorldDescription
         self.incitingIncident = incitingIncident
         self.callToAdventure = callToAdventure
@@ -66,6 +69,7 @@ struct Act1DTO: Codable, Sendable {
         reasonToAdventure   = container.lenientString(.reasonToAdventure)
         enemyAtTheGates     = container.lenientString(.enemyAtTheGates)
         scenes              = try? container.decodeIfPresent([String: SceneDTO].self, forKey: .scenes)
+        customBeats         = try? container.decodeIfPresent([String: CustomBeatDTO].self, forKey: .customBeats)
     }
 }
 
@@ -83,6 +87,7 @@ struct Act2DTO: Codable, Sendable {
     let badGuysStrikeBack: String
     let allIsLost: String
     let scenes: [String: SceneDTO]?
+    let customBeats: [String: CustomBeatDTO]?
 
     enum CodingKeys: String, CodingKey {
         case newWorldDescription = "newWorldDescription"
@@ -96,14 +101,17 @@ struct Act2DTO: Codable, Sendable {
         case badGuysStrikeBack   = "badGuysStrikeBack"
         case allIsLost           = "allIsLost"
         case scenes              = "scenes"
+        case customBeats         = "customBeats"
     }
 
     init(
         newWorldDescription: String, enemiesFriends: String, obstacles: String,
         sharpeningTheSword: String, burnTheBoats: String, theDeadlyEncounter: String,
         celebrate: String, stormGathers: String, badGuysStrikeBack: String,
-        allIsLost: String, scenes: [String: SceneDTO]?
+        allIsLost: String, scenes: [String: SceneDTO]?,
+        customBeats: [String: CustomBeatDTO]? = nil
     ) {
+        self.customBeats = customBeats
         self.newWorldDescription = newWorldDescription
         self.enemiesFriends = enemiesFriends
         self.obstacles = obstacles
@@ -130,6 +138,7 @@ struct Act2DTO: Codable, Sendable {
         badGuysStrikeBack   = container.lenientString(.badGuysStrikeBack)
         allIsLost           = container.lenientString(.allIsLost)
         scenes              = try? container.decodeIfPresent([String: SceneDTO].self, forKey: .scenes)
+        customBeats         = try? container.decodeIfPresent([String: CustomBeatDTO].self, forKey: .customBeats)
     }
 }
 
@@ -143,6 +152,7 @@ struct Act3DTO: Codable, Sendable {
     let untangleStory: String
     let brandNewWorld: String
     let scenes: [String: SceneDTO]?
+    let customBeats: [String: CustomBeatDTO]?
 
     enum CodingKeys: String, CodingKey {
         case theUltimateAnswer = "theUltimateAnswer"
@@ -152,13 +162,15 @@ struct Act3DTO: Codable, Sendable {
         case untangleStory     = "untangleStory"
         case brandNewWorld     = "brandNewWorld"
         case scenes            = "scenes"
+        case customBeats       = "customBeats"
     }
 
     init(
         theUltimateAnswer: String, timeIsRunningOut: String, climax: String,
         rewards: String, untangleStory: String, brandNewWorld: String,
-        scenes: [String: SceneDTO]?
+        scenes: [String: SceneDTO]?, customBeats: [String: CustomBeatDTO]? = nil
     ) {
+        self.customBeats = customBeats
         self.theUltimateAnswer = theUltimateAnswer
         self.timeIsRunningOut = timeIsRunningOut
         self.climax = climax
@@ -177,5 +189,6 @@ struct Act3DTO: Codable, Sendable {
         untangleStory     = container.lenientString(.untangleStory)
         brandNewWorld     = container.lenientString(.brandNewWorld)
         scenes            = try? container.decodeIfPresent([String: SceneDTO].self, forKey: .scenes)
+        customBeats       = try? container.decodeIfPresent([String: CustomBeatDTO].self, forKey: .customBeats)
     }
 }
