@@ -60,15 +60,13 @@ public struct CharacterListView: View {
         }
         // Fully custom pop-up so swipe-to-delete matches every other
         // destructive action in the app.
-        .confirmDialog(
+        .deleteDialog(
             isPresented: deleteDialogBinding,
-            icon: "trash.fill",
             title: L10n.CharacterUI.deleteTitle,
             message: viewModel.pendingDeleteMessage,
-            confirmTitle: L10n.Action.delete,
+            deleteTitle: L10n.Action.delete,
             cancelTitle: L10n.Action.cancel
         ) {
-            Haptics.warning()
             if let target = viewModel.pendingDelete {
                 if selected?.uuid == target.uuid { selected = nil }
                 if newlyAdded?.uuid == target.uuid { newlyAdded = nil }

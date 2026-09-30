@@ -43,15 +43,13 @@ struct CharacterSettingsView: View {
             }
         }
         .onDisappear { Task { await viewModel.flush() } }
-        .confirmDialog(
+        .deleteDialog(
             isPresented: $showDeleteConfirm,
-            icon: "trash.fill",
             title: L10n.CharacterUI.deleteTitle,
             message: viewModel.deleteConfirmMessage,
-            confirmTitle: L10n.Action.delete,
+            deleteTitle: L10n.Action.delete,
             cancelTitle: L10n.Action.cancel
         ) {
-            Haptics.warning()
             onDelete()
         }
     }

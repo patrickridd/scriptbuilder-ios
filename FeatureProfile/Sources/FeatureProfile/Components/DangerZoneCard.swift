@@ -1,16 +1,17 @@
 import SwiftUI
 import DesignSystem
 
-/// Destructive actions: sign out and permanently delete the account. Delete is
-/// gated behind a confirmation dialog and a typed-confirmation alert to prevent
-/// accidental loss, matching the legacy Settings flow.
+/// Destructive actions: sign out and permanently delete the account.
+///
+/// The card only renders the two buttons. The confirmation pop-ups are
+/// attached by `ProfileView` at screen level (`dangerZoneDialogs`) — a
+/// `confirmDialog` overlay on this card would be confined to the card's own
+/// frame inside the scroll view and render clipped.
 struct DangerZoneCard: View {
     @Environment(\.appPalette) private var palette
-    @State private var showSignOutConfirm = false
-    @State private var showDeleteConfirm = false
     let isWorking: Bool
-    let onSignOut: () -> Void
-    let onDelete: () async -> Void
+    let onSignOutTap: () -> Void
+    let onDeleteTap: () -> Void
 
     var body: some View {
         VStack(spacing: 16) {
@@ -18,32 +19,12 @@ struct DangerZoneCard: View {
             deleteButton
         }
         .padding(.top, 4)
-        .confirmationDialog(
-            L10n.Danger.signOutTitle,
-            isPresented: $showSignOutConfirm,
-            titleVisibility: .visible
-        ) {
-            Button(L10n.Action.signOut, role: .destructive, action: onSignOut)
-            Button(L10n.Action.cancel, role: .cancel) { }
-        } message: {
-            Text(L10n.Danger.signOutMessage)
-        }
-        .alert(L10n.Danger.deleteTitle, isPresented: $showDeleteConfirm) {
-            Button(L10n.Action.delete, role: .destructive) {
-                Task { await onDelete() }
-            }
-            Button(L10n.Action.cancel, role: .cancel) { }
-        } message: {
-            Text(L10n.Danger.deleteMessage)
-        }
     }
 
     /// Sign Out is the primary, prominent action — it's what most people
     /// actually want from this card.
     private var signOutButton: some View {
-        Button {
-            showSignOutConfirm = true
-        } label: {
+        Button(action: onSignOutTap) {
             Label(L10n.Action.signOut, systemImage: "rectangle.portrait.and.arrow.right")
                 .font(.headline)
                 .frame(maxWidth: .infinity)
@@ -56,9 +37,7 @@ struct DangerZoneCard: View {
     /// Delete is intentionally de-emphasized: a quiet plain text link rather than
     /// a filled button, so it can't be mistaken for Sign Out.
     private var deleteButton: some View {
-        Button(role: .destructive) {
-            showDeleteConfirm = true
-        } label: {
+        Button(role: .destructive, action: onDeleteTap) {
             HStack(spacing: 6) {
                 if isWorking { ProgressView().controlSize(.small) }
                 Text(L10n.Action.deleteAccount)
@@ -70,5 +49,40 @@ struct DangerZoneCard: View {
         .buttonStyle(.plain)
         .foregroundStyle(.secondary)
         .disabled(isWorking)
+    }
+}
+
+/// Screen-level confirmations for `DangerZoneCard`. Apply to the root of the
+/// screen so the pop-up and dimming cover the whole display.
+struct DangerZoneDialogs: ViewModifier {
+    @Binding var showSignOut: Bool
+    @Binding var showDelete: Bool
+    let onSignOut: () -> Void
+    let onDelete: () async -> Void
+
+    func body(content: Content) -> some View {
+        content
+            // Signing out is reversible, so it uses the brand colour, not red.
+            .confirmDialog(
+                isPresented: $showSignOut,
+                icon: "rectangle.portrait.and.arrow.right",
+                title: L10n.Danger.signOutTitle,
+                message: L10n.Danger.signOutMessage,
+                confirmTitle: L10n.Action.signOut,
+                cancelTitle: L10n.Action.cancel,
+                isDestructive: false,
+                coversNavigationBar: true,
+                onConfirm: onSignOut
+            )
+            .deleteDialog(
+                isPresented: $showDelete,
+                title: L10n.Danger.deleteTitle,
+                message: L10n.Danger.deleteMessage,
+                deleteTitle: L10n.Action.delete,
+                cancelTitle: L10n.Action.cancel,
+                coversNavigationBar: true
+            ) {
+                Task { await onDelete() }
+            }
     }
 }

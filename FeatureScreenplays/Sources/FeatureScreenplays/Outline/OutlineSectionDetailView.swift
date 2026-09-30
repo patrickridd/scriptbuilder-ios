@@ -52,16 +52,15 @@ struct OutlineSectionDetailView: View {
         }
         .navigationTitle(navigationTitleText)
         .navigationBarTitleDisplayMode(.inline)
-        .confirmationDialog(
-            L10n.CustomBeatCopy.deleteConfirmTitle,
+        // Same delete pop-up as characters, scenes and screenplays.
+        .deleteDialog(
             isPresented: isConfirmingDelete,
-            titleVisibility: .visible
+            title: L10n.CustomBeatCopy.deleteConfirmTitle,
+            message: L10n.CustomBeatCopy.deleteConfirmMessage,
+            deleteTitle: L10n.Action.delete,
+            cancelTitle: L10n.Action.cancel
         ) {
-            Button(L10n.CustomBeatCopy.delete, role: .destructive) {
-                if let id = pendingDeleteID { performDelete(id) }
-            }
-        } message: {
-            Text(L10n.CustomBeatCopy.deleteConfirmMessage)
+            if let id = pendingDeleteID { performDelete(id) }
         }
     }
 

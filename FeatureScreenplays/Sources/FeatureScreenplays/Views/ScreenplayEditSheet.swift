@@ -52,15 +52,13 @@ struct ScreenplayEditSheet: View {
             .toolbar { toolbar }
         }
         .tint(palette.brandPrimary)
-        .confirmDialog(
+        .deleteDialog(
             isPresented: $isConfirmingDelete,
-            icon: "trash.fill",
             title: L10n.EditSheet.deleteScreenplay,
             message: L10n.EditSheet.deleteMessage(trimmedTitle),
-            confirmTitle: L10n.Action.delete,
+            deleteTitle: L10n.Action.delete,
             cancelTitle: L10n.Action.cancel
         ) {
-            Haptics.warning()
             onDelete()
         }
     }
