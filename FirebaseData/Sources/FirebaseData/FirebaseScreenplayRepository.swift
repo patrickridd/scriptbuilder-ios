@@ -247,6 +247,23 @@ public final class FirebaseScreenplayRepository: ScreenplayRepository, @unchecke
         try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
     }
 
+    public func save(beatLayout: BeatLayout?, of screenplayID: String) async throws {
+        let uid = try requireUID()
+        // One `setValue` replaces the whole layout atomically, so a move can
+        // never be half-written. Section ids come from the template, never
+        // from user input, but are still checked before becoming RTDB keys.
+        let value: Any
+        if let beatLayout {
+            let map = BeatLayoutMapping.toMap(beatLayout)
+            for sectionID in map.keys { _ = try safeKey(sectionID) }
+            value = map
+        } else {
+            value = NSNull()
+        }
+        try await ref(RTDBPaths.beatLayout(uid: uid, id: screenplayID)).setValue(value)
+        try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
+    }
+
     /// Refreshes only the `lastUpdated` timestamp via a scoped merge.
     private func touchLastUpdated(uid: String, screenplayID: String) async throws {
         try await ref(RTDBPaths.screenplay(uid: uid, id: screenplayID))

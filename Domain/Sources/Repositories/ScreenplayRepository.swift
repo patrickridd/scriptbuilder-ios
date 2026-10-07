@@ -97,6 +97,11 @@ public protocol ScreenplayRepository: Sendable {
     /// Switch a template beat off (or back on). Only that beat's flag is
     /// written; its text and every other field are untouched.
     func setBeat(_ beat: ActBeatField, disabled: Bool, of screenplayID: String) async throws
+
+    /// Replace the screenplay's whole beat order in one write, so a move can
+    /// never be half-saved. `nil` clears it (back to the standard order).
+    /// Beat text is never touched.
+    func save(beatLayout: BeatLayout?, of screenplayID: String) async throws
 }
 
 /// Outline-level (non-nested) text fields of a screenplay that the editor can

@@ -130,4 +130,9 @@ final class ScreenplayRepositorySpy: ScreenplayRepository, @unchecked Sendable {
     }
     private var _disabledBeatChanges: [(ActBeatField, Bool)] = []
     var disabledBeatChanges: [(ActBeatField, Bool)] { lock.withLock { _disabledBeatChanges } }
+    func save(beatLayout: BeatLayout?, of screenplayID: String) async throws {
+        lock.withLock { _savedBeatLayouts.append(beatLayout) }
+    }
+    private var _savedBeatLayouts: [BeatLayout?] = []
+    var savedBeatLayouts: [BeatLayout?] { lock.withLock { _savedBeatLayouts } }
 }

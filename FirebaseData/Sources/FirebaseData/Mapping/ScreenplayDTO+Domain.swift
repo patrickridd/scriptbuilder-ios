@@ -252,7 +252,9 @@ extension ScreenplayDTO {
             characters: CharacterMapping.toMap(screenplay.characters),
             disabledBeats: screenplay.disabledBeats.isEmpty
                 ? nil
-                : Dictionary(uniqueKeysWithValues: screenplay.disabledBeats.map { ($0.rawValue, true) })
+                : Dictionary(uniqueKeysWithValues: screenplay.disabledBeats.map { ($0.rawValue, true) }),
+            structureTemplate: screenplay.structureTemplateID,
+            beatLayout: screenplay.savedBeatLayout.map(BeatLayoutMapping.toMap)
         )
     }
 
@@ -283,8 +285,33 @@ extension ScreenplayDTO {
             act3: act3Domain,
             disabledBeats: Set((disabledBeats ?? [:])
                 .filter(\.value)
-                .compactMap { ActBeatField(rawValue: $0.key) })
+                .compactMap { ActBeatField(rawValue: $0.key) }),
+            structureTemplateID: structureTemplate,
+            savedBeatLayout: beatLayout.map(BeatLayoutMapping.toDomain)
         )
+    }
+}
+
+// MARK: - Beat layout
+
+/// Each section's order is one string of references joined by "/". RTDB keys
+/// can never contain "/", so a custom beat id can't break the encoding, and an
+/// empty section is stored as "" instead of vanishing like an empty array.
+enum BeatLayoutMapping {
+    // `Swift.Character`: Domain's own `Character` (a cast member) shadows it.
+    static let separator: Swift.Character = "/"
+
+    static func toMap(_ layout: BeatLayout) -> [String: String] {
+        layout.sections.mapValues { references in
+            references.map(\.storageKey).joined(separator: String(separator))
+        }
+    }
+
+    static func toDomain(_ map: [String: String]) -> BeatLayout {
+        BeatLayout(sections: map.mapValues { encoded in
+            encoded.split(separator: separator)
+                .compactMap { BeatReference(storageKey: String($0)) }
+        })
     }
 }
 

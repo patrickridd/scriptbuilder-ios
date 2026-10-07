@@ -91,4 +91,7 @@ final class FailingScreenplayRepositorySpy: ScreenplayRepository, @unchecked Sen
     func setBeat(_ beat: ActBeatField, disabled: Bool, of screenplayID: String) async throws {
         throw error
     }
+    func save(beatLayout: BeatLayout?, of screenplayID: String) async throws {
+        throw error
+    }
 }

@@ -64,6 +64,11 @@ enum RTDBPaths {
         "\(screenplay(uid: uid, id: id))/disabledBeats"
     }
 
+    /// The beat layout (section id → encoded beat order) on a screenplay.
+    static func beatLayout(uid: String, id: String) -> String {
+        "\(screenplay(uid: uid, id: id))/beatLayout"
+    }
+
     /// The characters child node under a screenplay.
     static func characters(uid: String, id: String) -> String {
         "\(screenplay(uid: uid, id: id))/characters"

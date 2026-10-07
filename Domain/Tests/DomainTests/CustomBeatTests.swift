@@ -54,7 +54,8 @@ struct CustomBeatTests {
         #expect(slots[2] == .custom(first))
         #expect(slots[3] == .custom(second))
         #expect(slots[4] == .template(.callToAdventure))
-        #expect(slots.suffix(2) == [.custom(tail), .custom(wrongAct)])
+        // Both trailing beats share order 0, so the id tie-break decides: "w" < "z".
+        #expect(Array(slots.suffix(2)) == [.custom(wrongAct), .custom(tail)])
     }
 
     @Test("nextOrder lands after existing siblings")

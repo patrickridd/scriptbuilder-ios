@@ -48,6 +48,14 @@ public struct Screenplay: Identifiable, Equatable, Sendable, Codable {
     /// `setBeat(_:disabled:)`.
     private var disabledBeatKeys: Set<String>?
 
+    /// Which `StructureTemplate` this screenplay follows. `nil` = the standard
+    /// feature template (everything saved before templates existed).
+    public var structureTemplateID: String?
+
+    /// The writer's own beat order, if they've ever rearranged. `nil` = the
+    /// standard order. Read through `beatLayout`, which repairs stale entries.
+    public var savedBeatLayout: BeatLayout?
+
     /// Template beats the writer switched off: hidden from progress, the
     /// "Next up" nudge and exports. Their text is kept.
     public var disabledBeats: Set<ActBeatField> {
@@ -82,9 +90,13 @@ public struct Screenplay: Identifiable, Equatable, Sendable, Codable {
         act1: Act1 = Act1(),
         act2: Act2 = Act2(),
         act3: Act3 = Act3(),
-        disabledBeats: Set<ActBeatField> = []
+        disabledBeats: Set<ActBeatField> = [],
+        structureTemplateID: String? = nil,
+        savedBeatLayout: BeatLayout? = nil
     ) {
         self.disabledBeatKeys = disabledBeats.isEmpty ? nil : Set(disabledBeats.map(\.rawValue))
+        self.structureTemplateID = structureTemplateID
+        self.savedBeatLayout = savedBeatLayout
         self.uuid = uuid
         self.title = title
         self.authorName = authorName

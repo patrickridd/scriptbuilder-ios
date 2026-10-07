@@ -141,6 +141,14 @@ public actor MockScreenplayRepository: ScreenplayRepository {
         broadcast()
     }
 
+    public func save(beatLayout: BeatLayout?, of screenplayID: String) async throws {
+        guard var screenplay = storage[screenplayID] else { throw RepositoryError.notFound }
+        screenplay.savedBeatLayout = beatLayout
+        screenplay.lastUpdated = Date()
+        storage[screenplayID] = screenplay
+        broadcast()
+    }
+
     // MARK: - Granular write helpers
 
     private static func upsert(_ scene: Scene, in act: Act, of screenplay: inout Screenplay) {
