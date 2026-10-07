@@ -8,14 +8,15 @@ import DesignSystem
 /// auto-growing `ExpandableTextField` bound through `OutlineViewModel`, which
 /// autosaves each edit non-destructively. Purely declarative.
 struct OutlineSectionDetailView: View {
-    @Environment(\.appPalette) private var palette
+    @Environment(\.appPalette) var palette
     @Bindable var viewModel: OutlineViewModel
-    private let section: OutlineSection
+    let section: OutlineSection
     @State private var showBeatsInfo = false
+    @State var isArranging = false
     @State private var focusRequest: AnyHashable?
     /// A custom beat with writing in it that's waiting on delete confirmation.
     @State private var pendingDeleteID: String?
-    private let gate: EditorGate
+    let gate: EditorGate
     /// Re-renders the PRO marker live after a purchase / restore / expiry.
     @ObservedObject private var entitlementSignal: EditorEntitlementSignal
 
@@ -61,6 +62,9 @@ struct OutlineSectionDetailView: View {
             cancelTitle: L10n.Action.cancel
         ) {
             if let id = pendingDeleteID { performDelete(id) }
+        }
+        .sheet(isPresented: $isArranging) {
+            ArrangeBeatsView(viewModel: viewModel, gate: gate)
         }
     }
 
@@ -158,6 +162,7 @@ struct OutlineSectionDetailView: View {
                 beatsInfoPopover
             }
             Spacer()
+            arrangeHeaderButton
         }
         .padding(.top, 6)
     }
@@ -188,6 +193,7 @@ struct OutlineSectionDetailView: View {
     /// "+ Add Beat" card.
     private var beatsFields: some View {
         VStack(spacing: 14) {
+            if slotIDs.isEmpty { emptyBeatsNote }
             ForEach(viewModel.slots(for: section), id: \.stableID) { slot in
                 slotView(slot)
                     .transition(.opacity.combined(with: .move(edge: .top)))
@@ -234,11 +240,11 @@ struct OutlineSectionDetailView: View {
     }
 
     private func templateMenu(for beat: ActBeatField) -> [ExpandableTextField.MenuItem] {
-        [
-            ExpandableTextField.MenuItem(
-                title: L10n.CustomBeatCopy.insertAfter,
-                systemImage: "plus.square.on.square"
-            ) { addBeat(after: .template(beat)) },
+        let insert = ExpandableTextField.MenuItem(
+            title: L10n.CustomBeatCopy.insertAfter,
+            systemImage: "plus.square.on.square"
+        ) { addBeat(after: .template(beat)) }
+        return [insert] + moveMenuItems(for: BeatReference(beat)) + [
             ExpandableTextField.MenuItem(
                 title: L10n.CustomBeatCopy.disable,
                 systemImage: "eye.slash"
@@ -262,6 +268,7 @@ struct OutlineSectionDetailView: View {
                 focusRequest: $focusRequest,
                 focusID: AnyHashable(anchor),
                 onInsertAfter: { addBeat(after: .custom(beat)) },
+                moveItems: moveMenuItems(for: .custom(beat.id)),
                 onDelete: { requestDelete(beat) }
             )
         }

@@ -11,6 +11,7 @@ struct OutlineView: View {
     @State private var viewModel: OutlineViewModel
     /// Free-tier gate for adding custom beats (1 per act free).
     private let gate: EditorGate
+    @State private var isArranging = false
 
     init(
         screenplay: Screenplay,
@@ -36,10 +37,25 @@ struct OutlineView: View {
                 header
                 ideaCard
                 actsSection
+                arrangeButton
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
         }
+        .sheet(isPresented: $isArranging) {
+            ArrangeBeatsView(viewModel: viewModel, gate: gate)
+        }
+    }
+
+    // MARK: - Arrange
+
+    private var arrangeButton: some View {
+        Button {
+            isArranging = true
+        } label: {
+            ArrangeEntryCard(isCustomOrder: !viewModel.isUsingStandardOrder)
+        }
+        .buttonStyle(.pressableCard)
     }
 
     // MARK: - Header (with progress ring)

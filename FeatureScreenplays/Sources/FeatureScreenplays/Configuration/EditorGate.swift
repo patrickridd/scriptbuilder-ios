@@ -49,6 +49,11 @@ public struct EditorGate: Sendable {
     /// this only decides whether a *new* one may be created.
     public var canAddCustomBeat: @Sendable (_ existingCountInAct: Int) -> Bool
 
+    /// Whether the user may move the structure's own (template) beats. Custom
+    /// beats always move freely, a saved arrangement survives if this later
+    /// turns false, and resetting to the standard order is always allowed.
+    public var canMoveTemplateBeats: @Sendable () -> Bool
+
     /// Called when an add action is blocked, so the host can present the
     /// paywall. Runs on the main actor.
     public var onBlocked: @Sendable () -> Void
@@ -62,12 +67,14 @@ public struct EditorGate: Sendable {
         canAddCharacter: @escaping @Sendable (_ existingCount: Int) -> Bool = { _ in true },
         canAddScene: @escaping @Sendable (_ existingCount: Int) -> Bool = { _ in true },
         canAddCustomBeat: @escaping @Sendable (_ existingCountInAct: Int) -> Bool = { _ in true },
+        canMoveTemplateBeats: @escaping @Sendable () -> Bool = { true },
         onBlocked: @escaping @Sendable () -> Void = {},
         entitlementSignal: EditorEntitlementSignal = EditorEntitlementSignal()
     ) {
         self.canAddCharacter = canAddCharacter
         self.canAddScene = canAddScene
         self.canAddCustomBeat = canAddCustomBeat
+        self.canMoveTemplateBeats = canMoveTemplateBeats
         self.onBlocked = onBlocked
         self.entitlementSignal = entitlementSignal
     }

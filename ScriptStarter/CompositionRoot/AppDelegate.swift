@@ -416,6 +416,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // more with all-access.
                 store.allAccessEnabled || existingCountInAct < freeCustomBeatsPerAct
             },
+            canMoveTemplateBeats: {
+                // Rearranging the structure's own beats is all-access only.
+                store.allAccessEnabled
+            },
             onBlocked: { [weak self] in
                 DispatchQueue.main.async { self?.presentPaywallOverCurrent() }
             },

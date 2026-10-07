@@ -22,6 +22,8 @@ struct CustomBeatField: View {
     let focusRequest: Binding<AnyHashable?>
     let focusID: AnyHashable
     let onInsertAfter: () -> Void
+    /// "Move Up / Move Down / Move to Act…", shown between insert and delete.
+    var moveItems: [ExpandableTextField.MenuItem] = []
     let onDelete: () -> Void
 
     var body: some View {
@@ -149,6 +151,15 @@ struct CustomBeatField: View {
         Menu {
             Button(action: onInsertAfter) {
                 Label(L10n.CustomBeatCopy.insertAfter, systemImage: "plus.square.on.square")
+            }
+            if !moveItems.isEmpty {
+                Section {
+                    ForEach(moveItems) { item in
+                        Button(action: item.action) {
+                            Label(item.title, systemImage: item.systemImage)
+                        }
+                    }
+                }
             }
             Button(role: .destructive, action: onDelete) {
                 Label(L10n.CustomBeatCopy.delete, systemImage: "trash")

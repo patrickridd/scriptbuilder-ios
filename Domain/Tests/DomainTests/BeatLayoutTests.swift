@@ -12,6 +12,34 @@ final class BeatLayoutTests: XCTestCase {
         return screenplay
     }
 
+    func testMoveDownThenUpReturnsToStandardOrder() {
+        var screenplay = screenplayWithCustomBeat()
+        let first = BeatReference(.oldWorldDescription)
+        XCTAssertFalse(screenplay.canMoveBeat(first, by: -1))
+        XCTAssertTrue(screenplay.moveBeat(first, by: 1))
+        XCTAssertFalse(screenplay.isUsingStandardOrder)
+        XCTAssertEqual(screenplay.beatLayout.beats(in: Act.one.sectionID)[1], first)
+        XCTAssertTrue(screenplay.moveBeat(first, by: -1))
+        XCTAssertTrue(screenplay.isUsingStandardOrder, "Matching layouts collapse back to nil")
+    }
+
+    func testMoveToLaterSectionLandsAtStartAndKeepsStorage() {
+        var screenplay = screenplayWithCustomBeat()
+        XCTAssertTrue(screenplay.moveBeat(.custom("extra"), toSection: Act.two.sectionID))
+        XCTAssertEqual(screenplay.beatLayout.beats(in: Act.two.sectionID).first, .custom("extra"))
+        XCTAssertEqual(screenplay.customBeat(withID: "extra")?.act, .one)
+        XCTAssertFalse(screenplay.beatLayout.beats(in: Act.one.sectionID).contains(.custom("extra")))
+    }
+
+    func testMoveToEarlierSectionLandsAtEnd() {
+        var screenplay = Screenplay(title: "Test")
+        let beat = BeatReference(ActBeatField.beats(for: .three)[0])
+        XCTAssertTrue(screenplay.moveBeat(beat, toSection: Act.two.sectionID))
+        XCTAssertEqual(screenplay.beatLayout.beats(in: Act.two.sectionID).last, beat)
+        screenplay.resetBeatLayout()
+        XCTAssertTrue(screenplay.isUsingStandardOrder)
+    }
+
     func testStandardLayoutMatchesLegacyOutline() {
         let screenplay = screenplayWithCustomBeat()
         let actOne = screenplay.beatLayout.beats(in: Act.one.sectionID)
