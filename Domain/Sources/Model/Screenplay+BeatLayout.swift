@@ -74,6 +74,46 @@ public extension Screenplay {
         return outlineBeats(inSection: section.id)
     }
 
+    /// The section backed by `act`, as editor slots in display order. A custom
+    /// beat moved here from another act appears with its full model, wherever
+    /// it's stored.
+    func outlineSlots(in act: Act) -> [CustomBeat.Slot] {
+        guard let section = structureTemplate.section(for: act) else { return [] }
+        return beatLayout.beats(in: section.id).compactMap { reference in
+            switch reference {
+            case .template:
+                return reference.templateField.map(CustomBeat.Slot.template)
+            case .custom(let id):
+                return customBeat(withID: id).map { CustomBeat.Slot.custom($0.beat) }
+            }
+        }
+    }
+
+    /// Places `reference` directly after `predecessor` (or at the end of the
+    /// section when `nil`) in the saved layout. Does nothing while the
+    /// screenplay follows the standard order — anchors already put new beats
+    /// in the right place there. Returns whether the saved layout changed.
+    @discardableResult
+    mutating func placeInSavedLayout(
+        _ reference: BeatReference, after predecessor: BeatReference?, in act: Act
+    ) -> Bool {
+        guard savedBeatLayout != nil,
+              let section = structureTemplate.section(for: act) else { return false }
+        var layout = beatLayout
+        for key in layout.sections.keys {
+            layout.sections[key]?.removeAll { $0 == reference }
+        }
+        var beats = layout.beats(in: section.id)
+        if let predecessor, let index = beats.firstIndex(of: predecessor) {
+            beats.insert(reference, at: index + 1)
+        } else {
+            beats.append(reference)
+        }
+        layout.sections[section.id] = beats
+        savedBeatLayout = layout
+        return true
+    }
+
     // MARK: - Lookup
 
     /// Resolves a reference to its content, or `nil` if the beat no longer

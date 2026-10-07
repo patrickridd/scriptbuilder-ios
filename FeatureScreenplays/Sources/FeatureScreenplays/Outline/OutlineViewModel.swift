@@ -211,8 +211,6 @@ public final class OutlineViewModel {
             return (fields.filter { !blank($0) }.count, fields.count)
         case .actOne, .actTwo, .actThree:
             guard let act = section.act else { return (0, 0) }
-            // Disabled template beats drop out of both sides of the count.
-            let beats = ActBeatField.beats(for: act).filter { !screenplay.isBeatDisabled($0) }
             let desc: String
             switch section {
             case .actOne:   desc = screenplay.actOneDescription
@@ -220,13 +218,14 @@ public final class OutlineViewModel {
             case .actThree: desc = screenplay.actThreeDescription
             case .idea:     desc = ""
             }
-            let filledBeats = beats.filter { !blank($0.value(in: screenplay)) }.count
-            // Custom beats count toward completion just like template beats:
-            // a fresh, empty one lowers the % until the writer fills it in.
-            let customBeats = screenplay.customBeats(in: act)
-            let filledCustom = customBeats.filter(\.isFilled).count
+            // Every beat *shown* in this act counts — template or custom,
+            // wherever it's stored — in the writer's arrangement. Disabled
+            // template beats drop out of both sides of the count, and a
+            // fresh, empty custom beat lowers the % until it's filled in.
+            let beats = screenplay.outlineBeats(in: act).filter { !$0.isDisabled }
+            let filledBeats = beats.filter(\.isFilled).count
             let descFilled = blank(desc) ? 0 : 1
-            return (filledBeats + filledCustom + descFilled, beats.count + customBeats.count + 1)
+            return (filledBeats + descFilled, beats.count + 1)
         }
     }
 

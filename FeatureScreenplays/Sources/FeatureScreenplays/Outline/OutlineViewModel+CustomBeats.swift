@@ -2,9 +2,13 @@ import Foundation
 import Domain
 import SwiftUI
 
-/// Writer-authored beats on the act editors. Ordering always comes from
-/// `CustomBeat.outline(for:customBeats:)`, so the editor, the hub counts and
-/// the export can never disagree about where a beat sits.
+/// Writer-authored beats on the act editors. Ordering always comes from the
+/// screenplay's beat layout (`Screenplay.outlineSlots(in:)`), so the editor,
+/// the hub counts and the export can never disagree about where a beat sits.
+///
+/// A custom beat is always stored in its *home* act, even when the layout
+/// shows it in another section, so every edit resolves the home act by id
+/// (`Screenplay.customBeat(withID:)`) rather than trusting the section.
 ///
 /// Persistence mirrors the template beats: edits are debounced per beat and
 /// saved as the whole beat (`save(customBeat:in:of:)`), keyed by id so two
@@ -13,11 +17,11 @@ extension OutlineViewModel {
 
     // MARK: - Reading
 
-    /// The act's template and custom beats merged in outline order. Empty for
+    /// The section's template and custom beats in display order. Empty for
     /// the Idea section.
     func slots(for section: OutlineSection) -> [CustomBeat.Slot] {
         guard let act = section.act else { return [] }
-        return CustomBeat.outline(for: act, customBeats: screenplay.customBeats(in: act))
+        return screenplay.outlineSlots(in: act)
     }
 
     /// How many custom beats the section's act holds — drives the free-tier
@@ -45,8 +49,30 @@ extension OutlineViewModel {
         let beat = CustomBeat(anchor: placement.anchor, order: placement.order)
         screenplay.upsert(customBeat: beat, in: act)
         scheduleCustomBeatSave(id: beat.id, in: act)
+        // In a rearranged outline the anchor alone can't say where the beat
+        // goes, so pin it right after `slot` in the saved layout too.
+        if screenplay.placeInSavedLayout(.custom(beat.id), after: slot.map(reference(for:)), in: act) {
+            saveBeatLayout()
+        }
         evaluateCompletionEdge()
         return beat.id
+    }
+
+    private func reference(for slot: CustomBeat.Slot) -> BeatReference {
+        switch slot {
+        case .template(let field): return BeatReference(field)
+        case .custom(let beat):    return .custom(beat.id)
+        }
+    }
+
+    /// Persists the current saved layout (nil = standard order).
+    func saveBeatLayout() {
+        let layout = screenplay.savedBeatLayout
+        Task { [weak self] in
+            guard let self else { return }
+            do { try await self.repository.save(beatLayout: layout, of: self.screenplayID) }
+            catch { self.errorMessage = error.localizedDescription }
+        }
     }
 
     /// Where a new beat lands so it sits immediately after `slot`:
@@ -95,21 +121,16 @@ extension OutlineViewModel {
         keyPath: WritableKeyPath<CustomBeat, String>
     ) -> Binding<String> {
         Binding(
-            get: { self.customBeat(id: id, in: section)?[keyPath: keyPath] ?? "" },
+            get: { self.screenplay.customBeat(withID: id)?.beat[keyPath: keyPath] ?? "" },
             set: { newValue in
-                guard let act = section.act,
-                      var beat = self.customBeat(id: id, in: section) else { return }
+                guard let match = self.screenplay.customBeat(withID: id) else { return }
+                var beat = match.beat
                 beat[keyPath: keyPath] = newValue
-                self.screenplay.upsert(customBeat: beat, in: act)
-                self.scheduleCustomBeatSave(id: id, in: act)
+                self.screenplay.upsert(customBeat: beat, in: match.act)
+                self.scheduleCustomBeatSave(id: id, in: match.act)
                 self.evaluateCompletionEdge()
             }
         )
-    }
-
-    private func customBeat(id: String, in section: OutlineSection) -> CustomBeat? {
-        guard let act = section.act else { return nil }
-        return screenplay.customBeats(in: act).first { $0.id == id }
     }
 
     // MARK: - Disabling template beats
@@ -137,12 +158,21 @@ extension OutlineViewModel {
     /// Removes a custom beat locally and from storage, dropping any edit that
     /// was still waiting to save so it can't resurrect the beat.
     func deleteCustomBeat(id: String, from section: OutlineSection) {
-        guard let act = section.act else { return }
+        // The beat may be shown in `section` but stored in another act.
+        guard let act = screenplay.customBeat(withID: id)?.act ?? section.act else { return }
         let key = customBeatSaveKey(id)
         saveTasks[key]?.cancel()
         saveTasks[key] = nil
         pendingWrites[key] = nil
         screenplay.removeCustomBeat(id: id, from: act)
+        // Keep the saved layout tidy; reads would repair it anyway.
+        if var layout = screenplay.savedBeatLayout {
+            for sectionID in layout.sections.keys {
+                layout.sections[sectionID]?.removeAll { $0 == .custom(id) }
+            }
+            screenplay.savedBeatLayout = layout
+            saveBeatLayout()
+        }
         evaluateCompletionEdge()
         Task { [weak self] in
             guard let self else { return }

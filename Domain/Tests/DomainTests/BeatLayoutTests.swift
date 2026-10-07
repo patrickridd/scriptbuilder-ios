@@ -35,6 +35,46 @@ final class BeatLayoutTests: XCTestCase {
         XCTAssertEqual(actTwo.first?.homeSectionID, Act.one.sectionID)
     }
 
+    func testOutlineSlotsShowMovedCustomBeatInItsNewAct() {
+        var screenplay = screenplayWithCustomBeat()
+        var sections = screenplay.standardBeatLayout.sections
+        sections[Act.one.sectionID]?.removeAll { $0 == .custom("extra") }
+        sections[Act.two.sectionID]?.insert(.custom("extra"), at: 0)
+        screenplay.savedBeatLayout = BeatLayout(sections: sections)
+
+        let actOne = screenplay.outlineSlots(in: .one)
+        let actTwo = screenplay.outlineSlots(in: .two)
+        XCTAssertFalse(actOne.contains { slot in
+            if case .custom = slot { return true }
+            return false
+        })
+        guard case .custom(let beat) = actTwo.first else {
+            return XCTFail("Expected the moved custom beat first in Act II")
+        }
+        XCTAssertEqual(beat.id, "extra")
+        // Storage never moves: the beat still lives in Act I.
+        XCTAssertEqual(screenplay.customBeat(withID: "extra")?.act, .one)
+    }
+
+    func testPlaceInSavedLayoutIsNoOpForStandardOrder() {
+        var screenplay = screenplayWithCustomBeat()
+        let changed = screenplay.placeInSavedLayout(.custom("extra"), after: nil, in: .two)
+        XCTAssertFalse(changed)
+        XCTAssertNil(screenplay.savedBeatLayout)
+    }
+
+    func testPlaceInSavedLayoutPinsBeatAfterPredecessor() {
+        var screenplay = screenplayWithCustomBeat()
+        screenplay.savedBeatLayout = screenplay.standardBeatLayout
+        let predecessor = BeatReference(.oldWorldDescription)
+        screenplay.placeInSavedLayout(.custom("extra"), after: predecessor, in: .one)
+
+        let actOne = screenplay.beatLayout.beats(in: Act.one.sectionID)
+        XCTAssertEqual(actOne[0], predecessor)
+        XCTAssertEqual(actOne[1], .custom("extra"))
+        XCTAssertEqual(actOne.filter { $0 == .custom("extra") }.count, 1)
+    }
+
     func testReconcileDropsUnknownAndRestoresMissing() {
         var screenplay = screenplayWithCustomBeat()
         var actOne = screenplay.standardBeatLayout.beats(in: Act.one.sectionID)
