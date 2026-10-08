@@ -36,6 +36,14 @@ public struct CharacterListView: View {
         _entitlementSignal = ObservedObject(wrappedValue: gate.entitlementSignal)
     }
 
+    /// Uses a view model owned by the editor, so the cast survives tab switches.
+    init(viewModel: CharactersViewModel, gate: EditorGate, screenplayTitle: String) {
+        _viewModel = State(wrappedValue: viewModel)
+        self.gate = gate
+        self.screenplayTitle = screenplayTitle
+        _entitlementSignal = ObservedObject(wrappedValue: gate.entitlementSignal)
+    }
+
     public var body: some View {
         Group {
             if viewModel.isEmpty {

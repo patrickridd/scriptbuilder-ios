@@ -45,6 +45,13 @@ public struct ScenesListView: View {
         _entitlementSignal = ObservedObject(wrappedValue: gate.entitlementSignal)
     }
 
+    /// Uses a view model owned by the editor, so scenes survive tab switches.
+    init(viewModel: ScenesViewModel, gate: EditorGate) {
+        _viewModel = State(wrappedValue: viewModel)
+        self.gate = gate
+        _entitlementSignal = ObservedObject(wrappedValue: gate.entitlementSignal)
+    }
+
     /// A scene + the act it opened from, so the editor knows its starting act.
     struct SceneRoute: Identifiable, Hashable {
         let scene: Domain.Scene

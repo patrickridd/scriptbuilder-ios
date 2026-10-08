@@ -93,12 +93,43 @@ final class Store: ObservableObject, @unchecked Sendable {
         )
     }
 
+    #if DEBUG
+    /// Developer-only switch for testing gated features without a purchase.
+    /// Never compiled into Release/TestFlight builds.
+    enum DebugProOverride: String, CaseIterable {
+        case live, pro, free
+    }
+
+    private static let debugProOverrideKey = "debug.proOverride"
+
+    /// Persisted across launches; `.live` follows real StoreKit entitlements.
+    @Published var debugProOverride: DebugProOverride =
+        DebugProOverride(rawValue: UserDefaults.standard.string(forKey: Store.debugProOverrideKey) ?? "") ?? .live {
+        didSet {
+            UserDefaults.standard.set(debugProOverride.rawValue, forKey: Self.debugProOverrideKey)
+        }
+    }
+    #endif
+
+    /// Applies the DEBUG override (if any) to a live entitlement value.
+    private func resolved(_ live: Bool) -> Bool {
+        #if DEBUG
+        switch debugProOverride {
+        case .live: return live
+        case .pro: return true
+        case .free: return false
+        }
+        #else
+        return live
+        #endif
+    }
+
     var characterFeatureEnabled: Bool {
-        EntitlementResolver.isEntitled(to: characterFeatureIdentifier, in: entitlementSnapshot)
+        resolved(EntitlementResolver.isEntitled(to: characterFeatureIdentifier, in: entitlementSnapshot))
     }
 
     var sceneFeatureEnabled: Bool {
-        EntitlementResolver.isEntitled(to: sceneFeatureIdentifier, in: entitlementSnapshot)
+        resolved(EntitlementResolver.isEntitled(to: sceneFeatureIdentifier, in: entitlementSnapshot))
     }
 
     var unlimitedForeverEnabled: Bool {
@@ -116,7 +147,7 @@ final class Store: ObservableObject, @unchecked Sendable {
     var allAccessEnabled: Bool {
         // Any of these products individually unlocks all access — legacy lifetime &
         // legacy per-feature non-consumables, plus the current subscriptions.
-        EntitlementResolver.hasAllAccess(
+        resolved(EntitlementResolver.hasAllAccess(
             anyOf: [
                 characterFeatureIdentifier,
                 sceneFeatureIdentifier,
@@ -125,7 +156,7 @@ final class Store: ObservableObject, @unchecked Sendable {
                 unlimitedYearlyIdentifier
             ],
             in: entitlementSnapshot
-        )
+        ))
     }
     
     init() {

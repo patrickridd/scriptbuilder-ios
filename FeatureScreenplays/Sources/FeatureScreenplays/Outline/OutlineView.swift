@@ -20,6 +20,11 @@ struct OutlineView: View {
         _viewModel = State(initialValue: vm)
     }
 
+    /// Uses a view model owned by the editor, so edits survive tab switches.
+    init(viewModel: OutlineViewModel) {
+        _viewModel = State(initialValue: viewModel)
+    }
+
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {

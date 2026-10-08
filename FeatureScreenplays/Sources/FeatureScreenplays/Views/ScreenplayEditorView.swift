@@ -20,6 +20,10 @@ public struct ScreenplayEditorView: View {
     /// Defaults to Outline the first time a given screenplay is opened.
     @AppStorage private var storedTabRawValue: Int
 
+    /// Survives tab switches so no tab ever reloads from the opening snapshot.
+    @State private var workspace: EditorWorkspace
+    @Environment(\.scenePhase) private var scenePhase
+
     private var tab: Binding<EditorTab> {
         Binding(
             get: { EditorTab(rawValue: storedTabRawValue) ?? .outline },
@@ -41,6 +45,9 @@ public struct ScreenplayEditorView: View {
             wrappedValue: EditorTab.outline.rawValue,
             "lastEditorTab.\(screenplay.uuid)"
         )
+        _workspace = State(
+            initialValue: EditorWorkspace(screenplay: screenplay, repository: repository)
+        )
     }
 
     public var body: some View {
@@ -54,6 +61,10 @@ public struct ScreenplayEditorView: View {
         .environment(\.appPalette, editorPalette)
         .navigationTitle(screenplay.title)
         .navigationBarTitleDisplayMode(.inline)
+        .onDisappear { workspace.flushOutline() }
+        .onChange(of: scenePhase) { _, phase in
+            if phase != .active { workspace.flushOutline() }
+        }
     }
 
     /// The three editor tabs adopt the ScriptBuilder brand color for their
@@ -80,30 +91,64 @@ public struct ScreenplayEditorView: View {
     private var content: some View {
         switch tab.wrappedValue {
         case .outline:
-            OutlineView(
-                screenplay: screenplay,
-                repository: repository,
-                onOutlineCompleted: onOutlineCompleted
-            )
+            OutlineView(viewModel: workspace.outline(onOutlineCompleted: onOutlineCompleted))
         case .characters:
             CharacterListView(
-                screenplayID: screenplay.uuid,
-                characters: screenplay.characters,
-                repository: repository,
+                viewModel: workspace.characters,
                 gate: gate,
                 screenplayTitle: screenplay.title
             )
         case .scenes:
-            ScenesListView(
-                screenplayID: screenplay.uuid,
-                act1: screenplay.act1.scenes,
-                act2: screenplay.act2.scenes,
-                act3: screenplay.act3.scenes,
-                repository: repository,
-                gate: gate
-            )
+            ScenesListView(viewModel: workspace.scenes, gate: gate)
         }
     }
+}
+
+/// Keeps one view model per tab alive for as long as the editor is open.
+///
+/// Each tab used to build its view model from the screenplay snapshot taken
+/// when the script was opened. Switching tabs tore that model down, so coming
+/// back showed the *opening* data: new characters/scenes vanished from the
+/// list, and editing a stale row saved the old values over the newer ones.
+/// Holding the models here means every tab resumes exactly where it was left.
+@MainActor
+final class EditorWorkspace {
+    private let screenplay: Screenplay
+    private let repository: ScreenplayRepository
+    private var outlineModel: OutlineViewModel?
+
+    init(screenplay: Screenplay, repository: ScreenplayRepository) {
+        self.screenplay = screenplay
+        self.repository = repository
+    }
+
+    func outline(onOutlineCompleted: @escaping () -> Void) -> OutlineViewModel {
+        if let outlineModel { return outlineModel }
+        let model = OutlineViewModel(screenplay: screenplay, repository: repository)
+        model.onOutlineCompleted = onOutlineCompleted
+        outlineModel = model
+        return model
+    }
+
+    /// Writes any outline keystrokes still waiting out the autosave debounce.
+    func flushOutline() {
+        guard let outlineModel else { return }
+        Task { await outlineModel.flush() }
+    }
+
+    lazy var characters = CharactersViewModel(
+        screenplayID: screenplay.uuid,
+        characters: screenplay.characters,
+        repository: repository
+    )
+
+    lazy var scenes = ScenesViewModel(
+        screenplayID: screenplay.uuid,
+        act1: screenplay.act1.scenes,
+        act2: screenplay.act2.scenes,
+        act3: screenplay.act3.scenes,
+        repository: repository
+    )
 }
 
 private enum EditorTab: Int, CaseIterable, Identifiable {
