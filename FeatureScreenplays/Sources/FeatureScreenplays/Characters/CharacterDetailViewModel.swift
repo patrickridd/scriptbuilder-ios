@@ -11,14 +11,50 @@ import Domain
 final class CharacterDetailViewModel {
 
     /// The live working copy the form binds to. Mutating any field schedules a
-    /// debounced save automatically via `didSet`.
-    var draft: Character { didSet { scheduleSave() } }
+    /// debounced save automatically.
+    ///
+    /// Written by hand rather than as a plain stored property because the
+    /// `@Observable` macro skips properties that declare `didSet`, which left
+    /// the header title and progress ring stale while typing. `access` /
+    /// `withMutation` reinstate the change notifications the macro would emit.
+    var draft: Character {
+        get {
+            access(keyPath: \.draft)
+            return storedDraft
+        }
+        set {
+            withMutation(keyPath: \.draft) { storedDraft = newValue }
+            scheduleSave()
+        }
+    }
 
     /// The selected role bucket. Changing it (or `customRole`) reschedules a save.
-    var role: CharacterRole { didSet { scheduleSave() } }
+    var role: CharacterRole {
+        get {
+            access(keyPath: \.role)
+            return storedRole
+        }
+        set {
+            withMutation(keyPath: \.role) { storedRole = newValue }
+            scheduleSave()
+        }
+    }
 
     /// Free-form role text, only meaningful when `role == .custom`.
-    var customRole: String { didSet { scheduleSave() } }
+    var customRole: String {
+        get {
+            access(keyPath: \.customRole)
+            return storedCustomRole
+        }
+        set {
+            withMutation(keyPath: \.customRole) { storedCustomRole = newValue }
+            scheduleSave()
+        }
+    }
+
+    @ObservationIgnored private var storedDraft: Character
+    @ObservationIgnored private var storedRole: CharacterRole
+    @ObservationIgnored private var storedCustomRole: String
 
     @ObservationIgnored private let viewModel: CharactersViewModel
     @ObservationIgnored private var saveTask: Task<Void, Never>?
@@ -34,15 +70,114 @@ final class CharacterDetailViewModel {
     ) {
         self.viewModel = viewModel
         self.debounce = debounce
-        self.draft = character
+        // Backfill identity for characters constructed with only a legacy flat
+        // role string (non-destructive; persisted on the next save).
+        var initialDraft = character
+        if initialDraft.identity.isEmpty,
+           let legacyRole = initialDraft.role,
+           !legacyRole.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            initialDraft.identity = CharacterIdentity(resolvingLegacyRole: legacyRole)
+        }
+        self.storedDraft = initialDraft
         let bucket = CharacterRole.bucket(for: character.role)
-        self.role = bucket
-        self.customRole = bucket == .custom ? (character.role ?? "") : ""
+        self.storedRole = bucket
+        self.storedCustomRole = bucket == .custom ? (character.role ?? "") : ""
+    }
+
+    // MARK: - Identity
+
+    /// Apply a role picked in `RolePickerDetailView`: updates the structured
+    /// identity and keeps the legacy flat `role` string in sync so the cast
+    /// list's role grouping keeps working.
+    func applyRole(_ newRole: HierarchicalRole?) {
+        draft.identity.role = newRole
+        let legacy = Self.legacyBucket(for: newRole)
+        role = legacy.bucket
+        customRole = legacy.customText
+    }
+
+    /// Display text for the Role row: the writer's own label for custom and
+    /// legacy roles (shown as-is), otherwise the stock catalog name.
+    var roleDisplayText: String? {
+        guard let identityRole = draft.identity.role else { return nil }
+        return IdentityCatalog.displayName(for: identityRole)
+    }
+
+    /// Map a structured role back onto the legacy picker buckets. Stock roles
+    /// without a legacy equivalent are stored by display name so the cast list
+    /// groups them under their own header.
+    private static func legacyBucket(for identityRole: HierarchicalRole?) -> (bucket: CharacterRole, customText: String) {
+        guard let identityRole else { return (.custom, "") }
+        if identityRole.isCustom {
+            return (.custom, identityRole.customLabel ?? "")
+        }
+        switch identityRole.slug {
+        case HierarchicalRole.Stock.protagonist:
+            return (.protagonist, "")
+        case HierarchicalRole.Stock.antagonist:
+            return (.antagonist, "")
+        default:
+            let name = IdentityCatalog.roleEntry(for: identityRole.slug)?.name ?? identityRole.slug.capitalized
+            return (.custom, name)
+        }
+    }
+
+    // MARK: - Arc progress
+
+    /// How many of the scoreable arc fields currently have content.
+    var arcFilledCount: Int { CharacterArcField.filledCount(for: draft) }
+
+    /// Total number of scoreable arc fields.
+    var arcTotalCount: Int { CharacterArcField.scoreable.count }
+
+    /// The first arc field still waiting to be filled in, if any.
+    var nextArcField: CharacterArcField? { CharacterArcField.firstUnfilled(for: draft) }
+
+    /// True when the writer has declared this character simply has no arc.
+    var arcNotApplicable: Bool { draft.arcNotApplicable }
+
+    /// Completion copy for the arc: a distinct line when the arc was waived.
+    var arcCompleteText: String {
+        draft.arcNotApplicable ? IdentityUIStrings.arcNotApplicableComplete : L10n.CharacterUI.arcComplete
+    }
+
+    // MARK: - Overall progress
+
+    /// How many identity facets (name, role, archetype, story function) are set.
+    var identityFilledCount: Int { CharacterIdentityField.filledCount(for: draft) }
+
+    /// Total number of identity facets counted toward completion.
+    var identityTotalCount: Int { CharacterIdentityField.allCases.count }
+
+    /// Identity + arc combined: the character's overall completion numerator.
+    var overallFilledCount: Int { identityFilledCount + arcFilledCount }
+
+    /// Identity + arc combined: the character's overall completion denominator.
+    var overallTotalCount: Int { identityTotalCount + arcTotalCount }
+
+    /// The next thing to work on: an unchosen identity facet first (it's the
+    /// quickest win and shapes the arc), then the first empty arc field.
+    var nextOverallTarget: CharacterProgressTarget? {
+        if let field = CharacterIdentityField.firstUnfilled(for: draft) {
+            return .identity(field)
+        }
+        if let field = nextArcField { return .arc(field) }
+        return nil
     }
 
     /// Title shown in the navigation bar.
     var navigationTitle: String {
         draft.name.isEmpty ? "Character" : draft.name
+    }
+
+    /// True once the writer has typed a name (ignoring whitespace).
+    var hasName: Bool {
+        !draft.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    /// Big header title: the character's name, or a friendly prompt while blank.
+    var headerTitle: String {
+        hasName ? draft.name : IdentityUIStrings.namePlaceholderTitle
     }
 
     /// Whether the name field should grab focus when the detail view appears.

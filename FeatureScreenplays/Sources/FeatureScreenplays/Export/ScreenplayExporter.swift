@@ -59,28 +59,28 @@ public enum ScreenplayExporter {
 
     private static func appendTitlePage(_ s: Screenplay, to out: inout DocumentBuilder) {
         let title = s.title.trimmingCharacters(in: .whitespacesAndNewlines)
-        out.title(title.isEmpty ? "Untitled" : title)
+        out.title(title.isEmpty ? L10n.Export.untitled : title)
 
         if let author = s.authorName?.trimmingCharacters(in: .whitespacesAndNewlines),
            !author.isEmpty {
-            out.centered("Written by \(author)")
+            out.centered(L10n.Export.writtenBy(author))
         }
-        out.field("Logline", s.logLine)
+        out.field(L10n.Export.logline, s.logLine)
         out.rule()
     }
 
     private static func appendOverview(_ s: Screenplay, to out: inout DocumentBuilder) {
-        var section = DocumentBuilder.Section(title: "Overview")
-        section.add("Idea", s.idea)
-        section.add("Theme", s.theme)
-        section.add("Central Intention", s.centralIntention)
-        section.add("Main Obstacle", s.mainObstacle)
-        section.add("Notes", s.notes)
+        var section = DocumentBuilder.Section(title: L10n.Export.overview)
+        section.add(L10n.Export.idea, s.idea)
+        section.add(L10n.Export.theme, s.theme)
+        section.add(L10n.Export.centralIntention, s.centralIntention)
+        section.add(L10n.Export.mainObstacle, s.mainObstacle)
+        section.add(L10n.Export.notes, s.notes)
         out.section(section)
     }
 
     private static func appendOutline(_ s: Screenplay, to out: inout DocumentBuilder) {
-        var section = DocumentBuilder.Section(title: "Outline")
+        var section = DocumentBuilder.Section(title: L10n.Export.outline)
         section.add(Act.one.title, s.actOneDescription)
         section.add(Act.two.title, s.actTwoDescription)
         section.add(Act.three.title, s.actThreeDescription)
@@ -93,21 +93,21 @@ public enum ScreenplayExporter {
         }
         guard !people.isEmpty else { return }
 
-        out.header("Characters")
+        out.header(L10n.Export.characters)
         for person in people {
             out.subheader(displayName(for: person))
             var block = DocumentBuilder.Section(title: nil)
-            block.add("Role", person.role ?? "")
-            block.add("Intention", person.intention)
-            block.add("Why", person.whyIntention)
-            block.add("What They Do", person.whatToDo)
-            block.add("How They Do It", person.howDoesCharacterDoIt)
-            block.add("Obstacles", person.obstacles)
-            block.add("Flaws", person.flaws)
-            block.add("Intention Fix", person.intentionFix)
-            block.add("Need", person.need)
-            block.add("How They Change", person.howCharacterChanged)
-            block.add("Notes", person.notes)
+            block.add(L10n.Export.role, person.role ?? "")
+            block.add(L10n.Export.intention, person.intention)
+            block.add(L10n.Export.why, person.whyIntention)
+            block.add(L10n.Export.whatTheyDo, person.whatToDo)
+            block.add(L10n.Export.howTheyDoIt, person.howDoesCharacterDoIt)
+            block.add(L10n.Export.obstacles, person.obstacles)
+            block.add(L10n.Export.flaws, person.flaws)
+            block.add(L10n.Export.intentionFix, person.intentionFix)
+            block.add(L10n.Export.need, person.need)
+            block.add(L10n.Export.howTheyChange, person.howCharacterChanged)
+            block.add(L10n.Export.notes, person.notes)
             out.inlineSection(block)
         }
     }
@@ -116,7 +116,7 @@ public enum ScreenplayExporter {
         let hasAny = Act.allCases.contains { !s.scenes(in: $0).isEmpty }
         guard hasAny else { return }
 
-        out.header("Scenes")
+        out.header(L10n.Export.scenes)
         for act in Act.allCases {
             let scenes = s.scenes(in: act).sorted { $0.sceneNumber < $1.sceneNumber }
             guard !scenes.isEmpty else { continue }
@@ -124,13 +124,13 @@ public enum ScreenplayExporter {
             for scene in scenes {
                 out.sceneHeader(scene)
                 var block = DocumentBuilder.Section(title: nil)
-                block.add("Header", scene.header)
-                block.add("Description", scene.sceneDescription)
-                block.add("Characters", scene.characters)
-                block.add("Dialogue", scene.dialogue)
-                block.add("Action", scene.action)
-                block.add("Story Progression", scene.howPushesStory)
-                block.add("Notes", scene.notes)
+                block.add(L10n.Export.header, scene.header)
+                block.add(L10n.Export.description, scene.sceneDescription)
+                block.add(L10n.Export.characters, scene.characters)
+                block.add(L10n.Export.dialogue, scene.dialogue)
+                block.add(L10n.Export.action, scene.action)
+                block.add(L10n.Export.storyProgression, scene.howPushesStory)
+                block.add(L10n.Export.notes, scene.notes)
                 out.inlineSection(block)
             }
         }
@@ -138,6 +138,6 @@ public enum ScreenplayExporter {
 
     private static func displayName(for person: Character) -> String {
         let name = person.name.trimmingCharacters(in: .whitespacesAndNewlines)
-        return name.isEmpty ? "Unnamed Character" : name
+        return name.isEmpty ? L10n.Export.unnamedCharacter : name
     }
 }

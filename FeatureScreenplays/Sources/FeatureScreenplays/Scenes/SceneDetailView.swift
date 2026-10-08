@@ -41,15 +41,18 @@ struct SceneDetailView: View {
             if viewModel.shouldFocusTitle { titleFocused = true }
         }
         .onDisappear { Task { await viewModel.flush() } }
-        .alert(L10n.SceneUI.deleteTitle, isPresented: $showDeleteConfirm) {
-            Button(L10n.Action.delete, role: .destructive) {
-                Haptics.warning()
-                viewModel.requestDelete()
-                dismiss()
-            }
-            Button(L10n.Action.cancel, role: .cancel) { }
-        } message: {
-            Text(viewModel.deleteConfirmMessage)
+        // Fully custom pop-up so every destructive action shares one look.
+        .confirmDialog(
+            isPresented: $showDeleteConfirm,
+            icon: "trash.fill",
+            title: L10n.SceneUI.deleteTitle,
+            message: viewModel.deleteConfirmMessage,
+            confirmTitle: L10n.Action.delete,
+            cancelTitle: L10n.Action.cancel
+        ) {
+            Haptics.warning()
+            viewModel.requestDelete()
+            dismiss()
         }
     }
 
@@ -62,6 +65,7 @@ struct SceneDetailView: View {
     private func progressHeader(proxy: ScrollViewProxy) -> some View {
         ProgressHeader(
             title: L10n.SceneUI.progressTitle,
+            systemImage: "film",
             filled: filledFieldCount,
             total: totalFieldCount,
             completeText: L10n.SceneUI.progressComplete,
@@ -74,6 +78,8 @@ struct SceneDetailView: View {
                 }
             }
         )
+        .padding(.horizontal, 16)
+
     }
 
     // MARK: - Metadata
@@ -214,3 +220,27 @@ struct SceneDetailView: View {
             .foregroundStyle(palette.textPrimary)
     }
 }
+
+// MARK: - Previews
+
+#if DEBUG
+private struct SceneDetailPreview: View {
+    let scene: Domain.Scene
+    @State private var viewModel = ScenesPreviewData.viewModel()
+
+    var body: some View {
+        NavigationStack {
+            SceneDetailView(scene: scene, act: .one, viewModel: viewModel)
+        }
+    }
+}
+
+#Preview("Scene Detail — Filled") {
+    SceneDetailPreview(scene: ScenesPreviewData.act1[0])
+}
+
+#Preview("Scene Detail — Dark") {
+    SceneDetailPreview(scene: ScenesPreviewData.act1[1])
+        .preferredColorScheme(.dark)
+}
+#endif

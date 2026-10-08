@@ -62,8 +62,9 @@ public struct ScreenplaysView: View {
                 Image(systemName: "magnifyingglass")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(palette.textMuted)
-                TextField("Search scripts", text: $viewModel.searchText)
+                TextField(L10n.Home.searchPlaceholder, text: $viewModel.searchText)
                     .autocorrectionDisabled()
+                    .submitLabel(.done)
                     .foregroundStyle(palette.textPrimary)
                 if !viewModel.searchText.isEmpty {
                     Button {
@@ -99,7 +100,7 @@ public struct ScreenplaysView: View {
                 .background(palette.primaryButtonGradient, in: Circle())
                 .shadow(color: palette.accent.opacity(0.35), radius: 8, y: 4)
         }
-        .accessibilityLabel("Add screenplay")
+        .accessibilityLabel(L10n.Home.addScreenplay)
     }
 
     @ViewBuilder

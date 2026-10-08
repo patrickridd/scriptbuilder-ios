@@ -50,21 +50,19 @@ struct ScreenplayEditSheet: View {
             .navigationTitle(L10n.EditSheet.navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { toolbar }
-            .confirmationDialog(
-                L10n.EditSheet.deleteScreenplay,
-                isPresented: $isConfirmingDelete,
-                titleVisibility: .visible
-            ) {
-                Button(L10n.EditSheet.deleteScreenplay, role: .destructive) {
-                    Haptics.warning()
-                    onDelete()
-                }
-                Button(L10n.Action.cancel, role: .cancel) {}
-            } message: {
-                Text(L10n.EditSheet.deleteMessage(trimmedTitle))
-            }
         }
         .tint(palette.brandPrimary)
+        .confirmDialog(
+            isPresented: $isConfirmingDelete,
+            icon: "trash.fill",
+            title: L10n.EditSheet.deleteScreenplay,
+            message: L10n.EditSheet.deleteMessage(trimmedTitle),
+            confirmTitle: L10n.Action.delete,
+            cancelTitle: L10n.Action.cancel
+        ) {
+            Haptics.warning()
+            onDelete()
+        }
     }
 
     private var deleteSection: some View {

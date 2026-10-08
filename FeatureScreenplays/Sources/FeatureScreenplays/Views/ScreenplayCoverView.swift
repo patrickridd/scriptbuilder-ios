@@ -136,7 +136,7 @@ public struct ScreenplayCoverView: View {
         }
         .buttonStyle(.plain)
         .padding(.top, 8)
-        .accessibilityHint("Opens the outline, characters, and scenes editor")
+        .accessibilityHint(L10n.Cover.startWritingHint)
     }
 
     private var shareButton: some View {
@@ -157,7 +157,7 @@ public struct ScreenplayCoverView: View {
         }
         .buttonStyle(.plain)
         .disabled(isPreparingShare)
-        .accessibilityHint("Exports the full screenplay as a PDF or plain text you can share or print")
+        .accessibilityHint(L10n.Cover.shareHint)
     }
 
     // MARK: - Sharing

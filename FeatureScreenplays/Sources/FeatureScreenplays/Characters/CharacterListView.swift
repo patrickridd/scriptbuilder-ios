@@ -11,6 +11,8 @@ public struct CharacterListView: View {
     @State private var newlyAdded: Character?
     @State private var selected: Character?
     private let gate: EditorGate
+    /// Shown as the navigation title on a character's detail screen.
+    private let screenplayTitle: String
     /// Observe entitlement changes so the lock chrome updates live after a
     /// purchase / restore / expiration while this tab is on screen.
     @ObservedObject private var entitlementSignal: EditorEntitlementSignal
@@ -19,7 +21,8 @@ public struct CharacterListView: View {
         screenplayID: String,
         characters: Set<Character>,
         repository: ScreenplayRepository,
-        gate: EditorGate = .unrestricted
+        gate: EditorGate = .unrestricted,
+        screenplayTitle: String = ""
     ) {
         _viewModel = State(
             wrappedValue: CharactersViewModel(
@@ -29,6 +32,7 @@ public struct CharacterListView: View {
             )
         )
         self.gate = gate
+        self.screenplayTitle = screenplayTitle
         _entitlementSignal = ObservedObject(wrappedValue: gate.entitlementSignal)
     }
 
@@ -41,27 +45,27 @@ public struct CharacterListView: View {
             }
         }
         .navigationDestination(item: $newlyAdded) { character in
-            CharacterDetailView(character: character, viewModel: viewModel)
+            CharacterDetailView(character: character, viewModel: viewModel, screenplayTitle: screenplayTitle)
         }
         .navigationDestination(item: $selected) { character in
-            CharacterDetailView(character: character, viewModel: viewModel)
+            CharacterDetailView(character: character, viewModel: viewModel, screenplayTitle: screenplayTitle)
         }
-        .alert(
-            L10n.CharacterUI.deleteTitle,
+        // Fully custom pop-up so swipe-to-delete matches every other
+        // destructive action in the app.
+        .confirmDialog(
             isPresented: deleteDialogBinding,
-            presenting: viewModel.pendingDelete
-        ) { _ in
-            Button(L10n.Action.delete, role: .destructive) {
-                Haptics.warning()
-                if let target = viewModel.pendingDelete {
-                    if selected?.uuid == target.uuid { selected = nil }
-                    if newlyAdded?.uuid == target.uuid { newlyAdded = nil }
-                }
-                viewModel.confirmPendingDelete()
+            icon: "trash.fill",
+            title: L10n.CharacterUI.deleteTitle,
+            message: viewModel.pendingDeleteMessage,
+            confirmTitle: L10n.Action.delete,
+            cancelTitle: L10n.Action.cancel
+        ) {
+            Haptics.warning()
+            if let target = viewModel.pendingDelete {
+                if selected?.uuid == target.uuid { selected = nil }
+                if newlyAdded?.uuid == target.uuid { newlyAdded = nil }
             }
-            Button(L10n.Action.cancel, role: .cancel) { viewModel.pendingDelete = nil }
-        } message: { _ in
-            Text(viewModel.pendingDeleteMessage)
+            viewModel.confirmPendingDelete()
         }
     }
 
@@ -73,23 +77,39 @@ public struct CharacterListView: View {
                 castList
             }
         }
+        .safeAreaInset(edge: .top, spacing: 0) {
+            newCharacterPill
+                .padding(.top)
+        }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             searchBar
         }
     }
 
-    /// Pinned bottom bar: a rounded search field filling most of the width, with
-    /// a compact "+" button on the trailing side. Sits at the bottom for easy
-    /// thumb reach, mirroring the Screenplays screen.
+    /// Pinned bottom bar: the cast search field with a compact "+" on the
+    /// trailing side — the same shape as the Screenplays shelf, so "add" lives
+    /// in the same place on both screens. The navigation bar carries a second
+    /// "+" for reach while scrolling.
     private var searchBar: some View {
         HStack(spacing: 12) {
-            HStack(spacing: 8) {
+            searchField
+            addButton
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 10)
+        .padding(.bottom, 6)
+        .background(.ultraThinMaterial)
+    }
+
+    private var searchField: some View {
+        HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(palette.textMuted)
-                TextField("Search cast", text: $viewModel.searchText)
+                TextField(L10n.CharacterUI.searchPlaceholder, text: $viewModel.searchText)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
+                    .submitLabel(.done)
                     .foregroundStyle(palette.textPrimary)
                 if viewModel.isSearching {
                     Button {
@@ -101,17 +121,10 @@ public struct CharacterListView: View {
                     .buttonStyle(.plain)
                 }
             }
-            .padding(.horizontal, 12)
-            .frame(height: 44)
-            .background(palette.cardSurface, in: Capsule())
-            .overlay(Capsule().stroke(palette.cardStroke, lineWidth: 1))
-
-            addButton
-        }
-        .padding(.horizontal, 16)
-        .padding(.top, 10)
-        .padding(.bottom, 6)
-        .background(.ultraThinMaterial)
+        .padding(.horizontal, 12)
+        .frame(height: 44)
+        .background(palette.cardSurface, in: Capsule())
+        .overlay(Capsule().stroke(palette.cardStroke, lineWidth: 1))
     }
 
     private var deleteDialogBinding: Binding<Bool> {
@@ -149,7 +162,11 @@ public struct CharacterListView: View {
                 Button {
                     selected = character
                 } label: {
-                    CharacterCard(character: character, isHighlighted: viewModel.isHighlighted(character))
+                    CharacterCard(
+                        character: character,
+                        revision: character.cardRevision,
+                        isHighlighted: viewModel.isHighlighted(character)
+                    )
                 }
                 .buttonStyle(.plain)
                 .listRowInsets(EdgeInsets(top: 5, leading: 2, bottom: 5, trailing: 2))
@@ -177,47 +194,101 @@ public struct CharacterListView: View {
         !gate.canAddCharacter(viewModel.characters.count)
     }
 
-    private var addButton: some View {
-        Button {
-            guard gate.canAddCharacter(viewModel.characters.count) else {
-                gate.onBlocked()
-                return
-            }
-            Task {
-                let created = await viewModel.addCharacter(named: "", role: nil)
-                newlyAdded = created
-            }
-        } label: {
-            addButtonLabel
+    /// Single entry point for every "add" affordance on this screen (bottom
+    /// pill, empty-state button, no-results shortcut) so the gate is checked in
+    /// exactly one place.
+    private func createCharacter(named name: String = "") {
+        guard gate.canAddCharacter(viewModel.characters.count) else {
+            gate.onBlocked()
+            return
         }
-        .accessibilityLabel(isCharacterLocked ? "Add character (Pro)" : "Add character")
-        .accessibilityHint(isCharacterLocked ? "Unlock ScriptBuilder Pro to add more characters" : "")
+        Haptics.lightImpact()
+        Task {
+            let created = await viewModel.addCharacter(named: name, role: nil)
+            newlyAdded = created
+        }
     }
 
-    private var addButtonLabel: some View {
-        Image(systemName: "plus")
-            .font(.title3.weight(.bold))
-            .foregroundStyle(.white)
-            .frame(width: 44, height: 44)
-            .background(
-                isCharacterLocked ? AnyShapeStyle(palette.textMuted.opacity(0.55)) : AnyShapeStyle(palette.primaryButtonGradient),
-                in: Circle()
-            )
-            .overlay(alignment: .bottomTrailing) {
-                if isCharacterLocked { lockBadge }
-            }
-            .shadow(color: palette.accent.opacity(isCharacterLocked ? 0 : 0.35), radius: 8, y: 4)
-            .animation(.easeInOut(duration: 0.25), value: isCharacterLocked)
+    /// Compact circular "+" beside the search field, matching the Screenplays
+    /// shelf. It keeps its full gradient when the free-tier gate is active — it
+    /// stays tappable (it opens the paywall) — and shows a small lock instead.
+    private var addButton: some View {
+        Button {
+            createCharacter()
+        } label: {
+            Image(systemName: "plus")
+                .font(.title3.weight(.bold))
+                .foregroundStyle(.white)
+                .frame(width: 44, height: 44)
+                .background(palette.primaryButtonGradient, in: Circle())
+                .overlay(alignment: .topTrailing) {
+                    if isCharacterLocked { lockBadge }
+                }
+                .shadow(color: palette.accent.opacity(0.35), radius: 8, y: 4)
+        }
+        .accessibilityLabel(L10n.CharacterUI.addAccessibility(locked: isCharacterLocked))
+        .accessibilityHint(isCharacterLocked ? L10n.CharacterUI.unlockProHint : "")
     }
 
     private var lockBadge: some View {
         Image(systemName: "lock.fill")
-            .font(.system(size: 10, weight: .black))
+            .font(.system(size: 9, weight: .black))
             .foregroundStyle(palette.accent)
-            .padding(3)
-            .background(.white, in: Circle())
-            .overlay(Circle().stroke(palette.cardStroke, lineWidth: 0.5))
-            .offset(x: 3, y: 3)
+            .frame(width: 18, height: 18)
+            .background(Color.white, in: Circle())
+            .offset(x: 2, y: -2)
+            .accessibilityHidden(true)
+    }
+
+    /// Dashed "New Character" pill pinned directly under the screenplay tab
+    /// bar, above the cast list. It borrows the dashed-accent vocabulary of the
+    /// Scenes tab's `AddSceneCard` so both tabs read as one system: list
+    /// scaffolding rather than a second primary button competing with the
+    /// bottom shelf "+".
+    private var newCharacterPill: some View {
+        Button {
+            createCharacter()
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "plus")
+                    .font(.subheadline.weight(.bold))
+                Text(L10n.CharacterUI.newCharacter)
+                    .font(.subheadline.weight(.semibold))
+                if isCharacterLocked { proCapsule }
+            }
+            .foregroundStyle(palette.accent)
+            .frame(maxWidth: .infinity)
+            .frame(height: 44)
+            .background(dashedPillBackground)
+        }
+        .buttonStyle(PressableScaleStyle())
+        .padding(.horizontal, 16)
+        .padding(.top, 10)
+        .padding(.bottom, 2)
+        .accessibilityLabel(L10n.CharacterUI.addAccessibility(locked: isCharacterLocked))
+        .accessibilityHint(isCharacterLocked ? L10n.CharacterUI.unlockProHint : "")
+    }
+
+    private var dashedPillBackground: some View {
+        Capsule()
+            .fill(palette.accent.opacity(0.08))
+            .overlay(
+                Capsule()
+                    .strokeBorder(
+                        palette.accent.opacity(0.55),
+                        style: StrokeStyle(lineWidth: 1.5, dash: [7, 5])
+                    )
+            )
+    }
+
+    private var proCapsule: some View {
+        Text(L10n.Action.pro)
+            .font(.caption2.weight(.black))
+            .foregroundStyle(.white)
+            .padding(.horizontal, 7)
+            .padding(.vertical, 2)
+            .background(palette.accent, in: Capsule())
+            .accessibilityHidden(true)
     }
 
     private var noResultsState: some View {
@@ -233,8 +304,28 @@ public struct CharacterListView: View {
                 .foregroundStyle(palette.textMuted)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
+
+            createTypedNameButton
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    /// Turns a dead-end search into an add: "Create 'Mara'" makes the character
+    /// with the text already typed as their name.
+    @ViewBuilder
+    private var createTypedNameButton: some View {
+        let query = viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !query.isEmpty {
+            AddPillButton(
+                title: L10n.CharacterUI.createNamed(query),
+                isLocked: isCharacterLocked,
+                accessibilityHintText: isCharacterLocked ? L10n.CharacterUI.unlockProHint : ""
+            ) {
+                viewModel.searchText = ""
+                createCharacter(named: query)
+            }
+            .padding(.top, 6)
+        }
     }
 
     private var emptyState: some View {
@@ -250,6 +341,15 @@ public struct CharacterListView: View {
                 .foregroundStyle(palette.textMuted)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 36)
+
+            AddPillButton(
+                title: L10n.CharacterUI.newCharacter,
+                isLocked: isCharacterLocked,
+                accessibilityHintText: isCharacterLocked ? L10n.CharacterUI.unlockProHint : ""
+            ) {
+                createCharacter()
+            }
+            .padding(.top, 6)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -275,22 +375,10 @@ private struct CharacterListPreview: View {
     }
 
     static let sampleCast: Set<Character> = [
-        Character(
-            name: "Nora Vance",
-            role: "Protagonist",
-            intention: "Win back the observatory before the grant deadline."
-        ),
-        Character(
-            name: "Desmond Kade",
-            role: "Antagonist",
-            intention: "Bury the discovery to protect his legacy."
-        ),
-        Character(
-            name: "Professor Aoki",
-            role: "Mentor",
-            intention: "Teach Nora that proof matters more than pride."
-        ),
-        Character(name: "Sam Ortiz", role: "Friend")
+        CharacterCardSamples.mixed,
+        CharacterCardSamples.overflowing,
+        CharacterCardSamples.functionsOnly,
+        CharacterCardSamples.custom
     ]
 }
 

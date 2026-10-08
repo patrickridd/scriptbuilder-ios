@@ -205,8 +205,8 @@ public extension MockScreenplayRepository {
         )
         let helix = Character(
             name: "HELIX",
-            role: "Antagonist (AI)",
-            intention: "Optimise the city by removing 'inconvenient' memories."
+            role: "Antagonist",
+            intention: "Optimize the city by removing 'inconvenient' memories."
         )
 
         let act1 = Act1(

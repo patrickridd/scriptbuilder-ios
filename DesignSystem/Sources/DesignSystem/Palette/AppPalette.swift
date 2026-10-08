@@ -22,6 +22,11 @@ public struct AppPalette: Sendable {
 
     // MARK: - Text
     public var textPrimary: Color
+    /// Supporting copy that sits one step below `textPrimary` in the hierarchy —
+    /// captions, definitions, example lists. A real named value so features
+    /// never have to derive it with `.opacity(...)`, which stacks unpredictably
+    /// on top of already-translucent tokens.
+    public var textSecondary: Color
     public var textMuted: Color
     public var textOnLight: Color
 
@@ -59,6 +64,7 @@ public struct AppPalette: Sendable {
         textPrimary: Color,
         textMuted: Color,
         textOnLight: Color,
+        textSecondary: Color? = nil,
         backgroundTop: Color,
         backgroundMid: Color,
         backgroundBottom: Color,
@@ -82,6 +88,7 @@ public struct AppPalette: Sendable {
         self.scriptBuilder = scriptBuilder
         self.textPrimary = textPrimary
         self.textMuted = textMuted
+        self.textSecondary = textSecondary ?? textMuted
         self.textOnLight = textOnLight
         self.backgroundTop = backgroundTop
         self.backgroundMid = backgroundMid

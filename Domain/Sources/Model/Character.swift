@@ -21,6 +21,11 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
     public var name: String
     public var role: String?
 
+    // Identity — who the character is (role tier, archetypes, story
+    // functions, personality, quirks). Defaults to empty; old records that
+    // predate this field decode fine.
+    public var identity: CharacterIdentity
+
     // Character Arc
     public var intention: String
     public var whyIntention: String
@@ -33,10 +38,16 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
     public var howCharacterChanged: String
     public var notes: String
 
+    /// Some characters simply have no dramatic arc (the iceberg in *Titanic*
+    /// wants nothing). When true, the arc is treated as intentionally complete
+    /// and stops counting against the character's progress.
+    public var arcNotApplicable: Bool
+
     public init(
         uuid: String = UUID().uuidString,
         name: String,
         role: String? = nil,
+        identity: CharacterIdentity = .empty,
         intention: String = "",
         whyIntention: String = "",
         whatToDo: String = "",
@@ -46,11 +57,18 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         intentionFix: String = "",
         need: String = "",
         howCharacterChanged: String = "",
-        notes: String = ""
+        notes: String = "",
+        arcNotApplicable: Bool = false
     ) {
         self.uuid = uuid
         self.name = name
         self.role = role
+        // A character that carries only the legacy flat `role` string (seed
+        // data, previews, anything built in memory) still gets a structured
+        // identity, so the cast list shows the same chips the detail screen
+        // would show. Non-destructive: the legacy string is kept verbatim and
+        // the resolved identity is only written back on the next save.
+        self.identity = identity.isEmpty ? CharacterIdentity(resolvingLegacyRole: role) : identity
         self.intention = intention
         self.whyIntention = whyIntention
         self.whatToDo = whatToDo
@@ -61,6 +79,7 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         self.need = need
         self.howCharacterChanged = howCharacterChanged
         self.notes = notes
+        self.arcNotApplicable = arcNotApplicable
     }
 
     // Identity-based equality/hashing keeps Set semantics stable across edits,
@@ -71,5 +90,40 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(uuid)
+    }
+
+    // MARK: - Codable (backward-compatible)
+
+    enum CodingKeys: String, CodingKey {
+        case uuid, name, role, identity
+        case intention, whyIntention, whatToDo, howDoesCharacterDoIt
+        case obstacles, flaws, intentionFix, need, howCharacterChanged, notes
+        case arcNotApplicable
+    }
+
+    /// Custom decode so records that predate `identity` still decode; when the
+    /// key is absent, the identity is resolved from the legacy `role` string.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        uuid = try container.decodeIfPresent(String.self, forKey: .uuid) ?? UUID().uuidString
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        role = try container.decodeIfPresent(String.self, forKey: .role)
+        let storedIdentity = try container.decodeIfPresent(CharacterIdentity.self, forKey: .identity)
+        if let storedIdentity, !storedIdentity.isEmpty {
+            identity = storedIdentity
+        } else {
+            identity = CharacterIdentity(resolvingLegacyRole: role)
+        }
+        intention = try container.decodeIfPresent(String.self, forKey: .intention) ?? ""
+        whyIntention = try container.decodeIfPresent(String.self, forKey: .whyIntention) ?? ""
+        whatToDo = try container.decodeIfPresent(String.self, forKey: .whatToDo) ?? ""
+        howDoesCharacterDoIt = try container.decodeIfPresent(String.self, forKey: .howDoesCharacterDoIt) ?? ""
+        obstacles = try container.decodeIfPresent(String.self, forKey: .obstacles) ?? ""
+        flaws = try container.decodeIfPresent(String.self, forKey: .flaws) ?? ""
+        intentionFix = try container.decodeIfPresent(String.self, forKey: .intentionFix) ?? ""
+        need = try container.decodeIfPresent(String.self, forKey: .need) ?? ""
+        howCharacterChanged = try container.decodeIfPresent(String.self, forKey: .howCharacterChanged) ?? ""
+        notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? ""
+        arcNotApplicable = try container.decodeIfPresent(Bool.self, forKey: .arcNotApplicable) ?? false
     }
 }

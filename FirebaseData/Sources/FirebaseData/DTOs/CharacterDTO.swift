@@ -17,6 +17,7 @@ struct CharacterDTO: Codable, Sendable {
     let uuid: String
     let name: String
     let role: String?
+    let identity: CharacterIdentityDTO?
     let intention: String
     let whyIntention: String
     let whatToDo: String
@@ -27,11 +28,13 @@ struct CharacterDTO: Codable, Sendable {
     let need: String
     let howCharacterChanged: String
     let notes: String
+    let arcNotApplicable: Bool
 
     enum CodingKeys: String, CodingKey {
         case uuid                 = "uuid"
         case name                 = "name"
         case role                 = "role"
+        case identity             = "identity"
         case intention            = "intention"
         case whyIntention         = "whyTheyWantThis"      // diverges from property name
         case whatToDo             = "physicalGoal"         // diverges from property name
@@ -42,17 +45,21 @@ struct CharacterDTO: Codable, Sendable {
         case need                 = "need"
         case howCharacterChanged  = "howCharacterChanged"
         case notes                = "notes"
+        case arcNotApplicable     = "arcNotApplicable"
     }
 
     init(
-        uuid: String, name: String, role: String?, intention: String,
+        uuid: String, name: String, role: String?,
+        identity: CharacterIdentityDTO?, intention: String,
         whyIntention: String, whatToDo: String, howDoesCharacterDoIt: String,
         obstacles: String, flaws: String, intentionFix: String, need: String,
-        howCharacterChanged: String, notes: String
+        howCharacterChanged: String, notes: String,
+        arcNotApplicable: Bool = false
     ) {
         self.uuid = uuid
         self.name = name
         self.role = role
+        self.identity = identity
         self.intention = intention
         self.whyIntention = whyIntention
         self.whatToDo = whatToDo
@@ -63,6 +70,7 @@ struct CharacterDTO: Codable, Sendable {
         self.need = need
         self.howCharacterChanged = howCharacterChanged
         self.notes = notes
+        self.arcNotApplicable = arcNotApplicable
     }
 
     init(from decoder: Decoder) throws {
@@ -70,6 +78,7 @@ struct CharacterDTO: Codable, Sendable {
         uuid                 = container.lenientString(.uuid)
         name                 = container.lenientString(.name)
         role                 = try? container.decodeIfPresent(String.self, forKey: .role)
+        identity             = try? container.decodeIfPresent(CharacterIdentityDTO.self, forKey: .identity)
         intention            = container.lenientString(.intention)
         whyIntention         = container.lenientString(.whyIntention)
         whatToDo             = container.lenientString(.whatToDo)
@@ -80,5 +89,13 @@ struct CharacterDTO: Codable, Sendable {
         need                 = container.lenientString(.need)
         howCharacterChanged  = container.lenientString(.howCharacterChanged)
         notes                = container.lenientString(.notes)
+        // Legacy payloads may store this as a bool, a 0/1 number or a string.
+        if let flag = try? container.decodeIfPresent(Bool.self, forKey: .arcNotApplicable) {
+            arcNotApplicable = flag
+        } else if let number = try? container.decodeIfPresent(Int.self, forKey: .arcNotApplicable) {
+            arcNotApplicable = number != 0
+        } else {
+            arcNotApplicable = container.lenientString(.arcNotApplicable).lowercased() == "true"
+        }
     }
 }

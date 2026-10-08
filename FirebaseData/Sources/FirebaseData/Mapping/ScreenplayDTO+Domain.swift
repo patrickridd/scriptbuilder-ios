@@ -49,18 +49,18 @@ extension OutlineField {
 // MARK: - Scene
 
 extension SceneDTO {
-    init(domain s: Scene) {
+    init(domain scene: Scene) {
         self.init(
-            uuid: s.uuid,
-            header: s.header,
-            title: s.title,
-            sceneNumber: s.sceneNumber,
-            sceneDescription: s.sceneDescription,
-            dialogue: s.dialogue,
-            action: s.action,
-            characters: s.characters,
-            howPushesStory: s.howPushesStory,
-            notes: s.notes
+            uuid: scene.uuid,
+            header: scene.header,
+            title: scene.title,
+            sceneNumber: scene.sceneNumber,
+            sceneDescription: scene.sceneDescription,
+            dialogue: scene.dialogue,
+            action: scene.action,
+            characters: scene.characters,
+            howPushesStory: scene.howPushesStory,
+            notes: scene.notes
         )
     }
 
@@ -83,29 +83,38 @@ extension SceneDTO {
 // MARK: - Character
 
 extension CharacterDTO {
-    init(domain c: Character) {
+    init(domain character: Character) {
         self.init(
-            uuid: c.uuid,
-            name: c.name,
-            role: c.role,
-            intention: c.intention,
-            whyIntention: c.whyIntention,
-            whatToDo: c.whatToDo,
-            howDoesCharacterDoIt: c.howDoesCharacterDoIt,
-            obstacles: c.obstacles,
-            flaws: c.flaws,
-            intentionFix: c.intentionFix,
-            need: c.need,
-            howCharacterChanged: c.howCharacterChanged,
-            notes: c.notes
+            uuid: character.uuid,
+            name: character.name,
+            role: character.role,
+            identity: CharacterIdentityDTO(domain: character.identity),
+            intention: character.intention,
+            whyIntention: character.whyIntention,
+            whatToDo: character.whatToDo,
+            howDoesCharacterDoIt: character.howDoesCharacterDoIt,
+            obstacles: character.obstacles,
+            flaws: character.flaws,
+            intentionFix: character.intentionFix,
+            need: character.need,
+            howCharacterChanged: character.howCharacterChanged,
+            notes: character.notes,
+            arcNotApplicable: character.arcNotApplicable
         )
     }
 
     func toDomain() -> Character {
-        Character(
+        // Non-destructive migration: when no stored identity exists, resolve
+        // one from the legacy flat `role` string. The `role` key itself is
+        // preserved verbatim; the structured identity is only written back
+        // the next time the character is saved.
+        let resolvedIdentity = identity?.toDomain()
+            ?? CharacterIdentity(resolvingLegacyRole: role)
+        return Character(
             uuid: uuid,
             name: name,
             role: role,
+            identity: resolvedIdentity,
             intention: intention,
             whyIntention: whyIntention,
             whatToDo: whatToDo,
@@ -115,7 +124,8 @@ extension CharacterDTO {
             intentionFix: intentionFix,
             need: need,
             howCharacterChanged: howCharacterChanged,
-            notes: notes
+            notes: notes,
+            arcNotApplicable: arcNotApplicable
         )
     }
 }
@@ -215,25 +225,25 @@ extension Act3DTO {
 // MARK: - Screenplay
 
 extension ScreenplayDTO {
-    init(domain s: Screenplay) {
+    init(domain screenplay: Screenplay) {
         self.init(
-            uuid: s.uuid,
-            title: s.title,
-            authorName: s.authorName,
-            lastUpdated: s.lastUpdated,
-            idea: s.idea,
-            logLine: s.logLine,
-            notes: s.notes,
-            theme: s.theme,
-            centralIntention: s.centralIntention,
-            mainObstacle: s.mainObstacle,
-            actOneDescription: s.actOneDescription,
-            actTwoDescription: s.actTwoDescription,
-            actThreeDescription: s.actThreeDescription,
-            act1: Act1DTO(domain: s.act1),
-            act2: Act2DTO(domain: s.act2),
-            act3: Act3DTO(domain: s.act3),
-            characters: CharacterMapping.toMap(s.characters)
+            uuid: screenplay.uuid,
+            title: screenplay.title,
+            authorName: screenplay.authorName,
+            lastUpdated: screenplay.lastUpdated,
+            idea: screenplay.idea,
+            logLine: screenplay.logLine,
+            notes: screenplay.notes,
+            theme: screenplay.theme,
+            centralIntention: screenplay.centralIntention,
+            mainObstacle: screenplay.mainObstacle,
+            actOneDescription: screenplay.actOneDescription,
+            actTwoDescription: screenplay.actTwoDescription,
+            actThreeDescription: screenplay.actThreeDescription,
+            act1: Act1DTO(domain: screenplay.act1),
+            act2: Act2DTO(domain: screenplay.act2),
+            act3: Act3DTO(domain: screenplay.act3),
+            characters: CharacterMapping.toMap(screenplay.characters)
         )
     }
 

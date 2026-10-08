@@ -90,7 +90,8 @@ public struct ScreenplayEditorView: View {
                 screenplayID: screenplay.uuid,
                 characters: screenplay.characters,
                 repository: repository,
-                gate: gate
+                gate: gate,
+                screenplayTitle: screenplay.title
             )
         case .scenes:
             ScenesListView(

@@ -26,6 +26,7 @@ struct OutlineSectionDetailView: View {
                 ScrollView {
                     VStack(spacing: 16) {
                         progressHeader(proxy: proxy)
+                            .padding(8)
                         if section == .idea {
                             ideaFields
                         } else {
@@ -39,8 +40,15 @@ struct OutlineSectionDetailView: View {
                 }
             }
         }
-        .navigationTitle(section.title)
+        .navigationTitle(navigationTitleText)
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    /// The screenplay's title, since the section name already appears in the
+    /// on-screen header. Falls back to the section title for untitled drafts.
+    private var navigationTitleText: String {
+        let name = viewModel.screenplay.title.trimmingCharacters(in: .whitespacesAndNewlines)
+        return name.isEmpty ? section.title : name
     }
 
     // MARK: - Progress header
@@ -51,6 +59,7 @@ struct OutlineSectionDetailView: View {
         let next = viewModel.firstUnfilled(for: section)
         return ProgressHeader(
             title: section.title,
+            systemImage: section.systemImage,
             filled: progress.filled,
             total: progress.total,
             completeText: L10n.Outline.sectionComplete,

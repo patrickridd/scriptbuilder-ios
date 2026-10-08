@@ -49,9 +49,14 @@ struct OutlineView: View {
     private var header: some View {
         HStack(alignment: .center, spacing: 16) {
             VStack(alignment: .leading, spacing: 6) {
-                Text(L10n.Outline.storyOutline)
-                    .font(.title2.weight(.bold))
-                    .foregroundStyle(palette.textPrimary)
+                HStack(spacing: 8) {
+                    Image(systemName: "list.bullet.rectangle")
+                        .font(.title3.weight(.semibold))
+                        .foregroundStyle(palette.accent)
+                    Text(L10n.Outline.storyOutline)
+                        .font(.title2.weight(.bold))
+                        .foregroundStyle(palette.textPrimary)
+                }
                 Text(headerSubtitle)
                     .font(.subheadline)
                     .foregroundStyle(isAllComplete ? palette.accent : palette.textMuted)
@@ -62,6 +67,8 @@ struct OutlineView: View {
             ProgressRing(targetFraction: viewModel.overallCompletion)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal)
+        .padding(.top)
     }
 
     // MARK: - Idea hero card
@@ -179,14 +186,15 @@ private struct IdeaHeroCard: View {
 
     private var glowingIcon: some View {
         Image(systemName: "lightbulb.fill")
-            .font(.title2)
-            .foregroundStyle(palette.accent)
-            .frame(width: 52, height: 52)
-            .background(palette.accent.opacity(0.18), in: Circle())
-            .overlay(Circle().stroke(palette.accent.opacity(0.4), lineWidth: 1))
-            .shadow(color: palette.accent.opacity(0.5), radius: 12, x: 0, y: 0)
+            .font(.title3)
+            .font(.system(size: 36, weight: .bold, design: .rounded))
+            .foregroundStyle(.white)
+            .frame(width: 46, height: 46)
+            .background(palette.heroGradient, in: Circle())
+            .overlay(Circle().stroke(palette.cardStroke, lineWidth: 1))
+            .shadow(color: palette.brandPrimary.opacity(0.35), radius: 16, y: 8)
     }
-
+    
     @ViewBuilder private var progressBadge: some View {
         if progress.total > 0 {
             Text("\(progress.filled)/\(progress.total)")
