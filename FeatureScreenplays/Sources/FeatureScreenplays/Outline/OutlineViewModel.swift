@@ -25,6 +25,7 @@ public final class OutlineViewModel {
     @ObservationIgnored private let repository: ScreenplayRepository
     @ObservationIgnored private let debounce: Duration
     @ObservationIgnored private var saveTasks: [String: Task<Void, Never>] = [:]
+    @ObservationIgnored private var pendingWrites: [String: @MainActor () async throws -> Void] = [:]
 
     /// Fired exactly once each time the outline *transitions* into a fully
     /// complete state (every section 100% filled). The app layer treats this
@@ -109,13 +110,38 @@ public final class OutlineViewModel {
     }
 
     private func scheduleOutlineSave(_ field: OutlineField, value: String) {
-        let key = "outline.\(field.rawValue)"
+        let repository = repository
+        let screenplayID = screenplayID
+        schedule("outline.\(field.rawValue)") {
+            try await repository.updateOutline([field: value], of: screenplayID)
+        }
+    }
+
+    /// Debounces one write per key. The write closure captures the repository
+    /// and id strongly, so it still lands if this model is released mid-wait
+    /// (closing the script within the debounce used to drop the last edit).
+    private func schedule(_ key: String, write: @escaping @MainActor () async throws -> Void) {
         saveTasks[key]?.cancel()
+        pendingWrites[key] = write
         saveTasks[key] = Task { [weak self, debounce] in
             try? await Task.sleep(for: debounce)
-            guard !Task.isCancelled, let self else { return }
-            do { try await self.repository.updateOutline([field: value], of: self.screenplayID) }
-            catch { self.errorMessage = error.localizedDescription }
+            guard !Task.isCancelled else { return }
+            self?.pendingWrites[key] = nil
+            do { try await write() }
+            catch { self?.errorMessage = error.localizedDescription }
+        }
+    }
+
+    /// Sends every write still waiting out the debounce right away — called
+    /// when the editor closes or the app leaves the foreground.
+    func flush() async {
+        let writes = pendingWrites
+        pendingWrites.removeAll()
+        saveTasks.values.forEach { $0.cancel() }
+        saveTasks.removeAll()
+        for write in writes.values {
+            do { try await write() }
+            catch { errorMessage = error.localizedDescription }
         }
     }
 
@@ -135,13 +161,10 @@ public final class OutlineViewModel {
     }
 
     private func scheduleBeatSave(_ beat: ActBeatField, value: String) {
-        let key = "beat.\(beat.rawValue)"
-        saveTasks[key]?.cancel()
-        saveTasks[key] = Task { [weak self, debounce] in
-            try? await Task.sleep(for: debounce)
-            guard !Task.isCancelled, let self else { return }
-            do { try await self.repository.updateActBeats([beat: value], in: beat.act, of: self.screenplayID) }
-            catch { self.errorMessage = error.localizedDescription }
+        let repository = repository
+        let screenplayID = screenplayID
+        schedule("beat.\(beat.rawValue)") {
+            try await repository.updateActBeats([beat: value], in: beat.act, of: screenplayID)
         }
     }
 

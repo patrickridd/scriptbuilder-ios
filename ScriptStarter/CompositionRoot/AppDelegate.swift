@@ -16,6 +16,7 @@ import FeatureScreenplays
 import FeatureProfile
 import FirebaseAuthData
 import FirebaseData
+import GoogleSignIn
 import StoreKit
 import SwiftUI
 
@@ -122,7 +123,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // expires. `Store` publishes on the main actor.
         startObservingEntitlements()
 
-        // Routing decision via the contract — no Firebase types here.
+        // Window creation + initial routing happen in `SceneDelegate` once the
+        // window scene connects. Creating a `UIWindow(frame:)` here would leave
+        // it unattached to any scene under the scene lifecycle → black screen.
+        return true
+    }
+
+    /// Always hand the app's scene to `SceneDelegate`, even if the Info.plist
+    /// scene manifest is missing or stale (backstop against a black screen).
+    func application(
+        _ application: UIApplication,
+        configurationForConnecting connectingSceneSession: UISceneSession,
+        options: UIScene.ConnectionOptions
+    ) -> UISceneConfiguration {
+        let configuration = UISceneConfiguration(
+            name: "Default Configuration",
+            sessionRole: connectingSceneSession.role
+        )
+        configuration.delegateClass = SceneDelegate.self
+        return configuration
+    }
+
+    /// Called by `SceneDelegate` with the scene-backed window. Applies the
+    /// persisted appearance before routing so the first frame is correct.
+    func install(window: UIWindow) {
+        self.window = window
+        window.overrideUserInterfaceStyle = persistedInterfaceStyle()
+        route()
+    }
+
+    /// Routing decision via the contract — no Firebase types here.
+    private func route() {
         if isLoggedIn {
             presentHome()
         } else if isSimulatorAuthBypassEnabled {
@@ -132,8 +163,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             presentLoginScreen()
         }
-
-        return true
     }
 
     /// Tracks a running count of screenplays the user has created and feeds a
@@ -193,12 +222,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Navigation
 
     func presentLoginScreen() {
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        // Apply the persisted appearance to the window BEFORE assigning the
-        // root VC so the hosting controller inherits the correct trait from
-        // birth, instead of painting in the system appearance first.
-        self.window?.overrideUserInterfaceStyle = persistedInterfaceStyle()
-        self.window?.rootViewController = loginView
+        setRoot(loginView)
+    }
+
+    /// Swaps the root of the scene-backed window. Never creates a new window:
+    /// under the scene lifecycle a window must be built from its `UIWindowScene`
+    /// (see `SceneDelegate`), otherwise it is never shown → black screen.
+    private func setRoot(_ viewController: UIViewController) {
+        guard let window else {
+            logger.error("setRoot called before SceneDelegate installed a window")
+            return
+        }
+        // Apply the persisted appearance BEFORE assigning the root VC so the
+        // hosting controller inherits the correct trait from birth.
+        window.overrideUserInterfaceStyle = persistedInterfaceStyle()
+        window.rootViewController = viewController
         makeKeyAndVisible()
     }
 
@@ -330,13 +368,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         .appPalette(.default)
 
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        // Apply the persisted appearance to the window BEFORE assigning the
-        // root VC so the SwiftUI hosting controller inherits the correct trait
-        // from initialization rather than after first render.
-        self.window?.overrideUserInterfaceStyle = persistedInterfaceStyle()
-        self.window?.rootViewController = UIHostingController(rootView: shell)
-        makeKeyAndVisible()
+        setRoot(UIHostingController(rootView: shell))
     }
 
     /// Presents the SwiftUI paywall over whatever is currently on screen (the
@@ -472,6 +504,50 @@ extension UIApplication {
     
     func set(style: InterfaceStyle) {
         mainWindow?.overrideUserInterfaceStyle = style.systemInterfaceStyle
+    }
+}
+
+// MARK: - SceneDelegate
+
+/// Owns the app's single window under the UIScene lifecycle. Builds the window
+/// from the connecting `UIWindowScene` (required for it to ever be displayed)
+/// and hands it to `AppDelegate`, which keeps all routing logic.
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+
+    var window: UIWindow?
+
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
+        guard let windowScene = scene as? UIWindowScene else { return }
+        let sceneWindow = UIWindow(windowScene: windowScene)
+        window = sceneWindow
+        (UIApplication.shared.delegate as? AppDelegate)?.install(window: sceneWindow)
+
+        // Cold-launch sign-in callbacks arrive with the connection options.
+        handle(urlContexts: connectionOptions.urlContexts)
+    }
+
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        handle(urlContexts: URLContexts)
+    }
+
+    /// Forwards OAuth redirects: Google first, then Facebook (via the auth service).
+    private func handle(urlContexts: Set<UIOpenURLContext>) {
+        for context in urlContexts {
+            let url = context.url
+            if GIDSignIn.sharedInstance.handle(url) { continue }
+            var options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+            if let source = context.options.sourceApplication {
+                options[.sourceApplication] = source
+            }
+            if let annotation = context.options.annotation {
+                options[.annotation] = annotation
+            }
+            _ = FirebaseAuthService.handleOpenURL(url, options: options)
+        }
     }
 }
 

@@ -263,7 +263,40 @@ struct RootShellView: View {
             .buttonStyle(.pressableIcon)
             .accessibilityLabel("Profile")
         }
+        #if DEBUG
+        ToolbarItem(placement: .topBarLeading) {
+            debugProMenu
+        }
+        #endif
     }
+
+    #if DEBUG
+    /// Developer-only Pro/Free switch. Compiled out of Release/TestFlight.
+    private var debugProMenu: some View {
+        let mode = store.debugProOverride
+        let badge: String
+        switch mode {
+        case .live: badge = store.allAccessEnabled ? "PRO" : "FREE"
+        case .pro: badge = "PRO"
+        case .free: badge = "FREE"
+        }
+        return Menu {
+            Picker("Entitlements", selection: $store.debugProOverride) {
+                Text("Live (StoreKit)").tag(Store.DebugProOverride.live)
+                Text("Force Pro").tag(Store.DebugProOverride.pro)
+                Text("Force Free").tag(Store.DebugProOverride.free)
+            }
+        } label: {
+            HStack(spacing: 4) {
+                Image(systemName: "ladybug.fill")
+                Text(badge)
+                    .font(.caption2.weight(.heavy))
+            }
+            .foregroundStyle(mode == .live ? palette.textMuted : palette.brandPrimary)
+        }
+        .accessibilityLabel("Debug entitlements: \(badge)")
+    }
+    #endif
 
     /// Compact circular avatar showing the user's initials over the hero
     /// gradient — a personalized entry point into the profile screen.

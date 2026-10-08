@@ -161,17 +161,26 @@ public final class FirebaseScreenplayRepository: ScreenplayRepository, @unchecke
         let key = try safeKey(scene.uuid)
         let dto = SceneDTO(domain: scene)
         let value = try encode(dto)
-        try await ref(RTDBPaths.actScenes(uid: uid, id: screenplayID, act: act))
-            .updateChildValues([key: value])
-        try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
+        // One atomic multi-path merge at the screenplay node: write the scene
+        // where it is READ (`actOne/scenes/{id}`), clear any stray copy left in
+        // the old sibling node, and bump `lastUpdated`. Siblings are untouched.
+        try await ref(RTDBPaths.screenplay(uid: uid, id: screenplayID)).updateChildValues([
+            RTDBPaths.relativeSceneKeyPath(act: act, sceneKey: key): value,
+            RTDBPaths.relativeStraySceneKeyPath(act: act, sceneKey: key): NSNull(),
+            OutlineField.lastUpdatedRTDBKey: Date().timeIntervalSince1970
+        ])
     }
 
     public func delete(sceneID: String, from act: Act, of screenplayID: String) async throws {
         let uid = try requireUID()
         let key = try safeKey(sceneID)
-        try await ref(RTDBPaths.actScenes(uid: uid, id: screenplayID, act: act))
-            .updateChildValues([key: NSNull()])
-        try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
+        // Remove from both the real and the stray location, or a stray copy
+        // would resurrect the scene on the next load.
+        try await ref(RTDBPaths.screenplay(uid: uid, id: screenplayID)).updateChildValues([
+            RTDBPaths.relativeSceneKeyPath(act: act, sceneKey: key): NSNull(),
+            RTDBPaths.relativeStraySceneKeyPath(act: act, sceneKey: key): NSNull(),
+            OutlineField.lastUpdatedRTDBKey: Date().timeIntervalSince1970
+        ])
     }
 
     public func updateOutline(_ fields: [OutlineField: String],
