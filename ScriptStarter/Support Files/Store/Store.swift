@@ -94,24 +94,36 @@ final class Store: ObservableObject, @unchecked Sendable {
     }
 
     #if DEBUG
-    /// Developer-only switch for testing gated features without a purchase.
-    /// Never compiled into Release/TestFlight builds.
-    enum DebugProOverride: String, CaseIterable {
+    /// Developer-only Pro switch. Compiled out of Release builds entirely, so
+    /// TestFlight / App Store users can never reach it.
+    enum DebugProOverride: String, CaseIterable, Identifiable {
         case live, pro, free
+        var id: String { rawValue }
+        var title: String {
+            switch self {
+            case .live: "Real Purchases"
+            case .pro: "Force Pro"
+            case .free: "Force Free"
+            }
+        }
     }
 
-    private static let debugProOverrideKey = "debug.proOverride"
+    private static let debugOverrideKey = "debug.proOverride"
 
-    /// Persisted across launches; `.live` follows real StoreKit entitlements.
-    @Published var debugProOverride: DebugProOverride =
-        DebugProOverride(rawValue: UserDefaults.standard.string(forKey: Store.debugProOverrideKey) ?? "") ?? .live {
+    /// Persisted across launches. `@Published`, so the dashboard and the
+    /// editor's lock chrome refresh the moment it changes.
+    @Published var debugProOverride: DebugProOverride = DebugProOverride(
+        rawValue: UserDefaults.standard.string(forKey: Store.debugOverrideKey) ?? ""
+    ) ?? .live {
         didSet {
-            UserDefaults.standard.set(debugProOverride.rawValue, forKey: Self.debugProOverrideKey)
+            UserDefaults.standard.set(debugProOverride.rawValue, forKey: Store.debugOverrideKey)
+            logger.info("Debug Pro override → \(debugProOverride.rawValue)")
         }
     }
     #endif
 
-    /// Applies the DEBUG override (if any) to a live entitlement value.
+    /// Applies the debug override (if any) to a live entitlement value.
+    /// In Release this is a no-op passthrough.
     private func resolved(_ live: Bool) -> Bool {
         #if DEBUG
         switch debugProOverride {

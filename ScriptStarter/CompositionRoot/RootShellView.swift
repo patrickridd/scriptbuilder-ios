@@ -271,30 +271,28 @@ struct RootShellView: View {
     }
 
     #if DEBUG
-    /// Developer-only Pro/Free switch. Compiled out of Release/TestFlight.
+    /// Developer-only Pro switch (compiled out of Release). Lets you flip
+    /// between real StoreKit state, forced Pro and forced Free to test gates.
     private var debugProMenu: some View {
-        let mode = store.debugProOverride
-        let badge: String
-        switch mode {
-        case .live: badge = store.allAccessEnabled ? "PRO" : "FREE"
-        case .pro: badge = "PRO"
-        case .free: badge = "FREE"
-        }
+        let override = store.debugProOverride
+        let isOverridden = override != .live
+        let effectiveTitle = store.allAccessEnabled ? "PRO" : "FREE"
         return Menu {
-            Picker("Entitlements", selection: $store.debugProOverride) {
-                Text("Live (StoreKit)").tag(Store.DebugProOverride.live)
-                Text("Force Pro").tag(Store.DebugProOverride.pro)
-                Text("Force Free").tag(Store.DebugProOverride.free)
+            Picker("Pro Access", selection: $store.debugProOverride) {
+                ForEach(Store.DebugProOverride.allCases) { option in
+                    Text(option.title).tag(option)
+                }
             }
         } label: {
             HStack(spacing: 4) {
                 Image(systemName: "ladybug.fill")
-                Text(badge)
-                    .font(.caption2.weight(.heavy))
+                Text(effectiveTitle)
             }
-            .foregroundStyle(mode == .live ? palette.textMuted : palette.brandPrimary)
+            .font(.caption.weight(.bold))
+            .foregroundStyle(isOverridden ? palette.brandPrimary : .secondary)
+            .fixedSize()
         }
-        .accessibilityLabel("Debug entitlements: \(badge)")
+        .accessibilityLabel("Developer Pro toggle")
     }
     #endif
 
