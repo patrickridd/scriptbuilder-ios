@@ -24,8 +24,10 @@ public enum Act: Int, CaseIterable, Sendable, Identifiable {
         L10n.dynamic("act.\(rawValue).title")
     }
 
-    /// The RTDB child key under a screenplay node where this act's scenes live.
-    /// Mirrors the existing `act1ScenesKey`/`act2ScenesKey`/`act3ScenesKey`.
+    /// The **legacy stray** RTDB sibling node (`actOneScenes`, …) an earlier
+    /// build wrote scenes to by mistake. Scenes are read from and written to
+    /// `actOne/scenes/{id}` (`RTDBPaths.relativeSceneKeyPath`); this key is only
+    /// used to rescue and clean up stranded copies. Never write new scenes here.
     public var scenesNodeKey: String {
         switch self {
         case .one:   return "actOneScenes"
