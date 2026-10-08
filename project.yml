@@ -176,6 +176,12 @@ targets:
           - fbauth2
           - fbshareextension
         UIApplicationSupportsIndirectInputEvents: true
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default Configuration
+                UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
         UILaunchStoryboardName: LaunchScreen
         UIRequiredDeviceCapabilities: [ arm64 ]
         UISupportedInterfaceOrientations:

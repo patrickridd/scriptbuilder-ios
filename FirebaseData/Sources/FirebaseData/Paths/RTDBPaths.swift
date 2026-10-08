@@ -24,21 +24,34 @@ enum RTDBPaths {
         "\(screenplays(uid: uid))/\(id)"
     }
 
-    /// The scenes child node for a given act under a screenplay.
-    static func actScenes(uid: String, id: String, act: Act) -> String {
-        "\(screenplay(uid: uid, id: id))/\(act.scenesNodeKey)"
+    /// The act content node key (holds narrative beats + nested scenes).
+    /// Matches the `ScreenplayDTO` coding keys: actOne/Two/Three.
+    static func actNodeKey(_ act: Act) -> String {
+        switch act {
+        case .one:   return "actOne"
+        case .two:   return "actTwo"
+        case .three: return "actThree"
+        }
+    }
+
+    /// Scene map path **relative to the screenplay node** — the one location
+    /// scenes are read from (`ActNDTO.scenes`). Writes must target this.
+    static func relativeSceneKeyPath(act: Act, sceneKey: String) -> String {
+        "\(actNodeKey(act))/scenes/\(sceneKey)"
+    }
+
+    /// Relative path of a scene in the **stray** sibling node
+    /// (`actOneScenes/…`). An earlier build wrote scenes here by mistake while
+    /// reading from `actOne/scenes`, so edits never came back. Kept only so
+    /// those scenes can be read back and cleaned up on the next save.
+    static func relativeStraySceneKeyPath(act: Act, sceneKey: String) -> String {
+        "\(act.scenesNodeKey)/\(sceneKey)"
     }
 
     /// The act content node (holds narrative beats + nested scenes) under a
-    /// screenplay. Keys match the `ScreenplayDTO` coding keys: actOne/Two/Three.
+    /// screenplay.
     static func actNode(uid: String, id: String, act: Act) -> String {
-        let key: String
-        switch act {
-        case .one:   key = "actOne"
-        case .two:   key = "actTwo"
-        case .three: key = "actThree"
-        }
-        return "\(screenplay(uid: uid, id: id))/\(key)"
+        "\(screenplay(uid: uid, id: id))/\(actNodeKey(act))"
     }
 
     /// The characters child node under a screenplay.

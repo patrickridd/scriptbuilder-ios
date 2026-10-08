@@ -43,6 +43,14 @@ struct ScreenplayDTO: Codable, Sendable {
     // Characters keyed by their uuid in RTDB; decoded as a map.
     let characters: [String: CharacterDTO]?
 
+    /// Read-only rescue of scenes an earlier build wrote to the sibling
+    /// `actOneScenes` / `actTwoScenes` / `actThreeScenes` nodes instead of
+    /// `actOne/scenes`. Merged into the acts on read (they're the newer edit),
+    /// never encoded, and cleared per scene on the next save.
+    var strayActOneScenes: [String: SceneDTO]?
+    var strayActTwoScenes: [String: SceneDTO]?
+    var strayActThreeScenes: [String: SceneDTO]?
+
     enum CodingKeys: String, CodingKey {
         case uuid                = "uuid"
         case title               = "title"
@@ -109,5 +117,15 @@ struct ScreenplayDTO: Codable, Sendable {
         act2                = try? container.decodeIfPresent(Act2DTO.self, forKey: .act2)
         act3                = try? container.decodeIfPresent(Act3DTO.self, forKey: .act3)
         characters          = try? container.decodeIfPresent([String: CharacterDTO].self, forKey: .characters)
+
+        // Separate key set so the stray nodes are decoded but never encoded.
+        let stray = try decoder.container(keyedBy: StrayKeys.self)
+        strayActOneScenes   = try? stray.decodeIfPresent([String: SceneDTO].self, forKey: .actOneScenes)
+        strayActTwoScenes   = try? stray.decodeIfPresent([String: SceneDTO].self, forKey: .actTwoScenes)
+        strayActThreeScenes = try? stray.decodeIfPresent([String: SceneDTO].self, forKey: .actThreeScenes)
+    }
+
+    private enum StrayKeys: String, CodingKey {
+        case actOneScenes, actTwoScenes, actThreeScenes
     }
 }

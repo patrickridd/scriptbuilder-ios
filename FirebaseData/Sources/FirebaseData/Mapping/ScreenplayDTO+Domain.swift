@@ -248,7 +248,13 @@ extension ScreenplayDTO {
     }
 
     func toDomain() -> Screenplay {
-        Screenplay(
+        var act1Domain = act1?.toDomain() ?? Act1()
+        var act2Domain = act2?.toDomain() ?? Act2()
+        var act3Domain = act3?.toDomain() ?? Act3()
+        act1Domain.scenes = SceneMapping.merging(stray: strayActOneScenes, into: act1Domain.scenes)
+        act2Domain.scenes = SceneMapping.merging(stray: strayActTwoScenes, into: act2Domain.scenes)
+        act3Domain.scenes = SceneMapping.merging(stray: strayActThreeScenes, into: act3Domain.scenes)
+        return Screenplay(
             uuid: uuid,
             title: title,
             authorName: authorName,
@@ -263,9 +269,9 @@ extension ScreenplayDTO {
             actTwoDescription: actTwoDescription,
             actThreeDescription: actThreeDescription,
             characters: CharacterMapping.toSet(characters),
-            act1: act1?.toDomain() ?? Act1(),
-            act2: act2?.toDomain() ?? Act2(),
-            act3: act3?.toDomain() ?? Act3()
+            act1: act1Domain,
+            act2: act2Domain,
+            act3: act3Domain
         )
     }
 }
@@ -299,6 +305,17 @@ private enum SceneMapping {
             }
             return scene
         }
+    }
+
+    /// Folds scenes rescued from the stray sibling node into an act's scenes.
+    /// A stray copy only exists because a newer build saved it there, so it
+    /// replaces a same-id scene from the nested node; otherwise it's added.
+    static func merging(stray: [String: SceneDTO]?, into scenes: [Scene]) -> [Scene] {
+        let rescued = toArray(stray)
+        guard !rescued.isEmpty else { return scenes }
+        mappingLog.notice("Recovered \(rescued.count, privacy: .public) scene(s) from stray act node")
+        let rescuedIDs = Set(rescued.map(\.uuid))
+        return scenes.filter { !rescuedIDs.contains($0.uuid) } + rescued
     }
 }
 
