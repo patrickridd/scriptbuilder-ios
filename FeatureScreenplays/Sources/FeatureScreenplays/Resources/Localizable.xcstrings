@@ -1,6 +1,276 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "character.arcQuestion.addQuestion" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Frage hinzufügen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Add Question" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Añadir pregunta" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajouter une question" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रश्न जोड़ें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "質問を追加" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "질문 추가" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "添加问题" } }
+    } },
+    "character.arcQuestion.addCaption" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Stell deine eigene Frage zu dieser Figur" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Ask your own question about this character" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Haz tu propia pregunta sobre este personaje" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Posez votre propre question sur ce personnage" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "इस किरदार के बारे में अपना प्रश्न पूछें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "このキャラクターについて自分の質問を追加" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "이 캐릭터에 대한 나만의 질문을 추가하세요" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "为这个角色提出你自己的问题" } }
+    } },
+    "character.arcQuestion.options" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Fragenoptionen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Question options" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Opciones de la pregunta" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Options de la question" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रश्न विकल्प" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "質問のオプション" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "질문 옵션" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "问题选项" } }
+    } },
+    "character.arcQuestion.arrange" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Fragen anordnen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Arrange Questions" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Ordenar preguntas" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Organiser les questions" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रश्न व्यवस्थित करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "質問を並べ替え" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "질문 정렬" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "排列问题" } }
+    } },
+    "character.arcQuestion.arrangeHint" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Zum Umsortieren ziehen. Notizen bleiben immer unten." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Drag to reorder. Notes always stays at the bottom." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Arrastra para reordenar. Las notas siempre quedan al final." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Faites glisser pour réorganiser. Les notes restent toujours en bas." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "क्रम बदलने के लिए खींचें। नोट्स हमेशा सबसे नीचे रहते हैं।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ドラッグして並べ替え。メモは常に一番下です。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "드래그해서 순서를 바꾸세요. 메모는 항상 맨 아래에 있습니다." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "拖动以重新排序。备注始终在最下方。" } }
+    } },
+    "character.arcQuestion.lockedHint" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Integrierte Fragen verschieben ist eine Pro-Funktion. Deine eigenen Fragen kannst du frei verschieben." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Moving built-in questions is a Pro feature. Your own questions move freely." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Mover las preguntas integradas es una función Pro. Tus propias preguntas se mueven libremente." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Déplacer les questions intégrées est une fonction Pro. Vos propres questions se déplacent librement." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बिल्ट-इन प्रश्नों को खिसकाना Pro सुविधा है। आपके अपने प्रश्न स्वतंत्र रूप से खिसकते हैं।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "標準の質問の移動はPro機能です。自分の質問は自由に移動できます。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "기본 질문 이동은 Pro 기능입니다. 나만의 질문은 자유롭게 이동할 수 있습니다." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "移动内置问题是 Pro 功能。你自己的问题可以自由移动。" } }
+    } },
+    "character.arcQuestion.reset" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Reihenfolge zurücksetzen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset Order" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Restablecer orden" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Réinitialiser l’ordre" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "क्रम रीसेट करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "順序をリセット" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "순서 초기화" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重置顺序" } }
+    } },
+    "character.arcQuestion.resetTitle" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Auf die Standardreihenfolge zurücksetzen?" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset to the standard order?" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Volver al orden estándar?" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Revenir à l’ordre standard ?" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "मानक क्रम पर रीसेट करें?" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "標準の順序に戻しますか？" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "기본 순서로 되돌릴까요?" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重置为标准顺序？" } }
+    } },
+    "character.arcQuestion.resetMessage" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Deine eigenen Fragen kehren dorthin zurück, wo du sie hinzugefügt hast. Nichts wird gelöscht." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Your own questions go back to where you added them. Nothing is deleted." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Tus propias preguntas vuelven a donde las añadiste. No se elimina nada." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vos propres questions retournent là où vous les avez ajoutées. Rien n’est supprimé." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपके अपने प्रश्न वहीं लौट जाएँगे जहाँ आपने उन्हें जोड़ा था। कुछ भी नहीं हटेगा।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "自分の質問は追加した位置に戻ります。何も削除されません。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "나만의 질문은 추가했던 위치로 돌아갑니다. 삭제되는 것은 없습니다." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你自己的问题会回到添加时的位置。不会删除任何内容。" } }
+    } },
+    "character.arcQuestion.done" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Fertig" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Done" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Listo" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Terminé" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "हो गया" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "完了" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "완료" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "完成" } }
+    } },
+    "character.arcQuestion.standardOrder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Standardreihenfolge" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Standard order" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Orden estándar" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ordre standard" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "मानक क्रम" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "標準の順序" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "기본 순서" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "标准顺序" } }
+    } },
+    "character.arcQuestion.customOrder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Eigene Reihenfolge" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom order" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Orden personalizado" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ordre personnalisé" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "कस्टम क्रम" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "カスタムの順序" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "사용자 지정 순서" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "自定义顺序" } }
+    } },
+    "character.arcQuestion.yourQuestion" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Deine Frage" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Your question" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Tu pregunta" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre question" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपका प्रश्न" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "あなたの質問" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "나의 질문" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的问题" } }
+    } },
+    "character.arcQuestion.insertAfter" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Frage danach einfügen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Insert Question After" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Insertar pregunta después" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Insérer une question après" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "इसके बाद प्रश्न जोड़ें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "後ろに質問を挿入" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "뒤에 질문 삽입" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "在后面插入问题" } }
+    } },
+    "character.arcQuestion.disable" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Frage ausschalten" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Disable Question" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Desactivar pregunta" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Désactiver la question" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रश्न बंद करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "質問をオフにする" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "질문 끄기" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "停用问题" } }
+    } },
+    "character.arcQuestion.disabledCaption" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Ausgeschaltet · deine Antwort bleibt erhalten" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Switched off · your answer is kept" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Desactivada · tu respuesta se conserva" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Désactivée · votre réponse est conservée" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बंद · आपका उत्तर सुरक्षित है" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "オフ · 回答は保持されます" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "꺼짐 · 답변은 유지됩니다" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已停用 · 你的回答会保留" } }
+    } },
+    "character.arcQuestion.moveUp" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Nach oben" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Move Up" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Subir" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Monter" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "ऊपर ले जाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "上へ移動" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "위로 이동" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "上移" } }
+    } },
+    "character.arcQuestion.moveDown" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Nach unten" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Move Down" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Bajar" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Descendre" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "नीचे ले जाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "下へ移動" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "아래로 이동" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "下移" } }
+    } },
+    "character.arcQuestion.delete" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Frage löschen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete Question" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Eliminar pregunta" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer la question" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रश्न हटाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "質問を削除" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "질문 삭제" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除问题" } }
+    } },
+    "character.arcQuestion.deleteTitle" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Diese Frage löschen?" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete this question?" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Eliminar esta pregunta?" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer cette question ?" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "यह प्रश्न हटाएँ?" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "この質問を削除しますか？" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "이 질문을 삭제할까요?" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除这个问题？" } }
+    } },
+    "character.arcQuestion.deleteMessage" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Die Frage und deine Antwort werden entfernt." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "The question and your answer will be removed." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Se eliminarán la pregunta y tu respuesta." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "La question et votre réponse seront supprimées." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रश्न और आपका उत्तर हटा दिए जाएँगे।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "質問と回答が削除されます。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "질문과 답변이 삭제됩니다." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "该问题和你的回答将被删除。" } }
+    } },
+    "character.arcQuestion.deleteConfirm" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Löschen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Eliminar" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "हटाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "削除" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "삭제" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除" } }
+    } },
+    "character.arcQuestion.cancel" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Abbrechen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Cancelar" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Annuler" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "रद्द करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "キャンセル" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "취소" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "取消" } }
+    } },
+    "character.arcQuestion.titlePlaceholder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Deine Frage" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Your question" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Tu pregunta" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre question" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपका प्रश्न" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "あなたの質問" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "나의 질문" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的问题" } }
+    } },
+    "character.arcQuestion.subtitlePlaceholder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Hinweis hinzufügen (optional)" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Add a hint (optional)" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Añade una pista (opcional)" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajouter une indication (facultatif)" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "संकेत जोड़ें (वैकल्पिक)" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ヒントを追加（任意）" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "힌트 추가 (선택)" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "添加提示（可选）" } }
+    } },
+    "character.arcQuestion.textPlaceholder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Schreib los…" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Start writing…" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Empieza a escribir…" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Commencez à écrire…" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "लिखना शुरू करें…" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "書き始めましょう…" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "작성을 시작하세요…" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "开始写作…" } }
+    } },
+    "character.arcQuestion.untitled" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Frage ohne Titel" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Untitled Question" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Pregunta sin título" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Question sans titre" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बिना शीर्षक का प्रश्न" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "無題の質問" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "제목 없는 질문" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未命名问题" } }
+    } },
     "outline.customBeat.addCaption" : { "extractionState" : "manual", "localizations" : {
       "de" : { "stringUnit" : { "state" : "translated", "value" : "Dein eigener Moment am Ende von %@" } },
       "en" : { "stringUnit" : { "state" : "translated", "value" : "Your own moment at the end of %@" } },

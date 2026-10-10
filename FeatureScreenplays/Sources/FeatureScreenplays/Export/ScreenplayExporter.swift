@@ -127,17 +127,40 @@ public enum ScreenplayExporter {
             out.subheader(displayName(for: person))
             var block = DocumentBuilder.Section(title: nil)
             block.add(L10n.Export.role, person.role ?? "")
-            block.add(L10n.Export.intention, person.intention)
-            block.add(L10n.Export.why, person.whyIntention)
-            block.add(L10n.Export.whatTheyDo, person.whatToDo)
-            block.add(L10n.Export.howTheyDoIt, person.howDoesCharacterDoIt)
-            block.add(L10n.Export.obstacles, person.obstacles)
-            block.add(L10n.Export.flaws, person.flaws)
-            block.add(L10n.Export.intentionFix, person.intentionFix)
-            block.add(L10n.Export.need, person.need)
-            block.add(L10n.Export.howTheyChange, person.howCharacterChanged)
+            appendArc(of: person, to: &block)
             block.add(L10n.Export.notes, person.notes)
             out.inlineSection(block)
+        }
+    }
+
+    /// The arc in the writer's order (`Character.activeArcSlots`): stock
+    /// questions that are switched on plus custom questions. A "no arc"
+    /// character exports only Notes, matching the Arc screen. Notes is
+    /// always last and is added by the caller.
+    private static func appendArc(of person: Character, to block: inout DocumentBuilder.Section) {
+        guard !person.arcNotApplicable else { return }
+        for slot in person.activeArcSlots {
+            switch slot {
+            case .template(let question):
+                block.add(exportLabel(for: question), person.text(for: question))
+            case .custom(let question):
+                let title = question.title.trimmingCharacters(in: .whitespacesAndNewlines)
+                block.add(title.isEmpty ? L10n.ArcQuestionCopy.untitled : title, question.text)
+            }
+        }
+    }
+
+    private static func exportLabel(for question: ArcTemplateQuestion) -> String {
+        switch question {
+        case .intention: return L10n.Export.intention
+        case .whyIntention: return L10n.Export.why
+        case .whatToDo: return L10n.Export.whatTheyDo
+        case .howDoesCharacterDoIt: return L10n.Export.howTheyDoIt
+        case .obstacles: return L10n.Export.obstacles
+        case .flaws: return L10n.Export.flaws
+        case .intentionFix: return L10n.Export.intentionFix
+        case .need: return L10n.Export.need
+        case .howCharacterChanged: return L10n.Export.howTheyChange
         }
     }
 
