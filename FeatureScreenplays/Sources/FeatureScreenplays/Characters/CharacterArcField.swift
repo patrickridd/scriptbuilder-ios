@@ -58,36 +58,22 @@ enum CharacterArcField: Int, CaseIterable, Identifiable {
         }
     }
 
-    /// The arc fields that count toward a character's completion. `notes` is a
-    /// free-form scratchpad, so it is deliberately excluded — a fully developed
-    /// character can genuinely reach 100%.
-    static var scoreable: [CharacterArcField] {
-        allCases.filter { $0 != .notes }
-    }
-
-    /// How many scoreable fields the writer has filled in. A character marked
-    /// as having no arc counts as fully done — the decision *is* the work.
+    /// How many arc questions the writer has answered. Delegates to the
+    /// Domain so custom questions count and switched-off ones don't; Notes
+    /// is never scored. A character with no arc counts as fully done.
     static func filledCount(for character: Character) -> Int {
-        guard !character.arcNotApplicable else { return scoreable.count }
-        return scoreable.reduce(into: 0) { total, field in
-            let text = field.value(in: character).trimmingCharacters(in: .whitespacesAndNewlines)
-            if !text.isEmpty { total += 1 }
-        }
+        character.arcFilledCount
     }
 
-    /// The first scoreable field the writer has not filled in yet — drives the
-    /// "Next up: …" nudge in the detail editor.
-    static func firstUnfilled(for character: Character) -> CharacterArcField? {
-        guard !character.arcNotApplicable else { return nil }
-        return scoreable.first {
-            $0.value(in: character).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        }
+    /// How many arc questions count toward this character's progress.
+    static func totalCount(for character: Character) -> Int {
+        character.arcTotalCount
     }
 
     /// Completion of a character's arc, from 0 to 1.
     static func completion(for character: Character) -> Double {
-        let total = scoreable.count
-        guard total > 0 else { return 0 }
+        let total = totalCount(for: character)
+        guard total > 0 else { return 1 }
         return Double(filledCount(for: character)) / Double(total)
     }
 

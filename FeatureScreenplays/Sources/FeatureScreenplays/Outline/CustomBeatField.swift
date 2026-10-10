@@ -1,14 +1,16 @@
 import SwiftUI
 import DesignSystem
 
-/// A writer-authored beat card on an act editor. Visually the twin of
-/// `ExpandableTextField` (same label band, stroke and writing area) so custom
-/// and template beats read as one outline, but the title and subtitle are
-/// editable, with the options menu and expand button trailing the band.
+/// A writer-authored card (custom outline beat or custom arc question).
+/// Visually the twin of `ExpandableTextField` (same label band, stroke and
+/// writing area) so custom and stock entries read as one list, but the title
+/// and subtitle are editable, with the options menu and expand button
+/// trailing the band. Wording comes from `copy`, so beats and questions each
+/// keep their own vocabulary.
 ///
 /// Focus: when the parent's `focusRequest` matches `focusID`, the title field
-/// takes focus if the beat is still unnamed, otherwise the body does — so a
-/// freshly added beat opens ready to name.
+/// takes focus if the entry is still unnamed, otherwise the body does — so a
+/// freshly added card opens ready to name.
 struct CustomBeatField: View {
     @Environment(\.appPalette) private var palette
 
@@ -25,6 +27,7 @@ struct CustomBeatField: View {
     /// "Move Up / Move Down / Move to Act…", shown between insert and delete.
     var moveItems: [ExpandableTextField.MenuItem] = []
     let onDelete: () -> Void
+    var copy: CustomFieldCopy = .beat
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -50,7 +53,7 @@ struct CustomBeatField: View {
             FullScreenTextEditor(
                 title: displayTitle,
                 prompt: subtitle,
-                placeholder: L10n.CustomBeatCopy.textPlaceholder,
+                placeholder: copy.textPlaceholder,
                 systemImage: "sparkle",
                 text: $text
             )
@@ -108,7 +111,7 @@ struct CustomBeatField: View {
     }
 
     private var titleField: some View {
-        TextField(L10n.CustomBeatCopy.titlePlaceholder, text: $title)
+        TextField(copy.titlePlaceholder, text: $title)
             .font(.subheadline.weight(.semibold))
             .foregroundStyle(palette.textPrimary)
             .tint(palette.accent)
@@ -118,7 +121,7 @@ struct CustomBeatField: View {
     }
 
     private var subtitleField: some View {
-        TextField(L10n.CustomBeatCopy.subtitlePlaceholder, text: $subtitle)
+        TextField(copy.subtitlePlaceholder, text: $subtitle)
             .font(.caption)
             .foregroundStyle(palette.textMuted)
             .tint(palette.accent)
@@ -144,13 +147,13 @@ struct CustomBeatField: View {
 
     private var displayTitle: String {
         let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
-        return trimmed.isEmpty ? L10n.CustomBeatCopy.untitled : trimmed
+        return trimmed.isEmpty ? copy.untitled : trimmed
     }
 
     private var optionsMenu: some View {
         Menu {
             Button(action: onInsertAfter) {
-                Label(L10n.CustomBeatCopy.insertAfter, systemImage: "plus.square.on.square")
+                Label(copy.insertAfter, systemImage: "plus.square.on.square")
             }
             if !moveItems.isEmpty {
                 Section {
@@ -162,7 +165,7 @@ struct CustomBeatField: View {
                 }
             }
             Button(role: .destructive, action: onDelete) {
-                Label(L10n.CustomBeatCopy.delete, systemImage: "trash")
+                Label(copy.delete, systemImage: "trash")
             }
         } label: {
             Image(systemName: "ellipsis")
@@ -172,13 +175,13 @@ struct CustomBeatField: View {
                 .background(Circle().fill(palette.accent.opacity(0.12)))
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(L10n.CustomBeatCopy.options)
+        .accessibilityLabel(copy.options)
     }
 
     // MARK: - Writing area
 
     private var bodyEditor: some View {
-        TextField(L10n.CustomBeatCopy.textPlaceholder, text: $text, axis: .vertical)
+        TextField(copy.textPlaceholder, text: $text, axis: .vertical)
             .font(.body)
             .foregroundStyle(palette.textPrimary)
             .tint(palette.accent)

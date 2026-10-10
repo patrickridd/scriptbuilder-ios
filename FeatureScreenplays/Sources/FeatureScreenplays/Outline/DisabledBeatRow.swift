@@ -8,6 +8,7 @@ struct DisabledBeatRow: View {
     @Environment(\.appPalette) private var palette
 
     let title: String
+    var caption: String = L10n.CustomBeatCopy.disabledCaption
     let onEnable: () -> Void
 
     var body: some View {
@@ -33,7 +34,7 @@ struct DisabledBeatRow: View {
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(palette.textMuted)
                 .strikethrough(true, color: palette.textMuted.opacity(0.6))
-            Text(L10n.CustomBeatCopy.disabledCaption)
+            Text(caption)
                 .font(.caption2)
                 .foregroundStyle(palette.textMuted.opacity(0.85))
         }

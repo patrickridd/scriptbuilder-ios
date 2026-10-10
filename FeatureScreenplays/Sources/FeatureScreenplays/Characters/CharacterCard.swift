@@ -24,7 +24,7 @@ extension Character {
         parts += identity.archetypes.map { "A:" + $0.slug + "/" + ($0.customLabel ?? "") }
         parts += identity.storyFunctions.map { "F:" + $0.slug + "/" + ($0.customLabel ?? "") }
         let filled = CharacterIdentityField.filledCount(for: self) + CharacterArcField.filledCount(for: self)
-        parts.append("P:\(filled)")
+        parts.append("P:\(filled)/\(arcTotalCount)")
         parts.append(arcNotApplicable ? "N:1" : "N:0")
         return parts.joined(separator: "~")
     }
@@ -99,7 +99,7 @@ struct CharacterCard: View {
     }
 
     private var totalCount: Int {
-        CharacterIdentityField.allCases.count + CharacterArcField.scoreable.count
+        CharacterIdentityField.allCases.count + CharacterArcField.totalCount(for: character)
     }
 
     private var isComplete: Bool { totalCount > 0 && filledCount == totalCount }

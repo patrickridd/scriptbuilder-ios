@@ -124,14 +124,14 @@ final class CharacterDetailViewModel {
 
     // MARK: - Arc progress
 
-    /// How many of the scoreable arc fields currently have content.
-    var arcFilledCount: Int { CharacterArcField.filledCount(for: draft) }
+    /// How many of the active arc questions currently have an answer.
+    var arcFilledCount: Int { draft.arcFilledCount }
 
-    /// Total number of scoreable arc fields.
-    var arcTotalCount: Int { CharacterArcField.scoreable.count }
+    /// Active arc questions: stock ones switched on plus every custom one.
+    var arcTotalCount: Int { draft.arcTotalCount }
 
-    /// The first arc field still waiting to be filled in, if any.
-    var nextArcField: CharacterArcField? { CharacterArcField.firstUnfilled(for: draft) }
+    /// The first arc question still waiting for an answer, if any.
+    var nextArcSlot: ArcSlot? { draft.firstUnfilledArcSlot }
 
     /// True when the writer has declared this character simply has no arc.
     var arcNotApplicable: Bool { draft.arcNotApplicable }
@@ -161,7 +161,7 @@ final class CharacterDetailViewModel {
         if let field = CharacterIdentityField.firstUnfilled(for: draft) {
             return .identity(field)
         }
-        if let field = nextArcField { return .arc(field) }
+        if let slot = nextArcSlot { return .arc(slot) }
         return nil
     }
 

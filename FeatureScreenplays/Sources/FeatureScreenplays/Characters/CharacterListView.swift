@@ -53,10 +53,10 @@ public struct CharacterListView: View {
             }
         }
         .navigationDestination(item: $newlyAdded) { character in
-            CharacterDetailView(character: character, viewModel: viewModel, screenplayTitle: screenplayTitle)
+            CharacterDetailView(character: character, viewModel: viewModel, screenplayTitle: screenplayTitle, gate: gate)
         }
         .navigationDestination(item: $selected) { character in
-            CharacterDetailView(character: character, viewModel: viewModel, screenplayTitle: screenplayTitle)
+            CharacterDetailView(character: character, viewModel: viewModel, screenplayTitle: screenplayTitle, gate: gate)
         }
         // Fully custom pop-up so swipe-to-delete matches every other
         // destructive action in the app.
