@@ -161,22 +161,49 @@ struct ArrangeBeatsView: View {
 
     // MARK: - Reset
 
+    /// Docked tray, deliberately unlike the white beat cards: an accent-tinted
+    /// glass panel with a hairline + upward shadow, holding an outlined capsule.
     private var resetBar: some View {
-        Button {
+        resetButton
+            .padding(.horizontal, 20)
+            .padding(.top, 14)
+            .padding(.bottom, 6)
+            .frame(maxWidth: .infinity)
+            .background { resetTray }
+    }
+
+    private var resetButton: some View {
+        let isStandard = viewModel.isUsingStandardOrder
+        let tint = isStandard ? palette.textMuted : palette.accent
+        return Button {
             isConfirmingReset = true
         } label: {
             Label(L10n.ArrangeCopy.reset, systemImage: "arrow.uturn.backward")
                 .font(.subheadline.weight(.semibold))
+                .foregroundStyle(tint)
                 .frame(maxWidth: .infinity)
-                .frame(height: 44)
+                .frame(height: 46)
+                .background(Capsule().fill(tint.opacity(isStandard ? 0.08 : 0.14)))
+                .overlay(Capsule().strokeBorder(tint.opacity(isStandard ? 0.25 : 0.55), lineWidth: 1.5))
         }
-        .buttonStyle(.bordered)
-        .buttonBorderShape(.capsule)
-        .tint(palette.accent)
-        .disabled(viewModel.isUsingStandardOrder)
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
-        .background(.bar)
+        .buttonStyle(.plain)
+        .disabled(isStandard)
+    }
+
+    private var resetTray: some View {
+        ZStack(alignment: .top) {
+            Rectangle().fill(.ultraThinMaterial)
+            LinearGradient(
+                colors: [palette.accent.opacity(0.16), palette.accent.opacity(0.08)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            Rectangle()
+                .fill(palette.accent.opacity(0.3))
+                .frame(height: 1)
+        }
+        .shadow(color: .black.opacity(0.08), radius: 12, y: -4)
+        .ignoresSafeArea(edges: .bottom)
     }
 }
 
