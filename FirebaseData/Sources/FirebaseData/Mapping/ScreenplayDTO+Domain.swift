@@ -99,8 +99,35 @@ extension CharacterDTO {
             need: character.need,
             howCharacterChanged: character.howCharacterChanged,
             notes: character.notes,
-            arcNotApplicable: character.arcNotApplicable
+            arcNotApplicable: character.arcNotApplicable,
+            arcQuestions: Self.questionMap(character.arcQuestions),
+            arcOrder: character.savedArcOrder.map(ArcQuestionRef.joined),
+            disabledArcQuestions: Self.disabledMap(character.disabledArcQuestions)
         )
+    }
+
+    private static func questionMap(_ questions: [ArcQuestion]) -> [String: ArcQuestionDTO]? {
+        guard !questions.isEmpty else { return nil }
+        return Dictionary(
+            questions.map { ($0.id, ArcQuestionDTO(domain: $0)) },
+            uniquingKeysWith: { _, latest in latest }
+        )
+    }
+
+    private static func disabledMap(_ disabled: Set<ArcTemplateQuestion>) -> [String: Bool]? {
+        guard !disabled.isEmpty else { return nil }
+        return Dictionary(uniqueKeysWithValues: disabled.map { ($0.rawValue, true) })
+    }
+
+    private var domainArcQuestions: [ArcQuestion] {
+        (arcQuestions ?? [:])
+            .map { key, question in question.toDomain(key: key) }
+            .sorted { $0.id < $1.id }
+    }
+
+    private var domainDisabledArcQuestions: Set<ArcTemplateQuestion> {
+        let keys = (disabledArcQuestions ?? [:]).filter(\.value).keys
+        return Set(keys.compactMap(ArcTemplateQuestion.init(rawValue:)))
     }
 
     func toDomain() -> Character {
@@ -125,7 +152,10 @@ extension CharacterDTO {
             need: need,
             howCharacterChanged: howCharacterChanged,
             notes: notes,
-            arcNotApplicable: arcNotApplicable
+            arcNotApplicable: arcNotApplicable,
+            arcQuestions: domainArcQuestions,
+            savedArcOrder: arcOrder.map(ArcQuestionRef.split),
+            disabledArcQuestions: domainDisabledArcQuestions
         )
     }
 }

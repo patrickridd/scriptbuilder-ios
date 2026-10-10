@@ -29,6 +29,13 @@ struct CharacterDTO: Codable, Sendable {
     let howCharacterChanged: String
     let notes: String
     let arcNotApplicable: Bool
+    /// Custom arc questions keyed by id (a map, never an array).
+    let arcQuestions: [String: ArcQuestionDTO]?
+    /// Saved question order as "template:x/custom:y/…"; absent = standard.
+    /// A string rather than an array because RTDB drops empty arrays.
+    let arcOrder: String?
+    /// Switched-off stock questions: `{ rawValue: true }`.
+    let disabledArcQuestions: [String: Bool]?
 
     enum CodingKeys: String, CodingKey {
         case uuid                 = "uuid"
@@ -46,6 +53,9 @@ struct CharacterDTO: Codable, Sendable {
         case howCharacterChanged  = "howCharacterChanged"
         case notes                = "notes"
         case arcNotApplicable     = "arcNotApplicable"
+        case arcQuestions         = "arcQuestions"
+        case arcOrder             = "arcOrder"
+        case disabledArcQuestions = "disabledArcQuestions"
     }
 
     init(
@@ -54,8 +64,14 @@ struct CharacterDTO: Codable, Sendable {
         whyIntention: String, whatToDo: String, howDoesCharacterDoIt: String,
         obstacles: String, flaws: String, intentionFix: String, need: String,
         howCharacterChanged: String, notes: String,
-        arcNotApplicable: Bool = false
+        arcNotApplicable: Bool = false,
+        arcQuestions: [String: ArcQuestionDTO]? = nil,
+        arcOrder: String? = nil,
+        disabledArcQuestions: [String: Bool]? = nil
     ) {
+        self.arcQuestions = arcQuestions
+        self.arcOrder = arcOrder
+        self.disabledArcQuestions = disabledArcQuestions
         self.uuid = uuid
         self.name = name
         self.role = role
@@ -97,5 +113,14 @@ struct CharacterDTO: Codable, Sendable {
         } else {
             arcNotApplicable = container.lenientString(.arcNotApplicable).lowercased() == "true"
         }
+        let lossyQuestions = try? container.decodeIfPresent(
+            [String: LossyDecoded<ArcQuestionDTO>].self, forKey: .arcQuestions
+        )
+        arcQuestions = lossyQuestions?.compactMapValues(\.value)
+        arcOrder = try? container.decodeIfPresent(String.self, forKey: .arcOrder)
+        let lossyDisabled = try? container.decodeIfPresent(
+            [String: LossyDecoded<Bool>].self, forKey: .disabledArcQuestions
+        )
+        disabledArcQuestions = lossyDisabled?.compactMapValues(\.value)
     }
 }
