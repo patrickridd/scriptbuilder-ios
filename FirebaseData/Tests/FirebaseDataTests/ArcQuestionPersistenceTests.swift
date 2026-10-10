@@ -52,6 +52,17 @@ final class ArcQuestionPersistenceTests: XCTestCase {
         XCTAssertEqual(character.arcQuestions.first?.order, 2)
         XCTAssertEqual(character.savedArcOrder, [.template(.need), .custom("q1")])
         XCTAssertEqual(character.disabledArcQuestions, [.flaws])
-        XCTAssertEqual(character.arcOrder.first, .template(.need))
+        // The stored order is partial (7 stock questions missing, one retired
+        // ref). Repair drops the unknown ref and slots each missing question
+        // back after its standard predecessor; Intention has none, so it
+        // returns to the top. Every question is present exactly once and the
+        // stored relative order (Need before q1) survives.
+        let repaired = character.arcOrder
+        let expectedStock = ArcTemplateQuestion.allCases.map(ArcQuestionRef.template)
+        XCTAssertEqual(repaired, expectedStock + [.custom("q1")])
+        XCTAssertEqual(Set(repaired).count, repaired.count)
+        let needIndex = try XCTUnwrap(repaired.firstIndex(of: .template(.need)))
+        let customIndex = try XCTUnwrap(repaired.firstIndex(of: .custom("q1")))
+        XCTAssertLessThan(needIndex, customIndex)
     }
 }
