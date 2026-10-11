@@ -43,6 +43,9 @@ struct ScreenplayDTO: Codable, Sendable {
     // Characters keyed by their uuid in RTDB; decoded as a map.
     let characters: [String: CharacterDTO]?
 
+    /// Switched-off template beats, keyed by beat raw value (value is `true`).
+    let disabledBeats: [String: Bool]?
+
     /// Read-only rescue of scenes an earlier build wrote to the sibling
     /// `actOneScenes` / `actTwoScenes` / `actThreeScenes` nodes instead of
     /// `actOne/scenes`. Merged into the acts on read (they're the newer edit),
@@ -50,6 +53,14 @@ struct ScreenplayDTO: Codable, Sendable {
     var strayActOneScenes: [String: SceneDTO]?
     var strayActTwoScenes: [String: SceneDTO]?
     var strayActThreeScenes: [String: SceneDTO]?
+
+    /// Structure template id; absent = standard feature template.
+    let structureTemplate: String?
+
+    /// Section id → beat references joined by "/" (see `BeatLayoutMapping`).
+    /// A string, not an array, because RTDB silently drops empty arrays and an
+    /// empty act must survive a round trip.
+    let beatLayout: [String: String]?
 
     enum CodingKeys: String, CodingKey {
         case uuid                = "uuid"
@@ -69,6 +80,9 @@ struct ScreenplayDTO: Codable, Sendable {
         case act2                = "actTwo"
         case act3                = "actThree"
         case characters          = "characters"
+        case disabledBeats       = "disabledBeats"
+        case structureTemplate   = "structureTemplate"
+        case beatLayout          = "beatLayout"
     }
 
     init(
@@ -77,8 +91,14 @@ struct ScreenplayDTO: Codable, Sendable {
         centralIntention: String, mainObstacle: String,
         actOneDescription: String, actTwoDescription: String,
         actThreeDescription: String, act1: Act1DTO?, act2: Act2DTO?,
-        act3: Act3DTO?, characters: [String: CharacterDTO]?
+        act3: Act3DTO?, characters: [String: CharacterDTO]?,
+        disabledBeats: [String: Bool]? = nil,
+        structureTemplate: String? = nil,
+        beatLayout: [String: String]? = nil
     ) {
+        self.disabledBeats = disabledBeats
+        self.structureTemplate = structureTemplate
+        self.beatLayout = beatLayout
         self.uuid = uuid
         self.title = title
         self.authorName = authorName
@@ -117,6 +137,9 @@ struct ScreenplayDTO: Codable, Sendable {
         act2                = try? container.decodeIfPresent(Act2DTO.self, forKey: .act2)
         act3                = try? container.decodeIfPresent(Act3DTO.self, forKey: .act3)
         characters          = try? container.decodeIfPresent([String: CharacterDTO].self, forKey: .characters)
+        disabledBeats       = try? container.decodeIfPresent([String: Bool].self, forKey: .disabledBeats)
+        structureTemplate   = try? container.decodeIfPresent(String.self, forKey: .structureTemplate)
+        beatLayout          = try? container.decodeIfPresent([String: String].self, forKey: .beatLayout)
 
         // Separate key set so the stray nodes are decoded but never encoded.
         let stray = try decoder.container(keyedBy: StrayKeys.self)

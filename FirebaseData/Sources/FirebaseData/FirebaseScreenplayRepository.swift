@@ -218,6 +218,52 @@ public final class FirebaseScreenplayRepository: ScreenplayRepository, @unchecke
         try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
     }
 
+    public func save(customBeat: CustomBeat, in act: Act, of screenplayID: String) async throws {
+        let uid = try requireUID()
+        let key = try safeKey(customBeat.id)
+        let value = try encode(CustomBeatDTO(domain: customBeat))
+        // Merge: only this beat's key is written; template beats, sibling
+        // custom beats and the act's scenes are untouched.
+        try await ref(RTDBPaths.actCustomBeats(uid: uid, id: screenplayID, act: act))
+            .updateChildValues([key: value])
+        try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
+    }
+
+    public func delete(customBeatID: String, from act: Act, of screenplayID: String) async throws {
+        let uid = try requireUID()
+        let key = try safeKey(customBeatID)
+        try await ref(RTDBPaths.actCustomBeats(uid: uid, id: screenplayID, act: act))
+            .updateChildValues([key: NSNull()])
+        try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
+    }
+
+    public func setBeat(_ beat: ActBeatField, disabled: Bool, of screenplayID: String) async throws {
+        let uid = try requireUID()
+        let key = try safeKey(beat.rawValue)
+        // Merge: only this flag is written (NSNull removes it when re-enabled).
+        let value: Any = disabled ? true : NSNull()
+        try await ref(RTDBPaths.disabledBeats(uid: uid, id: screenplayID))
+            .updateChildValues([key: value])
+        try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
+    }
+
+    public func save(beatLayout: BeatLayout?, of screenplayID: String) async throws {
+        let uid = try requireUID()
+        // One `setValue` replaces the whole layout atomically, so a move can
+        // never be half-written. Section ids come from the template, never
+        // from user input, but are still checked before becoming RTDB keys.
+        let value: Any
+        if let beatLayout {
+            let map = BeatLayoutMapping.toMap(beatLayout)
+            for sectionID in map.keys { _ = try safeKey(sectionID) }
+            value = map
+        } else {
+            value = NSNull()
+        }
+        try await ref(RTDBPaths.beatLayout(uid: uid, id: screenplayID)).setValue(value)
+        try await touchLastUpdated(uid: uid, screenplayID: screenplayID)
+    }
+
     /// Refreshes only the `lastUpdated` timestamp via a scoped merge.
     private func touchLastUpdated(uid: String, screenplayID: String) async throws {
         try await ref(RTDBPaths.screenplay(uid: uid, id: screenplayID))

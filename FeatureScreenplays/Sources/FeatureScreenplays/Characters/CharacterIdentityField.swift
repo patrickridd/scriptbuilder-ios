@@ -52,12 +52,12 @@ enum CharacterIdentityField: Int, CaseIterable, Identifiable {
 /// an identity row on the same screen, or a field inside the Arc editor.
 enum CharacterProgressTarget: Equatable {
     case identity(CharacterIdentityField)
-    case arc(CharacterArcField)
+    case arc(ArcSlot)
 
     var title: String {
         switch self {
         case .identity(let field): return field.title
-        case .arc(let field): return field.title
+        case .arc(let slot): return slot.displayTitle
         }
     }
 }

@@ -85,6 +85,23 @@ public protocol ScreenplayRepository: Sendable {
     /// Keys are addressed via `ActBeatField` so the UI never touches raw RTDB
     /// strings. Every supplied beat must belong to `act`.
     func updateActBeats(_ beats: [ActBeatField: String], in act: Act, of screenplayID: String) async throws
+
+    /// Upsert a single writer-authored beat within `act`, keyed by its `id`.
+    /// Template beats, other custom beats, scenes and every other act are
+    /// left untouched.
+    func save(customBeat: CustomBeat, in act: Act, of screenplayID: String) async throws
+
+    /// Remove a single custom beat from `act`. Everything else is untouched.
+    func delete(customBeatID: String, from act: Act, of screenplayID: String) async throws
+
+    /// Switch a template beat off (or back on). Only that beat's flag is
+    /// written; its text and every other field are untouched.
+    func setBeat(_ beat: ActBeatField, disabled: Bool, of screenplayID: String) async throws
+
+    /// Replace the screenplay's whole beat order in one write, so a move can
+    /// never be half-saved. `nil` clears it (back to the standard order).
+    /// Beat text is never touched.
+    func save(beatLayout: BeatLayout?, of screenplayID: String) async throws
 }
 
 /// Outline-level (non-nested) text fields of a screenplay that the editor can

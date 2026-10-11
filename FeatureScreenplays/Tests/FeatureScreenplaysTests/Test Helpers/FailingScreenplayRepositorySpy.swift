@@ -82,4 +82,16 @@ final class FailingScreenplayRepositorySpy: ScreenplayRepository, @unchecked Sen
     func updateActBeats(_ beats: [ActBeatField: String], in act: Act, of screenplayID: String) async throws {
         throw error
     }
+    func save(customBeat: CustomBeat, in act: Act, of screenplayID: String) async throws {
+        throw error
+    }
+    func delete(customBeatID: String, from act: Act, of screenplayID: String) async throws {
+        throw error
+    }
+    func setBeat(_ beat: ActBeatField, disabled: Bool, of screenplayID: String) async throws {
+        throw error
+    }
+    func save(beatLayout: BeatLayout?, of screenplayID: String) async throws {
+        throw error
+    }
 }

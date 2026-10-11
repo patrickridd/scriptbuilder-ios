@@ -79,12 +79,41 @@ public enum ScreenplayExporter {
         out.section(section)
     }
 
-    private static func appendOutline(_ s: Screenplay, to out: inout DocumentBuilder) {
-        var section = DocumentBuilder.Section(title: L10n.Export.outline)
-        section.add(Act.one.title, s.actOneDescription)
-        section.add(Act.two.title, s.actTwoDescription)
-        section.add(Act.three.title, s.actThreeDescription)
-        out.section(section)
+    /// Per act: the overall description, then every beat — template and
+    /// custom — in the writer's arrangement (`Screenplay.outlineBeats(in:)` is
+    /// the one ordering source). Custom beats are labelled like template beats.
+    private static func appendOutline(_ screenplay: Screenplay, to out: inout DocumentBuilder) {
+        let acts = Act.allCases.map { act in (act, outlineBlock(for: act, in: screenplay)) }
+            .filter { !$0.1.isEmpty }
+        guard !acts.isEmpty else { return }
+
+        out.header(L10n.Export.outline)
+        for (act, block) in acts {
+            out.subheader(act.title)
+            // Beats are prose, so each gets breathing room (`field` adds a
+            // blank line) rather than the compact `inlineSection` layout.
+            for field in block.fields { out.field(field.label, field.value) }
+        }
+    }
+
+    private static func outlineBlock(for act: Act, in screenplay: Screenplay) -> DocumentBuilder.Section {
+        var block = DocumentBuilder.Section(title: nil)
+        block.add(L10n.Outline.overallDescription, actDescription(act, in: screenplay))
+        let beats = screenplay.outlineBeats(in: act).filter { !$0.isDisabled }
+        for beat in beats {
+            let title = beat.title.trimmingCharacters(in: .whitespacesAndNewlines)
+            let label = beat.isCustom && title.isEmpty ? L10n.CustomBeatCopy.untitled : title
+            block.add(label, beat.text)
+        }
+        return block
+    }
+
+    private static func actDescription(_ act: Act, in screenplay: Screenplay) -> String {
+        switch act {
+        case .one:   return screenplay.actOneDescription
+        case .two:   return screenplay.actTwoDescription
+        case .three: return screenplay.actThreeDescription
+        }
     }
 
     private static func appendCharacters(_ s: Screenplay, to out: inout DocumentBuilder) {
@@ -98,17 +127,40 @@ public enum ScreenplayExporter {
             out.subheader(displayName(for: person))
             var block = DocumentBuilder.Section(title: nil)
             block.add(L10n.Export.role, person.role ?? "")
-            block.add(L10n.Export.intention, person.intention)
-            block.add(L10n.Export.why, person.whyIntention)
-            block.add(L10n.Export.whatTheyDo, person.whatToDo)
-            block.add(L10n.Export.howTheyDoIt, person.howDoesCharacterDoIt)
-            block.add(L10n.Export.obstacles, person.obstacles)
-            block.add(L10n.Export.flaws, person.flaws)
-            block.add(L10n.Export.intentionFix, person.intentionFix)
-            block.add(L10n.Export.need, person.need)
-            block.add(L10n.Export.howTheyChange, person.howCharacterChanged)
+            appendArc(of: person, to: &block)
             block.add(L10n.Export.notes, person.notes)
             out.inlineSection(block)
+        }
+    }
+
+    /// The arc in the writer's order (`Character.activeArcSlots`): stock
+    /// questions that are switched on plus custom questions. A "no arc"
+    /// character exports only Notes, matching the Arc screen. Notes is
+    /// always last and is added by the caller.
+    private static func appendArc(of person: Character, to block: inout DocumentBuilder.Section) {
+        guard !person.arcNotApplicable else { return }
+        for slot in person.activeArcSlots {
+            switch slot {
+            case .template(let question):
+                block.add(exportLabel(for: question), person.text(for: question))
+            case .custom(let question):
+                let title = question.title.trimmingCharacters(in: .whitespacesAndNewlines)
+                block.add(title.isEmpty ? L10n.ArcQuestionCopy.untitled : title, question.text)
+            }
+        }
+    }
+
+    private static func exportLabel(for question: ArcTemplateQuestion) -> String {
+        switch question {
+        case .intention: return L10n.Export.intention
+        case .whyIntention: return L10n.Export.why
+        case .whatToDo: return L10n.Export.whatTheyDo
+        case .howDoesCharacterDoIt: return L10n.Export.howTheyDoIt
+        case .obstacles: return L10n.Export.obstacles
+        case .flaws: return L10n.Export.flaws
+        case .intentionFix: return L10n.Export.intentionFix
+        case .need: return L10n.Export.need
+        case .howCharacterChanged: return L10n.Export.howTheyChange
         }
     }
 

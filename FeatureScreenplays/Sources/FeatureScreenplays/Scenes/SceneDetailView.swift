@@ -42,15 +42,13 @@ struct SceneDetailView: View {
         }
         .onDisappear { Task { await viewModel.flush() } }
         // Fully custom pop-up so every destructive action shares one look.
-        .confirmDialog(
+        .deleteDialog(
             isPresented: $showDeleteConfirm,
-            icon: "trash.fill",
             title: L10n.SceneUI.deleteTitle,
             message: viewModel.deleteConfirmMessage,
-            confirmTitle: L10n.Action.delete,
+            deleteTitle: L10n.Action.delete,
             cancelTitle: L10n.Action.cancel
         ) {
-            Haptics.warning()
             viewModel.requestDelete()
             dismiss()
         }

@@ -30,6 +30,14 @@ public struct Act2: Equatable, Sendable, Codable {
     public var stormGathers: String
     public var badGuysStrikeBack: String
     public var allIsLost: String
+    /// Writer-authored beats placed among the template beats above.
+    public var customBeats: [CustomBeat]
+
+    enum CodingKeys: String, CodingKey {
+        case _scenes, newWorldDescription, enemiesFriends, obstacles,
+             sharpeningTheSword, burnTheBoats, theDeadlyEncounter, celebrate,
+             stormGathers, badGuysStrikeBack, allIsLost, customBeats
+    }
 
     public init(
         scenes: [Scene] = [],
@@ -42,8 +50,10 @@ public struct Act2: Equatable, Sendable, Codable {
         celebrate: String = "",
         stormGathers: String = "",
         badGuysStrikeBack: String = "",
-        allIsLost: String = ""
+        allIsLost: String = "",
+        customBeats: [CustomBeat] = []
     ) {
+        self.customBeats = customBeats
         self.newWorldDescription = newWorldDescription
         self.enemiesFriends = enemiesFriends
         self.obstacles = obstacles
@@ -55,5 +65,22 @@ public struct Act2: Equatable, Sendable, Codable {
         self.badGuysStrikeBack = badGuysStrikeBack
         self.allIsLost = allIsLost
         self.scenes = scenes
+    }
+
+    /// Hand-written so data saved before custom beats existed still decodes.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        newWorldDescription = try container.decodeIfPresent(String.self, forKey: .newWorldDescription) ?? ""
+        enemiesFriends = try container.decodeIfPresent(String.self, forKey: .enemiesFriends) ?? ""
+        obstacles = try container.decodeIfPresent(String.self, forKey: .obstacles) ?? ""
+        sharpeningTheSword = try container.decodeIfPresent(String.self, forKey: .sharpeningTheSword) ?? ""
+        burnTheBoats = try container.decodeIfPresent(String.self, forKey: .burnTheBoats) ?? ""
+        theDeadlyEncounter = try container.decodeIfPresent(String.self, forKey: .theDeadlyEncounter) ?? ""
+        celebrate = try container.decodeIfPresent(String.self, forKey: .celebrate) ?? ""
+        stormGathers = try container.decodeIfPresent(String.self, forKey: .stormGathers) ?? ""
+        badGuysStrikeBack = try container.decodeIfPresent(String.self, forKey: .badGuysStrikeBack) ?? ""
+        allIsLost = try container.decodeIfPresent(String.self, forKey: .allIsLost) ?? ""
+        customBeats = try container.decodeIfPresent([CustomBeat].self, forKey: .customBeats) ?? []
+        scenes = try container.decodeIfPresent([Scene].self, forKey: ._scenes) ?? []
     }
 }

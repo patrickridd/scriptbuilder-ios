@@ -99,8 +99,35 @@ extension CharacterDTO {
             need: character.need,
             howCharacterChanged: character.howCharacterChanged,
             notes: character.notes,
-            arcNotApplicable: character.arcNotApplicable
+            arcNotApplicable: character.arcNotApplicable,
+            arcQuestions: Self.questionMap(character.arcQuestions),
+            arcOrder: character.savedArcOrder.map(ArcQuestionRef.joined),
+            disabledArcQuestions: Self.disabledMap(character.disabledArcQuestions)
         )
+    }
+
+    private static func questionMap(_ questions: [ArcQuestion]) -> [String: ArcQuestionDTO]? {
+        guard !questions.isEmpty else { return nil }
+        return Dictionary(
+            questions.map { ($0.id, ArcQuestionDTO(domain: $0)) },
+            uniquingKeysWith: { _, latest in latest }
+        )
+    }
+
+    private static func disabledMap(_ disabled: Set<ArcTemplateQuestion>) -> [String: Bool]? {
+        guard !disabled.isEmpty else { return nil }
+        return Dictionary(uniqueKeysWithValues: disabled.map { ($0.rawValue, true) })
+    }
+
+    private var domainArcQuestions: [ArcQuestion] {
+        (arcQuestions ?? [:])
+            .map { key, question in question.toDomain(key: key) }
+            .sorted { $0.id < $1.id }
+    }
+
+    private var domainDisabledArcQuestions: Set<ArcTemplateQuestion> {
+        let keys = (disabledArcQuestions ?? [:]).filter(\.value).keys
+        return Set(keys.compactMap(ArcTemplateQuestion.init(rawValue:)))
     }
 
     func toDomain() -> Character {
@@ -125,7 +152,10 @@ extension CharacterDTO {
             need: need,
             howCharacterChanged: howCharacterChanged,
             notes: notes,
-            arcNotApplicable: arcNotApplicable
+            arcNotApplicable: arcNotApplicable,
+            arcQuestions: domainArcQuestions,
+            savedArcOrder: arcOrder.map(ArcQuestionRef.split),
+            disabledArcQuestions: domainDisabledArcQuestions
         )
     }
 }
@@ -143,7 +173,8 @@ extension Act1DTO {
             refusal: domain.refusal,
             reasonToAdventure: domain.reasonToAdventure,
             enemyAtTheGates: domain.enemyAtTheGates,
-            scenes: SceneMapping.toMap(domain.scenes)
+            scenes: SceneMapping.toMap(domain.scenes),
+            customBeats: CustomBeatMapping.toMap(domain.customBeats)
         )
     }
 
@@ -157,7 +188,8 @@ extension Act1DTO {
             theme: theme,
             refusal: refusal,
             reasonToAdventure: reasonToAdventure,
-            enemyAtTheGates: enemyAtTheGates
+            enemyAtTheGates: enemyAtTheGates,
+            customBeats: CustomBeatMapping.toArray(customBeats)
         )
     }
 }
@@ -175,7 +207,8 @@ extension Act2DTO {
             stormGathers: domain.stormGathers,
             badGuysStrikeBack: domain.badGuysStrikeBack,
             allIsLost: domain.allIsLost,
-            scenes: SceneMapping.toMap(domain.scenes)
+            scenes: SceneMapping.toMap(domain.scenes),
+            customBeats: CustomBeatMapping.toMap(domain.customBeats)
         )
     }
 
@@ -191,7 +224,8 @@ extension Act2DTO {
             celebrate: celebrate,
             stormGathers: stormGathers,
             badGuysStrikeBack: badGuysStrikeBack,
-            allIsLost: allIsLost
+            allIsLost: allIsLost,
+            customBeats: CustomBeatMapping.toArray(customBeats)
         )
     }
 }
@@ -205,7 +239,8 @@ extension Act3DTO {
             rewards: domain.rewards,
             untangleStory: domain.untangleStory,
             brandNewWorld: domain.brandNewWorld,
-            scenes: SceneMapping.toMap(domain.scenes)
+            scenes: SceneMapping.toMap(domain.scenes),
+            customBeats: CustomBeatMapping.toMap(domain.customBeats)
         )
     }
 
@@ -217,7 +252,8 @@ extension Act3DTO {
             climax: climax,
             rewards: rewards,
             untangleStory: untangleStory,
-            brandNewWorld: brandNewWorld
+            brandNewWorld: brandNewWorld,
+            customBeats: CustomBeatMapping.toArray(customBeats)
         )
     }
 }
@@ -243,7 +279,12 @@ extension ScreenplayDTO {
             act1: Act1DTO(domain: screenplay.act1),
             act2: Act2DTO(domain: screenplay.act2),
             act3: Act3DTO(domain: screenplay.act3),
-            characters: CharacterMapping.toMap(screenplay.characters)
+            characters: CharacterMapping.toMap(screenplay.characters),
+            disabledBeats: screenplay.disabledBeats.isEmpty
+                ? nil
+                : Dictionary(uniqueKeysWithValues: screenplay.disabledBeats.map { ($0.rawValue, true) }),
+            structureTemplate: screenplay.structureTemplateID,
+            beatLayout: screenplay.savedBeatLayout.map(BeatLayoutMapping.toMap)
         )
     }
 
@@ -271,8 +312,36 @@ extension ScreenplayDTO {
             characters: CharacterMapping.toSet(characters),
             act1: act1Domain,
             act2: act2Domain,
-            act3: act3Domain
+            act3: act3Domain,
+            disabledBeats: Set((disabledBeats ?? [:])
+                .filter(\.value)
+                .compactMap { ActBeatField(rawValue: $0.key) }),
+            structureTemplateID: structureTemplate,
+            savedBeatLayout: beatLayout.map(BeatLayoutMapping.toDomain)
         )
+    }
+}
+
+// MARK: - Beat layout
+
+/// Each section's order is one string of references joined by "/". RTDB keys
+/// can never contain "/", so a custom beat id can't break the encoding, and an
+/// empty section is stored as "" instead of vanishing like an empty array.
+enum BeatLayoutMapping {
+    // `Swift.Character`: Domain's own `Character` (a cast member) shadows it.
+    static let separator: Swift.Character = "/"
+
+    static func toMap(_ layout: BeatLayout) -> [String: String] {
+        layout.sections.mapValues { references in
+            references.map(\.storageKey).joined(separator: String(separator))
+        }
+    }
+
+    static func toDomain(_ map: [String: String]) -> BeatLayout {
+        BeatLayout(sections: map.mapValues { encoded in
+            encoded.split(separator: separator)
+                .compactMap { BeatReference(storageKey: String($0)) }
+        })
     }
 }
 

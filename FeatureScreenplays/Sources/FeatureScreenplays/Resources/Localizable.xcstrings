@@ -1,6 +1,676 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "character.arcQuestion.addQuestion" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Frage hinzufügen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Add Question" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Añadir pregunta" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajouter une question" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रश्न जोड़ें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "質問を追加" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "질문 추가" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "添加问题" } }
+    } },
+    "character.arcQuestion.addCaption" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Stell deine eigene Frage zu dieser Figur" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Ask your own question about this character" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Haz tu propia pregunta sobre este personaje" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Posez votre propre question sur ce personnage" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "इस किरदार के बारे में अपना प्रश्न पूछें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "このキャラクターについて自分の質問を追加" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "이 캐릭터에 대한 나만의 질문을 추가하세요" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "为这个角色提出你自己的问题" } }
+    } },
+    "character.arcQuestion.options" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Fragenoptionen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Question options" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Opciones de la pregunta" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Options de la question" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रश्न विकल्प" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "質問のオプション" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "질문 옵션" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "问题选项" } }
+    } },
+    "character.arcQuestion.arrange" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Fragen anordnen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Arrange Questions" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Ordenar preguntas" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Organiser les questions" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रश्न व्यवस्थित करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "質問を並べ替え" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "질문 정렬" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "排列问题" } }
+    } },
+    "character.arcQuestion.arrangeHint" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Zum Umsortieren ziehen. Notizen bleiben immer unten." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Drag to reorder. Notes always stays at the bottom." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Arrastra para reordenar. Las notas siempre quedan al final." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Faites glisser pour réorganiser. Les notes restent toujours en bas." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "क्रम बदलने के लिए खींचें। नोट्स हमेशा सबसे नीचे रहते हैं।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ドラッグして並べ替え。メモは常に一番下です。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "드래그해서 순서를 바꾸세요. 메모는 항상 맨 아래에 있습니다." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "拖动以重新排序。备注始终在最下方。" } }
+    } },
+    "character.arcQuestion.lockedHint" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Integrierte Fragen verschieben ist eine Pro-Funktion. Deine eigenen Fragen kannst du frei verschieben." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Moving built-in questions is a Pro feature. Your own questions move freely." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Mover las preguntas integradas es una función Pro. Tus propias preguntas se mueven libremente." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Déplacer les questions intégrées est une fonction Pro. Vos propres questions se déplacent librement." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बिल्ट-इन प्रश्नों को खिसकाना Pro सुविधा है। आपके अपने प्रश्न स्वतंत्र रूप से खिसकते हैं।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "標準の質問の移動はPro機能です。自分の質問は自由に移動できます。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "기본 질문 이동은 Pro 기능입니다. 나만의 질문은 자유롭게 이동할 수 있습니다." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "移动内置问题是 Pro 功能。你自己的问题可以自由移动。" } }
+    } },
+    "character.arcQuestion.reset" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Reihenfolge zurücksetzen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset Order" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Restablecer orden" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Réinitialiser l’ordre" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "क्रम रीसेट करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "順序をリセット" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "순서 초기화" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重置顺序" } }
+    } },
+    "character.arcQuestion.resetTitle" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Auf die Standardreihenfolge zurücksetzen?" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset to the standard order?" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Volver al orden estándar?" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Revenir à l’ordre standard ?" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "मानक क्रम पर रीसेट करें?" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "標準の順序に戻しますか？" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "기본 순서로 되돌릴까요?" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重置为标准顺序？" } }
+    } },
+    "character.arcQuestion.resetMessage" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Deine eigenen Fragen kehren dorthin zurück, wo du sie hinzugefügt hast. Nichts wird gelöscht." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Your own questions go back to where you added them. Nothing is deleted." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Tus propias preguntas vuelven a donde las añadiste. No se elimina nada." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vos propres questions retournent là où vous les avez ajoutées. Rien n’est supprimé." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपके अपने प्रश्न वहीं लौट जाएँगे जहाँ आपने उन्हें जोड़ा था। कुछ भी नहीं हटेगा।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "自分の質問は追加した位置に戻ります。何も削除されません。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "나만의 질문은 추가했던 위치로 돌아갑니다. 삭제되는 것은 없습니다." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你自己的问题会回到添加时的位置。不会删除任何内容。" } }
+    } },
+    "character.arcQuestion.done" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Fertig" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Done" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Listo" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Terminé" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "हो गया" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "完了" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "완료" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "完成" } }
+    } },
+    "character.arcQuestion.standardOrder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Standardreihenfolge" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Standard order" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Orden estándar" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ordre standard" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "मानक क्रम" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "標準の順序" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "기본 순서" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "标准顺序" } }
+    } },
+    "character.arcQuestion.customOrder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Eigene Reihenfolge" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom order" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Orden personalizado" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ordre personnalisé" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "कस्टम क्रम" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "カスタムの順序" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "사용자 지정 순서" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "自定义顺序" } }
+    } },
+    "character.arcQuestion.yourQuestion" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Deine Frage" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Your question" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Tu pregunta" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre question" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपका प्रश्न" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "あなたの質問" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "나의 질문" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的问题" } }
+    } },
+    "character.arcQuestion.insertAfter" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Frage danach einfügen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Insert Question After" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Insertar pregunta después" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Insérer une question après" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "इसके बाद प्रश्न जोड़ें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "後ろに質問を挿入" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "뒤에 질문 삽입" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "在后面插入问题" } }
+    } },
+    "character.arcQuestion.disable" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Frage ausschalten" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Disable Question" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Desactivar pregunta" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Désactiver la question" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रश्न बंद करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "質問をオフにする" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "질문 끄기" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "停用问题" } }
+    } },
+    "character.arcQuestion.disabledCaption" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Ausgeschaltet · deine Antwort bleibt erhalten" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Switched off · your answer is kept" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Desactivada · tu respuesta se conserva" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Désactivée · votre réponse est conservée" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बंद · आपका उत्तर सुरक्षित है" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "オフ · 回答は保持されます" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "꺼짐 · 답변은 유지됩니다" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已停用 · 你的回答会保留" } }
+    } },
+    "character.arcQuestion.moveUp" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Nach oben" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Move Up" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Subir" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Monter" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "ऊपर ले जाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "上へ移動" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "위로 이동" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "上移" } }
+    } },
+    "character.arcQuestion.moveDown" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Nach unten" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Move Down" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Bajar" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Descendre" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "नीचे ले जाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "下へ移動" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "아래로 이동" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "下移" } }
+    } },
+    "character.arcQuestion.delete" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Frage löschen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete Question" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Eliminar pregunta" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer la question" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रश्न हटाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "質問を削除" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "질문 삭제" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除问题" } }
+    } },
+    "character.arcQuestion.deleteTitle" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Diese Frage löschen?" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete this question?" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Eliminar esta pregunta?" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer cette question ?" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "यह प्रश्न हटाएँ?" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "この質問を削除しますか？" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "이 질문을 삭제할까요?" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除这个问题？" } }
+    } },
+    "character.arcQuestion.deleteMessage" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Die Frage und deine Antwort werden entfernt." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "The question and your answer will be removed." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Se eliminarán la pregunta y tu respuesta." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "La question et votre réponse seront supprimées." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "प्रश्न और आपका उत्तर हटा दिए जाएँगे।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "質問と回答が削除されます。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "질문과 답변이 삭제됩니다." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "该问题和你的回答将被删除。" } }
+    } },
+    "character.arcQuestion.deleteConfirm" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Löschen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Eliminar" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "हटाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "削除" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "삭제" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除" } }
+    } },
+    "character.arcQuestion.cancel" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Abbrechen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Cancelar" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Annuler" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "रद्द करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "キャンセル" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "취소" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "取消" } }
+    } },
+    "character.arcQuestion.titlePlaceholder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Deine Frage" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Your question" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Tu pregunta" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre question" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपका प्रश्न" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "あなたの質問" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "나의 질문" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的问题" } }
+    } },
+    "character.arcQuestion.subtitlePlaceholder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Hinweis hinzufügen (optional)" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Add a hint (optional)" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Añade una pista (opcional)" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajouter une indication (facultatif)" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "संकेत जोड़ें (वैकल्पिक)" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ヒントを追加（任意）" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "힌트 추가 (선택)" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "添加提示（可选）" } }
+    } },
+    "character.arcQuestion.textPlaceholder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Schreib los…" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Start writing…" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Empieza a escribir…" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Commencez à écrire…" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "लिखना शुरू करें…" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "書き始めましょう…" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "작성을 시작하세요…" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "开始写作…" } }
+    } },
+    "character.arcQuestion.untitled" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Frage ohne Titel" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Untitled Question" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Pregunta sin título" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Question sans titre" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बिना शीर्षक का प्रश्न" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "無題の質問" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "제목 없는 질문" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未命名问题" } }
+    } },
+    "outline.customBeat.addCaption" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Dein eigener Moment am Ende von %@" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Your own moment at the end of %@" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Tu propio momento al final de %@" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre propre moment à la fin de %@" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "%@ के अंत में आपका अपना पल" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "%@の最後に入れる、あなただけの場面" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "%@ 끝에 넣는 나만의 순간" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "在%@结尾加入你自己的时刻" } }
+    } },
+    "outline.customBeat.insertAfter" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Beat danach einfügen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Insert Beat After" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Insertar beat después" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Insérer un beat après" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "इसके बाद बीट जोड़ें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "後ろにビートを挿入" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "뒤에 비트 삽입" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "在后面插入节拍" } }
+    } },
+    "outline.customBeat.delete" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Beat löschen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete Beat" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Eliminar beat" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer le beat" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बीट हटाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビートを削除" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비트 삭제" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除节拍" } }
+    } },
+    "outline.customBeat.options" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Beat-Optionen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Beat options" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Opciones del beat" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Options du beat" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बीट विकल्प" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビートのオプション" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비트 옵션" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "节拍选项" } }
+    } },
+    "outline.customBeat.doneEditing" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Beat-Bearbeitung beenden" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Done editing beat" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Terminar de editar el beat" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Terminer la modification du beat" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बीट का संपादन पूरा करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビートの編集を完了" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비트 편집 완료" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "完成节拍编辑" } }
+    } },
+    "outline.customBeat.deleteConfirm.title" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Diesen Beat löschen?" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete this beat?" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Eliminar este beat?" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer ce beat ?" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "यह बीट हटाएँ?" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "このビートを削除しますか？" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "이 비트를 삭제할까요?" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除这个节拍？" } }
+    } },
+    "outline.customBeat.deleteConfirm.message" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Was du hier geschrieben hast, wird aus der Gliederung entfernt." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "What you've written here will be removed from the outline." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Lo que has escrito aquí se eliminará del esquema." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ce que vous avez écrit ici sera retiré de la structure." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपने यहाँ जो लिखा है, वह रूपरेखा से हटा दिया जाएगा।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ここに書いた内容はアウトラインから削除されます。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "여기에 작성한 내용이 아웃라인에서 삭제됩니다." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你在这里写的内容将从大纲中移除。" } }
+    } },
+    "outline.customBeat.count.one" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "1 eigener Beat" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "1 custom beat" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "1 beat personalizado" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "1 beat personnalisé" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "1 कस्टम बीट" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "カスタムビート 1 件" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "사용자 비트 1개" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "1 个自定义节拍" } }
+    } },
+    "outline.customBeat.count.other" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "%d eigene Beats" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "%d custom beats" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "%d beats personalizados" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d beats personnalisés" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "%d कस्टम बीट" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "カスタムビート %d 件" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "사용자 비트 %d개" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "%d 个自定义节拍" } }
+    } },
+    "outline.customBeat.titlePlaceholder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Benenne diesen Beat" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Name this beat" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Ponle nombre a este beat" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Nommez ce beat" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "इस बीट को नाम दें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "このビートに名前を付ける" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "이 비트의 이름을 입력하세요" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "为这个节拍命名" } }
+    } },
+    "outline.customBeat.subtitlePlaceholder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Leitsatz hinzufügen (optional)" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Add a guiding line (optional)" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Añade una línea guía (opcional)" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajoutez une ligne directrice (facultatif)" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "मार्गदर्शक पंक्ति जोड़ें (वैकल्पिक)" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ガイドとなる一文を追加（任意）" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "가이드 문구 추가 (선택 사항)" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "添加一句引导语（可选）" } }
+    } },
+    "outline.customBeat.expand" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Beat im Vollbild öffnen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Expand beat to full screen" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Ampliar el beat a pantalla completa" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Agrandir le beat en plein écran" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बीट को फ़ुल स्क्रीन में खोलें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビートを全画面表示" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비트를 전체 화면으로 보기" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "全屏展开节拍" } }
+    } },
+    "outline.customBeat.disable" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Beat deaktivieren" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Disable Beat" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Desactivar beat" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Désactiver le beat" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बीट अक्षम करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビートを無効にする" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비트 비활성화" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "停用节拍" } }
+    } },
+    "outline.customBeat.enable" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Aktivieren" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Enable" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Activar" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Activer" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "सक्षम करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "有効にする" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "활성화" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "启用" } }
+    } },
+    "outline.customBeat.disabledCaption" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Deaktiviert · bei Fortschritt und Export übersprungen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Disabled · skipped in progress and export" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Desactivado · se omite en el progreso y la exportación" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Désactivé · ignoré dans la progression et l'export" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "अक्षम · प्रगति और एक्सपोर्ट में शामिल नहीं" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "無効 · 進捗とエクスポートから除外" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비활성화됨 · 진행률과 내보내기에서 제외" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已停用 · 不计入进度和导出" } }
+    } },
+    "outline.customBeat.enableLabel" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "%@ aktivieren" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Enable %@" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Activar %@" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Activer %@" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "%@ सक्षम करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "%@を有効にする" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "%@ 활성화" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "启用%@" } }
+    } },
+    "outline.customBeat.untitled" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Unbenannter Beat" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Untitled Beat" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Beat sin título" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Beat sans titre" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बिना नाम की बीट" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "無題のビート" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "제목 없는 비트" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未命名节拍" } }
+    } },
+    "outline.customBeat.textPlaceholder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Was passiert hier?" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "What happens here?" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Qué pasa aquí?" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Que se passe-t-il ici ?" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "यहाँ क्या होता है?" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ここで何が起こる？" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "여기서 무슨 일이 일어나나요?" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "这里发生了什么？" } }
+    } },
+    "outline.customBeat.addTitle" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Beat hinzufügen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Add Beat" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Añadir beat" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajouter un beat" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बीट जोड़ें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビートを追加" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비트 추가" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "添加节拍" } }
+    } },
+    "outline.arrange.reset" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Auf Standardreihenfolge zurücksetzen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset to Standard Order" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Restablecer el orden estándar" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rétablir l'ordre standard" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "मानक क्रम पर रीसेट करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "標準の順番に戻す" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "기본 순서로 재설정" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "恢复标准顺序" } }
+    } },
+    "outline.arrange.resetConfirm.title" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Beat-Reihenfolge zurücksetzen?" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset beat order?" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Restablecer el orden de los beats?" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Réinitialiser l'ordre des beats ?" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बीट क्रम रीसेट करें?" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビートの順番をリセットしますか？" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비트 순서를 재설정할까요?" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重置节拍顺序？" } }
+    } },
+    "outline.arrange.resetConfirm.message" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Jeder Beat kehrt in seinen üblichen Akt und an seine Position zurück. Nichts von deinem Text geht verloren." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Every beat goes back to its usual act and position. Nothing you've written is lost." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Cada beat vuelve a su acto y posición habituales. No se pierde nada de lo que escribiste." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Chaque beat retrouve son acte et sa position habituels. Rien de ce que vous avez écrit n'est perdu." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "हर बीट अपने सामान्य अंक और जगह पर लौट जाएगा। आपका लिखा कुछ भी नहीं खोएगा।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "すべてのビートが通常の幕と位置に戻ります。書いた内容は失われません。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "모든 비트가 원래 막과 위치로 돌아갑니다. 작성한 내용은 사라지지 않아요." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "所有节拍都会回到原本的幕和位置。你写的内容不会丢失。" } }
+    } },
+    "outline.arrange.resetConfirm.button" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Zurücksetzen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Restablecer" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Réinitialiser" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "रीसेट करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "リセット" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "재설정" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重置" } }
+    } },
+    "outline.arrange.moveUp" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Nach oben" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Move Up" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Subir" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Monter" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "ऊपर ले जाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "上へ移動" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "위로 이동" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "上移" } }
+    } },
+    "outline.arrange.moveDown" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Nach unten" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Move Down" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Bajar" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Descendre" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "नीचे ले जाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "下へ移動" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "아래로 이동" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "下移" } }
+    } },
+    "outline.arrange.moveTo" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Nach %@ verschieben" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Move to %@" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Mover a %@" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Déplacer vers %@" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "%@ में ले जाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "%@へ移動" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "%@(으)로 이동" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "移到%@" } }
+    } },
+    "outline.arrange.noBeatsYet" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Noch keine Beats" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "No beats yet" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Aún no hay beats" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aucun beat pour l'instant" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "अभी कोई बीट नहीं" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "まだビートがありません" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "아직 비트가 없어요" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "还没有节拍" } }
+    } },
+    "outline.arrange.noBeatsCaption" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Füge unten einen eigenen Beat hinzu oder verschiebe einen aus einem anderen Akt hierher." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Add your own beat below, or move one here from another act." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Añade tu propio beat abajo o trae uno de otro acto." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajoutez votre propre beat ci-dessous ou déplacez-en un depuis un autre acte." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "नीचे अपना बीट जोड़ें, या किसी दूसरे अंक से एक यहाँ ले आएँ।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "下で自分のビートを追加するか、別の幕からここへ移動してください。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "아래에서 직접 비트를 추가하거나 다른 막에서 옮겨 오세요." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "在下方添加你自己的节拍，或从其他幕移一个过来。" } }
+    } },
+    "outline.arrange.title" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Beats anordnen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Arrange Beats" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Ordenar beats" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Organiser les beats" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बीट्स व्यवस्थित करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビートを並べ替え" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비트 정렬" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "排列节拍" } }
+    } },
+    "outline.arrange.open" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Beats anordnen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Arrange Beats" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Ordenar beats" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Organiser les beats" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बीट्स व्यवस्थित करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビートを並べ替え" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비트 정렬" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "排列节拍" } }
+    } },
+    "outline.arrange.openCaption" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Beats umsortieren oder zwischen Akten verschieben" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Reorder beats or move them between acts" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Reordena los beats o muévelos entre actos" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Réordonnez les beats ou déplacez-les entre les actes" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बीट्स का क्रम बदलें या उन्हें अंकों के बीच ले जाएँ" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビートの順番を変えたり、幕の間で移動したりできます" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비트 순서를 바꾸거나 다른 막으로 옮기세요" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "调整节拍顺序或在幕之间移动" } }
+    } },
+    "outline.arrange.customOrder" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Eigene Reihenfolge" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom order" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Orden personalizado" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ordre personnalisé" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "कस्टम क्रम" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "カスタム順" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "사용자 지정 순서" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "自定义顺序" } }
+    } },
+    "outline.arrange.done" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Fertig" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Done" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Listo" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "OK" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "हो गया" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "完了" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "완료" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "完成" } }
+    } },
+    "outline.arrange.intro" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Ziehe Beats, um sie neu zu ordnen oder in einen anderen Akt zu verschieben. Dein Text wandert mit jedem Beat mit." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Drag beats to reorder them or move them into another act. Your writing travels with each beat." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Arrastra los beats para reordenarlos o moverlos a otro acto. Lo que escribiste viaja con cada beat." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Faites glisser les beats pour les réordonner ou les déplacer vers un autre acte. Votre texte suit chaque beat." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "बीट्स को खींचकर उनका क्रम बदलें या उन्हें दूसरे अंक में ले जाएँ। आपका लिखा हर बीट के साथ जाता है।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビートをドラッグして並べ替えたり、別の幕へ移動したりできます。書いた内容はビートと一緒に移動します。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비트를 드래그해 순서를 바꾸거나 다른 막으로 옮기세요. 작성한 내용은 비트와 함께 이동합니다." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "拖动节拍以调整顺序或移到其他幕。你写的内容会随节拍一起移动。" } }
+    } },
+    "outline.arrange.proIntro" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Eigene Beats lassen sich frei verschieben. Das Verschieben der Struktur-Beats ist eine Pro-Funktion." } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Your own beats move freely. Moving the structure's beats is a Pro feature." } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Tus propios beats se mueven libremente. Mover los beats de la estructura es una función Pro." } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vos propres beats se déplacent librement. Déplacer les beats de la structure est une fonction Pro." } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "आपके अपने बीट्स कहीं भी जा सकते हैं। संरचना के बीट्स को हिलाना एक Pro फ़ीचर है।" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "自分で追加したビートは自由に移動できます。構成のビートの移動はPro機能です。" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "직접 만든 비트는 자유롭게 옮길 수 있어요. 구조 비트 이동은 Pro 기능입니다." } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你自己的节拍可以随意移动。移动结构节拍是 Pro 功能。" } }
+    } },
+    "outline.arrange.dropHere" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Beat hierher ziehen" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Drop a beat here" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Suelta un beat aquí" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Déposez un beat ici" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "यहाँ एक बीट छोड़ें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "ここにビートをドロップ" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "여기에 비트를 놓으세요" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "将节拍拖到这里" } }
+    } },
+    "outline.arrange.dropHereCaption" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Dieser Akt ist vorerst leer" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "This act is empty for now" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Este acto está vacío por ahora" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Cet acte est vide pour l'instant" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "यह अंक अभी खाली है" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "この幕はまだ空です" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "이 막은 아직 비어 있어요" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "这一幕暂时为空" } }
+    } },
+    "outline.arrange.usuallyIn" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Normalerweise in %@" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Usually in %@" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Normalmente en %@" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Habituellement dans %@" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "आमतौर पर %@ में" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "通常は%@" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "보통 %@에 위치" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "通常位于%@" } }
+    } },
+    "outline.arrange.disabledTag" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Deaktiviert" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Disabled" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Desactivado" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Désactivé" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "निष्क्रिय" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "無効" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "비활성화됨" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已停用" } }
+    } },
+    "outline.arrange.lockedHint" : { "extractionState" : "manual", "localizations" : {
+      "de" : { "stringUnit" : { "state" : "translated", "value" : "Schalte Pro frei, um diesen Beat zu verschieben" } },
+      "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlock Pro to move this beat" } },
+      "es" : { "stringUnit" : { "state" : "translated", "value" : "Desbloquea Pro para mover este beat" } },
+      "fr" : { "stringUnit" : { "state" : "translated", "value" : "Débloquez Pro pour déplacer ce beat" } },
+      "hi" : { "stringUnit" : { "state" : "translated", "value" : "इस बीट को हिलाने के लिए Pro अनलॉक करें" } },
+      "ja" : { "stringUnit" : { "state" : "translated", "value" : "このビートを移動するにはProを解除してください" } },
+      "ko" : { "stringUnit" : { "state" : "translated", "value" : "이 비트를 옮기려면 Pro를 잠금 해제하세요" } },
+      "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "解锁 Pro 即可移动此节拍" } }
+    } },
     "" : {
 
     },

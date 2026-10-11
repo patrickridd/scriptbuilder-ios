@@ -400,6 +400,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func makeEditorGate() -> EditorGate {
         let freeCharacterLimit = 1
         let freeSceneLimit = 1
+        let freeCustomBeatsPerAct = 1
         let store = self.store
         return EditorGate(
             canAddCharacter: { existingCount in
@@ -409,6 +410,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             canAddScene: { existingCount in
                 let unlocked = store.allAccessEnabled || store.sceneFeatureEnabled
                 return unlocked || existingCount < freeSceneLimit
+            },
+            canAddCustomBeat: { existingCountInAct in
+                // Custom beats have no à-la-carte entitlement: 1 per act free,
+                // more with all-access.
+                store.allAccessEnabled || existingCountInAct < freeCustomBeatsPerAct
+            },
+            canMoveTemplateBeats: {
+                // Rearranging the structure's own beats is all-access only.
+                store.allAccessEnabled
             },
             onBlocked: { [weak self] in
                 DispatchQueue.main.async { self?.presentPaywallOverCurrent() }

@@ -8,6 +8,28 @@ import SwiftUI
 /// via `TextField(axis: .vertical)`). Colours come entirely from `AppPalette`
 /// so light/dark contrast is handled once, here, for the whole app.
 public struct ExpandableTextField: View {
+    /// One entry in the optional "…" menu shown left of the expand button.
+    public struct MenuItem: Identifiable {
+        public let id: String
+        public let title: String
+        public let systemImage: String
+        public let isDestructive: Bool
+        public let action: () -> Void
+
+        public init(
+            title: String,
+            systemImage: String,
+            isDestructive: Bool = false,
+            action: @escaping () -> Void
+        ) {
+            self.id = title
+            self.title = title
+            self.systemImage = systemImage
+            self.isDestructive = isDestructive
+            self.action = action
+        }
+    }
+
     @Environment(\.appPalette) private var palette
     @FocusState private var isFocused: Bool
     @State private var isExpanded = false
@@ -20,6 +42,8 @@ public struct ExpandableTextField: View {
     private let allowsFullScreen: Bool
     private let focusRequest: Binding<AnyHashable?>?
     private let focusID: AnyHashable?
+    private let menuItems: [MenuItem]
+    private let menuLabel: String
     @Binding private var text: String
 
     /// - Parameters:
@@ -42,8 +66,12 @@ public struct ExpandableTextField: View {
         allowsFullScreen: Bool = true,
         focusRequest: Binding<AnyHashable?>? = nil,
         focusID: AnyHashable? = nil,
+        menuItems: [MenuItem] = [],
+        menuLabel: String = "Options",
         text: Binding<String>
     ) {
+        self.menuItems = menuItems
+        self.menuLabel = menuLabel
         self.title = title
         self.prompt = prompt
         self.placeholder = placeholder
@@ -117,11 +145,34 @@ public struct ExpandableTextField: View {
     private var header: some View {
         HStack(alignment: .top, spacing: 8) {
             headerText
-            if allowsFullScreen {
+            if allowsFullScreen || !menuItems.isEmpty {
                 Spacer(minLength: 8)
+            }
+            if !menuItems.isEmpty {
+                optionsMenu
+            }
+            if allowsFullScreen {
                 expandButton
             }
         }
+    }
+
+    private var optionsMenu: some View {
+        Menu {
+            ForEach(menuItems) { item in
+                Button(role: item.isDestructive ? .destructive : nil, action: item.action) {
+                    Label(item.title, systemImage: item.systemImage)
+                }
+            }
+        } label: {
+            Image(systemName: "ellipsis")
+                .font(.footnote.weight(.bold))
+                .foregroundStyle(palette.accent)
+                .frame(width: 26, height: 26)
+                .background(Circle().fill(palette.accent.opacity(0.12)))
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(menuLabel)
     }
 
     private var headerText: some View {

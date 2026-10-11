@@ -16,6 +16,8 @@ public struct ProfileView: View {
     @Environment(\.appPalette) private var palette
     @State private var viewModel: ProfileViewModel
     @State private var interfaceStyle: ProfileInterfaceStyle
+    @State private var showSignOutConfirm = false
+    @State private var showDeleteConfirm = false
     private let config: ProfileConfiguration
 
     /// - Parameters:
@@ -34,6 +36,7 @@ public struct ProfileView: View {
             AppBackground()
             scrollContent
         }
+        .modifier(dangerZoneDialogs)
         .onAppear {
             viewModel.refresh()
             // Re-sync the picker from the live persisted preference so it always
@@ -111,6 +114,15 @@ public struct ProfileView: View {
     private var dangerZone: some View {
         DangerZoneCard(
             isWorking: viewModel.isWorking,
+            onSignOutTap: { showSignOutConfirm = true },
+            onDeleteTap: { showDeleteConfirm = true }
+        )
+    }
+
+    private var dangerZoneDialogs: DangerZoneDialogs {
+        DangerZoneDialogs(
+            showSignOut: $showSignOutConfirm,
+            showDelete: $showDeleteConfirm,
             onSignOut: config.onSignOut,
             onDelete: {
                 if await viewModel.deleteAccount() {

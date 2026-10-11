@@ -9,19 +9,25 @@ import DesignSystem
 struct OutlineView: View {
     @Environment(\.appPalette) private var palette
     @State private var viewModel: OutlineViewModel
+    /// Free-tier gate for adding custom beats (1 per act free).
+    private let gate: EditorGate
+    @State private var isArranging = false
 
     init(
         screenplay: Screenplay,
         repository: ScreenplayRepository,
+        gate: EditorGate = .unrestricted,
         onOutlineCompleted: @escaping () -> Void = {}
     ) {
+        self.gate = gate
         let vm = OutlineViewModel(screenplay: screenplay, repository: repository)
         vm.onOutlineCompleted = onOutlineCompleted
         _viewModel = State(initialValue: vm)
     }
 
     /// Uses a view model owned by the editor, so edits survive tab switches.
-    init(viewModel: OutlineViewModel) {
+    init(viewModel: OutlineViewModel, gate: EditorGate = .unrestricted) {
+        self.gate = gate
         _viewModel = State(initialValue: viewModel)
     }
 
@@ -31,10 +37,25 @@ struct OutlineView: View {
                 header
                 ideaCard
                 actsSection
+                arrangeButton
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
         }
+        .sheet(isPresented: $isArranging) {
+            ArrangeBeatsView(viewModel: viewModel, gate: gate)
+        }
+    }
+
+    // MARK: - Arrange
+
+    private var arrangeButton: some View {
+        Button {
+            isArranging = true
+        } label: {
+            ArrangeEntryCard(isCustomOrder: !viewModel.isUsingStandardOrder)
+        }
+        .buttonStyle(.pressableCard)
     }
 
     // MARK: - Header (with progress ring)
@@ -100,7 +121,7 @@ struct OutlineView: View {
                 .padding(.bottom, 4)
             ForEach(Array(actSections.enumerated()), id: \.element) { index, section in
                 NavigationLink {
-                    OutlineSectionDetailView(section: section, viewModel: viewModel)
+                    OutlineSectionDetailView(section: section, viewModel: viewModel, gate: gate)
                 } label: {
                     ActSpineRow(
                         section: section,
@@ -108,7 +129,8 @@ struct OutlineView: View {
                         isFirst: index == 0,
                         isLast: index == actSections.count - 1,
                         preview: viewModel.preview(for: section),
-                        progress: viewModel.filledCount(for: section)
+                        progress: viewModel.filledCount(for: section),
+                        customBeatCount: viewModel.customBeatCount(for: section)
                     )
                 }
                 .buttonStyle(.pressableCard)
@@ -237,6 +259,7 @@ private struct ActSpineRow: View {
     let isLast: Bool
     let preview: String
     let progress: (filled: Int, total: Int)
+    var customBeatCount: Int = 0
 
     private var fillFraction: Double {
         progress.total > 0 ? Double(progress.filled) / Double(progress.total) : 0
@@ -329,6 +352,7 @@ private struct ActSpineRow: View {
                     .lineLimit(2)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                if customBeatCount > 0 { customBeatHint }
             }
             Image(systemName: "chevron.right")
                 .font(.footnote.weight(.semibold))
@@ -341,6 +365,15 @@ private struct ActSpineRow: View {
                 .stroke(palette.cardStroke, lineWidth: 1)
         )
         .padding(.vertical, 6)
+    }
+
+    /// "✦ 2 custom beats" — tells the writer this act holds their own moments.
+    private var customBeatHint: some View {
+        Label(L10n.CustomBeatCopy.customCount(customBeatCount), systemImage: "sparkle")
+            .font(.caption.weight(.medium))
+            .foregroundStyle(palette.accent)
+            .labelStyle(.titleAndIcon)
+            .padding(.top, 2)
     }
 
     private var titleRow: some View {

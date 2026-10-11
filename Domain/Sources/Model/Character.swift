@@ -43,6 +43,14 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
     /// and stops counting against the character's progress.
     public var arcNotApplicable: Bool
 
+    /// Writer-authored arc questions (unsorted — read `arcSlots` for display).
+    public var arcQuestions: [ArcQuestion]
+    /// The writer's own question order; `nil` = standard order. Read
+    /// `arcOrder` instead — it repairs stale or partial saved orders.
+    public var savedArcOrder: [ArcQuestionRef]?
+    /// Stock questions the writer switched off for this character.
+    public var disabledArcQuestions: Set<ArcTemplateQuestion>
+
     public init(
         uuid: String = UUID().uuidString,
         name: String,
@@ -58,8 +66,14 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         need: String = "",
         howCharacterChanged: String = "",
         notes: String = "",
-        arcNotApplicable: Bool = false
+        arcNotApplicable: Bool = false,
+        arcQuestions: [ArcQuestion] = [],
+        savedArcOrder: [ArcQuestionRef]? = nil,
+        disabledArcQuestions: Set<ArcTemplateQuestion> = []
     ) {
+        self.arcQuestions = arcQuestions
+        self.savedArcOrder = savedArcOrder
+        self.disabledArcQuestions = disabledArcQuestions
         self.uuid = uuid
         self.name = name
         self.role = role
@@ -99,6 +113,7 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         case intention, whyIntention, whatToDo, howDoesCharacterDoIt
         case obstacles, flaws, intentionFix, need, howCharacterChanged, notes
         case arcNotApplicable
+        case arcQuestions, savedArcOrder, disabledArcQuestions
     }
 
     /// Custom decode so records that predate `identity` still decode; when the
@@ -125,5 +140,12 @@ public struct Character: Identifiable, Hashable, Sendable, Codable {
         howCharacterChanged = try container.decodeIfPresent(String.self, forKey: .howCharacterChanged) ?? ""
         notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? ""
         arcNotApplicable = try container.decodeIfPresent(Bool.self, forKey: .arcNotApplicable) ?? false
+        // Lenient: older records lack these, and a corrupt entry must never
+        // cost the writer the rest of the character.
+        arcQuestions = (try? container.decodeIfPresent([ArcQuestion].self, forKey: .arcQuestions)) ?? []
+        savedArcOrder = try? container.decodeIfPresent([ArcQuestionRef].self, forKey: .savedArcOrder)
+        disabledArcQuestions = (try? container.decodeIfPresent(
+            Set<ArcTemplateQuestion>.self, forKey: .disabledArcQuestions
+        )) ?? []
     }
 }

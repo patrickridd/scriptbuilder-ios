@@ -22,10 +22,22 @@ struct CharacterDetailView: View {
     /// Title of the owning screenplay, shown in the navigation bar so the
     /// on-screen header can carry the character's own name instead.
     private let screenplayTitle: String
+    /// Free-tier gate for custom arc questions and stock-question moves.
+    private let gate: EditorGate
 
-    init(character: Character, viewModel: CharactersViewModel, screenplayTitle: String = "") {
+    init(
+        character: Character,
+        viewModel: CharactersViewModel,
+        screenplayTitle: String = "",
+        gate: EditorGate = .unrestricted
+    ) {
         _viewModel = State(initialValue: CharacterDetailViewModel(character: character, viewModel: viewModel))
         self.screenplayTitle = screenplayTitle
+        self.gate = gate
+    }
+
+    private var arcScreen: some View {
+        CharacterArcView(viewModel: viewModel, gate: gate)
     }
 
     private var navTitle: String {
@@ -50,7 +62,7 @@ struct CharacterDetailView: View {
             }
         }
         .navigationDestination(isPresented: $showArc) {
-            CharacterArcView(viewModel: viewModel)
+            arcScreen
         }
         .navigationDestination(item: $pickerField) { field in
             identityPicker(for: field)
@@ -184,7 +196,7 @@ struct CharacterDetailView: View {
     /// Behavior beneath Story Function, with room for its progress badge.
     private var arcCard: some View {
         NavigationLink {
-            CharacterArcView(viewModel: viewModel)
+            arcScreen
         } label: {
             HStack(spacing: 8) {
                 arcGlyph
